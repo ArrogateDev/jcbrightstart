@@ -48,7 +48,7 @@ class UserForgotPasswordMail extends Mailable
         );
 
         return new Content(
-            view: 'view.forgot-password',
+            view: 'view.email.forgot-password',
             with: [
                 'full_name' => $user->full_name,
                 'url' => $url,
