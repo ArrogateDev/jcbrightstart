@@ -159,7 +159,7 @@
                 showToast('success', 'Reset successful!');
 
                 setTimeout(function () {
-                    window.location.href = data.data.redirect ?? '/';
+                    window.location.href = '{{route('login.html')}}';
                 }, 800)
             }, error: function () {
                 showToast('error', 'Failed, please try again later')
