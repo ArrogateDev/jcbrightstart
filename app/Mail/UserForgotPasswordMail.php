@@ -44,7 +44,7 @@ class UserForgotPasswordMail extends Mailable
         $now = Carbon::now()->addHours($timeout);
 
         $url = URL::temporarySignedRoute(
-            'reset-password', $now, ['email' => $user->email]
+            'reset-password.html', $now, ['email' => $user->email]
         );
 
         return new Content(
