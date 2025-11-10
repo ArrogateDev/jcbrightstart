@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers\Web\Auth;
+
+use App\Constants\ResponseCode;
+use App\Exceptions\ApiException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\Auth\RegisterRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+
+class RegisterController extends Controller
+{
+
+    public function index()
+    {
+        return view('web.auth.register');
+    }
+
+    /**
+     * 注册
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function handleRegister(RegisterRequest $request)
+    {
+        $ip = $request->ip();
+        if (!(($lock = Cache::lock("submit_register_lock:$ip", 30))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $inputs = $request->only(['email', 'password', 'full_name']);
+        $password = $request->input('password');
+        $redirect = $request->input('redirect', '/');
+
+        try {
+
+            DB::beginTransaction();
+
+            $user = new User();
+            foreach ($inputs as $field => $value) {
+                $user->$field = $value;
+            }
+
+            $user->password = $password;
+            if ($user->save() === false) {
+                throw new \Exception('user:failed');
+            }
+
+            Auth::login($user);
+
+            DB::commit();
+
+            return $this->responseSuccess(['redirect' => $redirect]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw new ApiException('Register failed', ResponseCode::SERVER_ERR);
+        }
+    }
+}

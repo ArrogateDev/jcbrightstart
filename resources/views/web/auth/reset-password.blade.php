@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<x-head/>
+
+<body>
+
+<div class="main-wrapper">
+    <div class="login-content">
+        <div class="row">
+            <div class="col-lg-6 login-bg d-none d-lg-flex">
+                <div class="login-carousel">
+
+                    @for($i = 1; $i <= 3; $i++)
+                        <div>
+                            <div class="login-carousel-section mb-3">
+                                <div class="login-banner">
+                                    <img src="{{web_resource_url('assets/img/auth/auth-1.svg')}}" class="img-fluid" alt="Logo">
+                                </div>
+                                <div class="mentor-course text-center">
+                                    <h3 class="mb-2">Welcome to <br>Dreams<span class="text-secondary">LMS</span>
+                                        Courses.</h3>
+                                    <p>Platform designed to help organizations, educators, and learners manage, deliver,
+                                        and track learning and training activities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 login-wrap-bg">
+                <div class="login-wrapper">
+                    <div class="loginbox">
+                        <div class="w-100">
+                            <div class="d-flex align-items-center justify-content-between login-header">
+                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
+                                <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
+                            </div>
+                            <div class="topic">
+                                <h1 class="fs-32 fw-bold mb-3">Forgot Password</h1>
+                                <p class="fs-14 fw-normal mb-0">Enter your email to reset your password.</p>
+                            </div>
+                            <form id="form" class="mb-3 pb-3" novalidate="novalidate">
+                                <div class="mb-3 position-relative">
+                                    <label class="form-label">
+                                        New Password
+                                        <span class="text-danger">*</span>
+                                        <span id="error-container-password"></span>
+                                    </label>
+                                    <div class="position-relative" id="passwordInput">
+                                        <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
+                                        <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
+                                    </div>
+                                    <div class="password-strength" id="passwordStrength">
+                                        <span id="poor"></span>
+                                        <span id="weak"></span>
+                                        <span id="strong"></span>
+                                        <span id="heavy"></span>
+                                    </div>
+                                    <div class="mt-2" id="passwordInfo"></div>
+                                </div>
+                                <div class="mb-3 position-relative">
+                                    <label class="form-label">
+                                        Confirm Password
+                                        <span class="text-danger">*</span>
+                                        <span id="error-container-confirm-password"></span>
+                                    </label>
+                                    <div class="position-relative">
+                                        <input id="password_confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
+                                        <span class="isax toggle-passworda isax-eye-slash text-gray-7 fs-14"></span>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button class="btn btn-secondary btn-lg" type="submit">Reset Password<i
+                                            class="isax isax-arrow-right-3 ms-1"></i></button>
+                                </div>
+                                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{web_resource_url('assets/js/jquery-3.7.1.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/bootstrap.bundle.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/plugins/slick/slick.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/script.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/plugins/wait-me/waitMe.min.css')}}">
+<link href="{{web_resource_url('assets/plugins/toastr/toastr.min.css')}}" rel="stylesheet"/>
+<script src="{{web_resource_url('assets/plugins/toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
+<script>
+    const validator = new window.JustValidate('#form', {
+        errorLabelCssClass: 'd-inline',
+    });
+    validator
+        .addField('#password', [
+            {
+                rule: 'required',
+            },
+            {
+                rule: 'password',
+            },
+            {
+                rule: 'minLength',
+                value: 8,
+            },
+            {
+                rule: 'strongPassword',
+            }
+        ], {
+            errorsContainer: '#error-container-password'
+        })
+        .addField('#password_confirmation', [
+            {
+                rule: 'required',
+            },
+            {
+                validator: (value, fields) => {
+                    if (fields['#password'] && fields['#password'].elem) {
+                        const password =
+                            fields['#password'].elem.value;
+
+                        return value === password;
+                    }
+                }
+            }
+        ], {
+            errorsContainer: '#error-container-confirm-password'
+        })
+        .onSuccess(() => {
+            handleRestPassword();
+        });
+
+    function handleRestPassword() {
+        showLoading()
+
+        let form = $('#form').serializeArray()
+
+        $.ajax({
+            type: "post",
+            data: form,
+            dataType: "json",
+            success: function (data) {
+                if (data.code !== 0) {
+                    showToast('error', data.msg);
+                    return;
+                }
+                showToast('success', 'Reset successful!');
+
+                setTimeout(function () {
+                    window.location.href = data.data.redirect ?? '/';
+                }, 800)
+            }, error: function () {
+                showToast('error', 'Failed, please try again later')
+            }, complete: function () {
+                hideLoading()
+            }
+        });
+    }
+</script>
+</body>
+
+</html>
