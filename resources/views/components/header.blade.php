@@ -322,18 +322,18 @@
                         </ul>
                     </div>
                 </div>
-                @auth
-                    <div class="menu-login">
-                        Auth
-                    </div>
-                @else
+{{--                @auth--}}
+{{--                    <div class="menu-login">--}}
+{{--                        Auth--}}
+{{--                    </div>--}}
+{{--                @else--}}
                     <div class="menu-login">
                         <a href="{{route('login.html')}}" class="btn btn-primary w-100 mb-2"><i
                                 class="isax isax-user me-2"></i>Sign In</a>
                         <a href="{{route('register.html')}}" class="btn btn-secondary w-100"><i
                                 class="isax isax-user-edit me-2"></i>Register</a>
                     </div>
-                @endauth
+{{--                @endauth--}}
             </div>
             <div class="header-btn d-flex align-items-center">
                 <div class="dropdown flag-dropdown icon-btn">
@@ -386,75 +386,75 @@
                         <span class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
                     </a>
                 </div>
-                @auth
-                    <div class="dropdown profile-dropdown">
-                        <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
-								<span class="avatar">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">
-								</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <div class="profile-header d-flex align-items-center">
-                                <div class="avatar">
-                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"
-                                         class="img-fluid rounded-circle">
-                                </div>
-                                <div>
-                                    <h6>Eugene Andre</h6>
-                                    <p><a href="/cdn-cgi/l/email-protection"
-                                          class="__cf_email__">eric@arrogatemaker.com</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <ul class="profile-body">
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-profile.html"><i
-                                            class="isax isax-security-user me-2"></i>My Profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-course.html"><i
-                                            class="isax isax-teacher me-2"></i>Courses</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"
-                                       href="instructor-earnings.html"><i
-                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-message.html"><i
-                                            class="isax isax-messages-3 me-2"></i>Messages<span
-                                            class="message-count">2</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-settings.html"><i
-                                            class="isax isax-setting-2 me-2"></i>Settings</a>
-                                </li>
-                            </ul>
-                            <div class="profile-footer">
-                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>
-                                <a href="index.html"
-                                   class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i
-                                        class="isax isax-logout me-2"></i>Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                @else
+{{--                @auth--}}
+{{--                    <div class="dropdown profile-dropdown">--}}
+{{--                        <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">--}}
+{{--								<span class="avatar">--}}
+{{--									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">--}}
+{{--								</span>--}}
+{{--                        </a>--}}
+{{--                        <div class="dropdown-menu dropdown-menu-end">--}}
+{{--                            <div class="profile-header d-flex align-items-center">--}}
+{{--                                <div class="avatar">--}}
+{{--                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"--}}
+{{--                                         class="img-fluid rounded-circle">--}}
+{{--                                </div>--}}
+{{--                                <div>--}}
+{{--                                    <h6>Eugene Andre</h6>--}}
+{{--                                    <p><a href="/cdn-cgi/l/email-protection"--}}
+{{--                                          class="__cf_email__">eric@arrogatemaker.com</a>--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <ul class="profile-body">--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                       href="instructor-profile.html"><i--}}
+{{--                                            class="isax isax-security-user me-2"></i>My Profile</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                       href="instructor-course.html"><i--}}
+{{--                                            class="isax isax-teacher me-2"></i>Courses</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"--}}
+{{--                                       href="instructor-earnings.html"><i--}}
+{{--                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                       href="instructor-message.html"><i--}}
+{{--                                            class="isax isax-messages-3 me-2"></i>Messages<span--}}
+{{--                                            class="message-count">2</span></a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                       href="instructor-settings.html"><i--}}
+{{--                                            class="isax isax-setting-2 me-2"></i>Settings</a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                            <div class="profile-footer">--}}
+{{--                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
+{{--                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>--}}
+{{--                                <a href="index.html"--}}
+{{--                                   class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i--}}
+{{--                                        class="isax isax-logout me-2"></i>Logout</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @else--}}
                     <a href="{{route('login.html')}}" class="btn btn-primary d-inline-flex align-items-center me-2">
                         Sign In
                     </a>
                     <a href="{{route('register.html')}}" class="btn btn-secondary me-0">
                         Register
                     </a>
-                @endauth
+{{--                @endauth--}}
             </div>
         </div>
     </div>
