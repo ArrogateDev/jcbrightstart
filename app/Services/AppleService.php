@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Cache;
 
 class AppleService
 {
-    private const JWK_CACHE_KEY = 'apple_sign_in_jwks';
-    private const JWK_CACHE_TTL = 60 * 60; // 1 hour
+    private const JWK_CACHE_KEY = 'apple_sign_in_jwk';
+    private const JWK_CACHE_TTL = 60 * 60;
     private const TOKEN_ENDPOINT = 'https://appleid.apple.com/auth/token';
     private const JWK_ENDPOINT = 'https://appleid.apple.com/auth/keys';
 

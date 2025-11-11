@@ -100,7 +100,7 @@ class LoginController extends Controller
 
         $credential = $request->input('credential');
         if (!$credential) {
-            throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         }
         $redirect = $request->input('redirect', '/');
 
@@ -109,11 +109,11 @@ class LoginController extends Controller
             $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
             $result = $client->verifyIdToken($credential);
             if (!$result) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
             }
             $exp = $result['exp'];
             if (Carbon::now()->gt(Carbon::createFromTimestamp($exp))) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
             }
 
             $email = $result['email'];
@@ -152,7 +152,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function handleAppleQuickLogin(Request $request, AppleService $appleSignInService)
+    public function handleAppleQuickLogin(Request $request, AppleService $apple_service)
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
@@ -165,26 +165,22 @@ class LoginController extends Controller
         });
 
         $code = $request->input('code');
-        $idToken = $request->input('id_token');
-        $state = $request->input('state');
-        $rawUser = $request->input('user');
-        $redirect = $request->input('redirect', '/');
+        $id_token = $request->input('id_token');
+
+        if (!$code || !$id_token) {
+            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+        }
 
         try {
-            if (!$state || $state !== $request->session()->token()) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
-            }
 
-            if ($code) {
-                $tokenResponse = $appleSignInService->exchangeCode($code);
-                $idToken = $tokenResponse['id_token'] ?? $idToken;
-            }
+//            $token_response = $apple_service->exchangeCode($code);
+//            $id_token = $token_response['id_token'] ?? $id_token;
+//
+//            if (!$id_token) {
+//                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+//            }
 
-            if (!$idToken) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
-            }
-
-            $claims = $appleSignInService->verifyIdToken($idToken);
+            $claims = $apple_service->verifyIdToken($id_token);
             return $this->responseSuccess(['$claims' => $claims]);
             $userInfo = [];
             if ($rawUser) {
