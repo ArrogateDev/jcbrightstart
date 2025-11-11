@@ -1,253 +1,213 @@
-(function($) {
+(function ($) {
     "use strict";
 
-	if($('#passwordInput').length > 0) {
-	let passwordInput = document.querySelector('#passwordInput input[type="password"]');
-    let passwordStrength= document.getElementById('passwordStrength');
-    let poor = document.querySelector('#passwordStrength #poor');
-    let weak = document.querySelector('#passwordStrength #weak');
-    let strong = document.querySelector('#passwordStrength #strong');
-    let heavy = document.querySelector('#passwordStrength #heavy');
-    let passwordInfo = document.getElementById('passwordInfo');
-    let passcheck = document.querySelector('#passwordInput .pass-checked');
+    const STRENGTH_CLASSES = ["poor-active", "avg-active", "strong-active", "heavy-active"];
+    const BAR_ORDER = ["poor", "weak", "strong", "heavy"];
+    const ICON_BASE_PATH = "storage/assets/img/icon/";
 
-    let poorRegExp = /[a-z]/;
-    let weakRegExp = /(?=.*?[0-9])/;;
-    let strongRegExp = /(?=.*?[#?!@$%^&*-])/;
+    const REGEX_RULES = {
+        lettersOnly: /^[a-zA-Z]+$/,
+        digitsOnly: /^[0-9]+$/
+    };
 
-	let whitespaceRegExp = /^$|\s+/;
+    const LEVEL_CONFIG = {
+        poor: {
+            className: "poor-active",
+            color: "#FF0000",
+            icon: "angry.svg",
+            message: "Weak. Only letters or only digits detected."
+        },
+        weak: {
+            className: "avg-active",
+            color: "#FFB54A",
+            icon: "anguish.svg",
+            message: "Average. Include both letters and numbers."
+        },
+        strong: {
+            className: "strong-active",
+            color: "#ffc106",
+            icon: "smile.svg",
+            message: "Almost. Add a special character and ensure at least 8 characters."
+        },
+        heavy: {
+            className: "heavy-active",
+            color: "#159F46",
+            icon: "smile.svg",
+            message: "OK! The requirement of password is fulfilled."
+        },
+        invalid: {
+            className: "",
+            color: "#FF0000",
+            icon: "angry.svg",
+            message: "Whitespaces are not allowed."
+        }
+    };
 
+    initPasswordStrength({
+        containerSelector: "#passwordInput",
+        strengthSelector: "#passwordStrength",
+        infoSelector: "#passwordInfo",
+        passcheckSelector: "#passwordInput .pass-checked",
+        barSelectors: {
+            poor: "#passwordStrength #poor",
+            weak: "#passwordStrength #weak",
+            strong: "#passwordStrength #strong",
+            heavy: "#passwordStrength #heavy"
+        }
+    });
 
+    initPasswordStrength({
+        containerSelector: "#passwordInputs",
+        strengthSelector: "#passwordStrengths",
+        infoSelector: "#passwordInfos",
+        passcheckSelector: "#passwordInputs .pass-checked",
+        barSelectors: {
+            poor: "#passwordStrengths #poors",
+            weak: "#passwordStrengths #weaks",
+            strong: "#passwordStrengths #strongs",
+            heavy: "#passwordStrengths #heavys"
+        }
+    });
 
-    passwordInput.oninput= function(){
+    function initPasswordStrength({
+        containerSelector,
+        strengthSelector,
+        infoSelector,
+        passcheckSelector,
+        barSelectors
+    }) {
+        const container = document.querySelector(containerSelector);
+        if (!container) {
+            return;
+        }
 
-        let passwordValue= passwordInput.value;
-        let passwordLength= passwordValue.length;
-        let poorPassword= passwordValue.match(poorRegExp);
-        let weakPassword= passwordValue.match(weakRegExp);
-        let strongPassword= passwordValue.match(strongRegExp);
-        let whitespace= passwordValue.match(whitespaceRegExp);
-		if(passwordValue != ""){
-			passwordStrength.style.display = "block";
-			passwordStrength.style.display = "flex";
-			passwordInfo.style.display = "block";
-			passwordInfo.style.color = "black";
-			if(whitespace)
-			{
-				passwordInfo.textContent = "whitespaces are not allowed";
-			}
-			else {
-				poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-				weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-				strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-				heavyPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-			}
+        const passwordInput = container.querySelector('input[type="password"]');
+        const strengthElement = document.querySelector(strengthSelector);
+        const infoElement = document.querySelector(infoSelector);
+        const passcheckElement = passcheckSelector ? document.querySelector(passcheckSelector) : null;
+        const bars = Object.fromEntries(
+            Object.entries(barSelectors).map(([key, selector]) => [key, document.querySelector(selector)])
+        );
 
-		}
-		else {
-			   passwordInfo.style.display = "none";
-			   passwordStrength.classList.remove("poor-active");
-			   passwordStrength.classList.remove("avg-active");
-			   passwordStrength.classList.remove("strong-active");
-			   passwordStrength.classList.remove("heavy-active");
-			   passcheck.classList.remove("active");
+        if (!passwordInput || !strengthElement || !infoElement) {
+            return;
+        }
 
-		   }
-		}
+        passwordInput.addEventListener("input", () => {
+            const value = passwordInput.value;
 
-		function poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-			if(passwordLength < 8)
-			{
-			   poor.classList.add("active");
-			   passwordStrength.classList.add("poor-active");
-			   passwordStrength.classList.remove("avg-active");
-			   passwordStrength.classList.remove("strong-active");
-			   passwordStrength.classList.remove("heavy-active");
-			   passwordInfo.style.display = "block";
-			   passwordInfo.style.color = "#FF0000";
-			   passwordInfo.innerHTML  = '<img src="storage/assets/img/icon/angry.svg" class="me-2">' + "Weak. Must contain at least 8 characters";
+            if (!value) {
+                resetUI(strengthElement, infoElement, passcheckElement, bars);
+                return;
+            }
 
-			}
-		}
+            strengthElement.style.display = "flex";
+            infoElement.style.display = "block";
 
-		function weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-			if(passwordLength >= 8 && (poorPassword || weakPassword || strongPassword))
-			{
-			   weak.classList.add("active");
-			   passwordStrength.classList.remove("poor-active");
-			   passwordStrength.classList.add("avg-active");
-			   passwordStrength.classList.remove("strong-active");
-			   passwordStrength.classList.remove("heavy-active");
-			   passwordInfo.style.display = "block";
-			   passwordInfo.style.color = "#FFB54A";
-			   passwordInfo.innerHTML = '<img src="storage/assets/img/icon/anguish.svg" class="me-2">' + "Average. Must contain at least 1 letter or number";
+            const evaluation = evaluatePassword(value);
 
-			}else{
-			 weak.classList.remove("active");
+            if (evaluation.type === "invalid") {
+                applyInvalidState(strengthElement, infoElement, passcheckElement, bars);
+                updateInfo(infoElement, evaluation);
+                return;
+            }
 
-		   }
-		}
+            applyStrengthState(strengthElement, passcheckElement, bars, evaluation);
+            updateInfo(infoElement, evaluation);
+        });
+    }
 
-		function strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-		   if(passwordLength>= 8 && poorPassword && (weakPassword || strongPassword))
-			{
-			 strong.classList.add("active");
-			 passwordStrength.classList.remove("avg-active");
-			 passwordStrength.classList.remove("poor-active");
-			 passwordStrength.classList.add("strong-active");
-			 passwordStrength.classList.remove("heavy-active");
-			 passwordInfo.innerHTML = '<img src="storage/assets/img/icon/smile.svg" class="me-2">' + "Almost. Must contain special symbol";
-			 passwordInfo.style.color = "#1D9CFD";
+    function evaluatePassword(password) {
+        if (/\s/.test(password)) {
+            return { type: "invalid", ...LEVEL_CONFIG.invalid };
+        }
 
-		   }else{
-			 strong.classList.remove("active");
+        const length = password.length;
+        const hasLower = /[a-z]/.test(password);
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLetter = hasLower || hasUpper;
+        const hasDigit = /\d/.test(password);
+        const hasSymbol = /[.#?!@$%^&*-]/.test(password);
 
-		   }
-		}
+        if (hasLower && hasUpper && hasDigit && hasSymbol && length >= 8) {
+            return { type: "heavy", ...LEVEL_CONFIG.heavy };
+        }
 
-		function heavyPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-		  if(passwordLength >= 8 && (poorPassword && weakPassword) && strongPassword)
-			{
-			 heavy.classList.add("active");
-			 passwordStrength.classList.remove("poor-active");
-			 passwordStrength.classList.remove("avg-active");
-			 passwordStrength.classList.remove("strong-active");
-			 passwordStrength.classList.add("heavy-active");
-			 passcheck.classList.add("active");
-			 passwordInfo.innerHTML = '<img src="storage/assets/img/icon/smile.svg" class="me-2">' + "Awesome! You have a secure password.";
-			 passwordInfo.style.color = "#159F46";
-		   }else{
-			 heavy.classList.remove("active");
-			 passcheck.classList.remove("active");
+        if (hasLower && hasUpper && hasDigit) {
+            return { type: "strong", ...LEVEL_CONFIG.strong };
+        }
 
-		   }
-		}
-	}
+        if (hasLetter && hasDigit) {
+            return { type: "weak", ...LEVEL_CONFIG.weak };
+        }
 
+        if (REGEX_RULES.lettersOnly.test(password) || REGEX_RULES.digitsOnly.test(password)) {
+            return { type: "poor", ...LEVEL_CONFIG.poor };
+        }
 
-	if($('#passwordInputs').length > 0) {
+        return { type: "poor", ...LEVEL_CONFIG.poor };
+    }
 
-	let passwordInput1 = document.querySelector('#passwordInputs input[type="password"]');
-    let passwordStrength1= document.getElementById('passwordStrengths');
-    let poor1 = document.querySelector('#passwordStrengths #poors');
-    let weak1 = document.querySelector('#passwordStrengths #weaks');
-    let strong1 = document.querySelector('#passwordStrengths #strongs');
-    let heavy1 = document.querySelector('#passwordStrengths #heavys');
-    let passwordInfos = document.getElementById('passwordInfos');
-    let passcheck1 = document.querySelector('#passwordInputs .pass-checked');
+    function applyStrengthState(strengthElement, passcheckElement, bars, evaluation) {
+        clearStrengthClasses(strengthElement, bars);
 
-    let poor1RegExp1 = /[a-z]/;
-    let weak1RegExp1 = /(?=.*?[0-9])/;;
-    let strong1RegExp1 = /(?=.*?[#?!@$%^&*-])/;
+        const currentIndex = BAR_ORDER.indexOf(evaluation.type);
+        BAR_ORDER.forEach((key, index) => {
+            const bar = bars[key];
+            if (!bar) {
+                return;
+            }
+            if (index <= currentIndex) {
+                bar.classList.add("active");
+            } else {
+                bar.classList.remove("active");
+            }
+        });
 
-	let whitespace1RegExp1 = /^$|\s+/;
+        if (evaluation.className) {
+            strengthElement.classList.add(evaluation.className);
+        }
 
+        if (passcheckElement) {
+            passcheckElement.classList.toggle("active", evaluation.type === "heavy");
+        }
+    }
 
+    function applyInvalidState(strengthElement, infoElement, passcheckElement, bars) {
+        clearStrengthClasses(strengthElement, bars);
+        if (passcheckElement) {
+            passcheckElement.classList.remove("active");
+        }
+        Object.values(bars).forEach((bar) => {
+            if (bar) {
+                bar.classList.remove("active");
+            }
+        });
+        strengthElement.classList.remove("poor-active", "avg-active", "strong-active", "heavy-active");
+        infoElement.style.display = "block";
+    }
 
-    passwordInput1.oninput= function(){
+    function clearStrengthClasses(strengthElement, bars) {
+        STRENGTH_CLASSES.forEach((className) => strengthElement.classList.remove(className));
+        Object.values(bars).forEach((bar) => {
+            if (bar) {
+                bar.classList.remove("active");
+            }
+        });
+    }
 
-        let passwordValue1= passwordInput1.value;
-        let passwordLength1= passwordValue1.length;
-        let poor1Password1= passwordValue1.match(poor1RegExp1);
-        let weak1Password1= passwordValue1.match(weak1RegExp1);
-        let strong1Password1= passwordValue1.match(strong1RegExp1);
-        let whitespace1= passwordValue1.match(whitespace1RegExp1);
-		if(passwordValue1 != ""){
-			passwordStrength1.style.display = "block";
-			passwordStrength1.style.display = "flex";
-			passwordInfos.style.display = "block";
-			passwordInfos.style.color = "black";
-			if(whitespace1)
-			{
-				passwordInfos.textContent = "whitespace1s are not allowed";
-			}
-			else {
-				poor1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1);
-				weak1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1);
-				strong1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1);
-				heavy1passwordStrength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1);
-			}
+    function updateInfo(infoElement, evaluation) {
+        infoElement.style.color = evaluation.color;
+        infoElement.innerHTML = `<img src="${ICON_BASE_PATH}${evaluation.icon}" class="me-2">${evaluation.message}`;
+    }
 
-		}
-		else {
-			   passwordInfos.style.display = "none";
-			   passwordStrength1.classList.remove("poor-active");
-			   passwordStrength1.classList.remove("avg-active");
-			   passwordStrength1.classList.remove("strong-active");
-			   passwordStrength1.classList.remove("heavy-active");
-			   passcheck1.classList.remove("active");
-
-		   }
-		}
-
-		function poor1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1){
-			if(passwordLength1 < 8)
-			{
-			   poor1.classList.add("active");
-			   passwordStrength1.classList.add("poor-active");
-			   passwordStrength1.classList.remove("avg-active");
-			   passwordStrength1.classList.remove("strong-active");
-			   passwordStrength1.classList.remove("heavy-active");
-			   passwordInfos.style.display = "block";
-			   passwordInfos.style.color = "#FF0000";
-			   passwordInfos.innerHTML  = '<img src="storage/assets/img/icon/angry.svg" class="me-2">' + "weak1. Must contain at least 8 characters";
-
-			}
-		}
-
-		function weak1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1){
-			if(passwordLength1 >= 8 && (poor1Password1 || weak1Password1 || strong1Password1))
-			{
-			   weak1.classList.add("active");
-			   passwordStrength1.classList.remove("poor-active");
-			   passwordStrength1.classList.add("avg-active");
-			   passwordStrength1.classList.remove("strong-active");
-			   passwordStrength1.classList.remove("heavy-active");
-			   passwordInfos.style.display = "block";
-			   passwordInfos.style.color = "#FFB54A";
-			   passwordInfos.innerHTML = '<img src="storage/assets/img/icon/anguish.svg" class="me-2">' + "Average. Must contain at least 1 letter or number";
-
-			}else{
-			 weak1.classList.remove("active");
-
-		   }
-		}
-
-		function strong1Password1Strength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1){
-		   if(passwordLength1>= 8 && poor1Password1 && (weak1Password1 || strong1Password1))
-			{
-			 strong1.classList.add("active");
-			 passwordStrength1.classList.remove("avg-active");
-			 passwordStrength1.classList.remove("poor-active");
-			 passwordStrength1.classList.add("strong-active");
-			 passwordStrength1.classList.remove("heavy-active");
-			 passwordInfos.innerHTML = '<img src="storage/assets/img/icon/smile.svg" class="me-2">' + "Almost. Must contain special symbol";
-			 passwordInfos.style.color = "#1D9CFD";
-
-		   }else{
-			 strong1.classList.remove("active");
-
-		   }
-		}
-
-		function heavy1passwordStrength1(passwordLength1, poor1Password1, weak1Password1, strong1Password1){
-		  if(passwordLength1 >= 8 && (poor1Password1 && weak1Password1) && strong1Password1)
-			{
-			 heavy1.classList.add("active");
-			 passwordStrength1.classList.remove("poor-active");
-			 passwordStrength1.classList.remove("avg-active");
-			 passwordStrength1.classList.remove("strong-active");
-			 passwordStrength1.classList.add("heavy-active");
-			 passcheck1.classList.add("active");
-			 passwordInfos.innerHTML = '<img src="storage/assets/img/icon/smile.svg" class="me-2">' + "Awesome! You have a secure password.";
-			 passwordInfos.style.color = "#159F46";
-		   }else{
-			 heavy1.classList.remove("active");
-			 passcheck1.classList.remove("active");
-
-		   }
-		}
-
-	}
+    function resetUI(strengthElement, infoElement, passcheckElement, bars) {
+        strengthElement.style.display = "none";
+        infoElement.style.display = "none";
+        clearStrengthClasses(strengthElement, bars);
+        if (passcheckElement) {
+            passcheckElement.classList.remove("active");
+        }
+    }
 
 })(jQuery);

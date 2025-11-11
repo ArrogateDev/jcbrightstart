@@ -114,8 +114,8 @@
                             </div>
 
                             <div class="d-flex align-items-center justify-content-center mb-3">
-                                <a href="javascript:void(0);" class="btn btn-light me-2"><img
-                                        src="{{web_resource_url('assets/img/icons/google.svg')}}" alt="img" class="me-2">Google</a>
+
+                                <x-auth.google-quick-login/>
                                 <a href="javascript:void(0);" class="btn btn-light"><img
                                         src="{{web_resource_url('assets/img/icons/apple.svg')}}" alt="img" class="me-2">Apple</a>
                             </div>
@@ -144,6 +144,8 @@
 <script src="{{web_resource_url('assets/plugins/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+
 <script>
     const validator = new window.JustValidate('#form', {
         errorLabelCssClass: 'd-inline',
@@ -170,16 +172,20 @@
         .addField('#password', [
             {
                 rule: 'required',
+                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
             },
             {
                 rule: 'password',
+                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
             },
             {
                 rule: 'minLength',
                 value: 8,
+                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
             },
             {
                 rule: 'strongPassword',
+                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
             }
         ], {
             errorsContainer: '#error-container-password'
@@ -196,7 +202,8 @@
 
                         return value === password;
                     }
-                }
+                },
+                errorMessage: 'Password does not match',
             }
         ], {
             errorsContainer: '#error-container-confirm-password'
@@ -244,6 +251,7 @@
             }
         });
     }
+
 </script>
 </body>
 
