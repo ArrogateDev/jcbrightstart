@@ -166,8 +166,15 @@ class LoginController extends Controller
 
         $code = $request->input('code');
         $id_token = $request->input('id_token');
+        $rawUser = $request->input('user');
+        $state = $request->input('state');
+        $redirect = $request->input('redirect', '/');
 
-        if (!$code || !$id_token) {
+        if (!$code && !$id_token) {
+            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+        }
+
+        if ($state && $state !== $request->session()->token()) {
             throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         }
 
@@ -180,6 +187,14 @@ class LoginController extends Controller
 //                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
 //            }
 
+
+                $token_response = $apple_service->exchangeCode($code);
+                $id_token = $token_response['id_token'] ?? $id_token;
+
+            if (!$id_token) {
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+            }
+
             $claims = $apple_service->verifyIdToken($id_token);
             return $this->responseSuccess(['$claims' => $claims]);
             $userInfo = [];
@@ -189,19 +204,23 @@ class LoginController extends Controller
 
             $email = $claims['email'] ?? Arr::get($userInfo, 'email');
             if (!$email) {
-                throw new ApiException(__('Account has been disabled.'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
             }
 
             $first_name = Arr::get($userInfo, 'name.firstName', '');
             $last_name = Arr::get($userInfo, 'name.lastName', '');
             $full_name = trim($first_name . ' ' . $last_name);
 
+            if (!$full_name) {
+                $full_name = $claims['name'] ?? $email;
+            }
+
             $user = User::query()->where('email', $email)->firstOrCreate(
                 [
                     'email' => $email,
                 ], [
                     'full_name' => $full_name,
-                    'first_name' => $first_name,
+                    'first_name' => $first_name ?: $full_name,
                     'last_name' => $last_name
                 ]
             );
@@ -215,6 +234,8 @@ class LoginController extends Controller
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
             throw $e;
+        } catch (\JsonException $e) {
+            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);

@@ -63,6 +63,7 @@
     }
 
     function handleAppleSignInSuccess(response) {
+        console.log('Apple Sign-In success:', response);
         const {authorization = {}} = response || {};
         const {code, id_token} = authorization;
 
