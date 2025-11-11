@@ -65,6 +65,7 @@
     function handleAppleSignInSuccess(response) {
         const {authorization = {}, user} = response || {};
         const {code, id_token: idToken, state} = authorization;
+console.log(response,user);
 
         if (!code && !idToken) {
             showToast('error', '未获取到 Apple 登录凭据，请重试');
@@ -74,35 +75,34 @@
         const payload = {
             code: code ?? '',
             id_token: idToken ?? '',
-            state: state ?? '',
             user: user ? JSON.stringify(user) : '',
             _token: '{{ csrf_token() }}'
         };
 
-        showLoading();
-        $.ajax({
-            type: 'post',
-            url: '{{ route('apple-quick-login.html') }}',
-            data: payload,
-            dataType: 'json',
-            success: function (data) {
-                if (data.code !== 0) {
-                    showToast('error', data.msg);
-                    return;
-                }
+        {{--showLoading();--}}
+        {{--$.ajax({--}}
+        {{--    type: 'post',--}}
+        {{--    url: '{{ route('apple-quick-login.html') }}',--}}
+        {{--    data: payload,--}}
+        {{--    dataType: 'json',--}}
+        {{--    success: function (data) {--}}
+        {{--        if (data.code !== 0) {--}}
+        {{--            showToast('error', data.msg);--}}
+        {{--            return;--}}
+        {{--        }--}}
 
-                showToast('success', '{{ $type === 'signup' ? 'Register':'Login' }} successful');
-                setTimeout(function () {
-                    window.location.href = data.data.redirect ?? '/';
-                }, 800);
-            },
-            error: function () {
-                showToast('error', '{{ $type === 'signup' ? 'Register':'Login' }} failed, please try again later');
-            },
-            complete: function () {
-                hideLoading();
-            }
-        });
+        {{--        --}}{{--showToast('success', '{{ $type === 'signup' ? 'Register':'Login' }} successful');--}}
+        {{--        --}}{{--setTimeout(function () {--}}
+        {{--        --}}{{--    window.location.href = data.data.redirect ?? '/';--}}
+        {{--        --}}{{--}, 800);--}}
+        {{--    },--}}
+        {{--    error: function () {--}}
+        {{--        showToast('error', '{{ $type === 'signup' ? 'Register':'Login' }} failed, please try again later');--}}
+        {{--    },--}}
+        {{--    complete: function () {--}}
+        {{--        hideLoading();--}}
+        {{--    }--}}
+        {{--});--}}
     }
 
     function handleAppleSignInError(error) {
