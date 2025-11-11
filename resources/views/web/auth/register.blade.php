@@ -2,6 +2,7 @@
 <html lang="en">
 
 <x-head/>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
 
 <body>
 
@@ -144,7 +145,6 @@
 <script src="{{web_resource_url('assets/plugins/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
 
 <script>
     const validator = new window.JustValidate('#form', {
