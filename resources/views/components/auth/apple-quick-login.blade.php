@@ -63,8 +63,7 @@
     }
 
     function handleAppleSignInSuccess(response) {
-        console.log('Apple Sign-In success:', response);
-        const {authorization = {}} = response || {};
+        const {authorization = {}, user = {}} = response || {};
         const {code, id_token} = authorization;
 
         if (!code && !id_token) {
@@ -75,6 +74,7 @@
         const payload = {
             code: code ?? '',
             id_token: id_token ?? '',
+            user: user,
             _token: '{{ csrf_token() }}'
         };
 
@@ -91,9 +91,9 @@
                 }
 
                 showToast('success', '{{ $type === 'signup' ? 'Register':'Login' }} successful');
-                // setTimeout(function () {
-                //     window.location.href = data.data.redirect ?? '/';
-                // }, 800);
+                setTimeout(function () {
+                    window.location.href = data.data.redirect ?? '/';
+                }, 800);
             },
             error: function () {
                 showToast('error', '{{ $type === 'signup' ? 'Register':'Login' }} failed, please try again later');
