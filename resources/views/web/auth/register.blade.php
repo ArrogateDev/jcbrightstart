@@ -118,7 +118,7 @@
 
                                 <x-auth.google-quick-login type="signup"/>
 
-                                <x-auth.apple-quick-login/>
+                                <x-auth.apple-quick-login type="signup"/>
 
                             </div>
 

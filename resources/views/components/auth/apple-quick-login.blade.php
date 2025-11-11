@@ -1,6 +1,8 @@
-<a href="javascript:void(0);" id="appleSignInBtn" class="btn btn-light">
+@props(['type' => 'signin'])
+
+<div href="javascript:void(0);" id="apple-quick-login-btn" class="apple-quick-login">
     <img src="{{web_resource_url('assets/img/icons/apple.svg')}}" alt="img" class="me-2">Apple
-</a>
+</div>
 
 <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
 <script>
@@ -21,6 +23,7 @@
                 clientId: '{{ env('APPLE_CLIENT_ID') }}',
                 scope: 'name email',
                 redirectURI: '{{ env('APPLE_REDIRECT_URI') }}',
+                state: '{{ csrf_token() }}',
                 usePopup: true,
             });
             appleAuthInitialized = true;
@@ -32,7 +35,7 @@
     }
 
     function attachAppleSignIn() {
-        const appleBtn = document.getElementById('appleSignInBtn');
+        const appleBtn = document.getElementById('apple-quick-login-btn');
         if (!appleBtn || appleBtn.dataset.appleAuthAttached === 'true') {
             return;
         }
@@ -44,7 +47,7 @@
             } catch (error) {
                 handleAppleSignInError(error);
             }
-        }, 500, { leading: true, trailing: false });
+        }, 500, {leading: true, trailing: false});
 
         appleBtn.dataset.appleAuthAttached = 'true';
         appleBtn.addEventListener('click', (event) => {
@@ -60,15 +63,46 @@
     }
 
     function handleAppleSignInSuccess(response) {
-        const { authorization = {}, user } = response || {};
-        const { code, id_token: idToken, state } = authorization;
+        const {authorization = {}, user} = response || {};
+        const {code, id_token: idToken, state} = authorization;
 
-        console.log('Apple Sign-In code:', code);
-        console.log('Apple Sign-In id_token:', idToken);
-        console.log('Apple Sign-In state:', state);
-        console.log('Apple Sign-In user:', user);
+        if (!code && !idToken) {
+            showToast('error', '未获取到 Apple 登录凭据，请重试');
+            return;
+        }
 
-        // TODO: 将 code / idToken 提交到后端，完成登录/注册逻辑
+        const payload = {
+            code: code ?? '',
+            id_token: idToken ?? '',
+            state: state ?? '',
+            user: user ? JSON.stringify(user) : '',
+            _token: '{{ csrf_token() }}'
+        };
+
+        showLoading();
+        $.ajax({
+            type: 'post',
+            url: '{{ route('apple-quick-login.html') }}',
+            data: payload,
+            dataType: 'json',
+            success: function (data) {
+                if (data.code !== 0) {
+                    showToast('error', data.msg);
+                    return;
+                }
+
+                showToast('success', '{{ $type === 'signup' ? 'Register':'Login' }} successful');
+                setTimeout(function () {
+                    window.location.href = data.data.redirect ?? '/';
+                }, 800);
+            },
+            error: function () {
+                showToast('error', '{{ $type === 'signup' ? 'Register':'Login' }} failed, please try again later');
+            },
+            complete: function () {
+                hideLoading();
+            }
+        });
     }
 
     function handleAppleSignInError(error) {
@@ -77,7 +111,6 @@
             return;
         }
 
-        console.error('Apple Sign-In error', error);
         showToast('error', 'Apple 登录失败，请稍后重试');
     }
 

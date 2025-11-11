@@ -6,9 +6,11 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\AppleService;
 use Carbon\Carbon;
 use Google_Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -128,6 +130,10 @@ class LoginController extends Controller
                 ]
             );
 
+            if ($user->status !== User::NORMAL) {
+                throw new ApiException(__('Account has been disabled.'), ResponseCode::FORBIDDEN);
+            }
+
             Auth::login($user);
 
             return $this->responseSuccess(['redirect' => $redirect]);
@@ -146,7 +152,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function handleAppleQuickLogin(Request $request)
+    public function handleAppleQuickLogin(Request $request, AppleService $appleSignInService)
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
@@ -158,32 +164,57 @@ class LoginController extends Controller
             $lock->release();
         });
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $remember_me = $request->input('remember_me');
+        $code = $request->input('code');
+        $idToken = $request->input('id_token');
+        $state = $request->input('state');
+        $rawUser = $request->input('user');
         $redirect = $request->input('redirect', '/');
 
-        if (!$email || !$password) {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
-        }
-
-        $user = User::query()->where('email', $email)->firstOr(function () {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
-        });
-
         try {
+            if (!$state || $state !== $request->session()->token()) {
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            }
+
+            if ($code) {
+                $tokenResponse = $appleSignInService->exchangeCode($code);
+                $idToken = $tokenResponse['id_token'] ?? $idToken;
+            }
+
+            if (!$idToken) {
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            }
+
+            $claims = $appleSignInService->verifyIdToken($idToken);
+            return $this->responseSuccess(['$claims' => $claims]);
+            $userInfo = [];
+            if ($rawUser) {
+                $userInfo = json_decode($rawUser, true, 512, JSON_THROW_ON_ERROR);
+            }
+
+            $email = $claims['email'] ?? Arr::get($userInfo, 'email');
+            if (!$email) {
+                throw new ApiException(__('Account has been disabled.'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            }
+
+            $first_name = Arr::get($userInfo, 'name.firstName', '');
+            $last_name = Arr::get($userInfo, 'name.lastName', '');
+            $full_name = trim($first_name . ' ' . $last_name);
+
+            $user = User::query()->where('email', $email)->firstOrCreate(
+                [
+                    'email' => $email,
+                ], [
+                    'full_name' => $full_name,
+                    'first_name' => $first_name,
+                    'last_name' => $last_name
+                ]
+            );
 
             if ($user->status !== User::NORMAL) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::FORBIDDEN);
+                throw new ApiException(__('Account has been disabled.'), ResponseCode::FORBIDDEN);
             }
 
-            if (!Hash::check($password, $user->password)) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::PARAM_ERR);
-            }
-
-            Auth::login($user, $remember_me === 'on');
-
-            Auth::logoutOtherDevices($password);
+            Auth::login($user);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {

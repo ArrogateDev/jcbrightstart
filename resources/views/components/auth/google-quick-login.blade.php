@@ -1,3 +1,5 @@
+@props(['type' => 'signin'])
+
 <div id="g_id_onload"
      data-client_id="{{ env('GOOGLE_CLIENT_ID') }}"
      data-context="{{ $type }}"
@@ -37,12 +39,12 @@
                     return;
                 }
 
-                showToast('success', 'Register successful');
+                showToast('success', '{{ $type === 'signup' ? 'Register':'Login' }} successful');
                 setTimeout(function () {
                     window.location.href = data.data.redirect ?? '/';
                 }, 800)
             }, error: function () {
-                showToast('error', 'Register failed, please try again later')
+                showToast('error', '{{ $type === 'signup' ? 'Register':'Login' }} failed, please try again later')
             }, complete: function () {
                 hideLoading()
             }

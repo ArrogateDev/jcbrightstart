@@ -88,10 +88,10 @@
 
                             <div class="d-flex align-items-center justify-content-center mb-3">
 
-                                <x-auth.google-quick-login type="signup"/>
+                                <x-auth.google-quick-login type="signin"/>
 
-                                <a href="javascript:void(0);" class="btn btn-light"><img
-                                            src="{{web_resource_url('assets/img/icons/apple.svg')}}" alt="img" class="me-2">Apple</a>
+                                <x-auth.apple-quick-login type="signin"/>
+
                             </div>
 
                             <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
