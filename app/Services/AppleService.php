@@ -119,7 +119,7 @@ class AppleService
      */
     private function getPublicKeys(): array
     {
-        return Cache::remember(self::JWK_CACHE_KEY, self::JWK_CACHE_TTL, function () {
+        $keys = Cache::remember(self::JWK_CACHE_KEY, self::JWK_CACHE_TTL, function () {
             try {
                 $response = $this->httpClient->get(self::JWK_ENDPOINT);
                 $body = (string)$response->getBody();
@@ -130,13 +130,20 @@ class AppleService
                     throw new \Exception('Apple 公钥获取失败');
                 }
 
-                return JWK::parseKeySet(['keys' => $keys]);
+                return $keys;
             } catch (GuzzleException $exception) {
                 throw new \Exception('无法获取 Apple 公钥');
             } catch (\JsonException $exception) {
                 throw new \Exception('Apple 公钥格式错误');
             }
         });
+
+        try {
+            return JWK::parseKeySet(['keys' => $keys]);
+        } catch (\Throwable $exception) {
+            Cache::forget(self::JWK_CACHE_KEY);
+            throw new \Exception('Apple 公钥解析失败');
+        }
     }
 
     private function validateClaims(array $payload): void
