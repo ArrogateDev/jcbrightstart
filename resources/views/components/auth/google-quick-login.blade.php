@@ -37,10 +37,10 @@
                     return;
                 }
 
-                // showToast('success', 'Register successful');
-                // setTimeout(function () {
-                //     window.location.href = data.data.redirect ?? '/';
-                // }, 800)
+                showToast('success', 'Register successful');
+                setTimeout(function () {
+                    window.location.href = data.data.redirect ?? '/';
+                }, 800)
             }, error: function () {
                 showToast('error', 'Register failed, please try again later')
             }, complete: function () {

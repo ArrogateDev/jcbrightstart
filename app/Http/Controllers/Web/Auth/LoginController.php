@@ -6,6 +6,7 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +107,10 @@ class LoginController extends Controller
             $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
             $result = $client->verifyIdToken($credential);
             if (!$result) {
+                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            }
+            $exp = $result['exp'];
+            if (Carbon::now()->gt(Carbon::createFromTimestamp($exp))) {
                 throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
             }
 
