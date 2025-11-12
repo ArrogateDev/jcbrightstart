@@ -232,7 +232,7 @@
 							<li class="has-submenu active">
 								<a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
 								<ul class="submenu">
-									<li class="has-submenu active">
+									<li class="has-submenu">
 										<a href="javascript:void(0);">Instructor Dashboard</a>
 										<ul class="submenu">
 											<li><a href="instructor-dashboard.html">Dashboard</a></li>
@@ -249,8 +249,7 @@
 												</ul>
 											</li>
 											<li><a href="instructor-quiz.html">Quiz</a></li>
-											<li class="active"><a href="instructor-quiz-results.html">Quiz Results</a>
-											</li>
+											<li><a href="instructor-quiz-results.html">Quiz Results</a></li>
 											<li><a href="instructor-certificate.html">Certificates</a></li>
 											<li><a href="instructor-earnings.html">Earning</a></li>
 											<li><a href="instructor-payout.html">Payout</a></li>
@@ -259,7 +258,7 @@
 											<li><a href="instructor-settings.html">Settings</a></li>
 										</ul>
 									</li>
-									<li class="has-submenu">
+									<li class="has-submenu active">
 										<a href="javascript:void(0);">Student Dashboard</a>
 										<ul class="submenu">
 											<li><a href="student-dashboard.html">Student Dashboard</a></li>
@@ -268,7 +267,7 @@
 											<li><a href="student-certificates.html">My Certificates</a></li>
 											<li><a href="student-wishlist.html">Wishlist</a></li>
 											<li><a href="student-reviews.html">Reviews</a></li>
-											<li><a href="student-quiz.html">My Quiz Attempts</a></li>
+											<li class="active"><a href="student-quiz.html">My Quiz Attempts</a></li>
 											<li><a href="student-order-history.html">Order History</a></li>
 											<li><a href="student-referral.html">Referrals</a></li>
 											<li><a href="student-messages.html">Messages</a></li>
@@ -369,17 +368,17 @@
 						<div class="dropdown profile-dropdown">
 							<a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
 								<span class="avatar">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img" class="img-fluid rounded-circle">
 								</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<div class="profile-header d-flex align-items-center">
 									<div class="avatar">
-										<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"
+										<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img"
 											class="img-fluid rounded-circle">
 									</div>
 									<div>
-										<h6>Eugene Andre</h6>
+										<h6>Ronald Richard</h6>
 										<p><a href="/cdn-cgi/l/email-protection"
 												class="__cf_email__">eric@arrogatemaker.com</a>
 										</p>
@@ -388,38 +387,34 @@
 								<ul class="profile-body">
 									<li>
 										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-											href="instructor-profile.html"><i
-												class="isax isax-security-user me-2"></i>My Profile</a>
+											href="student-profile.html"><i class="isax isax-security-user me-2"></i>My
+											Profile</a>
 									</li>
 									<li>
 										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-											href="instructor-course.html"><i
-												class="isax isax-teacher me-2"></i>Courses</a>
+											href="student-quiz.html"><i class="isax isax-award me-2"></i>Quiz
+											Attempts</a>
 									</li>
 									<li>
 										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"
-											href="instructor-earnings.html"><i
-												class="isax isax-dollar-circle me-2"></i>Earnings</a>
+											href="student-order-history.html"><i
+												class="isax isax-shopping-cart me-2"></i>Order History</a>
 									</li>
 									<li>
 										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-											href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>
-									</li>
-									<li>
-										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-											href="instructor-message.html"><i
+											href="student-messages.html"><i
 												class="isax isax-messages-3 me-2"></i>Messages<span
 												class="message-count">2</span></a>
 									</li>
 									<li>
 										<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-											href="instructor-settings.html"><i
+											href="student-settings.html"><i
 												class="isax isax-setting-2 me-2"></i>Settings</a>
 									</li>
 								</ul>
 								<div class="profile-footer">
 									<a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-										href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>
+										href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Instructor</a>
 									<a href="index.html"
 										class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i
 											class="isax isax-logout me-2"></i>Logout</a>
@@ -436,264 +431,114 @@
 
 		<div class="content">
 			<div class="container">
-				<div class="instructor-profile">
-					<div class="instructor-profile-bg">
-						<img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="instructor-profile-bg-1" alt="">
+				<!-- profile box -->
+				<div class="profile-card overflow-hidden bg-blue-gradient2 mb-5 p-5">
+					<div class="profile-card-bg">
+						<img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="profile-card-bg-1" alt="">
 					</div>
 					<div class="row align-items-center row-gap-3">
-						<div class="col-md-6">
+						<div class="col-lg-6">
 							<div class="d-flex align-items-center">
 								<span
-									class="avatar flex-shrink-0 avatar-xxl avatar-rounded me-3 border border-white border-3 position-relative">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="img">
+									class="avatar avatar-xxl avatar-rounded me-3 border border-white border-2 position-relative">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="">
 									<span class="verify-tick"><i class="isax isax-verify5"></i></span>
 								</span>
 								<div>
-									<h5 class="mb-1 text-white d-inline-flex align-items-center">Eugene Andre<a
+									<h5 class="mb-1 text-white d-inline-flex align-items-center">Ronald Richard<a
 											href="instructor-profile.html" class="link-light fs-16 ms-2"><i
 												class="isax isax-edit-2"></i></a></h5>
-									<p class="text-light">Instructor</p>
+									<p class="text-light">Student</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="d-flex align-items-center flex-wrap gap-3 justify-content-md-end">
-								<a href="add-course.html" class="btn btn-white rounded-pill">Add New Course</a>
-								<a href="student-dashboard.html" class="btn btn-secondary rounded-pill">Student
+						<div class="col-lg-6">
+							<div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
+								<a href="become-an-instructor.html" class="btn btn-white rounded-pill me-3">Become an
+									Instructor</a>
+								<a href="instructor-dashboard.html" class="btn btn-secondary rounded-pill">Instructor
 									Dashboard</a>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-- profile box -->
 				<div class="row">
 
                 <x-user.sidebar active="quiz"/>
 
-					<!-- /Sidebar -->
 					<div class="col-lg-9">
-						<h5 class="page-title">Quiz Results</h5>
-						<div class="card">
-							<div class="card-body">
-								<div class="d-sm-flex align-items-center">
-									<div class="quiz-img me-3 mb-2 mb-sm-0">
-										<img src="{{web_resource_url('assets/img/students/quiz.jpg')}}" alt="">
-									</div>
-									<div>
-										<h5 class="mb-2"><a href="#">Information About UI/UX Design Degree</a></h5>
-										<div class="question-info d-flex align-items-center">
-											<p class="d-flex align-items-center fs-14 me-2 pe-2 border-end mb-0"><i
-													class="isax isax-message-question5 text-primary-soft me-2"></i>25
-												Questions</p>
-											<p class="d-flex align-items-center fs-14 mb-0"><i
-													class="isax isax-clock5 text-secondary-soft me-2"></i>30 Minutes</p>
-										</div>
-									</div>
-								</div>
+						<div class="page-title d-flex align-items-center justify-content-between">
+							<h5>My Quiz Attempts</h5>
+						</div>
+						<div class="d-flex align-items-center justify-content-between border p-3 mb-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">Information About UI/UX Design
+										Degree</a></h6>
+								<p class="fs-14">Number of Questions : 05</p>
+							</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-4 col-md-6">
-								<div class="card bg-secondary-transparent border-0">
-									<div class="card-body">
-										<div class="d-flex align-items-center justify-content-between">
-											<div>
-												<h6 class="mb-1 fw-normal text-gray-5">Total Particpants</h6>
-												<span class="fs-20 fw-bold mb-1 d-block text-gray-9">30</span>
-											</div>
-											<div class="icon-box bg-soft-secondary">
-												<img src="{{web_resource_url('assets/img/icon/user-tick.svg')}}" alt="">
-											</div>
-										</div>
-									</div>
-								</div>
+						<div class="d-flex align-items-center justify-content-between border p-3 pb-3 mb-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">Learn JavaScript and Express to
+										become a Expert</a></h6>
+								<p class="fs-14">Number of Questions : 10</p>
 							</div>
-							<div class="col-lg-4 col-md-6">
-								<div class="card bg-info-transparent border-0">
-									<div class="card-body">
-										<div class="d-flex align-items-center justify-content-between">
-											<div>
-												<h6 class="mb-1 fw-normal text-gray-5">Scores</h6>
-												<span class="fs-20 fw-bold mb-1 d-block text-gray-9">03</span>
-											</div>
-											<div class="icon-box  bg-soft-info">
-												<img src="{{web_resource_url('assets/img/icon/document.svg')}}" alt="">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-6">
-								<div class="card bg-purple-transparent border-0">
-									<div class="card-body">
-										<div class="d-flex align-items-center justify-content-between">
-											<div>
-												<h6 class="mb-1 fw-normal text-gray-5">Average Time</h6>
-												<span class="fs-20 fw-bold mb-1 d-block text-gray-9">00:00:55</span>
-											</div>
-											<div class="icon-box  bg-soft-purple">
-												<img src="{{web_resource_url('assets/img/icon/clock.svg')}}" alt="">
-											</div>
-										</div>
-									</div>
-								</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
 							</div>
 						</div>
-						<div class="table-responsive custom-table">
-							<table class="table">
-								<thead class="thead-light">
-									<tr>
-										<th>Student Name</th>
-										<th>Score</th>
-										<th>Attemplts</th>
-										<th>Finish Time</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Thompson Hicks</a>
-											</div>
-										</td>
-										<td>75</td>
-										<td>04</td>
-										<td>22 Aug 2025, 09:00 AM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-06.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Jennifer Tovar</a>
-											</div>
-										</td>
-										<td>50</td>
-										<td>03</td>
-										<td>10 Aug 2025, 09:15 AM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-09.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">James Schulte</a>
-											</div>
-										</td>
-										<td>60</td>
-										<td>02</td>
-										<td>26 Jul 2025, 02:20 PM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-20.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Kristy Cardona</a>
-											</div>
-										</td>
-										<td>55</td>
-										<td>02</td>
-										<td>12 Jul 2025, 11:40 AM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-27.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">William Aragon</a>
-											</div>
-										</td>
-										<td>45</td>
-										<td>04</td>
-										<td>02 Jul 2025, 04:30 PM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-30.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Shirley Lis</a>
-											</div>
-										</td>
-										<td>60</td>
-										<td>01</td>
-										<td>25 Jun 2025, 08:10 AM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-17.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">John Brewer</a>
-											</div>
-										</td>
-										<td>45</td>
-										<td>02</td>
-										<td>17 Jun 2025, 06:30 PM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-37.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Doris Hughes</a>
-											</div>
-										</td>
-										<td>65</td>
-										<td>03</td>
-										<td>04 Jun 2025, 05:00 PM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-04.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Sarah Martinez</a>
-											</div>
-										</td>
-										<td>70</td>
-										<td>04</td>
-										<td>20 May 2025, 06:30 PM</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="student-details.html"
-													class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-													<img src="{{web_resource_url('assets/img/user/user-18.jpg')}}" alt="">
-												</a>
-												<a href="student-details.html" class="fs-14">Sarah Martinez</a>
-											</div>
-										</td>
-										<td>40</td>
-										<td>03</td>
-										<td>15 May 2025, 01:40 PM</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="d-flex align-items-center justify-content-between border p-3 pb-3 mb-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">Introduction to Python
+										Programming</a></h6>
+								<p class="fs-14">Number of Questions : 08</p>
+							</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
+							</div>
+						</div>
+						<div class="d-flex align-items-center justify-content-between border p-3 pb-3 mb-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">Build Responsive Websites with
+										HTML5 and CSS3</a></h6>
+								<p class="fs-14">Number of Questions : 05</p>
+							</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
+							</div>
+						</div>
+						<div class="d-flex align-items-center justify-content-between border p-3 pb-3 mb-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">Information About Photoshop
+										Design Degree</a></h6>
+								<p class="fs-14">Number of Questions : 10</p>
+							</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
+							</div>
+						</div>
+						<div class="d-flex align-items-center justify-content-between border p-3 rounded-2">
+							<div>
+								<h6 class="mb-1"><a href="student-quiz-questions.html">C# Developers Double Your Coding
+										with Visual Studio</a></h6>
+								<p class="fs-14">Number of Questions : 07</p>
+							</div>
+							<div>
+								<a href="student-quiz-questions.html" class="arrow-next"><i
+										class="isax isax-arrow-right-1"></i></a>
+							</div>
 						</div>
 						<!-- /pagination -->
-						<div class="row align-items-center mt-4">
+						<div class="row align-items-center mt-3">
 							<div class="col-md-2">
 								<p class="pagination-text">Page 1 of 2</p>
 							</div>
@@ -725,258 +570,56 @@
 				</div>
 			</div>
 		</div>
-		<!-- Footer -->
-{{--		<footer class="footer">--}}
-{{--			<div class="footer-bg">--}}
-{{--				<img src="{{web_resource_url('assets/img/bg/footer-bg-01.png')}}" class="footer-bg-1" alt="">--}}
-{{--				<img src="{{web_resource_url('assets/img/bg/footer-bg-02.png')}}" class="footer-bg-2" alt="">--}}
-{{--			</div>--}}
-{{--			<div class="footer-top">--}}
-{{--				<div class="container">--}}
-{{--					<div class="row row-gap-4">--}}
-{{--						<div class="col-lg-4">--}}
-{{--							<div class="footer-about">--}}
-{{--								<div class="footer-logo">--}}
-{{--									<img src="{{web_resource_url('assets/img/logo.png')}}" alt="">--}}
-{{--								</div>--}}
-{{--								<p>Platform designed to help organizations, educators, and learners manage, deliver, and--}}
-{{--									track learning and training activities.</p>--}}
-{{--								<div class="d-flex align-items-center">--}}
-{{--									<a href="#" class="me-2"><img src="{{web_resource_url('assets/img/icon/appstore.svg')}}" alt=""></a>--}}
-{{--									<a href="#"><img src="{{web_resource_url('assets/img/icon/googleplay.svg')}}" alt=""></a>--}}
-{{--								</div>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-{{--						<div class="col-lg-8">--}}
-{{--							<div class="row row-gap-4">--}}
-{{--								<div class="col-lg-3">--}}
-{{--									<div class="footer-widget footer-menu">--}}
-{{--										<h5 class="footer-title">For Instructor</h5>--}}
-{{--										<ul>--}}
-{{--											<li><a href="course-grid.html">Search Mentors</a></li>--}}
-{{--											<li><a href="login.html">Login</a></li>--}}
-{{--											<li><a href="register.html">Register</a></li>--}}
-{{--											<li><a href="course-list.html">Booking</a></li>--}}
-{{--											<li><a href="student-dashboard.html">Students Dashboard</a></li>--}}
-{{--										</ul>--}}
-{{--									</div>--}}
-{{--								</div>--}}
-{{--								<div class="col-lg-3">--}}
-{{--									<div class="footer-widget footer-menu">--}}
-{{--										<h5 class="footer-title">For Student</h5>--}}
-{{--										<ul>--}}
-{{--											<li><a href="javascript:void(0);">Appointments</a></li>--}}
-{{--											<li><a href="instructor-message.html">Chat</a></li>--}}
-{{--											<li><a href="login.html">Login</a></li>--}}
-{{--											<li><a href="register.html">Register</a></li>--}}
-{{--											<li><a href="instructor-dashboard.html">Instructor Dashboard</a></li>--}}
-{{--										</ul>--}}
-{{--									</div>--}}
-{{--								</div>--}}
-{{--								<div class="col-lg-6">--}}
-{{--									<div class="footer-widget footer-contact">--}}
-{{--										<h5 class="footer-title">Newsletter</h5>--}}
-{{--										<div class="subscribe-input">--}}
-{{--											<form action="javascript:void(0);">--}}
-{{--												<input type="email" class="form-control"--}}
-{{--													placeholder="Enter your Email Address">--}}
-{{--												<button type="submit"--}}
-{{--													class="btn btn-primary btn-sm inline-flex align-items-center"><i--}}
-{{--														class="isax isax-send-2 me-1"></i>Subscribe</button>--}}
-{{--											</form>--}}
-{{--										</div>--}}
-{{--										<div class="footer-contact-info">--}}
-{{--											<div class="footer-address d-flex align-items-center">--}}
-{{--												<img src="{{web_resource_url('assets/img/icon/icon-20.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--												<p> 7/F - 8/F,<br> HS Centre,<br>5 Lok Yip Road,<br>Fanling,--}}
-{{--													N.T,<br>Hong--}}
-{{--													Kong</p>--}}
-{{--											</div>--}}
-{{--											<div class="footer-address d-flex align-items-center">--}}
-{{--												<img src="{{web_resource_url('assets/img/icon/icon-19.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--												<p><a href="/cdn-cgi/l/email-protection"--}}
-{{--														class="__cf_email__">eric@arrogatemaker.com</a>--}}
-{{--												</p>--}}
-{{--											</div>--}}
-{{--											<div class="footer-address d-flex align-items-center">--}}
-{{--												<img src="{{web_resource_url('assets/img/icon/icon-21.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--												<p>+852 xxxx xxxx</p>--}}
-{{--											</div>--}}
-{{--										</div>--}}
-{{--									</div>--}}
-{{--								</div>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-{{--					</div>--}}
-{{--				</div>--}}
-{{--			</div>--}}
-{{--			<div class="footer-bottom">--}}
-{{--				<div class="container">--}}
-{{--					<div class="row row-gap-2">--}}
-{{--						<div class="col-md-6">--}}
-{{--							<div class="text-center text-md-start">--}}
-{{--								<p class="text-white">Copyright &copy; 2025 Arrogate Maker Limited. All rights reserved.--}}
-{{--								</p>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-{{--						<div class="col-md-6">--}}
-{{--							<div>--}}
-{{--								<ul--}}
-{{--									class="d-flex align-items-center justify-content-center justify-content-md-end footer-link">--}}
-{{--									<li><a href="terms-and-conditions.html">Terms & Conditions</a></li>--}}
-{{--									<li><a href="privacy-policy.html">Privacy Policy</a></li>--}}
-{{--								</ul>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-{{--					</div>--}}
-{{--				</div>--}}
-{{--			</div>--}}
-{{--		</footer>--}}
-		<!-- /Footer -->
 
-		<!-- Add Question -->
-		<div class="modal fade" id="add_quiz">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
+
+    <x-footer/>
+
+		<!-- Edit Review -->
+		<div class="modal fade" id="edit_review">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="fw-bold">Add New Quiz</h5>
+						<h5>Edit Review</h5>
 						<button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
 							aria-label="Close">
 							<i class="isax isax-close-circle5"></i>
 						</button>
 					</div>
-					<form action="instructor-quiz-questions.html">
-						<div class="modal-body pb-0">
-							<div class="mb-3">
-								<label class="form-label">Course <span class="text-danger"> *</span></label>
-								<select class="select">
-									<option>Select</option>
-									<option>Multiple choice</option>
-									<option>Learn JavaScript and Express to become a Expert</option>
-									<option>Introduction to Python Programming</option>
-								</select>
-							</div>
-							<div class="mb-3">
-								<label class="form-label">Quiz Title <span class="text-danger"> *</span></label>
-								<input type="text" class="form-control">
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">No of Questions <span class="text-danger">
-												*</span></label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Total Marks <span class="text-danger">
-												*</span></label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Pass Mark <span class="text-danger"> *</span></label>
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Duration <span class="text-danger"> *</span></label>
-										<div class="input-icon-end position-relative">
-											<input type="text" class="form-control timepicker" placeholder="dd/mm/yyyy"
-												value="02-05-2024">
-											<span class="input-icon-addon">
-												<i class="isax isax-clock"></i>
-											</span>
-										</div>
+					<div class="modal-body pb-0">
+						<div class="mb-3">
+							<label class="form-label fs-14">Your Rating <span class="text-danger">*</span></label>
+							<div class="selection-wrap">
+								<div class="d-inline-block">
+									<div class="rating-selction">
+										<input type="radio" name="rating" value="5" id="rating5" checked="">
+										<label for="rating5"><i class="fa-solid fa-star"></i></label>
+										<input type="radio" name="rating" value="4" id="rating4" checked="">
+										<label for="rating4"><i class="fa-solid fa-star"></i></label>
+										<input type="radio" name="rating" value="3" id="rating3" checked="">
+										<label for="rating3"><i class="fa-solid fa-star"></i></label>
+										<input type="radio" name="rating" value="2" id="rating2">
+										<label for="rating2"><i class="fa-solid fa-star"></i></label>
+										<input type="radio" name="rating" value="1" id="rating1">
+										<label for="rating1"><i class="fa-solid fa-star"></i></label>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="modal-footer">
-							<button class="btn bg-gray-100 rounded-pill me-2" type="button"
-								data-bs-dismiss="modal">Cancel</button>
-							<button class="btn btn-secondary rounded-pill" type="submit">Add Quiz</button>
+						<div class="mb-3">
+							<label class="form-label fs-14">Write Your Review <span class="text-danger">*</span></label>
+							<textarea class="form-control"
+								rows="3">This is the second Photoshop course I have completed with Nancy Duarte. Worth every penny and recommend it highly. To get the most out of this course, its best to to take the Beginner to Advanced course first. The sound and video quality is of a good standard. Thank you Nancy Duarte.</textarea>
 						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- /Add Question -->
-
-		<!-- Edit Question -->
-		<div class="modal fade" id="edit_quiz">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="fw-bold">Edit Quiz</h5>
-						<button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-							aria-label="Close">
-							<i class="isax isax-close-circle5"></i>
-						</button>
 					</div>
-					<form action="instructor-quiz-questions.html">
-						<div class="modal-body pb-0">
-							<div class="mb-3">
-								<label class="form-label">Course <span class="text-danger"> *</span></label>
-								<select class="select">
-									<option>Select</option>
-									<option selected="">Information About UI/UX Design Degree</option>
-									<option>Learn JavaScript and Express to become a Expert</option>
-									<option>Introduction to Python Programming</option>
-								</select>
-							</div>
-							<div class="mb-3">
-								<label class="form-label">Quiz Title <span class="text-danger"> *</span></label>
-								<input type="text" class="form-control" value="Information About UI/UX Design Degree">
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">No of Questions <span class="text-danger">
-												*</span></label>
-										<input type="text" class="form-control" value="10">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Total Marks <span class="text-danger">
-												*</span></label>
-										<input type="text" class="form-control" value="100">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Pass Mark <span class="text-danger"> *</span></label>
-										<input type="text" class="form-control" value="50">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-										<label class="form-label">Duration <span class="text-danger"> *</span></label>
-										<div class="input-icon-end position-relative">
-											<input type="text" class="form-control timepicker" placeholder="dd/mm/yyyy"
-												value="02-05-2024">
-											<span class="input-icon-addon">
-												<i class="isax isax-clock"></i>
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button class="btn bg-gray-100 rounded-pill me-2" type="button"
-								data-bs-dismiss="modal">Cancel</button>
-							<button class="btn btn-secondary rounded-pill" type="submit">Save Changes</button>
-						</div>
-					</form>
+					<div class="modal-footer">
+						<a href="javascript:void(0);" class="btn bg-gray-100 btn-light rounded-pill me-2"
+							data-bs-dismiss="modal">Cancel</a>
+						<button type="submit" class="btn btn-md btn-secondary rounded-pill">Save Changes</button>
+					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /Edit Question -->
+		<!-- /Edit Review -->
 
 		<!-- Delete Modal -->
 		<div class="modal fade" id="delete_modal">
@@ -987,12 +630,11 @@
 							<i class="isax isax-trash fs-24 text-danger"></i>
 						</span>
 						<div>
-							<h4 class="mb-2">Delete Quiz</h4>
-							<p class="mb-3">Are you sure you want to delete Quiz?</p>
+							<h4 class="mb-2">Delete Review</h4>
+							<p class="mb-3">Are you sure you want to delete review?</p>
 							<div class="d-flex align-items-center justify-content-center">
-								<a href="javascript:void(0);" class="btn bg-gray-100 rounded-pill me-2"
-									data-bs-dismiss="modal">Cancel</a>
-								<a href="javascript:void(0);" class="btn btn-secondary rounded-pill">Yes, Delete</a>
+								<a href="#" class="btn bg-gray-100 rounded-pill me-2" data-bs-dismiss="modal">Cancel</a>
+								<a href="#" class="btn btn-secondary rounded-pill">Yes, Remove All</a>
 							</div>
 						</div>
 					</div>
@@ -1001,8 +643,6 @@
 		</div>
 		<!-- /Delete Modal -->
 
-
-    <x-footer/>
 	</div>
 
 </body>

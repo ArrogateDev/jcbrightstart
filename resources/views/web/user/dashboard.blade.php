@@ -13,21 +13,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <div class="d-flex align-items-center ">
                         <p class="d-flex align-items-center fw-medium fs-14 mb-2 me-3"><i
-                                class="isax isax-location5 me-2"></i>Fanling, Hong Kong</p>
+                                class="isax isax-location me-2"></i>Fanling, Hong Kong</p>
                         <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i
                                 class="isax isax-call-calling5 me-2"></i>+852 xxxx xxxx</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                    <div class="d-flex align-items-center justify-content-end">
                         <div class="dropdown flag-dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
                             </a>
-                            <ul class="dropdown-menu p-2 mt-2">
+                            <ul class="dropdown-menu p-2 mt-2" style="">
                                 <li>
                                     <a class="dropdown-item rounded d-flex align-items-center"
                                        href="javascript:void(0);">
@@ -232,10 +232,10 @@
                         <li class="has-submenu active">
                             <a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
                             <ul class="submenu">
-                                <li class="has-submenu active">
+                                <li class="has-submenu">
                                     <a href="javascript:void(0);">Instructor Dashboard</a>
                                     <ul class="submenu">
-                                        <li class="active"><a href="instructor-dashboard.html">Dashboard</a></li>
+                                        <li><a href="instructor-dashboard.html">Dashboard</a></li>
                                         <li><a href="instructor-profile.html">My Profile</a></li>
                                         <li><a href="instructor-course.html">Course</a></li>
                                         <li><a href="instructor-announcements.html">Announcements</a></li>
@@ -258,10 +258,11 @@
                                         <li><a href="instructor-settings.html">Settings</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu">
+                                <li class="has-submenu active">
                                     <a href="javascript:void(0);">Student Dashboard</a>
                                     <ul class="submenu">
-                                        <li><a href="student-dashboard.html">Student Dashboard</a></li>
+                                        <li class="active"><a href="student-dashboard.html">Student Dashboard</a>
+                                        </li>
                                         <li><a href="student-profile.html">My Profile</a></li>
                                         <li><a href="student-courses.html">Enrolled Courses</a></li>
                                         <li><a href="student-certificates.html">My Certificates</a></li>
@@ -368,17 +369,17 @@
                     <div class="dropdown profile-dropdown">
                         <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
 								<span class="avatar">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img" class="img-fluid rounded-circle">
 								</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="profile-header d-flex align-items-center">
                                 <div class="avatar">
-                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"
+                                    <img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img"
                                          class="img-fluid rounded-circle">
                                 </div>
                                 <div>
-                                    <h6>Eugene Andre</h6>
+                                    <h6>Ronald Richard</h6>
                                     <p><a href="/cdn-cgi/l/email-protection"
                                           class="__cf_email__">eric@arrogatemaker.com</a>
                                     </p>
@@ -387,38 +388,34 @@
                             <ul class="profile-body">
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-profile.html"><i
-                                            class="isax isax-security-user me-2"></i>My Profile</a>
+                                       href="student-profile.html"><i class="isax isax-security-user me-2"></i>My
+                                        Profile</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-course.html"><i
-                                            class="isax isax-teacher me-2"></i>Courses</a>
+                                       href="student-quiz.html"><i class="isax isax-award me-2"></i>Quiz
+                                        Attempts</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"
-                                       href="instructor-earnings.html"><i
-                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>
+                                       href="student-order-history.html"><i
+                                            class="isax isax-shopping-cart me-2"></i>Order History</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-message.html"><i
+                                       href="student-messages.html"><i
                                             class="isax isax-messages-3 me-2"></i>Messages<span
                                             class="message-count">2</span></a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-settings.html"><i
+                                       href="student-settings.html"><i
                                             class="isax isax-setting-2 me-2"></i>Settings</a>
                                 </li>
                             </ul>
                             <div class="profile-footer">
                                 <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>
+                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Instructor</a>
                                 <a href="index.html"
                                    class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i
                                         class="isax isax-logout me-2"></i>Logout</a>
@@ -431,52 +428,76 @@
     </header>
     <!-- /Header -->
 
-    <x-user.breadcrumb/>
+    <x-user.breadcrumb title="Dashboard"/>
 
     <div class="content">
         <div class="container">
-            <div class="instructor-profile">
-                <div class="instructor-profile-bg">
-                    <img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="instructor-profile-bg-1" alt="">
+            <!-- profile box -->
+            <div class="profile-card overflow-hidden bg-blue-gradient2 mb-5 p-5">
+                <div class="profile-card-bg">
+                    <img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="profile-card-bg-1" alt="">
                 </div>
                 <div class="row align-items-center row-gap-3">
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="d-flex align-items-center">
 								<span
-                                    class="avatar flex-shrink-0 avatar-xxl avatar-rounded me-3 border border-white border-3 position-relative">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="img">
+                                    class="avatar avatar-xxl avatar-rounded me-3 border border-white border-2 position-relative">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="">
 									<span class="verify-tick"><i class="isax isax-verify5"></i></span>
 								</span>
                             <div>
-                                <h5 class="mb-1 text-white d-inline-flex align-items-center">Eugene Andre<a
+                                <h5 class="mb-1 text-white d-inline-flex align-items-center"><a
+                                        href="student-details.html">Ronald Richard</a><a
                                         href="instructor-profile.html" class="link-light fs-16 ms-2"><i
                                             class="isax isax-edit-2"></i></a></h5>
-                                <p class="text-light">Instructor</p>
+                                <p class="text-light">Student</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center flex-wrap gap-3 justify-content-md-end">
-                            <a href="add-course.html" class="btn btn-white rounded-pill">Add New Course</a>
-                            <a href="student-dashboard.html" class="btn btn-secondary rounded-pill">Student
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
+                            <a href="become-an-instructor.html" class="btn btn-white rounded-pill me-3">Become an
+                                Instructor</a>
+                            <a href="instructor-dashboard.html" class="btn btn-secondary rounded-pill">Instructor
                                 Dashboard</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- profile box -->
             <div class="row">
 
-                <x-user.sidebar/>
+                <x-user.sidebar active="dashboard"/>
 
                 <div class="col-lg-9">
+                    <div class="card bg-light quiz-ans-card">
+                        <img src="{{web_resource_url('assets/img/shapes/withdraw-bg1.svg')}}" class="quiz-ans-bg1" alt="img">
+                        <img src="{{web_resource_url('assets/img/shapes/withdraw-bg2.svg')}}" class="quiz-ans-bg2" alt="img">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div>
+                                        <h6 class="mb-1">Quiz : Build Responsive Real World </h6>
+                                        <p>Answered : 15/22</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-end">
+                                        <a href="student-quiz.html" class="btn btn-primary rounded-pill">Continue
+                                            Quiz</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 col-xl-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-											<span class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/graduation.svg')}}" alt="">
-											</span>
+											<span
+                                                class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0"><img
+                                                    src="{{web_resource_url('assets/img/icon/graduation.svg')}}" alt=""></span>
                                         <div>
                                             <span class="d-block">Enrolled Courses</span>
                                             <h4 class="fs-24 mt-1">12</h4>
@@ -489,12 +510,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-											<span class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book.svg')}}" alt="">
-											</span>
+											<span
+                                                class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0"><img
+                                                    src="{{web_resource_url('assets/img/icon/book.svg')}}" alt=""></span>
                                         <div>
                                             <span class="d-block">Active Courses</span>
-                                            <h4 class="fs-24 mt-1">08</h4>
+                                            <h4 class="fs-24 mt-1">03</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -504,177 +525,357 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-											<span class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/bookmark.svg')}}" alt="">
-											</span>
+											<span
+                                                class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0"><img
+                                                    src="{{web_resource_url('assets/img/icon/bookmark.svg')}}" alt=""></span>
                                         <div>
                                             <span class="d-block">Completed Courses</span>
-                                            <h4 class="fs-24 mt-1">06</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-info-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/user-octagon.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Students</span>
-                                            <h4 class="fs-24 mt-1">17</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-blue-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book-2.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Courses</span>
-                                            <h4 class="fs-24 mt-1">11</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-purple-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/money-add.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Earnings</span>
-                                            <h4 class="fs-24 mt-1">$486</h4>
+                                            <h4 class="fs-24 mt-1">10</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div
-                                class="d-flex align-items-center flex-wrap gap-3 justify-content-between border-bottom mb-2 pb-3">
-                                <h5 class="fw-bold">Earnings by Year</h5>
-                                <div class="input-icon position-relative input-range-picker">
-										<span class="input-icon-addon">
-											<i class="isax isax-calendar"></i>
-										</span>
-                                    <input type="text" class="form-control date-range bookingrange"
-                                           placeholder="dd/mm/yyyy - dd/mm/yyyy">
+                    <h5 class="mb-3 fs-18">Recently Enrolled Courses</h5>
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <div class="course-item-two course-item mx-0">
+                                <div class="course-img">
+                                    <a href="course-details.html">
+                                        <img src="{{web_resource_url('assets/img/course/course-01.jpg')}}" alt="img" class="img-fluid">
+                                    </a>
+                                    <div
+                                        class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-3">
+                                        <div class="badge text-bg-danger">15% off</div>
+                                        <a href="javascript:void(0);" class="fav-icon ms-auto"><i
+                                                class="isax isax-heart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="course-content">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <a href="instructor-details.html" class="avatar avatar-sm">
+                                                <img src="{{web_resource_url('assets/img/user/user-29.jpg')}}" alt="img"
+                                                     class="img-fluid avatar avatar-sm rounded-circle">
+                                            </a>
+                                            <div class="ms-2">
+                                                <a href="instructor-details.html" class="link-default fs-14">Brenda
+                                                    Slaton</a>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium mb-0">
+												Design
+											</span>
+                                    </div>
+                                    <h6 class="title mb-2"><a href="course-details.html">Information About UI/UX
+                                            Design Degree</a></h6>
+                                    <p class="d-flex align-items-center mb-3"><i
+                                            class="fa-solid fa-star text-warning me-2"></i>4.9 (200 Reviews)</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h5 class="text-secondary mb-0">$120</h5>
+                                        <a href="course-details.html"
+                                           class="btn btn-dark btn-sm d-inline-flex align-items-center">View
+                                            Course<i class="isax isax-arrow-right-3 ms-1"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="earnnings_chart"></div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="course-item-two course-item mx-0">
+                                <div class="course-img">
+                                    <a href="course-details.html">
+                                        <img src="{{web_resource_url('assets/img/course/course-02.jpg')}}" alt="img" class="img-fluid">
+                                    </a>
+                                    <div
+                                        class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-3">
+                                        <a href="javascript:void(0);" class="fav-icon ms-auto"><i
+                                                class="isax isax-heart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="course-content">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <a href="instructor-details.html" class="avatar avatar-sm">
+                                                <img src="{{web_resource_url('assets/img/user/user-30.jpg')}}" alt="img"
+                                                     class="img-fluid avatar avatar-sm rounded-circle">
+                                            </a>
+                                            <div class="ms-2">
+                                                <a href="instructor-details.html" class="link-default fs-14">Ana
+                                                    Reyes</a>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium mb-0">
+												Wordpress
+											</span>
+                                    </div>
+                                    <h6 class="title mb-2"><a href="course-details.html">Wordpress for Beginners -
+                                            Master Wordpress Quickly</a></h6>
+                                    <p class="d-flex align-items-center mb-3"><i
+                                            class="fa-solid fa-star text-warning me-2"></i>4.4 (160 Reviews)</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h5 class="text-secondary mb-0">$140</h5>
+                                        <a href="course-details.html"
+                                           class="btn btn-dark btn-sm d-inline-flex align-items-center">View
+                                            Course<i class="isax isax-arrow-right-3 ms-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="course-item-two course-item mx-0">
+                                <div class="course-img">
+                                    <a href="course-details.html">
+                                        <img src="{{web_resource_url('assets/img/course/course-03.jpg')}}" alt="img" class="img-fluid">
+                                    </a>
+                                    <div
+                                        class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-3">
+                                        <a href="javascript:void(0);" class="fav-icon ms-auto"><i
+                                                class="isax isax-heart"></i></a>
+                                    </div>
+                                </div>
+                                <div class="course-content">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <a href="instructor-details.html" class="avatar avatar-sm">
+                                                <img src="{{web_resource_url('assets/img/user/user-31.jpg')}}" alt="img"
+                                                     class="img-fluid avatar avatar-sm rounded-circle">
+                                            </a>
+                                            <div class="ms-2">
+                                                <a href="instructor-details.html" class="link-default fs-14">Andrew
+                                                    Pirtle</a>
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium mb-0">
+												Design
+											</span>
+                                    </div>
+                                    <h6 class="title mb-2"><a href="course-details.html">Sketch from A to Z (2024):
+                                            Become an app designer</a></h6>
+                                    <p class="d-flex align-items-center mb-3"><i
+                                            class="fa-solid fa-star text-warning me-2"></i>4.4 (160 Reviews)</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h5 class="text-secondary mb-0">$140</h5>
+                                        <a href="course-details.html"
+                                           class="btn btn-dark btn-sm d-inline-flex align-items-center">View
+                                            Course<i class="isax isax-arrow-right-3 ms-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <h5 class="mb-3 fw-bold">Recently Created Courses</h5>
-                    <div class="table-responsive custom-table">
-                        <table class="table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>Courses</th>
-                                <th>Enrolled</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-01.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Complete HTML,
-                                                    CSS and Javascript<br> Course</a></p>
+                    <div>
+
+                        <div class="row">
+                            <div class="col-xl-7">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="mb-3 border-bottom pb-3 fs-18">Recent Invoices</h5>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-wrap row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Build Responsive Real World Websites..</h6>
+                                                <div class="d-flex align-items-center">
+														<span
+                                                            class="badge badge-sm bg-light border d-inline-flex me-3">#INV001</span>
+                                                    <p class="small">Amount : <span
+                                                            class="heading-color fw-semibold">$200</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+													<span
+                                                        class="badge fw-normal bg-success d-inline-flex align-items-center me-1"><i
+                                                            class="fa-solid fa-circle fs-5 me-1"></i>Paid</span>
+                                                <a href="#" class="action-icon"><i
+                                                        class="isax isax-document-download"></i></a>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-wrap row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Wordpress for Beginners</h6>
+                                                <div class="d-flex align-items-center">
+														<span
+                                                            class="badge badge-sm bg-light border d-inline-flex me-3">#INV002</span>
+                                                    <p class="small">Amount : <span
+                                                            class="heading-color fw-semibold">$310</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+													<span
+                                                        class="badge fw-normal bg-success d-inline-flex align-items-center me-1"><i
+                                                            class="fa-solid fa-circle fs-5 me-1"></i>Paid</span>
+                                                <a href="#" class="action-icon"><i
+                                                        class="isax isax-document-download"></i></a>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-wrap row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Information About UI/UX Design Degree</h6>
+                                                <div class="d-flex align-items-center">
+														<span
+                                                            class="badge badge-sm bg-light border d-inline-flex me-3">#INV003</span>
+                                                    <p class="small">Amount : <span
+                                                            class="heading-color fw-semibold">$270</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+													<span
+                                                        class="badge fw-normal bg-success d-inline-flex align-items-center me-1"><i
+                                                            class="fa-solid fa-circle fs-5 me-1"></i>Paid</span>
+                                                <a href="#" class="action-icon"><i
+                                                        class="isax isax-document-download"></i></a>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-wrap row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Sketch from A to Z (2024)</h6>
+                                                <div class="d-flex align-items-center">
+														<span
+                                                            class="badge badge-sm bg-light border d-inline-flex me-3">#INV004</span>
+                                                    <p class="small">Amount : <span
+                                                            class="heading-color fw-semibold">$180</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+													<span
+                                                        class="badge fw-normal bg-success d-inline-flex align-items-center me-1"><i
+                                                            class="fa-solid fa-circle fs-5 me-1"></i>Paid</span>
+                                                <a href="#" class="action-icon"><i
+                                                        class="isax isax-document-download"></i></a>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
+                                            <div>
+                                                <h6 class="mb-1">Become an app designer</h6>
+                                                <div class="d-flex align-items-center">
+														<span
+                                                            class="badge badge-sm bg-light border d-inline-flex me-3">#INV005</span>
+                                                    <p class="small">Amount : <span
+                                                            class="heading-color fw-semibold">$220</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+													<span
+                                                        class="badge fw-normal bg-success d-inline-flex align-items-center me-1"><i
+                                                            class="fa-solid fa-circle fs-5 me-1"></i>Paid</span>
+                                                <a href="#" class="action-icon"><i
+                                                        class="isax isax-document-download"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
-                                <td>0</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-02.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Complete Course
-                                                    on Fullstack Web<br> Developer</a></p>
+                                </div>
+                            </div>
+                            <div class="col-xl-5">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <h5 class="mb-3 fs-18 border-bottom pb-3">Latest Quizes</h5>
+                                        <div
+                                            class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Sketch from A to Z (2024)</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <p>Correct Answer : 15/22</p>
+                                                </div>
+                                            </div>
+                                            <div class="circle-progress flex-shrink-0" data-value='95'>
+													<span class="progress-left">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <span class="progress-right">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <div class="progress-value">95%</div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Build Responsive Real World </h6>
+                                                <div class="d-flex align-items-center">
+                                                    <p>Correct Answer : 18/22</p>
+                                                </div>
+                                            </div>
+                                            <div class="circle-progress flex-shrink-0" data-value='100'>
+													<span class="progress-left">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <span class="progress-right">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <div class="progress-value">100%</div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">UI/UX Design Degree</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <p>Correct Answer : 25/30</p>
+                                                </div>
+                                            </div>
+                                            <div class="circle-progress flex-shrink-0" data-value='80'>
+													<span class="progress-left">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <span class="progress-right">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <div class="progress-value">80%</div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between row-gap-2 mb-3">
+                                            <div>
+                                                <h6 class="mb-1">Build Responsive Real World </h6>
+                                                <div class="d-flex align-items-center">
+                                                    <p>Correct Answer : 15/20</p>
+                                                </div>
+                                            </div>
+                                            <div class="circle-progress flex-shrink-0" data-value='85'>
+													<span class="progress-left">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <span class="progress-right">
+														<span class="progress-bar border-success"></span>
+													</span>
+                                                <div class="progress-value">85%</div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between row-gap-2">
+                                            <div>
+                                                <h6 class="mb-1">Become an app designer</h6>
+                                                <div class="d-flex align-items-center">
+                                                    <p>Correct Answer : 12/20</p>
+                                                </div>
+                                            </div>
+                                            <div class="circle-progress flex-shrink-0" data-value='20'>
+													<span class="progress-left">
+														<span class="progress-bar border-danger"></span>
+													</span>
+                                                <span class="progress-right">
+														<span class="progress-bar border-danger"></span>
+													</span>
+                                                <div class="progress-value">20%</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
-                                <td>2</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-03.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Data Science
-                                                    Fundamentals and<br> Advanced Bootcampr</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-04.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Master
-                                                    Microservices with Spring Boot<br> and Spring Cloud</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-05.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Information About
-                                                    UI/UX Design<br> Degree</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>0</td>
-                                <td>Published</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <x-footer/>
 

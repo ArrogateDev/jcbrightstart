@@ -232,7 +232,7 @@
                         <li class="has-submenu active">
                             <a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
                             <ul class="submenu">
-                                <li class="has-submenu active">
+                                <li class="has-submenu">
                                     <a href="javascript:void(0);">Instructor Dashboard</a>
                                     <ul class="submenu">
                                         <li><a href="instructor-dashboard.html">Dashboard</a></li>
@@ -250,8 +250,7 @@
                                         </li>
                                         <li><a href="instructor-quiz.html">Quiz</a></li>
                                         <li><a href="instructor-quiz-results.html">Quiz Results</a></li>
-                                        <li class="active"><a href="instructor-certificate.html">Certificates</a>
-                                        </li>
+                                        <li><a href="instructor-certificate.html">Certificates</a></li>
                                         <li><a href="instructor-earnings.html">Earning</a></li>
                                         <li><a href="instructor-payout.html">Payout</a></li>
                                         <li><a href="instructor-statements.html">Statement</a></li>
@@ -259,13 +258,14 @@
                                         <li><a href="instructor-settings.html">Settings</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-submenu">
+                                <li class="has-submenu active">
                                     <a href="javascript:void(0);">Student Dashboard</a>
                                     <ul class="submenu">
                                         <li><a href="student-dashboard.html">Student Dashboard</a></li>
                                         <li><a href="student-profile.html">My Profile</a></li>
                                         <li><a href="student-courses.html">Enrolled Courses</a></li>
-                                        <li><a href="student-certificates.html">My Certificates</a></li>
+                                        <li class="active"><a href="student-certificates.html">My Certificates</a>
+                                        </li>
                                         <li><a href="student-wishlist.html">Wishlist</a></li>
                                         <li><a href="student-reviews.html">Reviews</a></li>
                                         <li><a href="student-quiz.html">My Quiz Attempts</a></li>
@@ -369,17 +369,17 @@
                     <div class="dropdown profile-dropdown">
                         <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
 								<span class="avatar">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img" class="img-fluid rounded-circle">
 								</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="profile-header d-flex align-items-center">
                                 <div class="avatar">
-                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"
+                                    <img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="Img"
                                          class="img-fluid rounded-circle">
                                 </div>
                                 <div>
-                                    <h6>Eugene Andre</h6>
+                                    <h6>Ronald Richard</h6>
                                     <p><a href="/cdn-cgi/l/email-protection"
                                           class="__cf_email__">eric@arrogatemaker.com</a>
                                     </p>
@@ -388,38 +388,34 @@
                             <ul class="profile-body">
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-profile.html"><i
-                                            class="isax isax-security-user me-2"></i>My Profile</a>
+                                       href="student-profile.html"><i class="isax isax-security-user me-2"></i>My
+                                        Profile</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-course.html"><i
-                                            class="isax isax-teacher me-2"></i>Courses</a>
+                                       href="student-quiz.html"><i class="isax isax-award me-2"></i>Quiz
+                                        Attempts</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"
-                                       href="instructor-earnings.html"><i
-                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>
+                                       href="student-order-history.html"><i
+                                            class="isax isax-shopping-cart me-2"></i>Order History</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-message.html"><i
+                                       href="student-messages.html"><i
                                             class="isax isax-messages-3 me-2"></i>Messages<span
                                             class="message-count">2</span></a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                       href="instructor-settings.html"><i
+                                       href="student-settings.html"><i
                                             class="isax isax-setting-2 me-2"></i>Settings</a>
                                 </li>
                             </ul>
                             <div class="profile-footer">
                                 <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>
+                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Instructor</a>
                                 <a href="index.html"
                                    class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i
                                         class="isax isax-logout me-2"></i>Logout</a>
@@ -432,317 +428,174 @@
     </header>
     <!-- /Header -->
 
-
     <x-user.breadcrumb title="My Certificates"/>
 
     <div class="content">
         <div class="container">
-            <div class="instructor-profile">
-                <div class="instructor-profile-bg">
-                    <img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="instructor-profile-bg-1" alt="">
+
+            <!-- Profile -->
+            <div class="profile-card overflow-hidden bg-blue-gradient2 mb-5 p-5">
+                <div class="profile-card-bg">
+                    <img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="profile-card-bg-1" alt="">
                 </div>
                 <div class="row align-items-center row-gap-3">
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                         <div class="d-flex align-items-center">
 								<span
-                                    class="avatar flex-shrink-0 avatar-xxl avatar-rounded me-3 border border-white border-3 position-relative">
-									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="img">
+                                    class="avatar avatar-xxl avatar-rounded me-3 border border-white border-2 position-relative">
+									<img src="{{web_resource_url('assets/img/user/user-02.jpg')}}" alt="">
 									<span class="verify-tick"><i class="isax isax-verify5"></i></span>
 								</span>
                             <div>
-                                <h5 class="mb-1 text-white d-inline-flex align-items-center">Eugene Andre<a
-                                        href="instructor-profile.html" class="link-light fs-16 ms-2"><i
+                                <h5 class="mb-1 text-white d-inline-flex align-items-center">Ronald Richard<a
+                                        href="student-profile.html" class="link-light fs-16 ms-2"><i
                                             class="isax isax-edit-2"></i></a></h5>
-                                <p class="text-light">Instructor</p>
+                                <p class="text-light">Student</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center flex-wrap gap-3 justify-content-md-end">
-                            <a href="add-course.html" class="btn btn-white rounded-pill">Add New Course</a>
-                            <a href="student-dashboard.html" class="btn btn-secondary rounded-pill">Student
+                    <div class="col-lg-6">
+                        <div class="d-flex align-items-center justify-content-lg-end flex-wrap gap-2">
+                            <a href="become-an-instructor.html" class="btn btn-white rounded-pill me-3">Become an
+                                Instructor</a>
+                            <a href="instructor-dashboard.html" class="btn btn-secondary rounded-pill">Instructor
                                 Dashboard</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- /Profile -->
+
             <div class="row">
 
                 <x-user.sidebar active="certificate"/>
 
-                <!-- /Sidebar -->
                 <div class="col-lg-9">
-                    <div class="certificate">
-                        <div class="page-title d-flex align-items-center justify-content-between">
-                            <h5>Certificates</h5>
-                            <div>
-                                <a href="#" class="btn btn-secondary d-flex align-items-center"
-                                   data-bs-toggle="modal" data-bs-target="#add_certificate">
-                                    <i class="isax isax-add-circle me-1"></i>Add Certificate
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-0">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <a href="#" data-bs-toggle="modal"
-                                                   data-bs-target="#view_certificate"><img
-                                                        class="img-fluid rounded"
-                                                        src="{{web_resource_url('assets/img/instructor/certificate-1.jpg')}}" alt="img"></a>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
-                                                <h6>Certificate 01</h6>
-                                                <ul class="edit-delete-icon d-flex align-items-center">
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#view_certificate"><i
-                                                                class="isax isax-eye"></i></a></li>
-                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#delete_modal"><i
-                                                                class="isax isax-trash"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <a href="#" data-bs-toggle="modal"
-                                                   data-bs-target="#view_certificate"><img
-                                                        class="img-fluid rounded"
-                                                        src="{{web_resource_url('assets/img/instructor/certificate-2.jpg')}}" alt="img"></a>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
-                                                <h6>Certificate 02</h6>
-                                                <ul class="edit-delete-icon d-flex align-items-center">
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#view_certificate"><i
-                                                                class="isax isax-eye"></i></a></li>
-                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#delete_modal"><i
-                                                                class="isax isax-trash"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <a href="#" data-bs-toggle="modal"
-                                                   data-bs-target="#view_certificate"><img
-                                                        class="img-fluid rounded"
-                                                        src="{{web_resource_url('assets/img/instructor/certificate-3.jpg')}}" alt="img"></a>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
-                                                <h6>Certificate 03</h6>
-                                                <ul class="edit-delete-icon d-flex align-items-center">
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#view_certificate"><i
-                                                                class="isax isax-eye"></i></a></li>
-                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#delete_modal"><i
-                                                                class="isax isax-trash"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <div class="mb-3">
-                                                <a href="#" data-bs-toggle="modal"
-                                                   data-bs-target="#view_certificate"><img
-                                                        class="img-fluid rounded"
-                                                        src="{{web_resource_url('assets/img/instructor/certificate-4.jpg')}}" alt="img"></a>
-                                            </div>
-                                            <div
-                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
-                                                <h6>Certificate 04</h6>
-                                                <ul class="edit-delete-icon d-flex align-items-center">
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#view_certificate"><i
-                                                                class="isax isax-eye"></i></a></li>
-                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
-                                                    <li><a href="#" data-bs-toggle="modal"
-                                                           data-bs-target="#delete_modal"><i
-                                                                class="isax isax-trash"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="page-title d-flex align-items-center justify-content-between">
+                        <h5>My Certificates</h5>
                     </div>
-
+                    <div class="table-responsive custom-table">
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Certificate Name</th>
+                                <th>Date</th>
+                                <th>Marks</th>
+                                <th>Out of</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td><a href="#" class="fw-semibold">UI/UX Design Certificate</a></td>
+                                <td>22 Aug 2025</td>
+                                <td>20</td>
+                                <td>20</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td><a href="#" class="fw-semibold">Wordpress Certificate</a></td>
+                                <td>10 Aug 2025</td>
+                                <td>18</td>
+                                <td>20</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td><a href="#" class="fw-semibold">HTML CSS Certificate</a></td>
+                                <td>26 Jul 2025</td>
+                                <td>25</td>
+                                <td>30</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td><a href="#" class="fw-semibold">JavaScript Certificate</a></td>
+                                <td>14 Jul 2025</td>
+                                <td>15</td>
+                                <td>20</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td><a href="#" class="fw-semibold">Photoshop Certificate</a></td>
+                                <td>19 Jun 2025</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td><a href="#" class="fw-semibold">Python Certificate</a></td>
+                                <td>12 Jun 2025</td>
+                                <td>20</td>
+                                <td>20</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
+                                                class="isax isax-eye"></i></a>
+                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
+                                                class="isax isax-import"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-{{--    <footer class="footer">--}}
-{{--        <div class="footer-bg">--}}
-{{--            <img src="{{web_resource_url('assets/img/bg/footer-bg-01.png')}}" class="footer-bg-1" alt="">--}}
-{{--            <img src="{{web_resource_url('assets/img/bg/footer-bg-02.png')}}" class="footer-bg-2" alt="">--}}
-{{--        </div>--}}
-{{--        <div class="footer-top">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row row-gap-4">--}}
-{{--                    <div class="col-lg-4">--}}
-{{--                        <div class="footer-about">--}}
-{{--                            <div class="footer-logo">--}}
-{{--                                <img src="{{web_resource_url('assets/img/logo.png')}}" alt="">--}}
-{{--                            </div>--}}
-{{--                            <p>Platform designed to help organizations, educators, and learners manage, deliver, and--}}
-{{--                                track learning and training activities.</p>--}}
-{{--                            <div class="d-flex align-items-center">--}}
-{{--                                <a href="#" class="me-2"><img src="{{web_resource_url('assets/img/icon/appstore.svg')}}" alt=""></a>--}}
-{{--                                <a href="#"><img src="{{web_resource_url('assets/img/icon/googleplay.svg')}}" alt=""></a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-lg-8">--}}
-{{--                        <div class="row row-gap-4">--}}
-{{--                            <div class="col-lg-3">--}}
-{{--                                <div class="footer-widget footer-menu">--}}
-{{--                                    <h5 class="footer-title">For Instructor</h5>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="course-grid.html">Search Mentors</a></li>--}}
-{{--                                        <li><a href="login.html">Login</a></li>--}}
-{{--                                        <li><a href="register.html">Register</a></li>--}}
-{{--                                        <li><a href="course-list.html">Booking</a></li>--}}
-{{--                                        <li><a href="student-dashboard.html">Students Dashboard</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-3">--}}
-{{--                                <div class="footer-widget footer-menu">--}}
-{{--                                    <h5 class="footer-title">For Student</h5>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="javascript:void(0);">Appointments</a></li>--}}
-{{--                                        <li><a href="instructor-message.html">Chat</a></li>--}}
-{{--                                        <li><a href="login.html">Login</a></li>--}}
-{{--                                        <li><a href="register.html">Register</a></li>--}}
-{{--                                        <li><a href="instructor-dashboard.html">Instructor Dashboard</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-lg-6">--}}
-{{--                                <div class="footer-widget footer-contact">--}}
-{{--                                    <h5 class="footer-title">Newsletter</h5>--}}
-{{--                                    <div class="subscribe-input">--}}
-{{--                                        <form action="javascript:void(0);">--}}
-{{--                                            <input type="email" class="form-control"--}}
-{{--                                                   placeholder="Enter your Email Address">--}}
-{{--                                            <button type="submit"--}}
-{{--                                                    class="btn btn-primary btn-sm inline-flex align-items-center"><i--}}
-{{--                                                    class="isax isax-send-2 me-1"></i>Subscribe--}}
-{{--                                            </button>--}}
-{{--                                        </form>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="footer-contact-info">--}}
-{{--                                        <div class="footer-address d-flex align-items-center">--}}
-{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-20.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--                                            <p> 7/F - 8/F,<br> HS Centre,<br>5 Lok Yip Road,<br>Fanling,--}}
-{{--                                                N.T,<br>Hong--}}
-{{--                                                Kong</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="footer-address d-flex align-items-center">--}}
-{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-19.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--                                            <p><a href="/cdn-cgi/l/email-protection"--}}
-{{--                                                  class="__cf_email__">eric@arrogatemaker.com</a>--}}
-{{--                                            </p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="footer-address d-flex align-items-center">--}}
-{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-21.svg')}}" alt="Img" class="img-fluid me-2">--}}
-{{--                                            <p>+852 xxxx xxxx</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="footer-bottom">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row row-gap-2">--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <div class="text-center text-md-start">--}}
-{{--                            <p class="text-white">Copyright &copy; 2025 Arrogate Maker Limited. All rights reserved.--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <div>--}}
-{{--                            <ul--}}
-{{--                                class="d-flex align-items-center justify-content-center justify-content-md-end footer-link">--}}
-{{--                                <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>--}}
-{{--                                <li><a href="privacy-policy.html">Privacy Policy</a></li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </footer>--}}
-    <!-- /Footer -->
+    <x-footer/>
 
-    <!-- Add Question -->
-    <div class="modal fade" id="add_certificate">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add New Certificate</h5>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                        <i class="isax isax-close-circle5"></i>
-                    </button>
-                </div>
-                <form action="instructor-quiz-questions.html">
-                    <div class="modal-body pb-0">
-                        <div class="mb-3">
-                            <label class="form-label">Attachments</label>
-                            <div
-                                class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column">
-                                <span class="upload-img mb-2"><i class="isax isax-folder5 fs-24"></i></span>
-                                <p class="mb-1 fs-12">Drag and drop your files</p>
-                                <p class="mb-2 fs-12">Accept File Type: doc,docx,jpg,jpeg,png,txt,pdf</p>
-                                <input type="file" accept="video/image">
-                                <span class="btn btn-secondary rounded-pill"><i
-                                        class="isax isax-document-upload me-1"></i>Upload</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-light rounded-pill me-2" type="button"
-                                data-bs-dismiss="modal">Cancel
-                        </button>
-                        <button class="btn btn-secondary rounded-pill" type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- /Add Question -->
-
+    <!-- View Certificate -->
     <div class="modal fade" id="view_certificate">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5>View Certificate</h5>
@@ -761,32 +614,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Delete Modal -->
-    <div class="modal fade" id="delete_modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center custom-modal-body">
-						<span class="avatar avatar-lg bg-gray-100 rounded-circle mb-2">
-							<i class="isax isax-trash fs-24 text-danger"></i>
-						</span>
-                    <div>
-                        <h4 class="mb-2">Delete Certificate</h4>
-                        <p class="mb-3">Are you sure you want to delete certificate?</p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:void(0);" class="btn bg-gray-100 rounded-pill me-2"
-                               data-bs-dismiss="modal">Cancel</a>
-                            <a href="javascript:void(0);" class="btn btn-secondary rounded-pill">Yes, Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Delete Modal -->
-
-
-    <x-footer/>
+    <!-- /View Certificate -->
 
 </div>
 
