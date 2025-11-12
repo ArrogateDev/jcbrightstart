@@ -259,7 +259,8 @@
 
                 showToast('success', 'Register successful');
                 setTimeout(function () {
-                    window.location.href = data.data.redirect ?? '{{route('user.dashboard.html')}}';
+                    let redirect = data.data.redirect;
+                    window.location.href = redirect.length > 0 ? redirect : '{{route('user.dashboard.html')}}';
                 }, 800)
             }, error: function () {
                 showToast('error', 'Register failed, please try again later')
