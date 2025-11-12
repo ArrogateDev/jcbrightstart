@@ -2,6 +2,15 @@
 <html lang="en">
 
 <x-head/>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/plugins/wait-me/waitMe.min.css')}}">
+<link href="{{web_resource_url('assets/plugins/toastr/toastr.min.css')}}" rel="stylesheet"/>
+<script src="{{web_resource_url('assets/plugins/toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
 
 <body>
 
@@ -105,19 +114,6 @@
     </div>
 </div>
 
-<script src="{{web_resource_url('assets/js/jquery-3.7.1.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/bootstrap.bundle.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/plugins/slick/slick.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/script.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/wait-me/waitMe.min.css')}}">
-<link href="{{web_resource_url('assets/plugins/toastr/toastr.min.css')}}" rel="stylesheet"/>
-<script src="{{web_resource_url('assets/plugins/toastr/toastr.min.js')}}"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
 <script>
     const validator = new window.JustValidate('#form', {
         errorLabelCssClass: 'd-inline',
