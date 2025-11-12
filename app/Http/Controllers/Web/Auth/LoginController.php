@@ -46,7 +46,7 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         $remember_me = $request->input('remember_me');
-        $redirect = $request->input('redirect', '/');
+        $redirect = $request->input('redirect', route('user.dashboard.html'));
 
         if (!$email || !$password) {
             throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
@@ -104,7 +104,7 @@ class LoginController extends Controller
         if (!$credential) {
             throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         }
-        $redirect = $request->input('redirect', '/');
+        $redirect = $request->input('redirect', route('user.dashboard.html'));
 
         try {
 
@@ -169,7 +169,7 @@ class LoginController extends Controller
         $id_token = $request->input('id_token');
         $rawUser = $request->input('user');
         $state = $request->input('state');
-        $redirect = $request->input('redirect', '/');
+        $redirect = $request->input('redirect', route('user.dashboard.html'));
 
         if (!$code && !$id_token) {
             throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
