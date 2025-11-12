@@ -105,30 +105,3 @@
     </div>
 </footer>
 <!-- /Footer -->
-
-<!-- jQuery -->
-<script src="{{web_resource_url('assets/js/jquery-3.7.1.min.js')}}" type="text/javascript"></script>
-
-<!-- Bootstrap Core JS -->
-<script src="{{web_resource_url('assets/js/bootstrap.bundle.min.js')}}" type="text/javascript"></script>
-
-<!-- Select2 JS -->
-<script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-
-<!-- Slick Slider -->
-<script src="{{web_resource_url('assets/plugins/slick/slick.js')}}" type="text/javascript"></script>
-
-<!-- Swiper Slider -->
-<script src="{{web_resource_url('assets/plugins/swiper/js/swiper-bundle.min.js')}}" type="text/javascript"></script>
-
-<!-- counterup JS -->
-<script src="{{web_resource_url('assets/js/counter.js')}}" type="text/javascript"></script>
-
-<!-- Aos -->
-<script src="{{web_resource_url('assets/plugins/aos/aos.js')}}" type="text/javascript"></script>
-
-<!-- Fancybox JS -->
-<script src="{{web_resource_url('assets/plugins/fancybox/jquery.fancybox.min.js')}}" type="text/javascript"></script>
-
-<!-- Custom JS -->
-<script src="{{web_resource_url('assets/js/script.js')}}" type="text/javascript"></script>

@@ -7,16 +7,21 @@ Version      : 1.0
 (function ($) {
   "use strict";
 
+  function initThemeScripts() {
   var $slimScrolls = $(".slimscroll");
 
   // Stick Sidebar
 
   if ($(window).width() > 767) {
     if ($(".theiaStickySidebar").length > 0) {
-      $(".theiaStickySidebar").theiaStickySidebar({
-        // Settings
-        additionalMarginTop: 70,
-      });
+      if ($.fn.theiaStickySidebar) {
+        $(".theiaStickySidebar").theiaStickySidebar({
+          // Settings
+          additionalMarginTop: 70,
+        });
+      } else {
+        console.warn("theiaStickySidebar plugin is not loaded");
+      }
     }
   }
 
@@ -1593,7 +1598,7 @@ Version      : 1.0
     });
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     // Timer setup
     let timeLeft = 600; // 10 minutes in seconds
     const timerElement = document.getElementById("otp_timer");
@@ -1617,7 +1622,7 @@ Version      : 1.0
       // Start the timer
       const timerInterval = setInterval(updateTimer, 1000);
     }
-  });
+  })();
 
   if ($(".instructor-carousel").length > 0) {
     $(".instructor-carousel").owlCarousel({
@@ -1797,7 +1802,7 @@ Version      : 1.0
   }
 
   if ($("#openVideoBtn").length > 0) {
-    document.addEventListener("DOMContentLoaded", function () {
+    (function () {
       const openVideoBtn = document.getElementById("openVideoBtn");
       const videoModal = document.getElementById("videoModal");
       const closeModal = document.getElementById("closeModal");
@@ -1819,7 +1824,7 @@ Version      : 1.0
           youtubeIframe.src = ""; // Reset the iframe to stop the video
         });
       }
-    });
+    })();
   }
 
   // // Testimonial slider 5
@@ -1861,7 +1866,7 @@ Version      : 1.0
     });
   }
   // add new item
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     const addNewTopicBtn = document.getElementById("add-new-topic-btn");
     const inputBlock = document.getElementById("input-block");
 
@@ -1897,10 +1902,10 @@ Version      : 1.0
         });
       });
     }
-  });
+  })();
 
   // upload img
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     const uploadSection = document.getElementById("upload-img-section");
     const fileInput = document.getElementById("upload-img-input");
 
@@ -1943,10 +1948,10 @@ Version      : 1.0
         }
       }
     }
-  });
+  })();
 
   // like botton
-  document.addEventListener("DOMContentLoaded", function () {
+  (function () {
     const likeElement = document.querySelector(".like");
 
     if (likeElement) {
@@ -1958,7 +1963,7 @@ Version      : 1.0
         this.querySelector("i").classList.remove("isax-heart-filled"); // Revert to original icon
       });
     }
-  });
+  })();
 
   //   otp
   // Select all OTP input elements
@@ -2151,5 +2156,12 @@ Version      : 1.0
         },
       ],
     });
+  }
+  }
+
+  if (document.readyState === "loading") {
+    $(initThemeScripts);
+  } else {
+    initThemeScripts();
   }
 })(jQuery);

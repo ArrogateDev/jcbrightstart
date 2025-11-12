@@ -13,21 +13,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <div class="d-flex align-items-center ">
                         <p class="d-flex align-items-center fw-medium fs-14 mb-2 me-3"><i
-                                class="isax isax-location5 me-2"></i>Fanling, Hong Kong</p>
+                                class="isax isax-location me-2"></i>Fanling, Hong Kong</p>
                         <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i
                                 class="isax isax-call-calling5 me-2"></i>+852 xxxx xxxx</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                    <div class="d-flex align-items-center justify-content-end">
                         <div class="dropdown flag-dropdown mb-2 me-3">
                             <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
                             </a>
-                            <ul class="dropdown-menu p-2 mt-2">
+                            <ul class="dropdown-menu p-2 mt-2" style="">
                                 <li>
                                     <a class="dropdown-item rounded d-flex align-items-center"
                                        href="javascript:void(0);">
@@ -53,7 +53,7 @@
                                aria-expanded="false">
                                 USD
                             </a>
-                            <ul class="dropdown-menu p-2 mt-2">
+                            <ul class="dropdown-menu p-2 mt-2" style="">
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
                                 <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
@@ -235,7 +235,7 @@
                                 <li class="has-submenu active">
                                     <a href="javascript:void(0);">Instructor Dashboard</a>
                                     <ul class="submenu">
-                                        <li class="active"><a href="instructor-dashboard.html">Dashboard</a></li>
+                                        <li><a href="instructor-dashboard.html">Dashboard</a></li>
                                         <li><a href="instructor-profile.html">My Profile</a></li>
                                         <li><a href="instructor-course.html">Course</a></li>
                                         <li><a href="instructor-announcements.html">Announcements</a></li>
@@ -250,7 +250,8 @@
                                         </li>
                                         <li><a href="instructor-quiz.html">Quiz</a></li>
                                         <li><a href="instructor-quiz-results.html">Quiz Results</a></li>
-                                        <li><a href="instructor-certificate.html">Certificates</a></li>
+                                        <li class="active"><a href="instructor-certificate.html">Certificates</a>
+                                        </li>
                                         <li><a href="instructor-earnings.html">Earning</a></li>
                                         <li><a href="instructor-payout.html">Payout</a></li>
                                         <li><a href="instructor-statements.html">Statement</a></li>
@@ -431,7 +432,8 @@
     </header>
     <!-- /Header -->
 
-    <x-user.breadcrumb/>
+
+    <x-user.breadcrumb title="My Certificates"/>
 
     <div class="content">
         <div class="container">
@@ -466,215 +468,323 @@
             </div>
             <div class="row">
 
-                <x-user.sidebar/>
+                <x-user.sidebar active="certificate"/>
 
+                <!-- /Sidebar -->
                 <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/graduation.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Enrolled Courses</span>
-                                            <h4 class="fs-24 mt-1">12</h4>
+                    <div class="certificate">
+                        <div class="page-title d-flex align-items-center justify-content-between">
+                            <h5>Certificates</h5>
+                            <div>
+                                <a href="#" class="btn btn-secondary d-flex align-items-center"
+                                   data-bs-toggle="modal" data-bs-target="#add_certificate">
+                                    <i class="isax isax-add-circle me-1"></i>Add Certificate
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-0">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#view_certificate"><img
+                                                        class="img-fluid rounded"
+                                                        src="{{web_resource_url('assets/img/instructor/certificate-1.jpg')}}" alt="img"></a>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
+                                                <h6>Certificate 01</h6>
+                                                <ul class="edit-delete-icon d-flex align-items-center">
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#view_certificate"><i
+                                                                class="isax isax-eye"></i></a></li>
+                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Active Courses</span>
-                                            <h4 class="fs-24 mt-1">08</h4>
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#view_certificate"><img
+                                                        class="img-fluid rounded"
+                                                        src="{{web_resource_url('assets/img/instructor/certificate-2.jpg')}}" alt="img"></a>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
+                                                <h6>Certificate 02</h6>
+                                                <ul class="edit-delete-icon d-flex align-items-center">
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#view_certificate"><i
+                                                                class="isax isax-eye"></i></a></li>
+                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/bookmark.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Completed Courses</span>
-                                            <h4 class="fs-24 mt-1">06</h4>
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#view_certificate"><img
+                                                        class="img-fluid rounded"
+                                                        src="{{web_resource_url('assets/img/instructor/certificate-3.jpg')}}" alt="img"></a>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
+                                                <h6>Certificate 03</h6>
+                                                <ul class="edit-delete-icon d-flex align-items-center">
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#view_certificate"><i
+                                                                class="isax isax-eye"></i></a></li>
+                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-info-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/user-octagon.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Students</span>
-                                            <h4 class="fs-24 mt-1">17</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-blue-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book-2.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Courses</span>
-                                            <h4 class="fs-24 mt-1">11</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-											<span class="icon-box bg-purple-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/money-add.svg')}}" alt="">
-											</span>
-                                        <div>
-                                            <span class="d-block">Total Earnings</span>
-                                            <h4 class="fs-24 mt-1">$486</h4>
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <a href="#" data-bs-toggle="modal"
+                                                   data-bs-target="#view_certificate"><img
+                                                        class="img-fluid rounded"
+                                                        src="{{web_resource_url('assets/img/instructor/certificate-4.jpg')}}" alt="img"></a>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center flex-wrap justify-content-between gap-2">
+                                                <h6>Certificate 04</h6>
+                                                <ul class="edit-delete-icon d-flex align-items-center">
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#view_certificate"><i
+                                                                class="isax isax-eye"></i></a></li>
+                                                    <li><a href="#"><i class="isax isax-edit-2"></i></a></li>
+                                                    <li><a href="#" data-bs-toggle="modal"
+                                                           data-bs-target="#delete_modal"><i
+                                                                class="isax isax-trash"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+{{--    <footer class="footer">--}}
+{{--        <div class="footer-bg">--}}
+{{--            <img src="{{web_resource_url('assets/img/bg/footer-bg-01.png')}}" class="footer-bg-1" alt="">--}}
+{{--            <img src="{{web_resource_url('assets/img/bg/footer-bg-02.png')}}" class="footer-bg-2" alt="">--}}
+{{--        </div>--}}
+{{--        <div class="footer-top">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row row-gap-4">--}}
+{{--                    <div class="col-lg-4">--}}
+{{--                        <div class="footer-about">--}}
+{{--                            <div class="footer-logo">--}}
+{{--                                <img src="{{web_resource_url('assets/img/logo.png')}}" alt="">--}}
+{{--                            </div>--}}
+{{--                            <p>Platform designed to help organizations, educators, and learners manage, deliver, and--}}
+{{--                                track learning and training activities.</p>--}}
+{{--                            <div class="d-flex align-items-center">--}}
+{{--                                <a href="#" class="me-2"><img src="{{web_resource_url('assets/img/icon/appstore.svg')}}" alt=""></a>--}}
+{{--                                <a href="#"><img src="{{web_resource_url('assets/img/icon/googleplay.svg')}}" alt=""></a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-8">--}}
+{{--                        <div class="row row-gap-4">--}}
+{{--                            <div class="col-lg-3">--}}
+{{--                                <div class="footer-widget footer-menu">--}}
+{{--                                    <h5 class="footer-title">For Instructor</h5>--}}
+{{--                                    <ul>--}}
+{{--                                        <li><a href="course-grid.html">Search Mentors</a></li>--}}
+{{--                                        <li><a href="login.html">Login</a></li>--}}
+{{--                                        <li><a href="register.html">Register</a></li>--}}
+{{--                                        <li><a href="course-list.html">Booking</a></li>--}}
+{{--                                        <li><a href="student-dashboard.html">Students Dashboard</a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-3">--}}
+{{--                                <div class="footer-widget footer-menu">--}}
+{{--                                    <h5 class="footer-title">For Student</h5>--}}
+{{--                                    <ul>--}}
+{{--                                        <li><a href="javascript:void(0);">Appointments</a></li>--}}
+{{--                                        <li><a href="instructor-message.html">Chat</a></li>--}}
+{{--                                        <li><a href="login.html">Login</a></li>--}}
+{{--                                        <li><a href="register.html">Register</a></li>--}}
+{{--                                        <li><a href="instructor-dashboard.html">Instructor Dashboard</a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-6">--}}
+{{--                                <div class="footer-widget footer-contact">--}}
+{{--                                    <h5 class="footer-title">Newsletter</h5>--}}
+{{--                                    <div class="subscribe-input">--}}
+{{--                                        <form action="javascript:void(0);">--}}
+{{--                                            <input type="email" class="form-control"--}}
+{{--                                                   placeholder="Enter your Email Address">--}}
+{{--                                            <button type="submit"--}}
+{{--                                                    class="btn btn-primary btn-sm inline-flex align-items-center"><i--}}
+{{--                                                    class="isax isax-send-2 me-1"></i>Subscribe--}}
+{{--                                            </button>--}}
+{{--                                        </form>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="footer-contact-info">--}}
+{{--                                        <div class="footer-address d-flex align-items-center">--}}
+{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-20.svg')}}" alt="Img" class="img-fluid me-2">--}}
+{{--                                            <p> 7/F - 8/F,<br> HS Centre,<br>5 Lok Yip Road,<br>Fanling,--}}
+{{--                                                N.T,<br>Hong--}}
+{{--                                                Kong</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="footer-address d-flex align-items-center">--}}
+{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-19.svg')}}" alt="Img" class="img-fluid me-2">--}}
+{{--                                            <p><a href="/cdn-cgi/l/email-protection"--}}
+{{--                                                  class="__cf_email__">eric@arrogatemaker.com</a>--}}
+{{--                                            </p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="footer-address d-flex align-items-center">--}}
+{{--                                            <img src="{{web_resource_url('assets/img/icon/icon-21.svg')}}" alt="Img" class="img-fluid me-2">--}}
+{{--                                            <p>+852 xxxx xxxx</p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="footer-bottom">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row row-gap-2">--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <div class="text-center text-md-start">--}}
+{{--                            <p class="text-white">Copyright &copy; 2025 Arrogate Maker Limited. All rights reserved.--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <div>--}}
+{{--                            <ul--}}
+{{--                                class="d-flex align-items-center justify-content-center justify-content-md-end footer-link">--}}
+{{--                                <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>--}}
+{{--                                <li><a href="privacy-policy.html">Privacy Policy</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
+    <!-- /Footer -->
+
+    <!-- Add Question -->
+    <div class="modal fade" id="add_certificate">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Add New Certificate</h5>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <i class="isax isax-close-circle5"></i>
+                    </button>
+                </div>
+                <form action="instructor-quiz-questions.html">
+                    <div class="modal-body pb-0">
+                        <div class="mb-3">
+                            <label class="form-label">Attachments</label>
                             <div
-                                class="d-flex align-items-center flex-wrap gap-3 justify-content-between border-bottom mb-2 pb-3">
-                                <h5 class="fw-bold">Earnings by Year</h5>
-                                <div class="input-icon position-relative input-range-picker">
-										<span class="input-icon-addon">
-											<i class="isax isax-calendar"></i>
-										</span>
-                                    <input type="text" class="form-control date-range bookingrange"
-                                           placeholder="dd/mm/yyyy - dd/mm/yyyy">
-                                </div>
+                                class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column">
+                                <span class="upload-img mb-2"><i class="isax isax-folder5 fs-24"></i></span>
+                                <p class="mb-1 fs-12">Drag and drop your files</p>
+                                <p class="mb-2 fs-12">Accept File Type: doc,docx,jpg,jpeg,png,txt,pdf</p>
+                                <input type="file" accept="video/image">
+                                <span class="btn btn-secondary rounded-pill"><i
+                                        class="isax isax-document-upload me-1"></i>Upload</span>
                             </div>
-                            <div id="earnnings_chart"></div>
                         </div>
                     </div>
-                    <h5 class="mb-3 fw-bold">Recently Created Courses</h5>
-                    <div class="table-responsive custom-table">
-                        <table class="table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>Courses</th>
-                                <th>Enrolled</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-01.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Complete HTML,
-                                                    CSS and Javascript<br> Course</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>0</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-02.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Complete Course
-                                                    on Fullstack Web<br> Developer</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-03.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Data Science
-                                                    Fundamentals and<br> Advanced Bootcampr</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-04.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Master
-                                                    Microservices with Spring Boot<br> and Spring Cloud</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>Published</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="course-title d-flex align-items-center">
-                                        <a href="course-details.html"
-                                           class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-05.jpg')}}"
-                                                alt="Img"></a>
-                                        <div>
-                                            <p class="fw-medium"><a href="course-details.html">Information About
-                                                    UI/UX Design<br> Degree</a></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>0</td>
-                                <td>Published</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="modal-footer">
+                        <button class="btn btn-light rounded-pill me-2" type="button"
+                                data-bs-dismiss="modal">Cancel
+                        </button>
+                        <button class="btn btn-secondary rounded-pill" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Question -->
+
+    <div class="modal fade" id="view_certificate">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>View Certificate</h5>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                        <i class="isax isax-close-circle5"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div><img src="{{web_resource_url('assets/img/icon/certificate.svg')}}" class="img-fluid" alt=""></div>
+                    <div class="text-end mt-4">
+                        <a href="#" class="btn btn-secondary rounded-pill"><i
+                                class="isax isax-import me-2"></i>Download</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center custom-modal-body">
+						<span class="avatar avatar-lg bg-gray-100 rounded-circle mb-2">
+							<i class="isax isax-trash fs-24 text-danger"></i>
+						</span>
+                    <div>
+                        <h4 class="mb-2">Delete Certificate</h4>
+                        <p class="mb-3">Are you sure you want to delete certificate?</p>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a href="javascript:void(0);" class="btn bg-gray-100 rounded-pill me-2"
+                               data-bs-dismiss="modal">Cancel</a>
+                            <a href="javascript:void(0);" class="btn btn-secondary rounded-pill">Yes, Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
+
 
     <x-footer/>
 

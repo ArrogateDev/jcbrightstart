@@ -4,8 +4,14 @@ use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Auth\ResetPasswordController;
-use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\IndexController;
+use App\Http\Controllers\Web\User\CertificateController;
+use App\Http\Controllers\Web\User\ChangePasswordController;
+use App\Http\Controllers\Web\User\CourseController;
+use App\Http\Controllers\Web\User\DashboardController;
+use App\Http\Controllers\Web\User\ProfileController;
+use App\Http\Controllers\Web\User\QuizController;
+use App\Http\Controllers\Web\User\SettingController;
 use App\Http\Controllers\Web\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,5 +43,13 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     $route->get('/logout.html', [UserController::class, 'logout'])->name('logout.html');
 
-    Route::get('/dashboard.html', [DashboardController::class, 'index'])->name('dashboard.html');
+    $route->group(['prefix' => 'user'], function ($route) {
+        $route->get('/dashboard.html', [DashboardController::class, 'index'])->name('user.dashboard.html');
+        $route->get('/profile.html', [ProfileController::class, 'index'])->name('user.profile.html');
+        $route->get('/course.html', [CourseController::class, 'index'])->name('user.course.html');
+        $route->get('/certificate.html', [CertificateController::class, 'index'])->name('user.certificate.html');
+        $route->get('/quiz.html', [QuizController::class, 'index'])->name('user.quiz.html');
+        $route->get('/settings.html', [SettingController::class, 'index'])->name('user.settings.html');
+        $route->get('/change-password.html', [ChangePasswordController::class, 'index'])->name('user.change-password.html');
+    });
 });

@@ -1,83 +1,68 @@
-<!-- Sidebar -->
+@props(['active' => 'dashboard'])
 <div class="col-lg-3 theiaStickySidebar">
     <div class="settings-sidebar mb-lg-0">
         <div>
             <h6 class="mb-3">Main Menu</h6>
             <ul class="mb-3 pb-1">
                 <li>
-                    <a href="instructor-dashboard.html"
-                       class="d-inline-flex align-items-center active"><i
-                            class="isax isax-grid-35 me-2"></i>Dashboard</a>
+                    <a href="{{route('user.dashboard.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'dashboard'])>
+                        <i class="isax isax-grid-35 me-2"></i>Dashboard
+                    </a>
                 </li>
                 <li>
-                    <a href="instructor-profile.html" class="d-inline-flex align-items-center"><i
-                            class="fa-solid fa-user me-2"></i>My Profile</a>
+                    <a href="{{route('user.profile.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'profile'])>
+                        <i class="fa-solid fa-user me-2"></i>My Profile
+                    </a>
                 </li>
                 <li>
-                    <a href="instructor-course.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-teacher5 me-2"></i>Courses</a>
+                    <a href="{{route('user.course.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'course'])>
+                        <i class="isax isax-teacher5 me-2"></i>My Courses
+                    </a>
                 </li>
                 <li>
-                    <a href="instructor-announcements.html"
-                       class="d-inline-flex align-items-center"><i
-                            class="isax isax-volume-high5 me-2"></i>Announcements</a>
+                    <a href="{{route('user.certificate.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'certificate'])>
+                        <i class="isax isax-note-215 me-2"></i>My Certificates
+                    </a>
                 </li>
                 <li>
-                    <a href="instructor-assignment.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-clipboard-text5 me-2"></i>Assignments</a>
-                </li>
-                <li>
-                    <a href="students.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-profile-2user5 me-2"></i>Students</a>
-                </li>
-                <li>
-                    <a href="instructor-quiz.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-award5 me-2"></i>Quiz</a>
-                </li>
-                <li>
-                    <a href="instructor-quiz-results.html"
-                       class="d-inline-flex align-items-center"><i
-                            class="isax isax-medal-star5 me-2"></i>Quiz Results</a>
-                </li>
-                <li>
-                    <a href="instructor-certificate.html"
-                       class="d-inline-flex align-items-center"><i
-                            class="isax isax-note-215 me-2"></i>Certificates</a>
-                </li>
-                <li>
-                    <a href="instructor-earnings.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-wallet-add5 me-2"></i>Earnings</a>
-                </li>
-                <li>
-                    <a href="instructor-payout.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-coin-15 me-2"></i>Payout</a>
-                </li>
-                <li>
-                    <a href="instructor-statements.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-shopping-cart5 me-2"></i>Statements</a>
-                </li>
-                <li>
-                    <a href="instructor-message.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-messages-35 me-2"></i>Messages</a>
-                </li>
-                <li>
-                    <a href="instructor-tickets.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-ticket5 me-2"></i>Support Tickets</a>
+                    <a href="{{route('user.quiz.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'quiz'])>
+                        <i class="isax isax-medal-star5 me-2"></i>My Quiz
+                    </a>
                 </li>
             </ul>
             <hr>
             <h6 class="mb-3">Account Settings</h6>
             <ul>
                 <li>
-                    <a href="instructor-settings.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-setting-25 me-2"></i>Settings</a>
+                    <a href="{{route('user.settings.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'settings'])>
+                        <i class="isax isax-setting-25 me-2"></i>Settings
+                    </a>
                 </li>
                 <li>
-                    <a href="login.html" class="d-inline-flex align-items-center"><i
-                            class="isax isax-logout5 me-2"></i>Logout</a>
+                    <a href="javascript:void(0);" class="d-inline-flex align-items-center logout">
+                        <i class="isax isax-logout5 me-2"></i>Logout
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<!-- /Sidebar -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(function () {
+        $('.logout').click(function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, logout!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                }
+            })
+        })
+    })
+</script>

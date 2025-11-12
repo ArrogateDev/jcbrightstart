@@ -14,8 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string('email')->nullable()->unique();
             $table->string('password')->nullable();
-            $table->string('google_openid')->nullable();
-            $table->string('apple_openid')->nullable();
             $table->string('full_name')->nullable()->comment('全名');
             $table->string('first_name')->nullable()->comment('名字');
             $table->string('last_name')->nullable()->comment('姓氏');

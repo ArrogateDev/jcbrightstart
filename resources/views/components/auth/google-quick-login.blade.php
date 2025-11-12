@@ -20,7 +20,6 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
     function handleGoogleCredentialResponse(response) {
-        console.log('Google encoded credential:', response);
         showLoading()
 
         let form = {

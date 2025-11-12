@@ -41,12 +41,23 @@
                             <form id="form" class="mb-3 pb-3" novalidate="novalidate">
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
-                                        Full Name
+                                        First Name
                                         <span class="text-danger ms-1">*</span>
-                                        <span id="error-container-full-name"></span>
+                                        <span id="error-container-first-name"></span>
                                     </label>
                                     <div class="position-relative">
-                                        <input id="full_name" type="text" name="full_name" class="form-control form-control-lg">
+                                        <input id="first_name" type="text" name="first_name" class="form-control form-control-lg">
+                                        <span><i class="isax isax-user input-icon text-gray-7 fs-14"></i></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 position-relative">
+                                    <label class="form-label">
+                                        Last Name
+                                        <span class="text-danger ms-1">*</span>
+                                        <span id="error-container-last-name"></span>
+                                    </label>
+                                    <div class="position-relative">
+                                        <input id="last_name" type="text" name="last_name" class="form-control form-control-lg">
                                         <span><i class="isax isax-user input-icon text-gray-7 fs-14"></i></span>
                                     </div>
                                 </div>
@@ -152,20 +163,30 @@
         errorLabelCssClass: 'd-inline',
     });
     validator
-        .addField('#full_name', [
+        .addField('#first_name', [
             {
                 rule: 'required',
-
+                errorMessage: 'Please enter your first name.',
             }
         ], {
-            errorsContainer: '#error-container-full-name'
+            errorsContainer: '#error-container-first-name'
+        })
+        .addField('#last_name', [
+            {
+                rule: 'required',
+                errorMessage: 'Please enter your last name.'
+            }
+        ], {
+            errorsContainer: '#error-container-last-name'
         })
         .addField('#email', [
             {
                 rule: 'required',
+                errorMessage: 'Please enter your email.'
             },
             {
                 rule: 'email',
+                errorMessage: 'Please enter the correct email address.'
             },
         ], {
             errorsContainer: '#error-container-email'
@@ -212,6 +233,7 @@
         .addField('#agree', [
             {
                 rule: 'required',
+                errorMessage: 'Please read and agree to the Terms of Service and Privacy Policy',
             }
         ], {
             errorsContainer: '#error-container-agree'

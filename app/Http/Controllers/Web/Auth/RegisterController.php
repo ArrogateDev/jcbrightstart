@@ -40,7 +40,7 @@ class RegisterController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['email', 'password', 'full_name']);
+        $inputs = $request->only(['email', 'password', 'first_name', 'last_name']);
         $password = $request->input('password');
         $redirect = $request->input('redirect', '/');
 

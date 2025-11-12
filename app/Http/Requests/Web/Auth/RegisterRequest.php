@@ -10,7 +10,8 @@ class RegisterRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'full_name' => 'bail|required',
+            'first_name' => 'bail|required',
+            'last_name' => 'bail|required',
             'email' => 'bail|required|email|unique:users,email,null,deleted_at',
             'password' => 'bail|required|size:32|confirmed',
             'password_confirmation' => 'bail|required',

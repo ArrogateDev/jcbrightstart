@@ -30371,10 +30371,22 @@ textarea:focus {
     justify-content: center;
     align-items: center;
     font-weight: 500;
+    line-height: normal;
 }
 
 .apple-quick-login:hover {
     background: rgba(66, 133, 244, .08);
     border-color: rgb(210, 227, 252);
+}
+
+.apple-quick-login.disabled {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #9b9b9b;
+    cursor: default;
+}
+
+.apple-quick-login.disabled img{
+    filter: contrast(0);
 }
 /*# sourceMappingURL=style.css.map */

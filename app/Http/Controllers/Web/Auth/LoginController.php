@@ -73,6 +73,8 @@ class LoginController extends Controller
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
             throw $e;
+        } catch (\JsonException $e) {
+            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
@@ -117,16 +119,15 @@ class LoginController extends Controller
             }
 
             $email = $result['email'];
-            $full_name = $result['name'];
             $first_name = $result['family_name'];
             $last_name = $result['given_name'];
             $user = User::query()->where('email', $email)->firstOrCreate(
                 [
                     'email' => $email,
                 ], [
-                    'full_name' => $full_name,
                     'first_name' => $first_name,
-                    'last_name' => $last_name
+                    'last_name' => $last_name,
+                    'status' => User::NORMAL
                 ]
             );
 
@@ -166,7 +167,7 @@ class LoginController extends Controller
 
         $code = $request->input('code');
         $id_token = $request->input('id_token');
-        $user = $request->input('user');
+        $rawUser = $request->input('user');
         $state = $request->input('state');
         $redirect = $request->input('redirect', '/');
 
@@ -180,29 +181,42 @@ class LoginController extends Controller
 
         try {
 
-            $token_response = $apple_service->exchangeCode($code);
-            $id_token = $token_response['id_token'] ?? $id_token;
+            if ($code) {
+                $token_response = $apple_service->exchangeCode($code);
+                $id_token = $token_response['id_token'] ?? $id_token;
+            }
+
             if (!$id_token) {
                 throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
             }
 
             $claims = $apple_service->verifyIdToken($id_token);
+            $userInfo = [];
+            if ($rawUser) {
+                $userInfo = json_decode($rawUser, true, 512, JSON_THROW_ON_ERROR);
+            }
 
-            $email = $claims['email'] ?? Arr::get($user, 'email');
+            $email = $claims['email'] ?? Arr::get($userInfo, 'email');
             if (!$email) {
                 throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
             }
 
-            $first_name = Arr::get($user, 'name.firstName', '');
-            $last_name = Arr::get($user, 'name.lastName', '');
+            $first_name = Arr::get($userInfo, 'name.firstName', '');
+            $last_name = Arr::get($userInfo, 'name.lastName', '');
             $full_name = trim($first_name . ' ' . $last_name);
+
+            if (!$full_name) {
+                $full_name = $claims['name'] ?? $email;
+            }
+
             $user = User::query()->where('email', $email)->firstOrCreate(
                 [
                     'email' => $email,
                 ], [
                     'full_name' => $full_name,
-                    'first_name' => $first_name ?: $full_name,
-                    'last_name' => $last_name
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'status' => User::NORMAL
                 ]
             );
 

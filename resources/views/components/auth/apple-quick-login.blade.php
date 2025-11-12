@@ -30,7 +30,7 @@
             attachAppleSignIn();
         } catch (error) {
             console.error('Apple Sign-In init error', error);
-            showToast('error', 'Apple 登录初始化失败，请稍后重试');
+            document.getElementById('apple-quick-login-btn').classList.add('disabled');
         }
     }
 
