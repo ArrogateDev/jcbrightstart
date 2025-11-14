@@ -73,8 +73,6 @@ class LoginController extends Controller
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
             throw $e;
-        } catch (\JsonException $e) {
-            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);

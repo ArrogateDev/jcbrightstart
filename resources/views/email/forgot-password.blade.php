@@ -139,47 +139,47 @@
     </style>
 </head>
 <body>
-    <div class="email-container">
-        <div class="email-header">
-            <div class="email-logo">{{env('MAIL_FROM_NAME')}}</div>
-            <h1 class="email-title">密码重置请求</h1>
+<div class="email-container">
+    <div class="email-header">
+        <div class="email-logo">{{env('MAIL_FROM_NAME')}}</div>
+        <h1 class="email-title">密码重置请求</h1>
+    </div>
+
+    <div class="email-body">
+        <p class="greeting">尊敬的{{$first_name}}，</p>
+
+        <p class="instructions">我们收到了您重置账户密码的请求。请点击下方按钮来设置新密码：</p>
+
+        <a href="{{$url}}" class="reset-button">重置密码</a>
+
+        <div class="expiry-notice">
+            <strong>重要提示：</strong> 此链接将在24小时后失效。如果您没有请求重置密码，请忽略此邮件。
         </div>
 
-        <div class="email-body">
-            <p class="greeting">尊敬的{{$full_name}}，</p>
+        <p>如果上方按钮无法点击，请复制以下链接到浏览器地址栏：</p>
+        <p style="word-break: break-all; color: #4a6ee0; font-size: 14px;">{{$url}}</p>
 
-            <p class="instructions">我们收到了您重置账户密码的请求。请点击下方按钮来设置新密码：</p>
-
-            <a href="{{$url}}" class="reset-button">重置密码</a>
-
-            <div class="expiry-notice">
-                <strong>重要提示：</strong> 此链接将在24小时后失效。如果您没有请求重置密码，请忽略此邮件。
-            </div>
-
-            <p>如果上方按钮无法点击，请复制以下链接到浏览器地址栏：</p>
-            <p style="word-break: break-all; color: #4a6ee0; font-size: 14px;">{{$url}}</p>
-
-            <div class="security-tips">
-                <h3>账户安全提示</h3>
-                <ul>
-                    <li>请勿将密码透露给任何人</li>
-                    <li>定期更换密码以确保账户安全</li>
-                    <li>避免在不同网站使用相同密码</li>
-                    <li>启用双重验证以增强账户保护</li>
-                </ul>
-            </div>
-
-            <div class="contact-info">
-                <p>如果您需要帮助，请联系我们的客服团队：</p>
-                <p>邮箱：{{env('MAIL_FROM_ADDRESS')}}</p>
-            </div>
+        <div class="security-tips">
+            <h3>账户安全提示</h3>
+            <ul>
+                <li>请勿将密码透露给任何人</li>
+                <li>定期更换密码以确保账户安全</li>
+                <li>避免在不同网站使用相同密码</li>
+                <li>启用双重验证以增强账户保护</li>
+            </ul>
         </div>
 
-        <div class="email-footer">
-            <p>此邮件由系统自动发送，请勿直接回复。</p>
-            <p>© {{date('Y')}} {{env('APP_NAME')}}. 保留所有权利。</p>
-            <p><a href="#">隐私政策</a> | <a href="#">使用条款</a></p>
+        <div class="contact-info">
+            <p>如果您需要帮助，请联系我们的客服团队：</p>
+            <p>邮箱：{{env('MAIL_FROM_ADDRESS')}}</p>
         </div>
     </div>
+
+    <div class="email-footer">
+        <p>此邮件由系统自动发送，请勿直接回复。</p>
+        <p>© {{date('Y')}} {{env('APP_NAME')}}. 保留所有权利。</p>
+        <p><a href="#">隐私政策</a> | <a href="#">使用条款</a></p>
+    </div>
+</div>
 </body>
 </html>

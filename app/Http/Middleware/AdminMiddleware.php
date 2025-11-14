@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Models\Manage\Authority;
+use Closure;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
+
+class AdminMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param \Closure(Request): (Response|RedirectResponse) $next
+     * @return Response|RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        if (!$request->expectsJson()) {
+            $user = $request->user();
+
+            if ($user && Str::contains($request->url(), ['login.html'])) {
+                return to_route('admin.dashboard.html');
+            }
+
+            Cache::tags(['MENUS'])->flush();
+            $role = $user->role;
+            $role_id = $role->id;
+            $menus = Cache::tags(['MENUS', 'ROLE:' . $role->id])->rememberForever('MENU_LIST', function () use ($role_id, $user) {
+
+                $authority = $role_id === 1 ? Authority::query()->whereIn('type', [Authority::MENU_TYPE, Authority::GPS_TYPE])->get() : $user->role_authority;
+                $authority = authority_format($authority->toArray());
+                $menus = [];
+                foreach ($authority as $key => $value) {
+                    $menus[$key]['name'] = $value['name'];
+                    foreach ($value['children'] as $k => $v) {
+                        $menus[$key]['children'][$k]['icon'] = $v['icon'] ?? '';
+                        $menus[$key]['children'][$k]['name'] = $v['name'];
+                        $snake = Str::snake($v['alias'], '-');
+                        $url = Str::replace('-list', '.html', $snake);
+                        $menus[$key]['children'][$k]['active'] = Str::replace('-list', '', $snake);
+                        $menus[$key]['children'][$k]['url'] = route('admin.' . $url);
+                    }
+                }
+                return $menus;
+            });
+
+            App::setLocale('zh_HK');
+//            App::setLocale('zh_CN');
+//            App::setLocale('en');
+//            print_r($role);
+//            print_r(__('首页'));
+
+            View::share('user', $user);
+            View::share('menus', $menus);
+        }
+
+        return $next($request);
+    }
+}

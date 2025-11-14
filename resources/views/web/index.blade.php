@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 
 <body>
 
 <!-- Main Wrapper -->
 <div class="main-wrapper">
 
-    <x-header/>
+    <x-web.header/>
 
     <!-- banner -->
     <section class="banner-section">
@@ -456,7 +456,7 @@
             <div class="section-header text-center">
 					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Featured
 						Courses</span>
-                <h2>What’s New in Arrogate Maker Limited</h2>
+                <h2>What’s New in Jockey Club Bright Start Project</h2>
                 <p>Discover our featured courses, specially curated to help you gain in-demand skills</p>
             </div>
             <div class="feature-course-slider-2">
@@ -1355,7 +1355,7 @@
     </section>
     <!-- /Latest Blog -->
 
-    <x-footer/>
+    <x-web.footer/>
 
 </div>
 

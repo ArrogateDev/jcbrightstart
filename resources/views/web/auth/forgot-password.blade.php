@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>

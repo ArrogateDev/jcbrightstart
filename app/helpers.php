@@ -125,11 +125,10 @@ if (!function_exists('authority_format')) {
     {
         $list = [];
         foreach ($items as $item) {
-//            if (!$all && $item['type'] === \App\Models\Manage\Authority::BUTTON_TYPE) continue;
             if ($item['pid'] == $pid) {
                 $child = authority_format($items, $item['id'], $all);
                 $child && $item['children'] = $child;
-                $list[] = $item->toArray();
+                $list[] = $item;
             }
         }
 

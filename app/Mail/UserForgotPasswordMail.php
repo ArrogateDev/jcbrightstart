@@ -50,7 +50,7 @@ class UserForgotPasswordMail extends Mailable
         return new Content(
             view: 'email.forgot-password',
             with: [
-                'full_name' => $user->full_name,
+                'first_name' => $user->first_name,
                 'url' => $url,
                 'timeout' => $timeout
             ]

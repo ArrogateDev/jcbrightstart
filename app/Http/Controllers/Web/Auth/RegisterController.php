@@ -7,10 +7,10 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Auth\RegisterRequest;
 use App\Models\User;
+use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
@@ -43,6 +43,9 @@ class RegisterController extends Controller
         $inputs = $request->only(['email', 'password', 'first_name', 'last_name']);
         $password = $request->input('password');
         $redirect = $request->input('redirect', '/');
+        $code = $request->input('code');
+
+        $ver_code = VerificationCode::check($inputs['email'], 'register', $code);
 
         try {
 
@@ -59,6 +62,8 @@ class RegisterController extends Controller
             }
 
             Auth::login($user);
+
+            $ver_code->used();
 
             DB::commit();
 

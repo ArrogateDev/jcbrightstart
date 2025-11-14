@@ -2,11 +2,17 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\GeminiLogController;
-use App\Http\Controllers\Admin\InstructController;
-use App\Http\Controllers\Admin\PersonalController;
+use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\ChangePasswordController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\Admin\QuizResultController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\CommonController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,69 +25,53 @@ use Illuminate\Support\Facades\Route;
 | contains the "admin" middleware group. Now create something great!
 |
 */
-//获取图形验证码
-Route::get('get-captcha', [CommonController::class, 'captcha']);
+
+//登录页
+Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
 //登录
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/login.html', [LoginController::class, 'handleLogin']);
 
-Route::group(['middleware' => ['auth:sanctum', 'abilities:admin']], function ($route) {
-
-    //公共模块
-    $route->group(['prefix' => 'main'], function ($route) {
-        $route->get('get-roles', [CommonController::class, 'getRole']);
-        $route->get('get-menu-tree', [CommonController::class, 'getMenuTree']);
-    });
-
-    $route->get('dashboard', [CommonController::class, 'dashboard']);
-
-    //账号信息
-    $route->get('info', [PersonalController::class, 'info']);
-    //修改账号信息
-    $route->put('info', [PersonalController::class, 'update']);
+Route::group(['middleware' => ['auth:admin', 'auth.session']], function ($route) {
     //退出登录
-    $route->put('logout', [AuthController::class, 'logout']);
+    $route->put('logout.html', [AuthController::class, 'logout']);
+    //修改头像
+    $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('admin.set-avatar.html');
+    //删除头像
+    $route->delete('remove-avatar.html', [ProfileController::class, 'handleRemoveAvatar'])->name('admin.remove-avatar.html');
 
-    //指令管理
-    $route->group(['prefix' => 'instruct', 'middleware' => 'admin:InstructManage'], function ($route) {
-        //指令列表
-        $route->get('/', [InstructController::class, 'index'])->middleware('admin:InstructList');
-        //修改指令
-        $route->put('/{instruct}', [InstructController::class, 'update'])->middleware('admin:InstructEdit');
+    $route->group(['middleware' => 'admin:MainMenuManage'], function ($route) {
+        $route->get('/dashboard.html', [DashboardController::class, 'index'])->middleware('admin:DashboardList')->name('admin.dashboard.html');
+        $route->get('/course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
+        $route->get('/user.html', [UserController::class, 'index'])->middleware('admin:UserList')->name('admin.user.html');
+        $route->get('/quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
+        $route->get('/quiz-results.html', [QuizResultController::class, 'index'])->middleware('admin:QuizResultsList')->name('admin.quiz-results.html');
+        $route->get('/certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
     });
 
-    //记录管理
-    $route->group(['prefix' => 'log', 'middleware' => 'admin:GeminiLogManage'], function ($route) {
-        //记录列表
-        $route->get('/', [GeminiLogController::class, 'index'])->middleware('admin:GeminiLogList');
-        //删除记录
-        $route->delete('/{log}', [GeminiLogController::class, 'destroy'])->middleware('admin:GeminiLogDelete');
+    $route->group(['prefix' => 'system', 'middleware' => 'admin:AuthorityManage'], function ($route) {
+        //角色列表
+        $route->get('role.html', [RoleController::class, 'index'])->middleware('admin:RoleList')->name('admin.role.html');
+        //创建角色
+        $route->post('role.html', [RoleController::class, 'store'])->middleware('admin:RoleAdd');
+        //修改角色
+        $route->put('/role/{role}.html', [RoleController::class, 'update'])->middleware('admin:RoleEdit');
+        //删除角色
+        $route->delete('/role/{role}.html', [RoleController::class, 'destroy'])->middleware('admin:RoleDelete');
+
+        //管理员列表
+        $route->get('/admin.html', [AdminController::class, 'index'])->middleware('admin:AdminList')->name('admin.admin.html');
+        //创建管理员
+        $route->post('/admin.html', [AdminController::class, 'store'])->middleware('admin:AdminAdd');
+        //修改管理员
+        $route->put('/admin/{admin}.html', [AdminController::class, 'update'])->middleware('admin:AdminEdit');
+        //删除管理员
+        $route->delete('/admin/{admin}.html', [AdminController::class, 'destroy'])->middleware('admin:AdminDelete');
     });
 
-    //系统设置
-    $route->group(['prefix' => 'system', 'middleware' => 'admin:SystemManage'], function ($route) {
-        //角色管理
-        $route->group(['prefix' => 'roles', 'middleware' => 'admin:RoleManage'], function ($route) {
-            //角色列表
-            $route->get('/', [RoleController::class, 'index'])->middleware('admin:RoleList');
-            //创建角色
-            $route->post('/', [RoleController::class, 'store'])->middleware('admin:RoleAdd');
-            //修改角色
-            $route->put('/{role}', [RoleController::class, 'update'])->middleware('admin:RoleEdit');
-            //删除角色
-            $route->delete('/{role}', [RoleController::class, 'destroy'])->middleware('admin:RoleDelete');
-            //权限列表
-            $route->get('/menus', [RoleController::class, 'menus'])->middleware('admin:RoleEdit');
-        });
-        //管理员模块
-        $route->group(['prefix' => 'admin', 'middleware' => 'admin:AdminManage'], function ($route) {
-            //管理员列表
-            $route->get('/', [AdminController::class, 'index'])->middleware('admin:AdminList');
-            //创建管理员
-            $route->post('/', [AdminController::class, 'store'])->middleware('admin:AdminAdd');
-            //修改管理员
-            $route->put('/{admin}', [AdminController::class, 'update'])->middleware('admin:AdminEdit');
-            //删除管理员
-            $route->delete('/{admin}', [AdminController::class, 'destroy'])->middleware('admin:AdminDelete');
-        });
-    });
+    $route->get('/profile.html', [ProfileController::class, 'index'])->name('admin.profile.html');
+    $route->get('/settings.html', [SettingController::class, 'index'])->name('admin.settings.html');
+    $route->post('/settings.html', [SettingController::class, 'handleSetting']);
+
+    $route->get('/change-password.html', [ChangePasswordController::class, 'index'])->name('admin.change-password.html');
+    $route->post('/change-password.html', [ChangePasswordController::class, 'handleChangePassword']);
 });

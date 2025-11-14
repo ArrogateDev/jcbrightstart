@@ -40,12 +40,8 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'user' => [
-            'driver' => 'sanctum',
-            'provider' => 'users'
-        ],
         'admin' => [
-            'driver' => 'sanctum',
+            'driver' => 'session',
             'provider' => 'admins'
         ]
     ],

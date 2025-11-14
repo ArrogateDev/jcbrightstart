@@ -94,4 +94,13 @@ class Admin extends Authenticatable
         ]);
         return $this->role->permissions->isNotEmpty();
     }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        return $value ? web_resource_url($value) : web_resource_url('assets/img/avatar.png');
+    }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 
 <body>
 
@@ -48,7 +48,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="dropdown mb-2 me-3">
+                        <div class="dropdown mb-2 me-3 d-none">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 USD
@@ -96,17 +96,17 @@
 							</span>
                     </a>
                     <div class="navbar-logo">
-                        <a class="logo-white header-logo" href="index.html">
+                        <a class="logo-white header-logo" href="{{route('index.html')}}">
                             <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
                         </a>
-                        <a class="logo-dark header-logo" href="index.html">
+                        <a class="logo-dark header-logo" href="{{route('index.html')}}">
                             <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
                         </a>
                     </div>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index.html" class="menu-logo">
+                        <a href="{{route('index.html')}}" class="menu-logo">
                             <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -123,72 +123,72 @@
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index.html')}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-01.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index.html" class="inner-demo-img">Home 1</a>
+                                                        <a href="{{route('index.html')}}" class="inner-demo-img">Home 1</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index-2.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-02.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index-2.html" class="inner-demo-img">Home 2</a>
+                                                        <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img">Home 2</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index-3.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-03.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index-3.html" class="inner-demo-img">Home 3</a>
+                                                        <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img">Home 3</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index-4.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-04.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index-4.html" class="inner-demo-img">Home 4</a>
+                                                        <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img">Home 4</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index-5.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-05.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index-5.html" class="inner-demo-img">Home 5</a>
+                                                        <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img">Home 5</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="single-demo">
                                                     <div class="demo-img">
-                                                        <a href="index-6.html" class="inner-demo-img"><img
+                                                        <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img"><img
                                                                 src="{{web_resource_url('assets/img/home/home-06.jpg')}}" class="img-fluid "
                                                                 alt="img"></a>
                                                     </div>
                                                     <div class="demo-info">
-                                                        <a href="index-6.html" class="inner-demo-img">Home 6</a>
+                                                        <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img">Home 6</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +197,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-submenu">
+                        <li class="has-submenu d-none">
                             <a href="#">Courses <i class="isax isax-add"></i></a>
                             <ul class="submenu">
                                 <li class="has-submenu">
@@ -229,7 +229,7 @@
                                 <li><a href="add-course.html">Add New Course</a></li>
                             </ul>
                         </li>
-                        <li class="has-submenu active">
+                        <li class="has-submenu active d-none">
                             <a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
                             <ul class="submenu">
                                 <li class="has-submenu">
@@ -278,7 +278,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-submenu">
+                        <li class="has-submenu d-none">
                             <a href="#">Pages <i class="isax isax-add"></i></a>
                             <ul class="submenu">
                                 <li class="has-submenu">
@@ -322,7 +322,7 @@
                                 <li><a href="index-rtl.html">RTL</a></li>
                             </ul>
                         </li>
-                        <li class="has-submenu">
+                        <li class="has-submenu d-none">
                             <a href="#">Blog <i class="isax isax-add"></i></a>
                             <ul class="submenu">
                                 <li class="has-submenu">
@@ -352,7 +352,7 @@
                     </ul>
                 </div>
                 <div class="header-btn d-flex align-items-center">
-                    <div class="icon-btn me-2">
+                    <div class="icon-btn me-2 d-none">
                         <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle activate">
                             <i class="isax isax-sun-15"></i>
                         </a>
@@ -360,7 +360,7 @@
                             <i class="isax isax-moon"></i>
                         </a>
                     </div>
-                    <div class="icon-btn me-3">
+                    <div class="icon-btn me-3 d-none">
                         <a href="cart.html" class="position-relative">
                             <i class="isax isax-shopping-cart5"></i>
                             <span class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
@@ -416,7 +416,7 @@
                             <div class="profile-footer">
                                 <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
                                    href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Instructor</a>
-                                <a href="index.html"
+                                <a href="{{route('index.html')}}"
                                    class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i
                                         class="isax isax-logout me-2"></i>Logout</a>
                             </div>
@@ -428,7 +428,7 @@
     </header>
     <!-- /Header -->
 
-    <x-user.breadcrumb title="My Certificates"/>
+    <x-web.user.breadcrumb title="My Certificates"/>
 
     <div class="content">
         <div class="container">
@@ -468,7 +468,7 @@
 
             <div class="row">
 
-                <x-user.sidebar active="certificate"/>
+                <x-web.user.sidebar active="certificate"/>
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
@@ -591,7 +591,7 @@
         </div>
     </div>
 
-    <x-footer/>
+    <x-web.footer/>
 
     <!-- View Certificate -->
     <div class="modal fade" id="view_certificate">

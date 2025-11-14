@@ -3,7 +3,6 @@
 
     const STRENGTH_CLASSES = ["poor-active", "avg-active", "strong-active", "heavy-active"];
     const BAR_ORDER = ["poor", "weak", "strong", "heavy"];
-    const ICON_BASE_PATH = "storage/assets/img/icon/";
 
     const REGEX_RULES = {
         lettersOnly: /^[a-zA-Z]+$/,
@@ -14,59 +13,56 @@
         poor: {
             className: "poor-active",
             color: "#FF0000",
-            icon: "angry.svg",
             message: "Weak. Only letters or only digits detected."
         },
         weak: {
             className: "avg-active",
             color: "#FFB54A",
-            icon: "anguish.svg",
             message: "Average. Include both letters and numbers."
         },
         strong: {
             className: "strong-active",
             color: "#ffc106",
-            icon: "smile.svg",
             message: "Almost. Add a special character and ensure at least 8 characters."
         },
         heavy: {
             className: "heavy-active",
             color: "#159F46",
-            icon: "smile.svg",
             message: "OK! The requirement of password is fulfilled."
         },
         invalid: {
             className: "",
             color: "#FF0000",
-            icon: "angry.svg",
             message: "Whitespaces are not allowed."
         }
     };
 
-    initPasswordStrength({
-        containerSelector: "#passwordInput",
-        strengthSelector: "#passwordStrength",
-        infoSelector: "#passwordInfo",
-        passcheckSelector: "#passwordInput .pass-checked",
-        barSelectors: {
-            poor: "#passwordStrength #poor",
-            weak: "#passwordStrength #weak",
-            strong: "#passwordStrength #strong",
-            heavy: "#passwordStrength #heavy"
-        }
-    });
+    $(function () {
+        initPasswordStrength({
+            containerSelector: "#passwordInput",
+            strengthSelector: "#passwordStrength",
+            infoSelector: "#passwordInfo",
+            passcheckSelector: "#passwordInput .pass-checked",
+            barSelectors: {
+                poor: "#passwordStrength #poor",
+                weak: "#passwordStrength #weak",
+                strong: "#passwordStrength #strong",
+                heavy: "#passwordStrength #heavy"
+            }
+        });
 
-    initPasswordStrength({
-        containerSelector: "#passwordInputs",
-        strengthSelector: "#passwordStrengths",
-        infoSelector: "#passwordInfos",
-        passcheckSelector: "#passwordInputs .pass-checked",
-        barSelectors: {
-            poor: "#passwordStrengths #poors",
-            weak: "#passwordStrengths #weaks",
-            strong: "#passwordStrengths #strongs",
-            heavy: "#passwordStrengths #heavys"
-        }
+        initPasswordStrength({
+            containerSelector: "#passwordInputs",
+            strengthSelector: "#passwordStrengths",
+            infoSelector: "#passwordInfos",
+            passcheckSelector: "#passwordInputs .pass-checked",
+            barSelectors: {
+                poor: "#passwordStrengths #poors",
+                weak: "#passwordStrengths #weaks",
+                strong: "#passwordStrengths #strongs",
+                heavy: "#passwordStrengths #heavys"
+            }
+        });
     });
 
     function initPasswordStrength({
@@ -198,7 +194,7 @@
 
     function updateInfo(infoElement, evaluation) {
         infoElement.style.color = evaluation.color;
-        infoElement.innerHTML = `<img src="${ICON_BASE_PATH}${evaluation.icon}" class="me-2">${evaluation.message}`;
+        infoElement.innerHTML = evaluation.message;
     }
 
     function resetUI(strengthElement, infoElement, passcheckElement, bars) {

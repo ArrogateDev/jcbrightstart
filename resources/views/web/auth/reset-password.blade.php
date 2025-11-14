@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
@@ -61,7 +61,7 @@
                                         <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
                                         <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
                                     </div>
-                                    <div class="password-strength" id="passwordStrength">
+                                    <div class="password-strength">
                                         <span id="poor"></span>
                                         <span id="weak"></span>
                                         <span id="strong"></span>
@@ -73,10 +73,10 @@
                                     <label class="form-label">
                                         Confirm Password
                                         <span class="text-danger">*</span>
-                                        <span id="error-container-confirm-password"></span>
+                                        <span id="error-container-password-confirmation"></span>
                                     </label>
                                     <div class="position-relative">
-                                        <input id="password_confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
+                                        <input id="password-confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
                                         <span class="isax toggle-passworda isax-eye-slash text-gray-7 fs-14"></span>
                                     </div>
                                 </div>
@@ -104,14 +104,9 @@
                 rule: 'required',
             },
             {
-                rule: 'password',
-            },
-            {
-                rule: 'minLength',
-                value: 8,
-            },
-            {
-                rule: 'strongPassword',
+                rule: 'customRegexp',
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.#?!@$%^&*-]).{8,}$/,
+                errorMessage: 'Use uppercase, lowercase, numbers, symbols and 8+ characters.'
             }
         ], {
             errorsContainer: '#error-container-password'
@@ -131,7 +126,7 @@
                 }
             }
         ], {
-            errorsContainer: '#error-container-confirm-password'
+            errorsContainer: '#error-container-password-confirmation'
         })
         .onSuccess(() => {
             handleRestPassword();

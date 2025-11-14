@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\VerificationCodeController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
@@ -26,8 +27,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/index.html', [IndexController::class, 'index'])->name('index.html');
+Route::get('/index-{no}.html', [IndexController::class, 'other'])->name('index-other.html');
 Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
 Route::post('/login.html', [LoginController::class, 'handleLogin']);
 Route::post('/google-quick-login.html', [LoginController::class, 'handleGoogleQuickLogin'])->name('google-quick-login.html');
@@ -38,6 +40,8 @@ Route::get('/forgot-password.html', [ForgotPasswordController::class, 'index'])-
 Route::post('/forgot-password.html', [ForgotPasswordController::class, 'handleForgotPassword']);
 Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
 Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
+//获取验证码
+Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
 
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 

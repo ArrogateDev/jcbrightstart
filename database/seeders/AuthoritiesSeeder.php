@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Base;
 use App\Models\Manage\Authority;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 
 class AuthoritiesSeeder extends Seeder
 {
@@ -17,8 +18,148 @@ class AuthoritiesSeeder extends Seeder
     {
 
         $authorities[] = [
-            'name' => '角色管理',
-            'alias' => 'RoleManage',
+            'name' => '主菜单',
+            'alias' => 'MainMenuManage',
+            'sort' => 0,
+            'type' => Authority::MENU_TYPE,
+            'pid' => 0,
+            'children' => [
+                [
+                    'name' => '仪表板',
+                    'alias' => 'DashboardList',
+                    'icon' => 'isax isax-grid-35',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => []
+                ],
+                [
+                    'name' => '课程管理',
+                    'alias' => 'CourseList',
+                    'icon' => 'isax isax-teacher5',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加课程',
+                            'alias' => 'CourseAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑课程',
+                            'alias' => 'CourseEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除课程',
+                            'alias' => 'CourseDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '用户管理',
+                    'alias' => 'UserList',
+                    'icon' => 'isax isax-profile-2user5',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '编辑用户',
+                            'alias' => 'UserEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除用户',
+                            'alias' => 'UserDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '测验管理',
+                    'alias' => 'QuizList',
+                    'icon' => 'isax isax-award5',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加测验',
+                            'alias' => 'QuizAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑测验',
+                            'alias' => 'QuizEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除测验',
+                            'alias' => 'QuizDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '测验结果管理',
+                    'alias' => 'QuizResultsList',
+                    'icon' => 'isax isax-medal-star5',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => []
+                ],
+                [
+
+                    'name' => '证书管理',
+                    'alias' => 'CertificateList',
+                    'icon' => 'isax isax-note-215',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加证书',
+                            'alias' => 'CertificateAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑证书',
+                            'alias' => 'CertificateEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除证书',
+                            'alias' => 'CertificateDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $authorities[] = [
+            'name' => '权限管理',
+            'alias' => 'AuthorityManage',
             'sort' => 0,
             'type' => Authority::MENU_TYPE,
             'pid' => 0,
@@ -26,6 +167,7 @@ class AuthoritiesSeeder extends Seeder
                 [
                     'name' => '角色管理',
                     'alias' => 'RoleList',
+                    'icon' => 'fa-solid fa-sitemap',
                     'sort' => 0,
                     'type' => Authority::GPS_TYPE,
                     'children' => [
@@ -51,20 +193,11 @@ class AuthoritiesSeeder extends Seeder
                             'children' => []
                         ]
                     ]
-                ]
-            ]
-        ];
-
-        $authorities[] = [
-            'name' => '管理员管理',
-            'alias' => 'AdminManage',
-            'sort' => 0,
-            'type' => Authority::MENU_TYPE,
-            'pid' => 0,
-            'children' => [
+                ],
                 [
                     'name' => '管理员管理',
                     'alias' => 'AdminList',
+                    'icon' => 'fa-solid fa-user-tie',
                     'sort' => 0,
                     'type' => Authority::GPS_TYPE,
                     'children' => [
@@ -100,6 +233,7 @@ class AuthoritiesSeeder extends Seeder
                 $level0 = new Authority();
                 $level0->name = $level0_item['name'];
                 $level0->alias = $level0_item['alias'];
+                $level0->icon = $level0_item['icon'] ?? '';
                 $level0->type = $level0_item['type'];
                 $level0->pid = $level0_item['pid'];
                 $level0->sort = ($total * 1000) - ($index * 1000);
@@ -110,6 +244,7 @@ class AuthoritiesSeeder extends Seeder
                     $level1 = new Authority();
                     $level1->name = $level1_item['name'];
                     $level1->alias = $level1_item['alias'];
+                    $level1->icon = $level1_item['icon'] ?? '';
                     $level1->sort = $level0->sort - (($l1 + 1) * 100);
                     $level1->type = $level1_item['type'];
                     $level1->pid = $level0->id;
@@ -120,6 +255,7 @@ class AuthoritiesSeeder extends Seeder
                         $level2 = new Authority();
                         $level2->name = $level02_item['name'];
                         $level2->alias = $level02_item['alias'];
+                        $level2->icon = $level02_item['icon'] ?? '';
                         $level2->sort = $level1->sort - (($l2 + 1) * 10);
                         $level2->type = $level02_item['type'];
                         $level2->pid = $level1->id;
@@ -130,6 +266,7 @@ class AuthoritiesSeeder extends Seeder
                             $level3 = new Authority();
                             $level3->name = $level3_item['name'];
                             $level3->alias = $level3_item['alias'];
+                            $level3->icon = $level3_item['icon'] ?? '';
                             $level3->sort = $level2->sort - $l3 + 1;
                             $level3->type = $level3_item['type'];
                             $level3->pid = $level2->id;
@@ -139,5 +276,7 @@ class AuthoritiesSeeder extends Seeder
                 }
             }
         }
+
+        Cache::tags(['MENUS'])->flush();
     }
 }

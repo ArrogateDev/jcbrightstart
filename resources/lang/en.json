@@ -1,0 +1,16 @@
+{
+    "首页": "Home",
+    "主菜单": "Main Menu",
+    "仪表板": "Dashboard",
+    "课程管理": "Courses",
+    "用户管理": "User",
+    "测验管理": "Quiz",
+    "测验结果管理": "Quiz Results",
+    "证书管理": "Certificates",
+    "权限管理": "Permission",
+    "角色管理": "Role",
+    "管理员管理": "Administrator",
+    "账户设置": "Account Settings",
+    "设置": "Settings",
+    "退出登录": "Logout"
+}

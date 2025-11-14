@@ -40,9 +40,13 @@ class Kernel extends HttpKernel
         ],
 
         'admin' => [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class . ':admin',
         ],
 
         'api' => [
@@ -74,5 +78,7 @@ class Kernel extends HttpKernel
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         'admin' => \App\Http\Middleware\PermissionAuth::class,
+        'admin.middleware' => \App\Http\Middleware\AdminMiddleware::class,
+        'web.middleware' => \App\Http\Middleware\WebMiddleware::class,
     ];
 }

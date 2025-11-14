@@ -17,12 +17,22 @@ class VerificationCodeMail extends Mailable
 
     private VerificationCode $log;
 
+    private $templates = [
+        'register' => [
+            'subject' => '註冊驗證碼',
+            'view' => 'email.register',
+        ]
+    ];
+
+    public $template;
+
     /**
      * Create a new message instance.
      */
     public function __construct(VerificationCode $log)
     {
         $this->log = $log;
+        $this->template = $this->templates[$log->scene];
     }
 
     /**
@@ -31,7 +41,7 @@ class VerificationCodeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '聲享-註冊驗證碼',
+            subject: $this->template['subject'],
         );
     }
 
@@ -41,9 +51,8 @@ class VerificationCodeMail extends Mailable
     public function content(): Content
     {
         $log = $this->log;
-        $view = $log->scene === 'register' ? 'email.register' : 'email.forgot-password';
         return new Content(
-            view: $view,
+            view: $this->template['view'],
             with: [
                 'account' => $log->account,
                 'code' => $log->code,

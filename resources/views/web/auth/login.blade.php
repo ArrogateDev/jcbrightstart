@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
@@ -97,9 +97,9 @@
 
                             <div class="d-flex align-items-center justify-content-center mb-3">
 
-                                <x-auth.google-quick-login type="signin"/>
+                                <x-web.auth.google-quick-login type="signin"/>
 
-                                <x-auth.apple-quick-login type="signin"/>
+                                <x-web.auth.apple-quick-login type="signin"/>
 
                             </div>
 

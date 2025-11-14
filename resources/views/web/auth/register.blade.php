@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-head/>
+<x-web.head/>
 <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
@@ -82,6 +82,17 @@
                                 </div>
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
+                                        Verify Code
+                                        <span class="text-danger ms-1">*</span>
+                                        <span id="error-container-code"></span>
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <input id="code" type="text" name="code" class="form-control form-control-lg">
+                                        <button type="button" class="btn border" id="get-code">Get</button>
+                                    </div>
+                                </div>
+                                <div class="mb-3 position-relative">
+                                    <label class="form-label">
                                         New Password
                                         <span class="text-danger">*</span>
                                         <span id="error-container-password"></span>
@@ -90,7 +101,7 @@
                                         <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
                                         <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
                                     </div>
-                                    <div class="password-strength" id="passwordStrength">
+                                    <div class="password-strength">
                                         <span id="poor"></span>
                                         <span id="weak"></span>
                                         <span id="strong"></span>
@@ -102,10 +113,10 @@
                                     <label class="form-label">
                                         Confirm Password
                                         <span class="text-danger">*</span>
-                                        <span id="error-container-confirm-password"></span>
+                                        <span id="error-container-password-confirmation"></span>
                                     </label>
                                     <div class="position-relative">
-                                        <input id="password_confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
+                                        <input id="password-confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
                                         <span class="isax toggle-passworda isax-eye-slash text-gray-7 fs-14"></span>
                                     </div>
                                 </div>
@@ -135,9 +146,9 @@
 
                             <div class="d-flex align-items-center justify-content-center mb-3">
 
-                                <x-auth.google-quick-login type="signup"/>
+                                <x-web.auth.google-quick-login type="signup"/>
 
-                                <x-auth.apple-quick-login type="signup"/>
+                                <x-web.auth.apple-quick-login type="signup"/>
 
                             </div>
 
@@ -185,23 +196,26 @@
         ], {
             errorsContainer: '#error-container-email'
         })
+        .addField('#code', [
+            {
+                rule: 'required',
+                errorMessage: 'Please enter Verify Code.'
+            },
+            {
+                rule: 'number',
+                errorMessage: 'Please enter Verify Code.'
+            },
+        ], {
+            errorsContainer: '#error-container-code'
+        })
         .addField('#password', [
             {
                 rule: 'required',
-                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
             },
             {
-                rule: 'password',
-                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
-            },
-            {
-                rule: 'minLength',
-                value: 8,
-                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
-            },
-            {
-                rule: 'strongPassword',
-                errorMessage: 'Use upper & lower case letters, numbers, symbols and 8+ characters.'
+                rule: 'customRegexp',
+                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.#?!@$%^&*-]).{8,}$/,
+                errorMessage: 'Use uppercase, lowercase, numbers, symbols and 8+ characters.'
             }
         ], {
             errorsContainer: '#error-container-password'
@@ -222,7 +236,7 @@
                 errorMessage: 'Password does not match',
             }
         ], {
-            errorsContainer: '#error-container-confirm-password'
+            errorsContainer: '#error-container-password-confirmation'
         })
         .addField('#agree', [
             {
@@ -270,6 +284,82 @@
         });
     }
 
+    function validateEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    $(function () {
+        const $getCodeBtn = $('#get-code');
+        const COUNTDOWN_SECONDS = 60;
+        let countdownTimer = null;
+
+        function resetButton() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            $getCodeBtn.prop('disabled', false).text('Get');
+        }
+
+        function startCountdown() {
+            let remaining = COUNTDOWN_SECONDS;
+            $getCodeBtn.prop('disabled', true).text(`Resend (${remaining}s)`);
+            countdownTimer = setInterval(() => {
+                remaining -= 1;
+                if (remaining <= 0) {
+                    resetButton();
+                    return;
+                }
+                $getCodeBtn.text(`Resend (${remaining}s)`);
+            }, 1000);
+        }
+
+        $getCodeBtn.on('click', function () {
+            if ($getCodeBtn.prop('disabled')) {
+                return;
+            }
+
+            const email = $('#email').val().trim();
+            if (!email) {
+                showToast('error', 'Please enter your email.');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showToast('error', 'Please enter the correct email address.');
+                return;
+            }
+
+            const form = {
+                email,
+                scene: 'register',
+                _token: '{{ csrf_token() }}'
+            };
+
+            $getCodeBtn.prop('disabled', true).text('Sending...');
+
+            $.ajax({
+                type: "post",
+                url: '{{route('get-code')}}',
+                data: form,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code !== 0) {
+                        showToast('error', data.msg);
+                        resetButton();
+                        return;
+                    }
+
+                    showToast('success', 'Verification code sent successfully.');
+                    startCountdown();
+                }, error: function () {
+                    showToast('error', 'Failed to send verification code.')
+                    resetButton();
+                }
+            });
+        });
+    });
 </script>
 </body>
 
