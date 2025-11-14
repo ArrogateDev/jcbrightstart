@@ -101,7 +101,7 @@
                                         <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
                                         <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
                                     </div>
-                                    <div class="password-strength">
+                                    <div class="password-strength" id="passwordStrength">
                                         <span id="poor"></span>
                                         <span id="weak"></span>
                                         <span id="strong"></span>
@@ -220,7 +220,7 @@
         ], {
             errorsContainer: '#error-container-password'
         })
-        .addField('#password_confirmation', [
+        .addField('#password-confirmation', [
             {
                 rule: 'required',
             },
