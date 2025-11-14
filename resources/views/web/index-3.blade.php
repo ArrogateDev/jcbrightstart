@@ -214,8 +214,8 @@
 												<li><a href="instructor-details.html">Instructor Details</a></li>
 											</ul>
 										</li>
-										<li><a href="about-us.html">About Us</a></li>
-										<li><a href="contact-us.html">Contact us</a></li>
+										<li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
+										<li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contact us</a></li>
 										<li><a href="notifications.html">Notifications</a></li>
 										<li><a href="become-an-instructor.html">Become an Instructor</a></li>
 										<li><a href="testimonials.html">Testimonials</a></li>
@@ -239,11 +239,11 @@
 											</ul>
 										</li>
 										<li><a href="pricing-plan.html">Pricing Plan</a></li>
-										<li><a href="faq.html">FAQ</a></li>
+										<li><a href="{{route('page', ['page' => 'faq.html'])}}"">FAQ</a></li>
 										<li><a href="coming-soon.html">Coming Soon</a></li>
 										<li><a href="under-construction.html">Under Construction</a></li>
-										<li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-										<li><a href="privacy-policy.html">Privacy Policy</a></li>
+										<li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+										<li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
 										<li><a href="index-rtl.html">RTL</a></li>
 									</ul>
 								</li>
@@ -1952,7 +1952,7 @@
 												<li><a href="add-course.html">Enroll a Course</a></li>
 												<li><a href="register.html">Orders</a></li>
 												<li><a href="pricing-plan.html">Payments</a></li>
-												<li><a href="contact-us.html">Contact Us</a></li>
+												<li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contact Us</a></li>
 											</ul>
 										</div>
 										<!-- /Footer Widget -->
@@ -1967,8 +1967,8 @@
 											<ul>
 												<li class=" d-none"><a href="course-category.html">Categories</a></li>
 												<li class=" d-none"><a href="course-category.html">Services</a></li>
-												<li><a href="about-us.html">About Us</a></li>
-												<li><a href="faq.html">FAQ</a></li>
+												<li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
+												<li><a href="{{route('page', ['page' => 'faq.html'])}}"">FAQ</a></li>
 												<li><a href="blog-3-grid.html">Blog</a></li>
 											</ul>
 										</div>
@@ -2067,8 +2067,8 @@
 							</div>
 							<div class="col-md-4">
 								<div class="privacy-link">
-									<a href="terms-and-conditions.html" class="mb-0">Terms & Policy</a>
-									<a href="privacy-policy.html">Privacy Policy</a>
+									<a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}" class="mb-0">Terms & Policy</a>
+									<a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a>
 								</div>
 							</div>
 						</div>

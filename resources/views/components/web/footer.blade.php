@@ -36,9 +36,9 @@
                                 <ul>
                                     <li class=" d-none"><a href="course-category.html">Categories</a></li>
                                     <li class=" d-none"><a href="course-list.html">Courses</a></li>
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="faq.html">Faq</a></li>
-                                    <li><a href="contact-us.html">Contacts</a></li>
+                                    <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
+                                    <li><a href="{{route('page', ['page' => 'faq.html'])}}"">Faq</a></li>
+                                    <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contacts</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,8 +87,8 @@
                 </div>
                 <div class="col-lg-4">
                     <ul class="d-flex align-items-center justify-content-center footer-link">
-                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                        <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-
-class UserController extends Controller
+class AuthController extends Controller
 {
-
 
     /**
      * 退出登录
@@ -18,8 +17,11 @@ class UserController extends Controller
      */
     public function logout(Request $request)
     {
-        $user = $request->user('user');
-        $user->remove_tokens('user');
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         return $this->responseSuccess(null, '退出成功');
     }

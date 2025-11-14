@@ -1,16 +1,93 @@
-<!-- Header -->
-<header class="header-one">
+@props([
+    'user' => null
+])
+<div class="header-topbar text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center ">
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2 me-3"><i
+                            class="isax isax-location me-2"></i>Fanling, Hong Kong</p>
+                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i
+                            class="isax isax-call-calling5 me-2"></i>+852 xxxx xxxx</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center justify-content-end">
+                    <div class="dropdown flag-dropdown mb-2 me-3 d-none">
+                        <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
+                        </a>
+                        <ul class="dropdown-menu p-2 mt-2" style="">
+                            <li>
+                                <a class="dropdown-item rounded d-flex align-items-center"
+                                   href="javascript:void(0);">
+                                    <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded d-flex align-items-center"
+                                   href="javascript:void(0);">
+                                    <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded d-flex align-items-center"
+                                   href="javascript:void(0);">
+                                    <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mb-2 me-3 d-none">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            USD
+                        </a>
+                        <ul class="dropdown-menu p-2 mt-2">
+                            <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
+                            <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
+                            <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
+                        </ul>
+                    </div>
+                    <ul class="social-icon d-flex align-items-center mb-2">
+                        <li class="me-2">
+                            <a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a>
+                        </li>
+                        <li class="me-2">
+                            <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
+                        </li>
+                        <li class="me-2">
+                            <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
+                        </li>
+                        <li class="me-2">
+                            <a href="javascript:void(0);"><i class="fa-brands fa-youtube"></i></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="header-two">
     <div class="container">
         <div class="header-nav">
             <div class="navbar-header">
                 <a id="mobile_btn" href="javascript:void(0);">
 							<span class="bar-icon">
-								<i class="isax isax-menu"></i>
+								<span></span>
+								<span></span>
+								<span></span>
 							</span>
                 </a>
                 <div class="navbar-logo">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
                         <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
@@ -27,14 +104,14 @@
                     </a>
                 </div>
                 <ul class="main-nav">
-                    <li class="has-submenu megamenu active">
-                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
+                    <li class="has-submenu megamenu">
+                        <a href="#">Home <i class="isax isax-add"></i></a>
                         <ul class="submenu mega-submenu">
                             <li>
                                 <div class="megamenu-wrapper">
                                     <div class="row">
                                         <div class="col-lg-2">
-                                            <div class="single-demo active">
+                                            <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index.html')}}" class="inner-demo-img"><img
                                                             src="{{web_resource_url('assets/img/home/home-01.jpg')}}" class="img-fluid "
@@ -111,7 +188,7 @@
                         </ul>
                     </li>
                     <li class="has-submenu d-none">
-                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
+                        <a href="#">Courses <i class="isax isax-add"></i></a>
                         <ul class="submenu">
                             <li class="has-submenu">
                                 <a href="javascript:void(0);">Courses</a>
@@ -142,8 +219,8 @@
                             <li><a href="add-course.html">Add New Course</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu d-none">
-                        <a href="javascript:void(0);">Dashboard <i class="fas fa-chevron-down"></i></a>
+                    <li class="has-submenu active d-none">
+                        <a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
                         <ul class="submenu">
                             <li class="has-submenu">
                                 <a href="javascript:void(0);">Instructor Dashboard</a>
@@ -171,10 +248,11 @@
                                     <li><a href="instructor-settings.html">Settings</a></li>
                                 </ul>
                             </li>
-                            <li class="has-submenu">
+                            <li class="has-submenu active">
                                 <a href="javascript:void(0);">Student Dashboard</a>
                                 <ul class="submenu">
-                                    <li><a href="student-dashboard.html">Student Dashboard</a></li>
+                                    <li class="active"><a href="student-dashboard.html">Student Dashboard</a>
+                                    </li>
                                     <li><a href="student-profile.html">My Profile</a></li>
                                     <li><a href="student-courses.html">Enrolled Courses</a></li>
                                     <li><a href="student-certificates.html">My Certificates</a></li>
@@ -191,7 +269,7 @@
                         </ul>
                     </li>
                     <li class="has-submenu d-none">
-                        <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
+                        <a href="#">Pages <i class="isax isax-add"></i></a>
                         <ul class="submenu">
                             <li class="has-submenu">
                                 <a href="#">Instructors</a>
@@ -235,7 +313,7 @@
                         </ul>
                     </li>
                     <li class="has-submenu d-none">
-                        <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
+                        <a href="#">Blog <i class="isax isax-add"></i></a>
                         <ul class="submenu">
                             <li class="has-submenu">
                                 <a href="#">Blog Layouts</a>
@@ -262,117 +340,9 @@
                         </ul>
                     </li>
                 </ul>
-
-                <div class="menu-dropdown d-none">
-                    <div class="cart-item">
-                        <h6>Cart & Wishlist</h6>
-                        <div class="icon-btn">
-                            <a href="cart.html" class="position-relative">
-                                <i class="isax isax-shopping-cart5"></i>
-                                <span
-                                    class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="dropdown flag-dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle d-flex align-items-center"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            USD
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Light
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">Light</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">Dark</a></li>
-                        </ul>
-                    </div>
-                </div>
-{{--                @auth--}}
-{{--                    <div class="menu-login">--}}
-{{--                        Auth--}}
-{{--                    </div>--}}
-{{--                @else--}}
-                    <div class="menu-login">
-                        <a href="{{route('login.html')}}" class="btn btn-primary w-100 mb-2"><i
-                                class="isax isax-user me-2"></i>Sign In</a>
-                        <a href="{{route('register.html')}}" class="btn btn-secondary w-100"><i
-                                class="isax isax-user-edit me-2"></i>Register</a>
-                    </div>
-{{--                @endauth--}}
             </div>
             <div class="header-btn d-flex align-items-center">
-                <div class="dropdown flag-dropdown icon-btn d-none">
-                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" alt="flag">
-                    </a>
-                    <ul class="dropdown-menu p-2 mt-2">
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown icon-btn d-none">
-                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="isax isax-dollar-circle4"></i>
-                    </a>
-                    <ul class="dropdown-menu p-2 mt-2">
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                    </ul>
-                </div>
-                <div class="icon-btn d-none">
+                <div class="icon-btn me-2 d-none">
                     <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle activate">
                         <i class="isax isax-sun-15"></i>
                     </a>
@@ -380,81 +350,76 @@
                         <i class="isax isax-moon"></i>
                     </a>
                 </div>
-                <div class="icon-btn d-none">
+                <div class="icon-btn me-3 d-none">
                     <a href="cart.html" class="position-relative">
                         <i class="isax isax-shopping-cart5"></i>
                         <span class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
                     </a>
                 </div>
-{{--                @auth--}}
-{{--                    <div class="dropdown profile-dropdown">--}}
-{{--                        <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">--}}
-{{--								<span class="avatar">--}}
-{{--									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">--}}
-{{--								</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu dropdown-menu-end">--}}
-{{--                            <div class="profile-header d-flex align-items-center">--}}
-{{--                                <div class="avatar">--}}
-{{--                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"--}}
-{{--                                         class="img-fluid rounded-circle">--}}
-{{--                                </div>--}}
-{{--                                <div>--}}
-{{--                                    <h6>Eugene Andre</h6>--}}
-{{--                                    <p><a href="/cdn-cgi/l/email-protection"--}}
-{{--                                          class="__cf_email__">eric@arrogatemaker.com</a>--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <ul class="profile-body">--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-profile.html"><i--}}
-{{--                                            class="isax isax-security-user me-2"></i>My Profile</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-course.html"><i--}}
-{{--                                            class="isax isax-teacher me-2"></i>Courses</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"--}}
-{{--                                       href="instructor-earnings.html"><i--}}
-{{--                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-message.html"><i--}}
-{{--                                            class="isax isax-messages-3 me-2"></i>Messages<span--}}
-{{--                                            class="message-count">2</span></a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-settings.html"><i--}}
-{{--                                            class="isax isax-setting-2 me-2"></i>Settings</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                            <div class="profile-footer">--}}
-{{--                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>--}}
-{{--                                <a href="{{route('index.html')}}"--}}
-{{--                                   class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i--}}
-{{--                                        class="isax isax-logout me-2"></i>Logout</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @else--}}
-                    <a href="{{route('login.html')}}" class="btn btn-primary d-inline-flex align-items-center me-2">
-                        Sign In
-                    </a>
-                    <a href="{{route('register.html')}}" class="btn btn-secondary me-0">
-                        Register
-                    </a>
-{{--                @endauth--}}
+                @auth
+                    <div class="dropdown profile-dropdown">
+                        <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
+								<span class="avatar">
+									<img src="{{$user->avatar}}" alt="Img" class="img-fluid rounded-circle">
+								</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="profile-header d-flex align-items-center">
+                                <div class="avatar">
+                                    <img src="{{$user->avatar}}" alt="Img"
+                                         class="img-fluid rounded-circle">
+                                </div>
+                                <div>
+                                    <h6>{{$user->full_name}}</h6>
+                                    <p>
+                                        <a href="#" class="__cf_email__">{{$user->email}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <ul class="profile-body">
+                                <li>
+                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.profile.html')}}">
+                                        <i class="fa-solid fa-user me-2"></i>
+                                        My Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.course.html')}}">
+                                        <i class="isax isax-teacher5 me-2"></i>
+                                        My Courses
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.certificate.html')}}">
+                                        <i class="isax isax-note-215 me-2"></i>
+                                        My Certificates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.quiz.html')}}">
+                                        <i class="isax isax-medal-star5 me-2"></i>
+                                        My Quiz
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.settings.html')}}">
+                                        <i class="isax isax-setting-25 me-2"></i>
+                                        Settings
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="profile-footer">
+                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('login.html')}}">
+                                    <i class="isax isax-arrow-2 me-2"></i>
+                                    Log in as Instructor
+                                </a>
+                                <a href="#"
+                                   class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
+                                    <i class="isax isax-logout me-2"></i>Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                @endauth
             </div>
         </div>
     </div>

@@ -12,12 +12,15 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+			$table->string('avatar')->nullable()->comment('头像');
             $table->string('email')->nullable()->unique();
             $table->string('password')->nullable();
             $table->string('avatar')->nullable()->comment('头像');
             $table->string('full_name')->nullable()->comment('全名');
             $table->string('first_name')->nullable()->comment('名字');
             $table->string('last_name')->nullable()->comment('姓氏');
+			$table->tinyInteger('gender')->default(0)->comment('性别:0-女/1-男');
+			$table->tinyInteger('age')->default(0)->comment('年龄');
 			$table->tinyInteger('role')->default(0)->comment('状态:0-学生/1-老师');
 			$table->tinyInteger('status')->default(0)->comment('状态:0-正常/1-禁用');
             $table->string('remember_token')->nullable();

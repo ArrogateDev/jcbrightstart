@@ -149,7 +149,7 @@
     @if($module === 'web')
     $(function () {
         $('.rest-password').click(function () {
-            confirm_alert('Are you sure?', "You won't be able to revert this!", 'Yes, Rest Password!!').then((result) => {
+            confirm_alert('Are you sure?', "You won't be able to revert this!", 'Yes, Rest Password!').then((result) => {
                 if (!result.isConfirmed) {
                     return;
                 }
@@ -157,8 +157,8 @@
                 showLoading();
 
                 $.ajax({
-                    type: "delete",
-                    url: "{{route($module.'.reset-password.html')}}",
+                    type: "post",
+                    url: "{{route('forgot-password.html')}}",
                     data: {
                         _token: '{{csrf_token()}}'
                     },

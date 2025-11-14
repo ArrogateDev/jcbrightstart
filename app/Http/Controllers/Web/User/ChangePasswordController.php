@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Web\User;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ChangePasswordController extends Controller
@@ -19,16 +22,16 @@ class ChangePasswordController extends Controller
     }
 
     /**
-     * 重置密码
+     * 修改密码
      *
-     * @param Request $request
+     * @param ChangePasswordRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function handleResetPassword(Request $request)
+    public function handleChangePassword(ChangePasswordRequest $request)
     {
-        $ip = $request->ip();
-        if (!(($lock = Cache::lock("submit_reset_password_lock:$ip", 30))->get())) {
+        $user = $request->user('web');
+        if (!(($lock = Cache::lock("submit_web_change_password_lock:$user->id", 30))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -37,35 +40,24 @@ class ChangePasswordController extends Controller
             $lock->release();
         });
 
-        if (!$request->hasValidSignature()) {
-            throw new ApiException('Invalid request,Link expired!', ResponseCode::PARAM_ERR);
-        }
+        $current_password = $request->input('current_password');
+        $password = $request->input('password');
 
-        $email = $request->input('email');
-        $inputs = $request->only(['password', 'password_confirmation']);
-        $validator = Validator::make($inputs, [
-            'password' => 'bail|required|confirmed',
-            'password_confirmation' => 'bail|required',
-        ]);
-
-        if ($validator->fails()) {
-            throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
+        if (!Hash::check($current_password, $user->password)) {
+            throw new ApiException('Current Password is incorrect', ResponseCode::PARAM_ERR);
         }
 
         try {
 
-            $user = User::query()->where('email', $email)->firstOr(function () {
-                throw new ApiException('Sorry, we could not locate an account associated with this email address', ResponseCode::USER_DOES_NOT_EXIST);
-            });
-
-            $user->password = $inputs['password'];
+            $user->password = $password;
             if ($user->save() === false) {
                 throw new \Exception('user:failed');
             }
 
             return $this->responseSuccess();
         } catch (\Exception $e) {
-            throw $e;
+            Log::error($e);
+            throw new ApiException('Change Password Failed', ResponseCode::SERVER_ERR);
         }
     }
 }

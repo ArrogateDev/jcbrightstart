@@ -12,8 +12,8 @@
                     <div>
                         <ul
                             class="d-flex align-items-center justify-content-center justify-content-md-end footer-link">
-                            <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                            <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>

@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="border-bottom mb-4 pb-4">
 
-                                <x-change-password active="Settings"/>
+                                <x-change-password module="admin"/>
 
                             </div>
                         </div>

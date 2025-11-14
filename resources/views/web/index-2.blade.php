@@ -283,8 +283,8 @@
                                         <li><a href="instructor-details.html">Instructor Details</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact-us.html">Contact us</a></li>
+                                <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
+                                <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contact us</a></li>
                                 <li><a href="notifications.html">Notifications</a></li>
                                 <li><a href="become-an-instructor.html">Become an Instructor</a></li>
                                 <li><a href="testimonials.html">Testimonials</a></li>
@@ -308,11 +308,11 @@
                                     </ul>
                                 </li>
                                 <li><a href="pricing-plan.html">Pricing Plan</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="{{route('page', ['page' => 'faq.html'])}}"">FAQ</a></li>
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
                                 <li><a href="under-construction.html">Under Construction</a></li>
-                                <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                                <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
                                 <li><a href="index-rtl.html">RTL</a></li>
                             </ul>
                         </li>
@@ -1808,9 +1808,9 @@
                                 <div class="footer-widget footer-menu">
                                     <h5 class="footer-title">About</h5>
                                     <ul>
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="faq.html">Faq</a></li>
-                                        <li><a href="contact-us.html">Contacts</a></li>
+                                        <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
+                                        <li><a href="{{route('page', ['page' => 'faq.html'])}}"">Faq</a></li>
+                                        <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contacts</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1889,8 +1889,8 @@
                         <div>
                             <ul
                                 class="d-flex align-items-center justify-content-center justify-content-md-end footer-link">
-                                <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                                <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
                             </ul>
                         </div>
                     </div>

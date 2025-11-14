@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         try {
 
-            $file_path = 'avatars/' . $user->id . '/';
+            $file_path = 'avatars/admin/' . $user->id . '/';
             $file_name = uniqid() . '.' . $type;
 
             Storage::put($file_path . $file_name, $data);

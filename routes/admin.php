@@ -27,13 +27,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 //登录页
-Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
+Route::get('/login.html', [LoginController::class, 'index'])->name('admin.login.html');
 //登录
 Route::post('/login.html', [LoginController::class, 'handleLogin']);
 
 Route::group(['middleware' => ['auth:admin', 'auth.session']], function ($route) {
     //退出登录
-    $route->put('logout.html', [AuthController::class, 'logout']);
+    $route->delete('logout.html', [AuthController::class, 'logout']);
     //修改头像
     $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('admin.set-avatar.html');
     //删除头像

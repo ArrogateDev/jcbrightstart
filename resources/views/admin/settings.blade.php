@@ -84,7 +84,6 @@
 
 </div>
 
-
 <script>
     const validator = new window.JustValidate('#form', {
         errorLabelCssClass: 'd-inline',
@@ -117,9 +116,6 @@
                 }
 
                 showToast('success', 'Successful');
-                setTimeout(function () {
-                    window.location.href = data.data.redirect;
-                }, 800)
             },
             error: function () {
                 showToast('error', 'Failed, please try again later')
