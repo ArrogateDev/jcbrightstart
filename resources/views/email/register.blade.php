@@ -189,8 +189,6 @@
     </div>
 
     <div class="email-body">
-        <p class="greeting">尊敬的{{$first_name}}，</p>
-
         <p class="instructions">您正在进行账户安全验证，请使用以下验证码完成操作：</p>
 
         <div class="verification-code">{{$code}}</div>

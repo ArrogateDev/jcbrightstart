@@ -99,7 +99,7 @@ class VerificationCodeController extends Controller
 
             DB::commit();
 
-            !empty($email) && Mail::to($log->account)->queue(new VerificationCodeMail($log));
+            Mail::to($log->account)->queue(new VerificationCodeMail($log));
 
             return $this->responseSuccess(null, '发送成功');
         } catch (\Throwable $e) {
