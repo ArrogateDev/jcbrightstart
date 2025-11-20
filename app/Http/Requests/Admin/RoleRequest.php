@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
+use App\Models\Manage\Role;
 use Illuminate\Validation\Rule;
 
 class RoleRequest extends BaseRequest
@@ -15,10 +16,12 @@ class RoleRequest extends BaseRequest
         ];
 
         if ($this->method() === 'PUT') {
-            $id = $this->segment(4);
+            $role = $this->route('role');
+            $id = $role instanceof Role ? $role->id : $role;
+
             $rules['name'] = [
-                'nullable',
                 'bail',
+                'required',
                 Rule::unique('roles')->ignore($id)
             ];
         }

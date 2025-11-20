@@ -407,32 +407,12 @@
 
             let form = $('#form').serializeArray()
             const editId = $('#edit-id').val();
-
-            // 如果是编辑模式且密码为空，移除密码字段
-            if (editId) {
-                const password = $('#password').val();
-                if (!password || password.trim() === '') {
-                    form = form.filter(item =>
-                        item.name !== 'password' && item.name !== 'password_confirmation'
-                    );
-                } else {
-                    // 如果填写了密码，进行加密
-                    form = form.map(item => {
-                        if (item.name === 'password' || item.name === 'password_confirmation') {
-                            item.value = md5(md5(item.value))
-                        }
-                        return item
-                    })
+            form = form.map(item => {
+                if (item.value !== '' && (item.name === 'password' || item.name === 'password_confirmation')) {
+                    item.value = md5(md5(item.value))
                 }
-            } else {
-                // 新增模式：密码必填，进行加密
-                form = form.map(item => {
-                    if (item.name === 'password' || item.name === 'password_confirmation') {
-                        item.value = md5(md5(item.value))
-                    }
-                    return item
-                })
-            }
+                return item
+            })
 
             let url, method;
             if (editId) {

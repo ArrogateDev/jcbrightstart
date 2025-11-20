@@ -86,22 +86,22 @@ class AuthoritiesSeeder extends Seeder
                     ]
                 ],
                 [
-                    'name' => '学生管理',
-                    'alias' => 'StudentList',
-                    'icon' => 'fa-solid fa-graduation-cap',
+                    'name' => '家长管理',
+                    'alias' => 'ParentList',
+                    'icon' => 'fa-solid fa-person-breastfeeding',
                     'sort' => 0,
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '编辑学生',
-                            'alias' => 'StudentEdit',
+                            'name' => '编辑家长',
+                            'alias' => 'ParentEdit',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []
                         ],
                         [
-                            'name' => '删除学生',
-                            'alias' => 'StudentDelete',
+                            'name' => '删除家长',
+                            'alias' => 'ParentDelete',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []

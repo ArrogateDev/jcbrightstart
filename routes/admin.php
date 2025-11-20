@@ -42,8 +42,25 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
     $route->group(['middleware' => 'admin:MainMenuManage'], function ($route) {
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->middleware('admin:DashboardList')->name('admin.dashboard.html');
         $route->get('/course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
-        $route->get('/teacher.html', [UserController::class, 'index'])->middleware('admin:TeacherList')->name('admin.teacher.html');
-        $route->get('/student.html', [UserController::class, 'index'])->middleware('admin:StudentList')->name('admin.student.html');
+
+        //老师列表页
+        $route->get('teacher.html', [UserController::class, 'index'])->middleware('admin:TeacherList')->name('admin.teacher.html');
+        //老师列表
+        $route->get('teacher/list.html', [UserController::class, 'list'])->middleware('admin:TeacherList')->name('admin.teacher.list.html');
+        //修改老师
+        $route->put('/teacher/{user}.html', [UserController::class, 'update'])->middleware('admin:TeacherEdit')->name('admin.teacher.update.html');
+        //删除老师
+        $route->delete('/teacher/{user}.html', [UserController::class, 'destroy'])->middleware('admin:TeacherDelete');
+
+        //家长列表页
+        $route->get('parent.html', [UserController::class, 'index'])->middleware('admin:ParentList')->name('admin.parent.html');
+        //家长列表
+        $route->get('parent/list.html', [UserController::class, 'list'])->middleware('admin:ParentList')->name('admin.parent.list.html');
+        //修改家长
+        $route->put('/parent/{user}.html', [UserController::class, 'update'])->middleware('admin:ParentEdit')->name('admin.parent.update.html');
+        //删除家长
+        $route->delete('/parent/{user}.html', [UserController::class, 'destroy'])->middleware('admin:ParentDelete');
+
         $route->get('/quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
         $route->get('/quiz-results.html', [QuizResultController::class, 'index'])->middleware('admin:QuizResultsList')->name('admin.quiz-results.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
