@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             $admin->id = 1;
             $admin->name = env('APP_NAME');
             $admin->account = 'admin';
-            $admin->password = md5(md5(111111));
+            $admin->password = md5(md5('Arrogate1*'));
             $admin->save();
         }
     }
