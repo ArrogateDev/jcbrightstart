@@ -12,6 +12,11 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
+        // 如果是 admin guard，重定向到管理员登录页
+        if ($request->is('admin/*')) {
+            return route('admin.login.html');
+        }
+        
         return null;
     }
 }

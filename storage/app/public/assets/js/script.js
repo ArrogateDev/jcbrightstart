@@ -15,10 +15,10 @@ Version      : 1.0
   if ($(window).width() > 767) {
     if ($(".theiaStickySidebar").length > 0) {
       if ($.fn.theiaStickySidebar) {
-        $(".theiaStickySidebar").theiaStickySidebar({
-          // Settings
-          additionalMarginTop: 70,
-        });
+      $(".theiaStickySidebar").theiaStickySidebar({
+        // Settings
+        additionalMarginTop: 70,
+      });
       } else {
         console.warn("theiaStickySidebar plugin is not loaded");
       }

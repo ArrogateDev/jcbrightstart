@@ -26,4 +26,12 @@ class Role extends Base
     {
         return $this->hasMany(RoleAuthority::class, 'role_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function superior()
+    {
+        return $this->belongsTo(self::class, 'pid', 'id');
+    }
 }

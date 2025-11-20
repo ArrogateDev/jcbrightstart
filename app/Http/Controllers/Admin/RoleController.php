@@ -14,13 +14,49 @@ use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
+
     /**
-     * 列表
-     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index(Request $request)
+    {
+        $admin = $request->user('admin');
+        $role_id = $admin->role->id ?? 0;
+        $role_level = $admin->role->level ?? 0;
+        $admin_permissions = $admin->role->permissions->pluck('id');
+
+        $superiors = Role::query()
+            ->when($role_id != 1, function ($query) use ($role_level) {
+                $query->where('level', '>', $role_level);
+            })
+            ->orderBy('id')
+            ->select('id as value', 'name as label')
+            ->get();
+
+        Cache::tags(['AdminPermission'])->flush();
+        $nodes = Cache::tags(['AdminPermission'])->rememberForever('MenuTreeList:' . $role_id, function () use ($role_id, $admin_permissions) {
+            $permissions = Authority::query()
+                ->when($role_id !== 1, function ($query) use ($admin_permissions) {
+                    $query->whereIn('id', $admin_permissions);
+                })
+                ->orderBy('key')
+                ->select('id', 'name as text', 'id as key', 'type', 'pid')
+                ->get()
+                ->toArray();
+
+            return authority_format($permissions, 0, true);
+        });
+        $nodes = json_encode($nodes, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        return view('admin.role', compact('superiors', 'nodes'));
+    }
+
+    /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function list(Request $request)
     {
         $admin = $request->user('admin');
         $role_id = $admin->role->id ?? 0;
@@ -30,7 +66,7 @@ class RoleController extends Controller
         $created_at = $request->query('created_at');
 
         $list = Role::query()
-            ->with('permission_ids')
+            ->with(['permission_ids', 'superior:id,name'])
             ->when($role_id != 1, function ($query) use ($role_level) {
                 $query->where('level', '>', $role_level);
             })
@@ -43,7 +79,8 @@ class RoleController extends Controller
             ->paginate(limit_page());
 
         $list->map(function ($item) {
-            $item->menu = $item->permission_ids->pluck('authority_id')->toArray();
+            $item->superior_name = $item->superior->name ?? '-';
+            $item->nodes = $item->permission_ids->pluck('authority_id')->toArray();
         });
         $list->makeHidden(['permission_ids']);
 
@@ -69,10 +106,9 @@ class RoleController extends Controller
         });
 
         $inputs = $request->only(['name', 'status']);
-        $pid = $request->input('pid');
-        $parent = Role::find($pid);
-        if (!$parent) {
-            throw new ApiException(__('父級角色不存在'), ResponseCode::SERVER_ERR);
+        $pid = (int)$request->input('pid');
+        if (!($parent = Role::find($pid))) {
+            throw new ApiException(__('父級角色不存在'), ResponseCode::PARAM_ERR);
         }
 
         try {
@@ -88,7 +124,7 @@ class RoleController extends Controller
                 throw new \Exception('role:failed');
             }
 
-            $permissions = $request->input('node');
+            $permissions = $request->input('nodes');
             if (!empty($permissions)) {
                 $permissions = array_unique($permissions);
                 $permissions = Authority::query()->whereIn('id', $permissions)->pluck('id')->toArray();
@@ -121,11 +157,15 @@ class RoleController extends Controller
             $lock->release();
         });
 
+        if ($role->id == 1) {
+            throw new ApiException(__('系统内置角色，不允许修改'), ResponseCode::PARAM_ERR);
+        }
+
         $inputs = $request->only(['name', 'status']);
         $pid = $request->input('pid');
         $parent = Role::find($pid);
         if (!$parent) {
-            throw new ApiException(__('父級角色不存在'), ResponseCode::SERVER_ERR);
+            throw new ApiException(__('父級角色不存在'), ResponseCode::PARAM_ERR);
         }
 
         try {
@@ -140,7 +180,7 @@ class RoleController extends Controller
                 throw new \Exception('role:failed');
             }
 
-            $permissions = $request->input('node');
+            $permissions = $request->input('nodes');
             if (!empty($permissions)) {
                 $permissions = array_unique($permissions);
                 $permissions = Authority::query()->whereIn('id', $permissions)->pluck('id')->toArray();
@@ -192,35 +232,5 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             throw new ApiException('删除失败', $e->getCode());
         }
-    }
-
-    /**
-     * 菜单
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function menus(Request $request)
-    {
-
-        $admin = $request->user('admin');
-        $role_id = $admin->role->id ?? 0;
-        $admin_permissions = $admin->role->permissions->pluck('id');
-
-        $list = Cache::tags(['AdminPermission'])->rememberForever('MenuTreeList:' . $role_id, function () use ($role_id, $admin_permissions) {
-            $permissions = Authority::query()
-                ->when($role_id !== 1, function ($query) use ($admin_permissions) {
-                    $query->whereIn('id', $admin_permissions);
-                })
-                ->notDelete()
-                ->orderBy('key')
-                ->select('id', 'name as title', 'id as key', 'type', 'pid')
-                ->get()
-                ->toArray();
-
-            return authority_format($permissions, 0, true);
-        });
-
-        return $this->responseSuccess($list);
     }
 }

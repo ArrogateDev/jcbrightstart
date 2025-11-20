@@ -23,13 +23,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->expectsJson()) {
-            $user = $request->user();
+        if ($request->expectsJson()) return $next($request);
 
-            if ($user && Str::contains($request->url(), ['login.html'])) {
-                return to_route('admin.dashboard.html');
-            }
+        $user = $request->user();
 
+        if ($user && Str::contains($request->url(), ['login.html'])) {
+            return to_route('admin.dashboard.html');
+        }
+
+        if ($user) {
             Cache::tags(['MENUS'])->flush();
             $role = $user->role;
             $role_id = $role->id;
@@ -52,7 +54,7 @@ class AdminMiddleware
                 return $menus;
             });
 
-            App::setLocale('zh_HK');
+                App::setLocale('zh_HK');
 //            App::setLocale('zh_CN');
 //            App::setLocale('en');
 //            print_r($role);
@@ -61,6 +63,7 @@ class AdminMiddleware
             View::share('user', $user);
             View::share('menus', $menus);
         }
+
 
         return $next($request);
     }

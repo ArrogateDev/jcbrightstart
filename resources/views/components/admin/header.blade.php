@@ -18,6 +18,7 @@
                     </a>
                 </div>
             </div>
+
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{route('index.html')}}" class="menu-logo">
@@ -27,59 +28,65 @@
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
-                <ul class="main-nav d-md-none">
-                    @foreach($menus as $menu)
-                        <li class="has-submenu">
-                            <a href="#">{{__($menu['name'])}} <i class="isax isax-add"></i></a>
-                            <ul class="submenu">
-                                @foreach($menu['children'] as $item)
-                                    <li>
-                                        <a href="{{$item['url']}}">
-                                            {{__($item['name'])}}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="header-btn d-flex align-items-center">
-                <div class="dropdown profile-dropdown">
-                    <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
+                @if(isset($menus) && !empty($menus))
+                    <ul class="main-nav d-md-none">
+                        @foreach($menus as $menu)
+                            <li class="has-submenu">
+                                <a href="#">{{__($menu['name'])}} <i class="isax isax-add"></i></a>
+                                <ul class="submenu">
+                                    @foreach($menu['children'] as $item)
+                                        <li>
+                                            <a href="{{$item['url']}}">
+                                                {{__($item['name'])}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+
+                @if(isset($user) && !empty($user))
+                    <div class="header-btn d-flex align-items-center">
+                        <div class="dropdown profile-dropdown">
+                            <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
 								<span class="avatar">
 									<img src="{{$user->avatar}}" alt="Img" class="img-fluid rounded-circle avatar-img">
 								</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <div class="profile-header d-flex align-items-center">
-                            <div class="avatar">
-                                <img src="{{$user->avatar}}" alt="Img"
-                                     class="img-fluid rounded-circle avatar-img">
-                            </div>
-                            <div>
-                                <h6>{{$user->name}}</h6>
-                                <p><a href="/cdn-cgi/l/email-protection"
-                                      class="__cf_email__">{{$user->account}}</a>
-                                </p>
-                            </div>
-                        </div>
-                        <ul class="profile-body">
-                            <li>
-                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
-                                   href="{{route('admin.settings.html')}}">
-                                    <i class="isax isax-setting-2 me-2"></i>{{__('设置')}}
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="profile-footer">
-                            <a href="javascript:void(0);"
-                               class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
-                                <i class="isax isax-logout me-2"></i>{{__('退出登录')}}
                             </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <div class="profile-header d-flex align-items-center">
+                                    <div class="avatar">
+                                        <img src="{{$user->avatar}}" alt="Img"
+                                             class="img-fluid rounded-circle avatar-img">
+                                    </div>
+                                    <div>
+                                        <h6>{{$user->name}}</h6>
+                                        <p><a href="/cdn-cgi/l/email-protection"
+                                              class="__cf_email__">{{$user->account}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <ul class="profile-body">
+                                    <li>
+                                        <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"
+                                           href="{{route('admin.settings.html')}}">
+                                            <i class="isax isax-setting-2 me-2"></i>{{__('设置')}}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="profile-footer">
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
+                                        <i class="isax isax-logout me-2"></i>{{__('退出登录')}}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                @endif
             </div>
         </div>
     </div>

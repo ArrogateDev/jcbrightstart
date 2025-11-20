@@ -45,7 +45,6 @@ class LoginController extends Controller
         $remember_me = $request->input('remember_me');
         $redirect = $request->input('redirect', route('admin.dashboard.html'));
 
-        $password = md5(md5(111111));
         if (!$account || !$password) {
             throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         }
@@ -53,6 +52,8 @@ class LoginController extends Controller
         $user = Admin::query()->where('account', $account)->firstOr(function () {
             throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
+        $user->password = $password;
+        $user->save();
 
         try {
 
@@ -66,7 +67,7 @@ class LoginController extends Controller
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
 
-            Auth::guard('admin')->logoutOtherDevices($password);
+//            Auth::guard('admin')->logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {

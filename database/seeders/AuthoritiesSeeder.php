@@ -63,22 +63,45 @@ class AuthoritiesSeeder extends Seeder
                     ]
                 ],
                 [
-                    'name' => '用户管理',
-                    'alias' => 'UserList',
+                    'name' => '老师管理',
+                    'alias' => 'TeacherList',
                     'icon' => 'isax isax-profile-2user5',
                     'sort' => 0,
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '编辑用户',
-                            'alias' => 'UserEdit',
+                            'name' => '编辑老师',
+                            'alias' => 'TeacherEdit',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []
                         ],
                         [
-                            'name' => '删除用户',
-                            'alias' => 'UserDelete',
+                            'name' => '删除老师',
+                            'alias' => 'TeacherDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '学生管理',
+                    'alias' => 'StudentList',
+                    'icon' => 'fa-solid fa-graduation-cap',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '编辑学生',
+                            'alias' => 'StudentEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除学生',
+                            'alias' => 'StudentDelete',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []

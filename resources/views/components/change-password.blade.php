@@ -36,7 +36,7 @@
                     <input id="password" type="password" name="password" class="pass-inputs form-control">
                     <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
                 </div>
-                <div class="password-strength">
+                <div class="password-strength" id="passwordStrength">
                     <span id="poor"></span>
                     <span id="weak"></span>
                     <span id="strong"></span>

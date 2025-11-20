@@ -15,7 +15,7 @@ class RoleRequest extends BaseRequest
         ];
 
         if ($this->method() === 'PUT') {
-            $id = $this->segment(3);
+            $id = $this->segment(4);
             $rules['name'] = [
                 'nullable',
                 'bail',

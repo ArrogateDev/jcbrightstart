@@ -5,22 +5,45 @@ namespace App\Http\Controllers\Admin;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\InstructRequest;
 use App\Models\Base;
 use App\Models\Manage\Admin;
+use App\Models\Manage\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
+
     /**
-     * 列表
-     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index(Request $request)
+    {
+
+        $admin = $request->user('admin');
+        $role_id = $admin->role->id ?? 0;
+        $role_level = $admin->role->level ?? 0;
+
+        $superiors = Role::query()
+            ->when($role_id != 1, function ($query) use ($role_level) {
+                $query->where('level', '>', $role_level);
+            })
+            ->orderBy('id')
+            ->select('id as value', 'name as label')
+            ->get();
+
+        return view('admin.admin', compact('superiors'));
+    }
+
+    /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function list(Request $request)
     {
         $name = $request->query('name');
         $account = $request->query('account');
@@ -44,7 +67,6 @@ class AdminController extends Controller
                     $query->where('id', $role_id);
                 });
             })
-
             ->select('id', 'account', 'name', 'status', 'created_at')
             ->paginate(limit_page());
 
@@ -60,10 +82,10 @@ class AdminController extends Controller
     /**
      * 创建
      *
-     * @param InstructRequest $request
+     * @param AdminRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(InstructRequest $request)
+    public function store(AdminRequest $request)
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_admin_store_lock:$user_id", 360))->get())) {
@@ -83,7 +105,6 @@ class AdminController extends Controller
             foreach ($inputs as $field => $value) {
                 $admin->$field = $value;
             }
-            empty($admin->password) && $admin->password = md5(md5(env('APP_NAME')));
 
             if ($admin->save() === false) {
                 throw new \Exception('admin:failed');
@@ -94,21 +115,21 @@ class AdminController extends Controller
                 throw new \Exception('role_logs:failed');
             }
 
-            return $this->responseSuccess(null, '创建成功');
+            return $this->responseSuccess(null, '成功');
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('创建失败', ResponseCode::SERVER_ERR);
+            throw new ApiException('失败', ResponseCode::SERVER_ERR);
         }
     }
 
     /**
      * 修改
      *
-     * @param InstructRequest $request
+     * @param AdminRequest $request
      * @param Admin $admin
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(InstructRequest $request, Admin $admin)
+    public function update(AdminRequest $request, Admin $admin)
     {
         if (!(($lock = Cache::lock("submit_admin_update_lock:$admin->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
@@ -119,13 +140,15 @@ class AdminController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['name', 'account', 'password', 'status']);
+        $inputs = $request->only(['name', 'status']);
+        $password = $request->input('password');
 
         try {
 
             foreach ($inputs as $field => $value) {
                 $admin->$field = $value;
             }
+            $password && $admin->password = $password;
 
             if ($admin->save() === false) {
                 throw new \Exception('admin:failed');

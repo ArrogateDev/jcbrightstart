@@ -5,7 +5,9 @@
      data-context="{{ $type }}"
      data-ux_mode="popup"
      data-callback="handleGoogleCredentialResponse"
-     data-itp_support="true">
+     data-itp_support="true"
+     data-auto_prompt="false"
+     data-auto_select="false">
 </div>
 
 <div class="g_id_signin me-2"

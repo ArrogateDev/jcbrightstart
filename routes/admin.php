@@ -31,7 +31,7 @@ Route::get('/login.html', [LoginController::class, 'index'])->name('admin.login.
 //登录
 Route::post('/login.html', [LoginController::class, 'handleLogin']);
 
-Route::group(['middleware' => ['auth:admin', 'auth.session']], function ($route) {
+Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']], function ($route) {
     //退出登录
     $route->delete('logout.html', [AuthController::class, 'logout']);
     //修改头像
@@ -42,28 +42,33 @@ Route::group(['middleware' => ['auth:admin', 'auth.session']], function ($route)
     $route->group(['middleware' => 'admin:MainMenuManage'], function ($route) {
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->middleware('admin:DashboardList')->name('admin.dashboard.html');
         $route->get('/course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
-        $route->get('/user.html', [UserController::class, 'index'])->middleware('admin:UserList')->name('admin.user.html');
+        $route->get('/teacher.html', [UserController::class, 'index'])->middleware('admin:TeacherList')->name('admin.teacher.html');
+        $route->get('/student.html', [UserController::class, 'index'])->middleware('admin:StudentList')->name('admin.student.html');
         $route->get('/quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
         $route->get('/quiz-results.html', [QuizResultController::class, 'index'])->middleware('admin:QuizResultsList')->name('admin.quiz-results.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
     });
 
     $route->group(['prefix' => 'system', 'middleware' => 'admin:AuthorityManage'], function ($route) {
-        //角色列表
+        //角色列表页
         $route->get('role.html', [RoleController::class, 'index'])->middleware('admin:RoleList')->name('admin.role.html');
+        //角色列表
+        $route->get('role/list.html', [RoleController::class, 'list'])->middleware('admin:RoleList')->name('admin.role.list.html');
         //创建角色
-        $route->post('role.html', [RoleController::class, 'store'])->middleware('admin:RoleAdd');
+        $route->post('role.html', [RoleController::class, 'store'])->middleware('admin:RoleAdd')->name('admin.role.store.html');
         //修改角色
-        $route->put('/role/{role}.html', [RoleController::class, 'update'])->middleware('admin:RoleEdit');
+        $route->put('/role/{role}.html', [RoleController::class, 'update'])->middleware('admin:RoleEdit')->name('admin.role.update.html');
         //删除角色
         $route->delete('/role/{role}.html', [RoleController::class, 'destroy'])->middleware('admin:RoleDelete');
 
-        //管理员列表
+        //管理员列表页
         $route->get('/admin.html', [AdminController::class, 'index'])->middleware('admin:AdminList')->name('admin.admin.html');
+        //管理员列表
+        $route->get('admin/list.html', [AdminController::class, 'list'])->middleware('admin:AdminList')->name('admin.admin.list.html');
         //创建管理员
-        $route->post('/admin.html', [AdminController::class, 'store'])->middleware('admin:AdminAdd');
+        $route->post('/admin.html', [AdminController::class, 'store'])->middleware('admin:AdminAdd')->name('admin.admin.store.html');
         //修改管理员
-        $route->put('/admin/{admin}.html', [AdminController::class, 'update'])->middleware('admin:AdminEdit');
+        $route->put('/admin/{admin}.html', [AdminController::class, 'update'])->middleware('admin:AdminEdit')->name('admin.admin.update.html');
         //删除管理员
         $route->delete('/admin/{admin}.html', [AdminController::class, 'destroy'])->middleware('admin:AdminDelete');
     });

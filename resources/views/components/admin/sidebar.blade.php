@@ -3,19 +3,21 @@
 <div class="col-lg-3 theiaStickySidebar d-none d-md-block">
     <div class="settings-sidebar mb-lg-0">
         <div>
-            @foreach($menus as $menu)
-                <h6 class="mb-3">{{__($menu['name'])}}</h6>
-                <ul>
-                    @foreach($menu['children'] as $item)
-                        <li>
-                            <a href="{{$item['url']}}" @class(['d-inline-flex align-items-center', 'active' => $active === $item['active']])>
-                                <i class="{{$item['icon']}} me-2"></i>{{__($item['name'])}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                <hr>
-            @endforeach
+            @if(isset($menus) && !empty($menus))
+                @foreach($menus as $menu)
+                    <h6 class="mb-3">{{__($menu['name'])}}</h6>
+                    <ul>
+                        @foreach($menu['children'] as $item)
+                            <li>
+                                <a href="{{$item['url']}}" @class(['d-inline-flex align-items-center', 'active' => $active === $item['active']])>
+                                    <i class="{{$item['icon']}} me-2"></i>{{__($item['name'])}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <hr>
+                @endforeach
+            @endif
             <h6 class="mb-3">{{__('账户设置')}}</h6>
             <ul>
                 <li>
@@ -32,6 +34,8 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="{{ web_resource_url('assets/js/sweetalert2.js') }}"></script>
 <script>
     $(function () {
         $('.logout').click(function () {

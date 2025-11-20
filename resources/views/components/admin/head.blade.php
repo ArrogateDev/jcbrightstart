@@ -1,4 +1,3 @@
-
 <head>
 
 	<!-- Meta Tags -->
@@ -11,6 +10,7 @@
 		content="LMS template, Learning Management System, e-learning software, online course platform, student management, education portal, virtual classroom, training management system, course tracking, online education">
 	<meta name="author" content="Dreams Technologies">
 	<meta name="robots" content="index, follow">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<title>Arrogate LMS | Advanced Learning Management System Template</title>
 
