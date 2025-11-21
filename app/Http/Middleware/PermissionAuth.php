@@ -28,7 +28,7 @@ class PermissionAuth
         $is_record = !Str::endsWith($alias, 'Manage');
         if ($role_id != 1 && !$admin->hasPermissions($alias)) {
             $is_record && event(new AdminLogEvent($request, $alias, 0));
-            throw new ApiException('无权操作', ResponseCode::FORBIDDEN);
+            throw new ApiException(__('无权操作'), ResponseCode::FORBIDDEN);
         }
 
         $is_record && event(new AdminLogEvent($request, $alias));

@@ -6,7 +6,7 @@
                 <div class="col-lg-4">
                     <div class="footer-about">
                         <div class="footer-logo">
-                            <img src="{{web_resource_url('assets/img/logo-black.png')}}" alt="">
+                            <img class="logo-max-200" src="{{web_resource_url('assets/img/logo-black.png')}}" alt="">
                         </div>
                         <p>Platform designed to help organizations, educators, and learners manage, deliver, and
                             track learning and training activities.</p>

@@ -23,6 +23,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return $this->responseSuccess(null, '退出成功');
+        return $this->responseSuccess(null, __('退出成功'));
     }
 }

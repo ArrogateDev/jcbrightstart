@@ -32,11 +32,11 @@ class RoleRequest extends BaseRequest
     public function messages()
     {
         return [
-            'name.required' => '请输入角色名称',
-            'name.unique' => '角色名称已经存在',
-            'status.required' => '状态格式错误',
-            'status.in' => '状态格式错误',
-            'menus.array' => '权限格式错误'
+            'name.required' => __('请输入角色名称'),
+            'name.unique' => __('角色名称已经存在'),
+            'status.required' => __('状态格式错误'),
+            'status.in' => __('状态格式错误'),
+            'menus.array' => __('权限格式错误')
         ];
     }
 }

@@ -45,8 +45,6 @@ class UserController extends Controller
     }
 
     /**
-     * 修改
-     *
      * @param UserRequest $request
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
@@ -76,16 +74,14 @@ class UserController extends Controller
                 throw new \Exception('user:failed');
             }
 
-            return $this->responseSuccess(null, '修改成功');
+            return $this->responseSuccess(null, __('修改成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('修改失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改失败'), ResponseCode::SERVER_ERR);
         }
     }
 
     /**
-     * 删除
-     *
      * @param User $user
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
@@ -108,9 +104,9 @@ class UserController extends Controller
             Auth::logoutOtherDevices($password);
             $user->delete();
 
-            return $this->responseSuccess(null, '删除成功');
+            return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
-            throw new ApiException('删除失败', $e->getCode());
+            throw new ApiException(__('删除失败'), $e->getCode());
         }
     }
 }

@@ -48,7 +48,7 @@
                                 <th>ID</th>
                                 <th>{{__('角色名称')}}</th>
                                 <th>{{__('级别')}}</th>
-                                <th>{{__('上级ID')}}</th>
+                                <th>{{__('上级')}}</th>
                                 <th>{{__('状态')}}</th>
                                 <th>{{__('创建时间')}}</th>
                                 <th>{{__('操作')}}</th>
@@ -188,7 +188,8 @@
     }
 
     function handleDelete(id, name) {
-        confirm_alert(`确定要删除角色"${name}"吗？`, "此操作不可恢复！", 'Yes!')
+        const deleteMessage = '{{__('确定要删除角色:name吗？')}}'.replace(':name', `"${name}"`);
+        confirm_alert(deleteMessage, "{{__('此操作不可恢复！')}}", 'Yes!')
             .then((result) => {
                 if (result.isConfirmed) {
                     showLoading();

@@ -23,10 +23,10 @@
                         </a>
                         <div class="navbar-logo">
                             <a class="logo-white header-logo" href="{{route('index.html')}}">
-                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
+                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                             </a>
                             <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                                <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                                <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                             </a>
                         </div>
                     </div>
@@ -1613,7 +1613,7 @@
                         <div class="col-lg-4">
                             <div class="footer-about">
                                 <div class="footer-logo">
-                                    <img src="{{web_resource_url('assets/img/logo.png')}}" alt="">
+                                    <img class="logo-max-200" src="{{web_resource_url('assets/img/logo.png')}}" alt="">
                                 </div>
                                 <p>Platform designed to help organizations, educators, and learners manage, deliver,
                                     and track learning and training activities.</p>

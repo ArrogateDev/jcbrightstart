@@ -19,7 +19,7 @@ class InstructRequest extends BaseRequest
     public function messages()
     {
         return [
-            'instruct.required' => '请输入姓名',
+            'instruct.required' => __('请输入姓名'),
         ];
     }
 }

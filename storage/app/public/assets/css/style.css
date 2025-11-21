@@ -30389,4 +30389,12 @@ textarea:focus {
 .apple-quick-login.disabled img{
     filter: contrast(0);
 }
+
+.logo-max-200{
+    max-width: 200px;
+}
+
+.logo-max-h-50{
+    max-height: 50px;
+}
 /*# sourceMappingURL=style.css.map */

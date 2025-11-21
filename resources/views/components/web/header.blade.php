@@ -10,10 +10,10 @@
                 </a>
                 <div class="navbar-logo">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                 </div>
             </div>

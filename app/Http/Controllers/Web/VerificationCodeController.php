@@ -56,7 +56,7 @@ class VerificationCodeController extends Controller
 
         $environment = app()->environment(['production']);
         if (!in_array($scene, ['register', 'forgot_password'])) {
-            throw new ApiException('参数错误', ResponseCode::PARAM_ERR);
+            throw new ApiException(__('参数错误'), ResponseCode::PARAM_ERR);
         }
 
         $status_query = VerificationCode::query()
@@ -66,15 +66,15 @@ class VerificationCodeController extends Controller
 
         $today = Carbon::now()->toDateString();
         if ($environment && (clone $status_query)->where(['used' => 0, 'scene' => 'register'])->count() > 10) {
-            throw new ApiException('長期獲取驗證碼未使用已禁用!', ResponseCode::FORBIDDEN);
+            throw new ApiException(__('長期獲取驗證碼未使用已禁用!'), ResponseCode::FORBIDDEN);
         }
 
         if ($environment && VerificationCode::query()->where(['ip' => $ip, 'status' => 1])->whereDate('created_at', $today)->count() > 10) {
-            throw new ApiException('发送数量已达上限!', ResponseCode::FORBIDDEN);
+            throw new ApiException(__('发送数量已达上限!'), ResponseCode::FORBIDDEN);
         }
 
         if ($environment && (clone $status_query)->whereDate('created_at', $today)->count() > 10) {
-            throw new ApiException('發送數量已達上限!!', ResponseCode::FORBIDDEN);
+            throw new ApiException(__('發送數量已達上限!!'), ResponseCode::FORBIDDEN);
         }
 
         try {
@@ -101,14 +101,14 @@ class VerificationCodeController extends Controller
 
             Mail::to($log->account)->queue(new VerificationCodeMail($log));
 
-            return $this->responseSuccess(null, '发送成功');
+            return $this->responseSuccess(null, __('发送成功'));
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error($e);
             $log->status = 0;
             $log->message = $e->getMessage();
             $log->save();
-            throw new ApiException('发送失败', ResponseCode::FORBIDDEN);
+            throw new ApiException(__('发送失败'), ResponseCode::FORBIDDEN);
         }
     }
 }

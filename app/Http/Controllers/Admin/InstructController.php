@@ -71,10 +71,10 @@ class InstructController extends Controller
                 throw new \Exception('instruct:failed');
             }
 
-            return $this->responseSuccess(null, '修改成功');
+            return $this->responseSuccess(null, __('修改成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('修改失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

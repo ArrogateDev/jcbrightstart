@@ -188,7 +188,14 @@
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.name}</p>
                     </td>
-                    <td>头像</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:void(0);"
+                               class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
+                                <img src="${item.avatar}" alt="${item.name}">
+                            </a>
+                        </div>
+                    </td>
                     <td>${item.account}</td>
                     <td>${item.role_name || '-'}</td>
                     <td>${statusBadge}</td>
@@ -220,7 +227,8 @@
     }
 
     function handleDelete(id, name) {
-        confirm_alert(`确定要删除管理员"${name}"吗？`, "此操作不可恢复！", 'Yes!')
+        const deleteMessage = '{{__('确定要删除管理员:name吗？')}}'.replace(':name', `"${name}"`);
+        confirm_alert(deleteMessage, "{{__('此操作不可恢复！')}}", 'Yes!')
             .then((result) => {
                 if (result.isConfirmed) {
                     showLoading();

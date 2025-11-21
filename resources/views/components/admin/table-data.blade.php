@@ -62,7 +62,11 @@
         }
 
         container.show();
-        info.text(`第 ${pagination.current_page} 页，共 ${pagination.last_page} 页，共 ${pagination.total} 条`);
+        @if(app()->getLocale() == 'en')
+        info.text(`Page ${pagination.current_page} of ${pagination.total}`);
+        @else
+        info.text(`{{__('第')}} ${pagination.current_page} {{__('页，共')}} ${pagination.last_page} {{__('页，共')}} ${pagination.total} {{__('条')}}`);
+        @endif
 
         links.empty();
 

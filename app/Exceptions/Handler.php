@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof AccessDeniedHttpException) {
-            return $this->responseError('非法操作', ResponseCode::ILLEGAL_OPERATION);
+            return $this->responseError(__('非法操作'), ResponseCode::ILLEGAL_OPERATION);
         }
 
         if ($e instanceof ValidationException) {

@@ -43,7 +43,7 @@
                     <div class="loginbox">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
-                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
+                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
                                 <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
                             </div>
                             <div class="topic">

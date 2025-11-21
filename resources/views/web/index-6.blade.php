@@ -23,10 +23,10 @@
                         </a>
                         <div class="navbar-logo">
                             <a class="logo-white header-logo" href="{{route('index.html')}}">
-                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
+                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                             </a>
                             <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                                <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                                <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                             </a>
                         </div>
                     </div>
@@ -1681,7 +1681,7 @@
                             <h5 class="footer-title footer-title-five"><i class="fa-sharp fa-solid fa-dash"></i>About</h5>
                             <ul>
                                 <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
-                                <li><a href="{{route('page', ['page' => 'faq.html'])}}"">Faq</a></li>
+                                <li><a href="{{route('page', ['page' => 'faq.html'])}}">Faq</a></li>
                                 <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contacts</a></li>
                             </ul>
                         </div>

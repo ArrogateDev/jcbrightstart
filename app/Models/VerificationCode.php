@@ -29,11 +29,11 @@ class VerificationCode extends Base
             ->orderByDesc('id')
             ->first();
         if (!$ver_code || $ver_code->code != $code) {
-            throw new ApiException('验证码错误', ResponseCode::PARAM_ERR);
+            throw new ApiException(__('验证码错误'), ResponseCode::PARAM_ERR);
         }
 
         if (Carbon::parse($ver_code->created_at)->diffInSeconds(now()) > 60 * 15) {
-            throw new ApiException('验证码已过期', ResponseCode::PARAM_ERR);
+            throw new ApiException(__('验证码已过期'), ResponseCode::PARAM_ERR);
         }
 
         return $ver_code;

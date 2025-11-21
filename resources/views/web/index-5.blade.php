@@ -22,10 +22,10 @@
                     </a>
                     <div class="navbar-logo">
                         <a class="logo-white header-logo" href="{{route('index.html')}}">
-                            <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
+                            <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                         </a>
                         <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                            <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                            <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                         </a>
                     </div>
                 </div>
@@ -5347,7 +5347,7 @@
                             <!-- Footer Widget -->
                             <div class="footer-widget-three footer-about">
                                 <div class="footer-three-logo">
-                                    <img class="img-fluid" src="{{web_resource_url('assets/img/logo-black.png')}}" alt="logo">
+                                    <img class="img-fluid logo-max-200" src="{{web_resource_url('assets/img/logo-black.png')}}" alt="logo">
                                 </div>
                                 <div class="footer-three-about">
                                     <p>Platform designed to help organizations, educators, and learners manage,</p>

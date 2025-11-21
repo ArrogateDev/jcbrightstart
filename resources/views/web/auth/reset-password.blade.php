@@ -23,7 +23,7 @@
                         <div>
                             <div class="login-carousel-section mb-3">
                                 <div class="login-banner">
-                                    <img src="{{web_resource_url('assets/img/auth/auth-1.svg')}}" class="img-fluid" alt="Logo">
+                                    <img src="{{web_resource_url('assets/img/auth/auth-1.svg')}}" class="img-fluid logo-max-200" alt="Logo">
                                 </div>
                                 <div class="mentor-course text-center">
                                     <h3 class="mb-2">Welcome to <br>Dreams<span class="text-secondary">LMS</span>

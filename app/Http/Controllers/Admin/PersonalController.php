@@ -52,7 +52,7 @@ class PersonalController extends Controller
                 function ($attribute, $value, $fail) use (&$mime) {
                     $info = getimagesize($value);
                     if (!in_array($info['mime'], ['image/jpeg', 'image/png'])) {
-                        return $fail('无效的Base64图片编码.');
+                        return $fail(__('无效的Base64图片编码.'));
                     }
                     $mime = $info['mime'];
                     return true;
@@ -62,14 +62,14 @@ class PersonalController extends Controller
             'password' => 'nullable|bail|string||size:32|confirmed',
             'password_confirmation' => 'nullable|bail|string|size:32',
         ], [
-            'name.unique' => '名称已存在',
-            'old_password.size' => '原密码密码错误',
-            'old_password.current_password' => '原密码密码错误',
-            'password.string' => '密码格式错误',
-            'password.size' => '密码格式错误',
-            'password.confirmed' => '请输入确认密码',
-            'password_confirmation.string' => '确认密码格式错误',
-            'password_confirmation.size' => '确认密码格式错误',
+            'name.unique' => __('名称已存在'),
+            'old_password.size' => __('原密码密码错误'),
+            'old_password.current_password' => __('原密码密码错误'),
+            'password.string' => __('密码格式错误'),
+            'password.size' => __('密码格式错误'),
+            'password.confirmed' => __('请输入确认密码'),
+            'password_confirmation.string' => __('确认密码格式错误'),
+            'password_confirmation.size' => __('确认密码格式错误'),
         ]);
 
         if ($validator->fails()) {
@@ -94,9 +94,9 @@ class PersonalController extends Controller
         }
 
         if ($admin->save() === false) {
-            throw new ApiException('修改失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改失败'), ResponseCode::SERVER_ERR);
         }
 
-        return $this->responseSuccess($base64, '修改成功');
+        return $this->responseSuccess($base64, __('修改成功'));
     }
 }

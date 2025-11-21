@@ -19,10 +19,10 @@ class VerificationCodeRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.required_without' => '輸入您的電郵地址',
-            'email.email' => '輸入正確的電郵地址',
-            'scene.required' => '場景錯誤',
-            'scene.in' => '場景錯誤',
+            'email.required_without' => __('输入您的電郵地址'),
+            'email.email' => __('輸入正確的電郵地址'),
+            'scene.required' => __('場景錯誤'),
+            'scene.in' => __('場景錯誤'),
         ];
     }
 }

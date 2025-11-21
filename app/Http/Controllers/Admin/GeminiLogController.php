@@ -66,9 +66,9 @@ class GeminiLogController extends Controller
 
             $log->delete();
 
-            return $this->responseSuccess(null, '删除成功');
+            return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
-            throw new ApiException('删除失败', $e->getCode());
+            throw new ApiException(__('删除失败'), $e->getCode());
         }
     }
 }

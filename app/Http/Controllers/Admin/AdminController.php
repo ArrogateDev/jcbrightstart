@@ -67,7 +67,7 @@ class AdminController extends Controller
                     $query->where('id', $role_id);
                 });
             })
-            ->select('id', 'account', 'name', 'status', 'created_at')
+            ->select('id', 'account', 'avatar', 'name', 'status', 'created_at')
             ->paginate(limit_page());
 
         $list->map(function ($item) {
@@ -80,8 +80,6 @@ class AdminController extends Controller
     }
 
     /**
-     * 创建
-     *
      * @param AdminRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -115,16 +113,14 @@ class AdminController extends Controller
                 throw new \Exception('role_logs:failed');
             }
 
-            return $this->responseSuccess(null, '成功');
+            return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
     /**
-     * 修改
-     *
      * @param AdminRequest $request
      * @param Admin $admin
      * @return \Illuminate\Http\JsonResponse
@@ -159,16 +155,14 @@ class AdminController extends Controller
                 throw new \Exception('role_logs:failed');
             }
 
-            return $this->responseSuccess(null, '修改成功');
+            return $this->responseSuccess(null, __('修改成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('修改失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改失败'), ResponseCode::SERVER_ERR);
         }
     }
 
     /**
-     * 删除
-     *
      * @param Admin $admin
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
@@ -185,16 +179,16 @@ class AdminController extends Controller
         });
 
         if ($admin->id === 1) {
-            throw new ApiException('默认角色，不能删除', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('默认角色，不能删除'), ResponseCode::SERVER_ERR);
         }
         try {
 
             $admin->delete();
             $admin->tokens()->delete();
 
-            return $this->responseSuccess(null, '删除成功');
+            return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
-            throw new ApiException('删除失败', $e->getCode());
+            throw new ApiException(__('删除失败'), $e->getCode());
         }
     }
 }

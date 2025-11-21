@@ -88,8 +88,6 @@ class RoleController extends Controller
     }
 
     /**
-     * 创建
-     *
      * @param RoleRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -132,16 +130,14 @@ class RoleController extends Controller
                 $role->permissions()->sync($permissions);
             }
 
-            return $this->responseSuccess(null, '成功');
+            return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('创建失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('创建失败'), ResponseCode::SERVER_ERR);
         }
     }
 
     /**
-     * 修改
-     *
      * @param RoleRequest $request
      * @param Role $role
      * @return \Illuminate\Http\JsonResponse
@@ -188,16 +184,14 @@ class RoleController extends Controller
                 $role->permissions()->sync($permissions);
             }
 
-            return $this->responseSuccess(null, '成功');
+            return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('修改失败', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改失败'), ResponseCode::SERVER_ERR);
         }
     }
 
     /**
-     * 删除
-     *
      * @param Role $role
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
@@ -214,7 +208,7 @@ class RoleController extends Controller
         });
 
         if ($role->id === 1) {
-            throw new ApiException('默认角色，不能删除', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('默认角色，不能删除'), ResponseCode::SERVER_ERR);
         }
 
         try {
@@ -228,9 +222,9 @@ class RoleController extends Controller
             $role->permissions()->detach($role->id);
             $role->delete();
 
-            return $this->responseSuccess(null, '删除成功');
+            return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
-            throw new ApiException('删除失败', $e->getCode());
+            throw new ApiException(__('删除失败'), $e->getCode());
         }
     }
 }

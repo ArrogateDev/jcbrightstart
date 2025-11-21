@@ -41,7 +41,15 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
 
     $route->group(['middleware' => 'admin:MainMenuManage'], function ($route) {
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->middleware('admin:DashboardList')->name('admin.dashboard.html');
-        $route->get('/course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
+
+        //课程列表页
+        $route->get('course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
+        //课程列表
+        $route->get('course/list.html', [CourseController::class, 'list'])->middleware('admin:CourseList')->name('admin.course.list.html');
+        //修改课程
+        $route->put('/course/{course}.html', [CourseController::class, 'update'])->middleware('admin:CourseEdit')->name('admin.course.update.html');
+        //删除课程
+        $route->delete('/course/{course}.html', [CourseController::class, 'destroy'])->middleware('admin:CourseDelete');
 
         //老师列表页
         $route->get('teacher.html', [UserController::class, 'index'])->middleware('admin:TeacherList')->name('admin.teacher.html');
@@ -61,9 +69,32 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         //删除家长
         $route->delete('/parent/{user}.html', [UserController::class, 'destroy'])->middleware('admin:ParentDelete');
 
-        $route->get('/quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
-        $route->get('/quiz-results.html', [QuizResultController::class, 'index'])->middleware('admin:QuizResultsList')->name('admin.quiz-results.html');
-        $route->get('/certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
+        //测验列表页
+        $route->get('quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
+        //测验列表
+        $route->get('quiz/list.html', [QuizController::class, 'list'])->middleware('admin:QuizList')->name('admin.quiz.list.html');
+        //修改测验
+        $route->put('/quiz/{quiz}.html', [QuizController::class, 'update'])->middleware('admin:QuizEdit')->name('admin.quiz.update.html');
+        //删除测验
+        $route->delete('/quiz/{quiz}.html', [QuizController::class, 'destroy'])->middleware('admin:QuizDelete');
+
+        //测验结果列表页
+        $route->get('quiz-results.html', [QuizResultController::class, 'index'])->middleware('admin:QuizResultList')->name('admin.quiz-results.html');
+        //测验结果列表
+        $route->get('quiz-results/list.html', [QuizResultController::class, 'list'])->middleware('admin:QuizResultList')->name('admin.quiz-results.list.html');
+        //修改测验结果
+        $route->put('/quiz-results/{result}.html', [QuizResultController::class, 'update'])->middleware('admin:QuizResultEdit')->name('admin.quiz-results.update.html');
+        //删除测验结果
+        $route->delete('/quiz-results/{result}.html', [QuizResultController::class, 'destroy'])->middleware('admin:QuizResultDelete');
+
+        //课程列表页
+        $route->get('certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
+        //课程列表
+        $route->get('certificate/list.html', [CertificateController::class, 'list'])->middleware('admin:CertificateList')->name('admin.certificate.list.html');
+        //修改课程
+        $route->put('/certificate/{certificate}.html', [CertificateController::class, 'update'])->middleware('admin:CertificateEdit')->name('admin.certificate.update.html');
+        //删除课程
+        $route->delete('/certificate/{certificate}.html', [CertificateController::class, 'destroy'])->middleware('admin:CertificateDelete');
     });
 
     $route->group(['prefix' => 'system', 'middleware' => 'admin:AuthorityManage'], function ($route) {

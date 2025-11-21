@@ -200,11 +200,11 @@
                     <td>${item.email}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="student-details.html"
+                            <a href="javascript:void(0);"
                                class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
                                 <img src="${item.avatar}" alt="${item.full_name}">
                             </a>
-                            <a href="student-details.html">
+                            <a href="javascript:void(0);">
                                 <p class="fs-14">${item.full_name}</p>
                             </a>
                         </div>
@@ -227,7 +227,7 @@
                             ${item.id !== 1 ? `
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
-                               onclick="handleDelete(${item.id}, '${item.name}')"
+                               onclick="handleDelete(${item.id}, '${item.full_name}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
@@ -241,7 +241,8 @@
     }
 
     function handleDelete(id, name) {
-        confirm_alert(`确定要删除用户"${name}"吗？`, "此操作不可恢复！", 'Yes!')
+        const deleteMessage = '{{__('确定要删除用户:name吗？')}}'.replace(':name', `"${name}"`);
+        confirm_alert(deleteMessage, "{{__('此操作不可恢复！')}}", 'Yes!')
             .then((result) => {
                 if (result.isConfirmed) {
                     showLoading();
