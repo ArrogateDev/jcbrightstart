@@ -87,17 +87,17 @@
                 </a>
                 <div class="navbar-logo">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                 </div>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{route('index.html')}}" class="menu-logo">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
+                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid logo-max-h-50" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">
                         <i class="fas fa-times"></i>
