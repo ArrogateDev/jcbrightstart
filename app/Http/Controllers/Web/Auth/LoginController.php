@@ -165,7 +165,7 @@ class LoginController extends Controller
 
         $code = $request->input('code');
         $id_token = $request->input('id_token');
-        $rawUser = $request->input('user');
+        $raw_user = $request->input('user');
         $state = $request->input('state');
         $redirect = $request->input('redirect', route('user.dashboard.html'));
 
@@ -189,18 +189,18 @@ class LoginController extends Controller
             }
 
             $claims = $apple_service->verifyIdToken($id_token);
-            $userInfo = [];
-            if ($rawUser) {
-                $userInfo = json_decode($rawUser, true, 512, JSON_THROW_ON_ERROR);
+            $user_info = [];
+            if ($raw_user) {
+                $user_info = json_decode($raw_user, true, 512, JSON_THROW_ON_ERROR);
             }
 
-            $email = $claims['email'] ?? Arr::get($userInfo, 'email');
+            $email = $claims['email'] ?? Arr::get($user_info, 'email');
             if (!$email) {
                 throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
             }
 
-            $first_name = Arr::get($userInfo, 'name.firstName', '');
-            $last_name = Arr::get($userInfo, 'name.lastName', '');
+            $first_name = Arr::get($user_info, 'name.firstName', '');
+            $last_name = Arr::get($user_info, 'name.lastName', '');
             $full_name = trim($first_name . ' ' . $last_name);
 
             if (!$full_name) {

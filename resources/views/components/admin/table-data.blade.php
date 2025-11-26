@@ -1,6 +1,14 @@
 @props(['url' => null])
 <div class="row align-items-center mt-4" id="pagination-container" style="display: none;">
-    <div class="col-md-4">
+    <div class="col-md-4 d-flex align-items-center">
+        <div class="me-2">
+            <select id="data-limit" class="form-select form-select-sm">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
         <p class="pagination-text" id="pagination-info">Page 1 of 1</p>
     </div>
     <div class="col-md-8">
@@ -13,7 +21,9 @@
 
     function getData(page = 1, params = {}) {
         tableParams = params;
-        const requestParams = Object.assign({page: page,}, params);
+        let limit = $('#data-limit').val();
+        tableParams = Object.assign(tableParams, {limit: limit,});
+        const requestParams = Object.assign({page: page,}, tableParams);
 
         $.ajax({
             url: "{{$url}}",
@@ -136,4 +146,10 @@
         `);
         $('#pagination-container').hide();
     }
+
+    $(function () {
+        $('#data-limit').change(function () {
+            getData(1, tableParams);
+        })
+    })
 </script>

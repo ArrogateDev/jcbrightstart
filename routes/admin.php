@@ -87,13 +87,15 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         //删除测验结果
         $route->delete('/quiz-results/{result}.html', [QuizResultController::class, 'destroy'])->middleware('admin:QuizResultDelete');
 
-        //课程列表页
+        //证书列表页
         $route->get('certificate.html', [CertificateController::class, 'index'])->middleware('admin:CertificateList')->name('admin.certificate.html');
-        //课程列表
+        //证书列表
         $route->get('certificate/list.html', [CertificateController::class, 'list'])->middleware('admin:CertificateList')->name('admin.certificate.list.html');
-        //修改课程
+        //创建证书模板
+        $route->post('certificate.html', [CertificateController::class, 'store'])->middleware('admin:CertificateAdd')->name('admin.certificate.store.html');
+        //修改证书模板
         $route->put('/certificate/{certificate}.html', [CertificateController::class, 'update'])->middleware('admin:CertificateEdit')->name('admin.certificate.update.html');
-        //删除课程
+        //删除证书模板
         $route->delete('/certificate/{certificate}.html', [CertificateController::class, 'destroy'])->middleware('admin:CertificateDelete');
     });
 
