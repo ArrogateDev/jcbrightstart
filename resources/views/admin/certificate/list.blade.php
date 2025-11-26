@@ -2,8 +2,7 @@
 <html lang="en">
 
 <x-admin.head/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+<script src="{{web_resource_url('assets/js/fabric.min.js')}}" type="text/javascript"></script>
 
 <body>
 
@@ -47,26 +46,7 @@
 
     @include('admin.certificate.new')
 
-    <div class="modal fade" id="view_certificate">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>View Certificate</h5>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                        <i class="isax isax-close-circle5"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div><img src="{{web_resource_url('assets/img/icon/certificate.svg')}}" class="img-fluid" alt=""></div>
-                    <div class="text-end mt-4">
-                        <a href="#" class="btn btn-secondary rounded-pill"><i
-                                class="isax isax-import me-2"></i>Download</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.certificate.show')
 
 </div>
 
@@ -92,8 +72,9 @@
                             <div class="d-flex align-items-center flex-wrap justify-content-between gap-2">
                                 <h6>${item.name}</h6>
                                 <ul class="edit-delete-icon d-flex align-items-center">
-                                    <li class="d-none">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#view_certificate">
+                                    <li>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#show-modal"
+                                           data-item='${JSON.stringify(item)}'>
                                             <i class="isax isax-eye"></i>
                                         </a>
                                     </li>

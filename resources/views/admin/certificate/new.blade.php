@@ -138,7 +138,7 @@
             });
 
             // 获取Fabric.js自动创建的wrapper容器，去除所有边距
-            setTimeout(function() {
+            setTimeout(function () {
                 const wrapper = canvasEl.parentElement;
                 if (wrapper && wrapper.classList.contains('canvas-wrapper')) {
                     wrapper.style.margin = '0';
@@ -223,7 +223,7 @@
         fabric.Image.fromURL(imgUrl, function (img) {
             // 清空canvas但保留背景色
             const objects = canvas.getObjects();
-            objects.forEach(function(obj) {
+            objects.forEach(function (obj) {
                 canvas.remove(obj);
             });
             canvas.setBackgroundColor('#ffffff', canvas.renderAll.bind(canvas));
@@ -429,7 +429,7 @@
         return {
             left: targetText.left * scaleX,
             top: targetText.top * scaleY,
-            font_size: targetText.fontSize * scaleX, // 字体大小也按比例缩放
+            font_size: parseInt(targetText.fontSize * scaleX), // 字体大小也按比例缩放
             fill: targetText.fill,
             text_align: targetText.textAlign || 'center',
             origin_x: targetText.originX || 'center',
@@ -463,7 +463,7 @@
 
             // 加载图片，并在图片加载完成后加载文本
             if (data.path) {
-                loadImageToCanvas(data.path, function() {
+                loadImageToCanvas(data.path, function () {
                     // 图片加载完成后，加载文本
                     setTimeout(function () {
                         if (!canvas) return;
@@ -511,9 +511,8 @@
         const textObj = new fabric.Text(text, {
             left: (config.left || 400) * scaleX,
             top: (config.top || 300) * scaleY,
-            fontSize: (config.font_size || 24) * scaleX,
+            fontSize: parseInt((config.font_size || 24) * scaleX),
             fill: config.fill || '#000000',
-            fontFamily: config.font_family || config.fontFamily || 'Arial',
             originX: config.origin_x || config.originX || 'center',
             originY: config.origin_y || config.originY || 'center',
             textAlign: config.text_align || config.textAlign || 'center',
@@ -583,10 +582,10 @@
             if (originalImageFile) {
                 formData.append('image', originalImageFile);
             }
-            // Laravel PUT请求需要通过_method字段模拟
+
             formData.append('_method', 'PUT');
             url = '{{route('admin.certificate.update.html', ['certificate' => ':id'])}}'.replace(':id', editId);
-            method = 'POST'; // 使用POST方法，通过_method字段模拟PUT
+            method = 'POST';
         } else {
             if (!originalImageFile) {
                 showToast('error', '{{__("请上传证书模板图片")}}');
@@ -602,7 +601,7 @@
             url: url,
             type: method,
             data: formData,
-            headers:{
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             processData: false,
@@ -639,56 +638,13 @@
         // 模态框显示时
         $modal.on('show.bs.modal', function (event) {
             const button = event.relatedTarget;
-            if (!button) {
-                // 新增模式：重置表单
-                $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-                $('#edit-id').val('');
-                $('#certificate_name').val('');
-                $('#certificate_image').val('');
-                pendingCertificateData = null;
-                clearCanvasForReset();
-                return;
-            }
+            const params = JSON.parse(button.getAttribute('data-item'))
+            if (!params) return
 
-            const dataItem = button.getAttribute('data-item');
-            if (!dataItem) {
-                // 新增模式：重置表单
-                $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-                $('#edit-id').val('');
-                $('#certificate_name').val('');
-                $('#certificate_image').val('');
-                pendingCertificateData = null;
-                clearCanvasForReset();
-                return;
-            }
-
-            try {
-                const params = JSON.parse(dataItem);
-                if (params && params.id) {
-                    // 编辑模式：保存数据，待模态框完全显示后加载
-                    $modal.find('.modal-header h5').text('{{__('编辑证书')}}');
-                    $('#edit-id').val(params.id || '');
-                    $('#certificate_name').val(params.name || '');
-                    pendingCertificateData = params;
-                } else {
-                    // 新增模式
-                    $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-                    $('#edit-id').val('');
-                    $('#certificate_name').val('');
-                    $('#certificate_image').val('');
-                    pendingCertificateData = null;
-                    clearCanvasForReset();
-                }
-            } catch (e) {
-                console.error('解析数据失败:', e);
-                // 新增模式
-                $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-                $('#edit-id').val('');
-                $('#certificate_name').val('');
-                $('#certificate_image').val('');
-                pendingCertificateData = null;
-                clearCanvasForReset();
-            }
+            $modal.find('.modal-header h5').text('{{__('编辑证书')}}');
+            $('#edit-id').val(params.id || '');
+            $('#certificate_name').val(params.name || '');
+            pendingCertificateData = params;
         });
 
         // 模态框完全显示后
@@ -727,7 +683,7 @@
 
                 // Canvas尺寸调整完成后，加载证书数据（如果是编辑模式）
                 if (pendingCertificateData && typeof loadCertificateData === 'function') {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         loadCertificateData(pendingCertificateData);
                         pendingCertificateData = null; // 清除待加载数据
                     }, 200);
@@ -742,14 +698,12 @@
 
         // 模态框关闭时
         $modal.on('hidden.bs.modal', function () {
-            disableTextButtons();
             clearCanvasForReset();
 
             $modal.find('.modal-header h5').text('{{__('新增证书')}}');
             $('#edit-id').val('');
             $('#certificate_name').val('');
             $('#certificate_image').val('');
-            clearCanvasForReset();
         });
     });
 </script>
@@ -810,7 +764,3 @@
         flex-shrink: 0;
     }
 </style>
-
-</body>
-
-</html>
