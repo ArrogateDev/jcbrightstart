@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CertificateRequest;
 use App\Models\Certificate;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -59,7 +60,12 @@ class CertificateController extends Controller
         $inputs = $request->only(['name', 'name_config', 'date_config', 'width', 'height']);
 
         try {
-            $file_path = 'certificates/templates/';
+
+            $date = Carbon::now()->format('Ymd');
+            $file_path = 'files/certificates/' . $date . '/';
+            if (!Storage::exists($file_path)) {
+                Storage::makeDirectory($file_path);
+            }
 
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -104,7 +110,12 @@ class CertificateController extends Controller
         $inputs = $request->only(['name', 'name_config', 'date_config', 'width', 'height']);
 
         try {
-            $file_path = 'certificates/templates/';
+
+            $date = Carbon::now()->format('Ymd');
+            $file_path = 'files/certificates/' . $date . '/';
+            if (!Storage::exists($file_path)) {
+                Storage::makeDirectory($file_path);
+            }
 
             $file = $request->file('image');
             if ($file) {
