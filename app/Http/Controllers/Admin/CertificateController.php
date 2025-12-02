@@ -7,12 +7,11 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CertificateRequest;
 use App\Models\Certificate;
-use Carbon\Carbon;
+use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class CertificateController extends Controller
 {
@@ -61,11 +60,7 @@ class CertificateController extends Controller
 
         try {
 
-            $date = Carbon::now()->format('Ymd');
-            $file_path = 'files/certificates/' . $date . '/';
-            if (!Storage::exists($file_path)) {
-                Storage::makeDirectory($file_path);
-            }
+            $file_path = FileTool::existsAndMake('certificates');
 
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -111,21 +106,15 @@ class CertificateController extends Controller
 
         try {
 
-            $date = Carbon::now()->format('Ymd');
-            $file_path = 'files/certificates/' . $date . '/';
-            if (!Storage::exists($file_path)) {
-                Storage::makeDirectory($file_path);
-            }
-
             $file = $request->file('image');
             if ($file) {
+                $file_path = FileTool::existsAndMake('certificates');
                 $extension = $file->getClientOriginalExtension();
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
 
-                if ($certificate->path && Storage::exists($certificate->path)) {
-                    Storage::delete($certificate->path);
-                }
+                $old_path = $certificate->getRawOriginal('path');
+                FileTool::existsAnddelete($old_path);
 
                 $certificate->path = $file_path . $file_name;
             }
@@ -164,10 +153,8 @@ class CertificateController extends Controller
 
         try {
 
-            // 删除图片
-            if ($certificate->image_path && Storage::exists($certificate->image_path)) {
-                Storage::delete($certificate->image_path);
-            }
+            $old_path = $certificate->getRawOriginal('path');
+            FileTool::existsAnddelete($old_path);
 
             $certificate->delete();
 

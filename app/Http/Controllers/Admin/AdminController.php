@@ -6,8 +6,6 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
-use App\Http\Requests\Admin\InstructRequest;
-use App\Models\Base;
 use App\Models\Manage\Admin;
 use App\Models\Manage\Role;
 use Illuminate\Http\Request;

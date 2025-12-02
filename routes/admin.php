@@ -51,11 +51,11 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         //创建课程
         $route->post('course.html', [CourseController::class, 'store'])->middleware('admin:CertificateAdd')->name('admin.course.store.html');
         //修改课程页
-        $route->get('/course/edit/{course}.html', [CourseController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.course.update.view.html');
+        $route->get('/course/{course}.html', [CourseController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.course.update.view.html');
         //修改课程
         $route->put('/course/{course}.html', [CourseController::class, 'update'])->middleware('admin:CourseEdit')->name('admin.course.update.html');
         //删除课程
-        $route->delete('/course/{course}.html', [CourseController::class, 'destroy'])->middleware('admin:CourseDelete');
+        $route->delete('/course/{course}.html', [CourseController::class, 'destroy'])->middleware('admin:CourseDelete')->name('admin.course.destroy.html');
 
         //老师列表页
         $route->get('teacher.html', [UserController::class, 'index'])->middleware('admin:TeacherList')->name('admin.teacher.html');
@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->get('quiz.html', [QuizController::class, 'index'])->middleware('admin:QuizList')->name('admin.quiz.html');
         //测验列表
         $route->get('quiz/list.html', [QuizController::class, 'list'])->middleware('admin:QuizList')->name('admin.quiz.list.html');
+        //创建测验
+        $route->post('quiz.html', [QuizController::class, 'store'])->middleware('admin:QuizAdd')->name('admin.quiz.store.html');
         //修改测验
         $route->put('/quiz/{quiz}.html', [QuizController::class, 'update'])->middleware('admin:QuizEdit')->name('admin.quiz.update.html');
         //删除测验

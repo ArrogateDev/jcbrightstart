@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->comment('Title');
-            $table->string('thumbnail')->comment('Thumbnail');
-            $table->string('video_url')->comment('Video Url');
-            $table->unsignedBigInteger('category')->default(0)->comment('Category');
+            $table->string('title')->nullable()->comment('Title');
+            $table->string('thumbnail')->nullable()->comment('Thumbnail');
+            $table->string('video_url')->nullable()->comment('Video Url');
+            $table->unsignedBigInteger('category_id')->default(0)->comment('Category');
             $table->tinyInteger('level')->default(0)->comment('Level');
             $table->tinyInteger('language')->default(0)->comment('Language');
             $table->text('short')->nullable()->comment('Short');

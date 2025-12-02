@@ -50,6 +50,9 @@
 
 </div>
 
+</body>
+
+
 <script>
     let currentPage = 1;
     let searchKeyword = '';
@@ -148,7 +151,5 @@
         width: 100%;
     }
 </style>
-
-</body>
 
 </html>

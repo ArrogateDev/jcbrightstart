@@ -46,35 +46,6 @@ class CommonController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getMenuTree(Request $request)
-    {
-        $admin = $request->user('admin');
-        $role_id = $admin->role->id;
-        $permission_ids = ['none'];
-        if ($role_id !== 1) {
-            $admin->role->append(['permission_ids']);
-            $permission_ids = $admin->role->permission_ids;
-        }
-
-        $permissions = Authority::query()
-            ->when($role_id !== 1, function ($query) use ($permission_ids) {
-                $query->whereIn('id', $permission_ids);
-            })
-            ->orderByDesc('sort')
-            ->orderByDesc('id')
-            ->select('id', 'name', 'pid')
-            ->get();
-
-        $result['ids'] = $permissions->pluck('id')->toArray();
-        $result['menus'] = authority_format($permissions, 0, true);
-
-        return $this->responseSuccess($result);
-    }
-
-    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function dashboard()

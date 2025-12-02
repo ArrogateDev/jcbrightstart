@@ -67,7 +67,7 @@ class LoginController extends Controller
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
 
-//            Auth::guard('admin')->logoutOtherDevices($password);
+            Auth::guard('admin')->logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {

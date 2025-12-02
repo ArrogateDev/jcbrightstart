@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -59,15 +60,13 @@ class ProfileController extends Controller
 
             Storage::put($file_path . $file_name, $data);
 
-            $old_avatar = $user->getRawOriginal('avatar');
+            $old_path = $user->getRawOriginal('avatar');
             $user->avatar = $file_path . $file_name;
             if ($user->save() === false) {
                 throw new \Exception('user:failed', ResponseCode::SERVER_ERR);
             }
 
-            if ($old_avatar && Storage::exists($old_avatar)) {
-                Storage::delete($old_avatar);
-            }
+            FileTool::existsAnddelete($old_path);
 
             return $this->responseSuccess();
         } catch (\Exception $e) {
@@ -101,9 +100,7 @@ class ProfileController extends Controller
                 throw new \Exception('user:failed', ResponseCode::SERVER_ERR);
             }
 
-            if ($old_avatar && Storage::exists($old_avatar)) {
-                Storage::delete($old_avatar);
-            }
+            FileTool::existsAnddelete($old_avatar);
 
             return $this->responseSuccess();
         } catch (\Exception $e) {
