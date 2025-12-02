@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->get('course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');
         //课程列表
         $route->get('course/list.html', [CourseController::class, 'list'])->middleware('admin:CourseList')->name('admin.course.list.html');
+        //创建课程页
+        $route->get('course/new.html', [CourseController::class, 'view'])->middleware('admin:CertificateAdd')->name('admin.course.store.view.html');
+        //创建课程
+        $route->post('course.html', [CourseController::class, 'store'])->middleware('admin:CertificateAdd')->name('admin.course.store.html');
+        //修改课程页
+        $route->get('/course/edit/{course}.html', [CourseController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.course.update.view.html');
         //修改课程
         $route->put('/course/{course}.html', [CourseController::class, 'update'])->middleware('admin:CourseEdit')->name('admin.course.update.html');
         //删除课程

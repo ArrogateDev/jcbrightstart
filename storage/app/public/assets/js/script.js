@@ -627,7 +627,7 @@ Version      : 1.0
 
   // Date Time Picker
 
-  if ($(".datetimepicker").length > 0) {
+  if ($(".datetimepicker").length > 0 && $.fn.datetimepicker) {
     $(".datetimepicker").datetimepicker({
       format: "DD-MM-YYYY",
       icons: {
@@ -640,7 +640,7 @@ Version      : 1.0
   }
 
   // Timepicker
-  if ($(".timepicker").length > 0) {
+  if ($(".timepicker").length > 0 && $.fn.datetimepicker) {
     $(".timepicker").datetimepicker({
       format: "hh:mm A",
       icons: {

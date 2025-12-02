@@ -44,28 +44,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xxl col-lg-4 col-md-6">
-                            <div class="card bg-skyblue">
-                                <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Free Courses</h6>
-                                    <h4 class="fw-bold text-white">16</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl col-lg-4 col-md-6">
-                            <div class="card bg-purple">
-                                <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Paid Courses</h6>
-                                    <h4 class="fw-bold text-white">21</h4>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="page-title d-flex align-items-center justify-content-between">
                         <h5 class="fw-bold">Courses</h5>
-                        <div class="d-flex align-items-center list-icons">
-                            <a href="instructor-course.html" class="active me-2"><i class="isax isax-task"></i></a>
-                            <a href="instructor-course-grid.html"><i class="isax isax-element-3"></i></a>
+
+                        <div>
+                            <a href="{{route('admin.course.store.view.html')}}" class="btn btn-secondary">{{__('添加课程')}}</a>
                         </div>
                     </div>
                     <div class="row">
@@ -108,7 +92,6 @@
                             <tr>
                                 <th>Course Name</th>
                                 <th>Students</th>
-                                <th>Price</th>
                                 <th>Ratings</th>
                                 <th>Status</th>
                                 <th></th>
@@ -144,7 +127,6 @@
                                     </div>
                                 </td>
                                 <td>600</td>
-                                <td>$160</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -190,7 +172,6 @@
                                     </div>
                                 </td>
                                 <td>500</td>
-                                <td>$180</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -198,7 +179,7 @@
                                     </div>
                                 </td>
                                 <td><span
-                                        class="badge badge-sm bg-skyblue d-inline-flex align-items-center me-1"><i
+                                        class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i
                                             class="fa-solid fa-circle fs-5 me-1"></i>Pending</span></td>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -236,7 +217,6 @@
                                     </div>
                                 </td>
                                 <td>300</td>
-                                <td>$200</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -282,7 +262,6 @@
                                     </div>
                                 </td>
                                 <td>400</td>
-                                <td>$220</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -328,7 +307,6 @@
                                     </div>
                                 </td>
                                 <td>700</td>
-                                <td>$170</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -375,7 +353,6 @@
                                     </div>
                                 </td>
                                 <td>450</td>
-                                <td>$150</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -421,7 +398,6 @@
                                     </div>
                                 </td>
                                 <td>620</td>
-                                <td>$130</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -467,7 +443,6 @@
                                     </div>
                                 </td>
                                 <td>550</td>
-                                <td>$190</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -513,7 +488,6 @@
                                     </div>
                                 </td>
                                 <td>240</td>
-                                <td>$140</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -559,7 +533,6 @@
                                     </div>
                                 </td>
                                 <td>380</td>
-                                <td>$110</td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
@@ -617,27 +590,6 @@
     </div>
 
     <x-admin.footer/>
-
-    <div class="modal fade" id="delete_modal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body text-center custom-modal-body">
-						<span class="avatar avatar-lg bg-danger-transparent rounded-circle mb-2">
-							<i class="isax isax-trash fs-24 text-danger"></i>
-						</span>
-                    <div>
-                        <h4 class="mb-2">Delete Course</h4>
-                        <p class="mb-3">Are you sure you want to delete course?</p>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:void(0);" class="btn bg-gray-100 rounded-pill me-2"
-                               data-bs-dismiss="modal">Cancel</a>
-                            <a href="javascript:void(0);" class="btn btn-secondary rounded-pill">Yes, Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
 

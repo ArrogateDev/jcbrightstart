@@ -9,7 +9,7 @@ class QuizController extends Controller
 
     public function index()
     {
-        return view('admin.quiz');
+        return view('admin.quiz.list');
     }
 
 }
