@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('新增证书')}}" class="modal-lg">
+﻿<x-layouts.modal id="form-modal" title="{{ __('添加测验')}}" class="modal-lg">
 
     <div class="modal-body pb-0">
         <div class="mb-3">
