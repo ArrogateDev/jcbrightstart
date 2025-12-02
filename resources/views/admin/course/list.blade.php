@@ -139,11 +139,11 @@
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <a href="course-details.html" class="avatar avatar-lg me-2"><img
+                                <a href="javascript:void(0);" class="avatar avatar-lg me-2"><img
                                         class="img-fluid object-fit-cover"
-                                        src="{{web_resource_url('assets/img/course/course-02.jpg')}}" alt=""></a>
+                                        src="${item.thumbnail}" alt=""></a>
                                 <div>
-                                    <h6 class="fw-medium mb-2"><a href="course-details.html">${item.title}</a></h6>
+                                    <h6 class="fw-medium mb-2"><a href="javascript:void(0);">${item.title}</a></h6>
                                     <div class="d-flex align-items-center">
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-video-circle me-1 text-gray-9 fw-bold"></i>

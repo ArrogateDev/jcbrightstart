@@ -11,6 +11,6 @@ class Course extends Base
      */
     public function getThumbnailAttribute($value)
     {
-        return $value ? web_resource_url($value) : '';
+        return $value ? web_resource_url($value) : web_resource_url('assets/img/fill.png');
     }
 }
