@@ -30,6 +30,8 @@ class CourseController extends Controller
 
     public function view(Course $course)
     {
+        $course && $course->load(['quizzes:id,title','certificate:id,name']);
+
         return view('admin.course.new', ['course' => $course]);
     }
 
@@ -74,7 +76,7 @@ class CourseController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'status']);
+        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
 
         try {
 
@@ -95,6 +97,12 @@ class CourseController extends Controller
 
             if ($course->save() === false) {
                 throw new \Exception('course:failed', ResponseCode::SERVER_ERR);
+            }
+
+            $quiz_ids = $request->input('quiz_ids');
+            if (!empty($quiz_ids)) {
+                $quiz_ids = array_unique($quiz_ids);
+                $course->quizzes()->sync($quiz_ids);
             }
 
             return $this->responseSuccess(['id' => $course->id], __('成功'));
@@ -121,7 +129,7 @@ class CourseController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'status']);
+        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
 
         try {
 
@@ -141,8 +149,15 @@ class CourseController extends Controller
             foreach ($inputs as $key => $value) {
                 $course->$key = $value;
             }
+
             if ($course->save() === false) {
                 throw new \Exception('course:failed', ResponseCode::SERVER_ERR);
+            }
+
+            $quiz_ids = $request->input('quiz_ids');
+            if (!empty($quiz_ids)) {
+                $quiz_ids = array_unique($quiz_ids);
+                $course->quizzes()->sync($quiz_ids);
             }
 
             return $this->responseSuccess(['id' => $course->id], __('成功'));
@@ -176,6 +191,7 @@ class CourseController extends Controller
             FileTool::existsAnddelete($old_path);
 
             $course->delete();
+            $course->quizzes()->detach();
 
             return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {

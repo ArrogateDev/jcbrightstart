@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('新增证书')}}" class="modal-xl">
+﻿<x-layouts.modal id="certificate-form-modal" title="{{ __('新增证书')}}" class="modal-xl">
 
     <div class="row">
         <div class="col-md-3">
@@ -506,7 +506,7 @@
         const scaleX = canvas.width / standardWidth;
         const scaleY = canvas.height / standardHeight;
 
-        const text = type === 'name' ? '{{__("姓名")}}' : '{{date('Y-m-d')}}';
+        const text = type === 'name' ? '{{__("姓名")}}' : '{{date('m/d/y')}}';
 
         const textObj = new fabric.Text(text, {
             left: (config.left || 400) * scaleX,
@@ -561,7 +561,8 @@
         }
         showLoading()
 
-        const editId = $('#edit-id').val();
+        const $modal = $('#certificate-form-modal');
+        const editId = $('#certificate-form-modal #edit-id').val();
         let formData = new FormData();
 
         formData.append('name', name);
@@ -614,8 +615,9 @@
                 }
 
                 showToast('success', editId ? '{{__('更新成功')}}' : '{{__('创建成功')}}');
-                $('#form-modal').modal('hide');
-                getData(1);
+                $modal.data('uploaded', true);
+                $modal.data('data', data.data);
+                $modal.modal('hide');
             }, error: function () {
                 showToast('error', '{{__('操作失败，请稍后再试！')}}')
             }, complete: function () {
@@ -629,7 +631,7 @@
         initStyleControls();
         disableTextButtons();
 
-        const $modal = $('#form-modal');
+        const $modal = $('#certificate-form-modal');
         if (!$modal.length) return;
 
         // 存储待加载的证书数据
@@ -642,7 +644,7 @@
             if (!params) return
 
             $modal.find('.modal-header h5').text('{{__('编辑证书')}}');
-            $('#edit-id').val(params.id || '');
+            $('#certificate-form-modal #edit-id').val(params.id || '');
             $('#certificate_name').val(params.name || '');
             pendingCertificateData = params;
         });
@@ -701,7 +703,7 @@
             clearCanvasForReset();
 
             $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-            $('#edit-id').val('');
+            $('#certificate-form-modal #edit-id').val('');
             $('#certificate_name').val('');
             $('#certificate_image').val('');
         });

@@ -6,6 +6,7 @@
 <script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="{{web_resource_url('assets/plugins/summernote/summernote-lite.min.css')}}">
 <script src="{{web_resource_url('assets/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/fabric.min.js')}}" type="text/javascript"></script>
 
 <body>
 
@@ -24,7 +25,7 @@
 
                 <div class="col-lg-9">
 
-                    <form id="form" novalidate="novalidate">
+                    <form id="course-form" novalidate="novalidate">
                         <div class="add-course-item">
                             <div class="wizard">
                                 <ul class="form-wizard-steps" id="progressbar2">
@@ -242,24 +243,18 @@
                                 <fieldset class="form-inner wizard-form-card">
                                     <div>
                                         <div class="input-block mb-2">
-                                            <label class="form-label">Course Quiz<span
-                                                    class="text-danger ms-1">*</span></label>
-                                            <select class="select">
-                                                <option value="1">Quiz 1</option>
-                                                <option value="2">Quiz 2</option>
-                                                <option value="3">Quiz 3</option>
-                                                <option value="4">Quiz 4</option>
-                                            </select>
+                                            <label class="form-label">
+                                                {{__('测验')}}
+                                                <span class="text-danger ms-1">*</span>
+                                            </label>
+                                            <select id="course-quiz-select" name="quiz_ids[]" class="select" multiple></select>
                                         </div>
                                         <div class="input-block mb-2">
-                                            <label class="form-label">Course Certificate<span
-                                                    class="text-danger ms-1">*</span></label>
-                                            <select class="select">
-                                                <option value="1">Certificate 1</option>
-                                                <option value="2">Certificate 2</option>
-                                                <option value="3">Certificate 3</option>
-                                                <option value="4">Certificate 4</option>
-                                            </select>
+                                            <label class="form-label">
+                                                {{__('证书')}}
+                                                <span class="text-danger ms-1">*</span>
+                                            </label>
+                                            <select id="certificate-id" name="certificate_id" class="select"></select>
                                         </div>
                                     </div>
                                     <div class="add-form-btn widget-next-btn submit-btn">
@@ -286,9 +281,12 @@
 
 </div>
 
+@include('admin.quiz.new')
+@include('admin.certificate.new')
+
 </body>
 <script>
-    let originalImageFile = null;
+    let thumbnailImageFile = null;
     // upload img
     (function () {
         const uploadSection = document.getElementById("course-upload-img-section");
@@ -342,7 +340,7 @@
                         }
                     };
                     reader.readAsDataURL(file);
-                    originalImageFile = file;
+                    thumbnailImageFile = file;
                 } else {
                     showToast('error', "File size exceeds 2 MB or invalid format.");
                 }
@@ -351,7 +349,186 @@
     })();
 
     $(function () {
-        const $form = $('#form');
+        const urlParams = new URLSearchParams(window.location.search);
+        const step = (urlParams.get('step') || 1) - 1;
+        $('#progressbar2 li').map(function (index, item) {
+            console.log(index);
+            if (index < step) {
+                $(item).attr('class', 'progress-activated');
+            } else if (index === step) {
+                $(item).attr('class', 'progress-active');
+            }
+        })
+        const $set = $('.initialization-form-set fieldset');
+        $set.hide()
+        $set.eq(step).show()
+
+        const quizzes = {!! json_encode($course->quizzes??[]) !!};
+        const $quizSelect = $('#course-quiz-select');
+        const $certificateSelect = $('#certificate-id');
+
+        $quizSelect.select2({
+            multiple: true,
+            placeholder: '{{__('请选择或搜索测验')}}',
+            ajax: {
+                url: '{{route('admin.get-quiz-list.html')}}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        keyword: params.term,
+                        page: params.page || 1,
+                        limit: 15
+                    };
+                },
+                processResults: function ({code, data}) {
+                    const results = [];
+                    if (data.current_page === 1) {
+                        results.push({
+                            id: 'add_new',
+                            text: '{{__('新增测验')}}',
+                            isAddButton: true,
+                            disabled: true
+                        });
+                    }
+
+                    if (code === 0 && data && data.data) {
+                        const quizResults = data.data.map(function (item) {
+                            return {
+                                id: item.id,
+                                text: item.title
+                            };
+                        });
+                        results.push.apply(results, quizResults);
+                    }
+
+                    return {
+                        results: results,
+                        pagination: {
+                            more: code === 0 && data && data.current_page < data.last_page
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            templateResult: function (data) {
+                if (data.loading) {
+                    return data.text;
+                }
+                if (data.id === 'add_new' || data.isAddButton) {
+                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#form-modal"><i class="fa fa-plus me-1"></i>{{__('新增测验')}}</button></div>');
+                }
+                return $('<div style="padding: 8px;">' + data.text + '</div>');
+            },
+            templateSelection: function (data) {
+                if (data.id === 'add_new' || data.isAddButton) {
+                    return '';
+                }
+                return data.text;
+            }
+        });
+
+        $certificateSelect.select2({
+            placeholder: '{{__('请选择或搜索证书')}}',
+            ajax: {
+                url: '{{route('admin.get-certificate-list.html')}}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        keyword: params.term,
+                        page: params.page || 1,
+                        limit: 15
+                    };
+                },
+                processResults: function ({code, data}) {
+                    const results = [];
+                    if (data.current_page === 1) {
+                        results.push({
+                            id: 'add_new',
+                            text: '{{__('新增证书')}}',
+                            isAddButton: true,
+                            disabled: true
+                        });
+                    }
+
+                    if (code === 0 && data && data.data) {
+                        const certificateResults = data.data.map(function (item) {
+                            return {
+                                id: item.id,
+                                text: item.title
+                            };
+                        });
+                        results.push.apply(results, certificateResults);
+                    }
+
+                    return {
+                        results: results,
+                        pagination: {
+                            more: code === 0 && data && data.current_page < data.last_page
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            templateResult: function (data) {
+                if (data.loading) {
+                    return data.text;
+                }
+                if (data.id === 'add_new' || data.isAddButton) {
+                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"><i class="fa fa-plus me-1"></i>{{__('新增测验')}}</button></div>');
+                }
+                return $('<div style="padding: 8px;">' + data.text + '</div>');
+            },
+            templateSelection: function (data) {
+                if (data.id === 'add_new' || data.isAddButton) {
+                    return '';
+                }
+                return data.text;
+            }
+        });
+
+        _.map(quizzes, function (quiz) {
+            const option = new Option(quiz.title, quiz.id, true, true);
+            $quizSelect.append(option).trigger('change');
+        })
+
+        @if($course && $course->certificate)
+        const option = new Option('{{$course->certificate->name??''}}', {{$course->certificate->id??0}}, true, true);
+        $certificateSelect.append(option).trigger('change');
+        @endif
+
+        const $modal = $('#form-modal');
+        const $certificateModal = $('#certificate-form-modal');
+        $modal.on('show.bs.modal', function () {
+            $quizSelect.select2('close');
+        });
+
+        $certificateModal.on('show.bs.modal', function () {
+            $certificateSelect.select2('close');
+        });
+
+        $modal.on('hidden.bs.modal', function () {
+            const uploaded = $(this).data('uploaded');
+            const data = $(this).data('data');
+            if (uploaded && data) {
+                const option = new Option(data.title, data.id, true, true);
+                $quizSelect.append(option).trigger('change');
+            }
+        });
+
+        $certificateModal.on('hidden.bs.modal', function () {
+            const uploaded = $(this).data('uploaded');
+            const data = $(this).data('data');
+            if (uploaded && data) {
+                const option = new Option(data.title, data.id, true, true);
+                $certificateSelect.append(option).trigger('change');
+            }
+        });
+
+        const $form = $('#course-form');
         $('.btn-submit').click(function () {
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
@@ -361,11 +538,9 @@
                 formData.append(value.name, value.value);
             });
             formData.append('description', $('.summernote').eq(0).summernote('code'));
-            if (originalImageFile) {
-                formData.append('thumbnail', originalImageFile);
+            if (thumbnailImageFile) {
+                formData.append('thumbnail', thumbnailImageFile);
             }
-            console.log(form);
-            console.log(formData);
 
             let url, method;
             if (editId) {
@@ -393,7 +568,8 @@
 
                     showToast('success', editId ? '{{__('更新成功')}}' : '{{__('创建成功')}}');
                     editId = data.data.id;
-                    window.location.href = '{{route('admin.course.update.view.html', ['course' => ':id'])}}'.replace(':id', editId);
+                    const step = ($('.progress-activated').length || 0) + ($('.progress-active').length || 0);
+                    window.location.href = '{{route('admin.course.update.view.html', ['course' => ':id'])}}'.replace(':id', editId) + '?step=' + step;
                 }, error: function () {
                     showToast('error', '{{__('操作失败，请稍后再试！')}}')
                 }, complete: function () {

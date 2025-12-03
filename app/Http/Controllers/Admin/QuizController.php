@@ -25,36 +25,14 @@ class QuizController extends Controller
      */
     public function list(Request $request)
     {
-        $name = $request->query('name');
-        $account = $request->query('account');
-        $role_id = $request->query('role_id');
-
-        $admin = $request->user('admin');
+        $keyword = $request->query('keyword');
 
         $list = Quiz::query()
-//            ->with(['role:id,name'])
-//            ->when($admin->id != 1, function ($query) {
-//                $query->where('id', '>', 1);
-//            })
-//            ->when($name, function ($query) use ($name) {
-//                $query->where('name', 'like', '%' . $name . '%');
-//            })
-//            ->when($account, function ($query) use ($account) {
-//                $query->where('account', 'like', '%' . $account . '%');
-//            })
-//            ->when($role_id, function ($query) use ($role_id) {
-//                $query->whereHas('role', function ($query) use ($role_id) {
-//                    $query->where('id', $role_id);
-//                });
-//            })
-//            ->select('id', 'account', 'avatar', 'name', 'status', 'created_at')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->orderByDesc('id')
             ->paginate(limit_page());
-
-//        $list->map(function ($item) {
-//            $item->role_id = $item->role?->id ?? 0;
-//            $item->role_name = $item->role?->name ?? '';
-//        });
-//        $list->makeHidden(['role']);
 
         return $this->responseSuccess($list);
     }
@@ -89,7 +67,7 @@ class QuizController extends Controller
                 throw new \Exception('quiz:failed');
             }
 
-            return $this->responseSuccess(null, __('成功'));
+            return $this->responseSuccess(['id' => $quiz->id, 'title' => $quiz->title], __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);

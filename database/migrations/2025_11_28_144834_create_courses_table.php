@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Description');
             $table->json('acquire')->nullable()->comment('Acquire');
             $table->json('requirements')->nullable()->comment('Requirements');
+            $table->unsignedBigInteger('certificate_id')->default(0)->comment('Certificate');
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();

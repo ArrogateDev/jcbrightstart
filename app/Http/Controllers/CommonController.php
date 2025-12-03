@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
+use App\Models\Certificate;
 use App\Models\Manage\Authority;
 use App\Models\Manage\Role;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Mews\Captcha\Facades\Captcha;
@@ -48,9 +50,37 @@ class CommonController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function dashboard()
+    public function getQuizList(Request $request)
     {
-        return $this->responseSuccess([]);
+        $keyword = $request->query('keyword');
+
+        $list = Quiz::query()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->orderByDesc('id')
+            ->select('id', 'title')
+            ->paginate(limit_page());
+
+        return $this->responseSuccess($list);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCertificateList(Request $request)
+    {
+        $keyword = $request->query('keyword');
+
+        $list = Certificate::query()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->orderByDesc('id')
+            ->select('id', 'name as title')
+            ->paginate(limit_page());
+
+        return $this->responseSuccess($list);
     }
 
     /**

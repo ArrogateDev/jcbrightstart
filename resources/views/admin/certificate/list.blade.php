@@ -24,7 +24,7 @@
                             <h5>{{__('证书管理')}}</h5>
                             <div>
                                 <a href="#" class="btn btn-secondary d-flex align-items-center"
-                                   data-bs-toggle="modal" data-bs-target="#form-modal">
+                                   data-bs-toggle="modal" data-bs-target="#certificate-form-modal">
                                     <i class="isax isax-add-circle me-1"></i>{{ __('新增证书')}}
                                 </a>
                             </div>
@@ -82,7 +82,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#form-modal"
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"
                                            data-item='${JSON.stringify(item)}'>
                                             <i class="isax isax-edit-2"></i>
                                         </a>
@@ -142,6 +142,13 @@
 
     $(function () {
         getData(1);
+
+        $('#certificate-form-modal').on('hidden.bs.modal', function () {
+            const uploaded = $(this).data('uploaded');
+            if (uploaded) {
+                getData(currentPage, {keyword: searchKeyword});
+            }
+        });
     });
 </script>
 

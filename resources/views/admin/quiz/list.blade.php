@@ -122,6 +122,13 @@
 
     $(function () {
         getData(1);
+
+        $('#form-modal').on('hidden.bs.modal', function () {
+            const uploaded = $(this).data('uploaded');
+            if (uploaded) {
+                getData(currentPage, {keyword: searchKeyword});
+            }
+        });
     });
 </script>
 

@@ -245,8 +245,9 @@
                     }
 
                     showToast('success', editId ? '{{ __('更新成功') }}' : '{{ __('创建成功') }}');
-                    $('#form-modal').modal('hide');
-                    getData(currentPage, {keyword: searchKeyword});
+                    $modal.data('uploaded', true);
+                    $modal.data('data', data.data);
+                    $modal.modal('hide');
                 },
                 error: function () {
                     showToast('error', '{{ __('操作失败，请稍后再试！') }}');

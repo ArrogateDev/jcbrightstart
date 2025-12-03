@@ -11,6 +11,7 @@
         "php": "^8.1",
         "ext-libxml": "*",
         "ext-openssl": "*",
+        "ext-gd": "*",
         "dcat/laravel-wherehasin": "^0.8.0",
         "firebase/php-jwt": "^6.11",
         "google/apiclient": "^2.18",

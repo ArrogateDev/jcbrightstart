@@ -17,7 +17,6 @@ class CourseRequest extends BaseRequest
 
         $status = $this->input('status');
         if ($status == 2) {
-            $rules['title'] = 'bail|required|unique:courses';
             $rules['thumbnail'] = 'bail|required|image';
             $rules['video_url'] = 'bail|required|url';
             $rules['category_id'] = 'bail|required';
@@ -25,18 +24,23 @@ class CourseRequest extends BaseRequest
             $rules['language'] = 'bail|required';
             $rules['short'] = 'bail|required';
             $rules['description'] = 'bail|required';
+            $rules['quiz_ids'] = 'bail|required|array|min:1';
+            $rules['quiz_ids.*'] = 'bail|exists:quizzes,id';
+            $rules['certificate_id'] = 'bail|required|exists:certificates,id';
         }
 
         if ($this->method() === 'PUT') {
             $course = $this->route('course');
-            $id = $course instanceof Quiz ? $course->id : $course;
+            $rules['image'] = 'bail|nullable|image';
+        }
 
+        if ($status == 2 && $this->method() === 'PUT') {
+            $id = $course instanceof Quiz ? $course->id : $course;
             $rules['title'] = [
                 'bail',
                 'required',
                 Rule::unique('courses')->ignore($id)
             ];
-            $rules['image'] = 'bail|nullable|image';
         }
 
         return $rules;

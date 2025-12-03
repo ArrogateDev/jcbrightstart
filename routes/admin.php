@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\QuizResultController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CommonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,13 @@ Route::get('/login.html', [LoginController::class, 'index'])->name('admin.login.
 Route::post('/login.html', [LoginController::class, 'handleLogin']);
 
 Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']], function ($route) {
+
+    //公共模块
+    $route->group(['prefix' => 'main'], function ($route) {
+        $route->get('get-quiz-list.html', [CommonController::class, 'getQuizList'])->name('admin.get-quiz-list.html');
+        $route->get('get-certificate-list.html', [CommonController::class, 'getCertificateList'])->name('admin.get-certificate-list.html');
+    });
+
     //退出登录
     $route->delete('logout.html', [AuthController::class, 'logout']);
     //修改头像
