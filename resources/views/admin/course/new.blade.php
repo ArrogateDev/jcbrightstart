@@ -352,7 +352,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const step = (urlParams.get('step') || 1) - 1;
         $('#progressbar2 li').map(function (index, item) {
-            console.log(index);
             if (index < step) {
                 $(item).attr('class', 'progress-activated');
             } else if (index === step) {
@@ -478,7 +477,7 @@
                     return data.text;
                 }
                 if (data.id === 'add_new' || data.isAddButton) {
-                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"><i class="fa fa-plus me-1"></i>{{__('新增测验')}}</button></div>');
+                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"><i class="fa fa-plus me-1"></i>{{__('新增证书')}}</button></div>');
                 }
                 return $('<div style="padding: 8px;">' + data.text + '</div>');
             },
