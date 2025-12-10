@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable()->comment('Title');
             $table->string('thumbnail')->nullable()->comment('Thumbnail');
-            $table->string('video_url')->nullable()->comment('Video Url');
             $table->unsignedBigInteger('category_id')->default(0)->comment('Category');
             $table->tinyInteger('level')->default(0)->comment('Level');
             $table->tinyInteger('language')->default(0)->comment('Language');

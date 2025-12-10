@@ -31,7 +31,7 @@
                         <div class="col-xxl col-lg-4 col-md-6">
                             <div class="card bg-secondary">
                                 <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Pending Courses</h6>
+                                    <h6 class="fw-medium mb-1 text-white">Suspensed Courses</h6>
                                     <h4 class="fw-bold text-white">{{$courses[1]??0}}</h4>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
-                                               class="dropdown-item rounded-1 status-option" data-status="1">Pending</a>
+                                               class="dropdown-item rounded-1 status-option" data-status="1">Suspensed</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
@@ -132,7 +132,7 @@
             const statusBadge = item.status === 0
                 ? '<span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>'
                 : item.status === 1
-                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Pending</span>'
+                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>'
                     : '<span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>';
 
             const row = `

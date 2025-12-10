@@ -7,6 +7,8 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CourseRequest;
 use App\Models\Course;
+use App\Models\CourseChapter;
+use App\Models\CourseChapterUnit;
 use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -30,7 +32,12 @@ class CourseController extends Controller
 
     public function view(Course $course)
     {
-        $course && $course->load(['quizzes:id,title','certificate:id,name']);
+        $course->load([
+            'chapters:id,course_id,title',
+            'chapters.units',
+            'chapters.units.quiz:id,title',
+            'certificate:id,name'
+        ]);
 
         return view('admin.course.new', ['course' => $course]);
     }
@@ -76,11 +83,13 @@ class CourseController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
 
         try {
 
             $file = $request->file('thumbnail');
+
+            DB::beginTransaction();
 
             $course = new Course();
             foreach ($inputs as $key => $value) {
@@ -99,14 +108,13 @@ class CourseController extends Controller
                 throw new \Exception('course:failed', ResponseCode::SERVER_ERR);
             }
 
-            $quiz_ids = $request->input('quiz_ids');
-            if (!empty($quiz_ids)) {
-                $quiz_ids = array_unique($quiz_ids);
-                $course->quizzes()->sync($quiz_ids);
-            }
+            $this->handleSaveRelationalData($course, $request);
+
+            DB::commit();
 
             return $this->responseSuccess(['id' => $course->id], __('成功'));
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
@@ -129,9 +137,11 @@ class CourseController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'video_url', 'category', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'level', 'language', 'short', 'description', 'acquire', 'requirements', 'certificate_id', 'status']);
 
         try {
+
+            DB::beginTransaction();
 
             $file = $request->file('thumbnail');
             if ($file) {
@@ -154,16 +164,16 @@ class CourseController extends Controller
                 throw new \Exception('course:failed', ResponseCode::SERVER_ERR);
             }
 
-            $quiz_ids = $request->input('quiz_ids');
-            if (!empty($quiz_ids)) {
-                $quiz_ids = array_unique($quiz_ids);
-                $course->quizzes()->sync($quiz_ids);
-            }
+            $this->handleSaveRelationalData($course, $request);
+
+            DB::commit();
 
             return $this->responseSuccess(['id' => $course->id], __('成功'));
         } catch (ApiException $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
@@ -197,6 +207,111 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * 保存章节和单元
+     * @param Course $course
+     * @param CourseRequest $request
+     * @return void
+     * @throws \Exception
+     */
+    private function handleSaveRelationalData(Course $course, CourseRequest $request)
+    {
+        $chapters = $request->input('chapters', []);
+
+        $chapter_ids = $course->chapters()->pluck('id')->toArray();
+        $new_chapter_ids = [];
+
+        foreach ($chapters as $index => $item) {
+            $chapter_id = $item['id'] ?? null;
+            $chapter = $course->chapters()->where('id', $chapter_id)->first();
+            if (!$chapter) {
+                $chapter = new CourseChapter();
+                $chapter->course_id = $course->id;
+            }
+
+            $chapter->title = $item['title'] ?? null;
+            if ($chapter->save() === false) {
+                throw new \Exception('chapter:failed', ResponseCode::SERVER_ERR);
+            }
+
+            $new_chapter_ids[] = $chapter->id;
+
+            $units = $item['units'] ?? [];
+            $unit_ids = $chapter->units()->pluck('id')->toArray();
+            $new_unit_ids = [];
+
+            foreach ($units as $unit_index => $unit_item) {
+                $unit_id = $unit_item['id'] ?? null;
+                $unit = $chapter->units()->where('id', $unit_id)->first();
+
+                if (!$unit) {
+                    $unit = new CourseChapterUnit();
+                    $unit->course_id = $course->id;
+                    $unit->chapter_id = $chapter->id;
+                }
+
+                $unit->title = $unit_item['title'] ?? null;
+                $unit->type = $unit_item['type'] ?? 0;
+                $unit->quiz_id = $unit_item['quiz_id'] ?? 0;
+
+                if ($unit->type == 0) {
+                    $unit->video_url = $unit_item['video_url'] ?? null;
+                    if ($unit->file) {
+                        $old_path = $unit->getRawOriginal('file');
+                        FileTool::existsAnddelete($old_path);
+                        $unit->file = null;
+                    }
+                } else {
+                    $unit->video_url = null;
+                    $file = $request->file("chapters.$index.units.$unit_index.pdf");
+
+                    if ($file && $file->isValid()) {
+                        if ($unit->file) {
+                            $old_path = $unit->getRawOriginal('file');
+                            FileTool::existsAnddelete($old_path);
+                        }
+
+                        $file_path = FileTool::existsAndMake('course/units');
+                        $extension = $file->getClientOriginalExtension();
+                        $file_name = uniqid() . '.' . $extension;
+                        Storage::putFileAs($file_path, $file, $file_name);
+                        $unit->file = $file_path . $file_name;
+                    }
+                }
+
+                if ($unit->save() === false) {
+                    throw new \Exception('unit:failed', ResponseCode::SERVER_ERR);
+                }
+
+                $new_unit_ids[] = $unit->id;
+            }
+
+            $units_to_delete = array_diff($unit_ids, $new_unit_ids);
+            if (!empty($units_to_delete)) {
+                foreach ($units_to_delete as $unit_id_to_delete) {
+                    $unit_to_delete = CourseChapterUnit::find($unit_id_to_delete);
+                    if ($unit_to_delete && $unit_to_delete->file) {
+                        $old_path = $unit_to_delete->getRawOriginal('file');
+                        FileTool::existsAnddelete($old_path);
+                    }
+                }
+                CourseChapterUnit::whereIn('id', $units_to_delete)->delete();
+            }
+        }
+
+        $chapters_to_delete = array_diff($chapter_ids, $new_chapter_ids);
+        if (!empty($chapters_to_delete)) {
+            $units_to_delete = CourseChapterUnit::whereIn('chapter_id', $chapters_to_delete)->get();
+            foreach ($units_to_delete as $unit_to_delete) {
+                if ($unit_to_delete->file) {
+                    $old_path = $unit_to_delete->getRawOriginal('file');
+                    FileTool::existsAnddelete($old_path);
+                }
+            }
+            CourseChapter::whereIn('id', $chapters_to_delete)->delete();
         }
     }
 }

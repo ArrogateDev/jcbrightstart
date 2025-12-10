@@ -15,11 +15,11 @@ class Course extends Base
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function quizzes()
+    public function chapters()
     {
-        return $this->belongsToMany(Quiz::class, CourseQuiz::class, 'course_id', 'quiz_id', 'id', 'id');
+        return $this->hasMany(CourseChapter::class, 'course_id', 'id');
     }
 
     /**

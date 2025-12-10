@@ -13,6 +13,12 @@ class CourseRequest extends BaseRequest
     {
         $rules = [
             'status' => 'bail|required|in:0,1,2',
+            'chapters' => 'bail|nullable|array|min:1',
+            'chapters.*.units' => 'bail|nullable|array|min:1',
+            'chapters.*.units.*.video_url' => 'bail|nullable|starts_with:https://www.youtube.com,https://youtu.be',
+            'chapters.*.units.*.pdf' => 'bail|nullable|filled|mimes:pdf',
+            'chapters.*.units.*.type' => 'bail|nullable|in:0,1',
+            'chapters.*.units.*.quiz_id' => 'bail|nullable|exists:quizzes,id',
         ];
 
         $status = $this->input('status');
@@ -24,8 +30,12 @@ class CourseRequest extends BaseRequest
             $rules['language'] = 'bail|required';
             $rules['short'] = 'bail|required';
             $rules['description'] = 'bail|required';
-            $rules['quiz_ids'] = 'bail|required|array|min:1';
-            $rules['quiz_ids.*'] = 'bail|exists:quizzes,id';
+            $rules['chapters'] = 'bail|required|array|min:1';
+            $rules['chapters.*.units'] = 'bail|required|array|min:1';
+            $rules['chapters.*.units.*.video_url'] = 'bail|required_if:type,0|starts_with:https://www.youtube.com,https://youtu.be';
+            $rules['chapters.*.units.*.pdf'] = 'bail|required_if:type,1|filled|mimes:pdf';
+            $rules['chapters.*.units.*.type'] = 'bail|required|in:0,1';
+            $rules['chapters.*.units.*.quiz_id'] = 'bail|required|exists:quizzes,id';
             $rules['certificate_id'] = 'bail|required|exists:certificates,id';
         }
 

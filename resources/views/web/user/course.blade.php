@@ -22,7 +22,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex flex-wrap gap-3 align-items-center justify-content-between">
-                        <h5>Enrolled Courses</h5>
+                        <h5>Courses</h5>
                         <div class="tab-list">
                             <ul class="nav mb-0 gap-2" role="tablist">
                                 <li class="nav-item mb-0" role="presentation">

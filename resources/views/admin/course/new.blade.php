@@ -58,7 +58,7 @@
 												<span class="tickmark"><i class="fa-solid fa-check"></i></span>
 											</span>
                                             <div class="step-section">
-                                                <p>{{__('测验')}}{{__('和')}}{{__('证书')}}</p>
+                                                <p>{{__('证书')}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -141,7 +141,7 @@
                                                         <input class="form-check-input" type="radio" name="status"
                                                                id="status-1" value="1" @checked(($course->status??0) == 1)>
                                                         <label class="form-check-label" for="status-1">
-                                                            Pending
+                                                            Suspensed
                                                         </label>
                                                     </div>
                                                     <div class="form-check me-3">
@@ -202,31 +202,162 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="input-block-link">
-                                                <label class="form-label">Youtube URL</label>
-                                                <input type="text" id="video_url" name="video_url" class="form-control"
-                                                       placeholder="Youtube URL Link" value="{{$course->video_url??''}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" id="openVideoBtn"
-                                                   target="_blank">
-                                                    <img class="img-fluid rounded"
-                                                         src="{{web_resource_url('assets/img/course/add-course-1.jpg')}}" alt="img">
-                                                    <div class="play-icon">
-                                                        <i class="fa-solid fa-play"></i>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div id="videoModal">
-                                                <div class="modal-content1">
-                                                    <span class="close-btn" id="closeModal">&times;</span>
-                                                    <iframe id="youtubeIframe" allowfullscreen=""></iframe>
+
+                                            <div class="input-block">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <label class="form-label mb-0">{{__('课程章节')}}<span class="text-danger ms-1">*</span></label>
+                                                    <button type="button" class="btn btn-primary btn-sm" id="add-chapter-btn">
+                                                        <i class="fa-solid fa-plus me-1"></i>{{__('添加章节')}}
+                                                    </button>
+                                                </div>
+                                                <div id="chapters-container">
+                                                    @if(isset($course->chapters) && count($course->chapters) > 0)
+                                                        @foreach($course->chapters as $chapterIndex => $chapter)
+                                                            <div class="chapter-item mb-3" data-chapter-index="{{$chapterIndex}}">
+                                                                <div class="accordion" id="chapter-accordion-{{$chapterIndex}}">
+                                                                    <div class="accordion-item">
+                                                                        <h2 class="accordion-header">
+                                                                            <span class="accordion-button d-flex align-items-center"
+                                                                                  data-bs-toggle="collapse"
+                                                                                  data-bs-target="#chapter-collapse-{{$chapterIndex}}"
+                                                                                  aria-expanded="true"
+                                                                                  role="button"
+                                                                                  style="box-shadow: none;">
+                                                                                <i class="fa-solid fa-grip-vertical me-2 text-muted" style="cursor: move;"></i>
+                                                                                <span class="chapter-number fw-medium">{{__('章节')}} <span class="chapter-index-number">{{$chapterIndex + 1}}</span></span>
+                                                                            </span>
+                                                                        </h2>
+                                                                        <div class="d-flex justify-content-between align-items-center p-2 bg-light border-top chapter-actions">
+                                                                            <div class="flex-grow-1 me-3">
+                                                                                <input type="text" name="chapters[{{$chapterIndex}}][title]"
+                                                                                       class="form-control form-control-sm chapter-title-input"
+                                                                                       placeholder="{{__('章节标题')}}"
+                                                                                       value="{{$chapter->title??''}}"
+                                                                                       required>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center">
+                                                                                <button type="button" class="btn btn-sm btn-success add-unit-btn me-2" data-chapter-index="{{$chapterIndex}}">
+                                                                                    <i class="fa-solid fa-plus me-1"></i>{{__('添加单元')}}
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-sm btn-danger remove-chapter-btn">
+                                                                                    <i class="fa-solid fa-trash me-1"></i>{{__('删除章节')}}
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="chapter-collapse-{{$chapterIndex}}" class="accordion-collapse collapse show" data-bs-parent="#chapter-accordion-{{$chapterIndex}}">
+                                                                            <div class="accordion-body">
+                                                                                <input type="hidden" name="chapters[{{$chapterIndex}}][id]" value="{{$chapter->id??''}}">
+                                                                                <div class="units-container" data-chapter-index="{{$chapterIndex}}">
+                                                                        @if(isset($chapter->units) && count($chapter->units) > 0)
+                                                                            @foreach($chapter->units as $unitIndex => $unit)
+                                                                                <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIndex}}">
+                                                                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                                                                        <div class="flex-grow-1">
+                                                                                            <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][title]"
+                                                                                                   class="form-control form-control-sm mb-2"
+                                                                                                   placeholder="{{__('单元标题')}}"
+                                                                                                   value="{{$unit->title??''}}" required>
+                                                                                            <div class="form-check form-check-inline">
+                                                                                                <input class="form-check-input unit-type-radio"
+                                                                                                       type="radio"
+                                                                                                       name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
+                                                                                                       id="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                       value="0"
+                                                                                                       @checked(($unit->type??'youtube') == 0)>
+                                                                                                <label class="form-check-label" for="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                    {{__('Youtube URL')}}
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="form-check form-check-inline">
+                                                                                                <input class="form-check-input unit-type-radio"
+                                                                                                       type="radio"
+                                                                                                       name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
+                                                                                                       id="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                       value="1"
+                                                                                                       @checked(($unit->type??'') == 1)>
+                                                                                                <label class="form-check-label" for="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                    {{__('PDF文件')}}
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="    margin: 5px;">
+                                                                                            <i class="fa-solid fa-trash"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="unit-content-youtube" style="display: {{($unit->type??'youtube') == 'youtube' ? 'block' : 'none'}};">
+                                                                                        <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][video_url]"
+                                                                                               class="form-control form-control-sm"
+                                                                                               placeholder="{{__('Youtube URL链接')}}"
+                                                                                               value="{{$unit->video_url??''}}">
+                                                                                        @if(isset($unit->video_url) && $unit->video_url)
+                                                                                            <div class="mt-2">
+                                                                                                <a href="javascript:void(0);" class="preview-video-btn" data-video-url="{{$unit->video_url}}">
+                                                                                                    <img class="img-fluid rounded" style="max-height: 150px;"
+                                                                                                         src="{{web_resource_url('assets/img/course/add-course-1.jpg')}}" alt="preview">
+                                                                                                    <div class="play-icon">
+                                                                                                        <i class="fa-solid fa-play"></i>
+                                                                                                    </div>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="unit-content-pdf" style="display: {{($unit->type??'') == 'pdf' ? 'block' : 'none'}};">
+                                                                                        <div class="input-group">
+                                                                                            <input type="file" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][pdf]"
+                                                                                                   class="form-control form-control-sm unit-pdf-file-input"
+                                                                                                   accept="application/pdf"
+                                                                                                   style="display: none;">
+                                                                                            <button type="button" class="btn btn-sm btn-outline-primary unit-pdf-select-btn">
+                                                                                                <i class="fa-solid fa-file-pdf me-1"></i>{{__('选择PDF文件')}}
+                                                                                            </button>
+                                                                                            <input type="text" class="form-control form-control-sm unit-pdf-file-name"
+                                                                                                   placeholder="{{__('未选择文件')}}"
+                                                                                                   value="{{isset($unit->pdf) && $unit->pdf ? basename($unit->pdf) : ''}}"
+                                                                                                   readonly>
+                                                                                        </div>
+                                                                                        @if(isset($unit->pdf) && $unit->pdf)
+                                                                                            <div class="unit-pdf-existing-file mt-2">
+                                                                                                <a href="{{asset($unit->pdf)}}" target="_blank" class="btn btn-sm btn-outline-primary unit-pdf-view-btn">
+                                                                                                    <i class="fa-solid fa-file-pdf me-1"></i>{{__('查看当前PDF')}}
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <div class="mt-2">
+                                                                                        <label class="form-label small">{{__('绑定测验')}}</label>
+                                                                                        <select name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][quiz_id]"
+                                                                                                class="form-control form-control-sm unit-quiz-select"
+                                                                                                data-chapter-index="{{$chapterIndex}}"
+                                                                                                data-unit-index="{{$unitIndex}}">
+                                                                                            <option value="">{{__('请选择测验')}}</option>
+                                                                                            @if(isset($unit->quiz_id) && $unit->quiz_id)
+                                                                                                <option value="{{$unit->quiz_id}}" selected>{{$unit->quiz->title??''}}</option>
+                                                                                            @endif
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <input type="hidden" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][id]" value="{{$unit->id??''}}">
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
+                                        <div id="videoModal" style="display: none;">
+                                            <div class="modal-content1">
+                                                <span class="close-btn" id="closeModal">&times;</span>
+                                                <iframe id="youtubeIframe" allowfullscreen=""></iframe>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="add-form-btn widget-next-btn submit-btn">
                                         <div class="btn-left">
                                             <a href="javascript:void(0);"
@@ -242,13 +373,6 @@
                                 </fieldset>
                                 <fieldset class="form-inner wizard-form-card">
                                     <div>
-                                        <div class="input-block mb-2">
-                                            <label class="form-label">
-                                                {{__('测验')}}
-                                                <span class="text-danger ms-1">*</span>
-                                            </label>
-                                            <select id="course-quiz-select" name="quiz_ids[]" class="select" multiple></select>
-                                        </div>
                                         <div class="input-block mb-2">
                                             <label class="form-label">
                                                 {{__('证书')}}
@@ -281,8 +405,108 @@
 
 </div>
 
+@include('admin.course.components.chapter-template')
+@include('admin.course.components.unit-template')
 @include('admin.quiz.new')
 @include('admin.certificate.new')
+
+{{--<style>--}}
+{{--    .chapter-item {--}}
+{{--        border: 1px solid #dee2e6;--}}
+{{--    }--}}
+{{--    .chapter-item .accordion-item {--}}
+{{--        border: none;--}}
+{{--    }--}}
+{{--    .chapter-item .accordion-button:not(.collapsed) {--}}
+{{--        box-shadow: none;--}}
+{{--        background-color: #f8f9fa;--}}
+{{--    }--}}
+{{--    .chapter-item .accordion-button:focus {--}}
+{{--        box-shadow: none;--}}
+{{--        border-color: transparent;--}}
+{{--    }--}}
+{{--    .chapter-item .accordion-button {--}}
+{{--        background-color: #f8f9fa;--}}
+{{--    }--}}
+{{--    .chapter-item .chapter-actions {--}}
+{{--        display: flex;--}}
+{{--    }--}}
+{{--    .chapter-item .chapter-actions.hidden {--}}
+{{--        display: none;--}}
+{{--    }--}}
+{{--    .unit-item {--}}
+{{--        background-color: #f8f9fa;--}}
+{{--    }--}}
+{{--    .unit-item:hover {--}}
+{{--        background-color: #e9ecef;--}}
+{{--    }--}}
+{{--    #videoModal {--}}
+{{--        position: fixed;--}}
+{{--        top: 0;--}}
+{{--        left: 0;--}}
+{{--        width: 100%;--}}
+{{--        height: 100%;--}}
+{{--        background-color: rgba(0, 0, 0, 0.8);--}}
+{{--        z-index: 9999;--}}
+{{--        display: flex;--}}
+{{--        align-items: center;--}}
+{{--        justify-content: center;--}}
+{{--    }--}}
+{{--    .modal-content1 {--}}
+{{--        position: relative;--}}
+{{--        width: 90%;--}}
+{{--        max-width: 900px;--}}
+{{--        background-color: #000;--}}
+{{--        padding: 20px;--}}
+{{--        border-radius: 8px;--}}
+{{--    }--}}
+{{--    .close-btn {--}}
+{{--        position: absolute;--}}
+{{--        top: -40px;--}}
+{{--        right: 0;--}}
+{{--        color: #fff;--}}
+{{--        font-size: 40px;--}}
+{{--        font-weight: bold;--}}
+{{--        cursor: pointer;--}}
+{{--        line-height: 1;--}}
+{{--    }--}}
+{{--    .close-btn:hover {--}}
+{{--        color: #ccc;--}}
+{{--    }--}}
+{{--    #youtubeIframe {--}}
+{{--        width: 100%;--}}
+{{--        height: 500px;--}}
+{{--        border: none;--}}
+{{--    }--}}
+{{--    .preview-video-btn {--}}
+{{--        position: relative;--}}
+{{--        display: inline-block;--}}
+{{--        cursor: pointer;--}}
+{{--    }--}}
+{{--    .play-icon {--}}
+{{--        position: absolute;--}}
+{{--        top: 50%;--}}
+{{--        left: 50%;--}}
+{{--        transform: translate(-50%, -50%);--}}
+{{--        background-color: rgba(0, 0, 0, 0.7);--}}
+{{--        border-radius: 50%;--}}
+{{--        width: 60px;--}}
+{{--        height: 60px;--}}
+{{--        display: flex;--}}
+{{--        align-items: center;--}}
+{{--        justify-content: center;--}}
+{{--        color: #fff;--}}
+{{--        font-size: 24px;--}}
+{{--    }--}}
+{{--    .play-icon:hover {--}}
+{{--        background-color: rgba(0, 0, 0, 0.9);--}}
+{{--    }--}}
+{{--    @media (max-width: 768px) {--}}
+{{--        #youtubeIframe {--}}
+{{--            height: 300px;--}}
+{{--        }--}}
+{{--    }--}}
+{{--</style>--}}
 
 </body>
 <script>
@@ -362,70 +586,77 @@
         $set.hide()
         $set.eq(step).show()
 
-        const quizzes = {!! json_encode($course->quizzes??[]) !!};
-        const $quizSelect = $('#course-quiz-select');
         const $certificateSelect = $('#certificate-id');
 
-        $quizSelect.select2({
-            multiple: true,
-            placeholder: '{{__('请选择或搜索测验')}}',
-            ajax: {
-                url: '{{route('admin.get-quiz-list.html')}}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        keyword: params.term,
-                        page: params.page || 1,
-                        limit: 15
-                    };
-                },
-                processResults: function ({code, data}) {
-                    const results = [];
-                    if (data.current_page === 1) {
-                        results.push({
-                            id: 'add_new',
-                            text: '{{__('新增测验')}}',
-                            isAddButton: true,
-                            disabled: true
-                        });
-                    }
-
-                    if (code === 0 && data && data.data) {
-                        const quizResults = data.data.map(function (item) {
+        // 初始化单元测验选择器
+        function initUnitQuizSelect($select) {
+            if ($select.length && !$select.data('select2')) {
+                $select.select2({
+                    placeholder: '{{__('请选择或搜索测验')}}',
+                    ajax: {
+                        url: '{{route('admin.get-quiz-list.html')}}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
                             return {
-                                id: item.id,
-                                text: item.title
+                                keyword: params.term,
+                                page: params.page || 1,
+                                limit: 15
                             };
-                        });
-                        results.push.apply(results, quizResults);
-                    }
+                        },
+                        processResults: function ({code, data}) {
+                            const results = [];
+                            if (data.current_page === 1) {
+                                results.push({
+                                    id: 'add_new',
+                                    text: '{{__('新增测验')}}',
+                                    isAddButton: true,
+                                    disabled: true
+                                });
+                            }
 
-                    return {
-                        results: results,
-                        pagination: {
-                            more: code === 0 && data && data.current_page < data.last_page
+                            if (code === 0 && data && data.data) {
+                                const quizResults = data.data.map(function (item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.title
+                                    };
+                                });
+                                results.push.apply(results, quizResults);
+                            }
+
+                            return {
+                                results: results,
+                                pagination: {
+                                    more: code === 0 && data && data.current_page < data.last_page
+                                }
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 0,
+                    templateResult: function (data) {
+                        if (data.loading) {
+                            return data.text;
                         }
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 0,
-            templateResult: function (data) {
-                if (data.loading) {
-                    return data.text;
-                }
-                if (data.id === 'add_new' || data.isAddButton) {
-                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#form-modal"><i class="fa fa-plus me-1"></i>{{__('新增测验')}}</button></div>');
-                }
-                return $('<div style="padding: 8px;">' + data.text + '</div>');
-            },
-            templateSelection: function (data) {
-                if (data.id === 'add_new' || data.isAddButton) {
-                    return '';
-                }
-                return data.text;
+                        if (data.id === 'add_new' || data.isAddButton) {
+                            return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#form-modal"><i class="fa fa-plus me-1"></i>{{__('新增测验')}}</button></div>');
+                        }
+                        return $('<div style="padding: 8px;">' + data.text + '</div>');
+                    },
+                    templateSelection: function (data) {
+                        if (data.id === 'add_new' || data.isAddButton) {
+                            return '';
+                        }
+                        return data.text;
+                    }
+                });
             }
+        }
+
+        // 初始化所有现有的单元测验选择器（排除模板中的）
+        $('#chapters-container .unit-quiz-select').each(function() {
+            initUnitQuizSelect($(this));
         });
 
         $certificateSelect.select2({
@@ -477,7 +708,7 @@
                     return data.text;
                 }
                 if (data.id === 'add_new' || data.isAddButton) {
-                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-sm btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"><i class="fa fa-plus me-1"></i>{{__('新增证书')}}</button></div>');
+                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#certificate-form-modal"><i class="fa fa-plus me-1"></i>{{__('新增证书')}}</button></div>');
                 }
                 return $('<div style="padding: 8px;">' + data.text + '</div>');
             },
@@ -489,11 +720,6 @@
             }
         });
 
-        _.map(quizzes, function (quiz) {
-            const option = new Option(quiz.title, quiz.id, true, true);
-            $quizSelect.append(option).trigger('change');
-        })
-
         @if($course && $course->certificate)
         const option = new Option('{{$course->certificate->name??''}}', {{$course->certificate->id??0}}, true, true);
         $certificateSelect.append(option).trigger('change');
@@ -501,9 +727,6 @@
 
         const $modal = $('#form-modal');
         const $certificateModal = $('#certificate-form-modal');
-        $modal.on('show.bs.modal', function () {
-            $quizSelect.select2('close');
-        });
 
         $certificateModal.on('show.bs.modal', function () {
             $certificateSelect.select2('close');
@@ -513,8 +736,14 @@
             const uploaded = $(this).data('uploaded');
             const data = $(this).data('data');
             if (uploaded && data) {
-                const option = new Option(data.title, data.id, true, true);
-                $quizSelect.append(option).trigger('change');
+                // 将新创建的测验添加到所有单元测验选择器中
+                $('.unit-quiz-select').each(function() {
+                    const $select = $(this);
+                    if (!$select.find('option[value="' + data.id + '"]').length) {
+                        const option = new Option(data.title, data.id, true, true);
+                        $select.append(option).trigger('change');
+                    }
+                });
             }
         });
 
@@ -527,19 +756,280 @@
             }
         });
 
+        // 章节和单元管理
+        const $chapterTemplate = $('#chapter-template .chapter-item').first();
+        const $unitTemplate = $('#unit-template .unit-item').first();
+        let chapterIndex = $('#chapters-container .chapter-item').length;
+
+        // 更新所有章节编号
+        function updateChapterNumbers() {
+            $('#chapters-container .chapter-item').each(function(index) {
+                $(this).find('.chapter-index-number').text(index + 1);
+            });
+        }
+
+        // 初始化章节操作栏的显示状态
+        function initChapterActionsVisibility() {
+            $('#chapters-container .chapter-item').each(function() {
+                const $collapse = $(this).find('.accordion-collapse');
+                const $actions = $(this).find('.chapter-actions');
+                if ($collapse.hasClass('show')) {
+                    $actions.removeClass('hidden');
+                } else {
+                    $actions.addClass('hidden');
+                }
+            });
+        }
+
+        // 页面加载时初始化
+        initChapterActionsVisibility();
+
+        // 添加章节
+        $(document).on('click', '#add-chapter-btn', function() {
+            const template = $chapterTemplate.clone();
+            const accordionId = `chapter-accordion-${chapterIndex}`;
+            const collapseId = `chapter-collapse-${chapterIndex}`;
+
+            // 更新属性
+            template.attr('data-chapter-index', chapterIndex);
+            template.find('.accordion').attr('id', accordionId);
+            template.find('.accordion-button').attr('data-bs-target', '#' + collapseId);
+            template.find('.accordion-collapse').attr('id', collapseId).attr('data-bs-parent', '#' + accordionId);
+            template.find('.add-unit-btn').attr('data-chapter-index', chapterIndex);
+            template.find('.units-container').attr('data-chapter-index', chapterIndex);
+            template.find('.chapter-title-input').attr('name', `chapters[${chapterIndex}][title]`);
+            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][id]`);
+            template.find('.chapter-index-number').text(chapterIndex + 1);
+
+            template.css('display', 'block');
+            $('#chapters-container').append(template);
+            chapterIndex++;
+        });
+
+        // 删除章节
+        $(document).on('click', '.remove-chapter-btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (confirm('{{__('确定要删除这个章节吗？这将删除该章节下的所有单元。')}}')) {
+                $(this).closest('.chapter-item').remove();
+                updateChapterNumbers();
+            }
+        });
+
+        // 添加单元
+        let unitIndexMap = {};
+        $(document).on('click', '.add-unit-btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const chapterIndex = $(this).data('chapter-index');
+            if (!chapterIndex && chapterIndex !== 0) {
+                console.error('Chapter index not found');
+                return;
+            }
+            if (!unitIndexMap[chapterIndex]) {
+                unitIndexMap[chapterIndex] = $(this).closest('.chapter-item').find('.unit-item').length;
+            }
+            const unitIndex = unitIndexMap[chapterIndex];
+
+            const template = $unitTemplate.clone();
+            const youtubeRadioId = `unit_type_youtube_${chapterIndex}_${unitIndex}`;
+            const pdfRadioId = `unit_type_pdf_${chapterIndex}_${unitIndex}`;
+
+            // 更新属性
+            template.attr('data-unit-index', unitIndex);
+            template.find('input[name*="[title]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][title]`);
+
+            // 更新单选按钮
+            const $youtubeRadio = template.find('input[value="0"]');
+            $youtubeRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
+                        .attr('id', youtubeRadioId);
+            $youtubeRadio.closest('.form-check').find('label').attr('for', youtubeRadioId);
+
+            const $pdfRadio = template.find('input[value="1"]');
+            $pdfRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
+                     .attr('id', pdfRadioId);
+            $pdfRadio.closest('.form-check').find('label').attr('for', pdfRadioId);
+
+            // 更新视频URL输入
+            template.find('input[name*="[video_url]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][video_url]`);
+
+            // 更新PDF文件输入
+            template.find('.unit-pdf-file-input').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][pdf]`);
+
+            // 更新测验选择器
+            const $quizSelect = template.find('.unit-quiz-select');
+            $quizSelect.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][quiz_id]`)
+                      .attr('data-chapter-index', chapterIndex)
+                      .attr('data-unit-index', unitIndex);
+
+            // 更新隐藏的ID字段
+            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][id]`);
+
+            template.css('display', 'block');
+            $(this).closest('.chapter-item').find('.units-container').append(template);
+
+            // 初始化测验选择器（确保是新添加的元素，不是模板中的）
+            const $newQuizSelect = $(this).closest('.chapter-item').find('.units-container .unit-quiz-select').last();
+            // 如果已经被初始化，先销毁
+            if ($newQuizSelect.data('select2')) {
+                $newQuizSelect.select2('destroy');
+            }
+            initUnitQuizSelect($newQuizSelect);
+
+            unitIndexMap[chapterIndex]++;
+        });
+
+        // 删除单元
+        $(document).on('click', '.remove-unit-btn', function() {
+            if (confirm('{{__('确定要删除这个单元吗？')}}')) {
+                $(this).closest('.unit-item').remove();
+            }
+        });
+
+        // 切换单元类型
+        $(document).on('change', '.unit-type-radio', function() {
+            const unitItem = $(this).closest('.unit-item');
+            const unitType = $(this).val();
+
+            if (unitType == 0) {
+                unitItem.find('.unit-content-youtube').show();
+                unitItem.find('.unit-content-pdf').hide();
+            } else {
+                unitItem.find('.unit-content-youtube').hide();
+                unitItem.find('.unit-content-pdf').show();
+            }
+        });
+
+        // PDF文件选择按钮点击事件
+        $(document).on('click', '.unit-pdf-select-btn', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const $fileInput = $(this).siblings('.unit-pdf-file-input');
+            $fileInput.click();
+        });
+
+        // PDF文件选择变化事件
+        $(document).on('change', '.unit-pdf-file-input', function() {
+            const $fileNameInput = $(this).siblings('.unit-pdf-file-name');
+            const $existingFile = $(this).closest('.unit-content-pdf').find('.unit-pdf-existing-file');
+            const file = this.files[0];
+
+            if (file) {
+                $fileNameInput.val(file.name);
+                // 如果选择了新文件，隐藏现有文件链接
+                $existingFile.hide();
+            } else {
+                $fileNameInput.val('');
+            }
+        });
+
+        // 视频预览
+        $(document).on('click', '.preview-video-btn', function() {
+            const videoUrl = $(this).data('video-url');
+            if (videoUrl) {
+                // 提取YouTube视频ID
+                let videoId = '';
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                const match = videoUrl.match(regExp);
+                if (match && match[2].length === 11) {
+                    videoId = match[2];
+                }
+
+                if (videoId) {
+                    $('#youtubeIframe').attr('src', 'https://www.youtube.com/embed/' + videoId);
+                    $('#videoModal').fadeIn();
+                } else {
+                    showToast('error', '{{__('无效的Youtube URL')}}');
+                }
+            }
+        });
+
+        // 关闭视频模态框
+        $(document).on('click', '#closeModal', function() {
+            $('#videoModal').fadeOut();
+            $('#youtubeIframe').attr('src', '');
+        });
+
+        // 点击模态框外部关闭
+        $(document).on('click', '#videoModal', function(e) {
+            if ($(e.target).is('#videoModal')) {
+                $(this).fadeOut();
+                $('#youtubeIframe').attr('src', '');
+            }
+        });
+
         const $form = $('#course-form');
         $('.btn-submit').click(function () {
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
 
+            // 处理普通表单字段
             _.each(form, (value) => {
-                formData.append(value.name, value.value);
+                // 跳过单元和课程相关的字段，稍后单独处理
+                if (!value.name.startsWith('units[')) {
+                    formData.append(value.name, value.value);
+                }
             });
+
             formData.append('description', $('.summernote').eq(0).summernote('code'));
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
             }
+
+            // 处理章节和单元数据
+            $('.chapter-item').each(function(chapterIdx) {
+                const $chapter = $(this);
+                const chapterIndex = $chapter.data('chapter-index') !== undefined ? $chapter.data('chapter-index') : chapterIdx;
+                const chapterTitle = $chapter.find('input[name*="[title]"]').val();
+
+                if (chapterTitle) {
+                    formData.append(`chapters[${chapterIndex}][title]`, chapterTitle);
+
+                    // 处理章节ID（如果存在）
+                    const chapterId = $chapter.find('input[name*="[id]"]').val();
+                    if (chapterId) {
+                        formData.append(`chapters[${chapterIndex}][id]`, chapterId);
+                    }
+
+                    // 处理单元
+                    $chapter.find('.unit-item').each(function(unitIdx) {
+                        const $unit = $(this);
+                        const unitIndex = $unit.data('unit-index') !== undefined ? $unit.data('unit-index') : unitIdx;
+                        const unitTitle = $unit.find('input[name*="[title]"]').val();
+                        const unitType = $unit.find('.unit-type-radio:checked').val();
+
+                        if (unitTitle) {
+                            formData.append(`chapters[${chapterIndex}][units][${unitIndex}][title]`, unitTitle);
+                            formData.append(`chapters[${chapterIndex}][units][${unitIndex}][type]`, unitType);
+
+                            // 处理单元ID（如果存在）
+                            const unitId = $unit.find('input[name*="[id]"]').val();
+                            if (unitId) {
+                                formData.append(`chapters[${chapterIndex}][units][${unitIndex}][id]`, unitId);
+                            }
+
+                            // 处理测验绑定
+                            const quizId = $unit.find('.unit-quiz-select').val();
+                            if (quizId) {
+                                formData.append(`chapters[${chapterIndex}][units][${unitIndex}][quiz_id]`, quizId);
+                            }
+
+                            if (unitType == 0) {
+                                const videoUrl = $unit.find('input[name*="[video_url]"]').val();
+                                if (videoUrl) {
+                                    formData.append(`chapters[${chapterIndex}][units][${unitIndex}][video_url]`, videoUrl);
+                                }
+                            } else if (unitType == 1) {
+                                const pdfFile = $unit.find('input[type="file"]')[0];
+                                if (pdfFile && pdfFile.files.length > 0) {
+                                    formData.append(`chapters[${chapterIndex}][units][${unitIndex}][pdf]`, pdfFile.files[0]);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
 
             let url, method;
             if (editId) {
