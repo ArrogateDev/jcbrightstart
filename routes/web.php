@@ -56,6 +56,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->name('user.dashboard.html');
         $route->get('/profile.html', [ProfileController::class, 'index'])->name('user.profile.html');
         $route->get('/course.html', [CourseController::class, 'index'])->name('user.course.html');
+        $route->get('/course/list.html', [CourseController::class, 'list'])->name('user.course.list.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->name('user.certificate.html');
         $route->get('/quiz.html', [QuizController::class, 'index'])->name('user.quiz.html');
 

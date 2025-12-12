@@ -106,17 +106,16 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        // 如果是 API 请求（期望 JSON 响应），返回 JSON 错误
         if ($request->expectsJson()) {
             return $this->responseError(__('登录失效'), ResponseCode::UNAUTH);
         }
 
-        // 如果是 admin 路由，重定向到管理员登录页
+        $redirect = $request->url();
+
         if ($request->is('admin/*')) {
-            return redirect()->route('admin.login.html');
+            return redirect()->route('admin.login.html', ['redirect' => $redirect]);
         }
 
-        // 其他情况返回 JSON 错误
-        return $this->responseError(__('登录失效'), ResponseCode::UNAUTH);
+        return redirect()->route('login.html', ['redirect' => $redirect]);
     }
 }

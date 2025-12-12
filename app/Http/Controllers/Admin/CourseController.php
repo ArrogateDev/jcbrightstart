@@ -43,7 +43,8 @@ class CourseController extends Controller
     }
 
     /**
-     * 证书列表
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function list(Request $request)
     {

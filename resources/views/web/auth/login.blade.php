@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="d-grid">
                                     <button class="btn btn-secondary btn-lg" type="submit">Login <i
-                                                class="isax isax-arrow-right-3 ms-1"></i></button>
+                                            class="isax isax-arrow-right-3 ms-1"></i></button>
                                 </div>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                             </form>
