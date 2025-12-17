@@ -4,12 +4,12 @@
 <x-admin.head/>
 
 <!-- Slick CSS -->
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/slick/slick.css')}}">
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/slick/slick-theme.css')}}">
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick.css')}}">
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick-theme.css')}}">
 <!-- Slick Slider -->
-<script src="{{web_resource_url('assets/plugins/slick/slick.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
+<script src="{{web_resource_url('assets/admin/plugins/slick/slick.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/admin//js/md5.js') }}"></script>
 
 <body>
 
@@ -23,7 +23,7 @@
                         <div>
                             <div class="login-carousel-section mb-3">
                                 <div class="login-banner">
-                                    <img src="{{web_resource_url('assets/img/auth/auth-1.svg')}}" class="img-fluid" alt="Logo">
+                                    <img src="{{web_resource_url('assets/admin/img/auth/auth-1.svg')}}" class="img-fluid" alt="Logo">
                                 </div>
                                 <div class="mentor-course text-center">
                                     <h3 class="mb-2">Welcome to <br>Dreams<span class="text-secondary">LMS</span>
@@ -43,7 +43,7 @@
                     <div class="loginbox">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
-                                <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
+                                <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
                             </div>
                             <h1 class="fs-32 fw-bold topic">Sign into Your Account</h1>
                             <form id="form" class="mb-3 pb-3" novalidate="novalidate">

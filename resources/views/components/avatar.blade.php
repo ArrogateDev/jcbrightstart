@@ -4,9 +4,9 @@
 ])
 
 <!-- Cropper JS -->
-<script src="{{web_resource_url('assets/plugins/cropper/cropper.min.js')}}"></script>
+<script src="{{web_resource_url('assets/admin/plugins/cropper/cropper.min.js')}}"></script>
 <!-- Cropper CSS -->
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/cropper/cropper.min.css')}}">
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/cropper/cropper.min.css')}}">
 
 <a href="javascript:void(0);"
    class="avatar flex-shrink-0 avatar-xxxl avatar-rounded border me-3"
@@ -250,7 +250,7 @@
                         }
 
                         showToast('success', 'Successful');
-                        $('.avatar-img').attr('src', '{{web_resource_url('assets/img/avatar.png')}}')
+                        $('.avatar-img').attr('src', '{{web_resource_url('assets/admin/img/avatar.png')}}')
                     },
                     error: function () {
                         showToast('error', 'Failed, please try again later');

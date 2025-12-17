@@ -1,4 +1,4 @@
-<script type="text/javascript" src="{{ web_resource_url('assets/js/sweetalert2.js') }}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/admin/js/sweetalert2.js') }}"></script>
 <script>
     function confirm_alert(title = 'Are you sure?', text = "You won't be able to revert this!", confirmText = 'Yes, Delete!', icon = 'warning') {
         return Swal.fire({

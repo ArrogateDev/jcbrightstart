@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <div class="d-sm-flex align-items-center">
                                 <div class="quiz-img me-3 mb-2 mb-sm-0">
-                                    <img src="{{web_resource_url('assets/img/students/quiz.jpg')}}" alt="">
+                                    <img src="{{web_resource_url('assets/admin/img/students/quiz.jpg')}}" alt="">
                                 </div>
                                 <div>
                                     <h5 class="mb-2"><a href="#">Information About UI/UX Design Degree</a></h5>
@@ -49,7 +49,7 @@
                                             <span class="fs-20 fw-bold mb-1 d-block text-gray-9">30</span>
                                         </div>
                                         <div class="icon-box bg-soft-secondary">
-                                            <img src="{{web_resource_url('assets/img/icon/user-tick.svg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/icon/user-tick.svg')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                             <span class="fs-20 fw-bold mb-1 d-block text-gray-9">03</span>
                                         </div>
                                         <div class="icon-box  bg-soft-info">
-                                            <img src="{{web_resource_url('assets/img/icon/document.svg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/icon/document.svg')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                             <span class="fs-20 fw-bold mb-1 d-block text-gray-9">00:00:55</span>
                                         </div>
                                         <div class="icon-box  bg-soft-purple">
-                                            <img src="{{web_resource_url('assets/img/icon/clock.svg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/icon/clock.svg')}}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-01.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Thompson Hicks</a>
                                     </div>
@@ -116,7 +116,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-06.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-06.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Jennifer Tovar</a>
                                     </div>
@@ -130,7 +130,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-09.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-09.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">James Schulte</a>
                                     </div>
@@ -144,7 +144,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-20.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-20.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Kristy Cardona</a>
                                     </div>
@@ -158,7 +158,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-27.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-27.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">William Aragon</a>
                                     </div>
@@ -172,7 +172,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-30.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-30.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Shirley Lis</a>
                                     </div>
@@ -186,7 +186,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-17.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-17.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">John Brewer</a>
                                     </div>
@@ -200,7 +200,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-37.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-37.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Doris Hughes</a>
                                     </div>
@@ -214,7 +214,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-04.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-04.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Sarah Martinez</a>
                                     </div>
@@ -228,7 +228,7 @@
                                     <div class="d-flex align-items-center">
                                         <a href="student-details.html"
                                            class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
-                                            <img src="{{web_resource_url('assets/img/user/user-18.jpg')}}" alt="">
+                                            <img src="{{web_resource_url('assets/admin/img/user/user-18.jpg')}}" alt="">
                                         </a>
                                         <a href="student-details.html" class="fs-14">Sarah Martinez</a>
                                     </div>

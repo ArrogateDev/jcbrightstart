@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
-<script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/summernote/summernote-lite.min.css')}}">
-<script src="{{web_resource_url('assets/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/fabric.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.css')}}">
+<script src="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/fabric.min.js')}}" type="text/javascript"></script>
 
 <body>
 
@@ -293,7 +293,7 @@
                                                                                             <div class="mt-2">
                                                                                                 <a href="javascript:void(0);" class="preview-video-btn" data-video-url="{{$unit->video_url}}">
                                                                                                     <img class="img-fluid rounded" style="max-height: 150px;"
-                                                                                                         src="{{web_resource_url('assets/img/course/add-course-1.jpg')}}" alt="preview">
+                                                                                                         src="{{web_resource_url('assets/admin/img/course/add-course-1.jpg')}}" alt="preview">
                                                                                                     <div class="play-icon">
                                                                                                         <i class="fa-solid fa-play"></i>
                                                                                                     </div>

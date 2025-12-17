@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
-<script src="{{web_resource_url('assets/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/plugins/jstree/themes/default/style.min.css')}}"/>
-<script src="{{web_resource_url('assets/plugins/jstree/jstree.min.js')}}"></script>
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/jstree/themes/default/style.min.css')}}"/>
+<script src="{{web_resource_url('assets/admin/plugins/jstree/jstree.min.js')}}"></script>
+<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 
 <body>
 

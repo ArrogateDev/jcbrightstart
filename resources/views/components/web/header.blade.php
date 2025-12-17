@@ -1,461 +1,305 @@
-<!-- Header -->
-<header class="header-one">
-    <div class="container">
-        <div class="header-nav">
-            <div class="navbar-header">
-                <a id="mobile_btn" href="javascript:void(0);">
-							<span class="bar-icon">
-								<i class="isax isax-menu"></i>
-							</span>
-                </a>
-                <div class="navbar-logo">
-                    <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
-                    </a>
-                    <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
-                    </a>
+<header id="header">
+        <section class="top-contact">
+            <div class="container">
+                <div class="top-contact-inner">
+                    <div class="top-contact__left">
+                        <div class="top-contact__item">
+                            <span class="lnr lnr-map"></span>No 40 Baria Sreet 133/2
+                        </div>
+                        <div class="top-contact__item">
+                            <span class="lnr lnr-phone-handset"></span>(849) 490 4283
+                        </div>
+                    </div>
+                    <div class="top-contact__right">
+                        <ul class="list-unstyled list-inline list-social">
+                            <li class="list-inline-item">
+                                <a class="ic-fb" href="#">
+                                    <i class="zmdi zmdi-facebook-box"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="ic-twi" href="#">
+                                    <i class="zmdi zmdi-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="ic-insta" href="#">
+                                    <i class="zmdi zmdi-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item seprator">
+                                <span></span>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#" data-toggle="modal" data-target="#modal-search">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="main-menu-wrapper">
-                <div class="menu-header">
-                    <a href="{{route('index.html')}}" class="menu-logo">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
-                    </a>
-                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
-                        <i class="fas fa-times"></i>
-                    </a>
+        </section>
+        <div class="header header-1 d-none d-lg-block js-header-1">
+            <div class="header__bar">
+                <div class="container">
+                    <div class="header__content">
+                        <div class="logo">
+                            <a href="#">
+                                <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jobby" style="height: 65px;">
+                            </a>
+                        </div>
+                        <nav class="header-navbar">
+                            <ul class="list-unstyled">
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">關於我們</span>
+                                    </a>
+                                    <ul class="list-unstyled header-navbar-child first">
+                                        <li class="has-sub">
+                                            <a href="about-us.html">參與幼兒中心名稱</a>
+                                            <ul class="list-unstyled header-navbar-child second">
+                                                <li>
+                                                    <a href="about-us.html">Cohort 1</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">Cohort 2</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">Cohort 3</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-sub">
+                                            <a href="about-us.html">計劃團隊</a>
+                                            <ul class="list-unstyled header-navbar-child second">
+                                                <li>
+                                                    <a href="about-us.html">計劃總監暨首席研究員</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">首席聯席研究員</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">聯席研究員</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-sub">
+                                            <a href="about-us.html">計劃夥伴</a>
+                                            <ul class="list-unstyled header-navbar-child second">
+                                                <li>
+                                                    <a href="about-us.html">主編機構</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">捐助機構</a>
+                                                </li>
+                                                <li>
+                                                    <a href="about-us.html">專業合作夥伴</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">最新消息</span>
+                                    </a>
+                                </li>
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">香港0-3歲嬰幼兒服務資訊</span>
+                                    </a>
+                                </li>
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">教師專業發展</span>
+                                    </a>
+                                </li>
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">家長學習平台</span>
+                                    </a>
+                                </li>
+                                <li class="header-navbar__item has-sub">
+                                    <a href="about-us.html">
+                                        <span class="bg-link">聯繫我們</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-                <ul class="main-nav">
-                    <li class="has-submenu megamenu active">
-                        <a href="#">Home <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu mega-submenu">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-search" role="dialog">
+            <button class="close" type="button" data-dismiss="modal">
+                <i class="zmdi zmdi-close"></i>
+            </button>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form class="form form--icon" method="POST">
+                            <input type="text" name="search" placeholder="Search here...">
+                            <button class="btn-submit-1" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-mobile js-header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid clearfix">
+                    <a class="logo" href="index1.html">
+                        <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jooby" style="height: 55px;">
+                    </a>
+                    <button class="hamburger hamburger--slider float-right" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+            <nav class="navbar-mobile">
+                <ul class="navbar-mobile__list list-unstyled">
+                    <li class="has-sub">
+                        <a href="index1.html">Home</a>
+                        <ul class="navbar-mobile__child list-unstyled">
                             <li>
-                                <div class="megamenu-wrapper">
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="single-demo active">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index.html')}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-01.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index.html')}}" class="inner-demo-img">Home 1</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-02.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img">Home 2</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-03.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img">Home 3</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-04.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img">Home 4</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-05.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img">Home 5</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-06.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img">Home 6</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="index1.html">HomePage 1</a>
+                            </li>
+                            <li>
+                                <a href="index2.html">HomePage 2</a>
+                            </li>
+                            <li>
+                                <a href="index3.html">HomePage 3</a>
+                            </li>
+                            <li>
+                                <a href="index4.html">HomePage 4</a>
+                            </li>
+                            <li>
+                                <a href="index5.html">HomePage 5</a>
+                            </li>
+                            <li>
+                                <a href="index6.html">HomePage 6</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Courses <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Courses</a>
-                                <ul class="submenu">
-                                    <li><a href="course-grid.html">Course Grid</a></li>
-                                    <li><a href="course-list.html">Course List</a></li>
-                                </ul>
+                    <li class="has-sub">
+                        <a href="about-us.html">page</a>
+                        <ul class="list-unstyled navbar-mobile__child first">
+                            <li>
+                                <a href="about-us.html">About us</a>
                             </li>
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Course Category</a>
-                                <ul class="submenu">
-                                    <li><a href="course-category.html">Course Category</a></li>
-                                    <li><a href="course-category-2.html">Course Category 2</a></li>
-                                    <li><a href="course-category-3.html">Course Category 3</a></li>
-                                </ul>
+                            <li>
+                                <a href="about-us.html">Programs</a>
                             </li>
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Course Details</a>
-                                <ul class="submenu">
-                                    <li><a href="course-details.html">Course Details</a></li>
-                                    <li><a href="course-details-2.html">Course Details 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="course-resume.html">Course Resume</a></li>
-                            <li><a href="course-watch.html">Course Watch</a></li>
-                            <li><a href="cart.html">Course Cart</a></li>
-                            <li><a href="checkout.html">Course Checkout</a></li>
-                            <li><a href="add-course.html">Add New Course</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu d-none">
-                        <a href="javascript:void(0);">Dashboard <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Instructor Dashboard</a>
-                                <ul class="submenu">
-                                    <li><a href="instructor-dashboard.html">Dashboard</a></li>
-                                    <li><a href="instructor-profile.html">My Profile</a></li>
-                                    <li><a href="instructor-course.html">Course</a></li>
-                                    <li><a href="instructor-announcements.html">Announcements</a></li>
-                                    <li><a href="instructor-assignment.html">Assignments</a></li>
-                                    <li class="has-submenu">
-                                        <a href="javascript:void(0);">Student</a>
-                                        <ul class="submenu">
-                                            <li><a href="students.html">Student Grid</a></li>
-                                            <li><a href="student-list.html">Student List</a></li>
-                                            <li><a href="student-details.html">Student Details</a></li>
-                                        </ul>
+                            <li class="has-sub">
+                                <a href="about-us.html">Gallery</a>
+                                <ul class="list-unstyled navbar-mobile__child second">
+                                    <li>
+                                        <a href="about-us.html">Gallery Grid</a>
                                     </li>
-                                    <li><a href="instructor-quiz.html">Quiz</a></li>
-                                    <li><a href="instructor-quiz-results.html">Quiz Results</a></li>
-                                    <li><a href="instructor-certificate.html">Certificates</a></li>
-                                    <li><a href="instructor-earnings.html">Earning</a></li>
-                                    <li><a href="instructor-payout.html">Payout</a></li>
-                                    <li><a href="instructor-statements.html">Statement</a></li>
-                                    <li><a href="instructor-tickets.html">Support Tickets</a></li>
-                                    <li><a href="instructor-settings.html">Settings</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Student Dashboard</a>
-                                <ul class="submenu">
-                                    <li><a href="student-dashboard.html">Student Dashboard</a></li>
-                                    <li><a href="student-profile.html">My Profile</a></li>
-                                    <li><a href="student-courses.html">Enrolled Courses</a></li>
-                                    <li><a href="student-certificates.html">My Certificates</a></li>
-                                    <li><a href="student-wishlist.html">Wishlist</a></li>
-                                    <li><a href="student-reviews.html">Reviews</a></li>
-                                    <li><a href="student-quiz.html">My Quiz Attempts</a></li>
-                                    <li><a href="student-order-history.html">Order History</a></li>
-                                    <li><a href="student-referral.html">Referrals</a></li>
-                                    <li><a href="student-messages.html">Messages</a></li>
-                                    <li><a href="student-tickets.html">Support Ticket</a></li>
-                                    <li><a href="student-settings.html">Settings</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="#">Instructors</a>
-                                <ul class="submenu">
-                                    <li><a href="instructor-grid.html">Instructor Grid</a></li>
-                                    <li><a href="instructor-list.html">Instructor List</a></li>
-                                    <li><a href="instructor-details.html">Instructor Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
-                            <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contact us</a></li>
-                            <li><a href="notifications.html">Notifications</a></li>
-                            <li><a href="become-an-instructor.html">Become an Instructor</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li class="has-submenu">
-                                <a href="#">Authentication</a>
-                                <ul class="submenu">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="forgot-password.html">Forgot Password</a></li>
-                                    <li><a href="reset-password.html">Reset Password</a></li>
-                                    <li><a href="set-password.html">Set Password</a></li>
-                                    <li><a href="otp.html">OTP</a></li>
-                                    <li><a href="lock-screen.html">Lock Screen</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="#">Error</a>
-                                <ul class="submenu">
-                                    <li><a href="error-404.html">404 Error</a></li>
-                                    <li><a href="error-500.html">500 Error</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="pricing-plan.html">Pricing Plan</a></li>
-                            <li><a href="{{route('page', ['page' => 'faq.html'])}}"">FAQ</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                            <li><a href="under-construction.html">Under Construction</a></li>
-                            <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
-                            <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
-                            <li><a href="index-rtl.html">RTL</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="#">Blog Layouts</a>
-                                <ul class="submenu">
-                                    <li><a href="blog-grid.html">Blog 1 Grid</a></li>
-                                    <li><a href="blog-2-grid.html">Blog 2 Grid</a></li>
-                                    <li><a href="blog-3-grid.html">Blog 3 Grid</a></li>
-                                    <li><a href="blog-carousal.html">Blog Carousal</a></li>
-                                    <li><a href="blog-masonry.html">Blog Mansory</a></li>
-                                    <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                    <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="#">Blog Details</a>
-                                <ul class="submenu">
-                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                    <li><a href="blog-details-left-sidebar.html">Blog Details Left Sidebar</a>
+                                    <li>
+                                        <a href="gallery-cobbles.html">Gallery Cobbles</a>
                                     </li>
-                                    <li><a href="blog-details-right-sidebar.html">Blog Details Right Sidebar</a>
+                                    <li>
+                                        <a href="gallery-masonry.html">Gallery Masonry</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="about-us.html">Event</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">Coming soon</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">404 error</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">Contact us</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="about-us.html">classes</a>
+                        <ul class="list-unstyled navbar-mobile__child first">
+                            <li>
+                                <a href="about-us.html">Classes</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">Classes single</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">classes schedule</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="about-us.html">teacher</a>
+                        <ul class="list-unstyled navbar-mobile__child first">
+                            <li>
+                                <a href="about-us.html">teacher</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html">teacher single</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="about-us.html">blog</a>
+                        <ul class="list-unstyled navbar-mobile__child first">
+                            <li>
+                                <a href="about-us.html">masonry</a>
+                            </li>
+                            <li class="has-sub">
+                                <a href="about-us.html">standard</a>
+                                <ul class="list-unstyled navbar-mobile__child second">
+                                    <li>
+                                        <a href="about-us.html">right sidebar</a>
+                                    </li>
+                                    <li>
+                                        <a href="about-us.html">left sidebar</a>
+                                    </li>
+                                    <li>
+                                        <a href="about-us.html">no sidebar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="about-us.html">single</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="about-us.html">shop</a>
+                        <ul class="list-unstyled navbar-mobile__child first">
+                            <li>
+                                <a href="product-list.html">product list</a>
+                            </li>
+                            <li>
+                                <a href="product-single.html">product single</a>
+                            </li>
+                            <li class="has-sub">
+                                <a href="#">shop page</a>
+                                <ul class="list-unstyled navbar-mobile__child secon">
+                                    <li>
+                                        <a href="my-account.html">my account</a>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html">cart</a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout.html">checkout</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                 </ul>
-
-                <div class="menu-dropdown d-none">
-                    <div class="cart-item">
-                        <h6>Cart & Wishlist</h6>
-                        <div class="icon-btn">
-                            <a href="cart.html" class="position-relative">
-                                <i class="isax isax-shopping-cart5"></i>
-                                <span
-                                    class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="dropdown flag-dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle d-flex align-items-center"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            USD
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown mb-2">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Light
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">Light</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">Dark</a></li>
-                        </ul>
-                    </div>
-                </div>
-{{--                @auth--}}
-{{--                    <div class="menu-login">--}}
-{{--                        Auth--}}
-{{--                    </div>--}}
-{{--                @else--}}
-                    <div class="menu-login">
-                        <a href="{{route('login.html')}}" class="btn btn-primary w-100 mb-2"><i
-                                class="isax isax-user me-2"></i>Sign In</a>
-                        <a href="{{route('register.html')}}" class="btn btn-secondary w-100"><i
-                                class="isax isax-user-edit me-2"></i>Register</a>
-                    </div>
-{{--                @endauth--}}
-            </div>
-            <div class="header-btn d-flex align-items-center">
-                <div class="dropdown flag-dropdown icon-btn d-none">
-                    <a href="javascript:void(0);" class="d-inline-flex align-items-center"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" alt="flag">
-                    </a>
-                    <ul class="dropdown-menu p-2 mt-2">
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded d-flex align-items-center"
-                               href="javascript:void(0);">
-                                <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown icon-btn d-none">
-                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="isax isax-dollar-circle4"></i>
-                    </a>
-                    <ul class="dropdown-menu p-2 mt-2">
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                        <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
-                    </ul>
-                </div>
-                <div class="icon-btn d-none">
-                    <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle activate">
-                        <i class="isax isax-sun-15"></i>
-                    </a>
-                    <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle">
-                        <i class="isax isax-moon"></i>
-                    </a>
-                </div>
-                <div class="icon-btn d-none">
-                    <a href="cart.html" class="position-relative">
-                        <i class="isax isax-shopping-cart5"></i>
-                        <span class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
-                    </a>
-                </div>
-{{--                @auth--}}
-{{--                    <div class="dropdown profile-dropdown">--}}
-{{--                        <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">--}}
-{{--								<span class="avatar">--}}
-{{--									<img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img" class="img-fluid rounded-circle">--}}
-{{--								</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu dropdown-menu-end">--}}
-{{--                            <div class="profile-header d-flex align-items-center">--}}
-{{--                                <div class="avatar">--}}
-{{--                                    <img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="Img"--}}
-{{--                                         class="img-fluid rounded-circle">--}}
-{{--                                </div>--}}
-{{--                                <div>--}}
-{{--                                    <h6>Eugene Andre</h6>--}}
-{{--                                    <p><a href="/cdn-cgi/l/email-protection"--}}
-{{--                                          class="__cf_email__">eric@arrogatemaker.com</a>--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <ul class="profile-body">--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-profile.html"><i--}}
-{{--                                            class="isax isax-security-user me-2"></i>My Profile</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-course.html"><i--}}
-{{--                                            class="isax isax-teacher me-2"></i>Courses</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium2"--}}
-{{--                                       href="instructor-earnings.html"><i--}}
-{{--                                            class="isax isax-dollar-circle me-2"></i>Earnings</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-payout.html"><i class="isax isax-coin me-2"></i>Payouts</a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-message.html"><i--}}
-{{--                                            class="isax isax-messages-3 me-2"></i>Messages<span--}}
-{{--                                            class="message-count">2</span></a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                       href="instructor-settings.html"><i--}}
-{{--                                            class="isax isax-setting-2 me-2"></i>Settings</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                            <div class="profile-footer">--}}
-{{--                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium"--}}
-{{--                                   href="login.html"><i class="isax isax-arrow-2 me-2"></i>Log in as Student</a>--}}
-{{--                                <a href="{{route('index.html')}}"--}}
-{{--                                   class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100"><i--}}
-{{--                                        class="isax isax-logout me-2"></i>Logout</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @else--}}
-                    <a href="{{route('login.html')}}" class="btn btn-primary d-inline-flex align-items-center me-2">
-                        Sign In
-                    </a>
-                    <a href="{{route('register.html')}}" class="btn btn-secondary me-0">
-                        Register
-                    </a>
-{{--                @endauth--}}
-            </div>
+            </nav>
         </div>
-    </div>
-</header>
+    </header>

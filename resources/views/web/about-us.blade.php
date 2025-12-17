@@ -3,500 +3,238 @@
 
 <x-web.head/>
 
-<body>
+<body class="animsition js-preloader">
+    <div class="page-wrapper">
 
-<div class="main-wrapper">
+    <x-web.header/>
 
-    <x-web.user.header/>
+        <!-- MAIN-->
+        <main id="main">
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-12">
-                    <h2 class="breadcrumb-title mb-2">About Us</h2>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center mb-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">About Us</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Breadcrumb -->
 
-    <!-- about -->
-    <section class="about-section-two pb-0">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="p-3 p-sm-4 position-relative">
-                        <div class="position-absolute top-0 start-0 z-n1">
-                            <img src="{{web_resource_url('assets/img/shapes/shape-1.svg')}}" alt="img">
+            <!-- PAGE HEADING-->
+            <section class="section page-heading js-parallax-scroll" style="background-image: url('{{web_resource_url('assets/web/images/bg-heading-01.jpg')}}');">
+                <div class="container">
+                    <div class="page-heading-inner">
+                        <div class="section-heading section-heading-1 section-heading-1--tiny text-left">
+                            <h2 class="section-heading__title">about us</h2>
+                            <div class="section-heading__line">
+                                <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                            </div>
                         </div>
-                        <div class="position-absolute bottom-0 end-0 z-n1">
-                            <img src="{{web_resource_url('assets/img/shapes/shape-2.svg')}}" alt="img">
-                        </div>
-                        <div class="position-absolute bottom-0 start-0 mb-md-5 ms-md-n5">
-                            <img src="{{web_resource_url('assets/img/icons/icon-1.svg')}}" alt="img">
-                        </div>
-                        <img class="img-fluid img-radius" src="{{web_resource_url('assets/img/about/about-2.svg')}}" alt="img">
+                        <nav class="au-breadcrumb">
+                            <ul class="list-unstyled list-breadcrumb">
+                                <li class="list-breadcrumb__item">
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li class="list-breadcrumb__item">about us</li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="ps-0 ps-lg-2 pt-4 pt-lg-0 ps-xl-5">
-                        <div class="section-header">
-								<span
-                                    class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">About</span>
-                            <h2>Empowering Learning, Inspiring Growth</h2>
-                            <p>At Arrogate Maker Limited, we make education accessible to all with interactive
-                                courses and
-                                expert-led content. Learn anytime, anywhere, and achieve your goals seamlessly.</p>
-                        </div>
-                        <div class="d-flex align-items-center about-us-banner">
-                            <div>
-									<span
-                                        class="bg-primary-transparent rounded-3 p-2 about-icon d-flex justify-content-center align-items-center">
-										<i class="isax isax-book-1 fs-24"></i>
-									</span>
-                            </div>
-                            <div class="ps-3">
-                                <h6 class="mb-2">Learn from anywhere</h6>
-                                <p>Learning from anywhere has become a transform aspect of modern education,
-                                    allowing individuals.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center about-us-banner">
-                            <div>
-									<span
-                                        class="bg-secondary-transparent rounded-3 p-2 about-icon d-flex justify-content-center align-items-center">
-										<i class="isax isax-bookmark5 fs-24"></i>
-									</span>
-                            </div>
-                            <div class="ps-3">
-                                <h6 class="mb-2">Expert Mentors</h6>
-                                <p>Expert mentors are invaluable assets in any field, providing seasoned guidance
-                                    knowledge.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- about -->
+            </section>
+            <!-- END PAGE HEADING-->
 
-    <!-- benefits -->
-    <section class="benefit-section">
-        <div class="container">
-            <div class="section-header text-center">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Our
-						Benefits</span>
-                <h2>Master the Skills to Drive your Career</h2>
-                <p>The right course, guided by an expert mentor, can provide invaluable insights, practical skills.
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-1.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-primary-transparent d-inline-flex">
-                                <i class="isax isax-book-1 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Flexible Learning</h5>
-                            <p>We believe that high-quality education should be accessible to everyone. Our pricing
-                                form in models are designed.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-2.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-secondary-transparent d-inline-flex">
-                                <i class="isax isax-bookmark5 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Lifetime Access</h5>
-                            <p>When you enroll in our courses, you’re not just signing up for a temporary learning
-                                to experience you’re making.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-3.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-skyblue-transparent d-inline-flex">
-                                <i class="isax isax-chart-26 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Expert Instruction</h5>
-                            <p>Our instructors are seasoned professionals with years of experience in their
-                                respective fields & Experts advice</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- benefits -->
-
-    <!-- institutions -->
-    <section class="client-section">
-        <div class="container">
-            <h6 class="fw-medium text-center mb-4">Trusted by <span
-                    class="text-decoration-underline text-secondary">20+</span> Institutions Around the World</h6>
-            <div class="institutions-slider lazy slider">
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/01.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/02.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/03.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/04.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/05.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/06.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/07.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/02.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/03.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/04.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/05.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/06.svg')}}" alt="img">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- institutions -->
-
-    <!-- counter -->
-    <section class="counter-sec">
-        <div class="container">
-            <div class="row gy-3">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card border-0 mb-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="counter-icon">
-                                    <img src="{{web_resource_url('assets/img/icons/counter-icon1.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h4 class="text-info"><span class="count-digit">10</span>K</h4>
-                                    <p>Online Courses</p>
+            <!-- WELCOME-->
+            <section class="section p-t-125 p-b-75 p-md-t-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="img-border img-border--blue">
+                                <div class="img-border-inner">
+                                    <img src="{{web_resource_url('assets/web/images/about-us-01.jpg')}}" alt="About Us">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card border-0 mb-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="counter-icon">
-                                    <img src="{{web_resource_url('assets/img/icons/counter-icon2.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h4 class="text-warning"><span class="count-digit">200</span>+</h4>
-                                    <p>Expert Tutors</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card border-0 mb-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="counter-icon">
-                                    <img src="{{web_resource_url('assets/img/icons/counter-icon3.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h4 class="text-skyblue"><span class="count-digit">6</span>K+</h4>
-                                    <p>Certified Courses</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card border-0 mb-0">
-                        <div class="card-body d-flex align-items-center">
-                            <div class="counter-icon">
-                                <img src="{{web_resource_url('assets/img/icons/counter-icon4.svg')}}" alt="img">
-                            </div>
-                            <div class="count-content">
-                                <h4 class="text-lightgreen"><span class="count-digit">60</span>K+</h4>
-                                <p>Online Students</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- counter -->
-
-    <!-- testimonials -->
-    <section class="testimonials-section text-center">
-        <div class="container">
-            <div class="section-header text-center">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Featured
-						Instructors</span>
-                <h2>Top Class & Professional Instructors</h2>
-                <p>Words from Those Who’ve Experienced Real Growth.</p>
-            </div>
-            <div class="testimonials-slider lazy mt-4">
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white">
-                        <div class="position-relative d-inline-flex mb-2">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="instructor-details.html"><img class="img-fluid rounded-circle"
-                                                                       src="{{web_resource_url('assets/img/user/user-41.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="instructor-details.html">Brenda Slaton</a></h6>
-                        <p class="fs-14 mb-3">Designer</p>
-                        <p class="mb-3 text-truncate line-clamb-2">This mentor helped me understand concepts that I
-                            had been struggling with for weeks.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white">
-                        <div class="position-relative d-inline-flex mb-2">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="instructor-details.html"><img class="img-fluid rounded-circle"
-                                                                       src="{{web_resource_url('assets/img/user/user-42.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="instructor-details.html">Adrian Dennis</a></h6>
-                        <p class="fs-14 mb-3">Developer</p>
-                        <p class="mb-3 text-truncate line-clamb-2">I’ve learned so much from my mentor’s personal
-                            experience.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white">
-                        <div class="position-relative d-inline-flex mb-2">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="instructor-details.html"><img class="img-fluid rounded-circle"
-                                                                       src="{{web_resource_url('assets/img/user/user-43.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="instructor-details.html">Adrian Coztanza</a></h6>
-                        <p class="fs-14 mb-3">Architect</p>
-                        <p class="mb-3 text-truncate line-clamb-2">The advice was useful, but I wish my mentor had
-                            been more available for follow-up discussions.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white">
-                        <div class="position-relative d-inline-flex mb-2">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="instructor-details.html"><img class="img-fluid rounded-circle"
-                                                                       src="{{web_resource_url('assets/img/user/user-43.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="instructor-details.html">Adrian Coztanza</a></h6>
-                        <p class="fs-14 mb-3">Architect</p>
-                        <p class="mb-3 text-truncate line-clamb-2">The advice was useful, but I wish my mentor had
-                            been more available for follow-up discussions.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- testimonials -->
-
-    <!-- faq -->
-    <section class="faq-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-5 pe-md-5">
-                    <div class="position-relative">
-                        <img class="img-fluid rounded-4" src="{{web_resource_url('assets/img/about/about-1.jpg')}}" alt="img">
-                        <div
-                            class="bg-warning text-center p-3 rounded-5 position-absolute top-0 end-0 z-index-1 d-none d-sm-block my-3 mx-3">
-                            <i class="isax isax-message-question5 heading-color fs-46"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="section-header">
-							<span
-                                class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">FAQs</span>
-                        <h2>Frequently Asked Questions</h2>
-                        <p>Explore detailed answers to the most common questions about our platform.</p>
-                    </div>
-                    <div class="faq-content">
-                        <div class="accordion accordion-customicon1 accordions-items-seperate"
-                             id="accordioncustomicon1Example">
-                            <div class="accordion-item" data-aos="fade-up">
-                                <h2 class="accordion-header" id="headingcustomicon1One">
-                                    <a href="#" class="accordion-button" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1One" aria-expanded="true"
-                                       aria-controls="collapsecustomicon1One">
-                                        What’s ArrogateLMS want to give you? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1One" class="accordion-collapse collapse show"
-                                     aria-labelledby="headingcustomicon1One"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>ArrogateLMS aims to provide you with a comprehensive and intuitive
-                                            learning
-                                            platform that enhances your educational experience.</p>
+                        <div class="col-md-6">
+                            <div class="p-l-70 p-md-l-0">
+                                <div class="welcome-wrap welcome-wrap-2">
+                                    <div class="welcome-wrap__inner">
+                                        <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                            <h2 class="section-heading__title">Welcome to JOBBY</h2>
+                                            <div class="section-heading__line">
+                                                <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                            </div>
+                                        </div>
+                                        <p class="m-b-15">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <p class="m-b-60">By injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of
+                                            text. All the Lorem Ipsum generator.</p>
+                                        <a class="au-btn--blue au-btn" href="#">learn more
+                                            <i class="zmdi zmdi-chevron-right"></i>
+                                            <i class="zmdi zmdi-chevron-right"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Two">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Two" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        Why choose us for your education? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Two" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Two"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>ArrogateLMS aims to provide you with a comprehensive and intuitive
-                                            learning
-                                            platform that enhances your educational experience.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Three">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Three" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        How We Provide Service For you? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Three" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Three"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>ArrogateLMS aims to provide you with a comprehensive and intuitive
-                                            learning
-                                            platform that enhances your educational experience.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Four">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Four" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        Do you have a monthly plan? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Four" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Four"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>ArrogateLMS aims to provide you with a comprehensive and intuitive
-                                            learning
-                                            platform that enhances your educational experience.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Five">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Five" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        Are you Affordable For Your Course <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Five" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Five"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>ArrogateLMS aims to provide you with a comprehensive and intuitive
-                                            learning
-                                            platform that enhances your educational experience.</p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <!-- faq -->
+            </section>
+            <!-- END WELCOME-->
+
+            <!-- WHAT WE BRING-->
+            <section class="section p-t-75 p-b-75">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="p-t-180 p-md-t-0 p-md-b-30">
+                                <div class="section-heading section-heading-1 section-heading-1--small text-left m-b-35">
+                                    <h2 class="section-heading__title">What We Bring</h2>
+                                    <div class="section-heading__line">
+                                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                    </div>
+                                </div>
+                                <div class="au-progress-wrap">
+                                    <div class="au-progress">
+                                        <span class="au-progress__title">pass rate a</span>
+                                        <div class="au-progress__bar orange">
+                                            <div class="au-progress__inner js-progressbar-simple" role="progressbar" data-transitiongoal="82"></div>
+                                            <span class="au-progress__value js-value"></span>
+                                        </div>
+                                    </div>
+                                    <div class="au-progress">
+                                        <span class="au-progress__title">happy children</span>
+                                        <div class="au-progress__bar violet">
+                                            <div class="au-progress__inner js-progressbar-simple" role="progressbar" data-transitiongoal="90"></div>
+                                            <span class="au-progress__value js-value"></span>
+                                        </div>
+                                    </div>
+                                    <div class="au-progress">
+                                        <span class="au-progress__title">happy parents</span>
+                                        <div class="au-progress__bar green">
+                                            <div class="au-progress__inner js-progressbar-simple" role="progressbar" data-transitiongoal="100"></div>
+                                            <span class="au-progress__value js-value"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 offset-md-1">
+                            <div class="img-border img-border--pink">
+                                <div class="img-border-inner">
+                                    <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END WHAT WE BRING-->
+
+            <!-- OUR STORY-->
+            <section class="section p-t-75 p-b-150 p-md-b-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="img-border img-border--yellow">
+                                <div class="img-border-inner">
+                                    <img src="{{web_resource_url('assets/web/images/welcome-08.jpg')}}" alt="Our Story">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-l-70 p-md-l-0">
+                                <div class="welcome-wrap welcome-wrap-2">
+                                    <div class="welcome-wrap__inner">
+                                        <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                            <h2 class="section-heading__title">Our Story</h2>
+                                            <div class="section-heading__line">
+                                                <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                            </div>
+                                        </div>
+                                        <p class="m-b-15">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                            commodo consequat sit voluptatem accusantium doloremque laudantium.</p>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                        <div class="welcome-sign m-t-70">
+                                            <img src="{{web_resource_url('assets/web/images/icon/sign.png')}}" alt="Sign">
+                                            <div class="welcome-sign__content">
+                                                <h5 class="name">Catherine Shaw</h5>
+                                                <span class="job">- Director -</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END OUR STORY-->
+
+            <!-- PARTNER-->
+            <section class="section bg-f7 p-t-60 p-b-60">
+                <div class="wrap wrap--w1760">
+                    <div class="slick-partner">
+                        <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2" data-slick-md="4" data-slick-lg="4" data-slick-xl="6" data-slick-autoplay="true">
+                            <div class="slick__content js-slick-content">
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-01.png')}}" alt="Partner 1">
+                                    </a>
+                                </div>
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-02.png')}}" alt="Partner 2">
+                                    </a>
+                                </div>
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-03.png')}}" alt="Partner 3">
+                                    </a>
+                                </div>
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-04.png')}}" alt="Partner 4">
+                                    </a>
+                                </div>
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-05.png')}}" alt="Partner 5">
+                                    </a>
+                                </div>
+                                <div class="slick__item">
+                                    <a class="img-partner" href="#">
+                                        <img src="{{web_resource_url('assets/web/images/partner-06.png')}}" alt="Partner 6">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END PARTNER-->
+        </main>
+        <!-- END MAIN-->
 
     <x-web.footer/>
 
-</div>
+    </div>
+
+
+    <!-- Jquery JS-->
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+    <!-- Vendor JS-->
+    <script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
+
+    <!-- Main JS-->
+    <script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
 
 </body>
 
 </html>
+<!-- end document-->

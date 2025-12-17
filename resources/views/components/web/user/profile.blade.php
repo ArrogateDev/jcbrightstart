@@ -3,7 +3,7 @@
 ])
 <div class="profile-card overflow-hidden bg-blue-gradient2 mb-5 p-5">
     <div class="profile-card-bg">
-        <img src="{{web_resource_url('assets/img/bg/card-bg-01.png')}}" class="profile-card-bg-1" alt="">
+        <img src="{{web_resource_url('assets/admin/img/bg/card-bg-01.png')}}" class="profile-card-bg-1" alt="">
     </div>
     <div class="row align-items-center row-gap-3">
         <div class="col-lg-6">

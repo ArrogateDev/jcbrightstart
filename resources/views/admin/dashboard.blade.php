@@ -25,7 +25,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/graduation.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/graduation.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Enrolled Courses</span>
@@ -40,7 +40,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/book.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Active Courses</span>
@@ -55,7 +55,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/bookmark.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/bookmark.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Completed Courses</span>
@@ -70,7 +70,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-info-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/user-octagon.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/user-octagon.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Total Students</span>
@@ -85,7 +85,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-blue-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/book-2.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/book-2.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Total Courses</span>
@@ -100,7 +100,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span class="icon-box bg-purple-transparent me-2 me-xxl-3 flex-shrink-0">
-												<img src="{{web_resource_url('assets/img/icon/money-add.svg')}}" alt="">
+												<img src="{{web_resource_url('assets/admin/img/icon/money-add.svg')}}" alt="">
 											</span>
                                         <div>
                                             <span class="d-block">Total Earnings</span>
@@ -143,7 +143,7 @@
                                     <div class="course-title d-flex align-items-center">
                                         <a href="course-details.html"
                                            class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-01.jpg')}}"
+                                                src="{{web_resource_url('assets/admin/img/instructor/instructor-table-01.jpg')}}"
                                                 alt="Img"></a>
                                         <div>
                                             <p class="fw-medium"><a href="course-details.html">Complete HTML,
@@ -159,7 +159,7 @@
                                     <div class="course-title d-flex align-items-center">
                                         <a href="course-details.html"
                                            class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-02.jpg')}}"
+                                                src="{{web_resource_url('assets/admin/img/instructor/instructor-table-02.jpg')}}"
                                                 alt="Img"></a>
                                         <div>
                                             <p class="fw-medium"><a href="course-details.html">Complete Course
@@ -175,7 +175,7 @@
                                     <div class="course-title d-flex align-items-center">
                                         <a href="course-details.html"
                                            class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-03.jpg')}}"
+                                                src="{{web_resource_url('assets/admin/img/instructor/instructor-table-03.jpg')}}"
                                                 alt="Img"></a>
                                         <div>
                                             <p class="fw-medium"><a href="course-details.html">Data Science
@@ -191,7 +191,7 @@
                                     <div class="course-title d-flex align-items-center">
                                         <a href="course-details.html"
                                            class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-04.jpg')}}"
+                                                src="{{web_resource_url('assets/admin/img/instructor/instructor-table-04.jpg')}}"
                                                 alt="Img"></a>
                                         <div>
                                             <p class="fw-medium"><a href="course-details.html">Master
@@ -207,7 +207,7 @@
                                     <div class="course-title d-flex align-items-center">
                                         <a href="course-details.html"
                                            class="avatar avatar-xl flex-shrink-0 me-2"><img
-                                                src="{{web_resource_url('assets/img/instructor/instructor-table-05.jpg')}}"
+                                                src="{{web_resource_url('assets/admin/img/instructor/instructor-table-05.jpg')}}"
                                                 alt="Img"></a>
                                         <div>
                                             <p class="fw-medium"><a href="course-details.html">Information About

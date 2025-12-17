@@ -1,106 +1,74 @@
-<!-- Footer -->
-<footer class="footer footer-one">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row row-gap-4">
-                <div class="col-lg-4">
-                    <div class="footer-about">
-                        <div class="footer-logo">
-                            <img class="logo-max-200" src="{{web_resource_url('assets/img/logo-black.png')}}" alt="">
-                        </div>
-                        <p>Platform designed to help organizations, educators, and learners manage, deliver, and
-                            track learning and training activities.</p>
-                        <div class="d-flex align-items-center d-none">
-                            <a href="#" class="me-2"><img src="{{web_resource_url('assets/img/icon/appstore.svg')}}" alt=""></a>
-                            <a href="#"><img src="{{web_resource_url('assets/img/icon/googleplay.svg')}}" alt=""></a>
-                        </div>
-                    </div>
+<footer class="footer">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="footer-wrap">
+                <div class="footer__logo">
+                    <a href="#">
+                        <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jobby" style="height: 65px;">
+                    </a>
                 </div>
-                <div class="col-lg-5">
-                    <div class="row row-gap-4">
-                        <div class="col-lg-4 col-md-4 d-none">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">Support</h5>
-                                <ul>
-                                    <li><a href="course-grid.html">Education</a></li>
-                                    <li><a href="add-course.html">Enroll Course</a></li>
-                                    <li><a href="javscript:void(0);">Orders</a></li>
-                                    <li><a href="pricing-plan.html">Payments</a></li>
-                                    <li><a href="blog-grid.html">Blogs</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">About</h5>
-                                <ul>
-                                    <li class=" d-none"><a href="course-category.html">Categories</a></li>
-                                    <li class=" d-none"><a href="course-list.html">Courses</a></li>
-                                    <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
-                                    <li><a href="{{route('page', ['page' => 'faq.html'])}}"">Faq</a></li>
-                                    <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contacts</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 d-none">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">Useful Links</h5>
-                                <ul>
-                                    <li><a href="javascript:void(0);">Our values</a></li>
-                                    <li><a href="javascript:void(0);">Our advisory board</a></li>
-                                    <li><a href="javascript:void(0);">Our partners</a></li>
-                                    <li><a href="javascript:void(0);">Become a partner</a></li>
-                                    <li><a href="javascript:void(0);">Work at Future Learn</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 d-none">
-                    <div class="footer-widget footer-contact">
-                        <h5 class="footer-title">Subscribe Newsletter</h5>
-                        <div class="footer-newsletter">
-                            <p>Sign up to get updates & news.</p>
-                            <form action="javascript:void(0);">
-                                <div class="subscribe-form">
-											<span>
-												<i class="isax isax-message-text"></i>
-											</span>
-                                    <input type="email" class="form-control" placeholder="Email Address">
-                                </div>
-                                <button type="submit" class="btn btn-secondary btn-xl w-100">Subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row row-gap-2">
-                <div class="col-lg-5">
-                    <div class="text-center text-lg-start">
-                        <p>Copyright 2025 © <span class="text-secondary">Jockey Club Bright Start Project</span>. All
-                            right reserved.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <ul class="d-flex align-items-center justify-content-center footer-link">
-                        <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
-                        <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <div class="social-icon">
-                        <a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
-                    </div>
-                </div>
+                <ul class="list-unstyled list-inline footer__list">
+                    <li class="list-inline-item">
+                        <a href="#">about us</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">contact us</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">classes</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">teacher</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">blog</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">shop</a>
+                    </li>
+                </ul>
+                <form class="form form--icon form__footer" method="post">
+                    <input type="email" name="email-footer" placeholder="Your e-mail here...">
+                    <button class="btn-submit-1" type="submit">
+                        <img src="{{web_resource_url('assets/web/images/icon/send.png')}}" alt="send">
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </footer>
+
+<section class="section copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="copyright-wrap">
+                    <ul class="list-unstyled list-inline list-social list-social-2">
+                        <li class="list-inline-item">
+                            <a class="ic-fb" href="#">
+                                <i class="zmdi zmdi-facebook-box"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="ic-twi" href="#">
+                                <i class="zmdi zmdi-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="ic-insta" href="#">
+                                <i class="zmdi zmdi-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <span class="copyright__text">© 2019 JOBBY. Get The Theme</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="to-top">
+    <a href="#">
+        <img src="{{web_resource_url('assets/web/images/icon/to-top.png')}}" alt="To Top">
+    </a>
+</div>

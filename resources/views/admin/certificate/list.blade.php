@@ -2,7 +2,7 @@
 <html lang="en">
 
 <x-admin.head/>
-<script src="{{web_resource_url('assets/js/fabric.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/fabric.min.js')}}" type="text/javascript"></script>
 
 <body>
 

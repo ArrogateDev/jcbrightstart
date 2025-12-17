@@ -1,9 +1,9 @@
 @props([
     'module' => 'admin'
 ])
-<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/md5.js') }}"></script>
+<script src="{{web_resource_url('assets/admin/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/admin/js/md5.js') }}"></script>
 <div class="row">
     <div class="col-md-8">
         <div class="mb-3">
@@ -170,7 +170,7 @@
                         }
 
                         showToast('success', 'Successful');
-                        $('.avatar-img').attr('src', '{{web_resource_url('assets/img/avatar.png')}}')
+                        $('.avatar-img').attr('src', '{{web_resource_url('assets/admin/img/avatar.png')}}')
                     },
                     error: function () {
                         showToast('error', 'Failed, please try again later');

@@ -11,10 +11,10 @@
                 </a>
                 <div class="navbar-logo" style="padding: 15px 0;">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo" alt="Logo" style="height: 50px;">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo" alt="Logo" style="height: 50px;">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo" alt="Logo" style="height: 45px;">
+                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo" alt="Logo" style="height: 45px;">
                     </a>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{route('index.html')}}" class="menu-logo">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">
                         <i class="fas fa-times"></i>

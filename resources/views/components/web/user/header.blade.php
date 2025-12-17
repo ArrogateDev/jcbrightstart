@@ -17,25 +17,25 @@
                     <div class="dropdown flag-dropdown mb-2 me-3 d-none">
                         <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
+                            <img src="{{web_resource_url('assets/admin/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
                         </a>
                         <ul class="dropdown-menu p-2 mt-2" style="">
                             <li>
                                 <a class="dropdown-item rounded d-flex align-items-center"
                                    href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
+                                    <img src="{{web_resource_url('assets/admin/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item rounded d-flex align-items-center"
                                    href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
+                                    <img src="{{web_resource_url('assets/admin/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item rounded d-flex align-items-center"
                                    href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
+                                    <img src="{{web_resource_url('assets/admin/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
                                 </a>
                             </li>
                         </ul>
@@ -87,17 +87,17 @@
                 </a>
                 <div class="navbar-logo">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                 </div>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a href="{{route('index.html')}}" class="menu-logo">
-                        <img src="{{web_resource_url('assets/img/logo.png')}}" class="img-fluid logo-max-h-50" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-h-50" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">
                         <i class="fas fa-times"></i>
@@ -114,7 +114,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index.html')}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-01.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-01.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">
@@ -126,7 +126,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-02.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-02.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">
@@ -138,7 +138,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-03.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-03.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">
@@ -150,7 +150,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-04.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-04.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">
@@ -162,7 +162,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-05.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-05.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">
@@ -174,7 +174,7 @@
                                             <div class="single-demo">
                                                 <div class="demo-img">
                                                     <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/img/home/home-06.jpg')}}" class="img-fluid "
+                                                            src="{{web_resource_url('assets/admin/img/home/home-06.jpg')}}" class="img-fluid "
                                                             alt="img"></a>
                                                 </div>
                                                 <div class="demo-info">

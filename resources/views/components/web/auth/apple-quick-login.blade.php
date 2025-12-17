@@ -1,7 +1,7 @@
 @props(['type' => 'signin'])
 
 <div href="javascript:void(0);" id="apple-quick-login-btn" class="apple-quick-login">
-    <img src="{{web_resource_url('assets/img/icons/apple.svg')}}" alt="img" class="me-2">使用 Apple 账号{{$type==='signin'? '登录' : '注册'}}
+    <img src="{{web_resource_url('assets/admin/img/icons/apple.svg')}}" alt="img" class="me-2">使用 Apple 账号{{$type==='signin'? '登录' : '注册'}}
 </div>
 
 <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>

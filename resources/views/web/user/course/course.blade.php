@@ -3,7 +3,7 @@
     <div class="course-item-two course-item mx-0">
         <div class="course-img">
             <a href="javascript:void(0);">
-                <img src="{{web_resource_url('assets/img/course/course-01.jpg')}}" alt="img"
+                <img src="{{web_resource_url('assets/admin/img/course/course-01.jpg')}}" alt="img"
                      class="img-fluid">
             </a>
         </div>
@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between mb-2">
                 <div class="d-flex align-items-center">
                     <a href="javascript:void(0);" class="avatar avatar-sm">
-                        <img src="{{web_resource_url('assets/img/user/user-29.jpg')}}" alt="img"
+                        <img src="{{web_resource_url('assets/admin/img/user/user-29.jpg')}}" alt="img"
                              class="img-fluid avatar avatar-sm rounded-circle">
                     </a>
                     <div class="ms-2">

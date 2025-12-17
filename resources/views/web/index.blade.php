@@ -3,1361 +3,770 @@
 
 <x-web.head/>
 
-<body>
-
-<!-- Main Wrapper -->
-<div class="main-wrapper">
+<body class="animsition js-preloader">
+<div class="page-wrapper">
 
     <x-web.header/>
 
-    <!-- banner -->
-    <section class="banner-section">
-        <img class="img-fluid d-none d-lg-flex banner-bg1" src="{{web_resource_url('assets/img/bg/bg-15.png')}}" alt="img">
-        <img class="img-fluid d-none d-lg-flex banner-bg2" src="{{web_resource_url('assets/img/bg/bg-16.png')}}" alt="img">
-        <img class="img-fluid d-none d-lg-flex banner-bg3" src="{{web_resource_url('assets/img/bg/bg-17.png')}}" alt="img">
-        <img class="img-fluid d-none d-lg-flex banner-bg4" src="{{web_resource_url('assets/img/bg/bg-18.png')}}" alt="img">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-xl-7 col-lg-7">
-                    <div class="banner-content pe-xxl-5">
-                        <span class="hero-title">The Leader in Online Learning</span>
-                        <h1 class="mb-4 text-white">Find the Best <span>Courses</span> from the Best
-                            <span>Mentors</span> Around the World
-                        </h1>
-                        <p class="fs-lg text-center text-md-start pb-2 pb-md-3 mb-4">Our specialized online courses
-                            are designed to bring the classroom experience to you, no matter where you are.</p>
+    <!-- MAIN-->
+    <main id="main">
 
-                        <form class="banner-search" action="course-list.html">
-                            <div class="dropdown">
-                                <a class="hero-dropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select Category <i class="isax isax-arrow-down5 fs-12"></i>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 p-1">
+                    <div
+                        style="width: 100%;height: 360px;background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                    </div>
+                </div>
+                <div class="col-md-4 p-1">
+                    <div style="display: flex;flex-direction: column;gap: 0.5rem;">
+                        <div
+                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                        </div>
+                        <div
+                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 p-1">
+                    <div style="display: flex;flex-direction: column;gap: 0.5rem;">
+                        <div
+                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                        </div>
+                        <div
+                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 p-1">
+                    <div
+                        style="width: 100%;height: 360px;background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDER-->
+        <div class="rev_slider_wrapper">
+            <div class="rev_slider fullwidthabanner js-rev" data-version="5.4.4" style="display:none"
+                 data-rev-height="797" data-rev-layout="fullwidth" data-rev-stylearrow="au-rev-arrow-1"
+                 data-rev-bullets="false">
+                <ul>
+                    <li class="rev-item rev-item-3" data-transition="fade">
+                        <img class="rev-slidebg" src="{{web_resource_url('assets/web/images/slide-07.jpg')}}" alt="Master Slider 01">
+                        <div class="tp-caption tp-resizeme rev-img-1"
+                             data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:1000,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:50px;opacity:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:300,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;opacity:0;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[right]" data-y="[bottom]" data-hoffset="[-250, -250, -300, -300, -320]"
+                             data-voffset="[-10, -10, -20, -20, -20]" data-width="['auto']"
+                             data-height="[&quot;auto&quot;]"
+                             data-whitespace="[nowrap, nowrap, nowrap, nowrap, nowrap]">
+                            <img src="{{web_resource_url('assets/web/images/slide-item-11.png')}}" alt="Slide Img">
+                        </div>
+                        <div class="tp-caption tp-resizeme rev-text-6"
+                             data-frames="[{&quot;delay&quot;:600,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                             data-hoffset="[300, 150, 20, 5, 1]" data-voffset="[-100, -100, -100, -200, -200]"
+                             data-width="[370, 370, 480, 510, 480]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="nowrap" data-color="#fff" data-fontweight="600"
+                             data-fontsize="[20, 20, 30, 30, 30]" data-lineheight="[29, 29, 40, 40, 40]"
+                             data-textalign="center" data-basealign="slide" data-responsive_offset="on">Learning and
+                            play game
+                        </div>
+                        <div class="tp-caption tp-resizeme rev-text-1"
+                             data-frames="[{&quot;delay&quot;:1200,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,middle,middle,center,center]"
+                             data-hoffset="[150, -10, 5, 5, 5]" data-voffset="[-25, 0, 0, -120, -100]"
+                             data-paddingleft="[0, 0, 0, 0, 15]" data-paddingright="[0, 0, 0, 0, 15]"
+                             data-width="[665, 665, 690, 510, 576]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="[normal, normal, normal, nowrap, nowrap]" data-color="#fee470"
+                             data-fontweight="400" data-fontsize="[72, 72, 72, 60, 60]" data-textalign="center"
+                             data-lineheight="80" data-basealign="slide" data-responsive_offset="on">Hello Summer
+                        </div>
+                        <div class="tp-caption tp-resizeme"
+                             data-frames="[{&quot;delay&quot;:600,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                             data-hoffset="[150, -10, 5, 10, 10]" data-voffset="[60, 60, 80, 10, 10]"
+                             data-paddingleft="[0, 0, 0, 0, 15]" data-paddingright="[0, 0, 0, 0, 15]"
+                             data-width="[670, 650, 690, 510, 576]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="[normal, normal, normal, normal, normal]" data-color="#fff"
+                             data-fontweight="400" data-fontsize="[15, 15, 20, 20, 20]" data-textalign="center"
+                             data-lineheight="27" data-basealign="slide" data-responsive_offset="on">At vero eos et
+                            accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                            deleniti atquecorrupti quos dolores et quas molestias excepturi sint
+                        </div>
+                        <a class="tp-caption tp-resizeme" href="#" target="_self"
+                           data-frames="[{&quot;delay&quot;:1600,&quot;speed&quot;:1000,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;x:-50px;opacity:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                           data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                           data-hoffset="[390, 220, 1, -15, 10]" data-voffset="[183, 173, 230, 160, 160]"
+                           data-width="['auto']" data-height="[&quot;auto&quot;]" data-basealign="slide"
+                           data-responsive_offset="on" data-responsive="off"
+                           data-whitespace="[nowrap, nowrap, nowrap, nowrap, nowrap]">
+                                <span class="rev-btn-2">event details
+                                    <span class="arrow" data-paddingleft="10">
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="rev-item rev-item-3" data-transition="crossfade">
+                        <img class="rev-slidebg" src="{{web_resource_url('assets/web/images/slide-08.jpg')}}" alt="Master Slider 01">
+                        <div class="tp-caption tp-resizeme rev-img-1"
+                             data-frames="[{&quot;delay&quot;:500,&quot;speed&quot;:1000,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:50px;opacity:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:300,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;opacity:0;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[right]" data-y="[bottom]" data-hoffset="[-40, -40, -60, -80, -80]"
+                             data-voffset="[-85, -85, -65, -40, -40]" data-width="['auto']"
+                             data-height="[&quot;auto&quot;]"
+                             data-whitespace="[nowrap, nowrap, nowrap, nowrap, nowrap]">
+                            <img src="{{web_resource_url('assets/web/images/slide-item-12.png')}}" alt="Slide Img">
+                        </div>
+                        <div class="tp-caption tp-resizeme rev-text-7"
+                             data-frames="[{&quot;delay&quot;:600,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                             data-hoffset="[300, 150, 20, 5, 1]" data-voffset="[-100, -100, -100, -200, -200]"
+                             data-width="[370, 370, 480, 510, 480]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="nowrap" data-color="#fff" data-fontweight="600"
+                             data-fontsize="[20, 20, 30, 30, 30]" data-lineheight="[29, 29, 40, 40, 40]"
+                             data-textalign="center" data-basealign="slide" data-responsive_offset="on">Learning and
+                            play game
+                        </div>
+                        <div class="tp-caption tp-resizeme rev-text-1"
+                             data-frames="[{&quot;delay&quot;:1200,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,middle,middle,center,center]"
+                             data-hoffset="[150, -10, 5, 5, 5]" data-voffset="[-25, 0, 0, -120, -100]"
+                             data-paddingleft="[0, 0, 0, 0, 15]" data-paddingright="[0, 0, 0, 0, 15]"
+                             data-width="[665, 665, 690, 510, 576]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="[normal, normal, normal, nowrap, nowrap]" data-color="#fee470"
+                             data-fontweight="400" data-fontsize="[67, 67, 67, 60, 60]" data-textalign="center"
+                             data-lineheight="70" data-basealign="slide" data-responsive_offset="on">Color with baby
+                        </div>
+                        <div class="tp-caption tp-resizeme"
+                             data-frames="[{&quot;delay&quot;:600,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:800,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                             data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                             data-hoffset="[150, -10, 5, 10, 10]" data-voffset="[60, 60, 80, 10, 10]"
+                             data-paddingleft="[0, 0, 0, 0, 15]" data-paddingright="[0, 0, 0, 0, 15]"
+                             data-width="[670, 650, 690, 510, 576]" data-height="[&quot;auto&quot;]"
+                             data-whitespace="[normal, normal, normal, normal, normal]" data-color="#fff"
+                             data-fontweight="400" data-fontsize="[15, 15, 20, 20, 20]" data-textalign="center"
+                             data-lineheight="27" data-basealign="slide" data-responsive_offset="on">Nor again is
+                            there anyone who loves or pursues or desires to obtain pain of itself, because it is
+                            pain, but because occasionally circumstances occur in which toil and pain can procure
+                        </div>
+                        <a class="tp-caption tp-resizeme" href="#" target="_self"
+                           data-frames="[{&quot;delay&quot;:1600,&quot;speed&quot;:1000,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;x:-50px;opacity:0;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:300,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;auto:auto;&quot;,&quot;ease&quot;:&quot;Power3.easeInOut&quot;}]"
+                           data-x="[left,left,center,center,center]" data-y="[center,center,center,center,center]"
+                           data-hoffset="[390, 220, 1, -15, 10]" data-voffset="[183, 173, 230, 160, 160]"
+                           data-width="['auto']" data-height="[&quot;auto&quot;]" data-basealign="slide"
+                           data-responsive_offset="on" data-whitespace="[nowrap, nowrap, nowrap, nowrap, nowrap]">
+                                <span class="rev-btn-2">event details
+                                    <span class="arrow" data-paddingleft="10">
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                    </span>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END SLIDER-->
+
+        <!-- WELCOME-->
+        <section class="section p-t-150 p-b-140 p-md-t-60 p-md-b-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="img-border img-border--blue">
+                            <div class="img-border-inner">
+                                <img src="{{web_resource_url('assets/web/images/welcome-08.jpg')}}" alt="Welcome">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-l-70 p-md-l-0">
+                            <div class="welcome-wrap welcome-wrap-2">
+                                <div class="welcome-wrap__inner">
+                                    <div
+                                        class="section-heading section-heading-1 section-heading-1--small text-left">
+                                        <h2 class="section-heading__title">About Us</h2>
+                                        <div class="section-heading__line">
+                                            <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                        </div>
+                                    </div>
+                                    <p class="m-b-15">There are many variations of passages of Lorem Ipsum
+                                        available, but the majority have suffered alteration in some form.</p>
+                                    <p class="m-b-60">By injected humour, or randomised words which don't look even
+                                        slightly believable. If you are going to use a passage of Lorem Ipsum, you
+                                        need to be sure there isn't anything embarrassing hidden in the middle of
+                                        text. All the Lorem Ipsum generator.</p>
+                                    <a class="au-btn--blue au-btn" href="#">learn more
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                        <i class="zmdi zmdi-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END WELCOME-->
+
+        <!-- STATISTIC-->
+        <section class="section">
+            <div class="row no-gutters statistic-1">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="statistic__item blue">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-01.png')}}" alt="icon 1">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">168</span>
+                            <span class="desc">Qualified Teachers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="statistic__item yellow">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-02.png')}}" alt="icon 2">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">240</span>
+                            <span class="desc">Young School</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="statistic__item pink">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-03.png')}}" alt="icon 3">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">281</span>
+                            <span class="desc">Evaluation For Field</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="statistic__item green">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-04.png')}}" alt="icon 4">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">317</span>
+                            <span class="desc">Activity Of Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END STATISTIC-->
+
+        <!-- WHAT WE BRING-->
+        <section class="section p-t-150 p-b-140 p-md-t-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="p-t-180 p-md-t-0 p-md-b-30">
+                            <div
+                                class="section-heading section-heading-1 section-heading-1--small text-left m-b-35">
+                                <h2 class="section-heading__title">What We Bring</h2>
+                                <div class="section-heading__line">
+                                    <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                </div>
+                            </div>
+                            <div class="au-progress-wrap">
+                                <div class="au-progress">
+                                    <span class="au-progress__title">pass rate a</span>
+                                    <div class="au-progress__bar orange">
+                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                             data-transitiongoal="82"></div>
+                                        <span class="au-progress__value js-value"></span>
+                                    </div>
+                                </div>
+                                <div class="au-progress">
+                                    <span class="au-progress__title">happy children</span>
+                                    <div class="au-progress__bar violet">
+                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                             data-transitiongoal="90"></div>
+                                        <span class="au-progress__value js-value"></span>
+                                    </div>
+                                </div>
+                                <div class="au-progress">
+                                    <span class="au-progress__title">happy parents</span>
+                                    <div class="au-progress__bar green">
+                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
+                                             data-transitiongoal="100"></div>
+                                        <span class="au-progress__value js-value"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 offset-md-1">
+                        <div class="img-border img-border--pink">
+                            <div class="img-border-inner">
+                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END WHAT WE BRING-->
+
+        <!-- OUR CLASS-->
+        <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80">
+            <div class="bg-cloud-5">
+                <img src="{{web_resource_url('assets/web/images/icon/bg-cloud-05.png')}}" alt="Cloud">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading section-heading-2">
+                            <h2 class="section-heading__title">our Rooms & Classes</h2>
+                            <div class="section-heading__line">
+                                <img src="{{web_resource_url('assets/web/images/icon/line-white.png')}}" alt="Line 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="wrap wrap--w1575">
+                    <div class="slick-class-2">
+                        <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2"
+                             data-slick-md="3" data-slick-lg="3" data-slick-xl="4" data-slick-dots="false"
+                             data-slick-customnav="true" data-slick-autoplay="true">
+                            <div class="slick__content js-slick-content">
+                                <div class="slick__item">
+                                    <div class="media media-our-class-3">
+                                        <div class="media__img">
+                                            <a href="classes-single.html">
+                                                <img src="{{web_resource_url('assets/web/images/our-class-10.jpg')}}" alt="Painting Class">
+                                            </a>
+                                            <span class="media-our-class__price">
+                                                    <span class="inner">$22</span>
+                                                </span>
+                                        </div>
+                                        <div class="media__body">
+                                            <h3 class="media__title">
+                                                <a href="classes-single.html">Painting Class</a>
+                                            </h3>
+                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
+                                            <span class="date-time">April 29, 2020</span>
+                                            <div class="media-our-class__info">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6">
+                                                        <div class="item has-seprator">
+                                                            <span class="name">age</span>
+                                                            <span class="value">1 - 2 years</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="item">
+                                                            <span class="name">size</span>
+                                                            <span class="value">18 seats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick__item">
+                                    <div class="media media-our-class-3">
+                                        <div class="media__img">
+                                            <a href="classes-single.html">
+                                                <img src="{{web_resource_url('assets/web/images/our-class-11.jpg')}}" alt="Table/Floor Toys Class">
+                                            </a>
+                                            <span class="media-our-class__price">
+                                                    <span class="inner">$29</span>
+                                                </span>
+                                        </div>
+                                        <div class="media__body">
+                                            <h3 class="media__title">
+                                                <a href="classes-single.html">Table/Floor Toys Class</a>
+                                            </h3>
+                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
+                                            <span class="date-time">April 29, 2020</span>
+                                            <div class="media-our-class__info">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6">
+                                                        <div class="item has-seprator">
+                                                            <span class="name">age</span>
+                                                            <span class="value">2 - 3 years</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="item">
+                                                            <span class="name">size</span>
+                                                            <span class="value">22 seats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick__item">
+                                    <div class="media media-our-class-3">
+                                        <div class="media__img">
+                                            <a href="classes-single.html">
+                                                <img src="{{web_resource_url('assets/web/images/our-class-12.jpg')}}" alt="Storytime Class">
+                                            </a>
+                                            <span class="media-our-class__price">
+                                                    <span class="inner">$35</span>
+                                                </span>
+                                        </div>
+                                        <div class="media__body">
+                                            <h3 class="media__title">
+                                                <a href="classes-single.html">Storytime Class</a>
+                                            </h3>
+                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
+                                            <span class="date-time">April 29, 2020</span>
+                                            <div class="media-our-class__info">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6">
+                                                        <div class="item has-seprator">
+                                                            <span class="name">age</span>
+                                                            <span class="value">4 - 5 years</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="item">
+                                                            <span class="name">size</span>
+                                                            <span class="value">27 seats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick__item">
+                                    <div class="media media-our-class-3">
+                                        <div class="media__img">
+                                            <a href="classes-single.html">
+                                                <img src="{{web_resource_url('assets/web/images/our-class-08.jpg')}}" alt="Letter Math Class">
+                                            </a>
+                                            <span class="media-our-class__price">
+                                                    <span class="inner">$38</span>
+                                                </span>
+                                        </div>
+                                        <div class="media__body">
+                                            <h3 class="media__title">
+                                                <a href="classes-single.html">Letter Math Class</a>
+                                            </h3>
+                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
+                                            <span class="date-time">April 29, 2020</span>
+                                            <div class="media-our-class__info">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6">
+                                                        <div class="item has-seprator">
+                                                            <span class="name">age</span>
+                                                            <span class="value">5 - 6 years</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="item">
+                                                            <span class="name">size</span>
+                                                            <span class="value">20 seats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick__item">
+                                    <div class="media media-our-class-3">
+                                        <div class="media__img">
+                                            <a href="classes-single.html">
+                                                <img src="{{web_resource_url('assets/web/images/our-class-11.jpg')}}" alt="Table/Floor Toys Class">
+                                            </a>
+                                            <span class="media-our-class__price">
+                                                    <span class="inner">$41</span>
+                                                </span>
+                                        </div>
+                                        <div class="media__body">
+                                            <h3 class="media__title">
+                                                <a href="classes-single.html">Table/Floor Toys Class</a>
+                                            </h3>
+                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
+                                            <span class="date-time">April 29, 2020</span>
+                                            <div class="media-our-class__info">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6">
+                                                        <div class="item has-seprator">
+                                                            <span class="name">age</span>
+                                                            <span class="value">2.5 - 4 years</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="item">
+                                                            <span class="name">size</span>
+                                                            <span class="value">22 seats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slick__nav arrows-2">
+                                <span class="slick-prev slick-arrow js-slick-prev"></span>
+                                <span class="slick-next slick-arrow js-slick-next"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center p-t-30">
+                        <a class="au-btn au-btn--white" href="#">learn more
+                            <i class="zmdi zmdi-chevron-right"></i>
+                            <i class="zmdi zmdi-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END OUR CLASS-->
+
+        <!-- EVENT-->
+        <section class="section p-t-140 p-b-80 p-md-t-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading section-heading-1">
+                            <h2 class="section-heading__title">New & Event</h2>
+                            <div class="section-heading__line">
+                                <img src="{{web_resource_url('assets/web/images/icon/line-blue.png')}}" alt="Line">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="banner banner-1">
+                            <div class="banner__img wow fadeInUp">
+                                <img src="{{web_resource_url('assets/web/images/banner-01.png')}}" alt="Banner 1">
+                            </div>
+                            <div class="banner__content">
+                                <h4 class="title title--white banner__title-sub wow fadeInRight"
+                                    data-wow-delay=".3s">EDUCATION</h4>
+                                <img class="wow fadeInLeft" src="{{web_resource_url('assets/web/images/icon/line-white-small.png')}}" alt="Line"
+                                     data-wow-delay=".4s">
+                                <h2 class="title title--white banner__title wow fadeIn" data-wow-delay=".2s">Study
+                                    with Children</h2>
+                                <a class="link-learn-more link-learn-more--white wow fadeInRight" href="#"
+                                   data-wow-delay=".3s">learn more
+                                    <i class="zmdi zmdi-chevron-right"></i>
+                                    <i class="zmdi zmdi-chevron-right"></i>
                                 </a>
-                                <ul class="dropdown-menu p-1">
-                                    <li><a class="dropdown-item" href="#">Design</a></li>
-                                    <li><a class="dropdown-item" href="#">Programming</a></li>
-                                    <li><a class="dropdown-item" href="#">Marketing</a></li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="banner banner-2">
+                            <div class="banner__img">
+                                <img src="{{web_resource_url('assets/web/images/banner-02.png')}}" alt="Banner 2">
+                            </div>
+                            <div class="banner__content">
+                                <h4 class="title title--white banner__title-sub">#PRESCHOOL</h4>
+                                <h2 class="title title--white banner__title">Baby creative art</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="media media-blog-2">
+                            <div class="media__img">
+                                <a href="blog-single.html">
+                                    <img src="{{web_resource_url('assets/web/images/blog-04.jpg')}}" alt="How to coax children">
+                                </a>
+                                <div class="media__date">
+                                    <div class="media__date-inner">
+                                        <span class="day">18</span>
+                                        <span class="month">June</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media__body">
+                                <h4 class="media__title title title--black title--md">
+                                    <a href="blog-single.html">How to coax children</a>
+                                </h4>
+                                <div class="media__info">
+                                        <span class="author">
+                                            <a href="#">John Doe</a>
+                                        </span>
+                                    <a class="cmt" href="#">0</a>
+                                </div>
+                                <p class="media__text">Sed ut perspiciatis unde omnis iste natus error sit
+                                    voluptatem accusantium</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="media media-blog-2">
+                            <div class="media__img">
+                                <a href="blog-single.html">
+                                    <img src="{{web_resource_url('assets/web/images/blog-05.jpg')}}" alt="If you are going to use">
+                                </a>
+                                <div class="media__date">
+                                    <div class="media__date-inner">
+                                        <span class="day">20</span>
+                                        <span class="month">June</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media__body">
+                                <h4 class="media__title title title--black title--md">
+                                    <a href="blog-single.html">If you are going to use</a>
+                                </h4>
+                                <div class="media__info">
+                                        <span class="author">
+                                            <a href="#">John Doe</a>
+                                        </span>
+                                    <a class="cmt" href="#">0</a>
+                                </div>
+                                <p class="media__text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                                    amet</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="media media-blog-2">
+                            <div class="media__img">
+                                <a href="blog-single.html">
+                                    <img src="{{web_resource_url('assets/web/images/blog-06.jpg')}}" alt="Neque porro quisquam">
+                                </a>
+                                <div class="media__date">
+                                    <div class="media__date-inner">
+                                        <span class="day">25</span>
+                                        <span class="month">June</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="media__body">
+                                <h4 class="media__title title title--black title--md">
+                                    <a href="blog-single.html">Neque porro quisquam</a>
+                                </h4>
+                                <div class="media__info">
+                                        <span class="author">
+                                            <a href="#">John Hart</a>
+                                        </span>
+                                    <a class="cmt" href="#">0</a>
+                                </div>
+                                <p class="media__text">Ut enim ad minima veniam, quis nostrum exercitationem ullam
+                                    corporis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END EVENT-->
+
+        <!-- CONTACT INFO-->
+        <section class="section bg-f7">
+            <div class="section-row contact-info-wrap">
+                <div class="contact-info-col">
+                    <div class="map-wrapper js-google-map" data-makericon="images/icon/map-marker.png')}}"
+                         data-makers="[[&quot;Jobby&quot;, &quot;Now that you visited our website,&lt;br&gt; how about checking out our office too?&quot;, 40.715681, -74.003427]]">
+                        <div class="map__holder js-map-holder js-matchHeight" id="map"></div>
+                    </div>
+                </div>
+                <div class="contact-info-col js-matchHeight">
+                    <div class="contact-info-inner p-t-110 p-b-80">
+                        <div class="wrap--w600">
+                            <div class="contact-info-content">
+                                <div
+                                    class="section-heading section-heading-1 section-heading-1--small text-left m-b-25">
+                                    <h2 class="section-heading__title">Contact Info</h2>
+                                    <div class="section-heading__line">
+                                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                                    </div>
+                                </div>
+                                <p class="m-b-20">Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+                                    esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat.</p>
+                                <ul class="list-unstyled list-contact">
+                                    <li class="list-contact__item">
+                                        <span class="lnr lnr-home list-contact__icon"></span>No 40 Baria Sreet 133/2
+                                    </li>
+                                    <li class="list-contact__item">
+                                        <span class="lnr lnr-phone list-contact__icon"></span>+ (156) 1800-366-6666
+                                    </li>
+                                    <li class="list-contact__item">
+                                        <span class="lnr lnr-envelope list-contact__icon"></span><a
+                                            href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                            data-cfemail="e6a3948f85cbded4a6839e878b968a83c885898b">[email&#160;protected]</a>
+                                    </li>
+                                    <li class="list-contact__item">
+                                        <span class="lnr lnr-earth list-contact__icon"></span>www.Jobby.com
+                                    </li>
+                                    <li class="list-contact__item">
+                                        <span class="lnr lnr-clock list-contact__icon"></span>Mon - Sat: 08:00 am -
+                                        05:00 pm
+                                    </li>
                                 </ul>
                             </div>
-                            <input type="text" name="search" class="border-0 form-control p-0"
-                                   placeholder="Search for Courses, Instructors">
-                            <button type="submit" class="btn btn-secondary ms-auto"><i
-                                    class="isax isax-arrow-right-1"></i></button>
-                        </form>
-                        <div
-                            class="d-flex align-items-center gap-4 justify-content-lg-between justify-content-center flex-wrap">
-                            <div class="counter-item">
-                                <div class="counter-icon flex-shrink-0">
-                                    <img src="{{web_resource_url('assets/img/icons/icon-32.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h5 class="text-purple"><span class="count-digit">10</span>K</h5>
-                                    <p>Online Courses</p>
-                                </div>
-                            </div>
-                            <div class="counter-item">
-                                <div class="counter-icon flex-shrink-0">
-                                    <img src="{{web_resource_url('assets/img/icons/icon-33.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h5 class="text-skyblue"><span class="count-digit">6</span>K</h5>
-                                    <p>Certified Courses</p>
-                                </div>
-                            </div>
-                            <div class="counter-item">
-                                <div class="counter-icon flex-shrink-0">
-                                    <img src="{{web_resource_url('assets/img/icons/icon-34.svg')}}" alt="img">
-                                </div>
-                                <div class="count-content">
-                                    <h5 class="text-success"><span class="count-digit">2</span>K</h5>
-                                    <p>Experienced Tutors</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-5">
-                    <div class="banner-image">
-                        <div class="swiper swiper-slider-banner">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="course-item-two course-item mb-0">
-                                        <div class="course-img">
-                                            <img src="{{web_resource_url('assets/img/course/course-22.jpg')}}" alt="img" class="img-fluid">
-                                            <div
-                                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                                <a href="javascript:void(0);" class="fav-icon">
-                                                    <i class="isax isax-heart"></i>
-                                                </a>
-                                                <a href="javascript:void(0);" class="brand-icon ms-auto">
-                                                    <img src="{{web_resource_url('assets/img/icons/course-01.svg')}}" alt="img"
-                                                         class="img-fluid">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="course-content">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void(0);" class="avatar avatar-sm">
-                                                        <img src="{{web_resource_url('assets/img/user/user-50.jpg')}}" alt="img"
-                                                             class="img-fluid avatar avatar-sm rounded-circle">
-                                                    </a>
-                                                    <div class="ms-2">
-                                                        <a href="javascript:void(0);"
-                                                           class="link-default fs-14">David Benitz</a>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium">
-														Productivity
-													</span>
-                                            </div>
-                                            <h6 class="mb-2"><a href="course-details.html">The Complete Business and
-                                                    Management Course</a></h6>
-                                            <p class="d-flex align-items-center mb-3"><i
-                                                    class="ti ti-star-filled text-warning me-2"></i>5.0 (210
-                                                Reviews)</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h6 class="text-secondary fs-16 fw-semi-bold mb-0">$168</h6>
-                                                <a href="cart.html"
-                                                   class="btn btn-dark btn-sm d-inline-flex align-items-center">Add
-                                                    to Cart<i class="isax isax-arrow-right-3 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="course-item course-item-two mb-0">
-                                        <div class="course-img">
-                                            <img src="{{web_resource_url('assets/img/course/course-25.jpg')}}" alt="img" class="img-fluid">
-                                            <div
-                                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                                <a href="javascript:void(0);" class="fav-icon">
-                                                    <i class="isax isax-heart"></i>
-                                                </a>
-                                                <a href="javascript:void(0);" class="brand-icon ms-auto">
-                                                    <img src="{{web_resource_url('assets/img/featured-courses/Clip-path-group.svg')}}"
-                                                         alt="img" class="img-fluid">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="content-course">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void(0);" class="avatar avatar-sm">
-                                                        <img src="{{web_resource_url('assets/img/user/user-20.jpg')}}" alt="img"
-                                                             class="img-fluid avatar avatar-sm rounded-circle">
-                                                    </a>
-                                                    <div class="ms-2">
-                                                        <a href="javascript:void(0);"
-                                                           class="link-default fs-14">Edith Dorsey</a>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium">
-														Lifestyles
-													</span>
-                                            </div>
-                                            <h6 class="mb-2"><a href="course-details.html">Build Creative Arts &
-                                                    media Course Completed</a></h6>
-                                            <p class="d-flex align-items-center mb-3"><i
-                                                    class="ti ti-star-filled text-warning me-2"></i>4.9 (178
-                                                Reviews)</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h6 class="text-secondary fs-16 fw-semi-bold mb-0">$190</h6>
-                                                <a href="cart.html"
-                                                   class="btn btn-dark btn-sm d-inline-flex align-items-center">Add
-                                                    to Cart<i class="isax isax-arrow-right-3 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="course-item course-item-two mb-0">
-                                        <div class="course-img">
-                                            <img src="{{web_resource_url('assets/img/course/course-24.jpg')}}" alt="img" class="img-fluid">
-                                            <div
-                                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                                <a href="javascript:void(0);" class="fav-icon">
-                                                    <i class="isax isax-heart"></i>
-                                                </a>
-                                                <a href="javascript:void(0);" class="brand-icon ms-auto">
-                                                    <img src="{{web_resource_url('assets/img/featured-courses/react.svg')}}" alt="img"
-                                                         class="img-fluid">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="content-course">
-                                            <div class="d-flex justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <a href="javascript:void(0);" class="avatar avatar-sm">
-                                                        <img src="{{web_resource_url('assets/img/user/user-23.jpg')}}" alt="img"
-                                                             class="img-fluid avatar avatar-sm rounded-circle">
-                                                    </a>
-                                                    <div class="ms-2">
-                                                        <a href="javascript:void(0);"
-                                                           class="link-default fs-14">Calvin Johnsen</a>
-                                                    </div>
-                                                </div>
-                                                <span
-                                                    class="badge badge-light rounded-pill bg-light d-inline-flex align-items-center fs-13 fw-medium">
-														Development
-													</span>
-                                            </div>
-                                            <h6 class="mb-2"><a href="course-details.html">Learn & Create ReactJS
-                                                    Tech Fundamentals Apps</a></h6>
-                                            <p class="d-flex align-items-center mb-3"><i
-                                                    class="ti ti-star-filled text-warning me-2"></i>5.0 (154
-                                                Reviews)</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h6 class="text-secondary fs-16 fw-semi-bold mb-0">$147</h6>
-                                                <a href="cart.html"
-                                                   class="btn btn-dark btn-sm d-inline-flex align-items-center">Add
-                                                    to Cart<i class="isax isax-arrow-right-3 ms-1"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- banner -->
-
-    <!-- benefits -->
-    <section class="benefit-section">
-        <div class="container">
-            <div class="section-header text-center">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Our
-						Benefits</span>
-                <h2>Master the Skills to Drive your Career</h2>
-                <p>The right course, guided by an expert mentor, can provide invaluable insights, practical skills.
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-1.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-primary-transparent d-inline-flex">
-                                <i class="isax isax-book-1 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Flexible Learning</h5>
-                            <p>We believe that high-quality education should be accessible to everyone. Our pricing
-                                form in models are designed.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-2.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-secondary-transparent d-inline-flex">
-                                <i class="isax isax-bookmark5 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Lifetime Access</h5>
-                            <p>When you enroll in our courses, you’re not just signing up for a temporary learning
-                                to experience you’re making.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <div class="position-absolute top-0 end-0 mt-n3 me-n4">
-                                <img src="{{web_resource_url('assets/img/shapes/bg-3.png')}}" alt="img">
-                            </div>
-                            <div class="p-4 rounded-pill bg-skyblue-transparent d-inline-flex">
-                                <i class="isax isax-chart-26 fs-24"></i>
-                            </div>
-                            <h5 class="mt-3 mb-1">Expert Instruction</h5>
-                            <p>Our instructors are seasoned professionals with years of experience in their
-                                respective fields & Experts advice</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- benefits -->
-
-    <!-- institutions -->
-    <section class="client-section">
-        <div class="container">
-            <h6 class="fw-medium text-center mb-4">Trusted by <span
-                    class="text-decoration-underline text-secondary">20+</span> Institutions Around the World</h6>
-            <div class="institutions-slider lazy slider">
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/01.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/02.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/03.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/04.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/05.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/06.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/07.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/02.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/03.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/04.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/05.svg')}}" alt="img">
-                </div>
-                <div class="institutions-items p-1">
-                    <img class="img-fluid" src="{{web_resource_url('assets/img/client/06.svg')}}" alt="img">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- institutions -->
-
-    <!-- top courses -->
-    <section class="top-courses-sec">
-        <img class="top-courses-bg" src="{{web_resource_url('assets/img/bg/bg-20.png')}}" alt="img">
-        <div class="container">
-            <div class="section-header text-center">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Our
-						Categories</span>
-                <h2>Top Courses & Categories</h2>
-                <p>The right course, guided by an expert mentor, can provide invaluable insights, practical skills
-                </p>
-            </div>
-            <div class="top-courses-slider lazy">
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-6.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Frontend Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-7.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Jira Management</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-8.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Figma Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-9.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Framer Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-10.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Vue js Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-11.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Shopify Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-10.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Vue js Developer</a></h6>
-                    </div>
-                </div>
-                <div>
-                    <div class="categories-item categories-item-three mb-0">
-                        <img class="mx-auto" src="{{web_resource_url('assets/img/category/icons/icon-11.svg')}}" alt="img">
-                        <h6 class="title"><a href="course-category.html">Shopify Developer</a></h6>
-                    </div>
-                </div>
-            </div>
-            <a href="course-category.html" class="btn btn-primary btn-md">View All Categories</a>
-        </div>
-    </section>
-    <!-- /top courses -->
-
-    <!-- trust -->
-    <section class="trust-sec">
-        <div class="container">
-            <div class="video-showcase">
-                <img src="{{web_resource_url('assets/img/feature/feature-1.jpg')}}" class="img-fluid w-100 rounded-2" alt="banner">
-                <div class="video-play">
-                    <a href="https://www.youtube.com/embed/1trvO6dqQUI" data-fancybox=""><i
-                            class="isax isax-play5"></i></a>
-                </div>
-            </div>
-            <div class="trust-content">
-                <img src="{{web_resource_url('assets/img/bg/bg-19.png')}}" alt="img" class="w-100 trust-bg">
-                <div class="row justify-content-between">
-                    <div class="col-md-4">
-                        <h4>Trusted by the 15,000+ happy students and online users since 2000</h4>
-                        <div class="d-flex align-items-center flex-wrap mt-5 gap-2">
-                            <a href="login.html" class="btn btn-secondary">Enroll as Student</a>
-                            <a href="become-an-instructor.html" class="btn btn-dark">Apply as Tutor</a>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="text-white mb-2">9.8/10</h4>
-                                <h5 class="text-white mb-2">Course Approval Score</h5>
-                                <p class="text-white mb-5">Achieving a complete course approval score is a
-                                    significant.</p>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="text-white mb-2">13k</h4>
-                                <h5 class="text-white mb-2">Satisfied Students Worldwide</h5>
-                                <p class="text-white mb-5">Satisfied students worldwide share a common thread of
-                                    happiness.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center bg-white user-goal p-2">
-                            <div class="avatar avatar-lg flex-shrink-0">
-                                <img class="rounded-pill" src="{{web_resource_url('assets/img/user/user-28.jpg')}}" alt="img">
-                            </div>
-                            <p class="text-gray-9 mb-0">“All courses are incredibly help people to achieve their
-                                goals”</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /trust -->
-
-    <!-- featured course -->
-    <section class="featured-courses-section">
-        <div class="container">
-            <div class="section-header text-center">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Featured
-						Courses</span>
-                <h2>What’s New in Jockey Club Bright Start Project</h2>
-                <p>Discover our featured courses, specially curated to help you gain in-demand skills</p>
-            </div>
-            <div class="feature-course-slider-2">
-                <div>
-                    <div class="course-item">
-                        <div class="course-img">
-                            <a href="course-details.html">
-                                <img src="{{web_resource_url('assets/img/course/course-36.jpg')}}" alt="img" class="img-fluid">
-                            </a>
-                            <div
-                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                <span class="price-badge ms-auto">$500</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="badge badge-md badge-soft-info rounded-pill">UI/UX</span>
-                            <a href="javascript:void(0);" class="fav-icon"><i class="isax isax-heart"></i></a>
-                        </div>
-                        <div class="pb-3 border-bottom mb-3">
-                            <h5><a href="course-details.html">Information About UI/UX Design Degree</a></h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="course-rating">
-									<span class="course-user"><a href="javascript:void(0);"><img
-                                                src="{{web_resource_url('assets/img/user/user-06.jpg')}}" alt="img"
-                                                class="img-fluid"></a></span>
-                                <a href="javascript:void(0);">Brenda Slaton</a>
-                            </div>
-                            <div class="d-flex">
-									<span class="d-flex align-items-center rating"><i
-                                            class="fa-solid fa-star text-warning me-2"></i>5.0</span>
-                            </div>
-                        </div>
-                        <a href="course-details.html" class="btn buy-course-btn">Buy Course Now</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="course-item">
-                        <div class="course-img">
-                            <a href="course-details.html">
-                                <img src="{{web_resource_url('assets/img/course/course-37.jpg')}}" alt="img" class="img-fluid">
-                            </a>
-                            <div
-                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                <span class="price-badge ms-auto">$300</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-								<span
-                                    class="badge badge-soft-danger badge-md rounded-pill shadow-none">Productivity</span>
-                            <a href="javascript:void(0);" class="fav-icon"><i class="isax isax-heart"></i></a>
-                        </div>
-                        <div class="pb-3 border-bottom mb-3">
-                            <h5><a href="course-details.html">Learn & Create ReactJS Tech Fundamentals Apps</a></h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="course-rating">
-									<span class="course-user"><a href="javascript:void(0);"><img
-                                                src="{{web_resource_url('assets/img/user/user-07.jpg')}}" alt="img"
-                                                class="img-fluid"></a></span>
-                                <a href="javascript:void(0);">David Benitez</a>
-                            </div>
-                            <div class="d-flex">
-									<span class="d-flex align-items-center rating"><i
-                                            class="fa-solid fa-star text-warning me-2"></i>5.0</span>
-                            </div>
-                        </div>
-                        <a href="course-details.html" class="btn buy-course-btn">Buy Course Now</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="course-item">
-                        <div class="course-img">
-                            <a href="course-details.html">
-                                <img src="{{web_resource_url('assets/img/course/course-38.jpg')}}" alt="img" class="img-fluid">
-                            </a>
-                            <div
-                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                <span class="price-badge ms-auto">$350</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-								<span
-                                    class="badge badge-soft-purple badge-md rounded-pill shadow-none">Management</span>
-                            <a href="javascript:void(0);" class="fav-icon"><i class="isax isax-heart"></i></a>
-                        </div>
-                        <div class="pb-3 border-bottom mb-3">
-                            <h5><a href="course-details.html">The Complete Business and Management Course</a></h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="course-rating">
-									<span class="course-user"><a href="javascript:void(0);"><img
-                                                src="{{web_resource_url('assets/img/user/user-08.jpg')}}" alt="img"
-                                                class="img-fluid"></a></span>
-                                <a href="javascript:void(0);">Calvin Johnsen</a>
-                            </div>
-                            <div class="d-flex">
-									<span class="d-flex align-items-center rating"><i
-                                            class="fa-solid fa-star text-warning me-2"></i>5.0</span>
-                            </div>
-                        </div>
-                        <a href="course-details.html" class="btn buy-course-btn">Buy Course Now</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="course-item">
-                        <div class="course-img">
-                            <a href="course-details.html">
-                                <img src="{{web_resource_url('assets/img/course/course-39.jpg')}}" alt="img" class="img-fluid">
-                            </a>
-                            <div
-                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                <span class="price-badge ms-auto">$500</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-								<span class="badge badge-soft-success badge-md rounded-pill shadow-none">Art &
-									Media</span>
-                            <a href="javascript:void(0);" class="fav-icon"><i
-                                    class="isax isax-heart5 text-danger"></i></a>
-                        </div>
-                        <div class="pb-3 border-bottom mb-3">
-                            <h5><a href="course-details.html">Build Creative Arts & media Course Completed</a></h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="course-rating">
-									<span class="course-user"><a href="javascript:void(0);"><img
-                                                src="{{web_resource_url('assets/img/user/user-09.jpg')}}" alt="img"
-                                                class="img-fluid"></a></span>
-                                <a href="javascript:void(0);">David Benitez</a>
-                            </div>
-                            <div class="d-flex">
-									<span class="d-flex align-items-center rating"><i
-                                            class="fa-solid fa-star text-warning me-2"></i>5.0</span>
-                            </div>
-                        </div>
-                        <a href="course-details.html" class="btn buy-course-btn">Buy Course Now</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="course-item">
-                        <div class="course-img">
-                            <a href="course-details-2.html">
-                                <img src="{{web_resource_url('assets/img/course/course-37.jpg')}}" alt="img" class="img-fluid">
-                            </a>
-                            <div
-                                class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-                                <span class="price-badge ms-auto">$300</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-								<span
-                                    class="badge badge-soft-danger badge-md rounded-pill shadow-none">Productivity</span>
-                            <a href="javascript:void(0);" class="fav-icon"><i class="isax isax-heart"></i></a>
-                        </div>
-                        <div class="pb-3 border-bottom mb-3">
-                            <h5><a href="course-details-2.html">Learn & Create ReactJS Tech Fundamentals Apps</a>
-                            </h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="course-rating">
-									<span class="course-user"><a href="javascript:void(0);"><img
-                                                src="{{web_resource_url('assets/img/user/user-07.jpg')}}" alt="img"
-                                                class="img-fluid"></a></span>
-                                <a href="javascript:void(0);">David Benitez</a>
-                            </div>
-                            <div class="d-flex">
-									<span class="d-flex align-items-center rating"><i
-                                            class="fa-solid fa-star text-warning me-2"></i>5.0</span>
-                            </div>
-                        </div>
-                        <a href="course-details.html" class="btn buy-course-btn">Buy Course Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-center">
-                <a href="course-list.html" class="btn btn-primary btn-md">View All Courses</a>
-            </div>
-        </div>
-    </section>
-    <!-- /featured course -->
-
-    <!-- community-to-learn -->
-    <section class="community-to-learn">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="section-header">
-							<span
-                                class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Advanced
-								Learning</span>
-                        <h2>Creating a community of learners.</h2>
-                        <p>We're dedicated to transforming education by providing a diverse range of high-quality
-                            courses that cater to learners of all levels.</p>
-                    </div>
-                    <div class="community-item d-flex align-items-center">
-							<span class="community-icon-1">
-								<i class="isax isax-book-saved5"></i>
-							</span>
-                        <div>
-                            <h5 class="mb-2">Learn from anywhere</h5>
-                            <p class="mb-0">Learning from anywhere has become a transform aspect of modern
-                                education, allowing individuals.</p>
-                        </div>
-                    </div>
-                    <div class="community-item d-flex align-items-center">
-							<span class="community-icon-2">
-								<i class="isax isax-bookmark5"></i>
-							</span>
-                        <div>
-                            <h5 class="mb-2">Expert Mentors</h5>
-                            <p class="mb-0">Learning from anywhere has become a transform aspect of modern
-                                education, allowing individuals.</p>
-                        </div>
-                    </div>
-                    <div class="community-item d-flex align-items-center">
-							<span class="community-icon-3">
-								<i class="isax isax-chart-26"></i>
-							</span>
-                        <div>
-                            <h5 class="mb-2">Learn in demand skills</h5>
-                            <p class="mb-0">In today's rapidly evolving job market, learning in demand skills is
-                                crucial for career advancement.</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <a href="login.html" class="btn btn-secondary btn-md">Enroll as Student</a>
-                        <a href="become-an-instructor.html" class="btn btn-dark btn-md">Apply as Tutor</a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="community-img d-none d-lg-flex">
-                        <img src="{{web_resource_url('assets/img/shapes/shape-5.png')}}" alt="img" class="img-fluid community-img-01">
-                        <img src="{{web_resource_url('assets/img/shapes/shape-6.png')}}" alt="img" class="img-fluid community-img-02">
-                        <img src="{{web_resource_url('assets/img/feature/feature-2.jpg')}}" alt="img" class="img-fluid community-img-03">
-                        <img src="{{web_resource_url('assets/img/feature/feature-3.jpg')}}" alt="img" class="img-fluid community-img-04">
-                        <img src="{{web_resource_url('assets/img/shapes/shape-7.svg')}}" alt="img" class="img-fluid community-img-05">
-                        <div class="community-count p-2">
-                            <div class="enrolled-list">
-                                <div class="avatar-list-stacked mb-2">
-										<span class="avatar avatar-rounded">
-											<img class="border border-white" src="{{web_resource_url('assets/img/user/user-01.jpg')}}"
-                                                 alt="img">
-										</span>
-                                    <span class="avatar avatar-rounded">
-											<img class="border border-white" src="{{web_resource_url('assets/img/user/user-03.jpg')}}"
-                                                 alt="img">
-										</span>
-                                    <span class="avatar avatar-rounded">
-											<img class="border border-white" src="{{web_resource_url('assets/img/user/user-07.jpg')}}"
-                                                 alt="img">
-										</span>
-                                    <span class="avatar avatar-rounded">
-											<img class="border border-white" src="{{web_resource_url('assets/img/user/user-08.jpg')}}"
-                                                 alt="img">
-										</span>
-                                    <span class="avatar avatar-rounded">
-											<img src="{{web_resource_url('assets/img/user/user-06.jpg')}}" alt="img">
-										</span>
-                                </div>
-                                <p class="mb-0"><span class="text-secondary">35K+</span> Students Enrolled</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /community-to-learn -->
-
-    <!-- client -->
-    <div class="cliets-section-one">
-        <div class="brand-slide">
-            <div>
-                <img src="{{web_resource_url('assets/img/client/08.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/09.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/10.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/11.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/12.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/13.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/08.svg')}}" alt="img">
-            </div>
-            <div>
-                <img src="{{web_resource_url('assets/img/client/09.svg')}}" alt="img">
-            </div>
-        </div>
-    </div>
-    <!-- /client -->
-
-    <!-- how it works -->
-    <div class="how-it-works-sec-two">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="me-5" data-aos="fade-up">
-                        <img src="{{web_resource_url('assets/img/feature/feature-27.jpg')}}" class="img-fluid rounded-5" alt="img">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="how-it-works-content aos" data-aos="fade-up">
-                        <div class="section-header">
-								<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">How
-									it Works</span>
-                            <h2 class="mb-1">Start your Learning Journey Today!</h2>
-                            <p>Unlock Your Potential and Achieve Your Dreams with Our Comprehensive Learning
-                                Resources!</p>
-                        </div>
-                        <div class="d-flex align-items-center works-items">
-                            <span class="count">01</span>
-                            <div>
-                                <h5 class="mb-1">Sign-Up or Register</h5>
-                                <p>Once you're on the website's homepage, look for the Sign-Up, Register, or Create
-                                    Account button.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center works-items">
-                            <span class="count">02</span>
-                            <div>
-                                <h5 class="mb-1">Complete Your Profile</h5>
-                                <p>After verifying your email, you may be asked to complete additional profile
-                                    information.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center works-items">
-                            <span class="count">03</span>
-                            <div>
-                                <h5 class="mb-1">Choose Courses or Programs</h5>
-                                <p>Depending on the website, after registration, you might be able to browse and
-                                    choose courses or programs to enroll in.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center works-items mb-0 pb-0 border-0">
-                            <span class="count">04</span>
-                            <div>
-                                <h5 class="mb-1">Access Your Account</h5>
-                                <p>Should have access to the website’s features, such as enrolling in courses,
-                                    materials, or tracking progress.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- how it works -->
-
-    <!-- featured instructor -->
-    <div class="featured-instructor-sec">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-					<span class="fw-medium text-light text-decoration-underline mb-2 d-inline-block">Featured
-						Instructors</span>
-                <h2 class="text-white">Top Class & Professional Instructors </h2>
-                <p class="text-light">Empowering Change: Stories from Those Who Took the Leap</p>
-            </div>
-            <div class="featured-instructor-slider lazy">
-                <div class="instructor-item instructor-item-three mb-0" data-aos="flip-left">
-                    <div class="instructors-img ">
-                        <a href="instructor-list.html" tabindex="0">
-                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/instructor/instructor-09.jpg')}}">
-                        </a>
-                        <div class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-								<span class="verify">
-									<img src="{{web_resource_url('assets/img/icons/verify-icon.svg')}}" alt="img" class="img-fluid">
-								</span>
-                            <a href="javascript:void(0);" class="favourite ms-auto">
-                                <i class="isax isax-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="instructor-content">
-                        <div>
-                            <h3 class="title">
-                                <a href="instructor-details.html">Joyce Pence</a>
-                            </h3>
-                            <span class="designation">Lead Designer</span>
-                        </div>
-                        <p class="rating">
-                            <i class="fas fa-star me-1"></i>4.8
-                        </p>
-                    </div>
-                </div>
-                <div class="instructor-item instructor-item-three mb-0" data-aos="flip-left">
-                    <div class="instructors-img">
-                        <a href="instructor-list.html" tabindex="0">
-                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/instructor/instructor-10.jpg')}}">
-                        </a>
-                        <div class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-								<span class="verify">
-									<img src="{{web_resource_url('assets/img/icons/verify-icon.svg')}}" alt="img" class="img-fluid">
-								</span>
-                            <a href="javascript:void(0);" class="favourite ms-auto">
-                                <i class="isax isax-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="instructor-content">
-                        <div>
-                            <h3 class="title">
-                                <a href="instructor-details.html">Edith Dorsey</a>
-                            </h3>
-                            <span class="designation">Accountant</span>
-                        </div>
-                        <p class="rating">
-                            <i class="fas fa-star me-1"></i>5.0
-                        </p>
-                    </div>
-                </div>
-                <div class="instructor-item instructor-item-three mb-0" data-aos="flip-left">
-                    <div class="instructors-img ">
-                        <a href="instructor-list.html" tabindex="0">
-                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/instructor/instructor-11.jpg')}}">
-                        </a>
-                        <div class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-								<span class="verify">
-									<img src="{{web_resource_url('assets/img/icons/verify-icon.svg')}}" alt="img" class="img-fluid">
-								</span>
-                            <a href="javascript:void(0);" class="favourite ms-auto">
-                                <i class="isax isax-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="instructor-content">
-                        <div>
-                            <h3 class="title">
-                                <a href="instructor-details.html">Ruben Holmes</a>
-                            </h3>
-                            <span class="designation">Architect</span>
-                        </div>
-                        <p class="rating">
-                            <i class="fas fa-star me-1"></i>4.8
-                        </p>
-                    </div>
-                </div>
-                <div class="instructor-item instructor-item-three mb-0" data-aos="flip-left">
-                    <div class="instructors-img">
-                        <a href="instructor-list.html" tabindex="0">
-                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/instructor/instructor-12.jpg')}}">
-                        </a>
-                        <div class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-								<span class="verify">
-									<img src="{{web_resource_url('assets/img/icons/verify-icon.svg')}}" alt="img" class="img-fluid">
-								</span>
-                            <a href="javascript:void(0);" class="favourite ms-auto">
-                                <i class="isax isax-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="instructor-content">
-                        <div>
-                            <h3 class="title">
-                                <a href="instructor-details.html">Carol Magner</a>
-                            </h3>
-                            <span class="designation">Lead Designer</span>
-                        </div>
-                        <p class="rating">
-                            <i class="fas fa-star me-1"></i>4.5
-                        </p>
-                    </div>
-                </div>
-                <div class="instructor-item instructor-item-three mb-0" data-aos="flip-left">
-                    <div class="instructors-img">
-                        <a href="instructor-list.html" tabindex="0">
-                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/instructor/instructor-10.jpg')}}">
-                        </a>
-                        <div class="position-absolute start-0 top-0 d-flex align-items-start w-100 z-index-2 p-2">
-								<span class="verify">
-									<img src="{{web_resource_url('assets/img/icons/verify-icon.svg')}}" alt="img" class="img-fluid">
-								</span>
-                            <a href="javascript:void(0);" class="favourite ms-auto">
-                                <i class="isax isax-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="instructor-content">
-                        <div>
-                            <h3 class="title">
-                                <a href="instructor-details.html">Edith Dorsey</a>
-                            </h3>
-                            <span class="designation">Accountant</span>
-                        </div>
-                        <p class="rating">
-                            <i class="fas fa-star me-1"></i>5.0
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- featured instructor -->
-
-    <!-- testimonials -->
-    <div class="testimonials-section testimonials-sec-one text-center">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Featured
-						Instructors</span>
-                <h2>Top Class & Professional Instructors</h2>
-                <p>Words from Those Who’ve Experienced Real Growth</p>
-            </div>
-            <div class="testimonials-slider lazy mt-4">
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white" data-aos="flip-right">
-                        <div class="position-relative d-inline-flex">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="student-details.html"><img class="img-fluid rounded-circle"
-                                                                    src="{{web_resource_url('assets/img/user/user-41.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="student-details.html">Brenda Slaton</a></h6>
-                        <p class="designation">Designer</p>
-                        <p class="mb-3 text-truncate line-clamb-2">This mentor helped me understand concepts that I
-                            had been struggling with for weeks.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white" data-aos="flip-right">
-                        <div class="position-relative d-inline-flex">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="student-details.html"><img class="img-fluid rounded-circle"
-                                                                    src="{{web_resource_url('assets/img/user/user-42.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="student-details.html">Adrian Dennis</a></h6>
-                        <p class="designation">Developer</p>
-                        <p class="mb-3 text-truncate line-clamb-2">I’ve learned so much from my mentor’s personal
-                            experience.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white" data-aos="flip-right">
-                        <div class="position-relative d-inline-flex">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="student-details.html"><img class="img-fluid rounded-circle"
-                                                                    src="{{web_resource_url('assets/img/user/user-43.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="student-details.html">Adrian Coztanza</a></h6>
-                        <p class="designation">Architect</p>
-                        <p class="mb-3 text-truncate line-clamb-2">The advice was useful, but I wish my mentor had
-                            been more available for follow-up discussions.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="testimonials-item rounded-3 bg-white">
-                        <div class="position-relative d-inline-flex">
-                            <div class="avatar rounded-circle avatar-xxl border border-white border-3">
-                                <a href="student-details.html"><img class="img-fluid rounded-circle"
-                                                                    src="{{web_resource_url('assets/img/user/user-43.jpg')}}" alt="img"></a>
-                            </div>
-                            <i class="isax isax-quote-up5 bg-secondary quote rounded-pill fs-16 p-1"></i>
-                        </div>
-                        <h6 class="mb-1"><a href="student-details.html">Adrian Coztanza</a></h6>
-                        <p class="designation">Architect</p>
-                        <p class="mb-3 text-truncate line-clamb-2">The advice was useful, but I wish my mentor had
-                            been more available for follow-up discussions.</p>
-                        <div>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                            <i class="fa-solid fa-star text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- testimonials -->
-
-    <!-- faq -->
-    <div class="faq-section faq-banner-bg">
-        <img src="{{web_resource_url('assets/img/bg/bg-21.svg')}}" alt="img" class="d-lg-flex d-none faq-bg2">
-        <img src="{{web_resource_url('assets/img/bg/bg-22.svg')}}" alt="img" class="d-lg-flex d-none faq-bg3">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="faq-img" data-aos="fade-up">
-                        <img class="img-fluid rounded-5" src="{{web_resource_url('assets/img/feature/feature-4.jpg')}}" alt="img">
-                        <span><i class="isax isax-message-question5"></i></span>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="faq-content">
-                        <div class="section-header" data-aos="fade-up">
-								<span
-                                    class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Your
-									Questions are Answered</span>
-                            <h2 class="mb-1">Frequently Asked Questions</h2>
-                            <p>Explore detailed answers to the most common questions about our platform.</p>
-                        </div>
-                        <div class="accordion accordion-customicon1 accordions-items-seperate"
-                             id="accordioncustomicon1Example">
-                            <div class="accordion-item" data-aos="fade-up">
-                                <h2 class="accordion-header" id="headingcustomicon1One">
-                                    <a href="#" class="accordion-button" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1One" aria-expanded="true"
-                                       aria-controls="collapsecustomicon1One">
-                                        How do I enroll in a course? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1One" class="accordion-collapse collapse show"
-                                     aria-labelledby="headingcustomicon1One"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Two">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Two" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        How long do I have access to a course? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Two" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Two"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Three">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Three" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        What payment methods are accepted? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Three" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Three"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Four">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Four" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        Will I receive a certificate after completing a course? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Four" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Four"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Five">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Five" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        What is the purpose of this ArrogateLMS ? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Five" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Five"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" data-aos="fade-up" data-aos-delay="250">
-                                <h2 class="accordion-header" id="headingcustomicon1Six">
-                                    <a href="#" class="accordion-button collapsed" data-bs-toggle="collapse"
-                                       data-bs-target="#collapsecustomicon1Six" aria-expanded="false"
-                                       aria-controls="collapsecustomicon1One">
-                                        What can I do with my certificate? <i
-                                            class="isax isax-add fs-20 fw-semibold ms-1"></i>
-                                    </a>
-                                </h2>
-                                <div id="collapsecustomicon1Six" class="accordion-collapse collapse"
-                                     aria-labelledby="headingcustomicon1Six"
-                                     data-bs-parent="#accordioncustomicon1Example">
-                                    <div class="accordion-body pt-0">
-                                        <p>Many websites offer a Certificate of Completion for paid courses. Free
-                                            courses may or may not include a certificate, depending on the
-                                            platform’s policies.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- faq -->
-
-    <!-- Latest Blog -->
-    <section class="latest-blog-three latest-blog-five">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-					<span class="fw-medium text-secondary text-decoration-underline mb-2 d-inline-block">Articles &
-						Updates</span>
-                <h2>Our Recent Blog & Articles</h2>
-                <p>Explore curated content to enlighten, entertain and engage global readers.</p>
-            </div>
-            <div class="latest-blog-main">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="event-blog-three blog-three-one" data-aos="fade-up">
-                            <div class="blog-img-three">
-                                <a href="blog-grid.html">
-                                    <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/blog/blog-35.jpg')}}">
-                                </a>
-                            </div>
-                            <div class="latest-blog-content">
-                                <div class="event-three-title">
-                                    <div class="event-span-three d-flex align-items-center">
-                                        <span class="category">Lifestyle</span>
-                                        <div class="blog-date">
-                                            <i class="fa-solid fa-calendar"></i><span>09 Aug 2025</span>
-                                        </div>
-                                    </div>
-                                    <a href="blog-grid.html">
-                                        <h5>Why an LMS is Essential for Modern Education</h5>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="blog-user-top">
-                                <a href="#"><img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">David Benitez</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="event-blog-three blog-three-one" data-aos="fade-up">
-                                    <div class="blog-img-three">
-                                        <a href="blog-details.html">
-                                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/blog/blog-36.jpg')}}">
-                                        </a>
-                                    </div>
-                                    <div class="latest-blog-content">
-                                        <div class="event-three-title">
-                                            <div class="event-span-three d-flex align-items-center">
-                                                <span class="category">Productivity</span>
-                                                <div class="blog-date">
-                                                    <i class="fa-solid fa-calendar"></i> <span>09 Aug 2025</span>
-                                                </div>
-                                            </div>
-                                            <h5><a href="blog-grid.html">The Impact of LMS on Academic Journey
-                                                    Education</a></h5>
-                                        </div>
-                                    </div>
-                                    <div class="blog-user-top">
-                                        <a href="#"><img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">David Benitez</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="event-blog-three blog-three-one" data-aos="fade-up">
-                                    <div class="blog-img-three">
-                                        <a href="blog-grid.html">
-                                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/blog/blog-38.jpg')}}">
-                                        </a>
-                                    </div>
-                                    <div class="latest-blog-content">
-                                        <div class="event-three-title">
-                                            <div class="event-span-three d-flex align-items-center">
-                                                <span class="category">Productivity</span>
-                                                <div class="blog-date">
-                                                    <i class="fa-solid fa-calendar"></i><span>09 Aug 2025</span>
-                                                </div>
-                                            </div>
-                                            <h5><a href="blog-grid.html">Maximizing Academic Success with the Right
-                                                    LMS</a></h5>
-                                        </div>
-                                    </div>
-                                    <div class="blog-user-top">
-                                        <a href="#"><img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">David Benitez</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="event-blog-three blog-three-one" data-aos="fade-up">
-                                    <div class="blog-img-three">
-                                        <a href="blog-grid.html">
-                                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/blog/blog-37.jpg')}}">
-                                        </a>
-                                    </div>
-                                    <div class="latest-blog-content">
-                                        <div class="event-three-title">
-                                            <div class="event-span-three d-flex align-items-center">
-                                                <span class="category">UI /UX</span>
-                                                <div class="blog-date">
-                                                    <i class="fa-solid fa-calendar"></i><span>09 Aug 2025</span>
-                                                </div>
-                                            </div>
-                                            <h5><a href="blog-grid.html">Promoting Health & Well being in
-                                                    Schools</a></h5>
-                                        </div>
-                                    </div>
-                                    <div class="blog-user-top">
-                                        <a href="#"><img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">David Benitez</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="event-blog-three blog-three-one" data-aos="fade-up">
-                                    <div class="blog-img-three">
-                                        <a href="blog-grid.html">
-                                            <img class="img-fluid" alt="Img" src="{{web_resource_url('assets/img/blog/blog-39.jpg')}}">
-                                        </a>
-                                    </div>
-                                    <div class="latest-blog-content">
-                                        <div class="event-three-title">
-                                            <div class="event-span-three d-flex align-items-center">
-                                                <span class="category">Development</span>
-                                                <div class="blog-date">
-                                                    <i class="fa-solid fa-calendar"></i><span>09 Aug 2025</span>
-                                                </div>
-                                            </div>
-                                            <h5><a href="blog-grid.html">How to Build and Run a Pilot Mentoring
-                                                    Program</a></h5>
-
-                                        </div>
-                                    </div>
-                                    <div class="blog-user-top">
-                                        <a href="#"><img src="{{web_resource_url('assets/img/user/user-01.jpg')}}" alt="">David Benitez</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <a class="btn btn-view-all" data-aos="fade-up" href="blog-grid.html">View All Articles</a>
-            </div>
-        </div>
-    </section>
-    <!-- /Latest Blog -->
+        </section>
+        <!-- END CONTACT INFO-->
+    </main>
+    <!-- END MAIN-->
 
     <x-web.footer/>
 
 </div>
+
+<!-- Jquery JS-->
+<script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap JS-->
+<script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+<!-- Vendor JS-->
+<script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
+<script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
+<!--
+| (Load Extensions only on Local File Systems !
+| The following part can be removed on Server for On Demand Loading)
+-->
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
+<script type="text/javascript"
+        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
+<script type="text/javascript"
+        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js')}}"></script>
+<script type="text/javascript"
+        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
+<!-- Config Revolution Slider-->
+<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEmXgQ65zpsjsEAfNPP9mBAz-5zjnIZBw"></script>--}}
+<script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
+
+<!-- Main JS-->
+<script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
 
 </body>
 

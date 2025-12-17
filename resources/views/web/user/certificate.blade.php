@@ -155,7 +155,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div><img src="{{web_resource_url('assets/img/icon/certificate.svg')}}" class="img-fluid" alt=""></div>
+                    <div><img src="{{web_resource_url('assets/admin/img/icon/certificate.svg')}}" class="img-fluid" alt=""></div>
                     <div class="text-end mt-4">
                         <a href="#" class="btn btn-secondary rounded-pill"><i
                                 class="isax isax-import me-2"></i>Download</a>
