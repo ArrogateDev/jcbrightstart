@@ -11,23 +11,8 @@
     <div class="login-content">
         <div class="row">
             <div class="col-lg-6 login-bg d-none d-lg-flex">
-                <div class="login-carousel">
-
-                    @for($i = 1; $i <= 3; $i++)
-                        <div>
-                            <div class="login-carousel-section mb-3">
-                                <div class="login-banner">
-                                    <img src="{{web_resource_url('assets/img/LoginPage.png')}}" class="img-fluid" alt="Logo">
-                                </div>
-                                <div class="mentor-course text-center">
-                                    <h3 class="mb-2">Welcome to <br><span class="text-secondary">Jockey Club Bright Start Project</span>.</h3>
-                                    <p>Platform designed to help organizations, educators, and learners manage, deliver,
-                                        and track learning and training activities.</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-
+                <div class="login-banner">
+                    <img src="{{web_resource_url('assets/img/LoginPage.png')}}" class="img-fluid" alt="Logo">
                 </div>
             </div>
 

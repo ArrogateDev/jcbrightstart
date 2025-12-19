@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-web.head/>
+<x-web.user.head/>
 <script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 
 <body>
@@ -124,7 +124,7 @@
         </div>
     </div>
 
-    <x-web.footer/>
+    <x-web.user.footer/>
 
 </div>
 

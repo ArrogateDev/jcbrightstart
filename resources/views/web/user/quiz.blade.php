@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-web.head/>
+<x-web.user.head/>
 
 <body>
 
@@ -125,7 +125,7 @@
     </div>
 
 
-    <x-web.footer/>
+    <x-web.user.footer/>
 
     <!-- Edit Review -->
     <div class="modal fade" id="edit_review">

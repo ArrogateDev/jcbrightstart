@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-web.head/>
+<x-web.user.head/>
 
 <body>
 
@@ -141,7 +141,7 @@
         </div>
     </div>
 
-    <x-web.footer/>
+    <x-web.user.footer/>
 
     <!-- View Certificate -->
     <div class="modal fade" id="view_certificate">
