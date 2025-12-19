@@ -76,8 +76,10 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? '<span class="badge bg-success-transparent">{{__('启用')}}</span>'
-                : '<span class="badge bg-danger-transparent">{{__('禁用')}}</span>';
+                ? '<span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>'
+                : item.status === 1
+                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>'
+                    : '<span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>';
 
             const row = `
                 <tr>
