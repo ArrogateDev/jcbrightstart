@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Models\Certificate;
 use App\Models\Manage\Authority;
 use App\Models\Manage\Role;
+use App\Models\NewsCategory;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -78,6 +79,24 @@ class CommonController extends Controller
             })
             ->orderByDesc('id')
             ->select('id', 'name as title')
+            ->paginate(limit_page());
+
+        return $this->responseSuccess($list);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getNewsCategoryList(Request $request)
+    {
+        $keyword = $request->query('keyword');
+
+        $list = NewsCategory::query()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->orderByDesc('id')
+            ->select('id', 'title')
             ->paginate(limit_page());
 
         return $this->responseSuccess($list);

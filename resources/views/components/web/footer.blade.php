@@ -4,7 +4,7 @@
             <div class="footer-wrap">
                 <div class="footer__logo">
                     <a href="#">
-                        <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jobby" style="height: 65px;">
+                        <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project" style="height: 65px;">
                     </a>
                 </div>
                 <ul class="list-unstyled list-inline footer__list">
@@ -60,7 +60,7 @@
                             </a>
                         </li>
                     </ul>
-                    <span class="copyright__text">© 2019 JOBBY. Get The Theme</span>
+                    <span class="copyright__text">© {{date('Y')}} Jockey Club Bright Start Project. Get The Theme</span>
                 </div>
             </div>
         </div>

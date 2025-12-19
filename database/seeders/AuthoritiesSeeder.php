@@ -63,29 +63,6 @@ class AuthoritiesSeeder extends Seeder
                     ]
                 ],
                 [
-                    'name' => '老师管理',
-                    'alias' => 'TeacherList',
-                    'icon' => 'isax isax-profile-2user5',
-                    'sort' => 0,
-                    'type' => Authority::GPS_TYPE,
-                    'children' => [
-                        [
-                            'name' => '编辑老师',
-                            'alias' => 'TeacherEdit',
-                            'sort' => 0,
-                            'type' => Authority::BUTTON_TYPE,
-                            'children' => []
-                        ],
-                        [
-                            'name' => '删除老师',
-                            'alias' => 'TeacherDelete',
-                            'sort' => 0,
-                            'type' => Authority::BUTTON_TYPE,
-                            'children' => []
-                        ]
-                    ]
-                ],
-                [
                     'name' => '家长管理',
                     'alias' => 'ParentList',
                     'icon' => 'fa-solid fa-person-breastfeeding',
@@ -171,6 +148,66 @@ class AuthoritiesSeeder extends Seeder
                         [
                             'name' => '删除证书',
                             'alias' => 'CertificateDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '消息管理',
+                    'alias' => 'NewsList',
+                    'icon' => 'isax isax-messages-35',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加消息',
+                            'alias' => 'NewsAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑消息',
+                            'alias' => 'NewsEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除消息',
+                            'alias' => 'NewsDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '消息分类管理',
+                    'alias' => 'NewsCategoryList',
+                    'icon' => 'isax isax-ticket5',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加消息分类',
+                            'alias' => 'NewsCategoryAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑消息分类',
+                            'alias' => 'NewsCategoryEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除消息分类',
+                            'alias' => 'NewsCategoryDelete',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []

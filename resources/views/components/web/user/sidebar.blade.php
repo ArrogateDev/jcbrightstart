@@ -1,5 +1,5 @@
 @props(['active' => 'dashboard'])
-<div class="col-lg-3 theiaStickySidebar">
+<div class="col-lg-3 theiaStickySidebar d-none d-md-block">
     <div class="settings-sidebar mb-lg-0">
         <div>
             <h6 class="mb-3">Main Menu</h6>

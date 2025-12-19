@@ -673,7 +673,7 @@
             <div class="section-row contact-info-wrap">
                 <div class="contact-info-col">
                     <div class="map-wrapper js-google-map" data-makericon="images/icon/map-marker.png')}}"
-                         data-makers="[[&quot;Jobby&quot;, &quot;Now that you visited our website,&lt;br&gt; how about checking out our office too?&quot;, 40.715681, -74.003427]]">
+                         data-makers="[[&quot;Jockey Club Bright Start Project&quot;, &quot;Now that you visited our website,&lt;br&gt; how about checking out our office too?&quot;, 40.715681, -74.003427]]">
                         <div class="map__holder js-map-holder js-matchHeight" id="map"></div>
                     </div>
                 </div>
@@ -703,7 +703,7 @@
                                             data-cfemail="e6a3948f85cbded4a6839e878b968a83c885898b">[email&#160;protected]</a>
                                     </li>
                                     <li class="list-contact__item">
-                                        <span class="lnr lnr-earth list-contact__icon"></span>www.Jobby.com
+                                        <span class="lnr lnr-earth list-contact__icon"></span>www.Jockey Club Bright Start Project.com
                                     </li>
                                     <li class="list-contact__item">
                                         <span class="lnr lnr-clock list-contact__icon"></span>Mon - Sat: 08:00 am -

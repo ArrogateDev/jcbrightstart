@@ -134,6 +134,7 @@
             <label class="form-label mb-1">
                 {{__('状态')}}
                 <span class="text-danger ms-1">*</span>
+                <span id="error-container-status"></span>
             </label>
             <div class="d-flex align-items-center ">
                 <div class="form-check me-3">
@@ -151,7 +152,6 @@
                     </label>
                 </div>
             </div>
-            <div id="error-container-status" class="mt-1"></div>
         </div>
 
         <x-slot:footer>

@@ -1,0 +1,198 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Constants\ResponseCode;
+use App\Exceptions\ApiException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\NewsRequest;
+use App\Models\News;
+use App\Tools\FileTool;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
+class NewsController extends Controller
+{
+
+    public function index()
+    {
+        return view('admin.news.list');
+    }
+
+    public function view(News $news)
+    {
+        $news->load('category:id,title');
+
+        return view('admin.news.new', ['news' => $news]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list(Request $request)
+    {
+        $keyword = $request->query('keyword');
+        $status = $request->query('status');
+
+        $list = News::query()
+            ->with('category:id,title')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->when($status, function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->paginate(limit_page());
+
+        $list->map(function ($item) {
+            $item->url = route('admin.news.update.view.html', ['news' => $item->id]);
+        });
+
+        $list->append(['category_text']);
+
+        return $this->responseSuccess($list);
+    }
+
+    /**
+     * @param NewsRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function store(NewsRequest $request)
+    {
+        $user_id = $request->user('admin')->id;
+        if (!(($lock = Cache::lock("submit_news_store_lock:$user_id", 360))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+
+        try {
+
+            $file = $request->file('thumbnail');
+
+            DB::beginTransaction();
+
+            $news = new News();
+            foreach ($inputs as $key => $value) {
+                $news->$key = $value;
+            }
+
+            if ($file) {
+                $file_path = FileTool::existsAndMake('news');
+                $extension = $file->getClientOriginalExtension();
+                $file_name = uniqid() . '.' . $extension;
+                Storage::putFileAs($file_path, $file, $file_name);
+                $news->thumbnail = $file_path . $file_name;
+            }
+
+            if ($news->save() === false) {
+                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+            }
+
+            DB::commit();
+
+            return $this->responseSuccess(['id' => $news->id], __('成功'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * @param NewsRequest $request
+     * @param News $news
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function update(NewsRequest $request, News $news)
+    {
+        if (!(($lock = Cache::lock("submit_news_update_lock:$news->id", 360))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+
+        try {
+
+            DB::beginTransaction();
+
+            $file = $request->file('thumbnail');
+            if ($file) {
+                $file_path = FileTool::existsAndMake('news');
+                $extension = $file->getClientOriginalExtension();
+                $file_name = uniqid() . '.' . $extension;
+                Storage::putFileAs($file_path, $file, $file_name);
+
+                $old_path = $news->getRawOriginal('thumbnail');
+                FileTool::existsAnddelete($old_path);
+
+                $news->thumbnail = $file_path . $file_name;
+            }
+
+            foreach ($inputs as $key => $value) {
+                $news->$key = $value;
+            }
+
+            if ($news->save() === false) {
+                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+            }
+
+            DB::commit();
+
+            return $this->responseSuccess(['id' => $news->id], __('成功'));
+        } catch (ApiException $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * @param News $news
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function destroy(News $news)
+    {
+        if (!(($lock = Cache::lock("submit_news_destroy_lock:$news->id", 360))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        try {
+
+            $old_path = $news->getRawOriginal('thumbnail');
+            FileTool::existsAnddelete($old_path);
+
+            $news->delete();
+
+            return $this->responseSuccess(null, __('成功'));
+        } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+}

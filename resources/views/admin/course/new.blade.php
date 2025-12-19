@@ -224,7 +224,8 @@
                                                                                   role="button"
                                                                                   style="box-shadow: none;">
                                                                                 <i class="fa-solid fa-grip-vertical me-2 text-muted" style="cursor: move;"></i>
-                                                                                <span class="chapter-number fw-medium">{{__('章节')}} <span class="chapter-index-number">{{$chapterIndex + 1}}</span></span>
+                                                                                <span class="chapter-number fw-medium">{{__('章节')}} <span
+                                                                                        class="chapter-index-number">{{$chapterIndex + 1}}</span></span>
                                                                             </span>
                                                                         </h2>
                                                                         <div class="d-flex justify-content-between align-items-center p-2 bg-light border-top chapter-actions">
@@ -244,101 +245,107 @@
                                                                                 </button>
                                                                             </div>
                                                                         </div>
-                                                                        <div id="chapter-collapse-{{$chapterIndex}}" class="accordion-collapse collapse show" data-bs-parent="#chapter-accordion-{{$chapterIndex}}">
+                                                                        <div id="chapter-collapse-{{$chapterIndex}}" class="accordion-collapse collapse show"
+                                                                             data-bs-parent="#chapter-accordion-{{$chapterIndex}}">
                                                                             <div class="accordion-body">
                                                                                 <input type="hidden" name="chapters[{{$chapterIndex}}][id]" value="{{$chapter->id??''}}">
                                                                                 <div class="units-container" data-chapter-index="{{$chapterIndex}}">
-                                                                        @if(isset($chapter->units) && count($chapter->units) > 0)
-                                                                            @foreach($chapter->units as $unitIndex => $unit)
-                                                                                <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIndex}}">
-                                                                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                                                                        <div class="flex-grow-1">
-                                                                                            <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][title]"
-                                                                                                   class="form-control form-control-sm mb-2"
-                                                                                                   placeholder="{{__('单元标题')}}"
-                                                                                                   value="{{$unit->title??''}}" required>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input unit-type-radio"
-                                                                                                       type="radio"
-                                                                                                       name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
-                                                                                                       id="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}"
-                                                                                                       value="0"
-                                                                                                       @checked(($unit->type??'youtube') == 0)>
-                                                                                                <label class="form-check-label" for="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}">
-                                                                                                    {{__('Youtube URL')}}
-                                                                                                </label>
-                                                                                            </div>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input unit-type-radio"
-                                                                                                       type="radio"
-                                                                                                       name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
-                                                                                                       id="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}"
-                                                                                                       value="1"
-                                                                                                       @checked(($unit->type??'') == 1)>
-                                                                                                <label class="form-check-label" for="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}">
-                                                                                                    {{__('PDF文件')}}
-                                                                                                </label>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="    margin: 5px;">
-                                                                                            <i class="fa-solid fa-trash"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="unit-content-youtube" style="display: {{($unit->type??'youtube') == 'youtube' ? 'block' : 'none'}};">
-                                                                                        <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][video_url]"
-                                                                                               class="form-control form-control-sm"
-                                                                                               placeholder="{{__('Youtube URL链接')}}"
-                                                                                               value="{{$unit->video_url??''}}">
-                                                                                        @if(isset($unit->video_url) && $unit->video_url)
-                                                                                            <div class="mt-2">
-                                                                                                <a href="javascript:void(0);" class="preview-video-btn" data-video-url="{{$unit->video_url}}">
-                                                                                                    <img class="img-fluid rounded" style="max-height: 150px;"
-                                                                                                         src="{{web_resource_url('assets/admin/img/course/add-course-1.jpg')}}" alt="preview">
-                                                                                                    <div class="play-icon">
-                                                                                                        <i class="fa-solid fa-play"></i>
+                                                                                    @if(isset($chapter->units) && count($chapter->units) > 0)
+                                                                                        @foreach($chapter->units as $unitIndex => $unit)
+                                                                                            <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIndex}}">
+                                                                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                                                                    <div class="flex-grow-1">
+                                                                                                        <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][title]"
+                                                                                                               class="form-control form-control-sm mb-2"
+                                                                                                               placeholder="{{__('单元标题')}}"
+                                                                                                               value="{{$unit->title??''}}" required>
+                                                                                                        <div class="form-check form-check-inline">
+                                                                                                            <input class="form-check-input unit-type-radio"
+                                                                                                                   type="radio"
+                                                                                                                   name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
+                                                                                                                   id="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                                   value="0"
+                                                                                                                @checked(($unit->type??'youtube') == 0)>
+                                                                                                            <label class="form-check-label" for="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                                {{__('Youtube URL')}}
+                                                                                                            </label>
+                                                                                                        </div>
+                                                                                                        <div class="form-check form-check-inline">
+                                                                                                            <input class="form-check-input unit-type-radio"
+                                                                                                                   type="radio"
+                                                                                                                   name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
+                                                                                                                   id="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                                   value="1"
+                                                                                                                @checked(($unit->type??'') == 1)>
+                                                                                                            <label class="form-check-label" for="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                                {{__('PDF文件')}}
+                                                                                                            </label>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </a>
+                                                                                                    <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="    margin: 5px;">
+                                                                                                        <i class="fa-solid fa-trash"></i>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="unit-content-youtube"
+                                                                                                     style="display: {{($unit->type??'youtube') == 'youtube' ? 'block' : 'none'}};">
+                                                                                                    <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][video_url]"
+                                                                                                           class="form-control form-control-sm"
+                                                                                                           placeholder="{{__('Youtube URL链接')}}"
+                                                                                                           value="{{$unit->video_url??''}}">
+                                                                                                    @if(isset($unit->video_url) && $unit->video_url)
+                                                                                                        <div class="mt-2">
+                                                                                                            <a href="javascript:void(0);" class="preview-video-btn"
+                                                                                                               data-video-url="{{$unit->video_url}}">
+                                                                                                                <img class="img-fluid rounded" style="max-height: 150px;"
+                                                                                                                     src="{{web_resource_url('assets/admin/img/course/add-course-1.jpg')}}"
+                                                                                                                     alt="preview">
+                                                                                                                <div class="play-icon">
+                                                                                                                    <i class="fa-solid fa-play"></i>
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                </div>
+                                                                                                <div class="unit-content-pdf" style="display: {{($unit->type??'') == 'pdf' ? 'block' : 'none'}};">
+                                                                                                    <div class="input-group">
+                                                                                                        <input type="file" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][pdf]"
+                                                                                                               class="form-control form-control-sm unit-pdf-file-input"
+                                                                                                               accept="application/pdf"
+                                                                                                               style="display: none;">
+                                                                                                        <button type="button" class="btn btn-sm btn-outline-primary unit-pdf-select-btn">
+                                                                                                            <i class="fa-solid fa-file-pdf me-1"></i>{{__('选择PDF文件')}}
+                                                                                                        </button>
+                                                                                                        <input type="text" class="form-control form-control-sm unit-pdf-file-name"
+                                                                                                               placeholder="{{__('未选择文件')}}"
+                                                                                                               value="{{isset($unit->pdf) && $unit->pdf ? basename($unit->pdf) : ''}}"
+                                                                                                               readonly>
+                                                                                                    </div>
+                                                                                                    @if(isset($unit->pdf) && $unit->pdf)
+                                                                                                        <div class="unit-pdf-existing-file mt-2">
+                                                                                                            <a href="{{asset($unit->pdf)}}" target="_blank"
+                                                                                                               class="btn btn-sm btn-outline-primary unit-pdf-view-btn">
+                                                                                                                <i class="fa-solid fa-file-pdf me-1"></i>{{__('查看当前PDF')}}
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                </div>
+                                                                                                <div class="mt-2">
+                                                                                                    <label class="form-label small">{{__('绑定测验')}}</label>
+                                                                                                    <select name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][quiz_id]"
+                                                                                                            class="form-control form-control-sm unit-quiz-select"
+                                                                                                            data-chapter-index="{{$chapterIndex}}"
+                                                                                                            data-unit-index="{{$unitIndex}}">
+                                                                                                        <option value="">{{__('请选择测验')}}</option>
+                                                                                                        @if(isset($unit->quiz_id) && $unit->quiz_id)
+                                                                                                            <option value="{{$unit->quiz_id}}" selected>{{$unit->quiz->title??''}}</option>
+                                                                                                        @endif
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                                <input type="hidden" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][id]"
+                                                                                                       value="{{$unit->id??''}}">
                                                                                             </div>
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="unit-content-pdf" style="display: {{($unit->type??'') == 'pdf' ? 'block' : 'none'}};">
-                                                                                        <div class="input-group">
-                                                                                            <input type="file" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][pdf]"
-                                                                                                   class="form-control form-control-sm unit-pdf-file-input"
-                                                                                                   accept="application/pdf"
-                                                                                                   style="display: none;">
-                                                                                            <button type="button" class="btn btn-sm btn-outline-primary unit-pdf-select-btn">
-                                                                                                <i class="fa-solid fa-file-pdf me-1"></i>{{__('选择PDF文件')}}
-                                                                                            </button>
-                                                                                            <input type="text" class="form-control form-control-sm unit-pdf-file-name"
-                                                                                                   placeholder="{{__('未选择文件')}}"
-                                                                                                   value="{{isset($unit->pdf) && $unit->pdf ? basename($unit->pdf) : ''}}"
-                                                                                                   readonly>
-                                                                                        </div>
-                                                                                        @if(isset($unit->pdf) && $unit->pdf)
-                                                                                            <div class="unit-pdf-existing-file mt-2">
-                                                                                                <a href="{{asset($unit->pdf)}}" target="_blank" class="btn btn-sm btn-outline-primary unit-pdf-view-btn">
-                                                                                                    <i class="fa-solid fa-file-pdf me-1"></i>{{__('查看当前PDF')}}
-                                                                                                </a>
-                                                                                            </div>
-                                                                                        @endif
-                                                                                    </div>
-                                                                                    <div class="mt-2">
-                                                                                        <label class="form-label small">{{__('绑定测验')}}</label>
-                                                                                        <select name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][quiz_id]"
-                                                                                                class="form-control form-control-sm unit-quiz-select"
-                                                                                                data-chapter-index="{{$chapterIndex}}"
-                                                                                                data-unit-index="{{$unitIndex}}">
-                                                                                            <option value="">{{__('请选择测验')}}</option>
-                                                                                            @if(isset($unit->quiz_id) && $unit->quiz_id)
-                                                                                                <option value="{{$unit->quiz_id}}" selected>{{$unit->quiz->title??''}}</option>
-                                                                                            @endif
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <input type="hidden" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][id]" value="{{$unit->id??''}}">
-                                                                                </div>
-                                                                            @endforeach
-                                                                        @endif
+                                                                                        @endforeach
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -553,11 +560,16 @@
                         return data.text;
                     }
                 });
+
+                const $modal = $('#form-modal');
+                $modal.on('show.bs.modal', function () {
+                    $select.select2('close');
+                });
             }
         }
 
         // 初始化所有现有的单元测验选择器（排除模板中的）
-        $('#chapters-container .unit-quiz-select').each(function() {
+        $('#chapters-container .unit-quiz-select').each(function () {
             initUnitQuizSelect($(this));
         });
 
@@ -639,7 +651,7 @@
             const data = $(this).data('data');
             if (uploaded && data) {
                 // 将新创建的测验添加到所有单元测验选择器中
-                $('.unit-quiz-select').each(function() {
+                $('.unit-quiz-select').each(function () {
                     const $select = $(this);
                     if (!$select.find('option[value="' + data.id + '"]').length) {
                         const option = new Option(data.title, data.id, true, true);
@@ -665,14 +677,14 @@
 
         // 更新所有章节编号
         function updateChapterNumbers() {
-            $('#chapters-container .chapter-item').each(function(index) {
+            $('#chapters-container .chapter-item').each(function (index) {
                 $(this).find('.chapter-index-number').text(index + 1);
             });
         }
 
         // 初始化章节操作栏的显示状态
         function initChapterActionsVisibility() {
-            $('#chapters-container .chapter-item').each(function() {
+            $('#chapters-container .chapter-item').each(function () {
                 const $collapse = $(this).find('.accordion-collapse');
                 const $actions = $(this).find('.chapter-actions');
                 if ($collapse.hasClass('show')) {
@@ -687,7 +699,7 @@
         initChapterActionsVisibility();
 
         // 添加章节
-        $(document).on('click', '#add-chapter-btn', function() {
+        $(document).on('click', '#add-chapter-btn', function () {
             const template = $chapterTemplate.clone();
             const accordionId = `chapter-accordion-${chapterIndex}`;
             const collapseId = `chapter-collapse-${chapterIndex}`;
@@ -709,7 +721,7 @@
         });
 
         // 删除章节
-        $(document).on('click', '.remove-chapter-btn', function(e) {
+        $(document).on('click', '.remove-chapter-btn', function (e) {
             e.preventDefault();
             e.stopPropagation();
             if (confirm('{{__('确定要删除这个章节吗？这将删除该章节下的所有单元。')}}')) {
@@ -720,7 +732,7 @@
 
         // 添加单元
         let unitIndexMap = {};
-        $(document).on('click', '.add-unit-btn', function(e) {
+        $(document).on('click', '.add-unit-btn', function (e) {
             e.preventDefault();
             e.stopPropagation();
             const chapterIndex = $(this).data('chapter-index');
@@ -744,12 +756,12 @@
             // 更新单选按钮
             const $youtubeRadio = template.find('input[value="0"]');
             $youtubeRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
-                        .attr('id', youtubeRadioId);
+                .attr('id', youtubeRadioId);
             $youtubeRadio.closest('.form-check').find('label').attr('for', youtubeRadioId);
 
             const $pdfRadio = template.find('input[value="1"]');
             $pdfRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
-                     .attr('id', pdfRadioId);
+                .attr('id', pdfRadioId);
             $pdfRadio.closest('.form-check').find('label').attr('for', pdfRadioId);
 
             // 更新视频URL输入
@@ -761,8 +773,8 @@
             // 更新测验选择器
             const $quizSelect = template.find('.unit-quiz-select');
             $quizSelect.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][quiz_id]`)
-                      .attr('data-chapter-index', chapterIndex)
-                      .attr('data-unit-index', unitIndex);
+                .attr('data-chapter-index', chapterIndex)
+                .attr('data-unit-index', unitIndex);
 
             // 更新隐藏的ID字段
             template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][id]`);
@@ -782,14 +794,14 @@
         });
 
         // 删除单元
-        $(document).on('click', '.remove-unit-btn', function() {
+        $(document).on('click', '.remove-unit-btn', function () {
             if (confirm('{{__('确定要删除这个单元吗？')}}')) {
                 $(this).closest('.unit-item').remove();
             }
         });
 
         // 切换单元类型
-        $(document).on('change', '.unit-type-radio', function() {
+        $(document).on('change', '.unit-type-radio', function () {
             const unitItem = $(this).closest('.unit-item');
             const unitType = $(this).val();
 
@@ -803,7 +815,7 @@
         });
 
         // PDF文件选择按钮点击事件
-        $(document).on('click', '.unit-pdf-select-btn', function(e) {
+        $(document).on('click', '.unit-pdf-select-btn', function (e) {
             e.preventDefault();
             e.stopPropagation();
             const $fileInput = $(this).siblings('.unit-pdf-file-input');
@@ -811,7 +823,7 @@
         });
 
         // PDF文件选择变化事件
-        $(document).on('change', '.unit-pdf-file-input', function() {
+        $(document).on('change', '.unit-pdf-file-input', function () {
             const $fileNameInput = $(this).siblings('.unit-pdf-file-name');
             const $existingFile = $(this).closest('.unit-content-pdf').find('.unit-pdf-existing-file');
             const file = this.files[0];
@@ -826,7 +838,7 @@
         });
 
         // 视频预览
-        $(document).on('click', '.preview-video-btn', function() {
+        $(document).on('click', '.preview-video-btn', function () {
             const videoUrl = $(this).data('video-url');
             if (videoUrl) {
                 // 提取YouTube视频ID
@@ -847,13 +859,13 @@
         });
 
         // 关闭视频模态框
-        $(document).on('click', '#closeModal', function() {
+        $(document).on('click', '#closeModal', function () {
             $('#videoModal').fadeOut();
             $('#youtubeIframe').attr('src', '');
         });
 
         // 点击模态框外部关闭
-        $(document).on('click', '#videoModal', function(e) {
+        $(document).on('click', '#videoModal', function (e) {
             if ($(e.target).is('#videoModal')) {
                 $(this).fadeOut();
                 $('#youtubeIframe').attr('src', '');
@@ -880,7 +892,7 @@
             }
 
             // 处理章节和单元数据
-            $('.chapter-item').each(function(chapterIdx) {
+            $('.chapter-item').each(function (chapterIdx) {
                 const $chapter = $(this);
                 const chapterIndex = $chapter.data('chapter-index') !== undefined ? $chapter.data('chapter-index') : chapterIdx;
                 const chapterTitle = $chapter.find('input[name*="[title]"]').val();
@@ -895,7 +907,7 @@
                     }
 
                     // 处理单元
-                    $chapter.find('.unit-item').each(function(unitIdx) {
+                    $chapter.find('.unit-item').each(function (unitIdx) {
                         const $unit = $(this);
                         const unitIndex = $unit.data('unit-index') !== undefined ? $unit.data('unit-index') : unitIdx;
                         const unitTitle = $unit.find('input[name*="[title]"]').val();

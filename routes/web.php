@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Auth\ResetPasswordController;
 use App\Http\Controllers\Web\IndexController;
+use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\User\CertificateController;
 use App\Http\Controllers\Web\User\ChangePasswordController;
@@ -43,6 +44,10 @@ Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->n
 Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
 //获取验证码
 Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
+
+Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
+Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('news.list.html');
+Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('news.show.html');
 
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 

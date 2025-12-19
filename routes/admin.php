@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuizResultController;
@@ -38,6 +40,7 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
     $route->group(['prefix' => 'main'], function ($route) {
         $route->get('get-quiz-list.html', [CommonController::class, 'getQuizList'])->name('admin.get-quiz-list.html');
         $route->get('get-certificate-list.html', [CommonController::class, 'getCertificateList'])->name('admin.get-certificate-list.html');
+        $route->get('get-news-category-list.html', [CommonController::class, 'getNewsCategoryList'])->name('admin.get-news-category-list.html');
     });
 
     //退出登录
@@ -113,6 +116,32 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->put('/certificate/{certificate}.html', [CertificateController::class, 'update'])->middleware('admin:CertificateEdit')->name('admin.certificate.update.html');
         //删除证书模板
         $route->delete('/certificate/{certificate}.html', [CertificateController::class, 'destroy'])->middleware('admin:CertificateDelete');
+
+        //消息列表页
+        $route->get('news.html', [NewsController::class, 'index'])->middleware('admin:NewsList')->name('admin.news.html');
+        //消息列表
+        $route->get('news/list.html', [NewsController::class, 'list'])->middleware('admin:NewsList')->name('admin.news.list.html');
+        //创建消息页
+        $route->get('news/new.html', [NewsController::class, 'view'])->middleware('admin:NewsAdd')->name('admin.news.store.view.html');
+        //创建消息
+        $route->post('news.html', [NewsController::class, 'store'])->middleware('admin:NewsAdd')->name('admin.news.store.html');
+        //修改消息
+        $route->put('/news/{news}.html', [NewsController::class, 'update'])->middleware('admin:NewsEdit')->name('admin.news.update.html');
+        //修改课程页
+        $route->get('/news/edit/{news}.html', [NewsController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.news.update.view.html');
+        //删除消息
+        $route->delete('/news/{news}.html', [NewsController::class, 'destroy'])->middleware('admin:NewsDelete');
+
+        //消息分类列表页
+        $route->get('news/category.html', [NewsCategoryController::class, 'index'])->middleware('admin:NewsCategoryList')->name('admin.news-category.html');
+        //消息分类列表
+        $route->get('news/category/list.html', [NewsCategoryController::class, 'list'])->middleware('admin:NewsCategoryList')->name('admin.news-category.list.html');
+        //创建消息分类
+        $route->post('news/category.html', [NewsCategoryController::class, 'store'])->middleware('admin:NewsCategoryAdd')->name('admin.news-category.store.html');
+        //修改消息分类
+        $route->put('/news/category/{category}.html', [NewsCategoryController::class, 'update'])->middleware('admin:NewsCategoryEdit')->name('admin.news-category.update.html');
+        //删除消息分类
+        $route->delete('/news/category/{category}.html', [NewsCategoryController::class, 'destroy'])->middleware('admin:NewsCategoryDelete');
     });
 
     $route->group(['prefix' => 'system', 'middleware' => 'admin:AuthorityManage'], function ($route) {

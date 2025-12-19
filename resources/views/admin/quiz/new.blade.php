@@ -2,8 +2,8 @@
 
     <div class="modal-body pb-0">
         <div class="mb-3">
-            <label class="form-label" for="quiz-title">Quiz Title <span class="text-danger"> *</span></label>
-            <input type="text" id="quiz-title" name="title" class="form-control">
+            <label class="form-label" for="quiz-title">{{__('名称')}} <span class="text-danger"> *</span></label>
+            <input type="text" id="quiz-title" name="title" class="form-control" placeholder="{{__('请输入名称')}}" required>
         </div>
 
         <div class="mb-3">

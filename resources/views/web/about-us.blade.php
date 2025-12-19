@@ -51,7 +51,7 @@
                                 <div class="welcome-wrap welcome-wrap-2">
                                     <div class="welcome-wrap__inner">
                                         <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                            <h2 class="section-heading__title">Welcome to JOBBY</h2>
+                                            <h2 class="section-heading__title">Welcome to Jockey Club Bright Start Project</h2>
                                             <div class="section-heading__line">
                                                 <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
                                             </div>

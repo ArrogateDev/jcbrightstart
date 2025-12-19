@@ -2,9 +2,9 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Jobby Theme Templates">
+    <meta name="description" content="Jockey Club Bright Start Project Theme Templates">
     <meta name="author" content="AuCreative">
-    <meta name="keywords" content="Jobby Theme Templates">
+    <meta name="keywords" content="Jockey Club Bright Start Project Theme Templates">
 
     <!-- Title Page-->
     <title>Homepage 4</title>
@@ -39,9 +39,9 @@
     <link href="{{web_resource_url('assets/web/css/main.min.css')}}" rel="stylesheet" media="all">
 
     <!--Favicons-->
-    <link rel="shortcut icon" href="favicon.png')}}">
-    <link rel="apple-touch-icon" href="apple-icon.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png')}}">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
 
 </head>

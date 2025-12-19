@@ -85,7 +85,7 @@
 								<span></span>
 							</span>
                 </a>
-                <div class="navbar-logo">
+                <div class="navbar-logo py-2">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
                         <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
@@ -103,239 +103,49 @@
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
-                <ul class="main-nav">
+                <ul class="main-nav d-md-none">
                     <li class="has-submenu megamenu">
-                        <a href="#">Home <i class="isax isax-add"></i></a>
+                        <a href="#">Main Menu <i class="isax isax-add"></i></a>
                         <ul class="submenu mega-submenu">
                             <li>
-                                <div class="megamenu-wrapper">
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index.html')}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-01.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index.html')}}" class="inner-demo-img">Home 1</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-02.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>2])}}" class="inner-demo-img">Home 2</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-03.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>3])}}" class="inner-demo-img">Home 3</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-04.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>4])}}" class="inner-demo-img">Home 4</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-05.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>5])}}" class="inner-demo-img">Home 5</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="single-demo">
-                                                <div class="demo-img">
-                                                    <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img"><img
-                                                            src="{{web_resource_url('assets/admin/img/home/home-06.jpg')}}" class="img-fluid "
-                                                            alt="img"></a>
-                                                </div>
-                                                <div class="demo-info">
-                                                    <a href="{{route('index-other.html',['no'=>6])}}" class="inner-demo-img">Home 6</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="{{route('user.dashboard.html')}}">
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('user.profile.html')}}">
+                                    My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('user.course.html')}}">
+                                    My Courses
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('user.certificate.html')}}">
+                                    My Certificates
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('user.quiz.html')}}">
+                                    My Quiz
+                                </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Courses <i class="isax isax-add"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Courses</a>
-                                <ul class="submenu">
-                                    <li><a href="course-grid.html">Course Grid</a></li>
-                                    <li><a href="course-list.html">Course List</a></li>
-                                </ul>
+                    <li class="has-submenu megamenu">
+                        <a href="#">Account Settings <i class="isax isax-add"></i></a>
+                        <ul class="submenu mega-submenu">
+                            <li>
+                                <a href="{{route('user.settings.html')}}">
+                                    Settings
+                                </a>
                             </li>
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Course Category</a>
-                                <ul class="submenu">
-                                    <li><a href="course-category.html">Course Category</a></li>
-                                    <li><a href="course-category-2.html">Course Category 2</a></li>
-                                    <li><a href="course-category-3.html">Course Category 3</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Course Details</a>
-                                <ul class="submenu">
-                                    <li><a href="course-details.html">Course Details</a></li>
-                                    <li><a href="course-details-2.html">Course Details 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="course-resume.html">Course Resume</a></li>
-                            <li><a href="course-watch.html">Course Watch</a></li>
-                            <li><a href="cart.html">Course Cart</a></li>
-                            <li><a href="checkout.html">Course Checkout</a></li>
-                            <li><a href="add-course.html">Add New Course</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu active d-none">
-                        <a href="javascript:void(0);">Dashboard <i class="isax isax-add"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="javascript:void(0);">Instructor Dashboard</a>
-                                <ul class="submenu">
-                                    <li><a href="instructor-dashboard.html">Dashboard</a></li>
-                                    <li><a href="instructor-profile.html">My Profile</a></li>
-                                    <li><a href="instructor-course.html">Course</a></li>
-                                    <li><a href="instructor-announcements.html">Announcements</a></li>
-                                    <li><a href="instructor-assignment.html">Assignments</a></li>
-                                    <li class="has-submenu">
-                                        <a href="javascript:void(0);">Student</a>
-                                        <ul class="submenu">
-                                            <li><a href="students.html">Student Grid</a></li>
-                                            <li><a href="student-list.html">Student List</a></li>
-                                            <li><a href="student-details.html">Student Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="instructor-quiz.html">Quiz</a></li>
-                                    <li><a href="instructor-quiz-results.html">Quiz Results</a></li>
-                                    <li><a href="instructor-certificate.html">Certificates</a></li>
-                                    <li><a href="instructor-earnings.html">Earning</a></li>
-                                    <li><a href="instructor-payout.html">Payout</a></li>
-                                    <li><a href="instructor-statements.html">Statement</a></li>
-                                    <li><a href="instructor-tickets.html">Support Tickets</a></li>
-                                    <li><a href="instructor-settings.html">Settings</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu active">
-                                <a href="javascript:void(0);">Student Dashboard</a>
-                                <ul class="submenu">
-                                    <li class="active"><a href="student-dashboard.html">Student Dashboard</a>
-                                    </li>
-                                    <li><a href="student-profile.html">My Profile</a></li>
-                                    <li><a href="student-courses.html">Enrolled Courses</a></li>
-                                    <li><a href="student-certificates.html">My Certificates</a></li>
-                                    <li><a href="student-wishlist.html">Wishlist</a></li>
-                                    <li><a href="student-reviews.html">Reviews</a></li>
-                                    <li><a href="student-quiz.html">My Quiz Attempts</a></li>
-                                    <li><a href="student-order-history.html">Order History</a></li>
-                                    <li><a href="student-referral.html">Referrals</a></li>
-                                    <li><a href="student-messages.html">Messages</a></li>
-                                    <li><a href="student-tickets.html">Support Ticket</a></li>
-                                    <li><a href="student-settings.html">Settings</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Pages <i class="isax isax-add"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="#">Instructors</a>
-                                <ul class="submenu">
-                                    <li><a href="instructor-grid.html">Instructor Grid</a></li>
-                                    <li><a href="instructor-list.html">Instructor List</a></li>
-                                    <li><a href="instructor-details.html">Instructor Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
-                            <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contact us</a></li>
-                            <li><a href="notifications.html">Notifications</a></li>
-                            <li><a href="become-an-instructor.html">Become an Instructor</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li class="has-submenu">
-                                <a href="#">Authentication</a>
-                                <ul class="submenu">
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                    <li><a href="forgot-password.html">Forgot Password</a></li>
-                                    <li><a href="reset-password.html">Reset Password</a></li>
-                                    <li><a href="set-password.html">Set Password</a></li>
-                                    <li><a href="otp.html">OTP</a></li>
-                                    <li><a href="lock-screen.html">Lock Screen</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="#">Error</a>
-                                <ul class="submenu">
-                                    <li><a href="error-404.html">404 Error</a></li>
-                                    <li><a href="error-500.html">500 Error</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="pricing-plan.html">Pricing Plan</a></li>
-                            <li><a href="{{route('page', ['page' => 'faq.html'])}}"">FAQ</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                            <li><a href="under-construction.html">Under Construction</a></li>
-                            <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
-                            <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
-                            <li><a href="index-rtl.html">RTL</a></li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu d-none">
-                        <a href="#">Blog <i class="isax isax-add"></i></a>
-                        <ul class="submenu">
-                            <li class="has-submenu">
-                                <a href="#">Blog Layouts</a>
-                                <ul class="submenu">
-                                    <li><a href="blog-grid.html">Blog 1 Grid</a></li>
-                                    <li><a href="blog-2-grid.html">Blog 2 Grid</a></li>
-                                    <li><a href="blog-3-grid.html">Blog 3 Grid</a></li>
-                                    <li><a href="blog-carousal.html">Blog Carousal</a></li>
-                                    <li><a href="blog-masonry.html">Blog Mansory</a></li>
-                                    <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                    <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li class="has-submenu">
-                                <a href="#">Blog Details</a>
-                                <ul class="submenu">
-                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                    <li><a href="blog-details-left-sidebar.html">Blog Details Left Sidebar</a>
-                                    </li>
-                                    <li><a href="blog-details-right-sidebar.html">Blog Details Right Sidebar</a>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="javascript:void(0);" class="logout">
+                                    Logout
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -348,12 +158,6 @@
                     </a>
                     <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle">
                         <i class="isax isax-moon"></i>
-                    </a>
-                </div>
-                <div class="icon-btn me-3 d-none">
-                    <a href="cart.html" class="position-relative">
-                        <i class="isax isax-shopping-cart5"></i>
-                        <span class="count-icon bg-success p-1 rounded-pill text-white fs-10 fw-bold">1</span>
                     </a>
                 </div>
                 @auth
