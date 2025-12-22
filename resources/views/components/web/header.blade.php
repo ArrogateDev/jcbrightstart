@@ -1,29 +1,16 @@
 <header id="header">
     <section class="top-contact">
         <div class="container">
-            <div class="top-contact-inner">
-                <div class="top-contact__left">
-                    <div class="top-contact__item">
-                        <span class="lnr lnr-map"></span>No 40 Baria Sreet 133/2
-                    </div>
-                    <div class="top-contact__item">
-                        <span class="lnr lnr-phone-handset"></span>(849) 490 4283
-                    </div>
-                </div>
+            <div class="top-contact-inner justify-content-end">
                 <div class="top-contact__right">
                     <ul class="list-unstyled list-inline list-social">
                         <li class="list-inline-item">
-                            <a class="ic-fb" href="#">
+                            <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
                                 <i class="zmdi zmdi-facebook-box"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="ic-twi" href="#">
-                                <i class="zmdi zmdi-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="ic-insta" href="#">
+                            <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
                                 <i class="zmdi zmdi-instagram"></i>
                             </a>
                         </li>

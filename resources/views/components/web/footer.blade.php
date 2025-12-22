@@ -45,17 +45,12 @@
                 <div class="copyright-wrap">
                     <ul class="list-unstyled list-inline list-social list-social-2">
                         <li class="list-inline-item">
-                            <a class="ic-fb" href="#">
+                            <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
                                 <i class="zmdi zmdi-facebook-box"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a class="ic-twi" href="#">
-                                <i class="zmdi zmdi-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="ic-insta" href="#">
+                            <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
                                 <i class="zmdi zmdi-instagram"></i>
                             </a>
                         </li>

@@ -17,18 +17,8 @@
     <div class="login-content">
         <div class="row">
             <div class="col-lg-6 login-bg d-none d-lg-flex">
-                <div class="login-carousel">
-
-                    @for($i = 1; $i <= 3; $i++)
-                        <div>
-                            <div class="login-carousel-section mb-3">
-                                <div class="login-banner">
-                                    <img src="{{web_resource_url('assets/img/LoginPage.png')}}" class="img-fluid" alt="Logo">
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-
+                <div class="login-banner vh-100">
+                    <img src="{{web_resource_url('assets/img/login-page.png')}}" class="img-fluid" alt="Logo">
                 </div>
             </div>
 
@@ -39,6 +29,7 @@
                             <div class="d-flex align-items-center justify-content-between login-header">
                                 <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
                             </div>
+                            <h4 class="mt-3 mb-5">Welcome to <br><span class="text-secondary">Jockey Club Bright Start Project</span></h4>
                             <h1 class="fs-32 fw-bold topic">Sign into Your Account</h1>
                             <form id="form" class="mb-3 pb-3" novalidate="novalidate">
                                 <div class="mb-3 position-relative">

@@ -213,10 +213,6 @@
                                 </li>
                             </ul>
                             <div class="profile-footer">
-                                <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('login.html')}}">
-                                    <i class="isax isax-arrow-2 me-2"></i>
-                                    Log in as Instructor
-                                </a>
                                 <a href="#"
                                    class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
                                     <i class="isax isax-logout me-2"></i>Logout</a>

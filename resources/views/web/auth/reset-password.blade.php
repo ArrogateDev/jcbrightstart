@@ -17,18 +17,9 @@
     <div class="login-content">
         <div class="row">
             <div class="col-lg-6 login-bg d-none d-lg-flex">
-                <div class="login-carousel">
-
-                    @for($i = 1; $i <= 3; $i++)
-                        <div>
-                            <div class="login-carousel-section mb-3">
-                                <div class="login-banner">
-                                    <img src="{{web_resource_url('assets/img/LoginPage.png')}}" class="img-fluid" alt="Logo">
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-
+                <div class="login-banner vh-100">
+                    <img src="{{web_resource_url('assets/img/login-page.png')}}" class="img-fluid" alt="Logo">
+                </div>
                 </div>
             </div>
 

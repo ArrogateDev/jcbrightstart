@@ -4,15 +4,14 @@
 <x-web.auth.head/>
 <script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/admin/js/md5.js') }}"></script>
-
 <body>
 
 <div class="main-wrapper">
     <div class="login-content">
         <div class="row">
-            <div class="col-lg-6 login-bg d-none d-lg-flex">
-                <div class="login-banner">
-                    <img src="{{web_resource_url('assets/img/LoginPage.png')}}" class="img-fluid" alt="Logo">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="login-banner vh-100">
+                    <img src="{{web_resource_url('assets/img/login-page.png')}}" class="img-fluid" alt="Logo">
                 </div>
             </div>
 
@@ -24,6 +23,7 @@
                                 <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
                                 <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
                             </div>
+                            <h4 class="mt-3 mb-5">Welcome to <br><span class="text-secondary">Jockey Club Bright Start Project</span></h4>
                             <h1 class="fs-32 fw-bold topic">Sign into Your Account</h1>
                             <form id="form" class="mb-3 pb-3" novalidate="novalidate">
                                 <div class="mb-3 position-relative">
