@@ -199,7 +199,7 @@
 <!-- Main JS-->
 <script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
 
-<link href="{{web_resource_url('assets/web/vendor/open-layers/css/ol.css')}}" rel="stylesheet">
+<link href="{{web_resource_url('assets/web/vendor/open-layers/ol.css')}}" rel="stylesheet">
 <script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
 <script>
     function adjustMapHeight() {
