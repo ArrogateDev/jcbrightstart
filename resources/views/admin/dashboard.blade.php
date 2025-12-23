@@ -186,7 +186,7 @@
     <script>
         $(function () {
             let chart;
-            var start = moment().subtract(29, "days");
+            var start = moment().subtract(11, "month");
             var end = moment();
 
             function booking_range(start, end) {
@@ -308,11 +308,11 @@
                     startDate: start,
                     endDate: end,
                     ranges: {
-                        "Last 30 Days": [moment().subtract(29, "days"), moment()],
-                        "Last Year": [
+                        "{{__('最近12个月')}}": [
                             moment().subtract(11, "month"),
                             moment()
                         ],
+                        "{{__('最30天')}}": [moment().subtract(29, "days"), moment()],
                     },
                     showCustomRangeLabel: false
                 },
