@@ -48,13 +48,13 @@
         cursor: pointer;
     }
 
-    .location-item:hover {
+    .location-item:hover, .location-item.active {
         color: #fff;
         background: #ff97a4;
         border: 1px solid #ff97a41a;
     }
 
-    .location-item:hover .location-title {
+    .location-item:hover .location-title, .location-item.active .location-title {
         color: #fff;
     }
 
@@ -237,19 +237,33 @@
         markerData.push({
             id: '{{$map['Age of Child (Age range)']}}',
             coordinates: [{{$map['Longitude']}}, {{$map['Latitude']}}],
-            title: '{{$map['Organization']}}'
+            title: '{{$map['Organization']}}',
+            mapData: @json($map)
         });
         @endforeach
 
+        const normalStyle = [new ol.style.Style({
+            image: new ol.style.Icon({
+                src: '{{route('marker',['hex'=>'ff71eb'])}}',
+                anchor: [0.5, 1],
+                scale: 0.1
+            })
+        })];
+
+        const selectedStyle = [new ol.style.Style({
+            image: new ol.style.Icon({
+                src: '{{route('marker',['hex'=>'ff0000'])}}',
+                anchor: [0.5, 1],
+                scale: 0.1
+            })
+        })];
+
         let markers = new ol.layer.Vector({
             source: new ol.source.Vector(),
-            style: new ol.style.Style({
-                image: new ol.style.Icon({
-                    src: '{{web_resource_url('assets/img/location-marker.png')}}',
-                    anchor: [0.5, 1],
-                    scale: 0.1
-                })
-            })
+            style: function(feature) {
+                const isSelected = feature.get('selected') || false;
+                return isSelected ? selectedStyle : normalStyle;
+            }
         });
 
         const layers = [
@@ -289,7 +303,8 @@
 
             const features = filteredMarkers.map(marker =>
                 new ol.Feature({
-                    geometry: new ol.geom.Point(marker.coordinates)
+                    geometry: new ol.geom.Point(marker.coordinates),
+                    data: marker
                 })
             );
 
@@ -305,16 +320,84 @@
             }
         }
 
+        const $select = new ol.interaction.Select({
+            layers: [markers],
+            condition: ol.events.condition.click
+        });
+
+        map.addInteraction($select);
+
+        $select.on('select', function(e) {
+            const source = markers.getSource();
+            const allFeatures = source.getFeatures();
+            allFeatures.forEach(feature => feature.set('selected', false));
+
+            if (e.selected.length > 0) {
+                const feature = e.selected[0];
+                feature.set('selected', true);
+
+                const data = feature.get('data');
+
+                $('.location-item').removeClass('active');
+
+                const orgName = data.title;
+                const $targetItem = $(`.location-item:contains('${orgName}')`).first();
+
+                if ($targetItem.length > 0) {
+                    $targetItem.addClass('active');
+
+                    const container = $('.location-lists');
+                    const offset = $targetItem.offset().top - container.offset().top;
+                    const scrollTop = container.scrollTop();
+                    container.animate({
+                        scrollTop: scrollTop + offset - (container.height() / 2)
+                    }, 500);
+                }
+            }
+
+            map.render();
+        });
+
         updateMarkers('all');
         updateLocations('all');
 
         $('.au-tag-lists a').click(function () {
             $(this).siblings().removeClass('active');
             $(this).addClass('active')
-            const type = $(this).text().toLowerCase().trim();
+            const type = $(this).data('type').toLowerCase().trim();
             updateMarkers(type);
             updateLocations(type);
             return false;
+        })
+
+        $('.location-item').click(function() {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+
+            const orgName = $(this).find('.location-title').text();
+            const marker = markerData.find(m => m.title === orgName);
+
+            if (marker) {
+                const source = markers.getSource();
+                const allFeatures = source.getFeatures();
+                allFeatures.forEach(feature => feature.set('selected', false));
+
+                const features = source.getFeatures();
+                for (let i = 0; i < features.length; i++) {
+                    const feature = features[i];
+                    const featureData = feature.get('data');
+                    if (featureData && featureData.title === orgName) {
+                        feature.set('selected', true);
+                        break;
+                    }
+                }
+
+                map.getView().setCenter(ol.proj.fromLonLat(marker.coordinates));
+
+                map.getView().setZoom(15);
+
+                map.render();
+            }
         })
 
         $('a[href="javascript:void(0);"]').click(function () {

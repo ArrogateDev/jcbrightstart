@@ -115,7 +115,7 @@ class WebMiddleware
 
             $navs[] = [
                 'title' => '香港0-3歲嬰幼兒服務資訊',
-                'url' => route('page', ['page' => 'about-us.html']),
+                'url' => route('maps.html'),
                 'children' => []
             ];
 

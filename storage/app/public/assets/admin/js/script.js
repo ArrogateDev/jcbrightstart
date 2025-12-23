@@ -629,7 +629,7 @@ Version      : 1.0
 
   if ($(".datetimepicker").length > 0 && $.fn.datetimepicker) {
     $(".datetimepicker").datetimepicker({
-      format: "DD-MM-YYYY",
+      format: "YYYY-MM-DD",
       icons: {
         up: "fa fa-angle-up",
         down: "fa-solid fa-angle-down",
@@ -1401,7 +1401,7 @@ Version      : 1.0
 									<a href="#" class="delete-item ms-2 flex-shrink-0"><i class="isax isax-trash"></i></a>
 									</div>
 									</div>
-									
+
 								</div>
 							</div>`;
 

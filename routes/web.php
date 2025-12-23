@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Auth\ResetPasswordController;
 use App\Http\Controllers\Web\IndexController;
+use App\Http\Controllers\Web\MapsController;
 use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\User\CertificateController;
@@ -42,12 +43,13 @@ Route::get('/forgot-password.html', [ForgotPasswordController::class, 'index'])-
 Route::post('/forgot-password.html', [ForgotPasswordController::class, 'handleForgotPassword']);
 Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
 Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
-//获取验证码
 Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
 
 Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
 Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('news.list.html');
 Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('news.show.html');
+
+Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
@@ -73,4 +75,5 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     });
 });
 
+Route::get('marker.png', [\App\Http\Controllers\CommonController::class, 'marker'])->name('marker');
 Route::get('{page}', [PageController::class, 'index'])->name('page');
