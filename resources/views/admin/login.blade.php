@@ -30,7 +30,7 @@
                                 <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
                             </div>
                             <h4 class="mt-3 mb-5">Welcome to <br><span class="text-secondary">Jockey Club Bright Start Project</span></h4>
-                            <h1 class="fs-32 fw-bold topic">Sign into Your Account</h1>
+                            <h1 class="fs-32 fw-bold topic">Management Portal</h1>
                             <form id="form" class="mb-3 pb-3" novalidate="novalidate">
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
