@@ -75,5 +75,5 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     });
 });
 
-Route::get('marker.png', [\App\Http\Controllers\CommonController::class, 'marker'])->name('marker');
+Route::get('marker', [\App\Http\Controllers\CommonController::class, 'marker'])->name('marker');
 Route::get('{page}', [PageController::class, 'index'])->name('page');
