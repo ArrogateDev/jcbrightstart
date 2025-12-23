@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
 
     $route->group(['middleware' => 'admin:MainMenuManage'], function ($route) {
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->middleware('admin:DashboardList')->name('admin.dashboard.html');
+        $route->get('/dashboard/user.html', [DashboardController::class, 'getUser'])->middleware('admin:DashboardList')->name('admin.dashboard.user.html');
 
         //课程列表页
         $route->get('course.html', [CourseController::class, 'index'])->middleware('admin:CourseList')->name('admin.course.html');

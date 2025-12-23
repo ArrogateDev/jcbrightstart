@@ -43,14 +43,6 @@
 	<!-- Bootstrap Core JS -->
 	<script src="{{web_resource_url('assets/admin/js/bootstrap.bundle.min.js')}}" type="text/javascript"></script>
 
-	<!-- Daterangepikcer JS -->
-	<script src="{{web_resource_url('assets/admin/js/moment.min.js')}}" type="text/javascript"></script>
-	<script src="{{web_resource_url('assets/admin/plugins/daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
-
-	<!-- ApexChart JS -->
-	<script src="{{web_resource_url('assets/admin/plugins/apexchart/apexcharts.min.js')}}" type="text/javascript"></script>
-	<script src="{{web_resource_url('assets/admin/plugins/apexchart/chart-data.js')}}" type="text/javascript"></script>
-
 	<!-- Sticky Sidebar JS -->
 	<script src="{{web_resource_url('assets/admin/plugins/theia-sticky-sidebar/ResizeSensor.js')}}" type="text/javascript"></script>
 	<script src="{{web_resource_url('assets/admin/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}" type="text/javascript"></script>
