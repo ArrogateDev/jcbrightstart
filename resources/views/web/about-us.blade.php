@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="p-l-70 p-md-l-0 w-100">
-                            <div class="welcome-wrap welcome-wrap-2">
+                            <div class="welcome-wrap welcome-wrap-2 p-0">
                                 <div class="welcome-wrap__inner">
                                     <div class="section-heading section-heading-1 section-heading-1--small text-left">
                                         <h2 class="section-heading__title">專業發展領域</h2>
