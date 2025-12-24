@@ -17,6 +17,7 @@ use App\Http\Controllers\Web\User\ProfileController;
 use App\Http\Controllers\Web\User\QuizController;
 use App\Http\Controllers\Web\User\SettingController;
 use App\Http\Controllers\Web\VerificationCodeController;
+use App\Http\Controllers\Web\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,8 @@ Route::post('/forgot-password.html', [ForgotPasswordController::class, 'handleFo
 Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
 Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
 Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
+
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
 Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('news.list.html');
