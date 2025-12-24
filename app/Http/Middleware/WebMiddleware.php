@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,9 @@ class WebMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        $locale = session('locale', config('app.locale', 'zh_HK'));
+        App::setLocale($locale);
+
         if (!$request->expectsJson()) {
             $user = $request->user();
 
@@ -121,12 +125,6 @@ class WebMiddleware
 
             $navs[] = [
                 'title' => '教師專業發展',
-                'url' => route('page', ['page' => 'about-us.html']),
-                'children' => []
-            ];
-
-            $navs[] = [
-                'title' => '家長學習平台',
                 'url' => route('page', ['page' => 'about-us.html']),
                 'children' => []
             ];

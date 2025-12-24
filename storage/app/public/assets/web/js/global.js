@@ -2,14 +2,15 @@
     // USE STRICT
     "use strict";
 
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        //-------------------------------------------------------
+        // Config Animsition
+        //-------------------------------------------------------
 
-    //-------------------------------------------------------
-    // Config Animsition
-    //-------------------------------------------------------
-
-    try {
-        var preloader_object = $('.js-preloader');
-        preloader_object.animsition({
+        try {
+            var preloader_object = $('.js-preloader');
+            preloader_object.animsition({
             inClass: 'fade-in',
             outClass: 'fade-out',
             inDuration: 800,
@@ -32,6 +33,7 @@
     } catch(err) {
         console.log(err)
     }
+    }); // 结束第一个 document.ready
 
 
 })(jQuery);
@@ -40,8 +42,10 @@
     // USE STRICT
     "use strict";
 
-    // Global variables
-    var html_body = $('html, body');
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        // Global variables
+        var html_body = $('html, body');
 
 
     //-------------------------------------------------------
@@ -330,16 +334,18 @@
     } catch(err) {
         console.log(err);
     }
+    }); // 结束第二个 document.ready
 
 })(jQuery);
 (function ($) {
     // USE STRICT
     "use strict";
 
-
-    //-------------------------------------------------------
-    // Config Lightbox2
-    //-------------------------------------------------------
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        //-------------------------------------------------------
+        // Config Lightbox2
+        //-------------------------------------------------------
 
     try {
         lightbox.option({
@@ -350,6 +356,7 @@
     } catch(err) {
         console.log(err);
     }
+    }); // 结束第三个 document.ready
 
 })(jQuery);
 
@@ -357,25 +364,28 @@
     // USE STRICT
     "use strict";
     
-    try {
-        new WOW().init({
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        try {
+            new WOW().init({
             animateClass: 'animated',
             mobile: false
         });
     } catch (error) {
         console.log(error);
     }
-    
+    }); // 结束第四个 document.ready
   
 })(jQuery);
 (function ($) {
     // USE STRICT
     "use strict";
 
-
-    //-------------------------------------------------------
-    // Config CountDown
-    //-------------------------------------------------------
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        //-------------------------------------------------------
+        // Config CountDown
+        //-------------------------------------------------------
 
     try {
         $('.cd100').each(function () {
@@ -430,18 +440,21 @@
     } catch(err) {
         console.log(err);
     }
+    }); // 结束第五个 document.ready
 
 })(jQuery);
 
 (function ($) {
     'use strict';
 
-    /*[ Counter Up ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Counter Up ]
+        ===========================================================*/
 
-    try {
+        try {
 
-        var counterUpHanlde = $('.js-counterup');
+            var counterUpHanlde = $('.js-counterup');
 
         counterUpHanlde.each(function () {
             $(this).counterUp({
@@ -453,15 +466,17 @@
     } catch(err) {
         console.log(err);
     }
-
+    }); // 结束第六个 document.ready
 
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ Progress Bar ]
-    ===========================================================*/
-    try {
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Progress Bar ]
+        ===========================================================*/
+        try {
         var progressbarSimple = $('.js-progressbar-simple');
         progressbarSimple.each(function () {
             var that = $(this);
@@ -484,29 +499,35 @@
     } catch (err) {
         console.log(err);
     }
+    }); // 结束第七个 document.ready
 
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ Config MatchHeight ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Config MatchHeight ]
+        ===========================================================*/
 
-    try {
+        try {
 
-        var matchHeightItem = $('.js-matchHeight');
+            var matchHeightItem = $('.js-matchHeight');
 
         matchHeightItem.matchHeight();
 
     } catch(err) {
         console.log(err)
     }
+    }); // 结束第八个 document.ready
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ Isotope ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Isotope ]
+        ===========================================================*/
 
     try {
 
@@ -553,12 +574,15 @@
     } catch(err) {
         console.log(err)
     }
+    }); // 结束第九个 document.ready
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ Select 2 Config ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Select 2 Config ]
+        ===========================================================*/
 
     try {
         var selectSimple = $('.js-select-simple');
@@ -575,16 +599,18 @@
     } catch (err) {
         console.log(err);
     }
-
+    }); // 结束第十个 document.ready
 
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ NoUISlider Config ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ NoUISlider Config ]
+        ===========================================================*/
 
-    try {
+        try {
         var html5Slider = document.getElementById('pricepicker');
         if (html5Slider !== null) {
             noUiSlider.create(html5Slider, {
@@ -605,19 +631,20 @@
     } catch (err) {
         console.log(err);
     }
-
+    }); // 结束第十一个 document.ready
 
 })(jQuery);
 (function ($) {
     // USE STRICT
     "use strict";
 
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        //-------------------------------------------------------
+        // Header
+        //-------------------------------------------------------
 
-    //-------------------------------------------------------
-    // Header
-    //-------------------------------------------------------
-
-    try {
+        try {
         // Hamburger Menu
         $('.hamburger').on('click', function () {
             $(this).toggleClass('is-active');
@@ -659,17 +686,19 @@
     } catch (error) {
         console.log(error);
     }
-
+    }); // 结束第十二个 document.ready
 
 })(jQuery);
 
 (function ($) {
     'use strict';
 
-    /*[ Video player ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Video player ]
+        ===========================================================*/
 
-    try {
+        try {
 
         var videoPlayerHandle = $('.js-video-player');
 
@@ -693,6 +722,7 @@
     } catch(err) {
         console.log(err)
     }
+    }); // 结束第十三个 document.ready
 })(jQuery);
 
 
@@ -700,8 +730,10 @@
     // USE STRICT
     "use strict";
 
-    try {
-        var targetModal = $('.js-modal-video');
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        try {
+            var targetModal = $('.js-modal-video');
 
         targetModal.each(function () {
             var that  = $(this);
@@ -733,15 +765,18 @@
     } catch(err) {
         console.log(err)
     }
+    }); // 结束第十四个 document.ready
 
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ TO TOP ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ TO TOP ]
+        ===========================================================*/
 
-    try {
+        try {
         // Back To Top
         var offset = 450;
         var duration = 500;
@@ -763,16 +798,18 @@
     } catch (err) {
         console.log(err);
     }
-
+    }); // 结束第十五个 document.ready
 
 })(jQuery);
 (function ($) {
     'use strict';
 
-    /*[ Parallax ]
-    ===========================================================*/
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        /*[ Parallax ]
+        ===========================================================*/
 
-    try {
+        try {
         var bgParallax = $('.js-parallax-scroll');
         var posWindow = $(window).scrollTop();
         var hWindow = $(window).height();
@@ -812,13 +849,17 @@
     } catch(err) {
         console.log(err);
     }
+    }); // 结束第十六个 document.ready
 
 })(jQuery);
 (function ($) {
     // USE STRICT
     "use strict";
-    try {
-        $('.js-qty').each(function () {
+    
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        try {
+            $('.js-qty').each(function () {
             var spinner = $(this),
                 input = spinner.find('input[type="number"]'),
                 btnUp = spinner.find('.qty-btn--up'),
@@ -849,18 +890,20 @@
     } catch (error) {
         console.log(error);
     }
-
+    }); // 结束第十七个 document.ready
 
 })(jQuery);
 (function ($) {
     // USE STRICT
     "use strict";
 
-    //-------------------------------------------------------
-    // CHECKOUT
-    //-------------------------------------------------------
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        //-------------------------------------------------------
+        // CHECKOUT
+        //-------------------------------------------------------
 
-    try {
+        try {
         
         var radio_input = $('.js-radio-input');
         var content = $('.js-radio-content');
@@ -878,7 +921,7 @@
     } catch (error) {
         console.log(error);
     }
-    
+    }); // 结束第十八个 document.ready
   
 })(jQuery);
 

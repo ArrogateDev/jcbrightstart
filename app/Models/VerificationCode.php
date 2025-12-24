@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Constants\ResponseCode;
+use App\Exceptions\ApiException;
 use Carbon\Carbon;
-use Google\ApiCore\ApiException;
 use Illuminate\Database\Eloquent\Model;
 
 class VerificationCode extends Base

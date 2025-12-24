@@ -211,29 +211,6 @@
     </div>
 
 
-    <!-- Jquery JS-->
-    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap JS-->
-    <script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
-    <!-- Vendor JS-->
-    <script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
-
-    <!-- Main JS-->
-    <script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
-
 </body>
 
 </html>

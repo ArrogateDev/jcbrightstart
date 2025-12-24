@@ -1,3 +1,12 @@
+@php
+    $currentLocale = app()->getLocale();
+    $locales = [
+        'en' => 'EN',
+        'zh_CN' => '简体',
+        'zh_HK' => '繁体'
+    ];
+    $currentLang = $locales[$currentLocale] ?? '繁体';
+@endphp
 <header id="header">
     <section class="top-contact">
         <div class="container">
@@ -67,6 +76,129 @@
                             </ul>
                         </nav>
                     @endif
+                    <div class="header-btn d-flex align-items-center">
+                        <div class="dropdown mr-3 position-relative d-inline-block" id="language-box">
+                            <a href="#" class="dropdown-toggle" id="language-dropdown" data-toggle="dropdown" aria-expanded="false" role="button">
+                                <i class="fas fa-globe mr-1"></i>{{ $currentLang }}
+                            </a>
+                            <ul class="dropdown-menu p-2 mt-2" id="language-menu">
+                                @foreach($locales as $locale => $label)
+                                    <li>
+                                        <a class="dropdown-item rounded {{ $currentLocale === $locale ? 'active' : '' }}"
+                                           href="javascript:void(0);">
+                                            {{ $label }}
+                                            @if($currentLocale === $locale)
+                                                <i class="fas fa-check ml-2"></i>
+                                            @endif
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @auth
+                            <div class="dropdown profile-dropdown">
+                                <a href="#" class="d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+								<span class="avatar">
+									<img src="{{$user->avatar}}" alt="Img" class="img-fluid rounded-circle">
+								</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <div class="profile-header d-flex align-items-center">
+                                        <div class="avatar">
+                                            <img src="{{$user->avatar}}" alt="Img"
+                                                 class="img-fluid rounded-circle">
+                                        </div>
+                                        <div>
+                                            <h6>{{$user->full_name}}</h6>
+                                            <p>
+                                                <a href="#" class="__cf_email__" style="color: #191919;">{{$user->email}}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <ul class="profile-body">
+                                        <li>
+                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.profile.html')}}">
+                                                <i class="fa-solid fa-user mr-2"></i>
+                                                My Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.course.html')}}">
+                                                <i class="isax isax-teacher5 mr-2"></i>
+                                                My Courses
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.certificate.html')}}">
+                                                <i class="isax isax-note-215 mr-2"></i>
+                                                My Certificates
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.quiz.html')}}">
+                                                <i class="isax isax-medal-star5 mr-2"></i>
+                                                My Quiz
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.settings.html')}}">
+                                                <i class="isax isax-setting-25 mr-2"></i>
+                                                Settings
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="profile-footer">
+                                        <a href="#"
+                                           class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
+                                            <i class="isax isax-logout mr-2"></i>Logout</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <x-sweetalert/>
+
+                            <script>
+                                $(function () {
+                                    $('.logout').click(function () {
+                                        confirm_alert('Are you sure?', "You won't be able to revert this!", 'Yes, logout!')
+                                            .then((result) => {
+                                                if (result.isConfirmed) {
+                                                    showLoading()
+                                                    $.ajax({
+                                                        url: "{{ route('user.logout.html') }}",
+                                                        type: 'DELETE',
+                                                        data: {
+                                                            _token: "{{ csrf_token() }}"
+                                                        },
+                                                        success: function (response) {
+                                                            if (response.code !== 0) {
+                                                                showToast('error', response.msg);
+                                                                return;
+                                                            }
+
+                                                            showToast('success', 'Successful');
+                                                            setTimeout(function () {
+                                                                window.location.href = '{{route('home')}}';
+                                                            }, 800)
+                                                        },
+                                                        error: function () {
+                                                            showToast('error', 'Login failed, please try again later')
+                                                        },
+                                                        complete: function () {
+                                                            hideLoading()
+                                                        }
+                                                    });
+                                                }
+                                            })
+                                    })
+                                })
+                            </script>
+                        @else
+                            <a href="{{route('login.html')}}" class="au-btn-3 au-btn2--blue d-inline-flex align-items-center mr-2" style="line-height: 32px;">
+                                Sign In
+                            </a>
+                        @endauth
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,15 +236,33 @@
         @if(!empty($navs))
             <nav class="navbar-mobile">
                 <ul class="navbar-mobile__list list-unstyled">
+                    <li class="language-selector-mobile">
+                        <a href="javascript:void(0);" class="bg-link">
+                            <i class="fas fa-globe mr-2"></i>{{ $currentLang }}
+                        </a>
+                        <ul class="navbar-mobile__child list-unstyled first">
+                            @foreach($locales as $locale => $label)
+                                <li>
+                                    <a href="{{ route('language.switch', ['locale' => $locale]) }}"
+                                       class="{{ $currentLocale === $locale ? 'active' : '' }}">
+                                        {{ $label }}
+                                        @if($currentLocale === $locale)
+                                            <i class="fas fa-check ml-2"></i>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
                     @foreach($navs as $nav)
-                        <li  @class(['has-sub' => !empty($nav['children'])])>
+                        <li @class(['has-sub' => !empty($nav['children'])])>
                             <a href="{{$nav['url']}}">
                                 <span class="bg-link">{{$nav['title']}}</span>
                             </a>
                             @if(!empty($nav['children']))
                                 <ul class="navbar-mobile__child list-unstyled first">
                                     @foreach($nav['children'] as $child)
-                                        <li  @class(['has-sub' => !empty($child['children'])])>
+                                        <li @class(['has-sub' => !empty($child['children'])])>
                                             <a href="{{$child['url']}}">{{$child['title']}}</a>
                                             @if(!empty($child['children']))
                                                 <ul class="navbar-mobile__child list-unstyled second">

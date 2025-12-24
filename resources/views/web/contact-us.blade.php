@@ -53,7 +53,7 @@
                             <div class="box__body">
                                 <h3 class="title title--xl">Email</h3>
                                 <span>
-                                    <a href="mailto:brightstart.jc@yccece.edu.hk" style="color: unset;" class="__cf_email__" >brightstart.jc@yccece.edu.hk</a>
+                                    <a href="mailto:brightstart.jc@yccece.edu.hk" style="color: unset;" class="__cf_email__">brightstart.jc@yccece.edu.hk</a>
                                 </span>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <img src="{{web_resource_url('assets/web/images/icon/line-blue.png')}}" alt="Line">
                             </div>
                         </div>
-                        <form class="js-contact-form" action="includes/contact-form.php" method="post">
+                        <form class="js-contact-form" method="post">
                             <div class="row">
                                 <div class="col-md-6 p-r-10 p-md-r-15">
                                     <input class="input-border" type="text" name="name" required="" placeholder="Your name">
@@ -114,30 +114,6 @@
 
     </main>
 </div>
-
-<script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
-<!-- Vendor JS-->
-<script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/js/config-contact.js')}}"></script>
-
-<!-- Main JS-->
-<script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
 
 </body>
 

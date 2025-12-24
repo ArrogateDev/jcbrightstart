@@ -1,51 +1,53 @@
 
-
 (function ($) {
     // USE STRICT
     "use strict";
 
-    try {
+    // 确保在 DOM 加载完成后执行
+    $(document).ready(function() {
+        try {
 
-        var contactFormWrapper = $('.js-contact-form');
+            var contactFormWrapper = $('.js-contact-form');
 
-        contactFormWrapper.each(function () {
-           var that = $(this);
-            that.on('submit', function (e) {
-                var url = "includes/contact-form.php";
-                
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $(this).serialize(),
-                    success: function (data)
-                    {
-                        var result = JSON.parse(data);
+            contactFormWrapper.each(function () {
+               var that = $(this);
+                that.on('submit', function (e) {
+                    var url = "includes/contact-form.php";
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $(this).serialize(),
+                        success: function (data)
+                        {
+                            var result = JSON.parse(data);
 
-                        var message = result.message;
-                        var type = result.type;
-                        if (type === 1) {
-                            swal ( "Success" ,  message ,  "success" );
-                            // that.reset();
-                        } else if (type === 0) {
-                            swal ( "Success" ,  message ,  "error" );
+                            var message = result.message;
+                            var type = result.type;
+                            if (type === 1) {
+                                swal ( "Success" ,  message ,  "success" );
+                                // that.reset();
+                            } else if (type === 0) {
+                                swal ( "Success" ,  message ,  "error" );
+                            }
+                        },
+                        statusCode: {
+                            404: function() {
+                                swal ( "Oops" ,  "File Not Found!" ,  "error" );
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown ) {
+
+                            swal ( "Oops" ,  errorThrown  ,  "error" );
                         }
-                    },
-                    statusCode: {
-                        404: function() {
-                            swal ( "Oops" ,  "File Not Found!" ,  "error" );
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown ) {
-
-                        swal ( "Oops" ,  errorThrown  ,  "error" );
-                    }
+                    });
+                    return false;
                 });
-                return false;
             });
-        });
 
-    } catch(err) {
-        console.log(err)
-    }
+        } catch(err) {
+            console.log(err)
+        }
+    });
 
 })(jQuery);

@@ -4,15 +4,7 @@
 <div class="header-topbar text-center">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="d-flex align-items-center ">
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2 me-3"><i
-                            class="isax isax-location me-2"></i>Fanling, Hong Kong</p>
-                    <p class="d-flex align-items-center fw-medium fs-14 mb-2"><i
-                            class="isax isax-call-calling5 me-2"></i>+852 xxxx xxxx</p>
-                </div>
-            </div>
-            <div class="col-lg-6">
+            <div class="col-12">
                 <div class="d-flex align-items-center justify-content-end">
                     <div class="dropdown flag-dropdown mb-2 me-3 d-none">
                         <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
@@ -53,19 +45,10 @@
                     </div>
                     <ul class="social-icon d-flex align-items-center mb-2">
                         <li class="me-2">
-                            <a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://www.facebook.com/JCBrightStartProject"><i class="fa-brands fa-facebook-f"></i></a>
                         </li>
                         <li class="me-2">
-                            <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
-                        </li>
-                        <li class="me-2">
-                            <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
-                        </li>
-                        <li class="me-2">
-                            <a href="javascript:void(0);"><i class="fa-brands fa-youtube"></i></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/JCBrightStartProject/"><i class="fa-brands fa-instagram"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -79,11 +62,11 @@
         <div class="header-nav">
             <div class="navbar-header">
                 <a id="mobile_btn" href="javascript:void(0);">
-							<span class="bar-icon">
-								<span></span>
-								<span></span>
-								<span></span>
-							</span>
+                    <span class="bar-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
                 </a>
                 <div class="navbar-logo py-2">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">

@@ -187,31 +187,8 @@
 
 </div>
 
-<!-- Jquery JS-->
-<script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap JS-->
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
-<!-- Vendor JS-->
-<script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
-<!--
-| (Load Extensions only on Local File Systems !
-| The following part can be removed on Server for On Demand Loading)
--->
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
 <script type="text/javascript"
         src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
@@ -223,12 +200,8 @@
         src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
-<!-- Config Revolution Slider-->
-<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
 
-<!-- Main JS-->
-<script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
 
 <link href="{{web_resource_url('assets/web/vendor/open-layers/ol.css')}}" rel="stylesheet">
 <script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
@@ -501,10 +474,6 @@
                 }
             })
         }
-
-        $('a[href="javascript:void(0);"]').click(function () {
-            return false;
-        })
     })
 </script>
 </body>
