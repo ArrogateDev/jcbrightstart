@@ -45,7 +45,7 @@
                     if (result.isConfirmed) {
                         showLoading()
                         $.ajax({
-                            url: "{{ route('user.logout.html') }}",
+                            url: "{{ route('admin.logout.html') }}",
                             type: 'DELETE',
                             data: {
                                 _token: "{{ csrf_token() }}"

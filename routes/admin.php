@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
     });
 
     //退出登录
-    $route->delete('logout.html', [AuthController::class, 'logout']);
+    $route->delete('logout.html', [AuthController::class, 'logout'])->name('admin.logout.html');
     //修改头像
     $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('admin.set-avatar.html');
     //删除头像
