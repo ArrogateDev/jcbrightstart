@@ -23,19 +23,10 @@
         content: "\e7e6";
     }
 
-    .au-tag-lists {
-        height: 155px;
-        flex: 155px 0 0;
-        overflow: auto;
-    }
-
-    .au-tag__item.active {
-        color: #fff;
-        background: #ff97a4;
-    }
-
     .location-lists {
         overflow: auto;
+        flex: 1;
+        min-height: 0;
     }
 
     .location-item {
@@ -68,6 +59,46 @@
         line-height: normal;
         padding-left: 2px;
     }
+
+    .types {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 8px;
+        grid-row-gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .type-item {
+        font-weight: 700;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #7dd0f8;
+        cursor: pointer;
+    }
+
+    .type-item.active {
+        background: #ff97a4;
+        color: white;
+    }
+
+    #map-box {
+        height: 800px;
+    }
+
+    .row > .col-md-3,
+    .row > .col-md-9 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #map-location {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -93,15 +124,9 @@
                                         </div>
                                         <div class="m-b-25"></div>
                                     </div>
-                                    <div class="au-tag-lists">
-                                        <a class="au-tag__item active" href="javascript:void(0);" data-type="all">All</a>
-                                        @foreach($types as $type)
-                                            <a class="au-tag__item" href="javascript:void(0);" data-type="{{$type}}">{{$type}}</a>
-                                        @endforeach
-                                    </div>
                                     <div class="location-lists overflow-auto">
                                         @foreach($maps as $map)
-                                            <div class="location-item" data-type="{{$map['Age of Child (Age range)']}}">
+                                            <div class="location-item" data-type="{{$map['Type of Child Care Centers']}}">
                                                 <i class="iconfont icon-location"></i>
                                                 <div class="ml-2">
                                                     <h5 class="title title--black location-title">
@@ -143,7 +168,13 @@
                         </div>
                     </div>
                     <div class="col-md-9 p-1">
-                        <div id="map-box" class="w-100">
+                        <div class="types">
+                            <div class="type-item active" data-type="all">{{__('全部')}}</div>
+                            @foreach($types as $type)
+                                <div class="type-item" data-type="{{$type}}">{{$type}}</div>
+                            @endforeach
+                        </div>
+                        <div id="map-box" class="w-100 position-relative">
                             <div id="map" class="w-100 h-100"></div>
                         </div>
                     </div>
@@ -201,204 +232,275 @@
 
 <link href="{{web_resource_url('assets/web/vendor/open-layers/ol.css')}}" rel="stylesheet">
 <script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
+
 <script>
-    function adjustMapHeight() {
-        const header = document.getElementById('header');
-        const headerHeight = header ? header.offsetHeight : 0;
+    function adjustMapLocationHeight() {
+        const typesElement = document.querySelector('.types');
+        const mapBoxElement = document.getElementById('map-box');
+        const mapLocationElement = document.getElementById('map-location');
 
-        const mapHeight = window.innerHeight - headerHeight;
-
-        const mapLocation = document.getElementById('map-location');
-        const map = document.getElementById('map-box');
-
-        if (mapLocation) {
-            mapLocation.style.height = mapHeight + 'px';
+        if (typesElement && mapBoxElement && mapLocationElement) {
+            const typesHeight = typesElement.offsetHeight + 20;
+            const mapBoxHeight = mapBoxElement.offsetHeight;
+            const totalHeight = typesHeight + mapBoxHeight;
+            mapLocationElement.style.height = totalHeight + 'px';
         }
-
-        if (map) {
-            map.style.height = mapHeight + 'px';
-        }
-
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        adjustMapHeight();
+        adjustMapLocationHeight();
     });
 
     window.addEventListener('resize', function () {
-        adjustMapHeight();
+        adjustMapLocationHeight();
     });
 </script>
 
 <script type="module">
     $(function () {
+        const $location = $('.location-item')
         let markerData = [];
         @foreach($maps as $map)
         markerData.push({
-            id: '{{$map['Age of Child (Age range)']}}',
+            id: '{{$map['Type of Child Care Centers']}}',
             coordinates: [{{$map['Longitude']}}, {{$map['Latitude']}}],
             title: '{{$map['Organization']}}',
             mapData: @json($map)
         });
         @endforeach
 
-        const normalStyle = [new ol.style.Style({
-            image: new ol.style.Icon({
-                src: '{{route('marker',['hex'=>'ff71eb'])}}',
-                anchor: [0.5, 1],
-                scale: 0.1
-            })
-        })];
-
-        const selectedStyle = [new ol.style.Style({
-            image: new ol.style.Icon({
-                src: '{{route('marker',['hex'=>'ff0000'])}}',
-                anchor: [0.5, 1],
-                scale: 0.1
-            })
-        })];
-
-        let markers = new ol.layer.Vector({
-            source: new ol.source.Vector(),
-            style: function(feature) {
-                const isSelected = feature.get('selected') || false;
-                return isSelected ? selectedStyle : normalStyle;
-            }
-        });
-
-        const layers = [
-            new ol.layer.Tile({
-                source: new ol.source.XYZ({
-                    url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/basemap/wgs84/{z}/{x}/{y}.png'
-                })
-            }),
-            new ol.layer.Tile({
-                source: new ol.source.XYZ({
-                    url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/label/hk/tc/wgs84/{z}/{x}/{y}.png'
-                })
-            })
-        ];
-
-        const map = new ol.Map({
-            layers: [...layers, markers],
-            target: document.getElementById('map'),
-            view: new ol.View({
-                projection: 'EPSG:4326',
-                center: [114.180000000, 22.292000000],
-                maxZoom: 19,
-                zoom: 13,
-                dragAndDrop: false,
-                extent: [113.8, 22.1, 114.5, 22.6]
-            }),
-            controls: []
-        });
-
-        function updateMarkers(type) {
-            const source = markers.getSource();
-            source.clear();
-
-            const filteredMarkers = markerData.filter(marker =>
-                type === 'all' || marker.id === type
-            );
-
-            const features = filteredMarkers.map(marker =>
-                new ol.Feature({
-                    geometry: new ol.geom.Point(marker.coordinates),
-                    data: marker
-                })
-            );
-
-            source.addFeatures(features);
+        function preloadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
         }
 
-        function updateLocations(type) {
-            if (type === 'all') {
-                $('.location-item').show()
-            } else {
-                $('.location-item').hide()
-                $(`.location-item[data-type="${type}"]`).show()
-            }
-        }
+        const normalIconUrl = '{{route('marker',['hex'=>'00c8d4'])}}';
+        const selectedIconUrl = '{{route('marker',['hex'=>'ffb900'])}}';
 
-        const $select = new ol.interaction.Select({
-            layers: [markers],
-            condition: ol.events.condition.click
+        Promise.all([
+            preloadImage(normalIconUrl),
+            preloadImage(selectedIconUrl)
+        ]).then(() => {
+            initMap();
+        }).catch((error) => {
+            console.error('图片预加载失败:', error);
+            initMap();
         });
 
-        map.addInteraction($select);
+        let normalStyle, selectedStyle, markers, map;
 
-        $select.on('select', function(e) {
-            const source = markers.getSource();
-            const allFeatures = source.getFeatures();
-            allFeatures.forEach(feature => feature.set('selected', false));
+        function initMap() {
+            normalStyle = new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: normalIconUrl,
+                    anchor: [0.5, 1],
+                    scale: 0.15
+                })
+            });
 
-            if (e.selected.length > 0) {
-                const feature = e.selected[0];
-                feature.set('selected', true);
+            selectedStyle = new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: selectedIconUrl,
+                    anchor: [0.5, 1],
+                    scale: 0.15
+                })
+            });
 
-                const data = feature.get('data');
-
-                $('.location-item').removeClass('active');
-
-                const orgName = data.title;
-                const $targetItem = $(`.location-item:contains('${orgName}')`).first();
-
-                if ($targetItem.length > 0) {
-                    $targetItem.addClass('active');
-
-                    const container = $('.location-lists');
-                    const offset = $targetItem.offset().top - container.offset().top;
-                    const scrollTop = container.scrollTop();
-                    container.animate({
-                        scrollTop: scrollTop + offset - (container.height() / 2)
-                    }, 500);
+            markers = new ol.layer.Vector({
+                source: new ol.source.Vector(),
+                updateWhileInteracting: true,
+                updateWhileAnimating: true,
+                style: function (feature, resolution) {
+                    const isSelected = feature.get('selected') || false;
+                    return isSelected ? selectedStyle : normalStyle;
                 }
-            }
+            });
 
-            map.render();
-        });
+            const layers = [
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/basemap/wgs84/{z}/{x}/{y}.png'
+                    })
+                }),
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/label/hk/tc/wgs84/{z}/{x}/{y}.png'
+                    })
+                })
+            ];
 
-        updateMarkers('all');
-        updateLocations('all');
+            map = new ol.Map({
+                layers: [...layers, markers],
+                target: document.getElementById('map'),
+                view: new ol.View({
+                    projection: 'EPSG:4326',
+                    center: [114.180000000, 22.292000000],
+                    maxZoom: 19,
+                    zoom: 13,
+                    dragAndDrop: false,
+                    extent: [113.8, 22.1, 114.5, 22.6]
+                }),
+                controls: []
+            });
 
-        $('.au-tag-lists a').click(function () {
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active')
-            const type = $(this).data('type').toLowerCase().trim();
-            updateMarkers(type);
-            updateLocations(type);
-            return false;
-        })
-
-        $('.location-item').click(function() {
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
-
-            const orgName = $(this).find('.location-title').text();
-            const marker = markerData.find(m => m.title === orgName);
-
-            if (marker) {
+            function updateMarkers(type) {
                 const source = markers.getSource();
-                const allFeatures = source.getFeatures();
-                allFeatures.forEach(feature => feature.set('selected', false));
+                source.clear();
 
-                const features = source.getFeatures();
-                for (let i = 0; i < features.length; i++) {
-                    const feature = features[i];
-                    const featureData = feature.get('data');
-                    if (featureData && featureData.title === orgName) {
-                        feature.set('selected', true);
-                        break;
-                    }
-                }
+                const filteredMarkers = markerData.filter(marker =>
+                    type === 'all' || marker.id === type
+                );
 
-                map.getView().setCenter(ol.proj.fromLonLat(marker.coordinates));
+                const features = filteredMarkers.map(marker => {
+                    const feature = new ol.Feature({
+                        geometry: new ol.geom.Point(marker.coordinates),
+                        data: marker
+                    });
+                    feature.set('selected', false);
+                    return feature;
+                });
 
-                map.getView().setZoom(15);
+                source.addFeatures(features);
 
                 map.render();
             }
-        })
+
+            function updateLocations(type) {
+                if (type === 'all') {
+                    $location.show()
+                } else {
+                    $location.hide()
+                    $(`.location-item[data-type="${type}"]`).show()
+                }
+            }
+
+            function updateMarkerSelection(featureToSelect) {
+                const source = markers.getSource();
+                const allFeatures = source.getFeatures();
+
+                allFeatures.forEach(feature => {
+                    const wasSelected = feature.get('selected');
+                    if (wasSelected) {
+                        feature.set('selected', false);
+                        feature.changed();
+                    }
+                });
+
+                if (featureToSelect) {
+                    featureToSelect.set('selected', true);
+                    featureToSelect.changed();
+
+                    const featureData = featureToSelect.get('data');
+                    if (featureData && featureData.title) {
+                        $location.removeClass('active');
+                        $location.each(function () {
+                            const $item = $(this);
+                            const orgName = $item.find('.location-title').text().trim();
+                            if (orgName === featureData.title.trim()) {
+                                $item.addClass('active');
+                                const container = $item.closest('.location-lists')[0];
+                                if (container) {
+                                    const itemTop = $item.position().top + container.scrollTop;
+                                    const itemHeight = $item.outerHeight();
+                                    const containerHeight = container.clientHeight;
+                                    const scrollTop = container.scrollTop;
+
+                                    if (itemTop < scrollTop) {
+                                        container.scrollTop = itemTop - 10;
+                                    } else if (itemTop + itemHeight > scrollTop + containerHeight) {
+                                        container.scrollTop = itemTop + itemHeight - containerHeight + 10;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    $location.removeClass('active');
+                }
+
+                map.render();
+            }
+
+            map.on('click', function (e) {
+                let clickedFeature = null;
+
+                map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+                    if (layer === markers) {
+                        clickedFeature = feature;
+                        return true;
+                    }
+                }, {
+                    layerFilter: function (layer) {
+                        return layer === markers;
+                    }
+                });
+
+                if (clickedFeature) {
+                    updateMarkerSelection(clickedFeature);
+
+                    const featureData = clickedFeature.get('data');
+                    if (featureData && featureData.coordinates) {
+                        const view = map.getView();
+                        view.animate({
+                            center: featureData.coordinates,
+                            zoom: 15,
+                            duration: 500
+                        });
+                    }
+                } else {
+                    updateMarkerSelection(null);
+                }
+            });
+
+            updateMarkers('all');
+            updateLocations('all');
+
+            $('.types .type-item').click(function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active')
+                const type = $(this).data('type').trim();
+
+                updateMarkerSelection(null);
+
+                updateMarkers(type);
+                updateLocations(type);
+                return false;
+            })
+
+            $location.click(function () {
+                const $clickedItem = $(this);
+                const orgName = $clickedItem.find('.location-title').text().trim();
+                const marker = markerData.find(m => m.title.trim() === orgName);
+
+                if (marker) {
+                    const source = markers.getSource();
+                    const allFeatures = source.getFeatures();
+
+                    const featureToSelect = allFeatures.find(feature => {
+                        const featureData = feature.get('data');
+                        return featureData && featureData.title.trim() === marker.title.trim();
+                    });
+
+                    if (featureToSelect) {
+                        updateMarkerSelection(featureToSelect);
+
+                        $location.removeClass('active');
+                        $clickedItem.addClass('active');
+
+                        const view = map.getView();
+                        view.animate({
+                            center: marker.coordinates,
+                            zoom: 15,
+                            duration: 500
+                        });
+                    }
+                }
+            })
+        }
 
         $('a[href="javascript:void(0);"]').click(function () {
             return false;
