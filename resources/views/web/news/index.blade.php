@@ -2,7 +2,40 @@
 <html lang="en">
 
 <x-web.head/>
+<style>
+    .media-blog-2 .media__body {
+        text-align: left;
+        padding: 8px;
+    }
 
+    .media-blog-2 .media__title {
+        height: 60px;
+    }
+
+    .media-blog-2 .media__title a {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .media-blog-2 .media__text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .media-info {
+        font-size: 14px;
+    }
+
+    .media-info img {
+        width: 16px;
+    }
+</style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
 
@@ -62,6 +95,20 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <nav class="au-tab-2 m-b-50">
+                                    <ul class="type-box list-unstyled au-tab__nav au-tab__nav--sspace iostope-filter">
+                                        <li class="active au-tab__nav-item d-flex justify-content-center align-items-center" data-type="1">
+                                            <span class="au-tab__nav-item-inner">{{__('最新活动')}}</span>
+                                        </li>
+                                        <li class="au-tab__nav-item d-flex justify-content-center align-items-center" data-type="0">
+                                            <span class="au-tab__nav-item-inner">{{__('过去活动')}}</span>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                         <div class="p-l-10 p-sm-l-0">
                             <div class="row list-container"></div>
                             <nav class="au-pagination p-t-10 pagination-container"></nav>
@@ -102,25 +149,7 @@
 
 </div>
 
-<!-- Jquery JS-->
-<script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap JS-->
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
-<!-- Vendor JS-->
-<script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/waypoints/jquery.waypoints.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/wow/wow.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/jquery.counterup/jquery.counterup.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/isotope.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/isotope/imagesloaded.pkgd.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/matchHeight/jquery.matchHeight-min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/select2/select2.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/sweetalert/sweetalert.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
+<!-- Revolution Slider JS (Page Specific)-->
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
 <!--
@@ -140,10 +169,8 @@
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
 <!-- Config Revolution Slider-->
 <script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
+<!-- Page Specific JS-->
 <script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
-
-<!-- Main JS-->
-<script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
 
 <script type="text/javascript" src="{{ web_resource_url('assets/admin/js/lodash.js') }}"></script>
 <script src="{{web_resource_url('assets/admin/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
@@ -161,6 +188,7 @@
 
         const urlKeywords = urlParams.get('keywords');
         const urlCategory = urlParams.get('category');
+        const urlType = urlParams.get('type');
         if (urlKeywords) {
             $search.val(urlKeywords);
             params = Object.assign(params, {keywords: urlKeywords});
@@ -168,6 +196,10 @@
         if (urlCategory) {
             $(`.list-bare__item[data-category="${urlCategory}"]`).addClass('active');
             params = Object.assign(params, {category: urlCategory});
+        }
+        if (urlType) {
+            $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
+            params = Object.assign(params, {type: urlType});
         }
 
         getData(page, params)
@@ -212,6 +244,15 @@
 
             page = 1
             params = Object.assign(params, {category: category, page: page});
+            getData(page, params)
+        })
+
+        $(document).on('click', '.type-box li', function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            const type = $(this).data('type');
+
+            page = 1
+            params = Object.assign(params, {type: type, page: page});
             getData(page, params)
         })
 

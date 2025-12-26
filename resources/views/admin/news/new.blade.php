@@ -8,6 +8,9 @@
 <script src="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/admin/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/moment.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/css/bootstrap-datetimepicker.min.css')}}">
+<script src="{{web_resource_url('assets/admin/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
 
 <body>
 
@@ -79,6 +82,54 @@
                                         <label class="form-label">{{__('简介')}}<span
                                                 class="text-danger ms-1">*</span></label>
                                         <input type="text" id="short" name="short" class="form-control" value="{{$news->short??''}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>
+                                        <div class="input-icon-end position-relative">
+                                            <input type="text" class="form-control datetimepicker"
+                                                   placeholder="dd/mm/yyyy" id="start-date" name="start_date">
+                                            <span class="input-icon-addon">
+												<i class="isax isax-calendar"></i>
+											</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>
+                                        <div class="input-icon-end position-relative">
+                                            <input type="text" class="form-control timepicker"
+                                                   placeholder="dd/mm/yyyy" id="start-time" name="start_time">
+                                            <span class="input-icon-addon">
+												<i class="isax isax-calendar"></i>
+											</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>
+                                        <div class="input-icon-end position-relative">
+                                            <input type="text" class="form-control datetimepicker"
+                                                   placeholder="dd/mm/yyyy" id="end-date" name="end_date">
+                                            <span class="input-icon-addon">
+												<i class="isax isax-calendar"></i>
+											</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>
+                                        <div class="input-icon-end position-relative">
+                                            <input type="text" class="form-control timepicker"
+                                                   placeholder="yyyy" id="end-time" name="end_time">
+                                            <span class="input-icon-addon">
+												<i class="isax isax-calendar"></i>
+											</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

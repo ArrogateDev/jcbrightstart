@@ -74,7 +74,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'start_time', 'end_time', 'description', 'status']);
 
         try {
 
@@ -126,7 +126,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'start_time', 'end_time', 'description', 'status']);
 
         try {
 

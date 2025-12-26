@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -32,6 +33,8 @@ class NewsController extends Controller
     {
         $keywords = $request->query('keywords');
         $category = $request->query('category');
+        $type = (int)$request->query('type', 1);
+        $now = Carbon::now()->toDateTimeString();
 
         $list = News::query()
             ->when($keywords, function ($query) use ($keywords) {
@@ -39,6 +42,11 @@ class NewsController extends Controller
             })
             ->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category);
+            })
+            ->when($type === 1, function ($query) use ($now) {
+                $query->where(DB::raw("CONCAT(`end_date`, ' ', `end_time`)"), '>', $now);
+            }, function ($query) use ($now) {
+                $query->where(DB::raw("CONCAT(`end_date`, ' ', `end_time`)"), '<=', $now);
             })
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('id')
@@ -50,6 +58,8 @@ class NewsController extends Controller
             $item->day = $date->format('d');
             $item->url = route('news.show.html', ['news' => $item->id]);
         });
+
+        $list->append(['event_date_text', 'event_time_text']);
 
         $html = '';
 
@@ -72,14 +82,11 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        $category = NewsCategory::query()
-            ->where('status', 0)
-            ->select('id', 'title')
-            ->get();
 
         $date = Carbon::parse($news->created_at);
         $news->month = $date->format('M');
         $news->day = $date->format('d');
+        $news->append(['event_date_text', 'event_time_text']);
 
         $prev = News::query()
             ->where('id', '<', $news->id)
@@ -93,6 +100,6 @@ class NewsController extends Controller
             ->orderBy('id')
             ->value('id');
 
-        return view('web.news.show', compact('category', 'news', 'prev', 'next'));
+        return view('web.news.show', compact('news', 'prev', 'next'));
     }
 }

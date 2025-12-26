@@ -93,14 +93,12 @@
                             <a href="${item.url}" class="d-inline-flex fs-14 me-1 action-icon">
                                 <i class="isax isax-edit"></i>
                             </a>
-                            ${item.id !== 1 ? `
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
                                onclick="handleDelete(${item.id}, '${item.full_name}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
-                            ` : ''}
                         </div>
                     </td>
                 </tr>

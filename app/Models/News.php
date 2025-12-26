@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 class News extends Base
 {
     const STATUS_PUBLISHED = 2;
@@ -18,6 +20,7 @@ class News extends Base
     {
         return $value ? web_resource_url($value) : web_resource_url('assets/img/fill.png');
     }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -32,5 +35,35 @@ class News extends Base
     public function getCategoryTextAttribute()
     {
         return $this->category->title ?? '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventDateTextAttribute()
+    {
+        $start_date = Carbon::parse($this->start_date);
+        $end_date = Carbon::parse($this->end_date);
+        if ($start_date->eq($end_date)) {
+            $text = $start_date->format('d/m/Y(D)');
+        } else {
+            $text = $start_date->format('d/m/Y(D)') . ' - ' . $end_date->format('d/m/Y(D)');
+        }
+        return $text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventTimeTextAttribute()
+    {
+        $start_time = Carbon::parse($this->start_time);
+        $end_time = Carbon::parse($this->end_time);
+        if ($start_time->eq($end_time)) {
+            $text = $start_time->format('H:i A');
+        } else {
+            $text = $start_time->format('H:i A') . ' - ' . $end_time->format('H:i A');
+        }
+        return $text;
     }
 }
