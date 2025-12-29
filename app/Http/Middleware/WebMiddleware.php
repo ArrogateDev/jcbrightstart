@@ -93,28 +93,10 @@ class WebMiddleware
                 ]
             ];
 
-            $new_category = NewsCategory::query()
-                ->where('is_nav', 0)
-                ->where('status', 0)
-                ->select('id', 'title')
-                ->get();
-            $new_children = [];
-            foreach ($new_category as $new) {
-                $new_children[] = [
-                    'title' => $new->title,
-                    'url' => route('news.html'),
-                ];
-            }
-            if (!empty($new_category)) {
-                array_unshift($new_children, [
-                    'title' => __('全部'),
-                    'url' => route('news.html')
-                ]);
-            }
             $navs[] = [
                 'title' => __('最新消息'),
                 'url' => route('news.html'),
-                'children' => $new_children
+                'children' => []
             ];
 
             $navs[] = [
@@ -138,6 +120,11 @@ class WebMiddleware
             View::share('user', $user);
             View::share('navs', $navs);
         }
+
+        $title = __('赛马会幼儿「喜步」计划');
+
+
+        View::share('title', $title);
 
         return $next($request);
     }
