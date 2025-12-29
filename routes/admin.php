@@ -1,19 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\Auth\AuthController;
+use App\Http\Controllers\Admin\Auth\ChangePasswordController;
+use App\Http\Controllers\Admin\Auth\ProfileController;
+use App\Http\Controllers\Admin\Auth\SettingController;
 use App\Http\Controllers\Admin\CertificateController;
-use App\Http\Controllers\Admin\ChangePasswordController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\QuizResultController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommonController;
 use Illuminate\Support\Facades\Route;
@@ -30,9 +29,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 //登录页
-Route::get('/login.html', [LoginController::class, 'index'])->name('admin.login.html');
+Route::get('/login.html', [AuthController::class, 'index'])->name('admin.login.html');
 //登录
-Route::post('/login.html', [LoginController::class, 'handleLogin']);
+Route::post('/login.html', [AuthController::class, 'handleLogin']);
 
 Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']], function ($route) {
 

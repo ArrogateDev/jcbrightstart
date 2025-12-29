@@ -1,63 +1,46 @@
 <footer class="footer">
     <div class="container">
-        <div class="col-md-12">
-            <div class="footer-wrap">
-                <div class="footer__logo">
-                    <a href="#">
-                        <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project" style="height: 65px;">
-                    </a>
+        <div class="row my-5">
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                    <h3 class="section-heading__title">Organised by 主辦機構</h3>
+                    <div class="section-heading__line">
+                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                    </div>
                 </div>
-                <ul class="list-unstyled list-inline footer__list">
-                    <li class="list-inline-item">
-                        <a href="#">about us</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">contact us</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">classes</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">teacher</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">blog</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">shop</a>
-                    </li>
-                </ul>
-                <form class="form form--icon form__footer" method="post">
-                    <input type="email" name="email-footer" placeholder="Your e-mail here...">
-                    <button class="btn-submit-1" type="submit">
-                        <img src="{{web_resource_url('assets/web/images/icon/send.png')}}" alt="send">
-                    </button>
-                </form>
+                <div class="w-100 d-flex">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                    <h3 class="section-heading__title">Funded by 捐助機構</h3>
+                    <div class="section-heading__line">
+                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                    </div>
+                </div>
+                <div class="w-100 d-flex">
+                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                </div>
             </div>
         </div>
     </div>
 </footer>
+<style>
+    .footer .section-heading__title {
+        font-size: 24px;
+    }
+
+    .footer img.logo {
+        height: 100px;
+    }
+</style>
 
 <section class="section copyright">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="copyright-wrap">
-                    <ul class="list-unstyled list-inline list-social list-social-2">
-                        <li class="list-inline-item">
-                            <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
-                                <i class="zmdi zmdi-facebook-box"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
-                                <i class="zmdi zmdi-instagram"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <span class="copyright__text">© {{date('Y')}} Jockey Club Bright Start Project. Get The Theme</span>
-                </div>
-            </div>
+        <div class="text-center p-3">
+            <p class="copyright__text" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+            <p class="copyright__text" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
         </div>
     </div>
 </section>

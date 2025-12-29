@@ -54,16 +54,16 @@ class AdminMiddleware
                 return $menus;
             });
 
-                App::setLocale('zh_HK');
+            App::setLocale('zh_HK');
 //            App::setLocale('zh_CN');
 //            App::setLocale('en');
-//            print_r($role);
-//            print_r(__('首页'));
-
             View::share('user', $user);
             View::share('menus', $menus);
         }
 
+        $title = __('赛马会幼儿「喜步」计划');
+
+        View::share('title', $title);
 
         return $next($request);
     }

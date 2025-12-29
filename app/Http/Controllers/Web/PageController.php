@@ -13,7 +13,7 @@ class PageController extends Controller
             'terms-and-conditions.html',
             'privacy-policy.html',
             'about-us.html',
-            'faq.html',
+            'play.html',
             'contact-us.html'
         ];
 

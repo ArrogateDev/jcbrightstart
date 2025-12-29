@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
     public function index()
@@ -76,5 +76,22 @@ class LoginController extends Controller
             Log::error($e);
             throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
         }
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->responseSuccess(null, __('退出成功'));
     }
 }

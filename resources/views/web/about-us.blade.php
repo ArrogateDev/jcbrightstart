@@ -149,43 +149,32 @@
             .realm-item:nth-child(4) {
                 background-color: #f49539;
             }
+
+            .slick-partner {
+                height: 120px;
+                display: flex;
+            }
         </style>
 
         <section class="section bg-f7 p-t-60 p-b-60">
-            <div class="wrap wrap--w1760">
-                <div class="slick-partner">
-                    <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2" data-slick-md="4" data-slick-lg="4" data-slick-xl="6" data-slick-autoplay="true">
-                        <div class="slick__content js-slick-content">
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-01.png')}}" alt="Partner 1">
-                                </a>
-                            </div>
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-02.png')}}" alt="Partner 2">
-                                </a>
-                            </div>
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-03.png')}}" alt="Partner 3">
-                                </a>
-                            </div>
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-04.png')}}" alt="Partner 4">
-                                </a>
-                            </div>
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-05.png')}}" alt="Partner 5">
-                                </a>
-                            </div>
-                            <div class="slick__item">
-                                <a class="img-partner" href="#">
-                                    <img src="{{web_resource_url('assets/web/images/partner-06.png')}}" alt="Partner 6">
-                                </a>
-                            </div>
+            <div class="container">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                    <h2 class="section-heading__title" style="font-size: 24px;">專業合作夥伴</h2>
+                    <div class="section-heading__line">
+                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
+                    </div>
+                </div>
+                <div class="wrap wrap--w1760">
+                    <div class="slick-partner">
+                        <div class="slick__item w-100 h-100">
+                            <a class="img-partner h-100" href="#">
+                                <img class="h-100" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA">
+                            </a>
+                        </div>
+                        <div class="slick__item w-100 h-100">
+                            <a class="img-partner h-100" href="#">
+                                <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
+                            </a>
                         </div>
                     </div>
                 </div>
