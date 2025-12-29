@@ -8,7 +8,6 @@
 
     <x-web.header/>
 
-    <!-- MAIN-->
     <main id="main">
 
         <div class="container">
@@ -21,32 +20,31 @@
                 <div class="col-md-4 p-1">
                     <div style="display: flex;flex-direction: column;gap: 0.5rem;">
                         <div
-                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                                style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
                         </div>
                         <div
-                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                                style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 p-1">
                     <div style="display: flex;flex-direction: column;gap: 0.5rem;">
                         <div
-                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                                style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
                         </div>
                         <div
-                            style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                                style="width: 100%;height: calc(180px - 0.25rem);background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8 p-1">
                     <div
-                        style="width: 100%;height: 360px;background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
+                            style="width: 100%;height: 360px;background: url('{{web_resource_url('assets/web/images/our-class-11.jpg')}}') 100%;background-size: 100%;">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDER-->
         <div class="rev_slider_wrapper">
             <div class="rev_slider fullwidthabanner js-rev" data-version="5.4.4" style="display:none"
                  data-rev-height="797" data-rev-layout="fullwidth" data-rev-stylearrow="au-rev-arrow-1"
@@ -168,9 +166,7 @@
                 </ul>
             </div>
         </div>
-        <!-- END SLIDER-->
 
-        <!-- WELCOME-->
         <section class="section p-t-150 p-b-140 p-md-t-60 p-md-b-60">
             <div class="container">
                 <div class="row">
@@ -181,24 +177,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 d-flex align-items-center">
                         <div class="p-l-70 p-md-l-0">
-                            <div class="welcome-wrap welcome-wrap-2">
+                            <div class="welcome-wrap">
                                 <div class="welcome-wrap__inner">
                                     <div
-                                        class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">About Us</h2>
+                                            class="section-heading section-heading-1 section-heading-1--small text-left">
+                                        <h2 class="section-heading__title">優質教顧 喜步未來</h2>
                                         <div class="section-heading__line">
                                             <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
                                         </div>
                                     </div>
-                                    <p class="m-b-15">There are many variations of passages of Lorem Ipsum
-                                        available, but the majority have suffered alteration in some form.</p>
-                                    <p class="m-b-60">By injected humour, or randomised words which don't look even
-                                        slightly believable. If you are going to use a passage of Lorem Ipsum, you
-                                        need to be sure there isn't anything embarrassing hidden in the middle of
-                                        text. All the Lorem Ipsum generator.</p>
-                                    <a class="au-btn--blue au-btn" href="#">learn more
+                                    <p class="m-b-15">
+                                        香港賽馬會幼兒「喜步」計劃第二階段（2025-2029）旨在將優質的嬰幼兒照顧及教育理念推廣至全港育有0-3歲孩子的家庭及更廣泛的社區，全面營造促進嬰幼兒健康成長與發展的優質環境。</p>
+                                    <p class="m-b-60">本計劃獲香港賽馬會慈善信託基金捐助，由耀中幼教學院主辦，並邀請太平洋區幼兒教育研究學會（香港）及香港中文大學為專業合作夥伴。</p>
+                                    <a class="au-btn--blue au-btn" href="{{route('page',['page'=>'about-us.html'])}}">learn more
                                         <i class="zmdi zmdi-chevron-right"></i>
                                         <i class="zmdi zmdi-chevron-right"></i>
                                     </a>
@@ -209,113 +202,105 @@
                 </div>
             </div>
         </section>
-        <!-- END WELCOME-->
 
-        <!-- STATISTIC-->
         <section class="section">
             <div class="row no-gutters statistic-1">
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
                     <div class="statistic__item blue">
                         <div class="icon">
                             <img src="{{web_resource_url('assets/web/images/icon/ic-statis-01.png')}}" alt="icon 1">
                         </div>
                         <div class="statistic__item-inner">
-                            <span class="number js-counterup">168</span>
-                            <span class="desc">Qualified Teachers</span>
+                            <span class="number js-counterup">494</span>
+                            <span class="desc">494名初生至三歲的嬰幼兒受惠於高質素的教顧服務</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
                     <div class="statistic__item yellow">
                         <div class="icon">
                             <img src="{{web_resource_url('assets/web/images/icon/ic-statis-02.png')}}" alt="icon 2">
                         </div>
                         <div class="statistic__item-inner">
-                            <span class="number js-counterup">240</span>
-                            <span class="desc">Young School</span>
+                            <span class="number js-counterup">284</span>
+                            <span class="desc">284位家長受惠於學習社區的家長增能健康論壇</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
                     <div class="statistic__item pink">
                         <div class="icon">
                             <img src="{{web_resource_url('assets/web/images/icon/ic-statis-03.png')}}" alt="icon 3">
                         </div>
                         <div class="statistic__item-inner">
-                            <span class="number js-counterup">281</span>
-                            <span class="desc">Evaluation For Field</span>
+                            <span class="number js-counterup">2207</span>
+                            <span class="desc">2207位參加者受惠於學習社區的公眾講座</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="statistic__item yellow">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-02.png')}}" alt="icon 2">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">94</span>
+                            <span class="desc">94位老師接受教顧理念、實踐和課程培訓</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="statistic__item pink">
+                        <div class="icon">
+                            <img src="{{web_resource_url('assets/web/images/icon/ic-statis-03.png')}}" alt="icon 3">
+                        </div>
+                        <div class="statistic__item-inner">
+                            <span class="number js-counterup">264</span>
+                            <span class="desc">264小時總培訓時數</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
                     <div class="statistic__item green">
                         <div class="icon">
                             <img src="{{web_resource_url('assets/web/images/icon/ic-statis-04.png')}}" alt="icon 4">
                         </div>
                         <div class="statistic__item-inner">
-                            <span class="number js-counterup">317</span>
-                            <span class="desc">Activity Of Year</span>
+                            <span class="number js-counterup">300+</span>
+                            <span class="desc">300+個專為初生至三歲嬰幼兒設計的學習活動</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- END STATISTIC-->
 
-        <!-- WHAT WE BRING-->
         <section class="section p-t-150 p-b-140 p-md-t-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="p-t-180 p-md-t-0 p-md-b-30">
+                    <div class="col-md-5 d-flex align-items-center">
+                        <div class="p-md-t-0 p-md-b-30">
                             <div
-                                class="section-heading section-heading-1 section-heading-1--small text-left m-b-35">
-                                <h2 class="section-heading__title">What We Bring</h2>
+                                    class="section-heading section-heading-1 section-heading-1--small text-left m-b-35">
+                                <h2 class="section-heading__title">活動大綱</h2>
                                 <div class="section-heading__line">
                                     <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
                                 </div>
                             </div>
                             <div class="au-progress-wrap">
-                                <div class="au-progress">
-                                    <span class="au-progress__title">pass rate a</span>
-                                    <div class="au-progress__bar orange">
-                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                             data-transitiongoal="82"></div>
-                                        <span class="au-progress__value js-value"></span>
-                                    </div>
-                                </div>
-                                <div class="au-progress">
-                                    <span class="au-progress__title">happy children</span>
-                                    <div class="au-progress__bar violet">
-                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                             data-transitiongoal="90"></div>
-                                        <span class="au-progress__value js-value"></span>
-                                    </div>
-                                </div>
-                                <div class="au-progress">
-                                    <span class="au-progress__title">happy parents</span>
-                                    <div class="au-progress__bar green">
-                                        <div class="au-progress__inner js-progressbar-simple" role="progressbar"
-                                             data-transitiongoal="100"></div>
-                                        <span class="au-progress__value js-value"></span>
-                                    </div>
-                                </div>
+                                <p>「童．發現」框架 (Discovery Framework)
+                                    是為初生至三歲嬰幼兒研發及經過研究實證的課程。透過此框架，我們希望能指導教顧者提供優質教顧服務。此框架特別強調教育及照顧對初生至三歲嬰幼兒的重要性，而「教顧」（Educare）一詞就是來自「教育（Education）」和「照顧（Caring）」。</p>
+                                <p>「童．發現」框架
+                                    通過四大親子策略提供優質教顧——「多元感官體驗」鼓勵與嬰幼兒進行多元感官體驗的探索；「遊戲中探索」透過有趣吸引的遊戲與嬰幼兒一起嘗試及發現；「積極回應」鼓勵持續觀察嬰幼兒的需要以作出相應回應，以及「建立關係」強調嬰幼兒與成人建立正向關係的重要性。我們特地設計了四個可愛的角色讓大家更容易記得這四個關鍵教顧策略，在此向大家逐一介紹！</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 offset-md-1">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
-                            </div>
-                        </div>
+                        <img src="{{web_resource_url('assets/web/images/outline.svg')}}" alt="Welcome 2">
                     </div>
                 </div>
             </div>
         </section>
-        <!-- END WHAT WE BRING-->
 
-        <!-- OUR CLASS-->
         <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80">
             <div class="bg-cloud-5">
                 <img src="{{web_resource_url('assets/web/images/icon/bg-cloud-05.png')}}" alt="Cloud">
@@ -334,186 +319,16 @@
             </div>
             <div class="container-fluid">
                 <div class="wrap wrap--w1575">
-                    <div class="slick-class-2">
+                    <div class="slick-class-2 home-news">
                         <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2"
-                             data-slick-md="3" data-slick-lg="3" data-slick-xl="4" data-slick-dots="false"
+                             data-slick-md="5" data-slick-lg="5" data-slick-xl="5" data-slick-dots="false"
                              data-slick-customnav="true" data-slick-autoplay="true">
                             <div class="slick__content js-slick-content">
-                                <div class="slick__item">
-                                    <div class="media media-our-class-3">
-                                        <div class="media__img">
-                                            <a href="classes-single.html">
-                                                <img src="{{web_resource_url('assets/web/images/our-class-10.jpg')}}" alt="Painting Class">
-                                            </a>
-                                            <span class="media-our-class__price">
-                                                    <span class="inner">$22</span>
-                                                </span>
-                                        </div>
-                                        <div class="media__body">
-                                            <h3 class="media__title">
-                                                <a href="classes-single.html">Painting Class</a>
-                                            </h3>
-                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
-                                            <span class="date-time">April 29, 2020</span>
-                                            <div class="media-our-class__info">
-                                                <div class="row no-gutters">
-                                                    <div class="col-6">
-                                                        <div class="item has-seprator">
-                                                            <span class="name">age</span>
-                                                            <span class="value">1 - 2 years</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="item">
-                                                            <span class="name">size</span>
-                                                            <span class="value">18 seats</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                @foreach($news as $new)
+                                    <div class="slick__item">
+                                        @include('web.news.item', ['news'=>$new, 'col'=>false])
                                     </div>
-                                </div>
-                                <div class="slick__item">
-                                    <div class="media media-our-class-3">
-                                        <div class="media__img">
-                                            <a href="classes-single.html">
-                                                <img src="{{web_resource_url('assets/web/images/our-class-11.jpg')}}" alt="Table/Floor Toys Class">
-                                            </a>
-                                            <span class="media-our-class__price">
-                                                    <span class="inner">$29</span>
-                                                </span>
-                                        </div>
-                                        <div class="media__body">
-                                            <h3 class="media__title">
-                                                <a href="classes-single.html">Table/Floor Toys Class</a>
-                                            </h3>
-                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
-                                            <span class="date-time">April 29, 2020</span>
-                                            <div class="media-our-class__info">
-                                                <div class="row no-gutters">
-                                                    <div class="col-6">
-                                                        <div class="item has-seprator">
-                                                            <span class="name">age</span>
-                                                            <span class="value">2 - 3 years</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="item">
-                                                            <span class="name">size</span>
-                                                            <span class="value">22 seats</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slick__item">
-                                    <div class="media media-our-class-3">
-                                        <div class="media__img">
-                                            <a href="classes-single.html">
-                                                <img src="{{web_resource_url('assets/web/images/our-class-12.jpg')}}" alt="Storytime Class">
-                                            </a>
-                                            <span class="media-our-class__price">
-                                                    <span class="inner">$35</span>
-                                                </span>
-                                        </div>
-                                        <div class="media__body">
-                                            <h3 class="media__title">
-                                                <a href="classes-single.html">Storytime Class</a>
-                                            </h3>
-                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
-                                            <span class="date-time">April 29, 2020</span>
-                                            <div class="media-our-class__info">
-                                                <div class="row no-gutters">
-                                                    <div class="col-6">
-                                                        <div class="item has-seprator">
-                                                            <span class="name">age</span>
-                                                            <span class="value">4 - 5 years</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="item">
-                                                            <span class="name">size</span>
-                                                            <span class="value">27 seats</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slick__item">
-                                    <div class="media media-our-class-3">
-                                        <div class="media__img">
-                                            <a href="classes-single.html">
-                                                <img src="{{web_resource_url('assets/web/images/our-class-08.jpg')}}" alt="Letter Math Class">
-                                            </a>
-                                            <span class="media-our-class__price">
-                                                    <span class="inner">$38</span>
-                                                </span>
-                                        </div>
-                                        <div class="media__body">
-                                            <h3 class="media__title">
-                                                <a href="classes-single.html">Letter Math Class</a>
-                                            </h3>
-                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
-                                            <span class="date-time">April 29, 2020</span>
-                                            <div class="media-our-class__info">
-                                                <div class="row no-gutters">
-                                                    <div class="col-6">
-                                                        <div class="item has-seprator">
-                                                            <span class="name">age</span>
-                                                            <span class="value">5 - 6 years</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="item">
-                                                            <span class="name">size</span>
-                                                            <span class="value">20 seats</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slick__item">
-                                    <div class="media media-our-class-3">
-                                        <div class="media__img">
-                                            <a href="classes-single.html">
-                                                <img src="{{web_resource_url('assets/web/images/our-class-11.jpg')}}" alt="Table/Floor Toys Class">
-                                            </a>
-                                            <span class="media-our-class__price">
-                                                    <span class="inner">$41</span>
-                                                </span>
-                                        </div>
-                                        <div class="media__body">
-                                            <h3 class="media__title">
-                                                <a href="classes-single.html">Table/Floor Toys Class</a>
-                                            </h3>
-                                            <span class="date-time m-r-15">08:00 am - 05:00 pm</span>
-                                            <span class="date-time">April 29, 2020</span>
-                                            <div class="media-our-class__info">
-                                                <div class="row no-gutters">
-                                                    <div class="col-6">
-                                                        <div class="item has-seprator">
-                                                            <span class="name">age</span>
-                                                            <span class="value">2.5 - 4 years</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="item">
-                                                            <span class="name">size</span>
-                                                            <span class="value">22 seats</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                             <div class="slick__nav arrows-2">
                                 <span class="slick-prev slick-arrow js-slick-prev"></span>
@@ -521,8 +336,42 @@
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .home-news .media-blog-2 .media__body {
+                            text-align: left;
+                            padding: 8px;
+                        }
+
+                        .home-news .media-blog-2 .media__title {
+                            height: 60px;
+                        }
+
+                        .home-news .media-blog-2 .media__title a {
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .home-news .media-blog-2 .media__text {
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .home-news .media-info {
+                            font-size: 15px;
+                        }
+
+                        .home-news .media-info img {
+                            width: 16px;
+                        }
+                    </style>
                     <div class="text-center p-t-30">
-                        <a class="au-btn au-btn--white" href="#">learn more
+                        <a class="au-btn au-btn--white" href="{{route('news.html')}}">learn more
                             <i class="zmdi zmdi-chevron-right"></i>
                             <i class="zmdi zmdi-chevron-right"></i>
                         </a>
@@ -530,145 +379,7 @@
                 </div>
             </div>
         </section>
-        <!-- END OUR CLASS-->
 
-        <!-- EVENT-->
-        <section class="section p-t-140 p-b-80 p-md-t-90">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-heading section-heading-1">
-                            <h2 class="section-heading__title">New & Event</h2>
-                            <div class="section-heading__line">
-                                <img src="{{web_resource_url('assets/web/images/icon/line-blue.png')}}" alt="Line">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="banner banner-1">
-                            <div class="banner__img wow fadeInUp">
-                                <img src="{{web_resource_url('assets/web/images/banner-01.png')}}" alt="Banner 1">
-                            </div>
-                            <div class="banner__content">
-                                <h4 class="title title--white banner__title-sub wow fadeInRight"
-                                    data-wow-delay=".3s">EDUCATION</h4>
-                                <img class="wow fadeInLeft" src="{{web_resource_url('assets/web/images/icon/line-white-small.png')}}" alt="Line"
-                                     data-wow-delay=".4s">
-                                <h2 class="title title--white banner__title wow fadeIn" data-wow-delay=".2s">Study
-                                    with Children</h2>
-                                <a class="link-learn-more link-learn-more--white wow fadeInRight" href="#"
-                                   data-wow-delay=".3s">learn more
-                                    <i class="zmdi zmdi-chevron-right"></i>
-                                    <i class="zmdi zmdi-chevron-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="banner banner-2">
-                            <div class="banner__img">
-                                <img src="{{web_resource_url('assets/web/images/banner-02.png')}}" alt="Banner 2">
-                            </div>
-                            <div class="banner__content">
-                                <h4 class="title title--white banner__title-sub">#PRESCHOOL</h4>
-                                <h2 class="title title--white banner__title">Baby creative art</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="media media-blog-2">
-                            <div class="media__img">
-                                <a href="blog-single.html">
-                                    <img src="{{web_resource_url('assets/web/images/blog-04.jpg')}}" alt="How to coax children">
-                                </a>
-                                <div class="media__date">
-                                    <div class="media__date-inner">
-                                        <span class="day">18</span>
-                                        <span class="month">June</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media__body">
-                                <h4 class="media__title title title--black title--md">
-                                    <a href="blog-single.html">How to coax children</a>
-                                </h4>
-                                <div class="media__info">
-                                        <span class="author">
-                                            <a href="#">John Doe</a>
-                                        </span>
-                                    <a class="cmt" href="#">0</a>
-                                </div>
-                                <p class="media__text">Sed ut perspiciatis unde omnis iste natus error sit
-                                    voluptatem accusantium</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="media media-blog-2">
-                            <div class="media__img">
-                                <a href="blog-single.html">
-                                    <img src="{{web_resource_url('assets/web/images/blog-05.jpg')}}" alt="If you are going to use">
-                                </a>
-                                <div class="media__date">
-                                    <div class="media__date-inner">
-                                        <span class="day">20</span>
-                                        <span class="month">June</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media__body">
-                                <h4 class="media__title title title--black title--md">
-                                    <a href="blog-single.html">If you are going to use</a>
-                                </h4>
-                                <div class="media__info">
-                                        <span class="author">
-                                            <a href="#">John Doe</a>
-                                        </span>
-                                    <a class="cmt" href="#">0</a>
-                                </div>
-                                <p class="media__text">Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                    amet</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="media media-blog-2">
-                            <div class="media__img">
-                                <a href="blog-single.html">
-                                    <img src="{{web_resource_url('assets/web/images/blog-06.jpg')}}" alt="Neque porro quisquam">
-                                </a>
-                                <div class="media__date">
-                                    <div class="media__date-inner">
-                                        <span class="day">25</span>
-                                        <span class="month">June</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media__body">
-                                <h4 class="media__title title title--black title--md">
-                                    <a href="blog-single.html">Neque porro quisquam</a>
-                                </h4>
-                                <div class="media__info">
-                                        <span class="author">
-                                            <a href="#">John Hart</a>
-                                        </span>
-                                    <a class="cmt" href="#">0</a>
-                                </div>
-                                <p class="media__text">Ut enim ad minima veniam, quis nostrum exercitationem ullam
-                                    corporis</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- END EVENT-->
-
-        <!-- CONTACT INFO-->
         <section class="section bg-f7">
             <div class="section-row contact-info-wrap">
                 <div class="contact-info-col">
@@ -682,7 +393,7 @@
                         <div class="wrap--w600">
                             <div class="contact-info-content">
                                 <div
-                                    class="section-heading section-heading-1 section-heading-1--small text-left m-b-25">
+                                        class="section-heading section-heading-1 section-heading-1--small text-left m-b-25">
                                     <h2 class="section-heading__title">Contact Info</h2>
                                     <div class="section-heading__line">
                                         <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
@@ -699,8 +410,8 @@
                                     </li>
                                     <li class="list-contact__item">
                                         <span class="lnr lnr-envelope list-contact__icon"></span><a
-                                            href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                            data-cfemail="e6a3948f85cbded4a6839e878b968a83c885898b">[email&#160;protected]</a>
+                                                href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                                data-cfemail="e6a3948f85cbded4a6839e878b968a83c885898b">[email&#160;protected]</a>
                                     </li>
                                     <li class="list-contact__item">
                                         <span class="lnr lnr-earth list-contact__icon"></span>www.Jockey Club Bright Start Project.com
