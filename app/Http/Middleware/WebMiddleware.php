@@ -33,11 +33,11 @@ class WebMiddleware
             }
 
             $navs[] = [
-                'title' => '關於我們',
+                'title' => __('關於我們'),
                 'url' => route('page', ['page' => 'about-us.html']),
                 'children' => [
                     [
-                        'title' => '參與幼兒中心名稱',
+                        'title' => __('參與幼兒中心名稱'),
                         'url' => route('page', ['page' => 'about-us.html']),
                         'children' => [
                             [
@@ -55,37 +55,37 @@ class WebMiddleware
                         ]
                     ],
                     [
-                        'title' => '計劃團隊',
+                        'title' => __('計劃團隊'),
                         'url' => route('page', ['page' => 'about-us.html']),
                         'children' => [
                             [
-                                'title' => '計劃總監暨首席研究員',
+                                'title' => __('計劃總監暨首席研究員'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ],
                             [
-                                'title' => '首席聯席研究員',
+                                'title' => __('首席聯席研究員'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ],
                             [
-                                'title' => '聯席研究員',
+                                'title' => __('聯席研究員'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ]
                         ]
                     ],
                     [
-                        'title' => '計劃夥伴',
+                        'title' => __('計劃夥伴'),
                         'url' => route('page', ['page' => 'about-us.html']),
                         'children' => [
                             [
-                                'title' => '主編機構',
+                                'title' => __('主編機構'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ],
                             [
-                                'title' => '捐助機構',
+                                'title' => __('捐助機構'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ],
                             [
-                                'title' => '專業合作夥伴',
+                                'title' => __('專業合作夥伴'),
                                 'url' => route('page', ['page' => 'about-us.html']),
                             ]
                         ]
@@ -107,30 +107,30 @@ class WebMiddleware
             }
             if (!empty($new_category)) {
                 array_unshift($new_children, [
-                    'title' => '全部',
+                    'title' => __('全部'),
                     'url' => route('news.html')
                 ]);
             }
             $navs[] = [
-                'title' => '最新消息',
+                'title' => __('最新消息'),
                 'url' => route('news.html'),
                 'children' => $new_children
             ];
 
             $navs[] = [
-                'title' => '香港0-3歲嬰幼兒服務資訊',
+                'title' => __('香港0-3歲嬰幼兒服務資訊'),
                 'url' => route('maps.html'),
                 'children' => []
             ];
 
             $navs[] = [
-                'title' => '教師專業發展',
+                'title' => __('教師專業發展'),
                 'url' => route('page', ['page' => 'about-us.html']),
                 'children' => []
             ];
 
             $navs[] = [
-                'title' => '聯繫我們',
+                'title' => __('聯繫我們'),
                 'url' => route('page', ['page' => 'contact-us.html']),
                 'children' => []
             ];

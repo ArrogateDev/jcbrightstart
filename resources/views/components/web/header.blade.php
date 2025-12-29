@@ -3,9 +3,9 @@
     $locales = [
         'en' => 'EN',
         'zh_CN' => '简体',
-        'zh_HK' => '繁体'
+        'zh_HK' => '繁體'
     ];
-    $currentLang = $locales[$currentLocale] ?? '繁体';
+    $currentLang = $locales[$currentLocale] ?? '繁體';
 @endphp
 <header id="header">
     <section class="top-contact">
@@ -85,7 +85,7 @@
                                 @foreach($locales as $locale => $label)
                                     <li>
                                         <a class="dropdown-item rounded {{ $currentLocale === $locale ? 'active' : '' }}"
-                                           href="javascript:void(0);">
+                                           href="{{ route('language.switch', ['locale' => $locale]) }}">
                                             {{ $label }}
                                             @if($currentLocale === $locale)
                                                 <i class="fas fa-check ml-2"></i>
