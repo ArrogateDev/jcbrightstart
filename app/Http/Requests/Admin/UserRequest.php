@@ -14,7 +14,6 @@ class UserRequest extends BaseRequest
             'first_name' => 'bail|required',
             'last_name' => 'bail|required',
             'gender' => 'bail|required',
-            'age' => 'bail|required',
             'status' => 'bail|required',
         ];
 

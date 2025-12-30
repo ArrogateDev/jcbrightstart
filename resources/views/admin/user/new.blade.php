@@ -35,17 +35,6 @@
         </select>
     </div>
     <div class="mb-3 position-relative">
-        <label class="form-label">Age
-            <span class="text-danger ms-1">*</span>
-            <span class="error-container" id="error-container-age"></span>
-        </label>
-        <select id="age" class="select" name="age">
-            @foreach($ages as $age=>$value)
-                <option @selected($user->age === $age) value="{{$age}}">{{$value}}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="mb-3 position-relative">
         <label class="form-label">New Password
             <span class="text-danger ms-1">*</span>
             <span class="error-container" id="error-container-password"></span>
@@ -143,13 +132,6 @@
                 }
             ], {
                 errorsContainer: '#error-container-gender'
-            })
-            .addField('#age', [
-                {
-                    rule: 'required',
-                }
-            ], {
-                errorsContainer: '#error-container-age'
             })
             .addField('#password', [
                 {
