@@ -54,8 +54,8 @@
             $field.append(`<i class="fa-solid fa-arrow-${sort === 'asc' ? 'up' : 'down'}-short-wide"></i>`);
         }
         const requestParams = Object.assign({page: page,}, tableParams, {
-            sort_field: field,
-            sort_direction: sort
+            field: field,
+            sort: sort
         });
 
         $.ajax({
