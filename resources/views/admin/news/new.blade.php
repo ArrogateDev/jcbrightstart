@@ -59,16 +59,16 @@
                                                     <input type="file" id="upload-img-input" style="display: none;"
                                                            accept="image/jpeg, image/png, image/gif, image/webp">
                                                     <div class="upload-content" id="upload-content">
-                                                        @if($news->thumbnail)
+                                                        @if($news->id > 0 && !empty($raw_thumbnail = $news->getRawOriginal('thumbnail')))
                                                             <img src="{{asset($news->thumbnail)}}"
                                                                  class="img-fluid h-100" alt="" style="max-height: 120px;">
+                                                            <input type="hidden" name="thumbnail_url" value="{{$raw_thumbnail}}">
                                                         @else
                                                             <span class="d-flex align-items-center justify-content-center mb-1">
                                                                         <i class="isax isax-image5 text-secondary fs-24 text-center"></i>
                                                                     </span>
                                                             <p class="text-center fw-medium mb-1">Upload Image</p>
-                                                            <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 2
-														MB</span>
+                                                            <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 5 MB</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -139,44 +139,21 @@
                                         <div class="summernote">{!! $news->description??'' !!}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('状态')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <div class="d-flex align-items-center ">
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                       id="status-0" value="0" @checked(($news->status??0) == 0)>
-                                                <label class="form-check-label" for="status-0">
-                                                    Draft
-                                                </label>
-                                            </div>
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                       id="status-1" value="1" @checked(($news->status??0) == 1)>
-                                                <label class="form-check-label" for="status-1">
-                                                    Suspensed
-                                                </label>
-                                            </div>
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                       id="status-2" value="2" @checked(($news->status??0) == 2)>
-                                                <label class="form-check-label" for="status-2">
-                                                    Published
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div
                                 class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
                                 <div class="btn-left">
-                                    <a href="javascript:void(0);" class="btn btn-secondary btn-submit">{{__('提交')}}</a>
+                                    <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                    </a>
+                                    <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit text-white"
+                                       style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
+                                    </a>
+                                    <a href="javascript:void(0);" data-status="1" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
                                 </div>
                             </div>
                         </div>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" id="status" value="{{$news->status??0}}">
                         <input type="hidden" id="edit-id" value="{{$news->id??''}}">
                     </form>
                 </div>
@@ -230,7 +207,7 @@
 
             // Function to handle file upload (basic example)
             function handleFileUpload(file) {
-                if (file && file.size <= 2 * 1024 * 1024) {
+                if (file && file.size <= 5 * 1024 * 1024) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const preview = document.createElement('img');
@@ -329,9 +306,16 @@
 
         const $form = $('#news-form');
         $('.btn-submit').click(function () {
+            showLoading()
+
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
+            let status = $(this).data('status');
+            let $status = $('#status').val();
+            let keep = $(this).data('keep');
+
+            formData.append('status', $status > 0 ? $status : status)
 
             _.each(form, (value) => {
                 formData.append(value.name, value.value);
@@ -367,7 +351,13 @@
 
                     showToast('success', editId ? '{{__('更新成功')}}' : '{{__('创建成功')}}');
                     editId = data.data.id;
-                    window.location.href = '{{route('admin.news.update.view.html', ['news' => ':id'])}}'.replace(':id', editId);
+                    let url;
+                    if (keep) {
+                        url = '{{route('admin.news.update.view.html', ['news' => ':id'])}}'.replace(':id', editId);
+                    } else {
+                        url = '{{route('admin.news.html')}}';
+                    }
+                    window.location.href = url;
                 }, error: function () {
                     showToast('error', '{{__('操作失败，请稍后再试！')}}')
                 }, complete: function () {

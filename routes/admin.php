@@ -137,7 +137,9 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         //修改消息
         $route->put('/news/{news}.html', [NewsController::class, 'update'])->middleware('admin:NewsEdit')->name('admin.news.update.html');
         //修改课程页
-        $route->get('/news/edit/{news}.html', [NewsController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.news.update.view.html');
+        $route->get('/news/edit/{news}.html', [NewsController::class, 'view'])->middleware('admin:NewsEdit')->name('admin.news.update.view.html');
+        //修改课程状态
+        $route->put('/news/status/{news}.html', [NewsController::class, 'status'])->middleware('admin:NewsEdit')->name('admin.news.status.html');
         //删除消息
         $route->delete('/news/{news}.html', [NewsController::class, 'destroy'])->middleware('admin:NewsDelete');
 

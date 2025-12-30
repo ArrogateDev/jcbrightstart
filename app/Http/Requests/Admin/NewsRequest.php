@@ -12,21 +12,25 @@ class NewsRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'title' => 'bail|required',
-            'category_id' => 'bail|required|exists:news_categories,id',
-            'thumbnail' => 'bail|required|image',
-            'short' => 'bail|required',
-            'start_date' => 'bail|required|date:Y-m-d',
-            'end_date' => 'bail|required|date:Y-m-d|after_or_equal:start_date',
-            'start_time' => 'bail|required|date:H:i A',
-            'end_time' => 'bail|required|date:H:i A|after_or_equal:start_time',
-            'description' => 'bail|required',
-            'status' => 'bail|required|in:0,1,2',
+            'status' => 'bail|required|in:0,1'
         ];
 
-        if ($this->method() === 'PUT') {
+        $status = $this->input('status');
+        if ($status == News::STATUS_PUBLISHED) {
+            $rules['title'] = 'bail|required';
+            $rules['category_id'] = 'bail|required|exists:news_categories,id';
+            $rules['short'] = 'bail|required';
+            $rules['start_date'] = 'bail|required|date:Y-m-d';
+            $rules['end_date'] = 'bail|required|date:Y-m-d|after_or_equal:start_date';
+            $rules['start_time'] = 'bail|required|date:H:i A';
+            $rules['end_time'] = 'bail|required|date:H:i A|after_or_equal:start_time';
+            $rules['description'] = 'bail|required';
+        }
+
+        if ($status == News::STATUS_PUBLISHED && $this->method() === 'PUT') {
             $news = $this->route('news');
-            $rules['thumbnail'] = 'bail|nullable|image';
+            $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
+            $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
             $id = $news instanceof News ? $news->id : $news;
             $rules['title'] = [
                 'bail',

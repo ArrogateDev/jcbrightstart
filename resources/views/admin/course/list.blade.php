@@ -100,10 +100,10 @@
                             <thead class="thead-light">
                             <tr id="field-list">
                                 <th data-field="id">ID</th>
-                                <th data-field="name">Name</th>
-                                <th>Students</th>
-                                <th>Ratings</th>
-                                <th>Status</th>
+                                <th data-field="title">{{__('标题')}}</th>
+                                <th>{{__('家长')}}</th>
+                                <th>{{__('评分')}}</th>
+                                <th>{{__('状态')}}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -135,10 +135,19 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
+                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
                 : item.status === 1
-                    ? `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
-                    : `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
+                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+
+            const statusMenu = `<div class="dropdown dropend">
+                ${statusBadge}
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" data-id="${item.id}" data-status="0"  href="#">Draft</a></li>
+                    <li><a class="dropdown-item" data-id="${item.id}" data-status="1"  href="#">Suspensed</a></li>
+                    <li><a class="dropdown-item" data-id="${item.id}" data-status="2"  href="#">Published</a></li>
+                </ul>
+            </div>`
 
             const row = `
                     <tr>
@@ -170,7 +179,7 @@
                                 <span>5.0 (0)</span>
                             </div>
                         </td>
-                        <td>${statusBadge}</td>
+                        <td>${statusMenu}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="${item.url}" class="d-inline-flex fs-14 me-1 action-icon">
@@ -252,21 +261,12 @@
             });
         });
 
-        $(document).on('click', '.status-tag', function () {
+        $(document).on('click', '#table-body .dropdown-item', function () {
             const id = parseInt($(this).data('id'));
             const status = parseInt($(this).data('status'));
-            const statusMaps = {
-                0: 2,
-                1: 2,
-                2: 1,
-            };
-            const statusTextMaps = {
-                0: 'Publish',
-                1: 'Publish',
-                2: 'Suspend',
-            };
+            const statusText = $(this).text();
 
-            const message = '{{__('确定将课程改为: :status？')}}'.replace(':status', `"${statusTextMaps[status]}"`);
+            const message = '{{__('确定将课程改为: :status？')}}'.replace(':status', `"${statusText}"`);
             confirm_alert(message, "{{__('此操作不可恢复！')}}", 'Yes!')
                 .then((result) => {
                     if (result.isConfirmed) {
@@ -276,7 +276,7 @@
                             url: '{{route('admin.course.status.html', ['course' => ':id'])}}'.replace(':id', id),
                             type: 'PUT',
                             data: {
-                                status: statusMaps[status] || 0
+                                status: status || 0
                             },
                             dataType: 'json',
                             headers: {

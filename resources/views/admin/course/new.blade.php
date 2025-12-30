@@ -960,12 +960,11 @@
 
                     showToast('success', editId ? '{{__('更新成功')}}' : '{{__('创建成功')}}');
                     let url;
+                    editId = data.data.id;
                     if (keep) {
-                        editId = data.data.id;
                         const step = ($('.progress-activated').length || 0) + ($('.progress-active').length || 0);
                         url = '{{route('admin.course.update.view.html', ['course' => ':id'])}}'.replace(':id', editId) + '?step=' + step;
                     } else {
-                        editId = data.data.id;
                         url = '{{route('admin.course.html')}}';
                     }
                     window.location.href = url;

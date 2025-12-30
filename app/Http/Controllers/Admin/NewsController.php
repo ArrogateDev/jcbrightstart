@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -168,6 +169,58 @@ class NewsController extends Controller
             throw $e;
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param News $news
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function status(Request $request, News $news)
+    {
+        if (!(($lock = Cache::lock("submit_news_status_lock:$news->id", 360))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $status = (int)$request->input('status');
+
+        if ($status === News::STATUS_PUBLISHED) {
+
+            $validator = Validator::make($news->toArray(), [
+                'title' => 'bail|required',
+                'thumbnail' => 'bail|required',
+                'category_id' => 'bail|required|exists:news_categories,id',
+                'short' => 'bail|required',
+                'start_date' => 'bail|required|date:Y-m-d',
+                'end_date' => 'bail|required|date:Y-m-d|after_or_equal:start_date',
+                'start_time' => 'bail|required|date:H:i A',
+                'end_time' => 'bail|required|date:H:i A|after_or_equal:start_time',
+                'description' => 'bail|required'
+            ]);
+
+            if ($validator->fails()) {
+                throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
+            }
+        }
+
+        try {
+
+            $news->status = $status;
+            if ($news->save() === false) {
+                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+            }
+
+            return $this->responseSuccess(0, __('成功'));
+        } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }

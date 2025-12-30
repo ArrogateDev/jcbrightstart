@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
+use App\Models\Course;
 use App\Models\Quiz;
 use Illuminate\Validation\Rule;
 
@@ -22,7 +23,7 @@ class CourseRequest extends BaseRequest
         ];
 
         $status = $this->input('status');
-        if ($status == 2) {
+        if ($status == Course::STATUS_PUBLISHED) {
             $rules['category_id'] = 'bail|required';
             $rules['level'] = 'bail|required';
             $rules['language'] = 'bail|required';
@@ -37,7 +38,7 @@ class CourseRequest extends BaseRequest
             $rules['certificate_id'] = 'bail|required|exists:certificates,id';
         }
 
-        if ($status == 2 && $this->method() === 'PUT') {
+        if ($status == Course::STATUS_PUBLISHED && $this->method() === 'PUT') {
             $course = $this->route('course');
             $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
             $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';

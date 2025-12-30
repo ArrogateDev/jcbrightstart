@@ -2,6 +2,11 @@
 <html lang="en">
 
 <x-admin.head/>
+<style>
+    .status-tag {
+        cursor: pointer;
+    }
+</style>
 
 <body>
 
@@ -76,17 +81,23 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? '<span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>'
-                : item.status === 1
-                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>'
-                    : '<span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>';
+                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
+                : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+
+            const statusMenu = `<div class="dropdown dropend">
+                ${statusBadge}
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" data-id="${item.id}" data-status="0"  href="#">Draft</a></li>
+                    <li><a class="dropdown-item" data-id="${item.id}" data-status="1"  href="#">Published</a></li>
+                </ul>
+            </div>`
 
             const row = `
                 <tr>
                     <td><span class="text-primary">#${item.id}</span></td>
                     <td>${item.title}</td>
                     <td>${item.category_text}</td>
-                    <td>${statusBadge}</td>
+                    <td>${statusMenu}</td>
                     <td>${item.created_at}</td>
                     <td>
                         <div class="d-flex align-items-center">
@@ -158,6 +169,46 @@
                 getData(1, {keyword: searchKeyword});
             }
         });
+
+        $(document).on('click', '#table-body .dropdown-item', function () {
+            const id = parseInt($(this).data('id'));
+            const status = parseInt($(this).data('status'));
+            const statusText = $(this).text();
+
+            const message = '{{__('确定将最新消息改为: :status？')}}'.replace(':status', `"${statusText}"`);
+            confirm_alert(message, "{{__('此操作不可恢复！')}}", 'Yes!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+
+                        $.ajax({
+                            url: '{{route('admin.news.status.html', ['news' => ':id'])}}'.replace(':id', id),
+                            type: 'PUT',
+                            data: {
+                                status: status || 0
+                            },
+                            dataType: 'json',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response) {
+                                if (response.code !== 0) {
+                                    showToast('error', response.msg);
+                                    return;
+                                }
+                                showToast('success', '{{__('更新成功')}}');
+                                getData(1, {keyword: searchKeyword});
+                            },
+                            error: function () {
+                                showToast('error', '{{__('操作失败，请稍后再试！')}}');
+                            },
+                            complete: function () {
+                                hideLoading();
+                            }
+                        });
+                    }
+                })
+        })
     })
 </script>
 </html>
