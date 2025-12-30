@@ -94,8 +94,9 @@
                     <div class="table-responsive custom-table">
                         <table class="table">
                             <thead class="thead-light">
-                            <tr>
-                                <th>Name</th>
+                            <tr id="field-list">
+                                <th data-field="id">ID</th>
+                                <th data-field="name">Name</th>
                                 <th>Students</th>
                                 <th>Ratings</th>
                                 <th>Status</th>
@@ -137,6 +138,7 @@
 
             const row = `
                     <tr>
+                        <td><span class="text-primary">#${item.id}</span></td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="javascript:void(0);" class="avatar avatar-lg me-2"><img

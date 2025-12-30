@@ -112,16 +112,15 @@ class AuthoritiesSeeder extends Seeder
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []
+                        ],
+                        [
+                            'name' => '测验结果',
+                            'alias' => 'QuizResultsList',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
                         ]
                     ]
-                ],
-                [
-                    'name' => '测验结果管理',
-                    'alias' => 'QuizResultsList',
-                    'icon' => 'isax isax-medal-star5',
-                    'sort' => 0,
-                    'type' => Authority::GPS_TYPE,
-                    'children' => []
                 ],
                 [
 

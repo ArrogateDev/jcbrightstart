@@ -1,7 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
+<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
+<script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/admin/js/md5.js') }}"></script>
 
 <body>
 
@@ -9,20 +15,20 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="{{__('消息管理')}}"/>
+    <x-admin.breadcrumb title="{{$active === 'users' ?__('老师管理') : __('家长管理')}}"/>
 
     <div class="content">
         <div class="container">
             <div class="row">
 
-                <x-admin.sidebar active="news"/>
+                <x-admin.sidebar active="{{$active}}"/>
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">{{__('消息管理')}}</h5>
+                        <h5 class="fw-bold">{{$active === 'users' ?__('老师管理') : __('家长管理')}}</h5>
 
                         <div>
-                            <a href="{{route('admin.news.store.view.html')}}" class="btn btn-secondary">{{__('添加消息')}}</a>
+                            <a href="javascript:void(0);" id="export" class="btn btn-secondary">{{__('导出')}}</a>
                         </div>
                     </div>
                     <div class="row justify-content-end">
@@ -40,10 +46,12 @@
                             <thead class="thead-light">
                             <tr id="field-list">
                                 <th data-field="id">ID</th>
-                                <th data-field="title">{{__('标题')}}</th>
-                                <th>{{__('分类')}}</th>
+                                <th data-field="email">{{__('邮箱')}}</th>
+                                <th data-field="name">{{__('姓名')}}</th>
+                                <th>{{__('性别')}}</th>
+                                <th data-field="creatrd_at">{{__('注册时间')}}</th>
+                                <th>{{__('课程')}}</th>
                                 <th data-field="status">{{__('状态')}}</th>
-                                <th data-field="created_at">{{__('创建时间')}}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -51,7 +59,7 @@
                         </table>
                     </div>
 
-                    <x-admin.table-data url="{{route('admin.news.list.html')}}"/>
+                    <x-admin.table-data url="{{route($active === 'teacher' ? 'admin.teacher.list.html' : 'admin.parent.list.html')}}"/>
 
                 </div>
 
@@ -60,6 +68,8 @@
     </div>
 
     <x-admin.footer/>
+
+    @include('admin.user.new')
 
 </div>
 
@@ -76,29 +86,46 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? '<span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>'
-                : item.status === 1
-                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>'
-                    : '<span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>';
+                ? '<span class="badge bg-success-transparent">{{__('启用')}}</span>'
+                : '<span class="badge bg-danger-transparent">{{__('禁用')}}</span>';
 
             const row = `
                 <tr>
                     <td><span class="text-primary">#${item.id}</span></td>
-                    <td>${item.title}</td>
-                    <td>${item.category_text}</td>
-                    <td>${statusBadge}</td>
-                    <td>${item.created_at}</td>
+                    <td>${item.email}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <a href="${item.url}" class="d-inline-flex fs-14 me-1 action-icon">
+                            <a href="javascript:void(0);"
+                               class="avatar avatar-md avatar-rounded flex-shrink-0 me-2">
+                                <img src="${item.avatar}" alt="${item.full_name}">
+                            </a>
+                            <a href="javascript:void(0);">
+                                <p class="fs-14">${item.full_name}</p>
+                            </a>
+                        </div>
+                    </td>
+                    <td>${item.gender_text}</td>
+                    <td>${item.created_at}</td>
+                    <td>0</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:void(0);"
+                               class="d-inline-flex fs-14 me-2 action-icon text-primary"
+                               data-bs-toggle="modal"
+                               data-bs-target="#form-modal"
+                               data-item='${JSON.stringify(item)}'
+                               title="{{__('编辑')}}">
                                 <i class="isax isax-edit"></i>
                             </a>
+                            ${item.id !== 1 ? `
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
                                onclick="handleDelete(${item.id}, '${item.full_name}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
+                            ` : ''}
                         </div>
                     </td>
                 </tr>
@@ -114,7 +141,7 @@
                 if (result.isConfirmed) {
                     showLoading();
 
-                    let url = `/admin/parent/${id}.html`
+                    let url = $active === 'teacher' ? `/admin/teacher/${id}.html` : `/admin/parent/${id}.html`
                     $.ajax({
                         url: url,
                         type: 'DELETE',
@@ -158,6 +185,37 @@
                 getData(1, {keyword: searchKeyword});
             }
         });
+
+        $('#form-modal').on('hidden.bs.modal', function () {
+            const uploaded = $(this).data('uploaded');
+            if (uploaded) {
+                getData(currentPage, {keyword: searchKeyword});
+            }
+        });
+
+        $('#export').click(function () {
+            showLoading()
+
+            $.ajax({
+                url: "{{route('admin.parent.export.html')}}",
+                data: {keyword: searchKeyword},
+                dataType: "json",
+                success: function (response) {
+                    if (response.code !== 0) {
+                        showToast('error', response.msg);
+                        return;
+                    }
+
+                    window.open(response.data.url);
+                },
+                error: function () {
+                    showToast('error', '{{__('加载失败，请稍后重试！')}}');
+                },
+                complete: function () {
+                    hideLoading();
+                }
+            });
+        })
     })
 </script>
 </html>

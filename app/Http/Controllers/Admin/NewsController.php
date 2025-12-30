@@ -37,6 +37,8 @@ class NewsController extends Controller
     {
         $keyword = $request->query('keyword');
         $status = $request->query('status');
+        $field = $request->query('field');
+        $sort = $request->query('sort');
 
         $list = News::query()
             ->with('category:id,title')
@@ -45,6 +47,11 @@ class NewsController extends Controller
             })
             ->when($status, function ($query) use ($status) {
                 $query->where('status', $status);
+            })
+            ->when($field, function ($query) use ($field, $sort) {
+                $query->orderBy($field, $sort);
+            }, function ($query) {
+                $query->orderBy('id');
             })
             ->paginate(limit_page());
 

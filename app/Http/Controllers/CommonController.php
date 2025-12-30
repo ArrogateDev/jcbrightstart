@@ -144,4 +144,22 @@ class CommonController extends Controller
 
         return response($svg, 200, ['Content-Type' => 'image/svg+xml']);
     }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @throws \Exception
+     */
+    public function download(Request $request)
+    {
+        try {
+            $file = $request->query('file');
+            if (!Storage::exists($file)) {
+                throw new \Exception(__('文件不存在'));
+            }
+            return Storage::download($file);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

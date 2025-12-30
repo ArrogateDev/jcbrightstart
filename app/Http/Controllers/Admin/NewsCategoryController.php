@@ -26,12 +26,18 @@ class NewsCategoryController extends Controller
     public function list(Request $request)
     {
         $keyword = $request->query('keyword');
+        $field = $request->query('field');
+        $sort = $request->query('sort');
 
         $list = NewsCategory::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })
-            ->orderByDesc('id')
+            ->when($field, function ($query) use ($field, $sort) {
+                $query->orderBy($field, $sort);
+            }, function ($query) {
+                $query->orderBy('id');
+            })
             ->paginate(limit_page());
 
         return $this->responseSuccess($list);

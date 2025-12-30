@@ -70,6 +70,9 @@
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex align-items-center justify-content-end mt-2 mt-md-0">
+                                <a href="${item.result_url}" class="text-info text-decoration-underline fs-12 fw-medium me-3">
+                                    View Results
+                                </a>
                                 <a href="#" class="d-inline-flex fs-14 me-1 action-icon" data-bs-toggle="modal" data-bs-target="#form-modal"
                                    data-item='${JSON.stringify(item)}'><i class="isax isax-edit-2"></i></a>
                                 <a href="#" class="d-inline-flex fs-14 action-icon" onclick="handleDelete(${item.id}, '${item.title}')"

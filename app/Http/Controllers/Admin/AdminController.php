@@ -23,6 +23,8 @@ class AdminController extends Controller
     {
 
         $admin = $request->user('admin');
+        $field = $request->query('field');
+        $sort = $request->query('sort');
         $role_id = $admin->role->id ?? 0;
         $role_level = $admin->role->level ?? 0;
 
@@ -30,7 +32,11 @@ class AdminController extends Controller
             ->when($role_id != 1, function ($query) use ($role_level) {
                 $query->where('level', '>', $role_level);
             })
-            ->orderBy('id')
+            ->when($field, function ($query) use ($field, $sort) {
+                $query->orderBy($field, $sort);
+            }, function ($query) {
+                $query->orderBy('id');
+            })
             ->select('id as value', 'name as label')
             ->get();
 

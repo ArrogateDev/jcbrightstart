@@ -1,4 +1,11 @@
 @props(['url' => null])
+<style>
+    #field-list th[data-field] {
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    }
+</style>
 <div class="row align-items-center mt-4" id="pagination-container" style="display: none;">
     <div class="col-md-4 d-flex align-items-center">
         <div class="me-2">
@@ -23,7 +30,33 @@
         tableParams = params;
         let limit = $('#data-limit').val();
         tableParams = Object.assign(tableParams, {limit: limit,});
-        const requestParams = Object.assign({page: page,}, tableParams);
+
+        let $field, field, sort;
+        const $fieldBox = $('#field-list');
+        $sort = $fieldBox.find('th[data-sort]');
+        $fields = $fieldBox.find('th[data-field]');
+        if ($sort.length > 0) {
+            $field = $sort.eq(0);
+            field = $field.data('field')
+            sort = $field.attr('data-sort');
+        } else {
+            $field = $fields.eq(0);
+            field = $field.data('field');
+            sort = 'asc';
+            $field.attr('data-sort', sort)
+        }
+        if ($field) {
+            $field.add($field.siblings()).each(function () {
+                var textContent = $(this).text();
+                $(this).empty().text(textContent);
+            });
+
+            $field.append(`<i class="fa-solid fa-arrow-${sort === 'asc' ? 'up' : 'down'}-short-wide"></i>`);
+        }
+        const requestParams = Object.assign({page: page,}, tableParams, {
+            sort_field: field,
+            sort_direction: sort
+        });
 
         $.ajax({
             url: "{{$url}}",
@@ -149,6 +182,15 @@
 
     $(function () {
         $('#data-limit').change(function () {
+            getData(1, tableParams);
+        })
+
+        $('#field-list th[data-field]').click(function () {
+            let sort = ($(this).attr('data-sort') === 'asc') ? 'desc' : 'asc';
+
+            $(this).siblings().removeAttr('data-sort');
+            $(this).attr('data-sort', sort);
+
             getData(1, tableParams);
         })
     })

@@ -26,13 +26,23 @@ class QuizController extends Controller
     public function list(Request $request)
     {
         $keyword = $request->query('keyword');
+        $field = $request->query('field');
+        $sort = $request->query('sort');
 
         $list = Quiz::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })
-            ->orderByDesc('id')
+            ->when($field, function ($query) use ($field, $sort) {
+                $query->orderBy($field, $sort);
+            }, function ($query) {
+                $query->orderBy('id');
+            })
             ->paginate(limit_page());
+
+        $list->map(function ($item) {
+            $item->result_url = route('admin.quiz-results.html', ['quiz' => $item->id]);
+        });
 
         return $this->responseSuccess($list);
     }

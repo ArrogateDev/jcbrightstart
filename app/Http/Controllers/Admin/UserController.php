@@ -7,10 +7,12 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
 
         $ages = User::AGE_MAPS;
 
-        return view('admin.user', compact('active', 'ages'));
+        return view('admin.user.index', compact('active', 'ages'));
     }
 
     /**
@@ -31,10 +33,17 @@ class UserController extends Controller
     public function list(Request $request)
     {
         $keyword = $request->query('keyword');
+        $field = $request->query('field');
+        $sort = $request->query('sort');
 
         $list = User::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->when($field, function ($query) use ($field, $sort) {
+                $query->orderBy($field, $sort);
+            }, function ($query) {
+                $query->orderBy('id');
             })
             ->select('id', 'avatar', 'email', 'full_name', 'first_name', 'last_name', 'gender', 'age', 'role', 'status', 'created_at')
             ->paginate(limit_page());
@@ -107,6 +116,51 @@ class UserController extends Controller
             return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
             throw new ApiException(__('删除失败'), $e->getCode());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function export(Request $request)
+    {
+        $keyword = $request->query('keyword');
+        $date = Carbon::now()->format('Ymd');
+
+        $result = User::query()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->select('id', 'avatar', 'email', 'full_name', 'first_name', 'last_name', 'gender', 'age', 'role', 'status', 'created_at');
+
+        try {
+
+            $file_path = 'files/export/uset/' . $date . '/';
+            $file = $file_path . uniqid() . '.xlsx';
+            $path = storage_path('app/public/');
+            if (!file_exists($path . $file_path)) {
+                mkdir($path . $file_path, 0755, true);
+            }
+
+            $result = (new FastExcel($result->get()))->export($path . $file, function ($item) {
+                return [
+                    __('邮箱') => $item->email,
+                    __('姓名') => $item->full_name,
+                    __('性别') => $item->gender_text,
+                    __('注册时间') => Carbon::parse($item->created_at)->toDateString(),
+                ];
+            });
+
+            if (!$result) {
+                throw new  \Exception('fail');
+            }
+
+            return $this->responseSuccess(['url' => route('admin.download.html', ['file' => $file])]);
+        } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException(__('fail'), ResponseCode::SERVER_ERR);
         }
     }
 }
