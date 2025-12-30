@@ -49,7 +49,7 @@
                                 <th data-field="email">{{__('邮箱')}}</th>
                                 <th data-field="full_name">{{__('姓名')}}</th>
                                 <th>{{__('性别')}}</th>
-                                <th data-field="creatrd_at">{{__('注册时间')}}</th>
+                                <th data-field="created_at">{{__('注册时间')}}</th>
                                 <th>{{__('课程')}}</th>
                                 <th data-field="status">{{__('状态')}}</th>
                                 <th></th>
