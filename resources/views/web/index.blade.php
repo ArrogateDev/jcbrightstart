@@ -309,7 +309,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading section-heading-2">
-                            <h2 class="section-heading__title">our Rooms & Classes</h2>
+                            <h2 class="section-heading__title">{{__('最新消息')}}</h2>
                             <div class="section-heading__line">
                                 <img src="{{web_resource_url('assets/web/images/icon/line-white.png')}}" alt="Line 2">
                             </div>
