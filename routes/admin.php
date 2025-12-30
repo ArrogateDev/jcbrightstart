@@ -123,7 +123,9 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->put('/certificate/{certificate}.html', [CertificateController::class, 'update'])->middleware('admin:CertificateEdit')->name('admin.certificate.update.html');
         //删除证书模板
         $route->delete('/certificate/{certificate}.html', [CertificateController::class, 'destroy'])->middleware('admin:CertificateDelete');
+    });
 
+    $route->group(['middleware' => 'admin:WebpageManage'], function ($route) {
         //消息列表页
         $route->get('news.html', [NewsController::class, 'index'])->middleware('admin:NewsList')->name('admin.news.html');
         //消息列表

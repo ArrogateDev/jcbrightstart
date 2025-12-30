@@ -18,7 +18,7 @@ class AuthoritiesSeeder extends Seeder
     {
 
         $authorities[] = [
-            'name' => '主菜单',
+            'name' => '家长及课程管理',
             'alias' => 'MainMenuManage',
             'sort' => 0,
             'type' => Authority::MENU_TYPE,
@@ -152,9 +152,19 @@ class AuthoritiesSeeder extends Seeder
                             'children' => []
                         ]
                     ]
-                ],
+                ]
+            ]
+        ];
+
+        $authorities[] = [
+            'name' => '网页管理',
+            'alias' => 'WebpageManage',
+            'sort' => 0,
+            'type' => Authority::MENU_TYPE,
+            'pid' => 0,
+            'children' => [
                 [
-                    'name' => '消息管理',
+                    'name' => '最新消息',
                     'alias' => 'NewsList',
                     'icon' => 'isax isax-messages-35',
                     'sort' => 0,
@@ -184,28 +194,28 @@ class AuthoritiesSeeder extends Seeder
                     ]
                 ],
                 [
-                    'name' => '消息分类管理',
+                    'name' => '最新消息分类',
                     'alias' => 'NewsCategoryList',
                     'icon' => 'isax isax-ticket5',
                     'sort' => 0,
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加消息分类',
+                            'name' => '添加分类',
                             'alias' => 'NewsCategoryAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []
                         ],
                         [
-                            'name' => '编辑消息分类',
+                            'name' => '编辑分类',
                             'alias' => 'NewsCategoryEdit',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
                             'children' => []
                         ],
                         [
-                            'name' => '删除消息分类',
+                            'name' => '删除分类',
                             'alias' => 'NewsCategoryDelete',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
