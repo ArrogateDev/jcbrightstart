@@ -94,19 +94,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Age
-                                                    <span class="text-danger ms-1">*</span>
-                                                    <span id="error-container-age"></span>
-                                                </label>
-                                                <select id="age" class="select" name="age">
-                                                    @foreach($ages as $age=>$value)
-                                                        <option @selected($user->age === $age) value="{{$age}}">{{$value}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="col-md-12">
                                             <button class="btn btn-secondary rounded-pill" type="submit">Update
                                                 Profile

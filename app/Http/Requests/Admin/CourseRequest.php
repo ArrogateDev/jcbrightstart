@@ -37,13 +37,10 @@ class CourseRequest extends BaseRequest
             $rules['certificate_id'] = 'bail|required|exists:certificates,id';
         }
 
-        if ($this->method() === 'PUT') {
+        if ($status == 2 && $this->method() === 'PUT') {
             $course = $this->route('course');
             $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
             $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
-        }
-
-        if ($status == 2 && $this->method() === 'PUT') {
             $id = $course instanceof Quiz ? $course->id : $course;
             $rules['title'] = [
                 'bail',

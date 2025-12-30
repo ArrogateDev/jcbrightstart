@@ -73,12 +73,6 @@
                                         <span>{{$user->gender_text}}</span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <h6>Age</h6>
-                                        <span>{{$user->age_text}}</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
