@@ -5,7 +5,7 @@
 	<meta name="robots" content="index, follow">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{$title}}</title>
+    <title>{{$title??''}}</title>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="{{web_resource_url('assets/img/favicon.ico')}}">
