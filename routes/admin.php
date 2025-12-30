@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->get('/course/{course}.html', [CourseController::class, 'view'])->middleware('admin:CourseEdit')->name('admin.course.update.view.html');
         //修改课程
         $route->put('/course/{course}.html', [CourseController::class, 'update'])->middleware('admin:CourseEdit')->name('admin.course.update.html');
+        //修改课程状态
+        $route->put('/course/status/{course}.html', [CourseController::class, 'status'])->middleware('admin:CourseEdit')->name('admin.course.status.html');
         //删除课程
         $route->delete('/course/{course}.html', [CourseController::class, 'destroy'])->middleware('admin:CourseDelete')->name('admin.course.destroy.html');
 

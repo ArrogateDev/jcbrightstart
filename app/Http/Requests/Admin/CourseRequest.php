@@ -23,8 +23,6 @@ class CourseRequest extends BaseRequest
 
         $status = $this->input('status');
         if ($status == 2) {
-            $rules['thumbnail'] = 'bail|required|image';
-            $rules['video_url'] = 'bail|required|url';
             $rules['category_id'] = 'bail|required';
             $rules['level'] = 'bail|required';
             $rules['language'] = 'bail|required';
@@ -41,7 +39,8 @@ class CourseRequest extends BaseRequest
 
         if ($this->method() === 'PUT') {
             $course = $this->route('course');
-            $rules['image'] = 'bail|nullable|image';
+            $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
+            $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
         }
 
         if ($status == 2 && $this->method() === 'PUT') {

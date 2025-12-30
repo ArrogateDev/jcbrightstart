@@ -2,7 +2,11 @@
 <html lang="en">
 
 <x-admin.head/>
-
+<style>
+    .status-tag {
+        cursor: pointer;
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -131,10 +135,10 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? '<span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>'
+                ? `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
                 : item.status === 1
-                    ? '<span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>'
-                    : '<span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>';
+                    ? `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
+                    : `<span data-id="${item.id}" data-status="${item.status}" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
 
             const row = `
                     <tr>
@@ -247,6 +251,55 @@
                 status: status !== -1 ? status : undefined
             });
         });
+
+        $(document).on('click', '.status-tag', function () {
+            const id = parseInt($(this).data('id'));
+            const status = parseInt($(this).data('status'));
+            const statusMaps = {
+                0: 2,
+                1: 2,
+                2: 1,
+            };
+            const statusTextMaps = {
+                0: 'Publish',
+                1: 'Publish',
+                2: 'Suspend',
+            };
+
+            const message = '{{__('确定将课程改为: :status？')}}'.replace(':status', `"${statusTextMaps[status]}"`);
+            confirm_alert(message, "{{__('此操作不可恢复！')}}", 'Yes!')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+
+                        $.ajax({
+                            url: '{{route('admin.course.status.html', ['course' => ':id'])}}'.replace(':id', id),
+                            type: 'PUT',
+                            data: {
+                                status: statusMaps[status] || 0
+                            },
+                            dataType: 'json',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response) {
+                                if (response.code !== 0) {
+                                    showToast('error', response.msg);
+                                    return;
+                                }
+                                showToast('success', '{{__('更新成功')}}');
+                                getData(1, {keyword: searchKeyword});
+                            },
+                            error: function () {
+                                showToast('error', '{{__('操作失败，请稍后再试！')}}');
+                            },
+                            complete: function () {
+                                hideLoading();
+                            }
+                        });
+                    }
+                })
+        })
     })
 </script>
 </html>

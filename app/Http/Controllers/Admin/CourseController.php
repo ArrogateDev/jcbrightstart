@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -182,6 +183,65 @@ class CourseController extends Controller
             throw $e;
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function status(Request $request, Course $course)
+    {
+        if (!(($lock = Cache::lock("submit_course_status_lock:$course->id", 360))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $status = (int)$request->input('status');
+
+        if ($status === Course::STATUS_PUBLISHED) {
+            $course->load([
+                'chapters:id,course_id,title',
+                'chapters.units',
+                'chapters.units.quiz:id,title'
+            ]);
+
+            $validator = Validator::make($course->toArray(), [
+                'title' => 'bail|required',
+                'thumbnail' => 'bail|required',
+                'short' => 'bail|required',
+                'description' => 'bail|required',
+                'certificate_id' => 'bail|required|exists:certificates,id',
+                'chapters' => 'bail|required|array|min:1',
+                'chapters.*.units' => 'bail|required|array|min:1',
+                'chapters.*.units.*.video_url' => 'bail|required_if:type,0|starts_with:https://www.youtube.com,https://youtu.be',
+                'chapters.*.units.*.pdf' => 'bail|required_if:type,1|filled|mimes:pdf',
+                'chapters.*.units.*.type' => 'bail|required|in:0,1',
+                'chapters.*.units.*.quiz_id' => 'bail|required|exists:quizzes,id'
+            ]);
+
+            if ($validator->fails()) {
+                throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
+            }
+        }
+
+        try {
+
+            $course->status = $status;
+            if ($course->save() === false) {
+                throw new \Exception('course:failed', ResponseCode::SERVER_ERR);
+            }
+
+            return $this->responseSuccess(0, __('成功'));
+        } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }

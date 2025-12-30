@@ -125,42 +125,16 @@
                                                 <div class="summernote">{!! $course->description??'' !!}</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="input-block">
-                                                <label class="form-label">{{__('状态')}}<span
-                                                        class="text-danger ms-1">*</span></label>
-                                                <div class="d-flex align-items-center ">
-                                                    <div class="form-check me-3">
-                                                        <input class="form-check-input" type="radio" name="status"
-                                                               id="status-0" value="0" @checked(($course->status??0) == 0)>
-                                                        <label class="form-check-label" for="status-0">
-                                                            Draft
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check me-3">
-                                                        <input class="form-check-input" type="radio" name="status"
-                                                               id="status-1" value="1" @checked(($course->status??0) == 1)>
-                                                        <label class="form-check-label" for="status-1">
-                                                            Suspensed
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check me-3">
-                                                        <input class="form-check-input" type="radio" name="status"
-                                                               id="status-2" value="2" @checked(($course->status??0) == 2)>
-                                                        <label class="form-check-label" for="status-2">
-                                                            Published
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div
                                         class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
                                         <div class="btn-left">
-                                            <a href="javascript:void(0);" class="btn main-btn next_btns">{{__('下一步')}} <i
-                                                    class="isax isax-arrow-right-3 ms-1"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-secondary btn-submit">{{__('提交')}}</a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                            </a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
+                                               style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
+                                            </a>
+                                            <a href="javascript:void(0);" class="btn btn-secondary next_btns">{{__('下一步')}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -183,16 +157,16 @@
                                                             <input type="file" id="upload-img-input" style="display: none;"
                                                                    accept="image/jpeg, image/png, image/gif, image/webp">
                                                             <div class="upload-content" id="upload-content">
-                                                                @if($course->thumbnail)
+                                                                @if($course->id > 0 && !empty($raw_thumbnail = $course->getRawOriginal('thumbnail')))
                                                                     <img src="{{asset($course->thumbnail)}}"
                                                                          class="img-fluid h-100" alt="" style="max-height: 120px;">
+                                                                    <input type="hidden" name="thumbnail_url" value="{{$raw_thumbnail}}">
                                                                 @else
                                                                     <span class="d-flex align-items-center justify-content-center mb-1">
                                                                         <i class="isax isax-image5 text-secondary fs-24 text-center"></i>
                                                                     </span>
                                                                     <p class="text-center fw-medium mb-1">Upload Image</p>
-                                                                    <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 2
-														MB</span>
+                                                                    <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 5 MB</span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -212,32 +186,32 @@
                                                 </div>
                                                 <div id="chapters-container">
                                                     @if(isset($course->chapters) && count($course->chapters) > 0)
-                                                        @foreach($course->chapters as $chapterIndex => $chapter)
-                                                            <div class="chapter-item mb-3" data-chapter-index="{{$chapterIndex}}">
-                                                                <div class="accordion" id="chapter-accordion-{{$chapterIndex}}">
+                                                        @foreach($course->chapters as $chapterIdx => $chapter)
+                                                            <div class="chapter-item mb-3" data-chapter-index="{{$chapterIdx}}">
+                                                                <div class="accordion" id="chapter-accordion-{{$chapterIdx}}">
                                                                     <div class="accordion-item">
                                                                         <h2 class="accordion-header">
                                                                             <span class="accordion-button d-flex align-items-center"
                                                                                   data-bs-toggle="collapse"
-                                                                                  data-bs-target="#chapter-collapse-{{$chapterIndex}}"
+                                                                                  data-bs-target="#chapter-collapse-{{$chapterIdx}}"
                                                                                   aria-expanded="true"
                                                                                   role="button"
                                                                                   style="box-shadow: none;">
                                                                                 <i class="fa-solid fa-grip-vertical me-2 text-muted" style="cursor: move;"></i>
                                                                                 <span class="chapter-number fw-medium">{{__('章节')}} <span
-                                                                                        class="chapter-index-number">{{$chapterIndex + 1}}</span></span>
+                                                                                        class="chapter-index-number">{{$chapterIdx + 1}}</span></span>
                                                                             </span>
                                                                         </h2>
                                                                         <div class="d-flex justify-content-between align-items-center p-2 bg-light border-top chapter-actions">
                                                                             <div class="flex-grow-1 me-3">
-                                                                                <input type="text" name="chapters[{{$chapterIndex}}][title]"
+                                                                                <input type="text" name="chapters[{{$chapterIdx}}][title]"
                                                                                        class="form-control form-control-sm chapter-title-input"
                                                                                        placeholder="{{__('章节标题')}}"
                                                                                        value="{{$chapter->title??''}}"
                                                                                        required>
                                                                             </div>
                                                                             <div class="d-flex align-items-center">
-                                                                                <button type="button" class="btn btn-sm btn-success add-unit-btn me-2" data-chapter-index="{{$chapterIndex}}">
+                                                                                <button type="button" class="btn btn-sm btn-success add-unit-btn me-2" data-chapter-index="{{$chapterIdx}}">
                                                                                     <i class="fa-solid fa-plus me-1"></i>{{__('添加单元')}}
                                                                                 </button>
                                                                                 <button type="button" class="btn btn-sm btn-danger remove-chapter-btn">
@@ -245,39 +219,39 @@
                                                                                 </button>
                                                                             </div>
                                                                         </div>
-                                                                        <div id="chapter-collapse-{{$chapterIndex}}" class="accordion-collapse collapse show"
-                                                                             data-bs-parent="#chapter-accordion-{{$chapterIndex}}">
+                                                                        <div id="chapter-collapse-{{$chapterIdx}}" class="accordion-collapse collapse show"
+                                                                             data-bs-parent="#chapter-accordion-{{$chapterIdx}}">
                                                                             <div class="accordion-body">
-                                                                                <input type="hidden" name="chapters[{{$chapterIndex}}][id]" value="{{$chapter->id??''}}">
-                                                                                <div class="units-container" data-chapter-index="{{$chapterIndex}}">
+                                                                                <input type="hidden" name="chapters[{{$chapterIdx}}][id]" value="{{$chapter->id??''}}">
+                                                                                <div class="units-container" data-chapter-index="{{$chapterIdx}}">
                                                                                     @if(isset($chapter->units) && count($chapter->units) > 0)
-                                                                                        @foreach($chapter->units as $unitIndex => $unit)
-                                                                                            <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIndex}}">
+                                                                                        @foreach($chapter->units as $unitIdx => $unit)
+                                                                                            <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIdx}}">
                                                                                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                                                                                     <div class="flex-grow-1">
-                                                                                                        <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][title]"
+                                                                                                        <input type="text" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][title]"
                                                                                                                class="form-control form-control-sm mb-2"
                                                                                                                placeholder="{{__('单元标题')}}"
                                                                                                                value="{{$unit->title??''}}" required>
                                                                                                         <div class="form-check form-check-inline">
                                                                                                             <input class="form-check-input unit-type-radio"
                                                                                                                    type="radio"
-                                                                                                                   name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
-                                                                                                                   id="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                                   name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
+                                                                                                                   id="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}"
                                                                                                                    value="0"
-                                                                                                                @checked(($unit->type??'youtube') == 0)>
-                                                                                                            <label class="form-check-label" for="unit_type_youtube_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                                @checked(($unit->type??0) == 0)>
+                                                                                                            <label class="form-check-label" for="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}">
                                                                                                                 {{__('Youtube URL')}}
                                                                                                             </label>
                                                                                                         </div>
                                                                                                         <div class="form-check form-check-inline">
                                                                                                             <input class="form-check-input unit-type-radio"
                                                                                                                    type="radio"
-                                                                                                                   name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][type]"
-                                                                                                                   id="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}"
+                                                                                                                   name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
+                                                                                                                   id="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}"
                                                                                                                    value="1"
-                                                                                                                @checked(($unit->type??'') == 1)>
-                                                                                                            <label class="form-check-label" for="unit_type_pdf_{{$chapterIndex}}_{{$unitIndex}}">
+                                                                                                                @checked(($unit->type??1) == 1)>
+                                                                                                            <label class="form-check-label" for="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}">
                                                                                                                 {{__('PDF文件')}}
                                                                                                             </label>
                                                                                                         </div>
@@ -287,13 +261,13 @@
                                                                                                     </button>
                                                                                                 </div>
                                                                                                 <div class="unit-content-youtube"
-                                                                                                     style="display: {{($unit->type??'youtube') == 'youtube' ? 'block' : 'none'}};">
-                                                                                                    <input type="text" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][video_url]"
+                                                                                                     style="display: {{($unit->type??0) == 0 ? 'block' : 'none'}};">
+                                                                                                    <input type="text" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][video_url]"
                                                                                                            class="form-control form-control-sm"
                                                                                                            placeholder="{{__('Youtube URL链接')}}"
                                                                                                            value="{{$unit->video_url??''}}">
                                                                                                     @if(isset($unit->video_url) && $unit->video_url)
-                                                                                                        <div class="mt-2">
+                                                                                                        <div class="mt-2 position-relative">
                                                                                                             <a href="javascript:void(0);" class="preview-video-btn"
                                                                                                                data-video-url="{{$unit->video_url}}">
                                                                                                                 <img class="img-fluid rounded" style="max-height: 150px;"
@@ -306,9 +280,9 @@
                                                                                                         </div>
                                                                                                     @endif
                                                                                                 </div>
-                                                                                                <div class="unit-content-pdf" style="display: {{($unit->type??'') == 'pdf' ? 'block' : 'none'}};">
+                                                                                                <div class="unit-content-pdf" style="display: {{($unit->type??1) == 1? 'block' : 'none'}};">
                                                                                                     <div class="input-group">
-                                                                                                        <input type="file" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][pdf]"
+                                                                                                        <input type="file" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][pdf]"
                                                                                                                class="form-control form-control-sm unit-pdf-file-input"
                                                                                                                accept="application/pdf"
                                                                                                                style="display: none;">
@@ -331,17 +305,17 @@
                                                                                                 </div>
                                                                                                 <div class="mt-2">
                                                                                                     <label class="form-label small">{{__('绑定测验')}}</label>
-                                                                                                    <select name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][quiz_id]"
+                                                                                                    <select name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][quiz_id]"
                                                                                                             class="form-control form-control-sm unit-quiz-select"
-                                                                                                            data-chapter-index="{{$chapterIndex}}"
-                                                                                                            data-unit-index="{{$unitIndex}}">
+                                                                                                            data-chapter-index="{{$chapterIdx}}"
+                                                                                                            data-unit-index="{{$unitIdx}}">
                                                                                                         <option value="">{{__('请选择测验')}}</option>
                                                                                                         @if(isset($unit->quiz_id) && $unit->quiz_id)
                                                                                                             <option value="{{$unit->quiz_id}}" selected>{{$unit->quiz->title??''}}</option>
                                                                                                         @endif
                                                                                                     </select>
                                                                                                 </div>
-                                                                                                <input type="hidden" name="chapters[{{$chapterIndex}}][units][{{$unitIndex}}][id]"
+                                                                                                <input type="hidden" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][id]"
                                                                                                        value="{{$unit->id??''}}">
                                                                                             </div>
                                                                                         @endforeach
@@ -372,9 +346,12 @@
                                                     class="isax isax-arrow-left-2 me-1"></i>{{__('上一步')}}</a>
                                         </div>
                                         <div class="btn-left">
-                                            <a href="javascript:void(0);" class="btn main-btn next_btns">{{__('下一步')}} <i
-                                                    class="isax isax-arrow-right-3 ms-1"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-secondary btn-submit">{{__('提交')}}</a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                            </a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
+                                               style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
+                                            </a>
+                                            <a href="javascript:void(0);" class="btn btn-secondary next_btns">{{__('下一步')}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -394,13 +371,19 @@
                                                     class="isax isax-arrow-left-2 me-1"></i>{{__('上一步')}}</a>
                                         </div>
                                         <div class="btn-left">
-                                            <a href="javascript:void(0);" class="btn btn-secondary btn-submit">{{__('提交')}}</a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                            </a>
+                                            <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
+                                               style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
+                                            </a>
+                                            <a href="javascript:void(0);" data-status="2" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" id="status" value="{{$course->status??0}}">
                         <input type="hidden" id="edit-id" value="{{$course->id??''}}">
                     </form>
                 </div>
@@ -457,7 +440,7 @@
 
             // Function to handle file upload (basic example)
             function handleFileUpload(file) {
-                if (file && file.size <= 2 * 1024 * 1024) {
+                if (file && file.size <= 5 * 1024 * 1024) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const preview = document.createElement('img');
@@ -851,7 +834,7 @@
 
                 if (videoId) {
                     $('#youtubeIframe').attr('src', 'https://www.youtube.com/embed/' + videoId);
-                    $('#videoModal').fadeIn();
+                    $('#videoModal').css('display', 'flex').fadeIn();
                 } else {
                     showToast('error', '{{__('无效的Youtube URL')}}');
                 }
@@ -874,9 +857,15 @@
 
         const $form = $('#course-form');
         $('.btn-submit').click(function () {
+            showLoading();
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
+            let status = $(this).data('status');
+            let $status = $('#status').val();
+            let keep = $(this).data('keep');
+
+            formData.append('status', $status > 0 ? $status : status)
 
             // 处理普通表单字段
             _.each(form, (value) => {
@@ -970,9 +959,16 @@
                     }
 
                     showToast('success', editId ? '{{__('更新成功')}}' : '{{__('创建成功')}}');
-                    editId = data.data.id;
-                    const step = ($('.progress-activated').length || 0) + ($('.progress-active').length || 0);
-                    window.location.href = '{{route('admin.course.update.view.html', ['course' => ':id'])}}'.replace(':id', editId) + '?step=' + step;
+                    let url;
+                    if (keep) {
+                        editId = data.data.id;
+                        const step = ($('.progress-activated').length || 0) + ($('.progress-active').length || 0);
+                        url = '{{route('admin.course.update.view.html', ['course' => ':id'])}}'.replace(':id', editId) + '?step=' + step;
+                    } else {
+                        editId = data.data.id;
+                        url = '{{route('admin.course.html')}}';
+                    }
+                    window.location.href = url;
                 }, error: function () {
                     showToast('error', '{{__('操作失败，请稍后再试！')}}')
                 }, complete: function () {
