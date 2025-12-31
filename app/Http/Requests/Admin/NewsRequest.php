@@ -12,7 +12,7 @@ class NewsRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'status' => 'bail|required|in:0,1'
+            'status' => 'bail|required|in:0,1,2'
         ];
 
         $status = $this->input('status');

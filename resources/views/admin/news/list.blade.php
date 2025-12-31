@@ -14,7 +14,7 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="{{__('消息管理')}}"/>
+    <x-admin.breadcrumb title="{{__('最新消息')}}"/>
 
     <div class="content">
         <div class="container">
@@ -24,7 +24,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">{{__('消息管理')}}</h5>
+                        <h5 class="fw-bold">{{__('最新消息')}}</h5>
 
                         <div>
                             <a href="{{route('admin.news.store.view.html')}}" class="btn btn-secondary">{{__('添加消息')}}</a>
@@ -82,13 +82,25 @@
         list.forEach(function (item) {
             const statusBadge = item.status === 0
                 ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
-                : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+                : item.status === 1
+                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
+                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+
+            const statusOptions = [
+                { value: 0, label: 'Draft' },
+                { value: 1, label: 'Suspensed' },
+                { value: 2, label: 'Published' }
+            ];
+
+            const statusMenuItems = statusOptions
+                .filter(option => option.value !== item.status)
+                .map(option => `<li><a class="dropdown-item" data-id="${item.id}" data-o-status="${item.status}" data-status="${option.value}" href="#">${option.label}</a></li>`)
+                .join('');
 
             const statusMenu = `<div class="dropdown dropend">
                 ${statusBadge}
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" data-id="${item.id}" data-status="0"  href="#">Draft</a></li>
-                    <li><a class="dropdown-item" data-id="${item.id}" data-status="1"  href="#">Published</a></li>
+                    ${statusMenuItems}
                 </ul>
             </div>`
 

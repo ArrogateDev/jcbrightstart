@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<x-web.head/>
+<style>
+
+    ul {
+        list-style: none;
+    }
+
+    p {
+        color: #6d6d6d;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    .text-secondary {
+        color: #ff4667 !important;
+        opacity: 1;
+    }
+
+    .accordion-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        color: var(--bs-accordion-btn-color);
+        text-align: left;
+        background-color: var(--bs-accordion-btn-bg);
+        border: 0;
+        border-radius: 0;
+        overflow-anchor: none;
+        transition: var(--bs-accordion-transition);
+    }
+
+    h2 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    .course-page-content {
+        padding-top: 60px;
+    }
+
+    @media (max-width: 575.98px) {
+        .course-page-content {
+            padding-top: 45px;
+        }
+    }
+
+    .course-page-content .subs-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 17px;
+    }
+
+    .course-page-content
+    .accordion.accordion-customicon1.accordions-items-seperate {
+        padding: 0 18px;
+    }
+
+    .course-page-content
+    .accordion.accordion-customicon1.accordions-items-seperate
+    li {
+        padding: 15px !important;
+    }
+
+    .course-page-content
+    .accordion.accordion-customicon1.accordions-items-seperate
+    li
+    .preview-link {
+        color: #5625e8;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+
+    .course-page-content
+    .accordion.accordion-customicon1.accordions-items-seperate
+    li
+    .preview-link:hover {
+        color: #ff4667;
+    }
+
+    .course-page-content .accordion-item {
+        margin-bottom: 10px;
+        border: none;
+    }
+
+    .course-page-content .accordion-button {
+        font-size: 14px;
+        font-weight: 600;
+        background-color: var(--light);
+        border-radius: 5px;
+        box-shadow: none;
+        display: flex;
+        justify-content: space-between;
+        color: var(--gray-900);
+        border: 1px solid #e7e7e7;
+    }
+
+    .course-page-content .accordion-button::after {
+        display: none;
+    }
+
+    .course-page-content .accordion-button i {
+        transform: rotate(-180deg);
+    }
+
+    .course-page-content .accordion-button.accordion-button.collapsed i {
+        transform: rotate(0deg);
+    }
+
+    .course-page-content .accordion-body ul li {
+        border-bottom: 1px solid #e7e7e7;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .course-page-content .accordion-body ul li:last-child {
+        border-bottom: none;
+    }
+
+    @media (max-width: 767.98px) {
+        .course-page-content .accordion-body ul li {
+            padding: 13px 10px !important;
+        }
+    }
+
+    .course-details-two .play-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(1, 1, 1, 0.4);
+        border-radius: 50px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .course-sidebar-sec {
+        margin-top: -252px;
+    }
+
+    @media (max-width: 991.98px) {
+        .course-sidebar-sec {
+            margin-top: 0;
+        }
+    }
+
+    .course-sidebar-sec h5 {
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 1199.98px) {
+        .course-sidebar-sec .wishlist-btns {
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .course-sidebar-sec .wishlist-btns {
+            flex-wrap: nowrap;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .course-sidebar-sec .wishlist-btns {
+            flex-wrap: wrap;
+        }
+    }
+
+    .course-sidebar-sec .btn-wish {
+        color: var(--gray-900);
+        border: 1px solid #e7e7e7;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .course-sidebar-sec .btn-wish:hover {
+        background-color: #ff4667;
+        border-color: #ff4667;
+        color: var(--white);
+    }
+
+    .course-sidebar-sec .btn-enroll {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .course-sidebar-sec .btn-enroll:hover {
+        background-color: #ff4667;
+        border-color: #ff4667;
+    }
+
+    .course-sidebar-sec .cou-features {
+        padding: 20px;
+    }
+
+    .course-sidebar-sec .cou-features h5 {
+        margin-bottom: 20px;
+    }
+
+    .course-details-two {
+        position: relative;
+        padding: 60px 0 45px;
+    }
+
+    @media (max-width: 575.98px) {
+        .course-details-two {
+            padding: 45px 0 30px;
+        }
+    }
+
+    .course-details-two .play-icon {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(1, 1, 1, 0.4);
+        border-radius: 50px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @media (max-width: 575.98px) {
+        .course-details-two .play-icon {
+            width: 70px;
+            height: 70px;
+        }
+    }
+</style>
+<body class="animsition js-preloader">
+<div class="page-wrapper">
+
+    <x-web.header/>
+
+    <main id="main">
+
+        <x-web.breadcrumb title="{{__('课程')}}" subtitle="{{__('课程')}}"/>
+
+        <section class="section p-t-125 p-b-75 p-md-t-60 course-details-two">
+            <div class="container">
+
+                <div class="row mt-4">
+                    <div class="col-lg-8">
+                        <div class="position-relative">
+                            <div class="play-icon">
+                                <i class="fa-solid fa-play" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
+                        </div>
+                        <div class="course-page-content pt-0">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Overview</h5>
+                                    <h6 class="mb-2">Course Description</h6>
+                                    <div>
+                                        {!! $course->description !!}
+                                    </div>
+                                    <h6 class="mb-2">What you'll learn</h6>
+                                    <ul class="custom-list mb-3">
+                                        <li class="list-item">Become a UX designer</li>
+                                        <li class="list-item">You will be able to add UX designer to your CV</li>
+                                        <li class="list-item">Become a UI designer</li>
+                                        <li class="list-item">Build &amp; test a full website design.</li>
+                                        <li class="list-item">Build &amp; test a full mobile app.</li>
+                                    </ul>
+                                    <h6 class="mb-2">Requirements</h6>
+                                    <ul class="custom-list mb-0">
+                                        <li class="list-item">You will need a copy of Adobe XD 2019 or above. A free
+                                            trial can be downloaded from Adobe.
+                                        </li>
+                                        <li class="list-item">No previous design experience is needed.</li>
+                                        <li class="list-item">No previous Adobe XD skills are needed.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between flex-wrap">
+                                        <h5 class="subs-title mb-2 mb-sm-3">Course Content</h5>
+                                        <h6 class="fs-16 fw-medium text-gray-7 mb-3">92 Lectures <span class="text-secondary">10:56:11</span></h6>
+                                    </div>
+                                    <div class="accordion accordion-customicon1 accordions-items-seperate p-0" id="chapter-box">
+                                        @for($i=0;$i<10;$i++)
+                                            <div class="accordion-item" data-aos="fade-up">
+                                                <h2 class="accordion-header" id="chapter-{{$i}}">
+                                                    <button class="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#chapter-units-{{$i}}"
+                                                            aria-expanded="false"
+                                                            aria-controls="chapter-units-{{$i}}" style="font-weight: 700;">
+                                                        Getting Started <i class="fa-solid fa-chevron-down"></i>
+                                                    </button>
+                                                </h2>
+                                                <div id="chapter-units-{{$i}}" class="accordion-collapse collapse" aria-labelledby="chapter-{{$i}}" data-parent="#chapter-box">
+                                                    <div class="accordion-body p-0">
+                                                        <ul>
+                                                            <li class="p-4 px-3 d-flex justify-content-between">
+                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.1
+                                                                    Introduction to the User Experience Course</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
+                                                                    <p class="mb-0">02:53</p>
+                                                                    <i class="fa-solid fa-circle-check text-success ml-1"></i>
+                                                                </div>
+                                                            </li>
+                                                            <li class="p-4 px-3 d-flex justify-content-between">
+                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.2
+                                                                    Exercise: Your first design challenge</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
+                                                                    <p class="mb-0">02:53</p>
+                                                                    <i class="fa-solid fa-triangle-exclamation text-primary ml-1"></i>
+                                                                </div>
+                                                            </li>
+                                                            <li class="p-4 px-3 d-flex justify-content-between">
+                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.3
+                                                                    How to solve the previous exercise</p>
+                                                                <div class="d-flex align-items-center">
+                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
+                                                                    <p class="mb-0">02:53</p>
+                                                                    <i class="fa-solid fa-triangle-exclamation text-primary ml-1"></i>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="course-sidebar-sec mt-0">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <h2 class="text-success fs-30">FREE</h2>
+                                        <p class="fs-14 mb-0"><span class="text-decoration-line-through mr-2">$99.00</span>50% off</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between wishlist-btns">
+                                        <a class="btn d-flex btn-wish mr-3" href=""><i class="isax isax-heart mr-1 fs-18"></i>Add to Wishlist</a>
+                                        <a class="btn d-flex btn-wish" href="#"><i class="ti ti-share mr-1 fs-18"></i>Share</a>
+                                    </div>
+                                    <a href="" class="btn btn-primary w-100 mt-3 btn-enroll">Enroll Now</a>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="subs-title mb-4">Includes</h5>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">11 hours
+                                        on-demand video</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/import.svg')}}" alt="img">69
+                                        downloadable resources</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/key.svg')}}" alt="img">Full
+                                        lifetime access</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/monitor-mobbile.svg')}}" alt="img">Access on mobile and TV</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/cloud-lightning.svg')}}" alt="img">Assignments</p>
+                                    <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/teacher.svg')}}" alt="img">Certificate of Completion</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body cou-features">
+                                    <h5 class="subs-title mb-4">Course Features</h5>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/people2.svg')}}" alt="img">Enrolled: 32 students</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/timer-start3.svg')}}" alt="img">Duration: 20 hours</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/note.svg')}}" alt="img">Chapters: 15</p>
+                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play3.svg')}}" alt="img">Video: 12 hours</p>
+                                    <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/chart.svg')}}" alt="img">Level: Beginner</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <x-web.footer/>
+
+</div>
+
+</body>
+
+</html>

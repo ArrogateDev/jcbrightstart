@@ -28,7 +28,7 @@
                             <div class="card bg-success">
                                 <div class="card-body">
                                     <h6 class="fw-medium mb-1 text-white">Published Courses</h6>
-                                    <h4 class="fw-bold text-white">{{$courses[2]??0}}</h4>
+                                    <h4 id="published-courses" class="fw-bold text-white">{{$courses[2]??0}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <div class="card bg-secondary">
                                 <div class="card-body">
                                     <h6 class="fw-medium mb-1 text-white">Suspensed Courses</h6>
-                                    <h4 class="fw-bold text-white">{{$courses[1]??0}}</h4>
+                                    <h4 id="suspensed-courses" class="fw-bold text-white">{{$courses[1]??0}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             <div class="card bg-info">
                                 <div class="card-body">
                                     <h6 class="fw-medium mb-1 text-white">Draft Courses</h6>
-                                    <h4 class="fw-bold text-white">{{$courses[0]??0}}</h4>
+                                    <h4 id="draft-courses" class="fw-bold text-white">{{$courses[0]??0}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -140,12 +140,21 @@
                     ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
                     : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
 
+            const statusOptions = [
+                { value: 0, label: 'Draft' },
+                { value: 1, label: 'Suspensed' },
+                { value: 2, label: 'Published' }
+            ];
+
+            const statusMenuItems = statusOptions
+                .filter(option => option.value !== item.status)
+                .map(option => `<li><a class="dropdown-item" data-id="${item.id}" data-o-status="${item.status}" data-status="${option.value}" href="#">${option.label}</a></li>`)
+                .join('');
+
             const statusMenu = `<div class="dropdown dropend">
                 ${statusBadge}
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" data-id="${item.id}" data-status="0"  href="#">Draft</a></li>
-                    <li><a class="dropdown-item" data-id="${item.id}" data-status="1"  href="#">Suspensed</a></li>
-                    <li><a class="dropdown-item" data-id="${item.id}" data-status="2"  href="#">Published</a></li>
+                    ${statusMenuItems}
                 </ul>
             </div>`
 
@@ -263,8 +272,14 @@
 
         $(document).on('click', '#table-body .dropdown-item', function () {
             const id = parseInt($(this).data('id'));
+            const oStatus = parseInt($(this).data('o-status'));
             const status = parseInt($(this).data('status'));
             const statusText = $(this).text();
+            const statusTotalMaps = {
+                0: 'published-courses',
+                1: 'suspensed-courses',
+                2: 'draft-courses',
+            };
 
             const message = '{{__('确定将课程改为: :status？')}}'.replace(':status', `"${statusText}"`);
             confirm_alert(message, "{{__('此操作不可恢复！')}}", 'Yes!')
@@ -289,6 +304,11 @@
                                 }
                                 showToast('success', '{{__('更新成功')}}');
                                 getData(1, {keyword: searchKeyword});
+
+                                const $oldStatusTotal = $(`#${statusTotalMaps[status]}`)
+                                $oldStatusTotal.text(parseInt($oldStatusTotal.text()) - 1)
+                                const $newStatusTotal = $(`#${statusTotalMaps[oStatus]}`)
+                                $newStatusTotal.text(parseInt($newStatusTotal.text()) + 1)
                             },
                             error: function () {
                                 showToast('error', '{{__('操作失败，请稍后再试！')}}');

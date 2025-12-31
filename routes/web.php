@@ -5,13 +5,14 @@ use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Auth\ResetPasswordController;
+use App\Http\Controllers\Web\CourseController;
 use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\Web\MapsController;
 use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\User\CertificateController;
 use App\Http\Controllers\Web\User\ChangePasswordController;
-use App\Http\Controllers\Web\User\CourseController;
+use App\Http\Controllers\Web\User\CourseController as UserCourseController;
 use App\Http\Controllers\Web\User\DashboardController;
 use App\Http\Controllers\Web\User\ProfileController;
 use App\Http\Controllers\Web\User\QuizController;
@@ -54,6 +55,8 @@ Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('n
 
 Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 
+Route::get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
+
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
@@ -63,10 +66,11 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
         $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('user.set-avatar.html');
         //删除头像
         $route->delete('remove-avatar.html', [ProfileController::class, 'handleRemoveAvatar'])->name('user.remove-avatar.html');
+
         $route->get('/dashboard.html', [DashboardController::class, 'index'])->name('user.dashboard.html');
         $route->get('/profile.html', [ProfileController::class, 'index'])->name('user.profile.html');
-        $route->get('/course.html', [CourseController::class, 'index'])->name('user.course.html');
-        $route->get('/course/list.html', [CourseController::class, 'list'])->name('user.course.list.html');
+        $route->get('/course.html', [UserCourseController::class, 'index'])->name('user.course.html');
+        $route->get('/course/list.html', [UserCourseController::class, 'list'])->name('user.course.list.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->name('user.certificate.html');
         $route->get('/quiz.html', [QuizController::class, 'index'])->name('user.quiz.html');
 
