@@ -45,6 +45,28 @@ class NewsRequest extends BaseRequest
     public function messages()
     {
         return [
+            'status.required' => __('状态不能为空'),
+            'status.in' => __('状态格式错误'),
+            'title.required' => __('标题不能为空'),
+            'title.unique' => __('标题已经存在'),
+            'category_id.required' => __('分类不能为空'),
+            'category_id.exists' => __('选择的分类不存在'),
+            'short.required' => __('简介不能为空'),
+            'start_date.required' => __('开始日期不能为空'),
+            'start_date.date' => __('开始日期格式错误'),
+            'end_date.required' => __('结束日期不能为空'),
+            'end_date.date' => __('结束日期格式错误'),
+            'end_date.after_or_equal' => __('结束日期必须大于或等于开始日期'),
+            'start_time.required' => __('开始时间不能为空'),
+            'start_time.date' => __('开始时间格式错误'),
+            'end_time.required' => __('结束时间不能为空'),
+            'end_time.date' => __('结束时间格式错误'),
+            'end_time.after_or_equal' => __('结束时间必须大于或等于开始时间'),
+            'description.required' => __('描述不能为空'),
+            'thumbnail.required_without' => __('缩略图或缩略图链接必须提供一个'),
+            'thumbnail.image' => __('缩略图必须是图片格式'),
+            'thumbnail_url.required_without' => __('缩略图或缩略图链接必须提供一个'),
+            'thumbnail_url.file_exists' => __('缩略图链接文件不存在'),
         ];
     }
 }

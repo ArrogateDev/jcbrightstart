@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -19,5 +20,10 @@ class PageController extends Controller
 
         $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';
         return view($view);
+    }
+
+    public function error(Request $request)
+    {
+        return view('web.404');
     }
 }

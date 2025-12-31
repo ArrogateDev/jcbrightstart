@@ -37,6 +37,14 @@ class AdminRequest extends BaseRequest
     public function messages()
     {
         return [
+            'name.required' => __('姓名不能为空'),
+            'account.required' => __('账号不能为空'),
+            'role_id.required' => __('角色不能为空'),
+            'password.required' => __('密码不能为空'),
+            'password.size' => __('密码格式不正确'),
+            'password.confirmed' => __('两次密码输入不一致'),
+            'password_confirmation.required' => __('确认密码不能为空'),
+            'status.required' => __('状态不能为空'),
         ];
     }
 }

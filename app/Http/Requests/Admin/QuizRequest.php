@@ -36,6 +36,16 @@ class QuizRequest extends BaseRequest
     public function messages()
     {
         return [
+            'title.required' => __('测验标题不能为空'),
+            'title.unique' => __('测验标题已经存在'),
+            'questions.required' => __('问题不能为空'),
+            'questions.array' => __('问题必须是数组'),
+            'questions.min' => __('至少需要一个问题'),
+            'questions.*.title.required' => __('问题标题不能为空'),
+            'questions.*.options.required' => __('问题选项不能为空'),
+            'questions.*.options.array' => __('问题选项必须是数组'),
+            'questions.*.options.min' => __('每个问题至少需要2个选项'),
+            'questions.*.correct_answer.required' => __('正确答案不能为空'),
         ];
     }
 }

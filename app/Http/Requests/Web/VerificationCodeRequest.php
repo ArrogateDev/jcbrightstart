@@ -9,7 +9,7 @@ class VerificationCodeRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'email' => 'bail|required:email',
+            'email' => 'bail|required|email',
             'scene' => 'bail|required|in:register',
         ];
 
@@ -19,10 +19,10 @@ class VerificationCodeRequest extends BaseRequest
     public function messages()
     {
         return [
-            'email.required_without' => __('输入您的電郵地址'),
-            'email.email' => __('輸入正確的電郵地址'),
-            'scene.required' => __('場景錯誤'),
-            'scene.in' => __('場景錯誤'),
+            'email.required' => __('邮箱不能为空'),
+            'email.email' => __('邮箱格式不正确'),
+            'scene.required' => __('场景不能为空'),
+            'scene.in' => __('场景格式错误'),
         ];
     }
 }

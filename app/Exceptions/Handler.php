@@ -28,6 +28,9 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    protected $jsonUrl = [
+    ];
+
     /**
      * Register the exception handling callbacks for the application.
      */
@@ -65,15 +68,15 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof ApiException) {
-            return $this->responseError($e->getMessage(), $e->getCode());
+            return $this->exception_response($request, $e->getMessage(), $e->getCode());
         }
 
         if ($e instanceof NotFoundHttpException) {
-            return $this->responseError('Not Found', ResponseCode::NOT_FOUND);
+            return $this->exception_response($request, 'Not Found', ResponseCode::NOT_FOUND);
         }
 
         if ($e instanceof MethodNotAllowedHttpException) {
-            return $this->responseError('Method not allowed', ResponseCode::METHOD_NOT_ALLOWED);
+            return $this->exception_response($request, 'Method not allowed', ResponseCode::METHOD_NOT_ALLOWED);
         }
 
         if ($e instanceof AuthenticationException) {
@@ -81,19 +84,19 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof AccessDeniedHttpException) {
-            return $this->responseError(__('非法操作'), ResponseCode::ILLEGAL_OPERATION);
+            return $this->exception_response($request, __('非法操作'), ResponseCode::ILLEGAL_OPERATION);
         }
 
         if ($e instanceof ValidationException) {
-            return $this->responseError($e->validator->errors()->first(), ResponseCode::PARAM_ERR);
+            return $this->exception_response($request, $e->validator->errors()->first(), ResponseCode::PARAM_ERR);
         }
 
         if ($e instanceof ModelNotFoundException) {
-            return $this->responseError('Not Fount Target', ResponseCode::NOT_FOUND);
+            return $this->exception_response($request, 'Not Fount Target', ResponseCode::NOT_FOUND);
         }
 
         if ($e instanceof \Exception) {
-            return $this->responseError($e->getMessage(), ResponseCode::FAIL);
+            return $this->exception_response($request, $e->getMessage(), ResponseCode::FAIL);
         }
 
         return parent::render($request, $e);
@@ -118,4 +121,25 @@ class Handler extends ExceptionHandler
 
         return redirect()->route('login.html', ['redirect' => $redirect]);
     }
+
+    /**
+     * @param $request
+     * @param $message
+     * @param $code
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    protected function exception_response($request, $message, $code)
+    {
+        return $this->responseJson($request) ? $this->responseError($message, $code) : redirect()->guest(route('error', [], ['message' => $message, 'code' => $code]));
+    }
+
+    /**
+     * @param $request
+     * @return bool
+     */
+    protected function responseJson($request)
+    {
+        return $request->expectsJson() || $request->ajax() || in_array($request->path(), $this->jsonUrl);
+    }
+
 }

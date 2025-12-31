@@ -34,6 +34,12 @@ class NewsCategoryRequest extends BaseRequest
     public function messages()
     {
         return [
+            'title.required' => __('标题不能为空'),
+            'title.unique' => __('标题已经存在'),
+            'is_nav.required' => __('导航显示不能为空'),
+            'is_nav.in' => __('导航显示格式错误'),
+            'status.required' => __('状态不能为空'),
+            'status.in' => __('状态格式错误'),
         ];
     }
 }
