@@ -9,7 +9,6 @@ use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -107,14 +106,12 @@ class UserController extends Controller
         });
 
         try {
-            $password = time();
-            $user->password = time();
-            $user->save();
-            Auth::logoutOtherDevices($password);
+
             $user->delete();
 
             return $this->responseSuccess(null, __('删除成功'));
         } catch (\Exception $e) {
+            Log::error($e);
             throw new ApiException(__('删除失败'), $e->getCode());
         }
     }

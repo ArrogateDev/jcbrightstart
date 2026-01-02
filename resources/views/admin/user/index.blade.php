@@ -118,14 +118,12 @@
                                title="{{__('编辑')}}">
                                 <i class="isax isax-edit"></i>
                             </a>
-                            ${item.id !== 1 ? `
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
                                onclick="handleDelete(${item.id}, '${item.full_name}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
-                            ` : ''}
                         </div>
                     </td>
                 </tr>
@@ -141,7 +139,7 @@
                 if (result.isConfirmed) {
                     showLoading();
 
-                    let url = $active === 'teacher' ? `/admin/teacher/${id}.html` : `/admin/parent/${id}.html`
+                    let url = `/admin/parent/${id}.html`
                     $.ajax({
                         url: url,
                         type: 'DELETE',
