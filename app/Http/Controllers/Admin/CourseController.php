@@ -211,22 +211,31 @@ class CourseController extends Controller
             $course->load([
                 'chapters:id,course_id,title',
                 'chapters.units',
-                'chapters.units.quiz:id,title'
             ]);
 
-            $validator = Validator::make($course->toArray(), [
-                'title' => 'bail|required',
-                'thumbnail' => 'bail|required',
-                'short' => 'bail|required',
-                'description' => 'bail|required',
-                'certificate_id' => 'bail|required|exists:certificates,id',
-                'chapters' => 'bail|required|array|min:1',
-                'chapters.*.units' => 'bail|required|array|min:1',
-                'chapters.*.units.*.video_url' => 'bail|required_if:type,0|starts_with:https://www.youtube.com,https://youtu.be',
-                'chapters.*.units.*.pdf' => 'bail|required_if:type,1|filled|mimes:pdf',
-                'chapters.*.units.*.type' => 'bail|required|in:0,1',
-                'chapters.*.units.*.quiz_id' => 'bail|required|exists:quizzes,id'
-            ]);
+            $course_data = $course->toArray();
+            $course_data['thumbnail'] = '';
+            $course_data['thumbnail_url'] = $course->getRawOriginal('thumbnail');
+            $course_data['status'] = $status;
+
+            $course_request = CourseRequest::createFrom($request);
+            $course_request->merge($course_data);
+            $course_request->setMethod('PUT');
+            $currentRoute = $request->route();
+            if ($currentRoute) {
+                $course_request->setRouteResolver(function () use ($currentRoute, $course) {
+                    $currentRoute->setParameter('course', $course);
+                    return $currentRoute;
+                });
+            }
+
+            $validator = Validator::make(
+                $course_data,
+                $course_request->rules(),
+                $course_request->messages()
+            );
+
+            $course_request->withValidator($validator);
 
             if ($validator->fails()) {
                 throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
