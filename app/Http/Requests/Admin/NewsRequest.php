@@ -22,8 +22,8 @@ class NewsRequest extends BaseRequest
             $rules['short'] = 'bail|required';
             $rules['start_date'] = 'bail|required|date:Y-m-d';
             $rules['end_date'] = 'bail|required|date:Y-m-d|after_or_equal:start_date';
-            $rules['start_time'] = 'bail|required|date:H:i A';
-            $rules['end_time'] = 'bail|required|date:H:i A|after_or_equal:start_time';
+            $rules['start_time'] = 'bail|required|date_format:h:i A';
+            $rules['end_time'] = 'bail|required|date_format:h:i A|after_or_equal:start_time';
             $rules['description'] = 'bail|required';
         }
 
