@@ -102,7 +102,64 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('香港0-3歲嬰幼兒服務資訊'),
                 'url' => route('maps.html'),
-                'children' => []
+                'children' => [
+                    [
+                        'title' => __('服務機構地址'),
+                        'url' => route('maps.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('0-3歲相關實用連結'),
+                        'url' => '',
+                        'children' => [
+                            [
+                                'title' => __('社會福利署幼兒中心'),
+                                'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/cccs/index.html',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('受資助及私營／非牟利的獨立幼兒中心名單及電話'),
+                                'url' => 'https://www.swd.gov.hk/storage/asset/section/644/tc/Child_Care_Centre_cccai_as_at_2025-07-25.pdf',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('鄰里支援幼兒照顧計劃'),
+                                'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/nsccp/index.html',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('「日間幼兒照顧服務」服務單張'),
+                                'url' => 'https://www.swd.gov.hk/storage/asset/section/264/tc/Day%20Child%20Care%20Services%20Leaflet_TradChi%26Eng_Sept%2024.pdf',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('母嬰健康院'),
+                                'url' => 'https://www.fhs.gov.hk/tc_chi/centre_det/maternal/maternal.html',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('接種疫苗'),
+                                'url' => 'https://www.fhs.gov.hk/tc_chi/health_info/child/14828.html',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('新生嬰兒獎勵金'),
+                                'url' => 'https://www.cso.gov.hk/newbornbabybonus/chi/index.htm',
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('兒童健康攻略'),
+                                'url' => route('maps.html'),
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('GOVHK香港政府一站通親職教育'),
+                                'url' => route('maps.html'),
+                                'children' => []
+                            ]
+                        ]
+                    ]
+                ]
             ];
 
             $navs[] = [

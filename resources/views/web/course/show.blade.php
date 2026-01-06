@@ -275,29 +275,13 @@
                                     <div>
                                         {!! $course->description !!}
                                     </div>
-                                    <h6 class="mb-2">What you'll learn</h6>
-                                    <ul class="custom-list mb-3">
-                                        <li class="list-item">Become a UX designer</li>
-                                        <li class="list-item">You will be able to add UX designer to your CV</li>
-                                        <li class="list-item">Become a UI designer</li>
-                                        <li class="list-item">Build &amp; test a full website design.</li>
-                                        <li class="list-item">Build &amp; test a full mobile app.</li>
-                                    </ul>
-                                    <h6 class="mb-2">Requirements</h6>
-                                    <ul class="custom-list mb-0">
-                                        <li class="list-item">You will need a copy of Adobe XD 2019 or above. A free
-                                            trial can be downloaded from Adobe.
-                                        </li>
-                                        <li class="list-item">No previous design experience is needed.</li>
-                                        <li class="list-item">No previous Adobe XD skills are needed.</li>
-                                    </ul>
                                 </div>
                             </div>
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between flex-wrap">
                                         <h5 class="subs-title mb-2 mb-sm-3">Course Content</h5>
-                                        <h6 class="fs-16 fw-medium text-gray-7 mb-3">92 Lectures <span class="text-secondary">10:56:11</span></h6>
+                                        <h6 class="fs-16 fw-medium text-gray-7 mb-3">{{$course->unit_num??0}} Units</h6>
                                     </div>
                                     <div class="accordion accordion-customicon1 accordions-items-seperate p-0" id="chapter-box">
                                         @foreach($course->chapters as $chapter)
@@ -320,7 +304,6 @@
                                                                     </p>
                                                                     <div class="d-flex align-items-center">
                                                                         <a href="#" class="preview-link mr-3 mr-xl-5"  data-toggle="modal" data-target="#play-box" data-unit="{{$unit->id??0}}" data-play-position="{{$unit->play_position??0}}">Preview</a>
-                                                                        <p class="mb-0">02:53</p>
                                                                         <i class="fa-solid fa-circle-check text-success ml-1"></i>
                                                                     </div>
                                                                 </li>
@@ -338,19 +321,6 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="course-sidebar-sec mt-0">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h2 class="text-success fs-30">FREE</h2>
-                                        <p class="fs-14 mb-0"><span class="text-decoration-line-through mr-2">$99.00</span>50% off</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between wishlist-btns">
-                                        <a class="btn d-flex btn-wish mr-3" href=""><i class="isax isax-heart mr-1 fs-18"></i>Add to Wishlist</a>
-                                        <a class="btn d-flex btn-wish" href="#"><i class="ti ti-share mr-1 fs-18"></i>Share</a>
-                                    </div>
-                                    <a href="" class="btn btn-primary w-100 mt-3 btn-enroll">Enroll Now</a>
-                                </div>
-                            </div>
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <h5 class="subs-title mb-4">Includes</h5>

@@ -195,7 +195,7 @@
                             </script>
                         @else
                             <a href="{{route('login.html')}}" class="au-btn-3 au-btn2--blue d-inline-flex align-items-center mr-2" style="line-height: 32px;">
-                                Sign In
+                                {{__('家长登入')}}
                             </a>
                         @endauth
                     </div>

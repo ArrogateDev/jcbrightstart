@@ -33,6 +33,9 @@ class CourseController extends Controller
             'chapters.units',
             'chapters.units.quiz:id,title'
         ]);
+        $course->unit_num = $course->chapters->sum(function ($chapter) {
+            return $chapter->units->count();
+        });
 
         $play_record = null;
         if ($user) {
