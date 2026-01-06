@@ -719,11 +719,11 @@
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
-            let status = $(this).data('status');
+            let status = parseInt($(this).data('status'));
             let $status = $('#status').val();
             let keep = $(this).data('keep');
 
-            formData.append('status', $status > 0 ? $status : status)
+            formData.append('status', status === 2 ? status : $status)
 
             // 处理普通表单字段
             _.each(form, (value) => {

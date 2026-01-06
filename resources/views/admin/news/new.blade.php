@@ -148,7 +148,7 @@
                                     <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit text-white"
                                        style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
                                     </a>
-                                    <a href="javascript:void(0);" data-status="1" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
+                                    <a href="javascript:void(0);" data-status="2" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -311,11 +311,11 @@
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
-            let status = $(this).data('status');
+            let status = parseInt($(this).data('status'));
             let $status = $('#status').val();
             let keep = $(this).data('keep');
 
-            formData.append('status', $status > 0 ? $status : status)
+            formData.append('status', status === 2 ? status : $status)
 
             _.each(form, (value) => {
                 formData.append(value.name, value.value);
