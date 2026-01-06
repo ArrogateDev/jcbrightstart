@@ -67,6 +67,17 @@ class CommonController extends Controller
     }
 
     /**
+     * 获取测验详情
+     * @param Request $request
+     * @param Quiz $quiz
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getQuizDetail(Request $request, Quiz $quiz)
+    {
+        return $this->responseSuccess($quiz);
+    }
+
+    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function getCertificateList(Request $request)

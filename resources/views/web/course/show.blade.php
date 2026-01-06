@@ -357,6 +357,7 @@
     <x-web.footer/>
 
     @include('web.course.play')
+    @include('web.course.quiz')
 
 </div>
 

@@ -104,7 +104,7 @@
 <script>
     $(function () {
         const $modal = $('#play-box');
-        // const $quiz = $('#quiz-box');
+        const $quiz = $('#quiz-box');
         let currentUnit = null;
         let currentChapter = null;
         let playStartTime = null;
@@ -329,7 +329,7 @@
                     }
 
                     $modal.modal('hide')
-                    // $quiz.modal('show')
+                    $quiz.modal('show')
                 },
                 error: function () {
                     // 记录失败，但不影响
