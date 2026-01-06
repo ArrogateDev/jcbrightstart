@@ -61,6 +61,10 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
 
+    $route->post('/course/{course}/play-record.html', [CourseController::class, 'handleSavePlayRecord'])->name('course.save-play-record.html');
+    $route->post('/course/{course}/play-start.html', [CourseController::class, 'handleRecordPlayStart'])->name('course.play-start.html');
+    $route->post('/course/{course}/play-end.html', [CourseController::class, 'handleRecordPlayEnd'])->name('course.play-end.html');
+
     $route->group(['prefix' => 'user'], function ($route) {
         //修改头像
         $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('user.set-avatar.html');
@@ -83,5 +87,6 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 });
 
 Route::get('marker', [\App\Http\Controllers\CommonController::class, 'marker'])->name('marker');
+Route::get('quiz/{quiz}.html', [\App\Http\Controllers\CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
 Route::get('404.html', [PageController::class, 'error'])->name('error');
 Route::get('{page}', [PageController::class, 'index'])->name('page');

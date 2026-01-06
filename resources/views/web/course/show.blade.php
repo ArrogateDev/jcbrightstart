@@ -130,7 +130,7 @@
         }
     }
 
-    .course-details-two .play-icon {
+    .course-details .play-icon {
         width: 60px;
         height: 60px;
         background-color: rgba(1, 1, 1, 0.4);
@@ -143,6 +143,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
 
     .course-sidebar-sec {
@@ -213,18 +214,18 @@
         margin-bottom: 20px;
     }
 
-    .course-details-two {
+    .course-details {
         position: relative;
         padding: 60px 0 45px;
     }
 
     @media (max-width: 575.98px) {
-        .course-details-two {
+        .course-details {
             padding: 45px 0 30px;
         }
     }
 
-    .course-details-two .play-icon {
+    .course-details .play-icon {
         width: 60px;
         height: 60px;
         background-color: rgba(1, 1, 1, 0.4);
@@ -240,7 +241,7 @@
     }
 
     @media (max-width: 575.98px) {
-        .course-details-two .play-icon {
+        .course-details .play-icon {
             width: 70px;
             height: 70px;
         }
@@ -255,13 +256,13 @@
 
         <x-web.breadcrumb title="{{__('课程')}}" subtitle="{{__('课程')}}"/>
 
-        <section class="section p-t-125 p-b-75 p-md-t-60 course-details-two">
+        <section class="section p-t-125 p-b-75 p-md-t-60 course-details">
             <div class="container">
 
                 <div class="row mt-4">
                     <div class="col-lg-8">
                         <div class="position-relative">
-                            <div class="play-icon">
+                            <div class="play-icon" data-toggle="modal" data-target="#play-box" data-unit="{{$play_record->unit_id??0}}" data-play-position="{{$play_record->play_position??0}}">
                                 <i class="fa-solid fa-play" style="font-size: 1.5rem;"></i>
                             </div>
                             <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
@@ -299,50 +300,36 @@
                                         <h6 class="fs-16 fw-medium text-gray-7 mb-3">92 Lectures <span class="text-secondary">10:56:11</span></h6>
                                     </div>
                                     <div class="accordion accordion-customicon1 accordions-items-seperate p-0" id="chapter-box">
-                                        @for($i=0;$i<10;$i++)
+                                        @foreach($course->chapters as $chapter)
                                             <div class="accordion-item" data-aos="fade-up">
-                                                <h2 class="accordion-header" id="chapter-{{$i}}">
-                                                    <button class="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#chapter-units-{{$i}}"
+                                                <h2 class="accordion-header" id="chapter-{{$chapter->id}}">
+                                                    <button class="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#chapter-units-{{$chapter->id}}"
                                                             aria-expanded="false"
-                                                            aria-controls="chapter-units-{{$i}}" style="font-weight: 700;">
-                                                        Getting Started <i class="fa-solid fa-chevron-down"></i>
+                                                            aria-controls="chapter-units-{{$chapter->id}}" style="font-weight: 700;">
+                                                        {{$chapter->title}} <i class="fa-solid fa-chevron-down"></i>
                                                     </button>
                                                 </h2>
-                                                <div id="chapter-units-{{$i}}" class="accordion-collapse collapse" aria-labelledby="chapter-{{$i}}" data-parent="#chapter-box">
+                                                <div id="chapter-units-{{$chapter->id}}" class="accordion-collapse collapse" aria-labelledby="chapter-{{$chapter->id}}" data-parent="#chapter-box">
                                                     <div class="accordion-body p-0">
                                                         <ul>
-                                                            <li class="p-4 px-3 d-flex justify-content-between">
-                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.1
-                                                                    Introduction to the User Experience Course</p>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
-                                                                    <p class="mb-0">02:53</p>
-                                                                    <i class="fa-solid fa-circle-check text-success ml-1"></i>
-                                                                </div>
-                                                            </li>
-                                                            <li class="p-4 px-3 d-flex justify-content-between">
-                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.2
-                                                                    Exercise: Your first design challenge</p>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
-                                                                    <p class="mb-0">02:53</p>
-                                                                    <i class="fa-solid fa-triangle-exclamation text-primary ml-1"></i>
-                                                                </div>
-                                                            </li>
-                                                            <li class="p-4 px-3 d-flex justify-content-between">
-                                                                <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">Lecture1.3
-                                                                    How to solve the previous exercise</p>
-                                                                <div class="d-flex align-items-center">
-                                                                    <a href="#" class="preview-link mr-3 mr-xl-5">Preview</a>
-                                                                    <p class="mb-0">02:53</p>
-                                                                    <i class="fa-solid fa-triangle-exclamation text-primary ml-1"></i>
-                                                                </div>
-                                                            </li>
+                                                            @foreach($chapter->units as $unit)
+                                                                <li class="p-4 px-3 d-flex justify-content-between" data-title="{{$chapter->title}} - {{$unit->title}}" data-unit="{{$unit->id}}" data-info="{{$unit}}">
+                                                                    <p class="mb-0">
+                                                                        <img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">
+                                                                        {{$unit->title}}
+                                                                    </p>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <a href="#" class="preview-link mr-3 mr-xl-5"  data-toggle="modal" data-target="#play-box" data-unit="{{$unit->id??0}}" data-play-position="{{$unit->play_position??0}}">Preview</a>
+                                                                        <p class="mb-0">02:53</p>
+                                                                        <i class="fa-solid fa-circle-check text-success ml-1"></i>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -398,6 +385,8 @@
     </main>
 
     <x-web.footer/>
+
+    @include('web.course.play')
 
 </div>
 

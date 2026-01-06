@@ -6,6 +6,7 @@ use App\Http\Requests\BaseRequest;
 use App\Models\Course;
 use App\Models\Quiz;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
 
 class CourseRequest extends BaseRequest
 {
@@ -31,8 +32,8 @@ class CourseRequest extends BaseRequest
             $rules['description'] = 'bail|required';
             $rules['chapters'] = 'bail|required|array|min:1';
             $rules['chapters.*.units'] = 'bail|required|array|min:1';
-            $rules['chapters.*.units.*.video_url'] = 'bail|required_if:type,0|starts_with:https://www.youtube.com,https://youtu.be';
-            $rules['chapters.*.units.*.pdf'] = 'bail|required_if:type,1|filled|mimes:pdf';
+            $rules['chapters.*.units.*.video_url'] = 'bail|nullable|starts_with:https://www.youtube.com,https://youtu.be';
+            $rules['chapters.*.units.*.pdf'] = 'bail|nullable|filled|mimes:pdf';
             $rules['chapters.*.units.*.type'] = 'bail|required|in:0,1';
             $rules['chapters.*.units.*.quiz_id'] = 'bail|required|exists:quizzes,id';
             $rules['certificate_id'] = 'bail|required|exists:certificates,id';
@@ -51,6 +52,59 @@ class CourseRequest extends BaseRequest
         }
 
         return $rules;
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator) {
+            $status = $this->input('status');
+            if ($status == Course::STATUS_PUBLISHED) {
+                $chapters = $this->input('chapters', []);
+                foreach ($chapters as $chapter_idx => $chapter) {
+                    $units = $chapter['units'] ?? [];
+                    foreach ($units as $unit_idx => $unit) {
+                        $type = isset($unit['type']) ? (int)$unit['type'] : null;
+                        $video_url = $unit['video_url'] ?? null;
+                        $unit_id = $unit['id'] ?? null;
+
+                        // 检查是否有文件上传（尝试不同的字段路径格式）
+                        $pdf_file_key1 = "chapters.$chapter_idx.units.$unit_idx.pdf";
+                        $pdf_file_key2 = "chapters.$chapter_idx.units.$unit_idx.pdf";
+                        $has_pdf_file = $this->hasFile($pdf_file_key1) || $this->hasFile($pdf_file_key2);
+
+                        // 如果 hasFile 返回 false，尝试检查所有上传的文件中是否有匹配的
+                        if (!$has_pdf_file) {
+                            $all_files = $this->allFiles();
+                            foreach ($all_files as $key => $file) {
+                                // 检查字段名是否匹配（支持不同的格式）
+                                if (preg_match('/chapters[\.\[]' . preg_quote($chapter_idx, '/') . '[\]]units[\.\[]' . preg_quote($unit_idx, '/') . '[\]]pdf/i', $key)) {
+                                    $has_pdf_file = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // 检查是否有已存在的单元ID（更新时可能已有文件）
+                        $is_existing_unit = !empty($unit_id);
+
+                        if ($type === 0 && empty($video_url)) {
+                            $validator->errors()->add(
+                                "chapters.$chapter_idx.units.$unit_idx.video_url",
+                                __('当类型为视频时，视频链接不能为空')
+                            );
+                        }
+
+                        // 对于PDF类型：如果是新单元，必须上传文件；如果是已存在的单元，可以不上传（保留旧文件）
+                        if ($type === 1 && !$is_existing_unit && !$has_pdf_file) {
+                            $validator->errors()->add(
+                                "chapters.$chapter_idx.units.$unit_idx.pdf",
+                                __('当类型为PDF时，PDF文件不能为空')
+                            );
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public function messages()

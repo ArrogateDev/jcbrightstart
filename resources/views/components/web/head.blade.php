@@ -43,8 +43,7 @@
 	<link rel="apple-touch-icon" href="{{web_resource_url('assets/img/favicon.ico')}}">
 
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/popper.min.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/vendor/bootstrap-4.1/bootstrap.bundle.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/vendor/animsition/animsition.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/vendor/slick/slick.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/vendor/lightbox2/js/lightbox.min.js')}}"></script>
