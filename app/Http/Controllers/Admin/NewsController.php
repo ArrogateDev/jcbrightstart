@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\NewsRequest;
 use App\Models\News;
 use App\Tools\FileTool;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -83,6 +84,8 @@ class NewsController extends Controller
         });
 
         $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'start_time', 'end_time', 'description', 'status']);
+        $start_time = $request->input('start_time');
+        $end_time = $request->input('end_time');
 
         try {
 
@@ -94,6 +97,8 @@ class NewsController extends Controller
             foreach ($inputs as $key => $value) {
                 $news->$key = $value;
             }
+            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
+            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
 
             if ($file) {
                 $file_path = FileTool::existsAndMake('news');
@@ -156,6 +161,8 @@ class NewsController extends Controller
             foreach ($inputs as $key => $value) {
                 $news->$key = $value;
             }
+            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
+            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
 
             if ($news->save() === false) {
                 throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
