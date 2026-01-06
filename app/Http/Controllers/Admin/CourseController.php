@@ -40,6 +40,22 @@ class CourseController extends Controller
             'certificate:id,name'
         ]);
 
+        if (empty($course->id)) {
+            $chapter = new CourseChapter();
+            $chapter->title = '';
+            $chapter->course_id = null;
+
+            $unit = new CourseChapterUnit();
+            $unit->title = '';
+            $unit->course_id = null;
+            $unit->chapter_id = null;
+            $unit->type = 0;
+            $unit->quiz_id = 0;
+
+            $chapter->setRelation('units', collect([$unit]));
+            $course->setRelation('chapters', collect([$chapter]));
+        }
+
         return view('admin.course.new', ['course' => $course]);
     }
 
