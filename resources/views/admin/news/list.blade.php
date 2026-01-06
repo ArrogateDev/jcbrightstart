@@ -118,7 +118,7 @@
                             </a>
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
-                               onclick="handleDelete(${item.id}, '${item.full_name}')"
+                               onclick="handleDelete(${item.id}, '${item.title}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
@@ -137,7 +137,7 @@
                 if (result.isConfirmed) {
                     showLoading();
 
-                    let url = `/admin/parent/${id}.html`
+                    let url = `/admin/news/${id}.html`
                     $.ajax({
                         url: url,
                         type: 'DELETE',
