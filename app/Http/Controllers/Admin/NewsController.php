@@ -83,7 +83,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'start_time', 'end_time', 'description', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'description', 'status']);
         $start_time = $request->input('start_time');
         $end_time = $request->input('end_time');
 
@@ -139,7 +139,9 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'start_time', 'end_time', 'description', 'status']);
+        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'description', 'status']);
+        $start_time = $request->input('start_time');
+        $end_time = $request->input('end_time');
 
         try {
 
