@@ -119,9 +119,6 @@
                                 <div class="widget h-100 d-flex flex-column">
                                     <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
                                         <h2 class="section-heading__title">Map</h2>
-                                        <div class="section-heading__line">
-                                            <img src="{{web_resource_url('assets/web/images/icon/line-blue-tiny.png')}}" alt="Line">
-                                        </div>
                                         <div class="m-b-25"></div>
                                     </div>
                                     <div class="location-lists overflow-auto">

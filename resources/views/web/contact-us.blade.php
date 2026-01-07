@@ -84,9 +84,6 @@
                     <div class="col-md-12">
                         <div class="section-heading section-heading-1">
                             <h2 class="section-heading__title">Send Message</h2>
-                            <div class="section-heading__line">
-                                <img src="{{web_resource_url('assets/web/images/icon/line-blue.png')}}" alt="Line">
-                            </div>
                         </div>
                         <form class="js-contact-form" method="post">
                             <div class="row">

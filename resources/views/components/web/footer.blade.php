@@ -4,9 +4,6 @@
             <div class="col-12 col-md-6">
                 <div class="section-heading section-heading-1 section-heading-1--small text-left">
                     <h3 class="section-heading__title">Organised by 主辦機構</h3>
-                    <div class="section-heading__line">
-                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
-                    </div>
                 </div>
                 <div class="w-100 d-flex">
                     <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
@@ -15,9 +12,6 @@
             <div class="col-12 col-md-6">
                 <div class="section-heading section-heading-1 section-heading-1--small text-left">
                     <h3 class="section-heading__title">Funded by 捐助機構</h3>
-                    <div class="section-heading__line">
-                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
-                    </div>
                 </div>
                 <div class="w-100 d-flex">
                     <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">

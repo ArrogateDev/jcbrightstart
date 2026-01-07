@@ -15,12 +15,12 @@
                     <ul class="list-unstyled list-inline list-social">
                         <li class="list-inline-item">
                             <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
-                                <i class="zmdi zmdi-facebook-box"></i>
+                                <i class="zmdi zmdi-facebook-box" style="color: #00c8d4;"></i>
                             </a>
                         </li>
                         <li class="list-inline-item">
                             <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
-                                <i class="zmdi zmdi-instagram"></i>
+                                <i class="zmdi zmdi-instagram" style="color: #00c8d4;"></i>
                             </a>
                         </li>
                         <li class="list-inline-item seprator">
@@ -28,7 +28,7 @@
                         </li>
                         <li class="list-inline-item">
                             <a href="#" data-toggle="modal" data-target="#modal-search">
-                                <i class="fas fa-search"></i>
+                                <i class="fas fa-search" style="color: #00c8d4;"></i>
                             </a>
                         </li>
                     </ul>
@@ -62,7 +62,7 @@
                                                             <ul class="list-unstyled header-navbar-child second">
                                                                 @foreach($child['children'] as $item)
                                                                     <li>
-                                                                        <a href="{{$item['url']}}">{{$item['title']}}</a>
+                                                                        <a href="{{$item['url']}}" target="{{$item['target']??'_self'}}">{{$item['title']}}</a>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>

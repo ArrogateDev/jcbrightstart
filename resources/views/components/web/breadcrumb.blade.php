@@ -4,9 +4,6 @@
         <div class="page-heading-inner">
             <div class="section-heading section-heading-1 section-heading-1--tiny text-left">
                 <h2 class="section-heading__title">{{$title}}</h2>
-                <div class="section-heading__line">
-                    <img src="{{web_resource_url('assets/web/images/icon/line-blue-small.png')}}" alt="Line">
-                </div>
             </div>
             <nav class="au-breadcrumb">
                 <ul class="list-unstyled list-breadcrumb">

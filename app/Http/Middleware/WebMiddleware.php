@@ -105,57 +105,66 @@ class WebMiddleware
                 'children' => [
                     [
                         'title' => __('服務機構地址'),
-                        'url' => route('maps.html'),
+                        'url' => '',
                         'children' => []
                     ],
                     [
                         'title' => __('0-3歲相關實用連結'),
-                        'url' => '',
+                        'url' => route('maps.html'),
                         'children' => [
                             [
                                 'title' => __('社會福利署幼兒中心'),
                                 'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/cccs/index.html',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('受資助及私營／非牟利的獨立幼兒中心名單及電話'),
                                 'url' => 'https://www.swd.gov.hk/storage/asset/section/644/tc/Child_Care_Centre_cccai_as_at_2025-07-25.pdf',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('鄰里支援幼兒照顧計劃'),
                                 'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/nsccp/index.html',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('「日間幼兒照顧服務」服務單張'),
                                 'url' => 'https://www.swd.gov.hk/storage/asset/section/264/tc/Day%20Child%20Care%20Services%20Leaflet_TradChi%26Eng_Sept%2024.pdf',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('母嬰健康院'),
                                 'url' => 'https://www.fhs.gov.hk/tc_chi/centre_det/maternal/maternal.html',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('接種疫苗'),
                                 'url' => 'https://www.fhs.gov.hk/tc_chi/health_info/child/14828.html',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('新生嬰兒獎勵金'),
                                 'url' => 'https://www.cso.gov.hk/newbornbabybonus/chi/index.htm',
-                                'children' => []
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('兒童健康攻略'),
-                                'url' => route('maps.html'),
-                                'children' => []
+                                'url' => 'https://www.healthbureau.gov.hk/phcc/files/child_care_tips_booklet.pdf',
+                                'children' => [],
+                                'target'=>'_blank'
                             ],
                             [
                                 'title' => __('GOVHK香港政府一站通親職教育'),
-                                'url' => route('maps.html'),
-                                'children' => []
+                                'url' => 'https://www.gov.hk/tc/residents/health/childhealth/parenting.htm',
+                                'children' => [],
+                                'target'=>'_blank'
                             ]
                         ]
                     ]
@@ -163,7 +172,7 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __('教師專業發展'),
+                'title' => __(' 專業學習社群'),
                 'url' => route('page', ['page' => 'about-us.html']),
                 'children' => []
             ];

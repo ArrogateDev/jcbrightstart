@@ -77,7 +77,6 @@
 </style>
 
 <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
-<link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/themify-icons.min.css')}}">
 
 <div class="modal fade" id="play-box" tabindex="-1" aria-labelledby="play-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
