@@ -14,28 +14,28 @@
             <div class="row picture-wall-box">
                 <div class="col-md-8 p-1">
                     <div class="picture-wal overflow-hidden position-relative">
-                        <div class="title h3 position-absolute">
+                        <div class="title h2 position-absolute">
                             最新消息
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 p-1">
                     <div class="picture-wal overflow-hidden position-relative">
-                        <div class="title h3 position-absolute">
+                        <div class="title h2 position-absolute">
                             香港0-3歲嬰幼兒服務資訊
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 p-1">
                     <div class="picture-wal overflow-hidden position-relative">
-                        <div class="title h3 position-absolute">
+                        <div class="title h2 position-absolute">
                             專業學習社群
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8 p-1">
                     <div class="picture-wal overflow-hidden position-relative">
-                        <div class="title h3 position-absolute">
+                        <div class="title h2 position-absolute">
                             家長學習平台
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     bottom: -150px;
                     opacity: 0;
                     margin: 0;
-                    padding: 8px;
+                    padding: 16px;
                     color: white;
                     transition: all 0.4s ease;
                     overflow: hidden;
@@ -281,7 +281,7 @@
                 <div class="wrap wrap--w1575">
                     <div class="slick-class-2 home-news">
                         <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2"
-                             data-slick-md="5" data-slick-lg="5" data-slick-xl="5" data-slick-dots="false"
+                             data-slick-md="3" data-slick-lg="3" data-slick-xl="3" data-slick-dots="false"
                              data-slick-customnav="true" data-slick-autoplay="true">
                             <div class="slick__content js-slick-content">
                                 @foreach($news as $new)
