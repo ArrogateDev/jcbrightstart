@@ -6,8 +6,8 @@
 <script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.css')}}">
 <script src="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/admin/js/validation.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/admin/js/moment.min.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/css/bootstrap-datetimepicker.min.css')}}">
 <script src="{{web_resource_url('assets/admin/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>

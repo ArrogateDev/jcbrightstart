@@ -2,7 +2,7 @@
 <html lang="en">
 
 <x-web.user.head/>
-<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 
 <body>
 

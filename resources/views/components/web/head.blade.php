@@ -59,9 +59,15 @@
     <script src="{{web_resource_url('assets/web/vendor/noUiSlider/nouislider.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/vendor/modalVideo/modal-video.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/js/global.js')}}"></script>
-    <script src="{{web_resource_url('assets/web/js/config-contact.js')}}"></script>
     <script src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
     <script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
+
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+    <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
     <script>
         $(function () {
             $('a[href="javascript:void(0);"]').click(function () {

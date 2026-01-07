@@ -2,14 +2,14 @@
 <html lang="en">
 
 <x-web.auth.head/>
-<script src="{{web_resource_url('assets/admin/js/validation.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/admin/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<script src="{{web_resource_url('assets/admin/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/wait-me/waitMe.min.css')}}">
-<link href="{{web_resource_url('assets/admin/plugins/toastr/toastr.min.css')}}" rel="stylesheet"/>
-<script src="{{web_resource_url('assets/admin/plugins/toastr/toastr.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/admin/js/utils.js') }}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/admin/js/md5.js') }}"></script>
+<script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+<link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+<script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/js/utils.js') }}"></script>
+<script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
 
 <body>
 

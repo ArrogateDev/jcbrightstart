@@ -100,68 +100,68 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __('香港0-3歲嬰幼兒服務資訊'),
+                'title' => __('香港0-3岁婴幼儿服务资讯'),
                 'url' => route('maps.html'),
                 'children' => [
                     [
-                        'title' => __('服務機構地址'),
+                        'title' => __('服务机构地址'),
                         'url' => '',
                         'children' => []
                     ],
                     [
-                        'title' => __('0-3歲相關實用連結'),
+                        'title' => __('0-3岁相关实用连结'),
                         'url' => route('maps.html'),
                         'children' => [
                             [
-                                'title' => __('社會福利署幼兒中心'),
+                                'title' => __('社会福利署幼儿中心'),
                                 'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/cccs/index.html',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('受資助及私營／非牟利的獨立幼兒中心名單及電話'),
+                                'title' => __('受资助及私营／非牟利的独立幼儿中心名单及电话'),
                                 'url' => 'https://www.swd.gov.hk/storage/asset/section/644/tc/Child_Care_Centre_cccai_as_at_2025-07-25.pdf',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('鄰里支援幼兒照顧計劃'),
+                                'title' => __('邻里支援幼儿照顾计划'),
                                 'url' => 'https://www.swd.gov.hk/tc/pubsvc/family/cat_childcareservice/daychildcares/nsccp/index.html',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('「日間幼兒照顧服務」服務單張'),
+                                'title' => __('“日间幼儿照顾服务”服务单张'),
                                 'url' => 'https://www.swd.gov.hk/storage/asset/section/264/tc/Day%20Child%20Care%20Services%20Leaflet_TradChi%26Eng_Sept%2024.pdf',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('母嬰健康院'),
+                                'title' => __('母婴健康院'),
                                 'url' => 'https://www.fhs.gov.hk/tc_chi/centre_det/maternal/maternal.html',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('接種疫苗'),
+                                'title' => __('接种疫苗'),
                                 'url' => 'https://www.fhs.gov.hk/tc_chi/health_info/child/14828.html',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('新生嬰兒獎勵金'),
+                                'title' => __('新生婴儿奖励金'),
                                 'url' => 'https://www.cso.gov.hk/newbornbabybonus/chi/index.htm',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('兒童健康攻略'),
+                                'title' => __('儿童健康攻略'),
                                 'url' => 'https://www.healthbureau.gov.hk/phcc/files/child_care_tips_booklet.pdf',
                                 'children' => [],
                                 'target'=>'_blank'
                             ],
                             [
-                                'title' => __('GOVHK香港政府一站通親職教育'),
+                                'title' => __('GOVHK香港政府一站通亲职教育'),
                                 'url' => 'https://www.gov.hk/tc/residents/health/childhealth/parenting.htm',
                                 'children' => [],
                                 'target'=>'_blank'
@@ -172,13 +172,13 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __(' 專業學習社群'),
+                'title' => __('专业学习社群'),
                 'url' => route('page', ['page' => 'about-us.html']),
                 'children' => []
             ];
 
             $navs[] = [
-                'title' => __('聯繫我們'),
+                'title' => __('联系我们'),
                 'url' => route('page', ['page' => 'contact-us.html']),
                 'children' => []
             ];
@@ -187,7 +187,7 @@ class WebMiddleware
             View::share('navs', $navs);
         }
 
-        $title = __('赛马会幼儿「喜步」计划');
+        $title = __('赛马会幼儿“喜步”计划');
 
 
         View::share('title', $title);

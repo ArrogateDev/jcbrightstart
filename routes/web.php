@@ -34,7 +34,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/index.html', [IndexController::class, 'index'])->name('index.html');
-Route::get('/index-{no}.html', [IndexController::class, 'other'])->name('index-other.html');
 Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
 Route::post('/login.html', [LoginController::class, 'handleLogin']);
 Route::post('/google-quick-login.html', [LoginController::class, 'handleGoogleQuickLogin'])->name('google-quick-login.html');
@@ -48,6 +47,8 @@ Route::post('/reset-password.html', [ResetPasswordController::class, 'handleRese
 Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
 
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
+Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('message.html');
 
 Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
 Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('news.list.html');

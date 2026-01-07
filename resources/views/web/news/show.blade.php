@@ -164,12 +164,12 @@
 <!-- Page Specific JS-->
 <script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
 
-<script type="text/javascript" src="{{ web_resource_url('assets/admin/js/lodash.js') }}"></script>
-<script src="{{web_resource_url('assets/admin/plugins/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/wait-me/waitMe.min.css')}}">
-<link href="{{web_resource_url('assets/admin/plugins/toastr/toastr.min.css')}}" rel="stylesheet"/>
-<script src="{{web_resource_url('assets/admin/plugins/toastr/toastr.min.js')}}"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/admin/js/utils.js') }}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+<script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+<link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+<script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
 <script>
     $(function () {
         let params = {};
