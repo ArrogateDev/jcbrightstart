@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('添加测验')}}" class="modal-lg" form="true" form-id="form">
+﻿<x-layouts.modal id="form-modal" title="{{ __('新增测验')}}" class="modal-lg" form="true" form-id="form">
 
     <div class="modal-body pb-0">
         <div class="mb-3">
@@ -10,7 +10,7 @@
             <label class="form-label">{{ __('问题数量') }} ( <span id="no-of-questions">0</span> )</label>
             <div id="questions-container" class="overflow-y-auto" style="max-height: 300px;"></div>
             <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-question-btn">
-                <i class="isax isax-add"></i> {{ __('添加问题') }}
+                <i class="isax isax-add"></i> {{ __('新增问题') }}
             </button>
         </div>
     </div>
@@ -50,7 +50,7 @@
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <label class="form-label mb-0">{{__('选项')}} <span class="text-danger">*</span></label>
                                 <button type="button" class="btn btn-sm btn-outline-primary add-option-btn">
-                                    <i class="isax isax-add"></i> {{__('添加选项')}}
+                                    <i class="isax isax-add"></i> {{__('新增选项')}}
                                 </button>
                             </div>
                             <div class="options-container">
@@ -93,7 +93,7 @@
 </div>
 <script>
     const quizLang = {
-        addTitle: @json(__('添加测验')),
+        addTitle: @json(__('新增测验')),
         editTitle: @json(__('编辑测验')),
         minQuestion: @json(__('请至少添加一个问题')),
         titleRequired: @json(__('问题 :number 的标题不能为空')),

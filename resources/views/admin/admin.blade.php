@@ -28,7 +28,7 @@
 
                         <div>
                             <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
-                               data-bs-target="#form-modal">{{__('添加管理员')}}</a>
+                               data-bs-target="#form-modal">{{__('新增管理员')}}</a>
                         </div>
                     </div>
                     <div class="row justify-content-end">
@@ -69,7 +69,7 @@
 
     <x-admin.footer/>
 
-    <x-layouts.modal id="form-modal" title="{{__('添加管理员')}}" class="modal-lg" form="true" form-id="form">
+    <x-layouts.modal id="form-modal" title="{{__('新增管理员')}}" class="modal-lg" form="true" form-id="form">
 
         <div class="mb-3">
             <label class="form-label" for="name">
@@ -393,7 +393,7 @@
         });
 
         function resetForm() {
-            $modal.find('.modal-header h5').text('{{__('添加管理员')}}');
+            $modal.find('.modal-header h5').text('{{__('新增管理员')}}');
 
             $('#form')[0].reset();
             $('#edit-id').val('');

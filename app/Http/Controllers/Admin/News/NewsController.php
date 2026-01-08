@@ -208,8 +208,8 @@ class NewsController extends Controller
                 'short' => 'bail|required',
                 'start_date' => 'bail|required|date:Y-m-d',
                 'end_date' => 'bail|required|date:Y-m-d|after_or_equal:start_date',
-                'start_time' => 'bail|required|date:H:i A',
-                'end_time' => 'bail|required|date:H:i A|after_or_equal:start_time',
+                'start_time' => 'bail|required|date:H:i:s',
+                'end_time' => 'bail|required|date:H:i:s|after_or_equal:start_time',
                 'description' => 'bail|required'
             ]);
 
@@ -225,7 +225,7 @@ class NewsController extends Controller
                 throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
             }
 
-            return $this->responseSuccess(0, __('成功'));
+            return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);

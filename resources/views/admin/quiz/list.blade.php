@@ -24,7 +24,7 @@
                         <h5 class="fw-bold">{{__('测验管理')}}</h5>
                         <div>
                             <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
-                               data-bs-target="#form-modal">{{ __('添加测验')}}</a>
+                               data-bs-target="#form-modal">{{ __('新增测验')}}</a>
                         </div>
                     </div>
                     <div class="p-0">

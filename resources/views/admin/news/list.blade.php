@@ -27,7 +27,7 @@
                         <h5 class="fw-bold">{{__('最新消息')}}</h5>
 
                         <div>
-                            <a href="{{route('admin.news.store.view.html')}}" class="btn btn-secondary">{{__('添加消息')}}</a>
+                            <a href="{{route('admin.news.store.view.html')}}" class="btn btn-secondary">{{__('新增消息')}}</a>
                         </div>
                     </div>
                     <div class="row justify-content-end">

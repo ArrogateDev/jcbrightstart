@@ -26,7 +26,7 @@
                         <h5 class="fw-bold">{{__('消息分类管理')}}</h5>
                         <div>
                             <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
-                               data-bs-target="#form-modal">{{ __('添加消息分类')}}</a>
+                               data-bs-target="#form-modal">{{ __('新增消息分类')}}</a>
                         </div>
                     </div>
                     <div class="p-0">

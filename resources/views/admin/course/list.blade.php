@@ -53,7 +53,7 @@
                         <h5 class="fw-bold">Courses</h5>
 
                         <div>
-                            <a href="{{route('admin.course.store.view.html')}}" class="btn btn-secondary">{{__('添加课程')}}</a>
+                            <a href="{{route('admin.course.store.view.html')}}" class="btn btn-secondary">{{__('新增课程')}}</a>
                         </div>
                     </div>
                     <div class="row">

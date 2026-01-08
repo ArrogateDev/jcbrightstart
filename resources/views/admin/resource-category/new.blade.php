@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('添加领域')}}" class="modal-lg" form="true" form-id="form">
+﻿<x-layouts.modal id="form-modal" title="{{ __('新增领域')}}" class="modal-lg" form="true" form-id="form">
 
     <div class="modal-body pb-0">
         <div class="mb-3">
@@ -92,7 +92,7 @@
         });
 
         function resetForm() {
-            $modal.find('.modal-header h5').text('{{__('添加领域')}}');
+            $modal.find('.modal-header h5').text('{{__('新增领域')}}');
 
             $('#form')[0].reset();
             $('#edit-id').val('');

@@ -24,7 +24,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="button" class="btn btn-sm btn-success add-unit-btn me-2" data-chapter-index="">
-                                    <i class="fa-solid fa-plus me-1"></i>{{__('添加单元')}}
+                                    <i class="fa-solid fa-plus me-1"></i>{{__('新增单元')}}
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger remove-chapter-btn">
                                     <i class="fa-solid fa-trash me-1"></i>{{__('删除章节')}}

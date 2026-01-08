@@ -181,7 +181,7 @@
                                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                                     <label class="form-label mb-0">{{__('课程章节')}}<span class="text-danger ms-1">*</span></label>
                                                     <button type="button" class="btn btn-primary btn-sm" id="add-chapter-btn">
-                                                        <i class="fa-solid fa-plus me-1"></i>{{__('添加章节')}}
+                                                        <i class="fa-solid fa-plus me-1"></i>{{__('新增章节')}}
                                                     </button>
                                                 </div>
                                                 @include('admin.course.components.chapters-container')

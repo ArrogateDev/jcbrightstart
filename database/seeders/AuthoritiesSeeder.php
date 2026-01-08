@@ -40,7 +40,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加课程',
+                            'name' => '新增课程',
                             'alias' => 'CourseAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -93,7 +93,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加测验',
+                            'name' => '新增测验',
                             'alias' => 'QuizAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -131,7 +131,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加证书',
+                            'name' => '新增证书',
                             'alias' => 'CertificateAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -171,7 +171,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加消息',
+                            'name' => '新增消息',
                             'alias' => 'NewsAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -201,7 +201,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加分类',
+                            'name' => '新增分类',
                             'alias' => 'NewsCategoryAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -231,7 +231,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加资源',
+                            'name' => '新增资源',
                             'alias' => 'ResourceAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -261,7 +261,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加领域',
+                            'name' => '新增领域',
                             'alias' => 'ResourceCategoryAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -301,7 +301,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加角色',
+                            'name' => '新增角色',
                             'alias' => 'RoleAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,
@@ -331,7 +331,7 @@ class AuthoritiesSeeder extends Seeder
                     'type' => Authority::GPS_TYPE,
                     'children' => [
                         [
-                            'name' => '添加管理员',
+                            'name' => '新增管理员',
                             'alias' => 'AdminAdd',
                             'sort' => 0,
                             'type' => Authority::BUTTON_TYPE,

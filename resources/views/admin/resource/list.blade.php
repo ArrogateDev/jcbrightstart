@@ -27,7 +27,7 @@
                         <h5 class="fw-bold">{{__('专业学习社群')}}</h5>
 
                         <div>
-                            <a href="{{route('admin.resource.store.view.html')}}" class="btn btn-secondary">{{__('添加资源')}}</a>
+                            <a href="{{route('admin.resource.store.view.html')}}" class="btn btn-secondary">{{__('新增资源')}}</a>
                         </div>
                     </div>
                     <div class="row justify-content-end">

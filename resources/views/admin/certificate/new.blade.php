@@ -12,16 +12,16 @@
 
                     <hr>
 
-                    <h6 class="mb-3">{{__('添加文本')}}</h6>
+                    <h6 class="mb-3">{{__('新增文本')}}</h6>
                     <div class="mb-3">
                         <button type="button" id="btn_add_name" class="btn btn-sm btn-secondary mt-2 w-100" onclick="addText('name')" disabled>
-                            <i class="isax isax-add-circle me-1"></i>{{__('添加姓名')}}
+                            <i class="isax isax-add-circle me-1"></i>{{__('新增姓名')}}
                         </button>
                     </div>
 
                     <div class="mb-3">
                         <button type="button" id="btn_add_date" class="btn btn-sm btn-secondary mt-2 w-100" onclick="addText('date')" disabled>
-                            <i class="isax isax-add-circle me-1"></i>{{__('添加日期')}}
+                            <i class="isax isax-add-circle me-1"></i>{{__('新增日期')}}
                         </button>
                     </div>
 

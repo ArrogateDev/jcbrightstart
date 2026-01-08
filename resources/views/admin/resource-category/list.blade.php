@@ -26,7 +26,7 @@
                         <h5 class="fw-bold">{{__('专业学习社群领域')}}</h5>
                         <div>
                             <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
-                               data-bs-target="#form-modal">{{ __('添加领域')}}</a>
+                               data-bs-target="#form-modal">{{ __('新增领域')}}</a>
                         </div>
                     </div>
                     <div class="p-0">
