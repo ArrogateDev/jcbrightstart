@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Resource;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\NewsRequest;
-use App\Models\News;
+use App\Http\Requests\Admin\ResourceRequest;
+use App\Models\Resource\Resource;
 use App\Tools\FileTool;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,19 +16,19 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class NewsController extends Controller
+class ResourceController extends Controller
 {
 
     public function index()
     {
-        return view('admin.news.list');
+        return view('admin.resource.list');
     }
 
-    public function view(News $news)
+    public function view(Resource $resource)
     {
-        $news->load('category:id,title');
+        $resource->load('category:id,title');
 
-        return view('admin.news.new', ['news' => $news]);
+        return view('admin.resource.new', ['resource' => $resource]);
     }
 
     /**
@@ -42,7 +42,7 @@ class NewsController extends Controller
         $field = $request->query('field');
         $sort = $request->query('sort');
 
-        $list = News::query()
+        $list = Resource::query()
             ->with('category:id,title')
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
@@ -58,7 +58,7 @@ class NewsController extends Controller
             ->paginate(limit_page());
 
         $list->map(function ($item) {
-            $item->url = route('admin.news.update.view.html', ['news' => $item->id]);
+            $item->url = route('admin.resource.update.view.html', ['resource' => $item->id]);
         });
 
         $list->append(['category_text']);
@@ -67,14 +67,14 @@ class NewsController extends Controller
     }
 
     /**
-     * @param NewsRequest $request
+     * @param ResourceRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function store(NewsRequest $request)
+    public function store(ResourceRequest $request)
     {
         $user_id = $request->user('admin')->id;
-        if (!(($lock = Cache::lock("submit_news_store_lock:$user_id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_store_lock:$user_id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -83,9 +83,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'description', 'status']);
-        $start_time = $request->input('start_time');
-        $end_time = $request->input('end_time');
+        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
 
         try {
 
@@ -93,28 +91,24 @@ class NewsController extends Controller
 
             DB::beginTransaction();
 
-            $news = new News();
+            $resource = new Resource();
             foreach ($inputs as $key => $value) {
-                $news->$key = $value;
+                $resource->$key = $value;
             }
-            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
-            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
 
             if ($file) {
-                $file_path = FileTool::existsAndMake('news');
+                $file_path = FileTool::existsAndMake('resource');
                 $extension = $file->getClientOriginalExtension();
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
-                $news->thumbnail = $file_path . $file_name;
+                $resource->thumbnail = $file_path . $file_name;
             }
 
-            if ($news->save() === false) {
-                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+            if ($resource->save() === false) {
+                throw new \Exception('resource:failed', ResponseCode::SERVER_ERR);
             }
 
-            DB::commit();
-
-            return $this->responseSuccess(['id' => $news->id], __('成功'));
+            return $this->responseSuccess(['id' => $resource->id], __('成功'));
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
@@ -123,14 +117,14 @@ class NewsController extends Controller
     }
 
     /**
-     * @param NewsRequest $request
-     * @param News $news
+     * @param ResourceRequest $request
+     * @param Resource $resource
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function update(NewsRequest $request, News $news)
+    public function update(ResourceRequest $request, Resource $resource)
     {
-        if (!(($lock = Cache::lock("submit_news_update_lock:$news->id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_update_lock:$resource->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -139,9 +133,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'start_date', 'end_date', 'description', 'status']);
-        $start_time = $request->input('start_time');
-        $end_time = $request->input('end_time');
+        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
 
         try {
 
@@ -149,33 +141,26 @@ class NewsController extends Controller
 
             $file = $request->file('thumbnail');
             if ($file) {
-                $file_path = FileTool::existsAndMake('news');
+                $file_path = FileTool::existsAndMake('resource');
                 $extension = $file->getClientOriginalExtension();
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
 
-                $old_path = $news->getRawOriginal('thumbnail');
+                $old_path = $resource->getRawOriginal('thumbnail');
                 FileTool::existsAnddelete($old_path);
 
-                $news->thumbnail = $file_path . $file_name;
+                $resource->thumbnail = $file_path . $file_name;
             }
 
             foreach ($inputs as $key => $value) {
-                $news->$key = $value;
-            }
-            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
-            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
-
-            if ($news->save() === false) {
-                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+                $resource->$key = $value;
             }
 
-            DB::commit();
+            if ($resource->save() === false) {
+                throw new \Exception('resource:failed', ResponseCode::SERVER_ERR);
+            }
 
-            return $this->responseSuccess(['id' => $news->id], __('成功'));
-        } catch (ApiException $e) {
-            DB::rollBack();
-            throw $e;
+            return $this->responseSuccess(['id' => $resource->id], __('成功'));
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
@@ -185,13 +170,13 @@ class NewsController extends Controller
 
     /**
      * @param Request $request
-     * @param News $news
+     * @param Resource $resource
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function status(Request $request, News $news)
+    public function status(Request $request, Resource $resource)
     {
-        if (!(($lock = Cache::lock("submit_news_status_lock:$news->id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_status_lock:$resource->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -202,17 +187,13 @@ class NewsController extends Controller
 
         $status = (int)$request->input('status');
 
-        if ($status === News::STATUS_PUBLISHED) {
+        if ($status === Resource::STATUS_PUBLISHED) {
 
-            $validator = Validator::make($news->toArray(), [
+            $validator = Validator::make($resource->toArray(), [
                 'title' => 'bail|required',
                 'thumbnail' => 'bail|required',
-                'category_id' => 'bail|required|exists:news_categories,id',
+                'category_id' => 'bail|required|exists:resource_categories,id',
                 'short' => 'bail|required',
-                'start_date' => 'bail|required|date:Y-m-d',
-                'end_date' => 'bail|required|date:Y-m-d|after_or_equal:start_date',
-                'start_time' => 'bail|required|date:H:i A',
-                'end_time' => 'bail|required|date:H:i A|after_or_equal:start_time',
                 'description' => 'bail|required'
             ]);
 
@@ -223,9 +204,9 @@ class NewsController extends Controller
 
         try {
 
-            $news->status = $status;
-            if ($news->save() === false) {
-                throw new \Exception('news:failed', ResponseCode::SERVER_ERR);
+            $resource->status = $status;
+            if ($resource->save() === false) {
+                throw new \Exception('resource:failed', ResponseCode::SERVER_ERR);
             }
 
             return $this->responseSuccess(0, __('成功'));
@@ -236,13 +217,13 @@ class NewsController extends Controller
     }
 
     /**
-     * @param News $news
+     * @param Resource $resource
      * @return \Illuminate\Http\JsonResponse
      * @throws ApiException
      */
-    public function destroy(News $news)
+    public function destroy(Resource $resource)
     {
-        if (!(($lock = Cache::lock("submit_news_destroy_lock:$news->id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_destroy_lock:$resource->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -253,10 +234,10 @@ class NewsController extends Controller
 
         try {
 
-            $old_path = $news->getRawOriginal('thumbnail');
+            $old_path = $resource->getRawOriginal('thumbnail');
             FileTool::existsAnddelete($old_path);
 
-            $news->delete();
+            $resource->delete();
 
             return $this->responseSuccess(null, __('成功'));
         } catch (\Exception $e) {

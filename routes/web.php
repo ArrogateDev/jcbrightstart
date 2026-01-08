@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\Web\MapsController;
 use App\Http\Controllers\Web\NewsController;
 use App\Http\Controllers\Web\PageController;
+use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Web\User\CertificateController;
 use App\Http\Controllers\Web\User\ChangePasswordController;
 use App\Http\Controllers\Web\User\CourseController as UserCourseController;
@@ -57,6 +58,10 @@ Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('n
 Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 
 Route::get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
+
+Route::get('/resource-kit.html', [ResourceController::class, 'index'])->name('resource.html');
+Route::get('/resource-kit/list.html', [ResourceController::class, 'list'])->name('resource.list.html');
+Route::get('/resource-kit/{resource}.html', [ResourceController::class, 'show'])->name('resource.show.html');
 
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 

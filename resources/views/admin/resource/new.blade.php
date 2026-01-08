@@ -18,14 +18,14 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="{{__('消息管理')}}"/>
+    <x-admin.breadcrumb title="{{__('专业学习社群')}}"/>
 
     <div class="content">
         <div class="container">
 
             <div class="row">
 
-                <x-admin.sidebar active="news"/>
+                <x-admin.sidebar active="resource"/>
 
                 <div class="col-lg-9">
 
@@ -36,14 +36,7 @@
                                     <div class="input-block">
                                         <label class="form-label">{{__('标题')}}<span
                                                 class="text-danger ms-1">*</span></label>
-                                        <input type="text" id="title" name="title" class="form-control" value="{{$news->title??''}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('分类')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <select id="category" name="category_id" class="select form-control"></select>
+                                        <input type="text" id="title" name="title" class="form-control" value="{{$resource->title??''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -59,8 +52,8 @@
                                                     <input type="file" id="upload-img-input" style="display: none;"
                                                            accept="image/jpeg, image/png, image/gif, image/webp">
                                                     <div class="upload-content" id="upload-content">
-                                                        @if($news->id > 0 && !empty($raw_thumbnail = $news->getRawOriginal('thumbnail')))
-                                                            <img src="{{asset($news->thumbnail)}}"
+                                                        @if($resource->id > 0 && !empty($raw_thumbnail = $resource->getRawOriginal('thumbnail')))
+                                                            <img src="{{asset($resource->thumbnail)}}"
                                                                  class="img-fluid h-100" alt="" style="max-height: 120px;">
                                                             <input type="hidden" name="thumbnail_url" value="{{$raw_thumbnail}}">
                                                         @else
@@ -77,66 +70,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="input-block">
+                                        <label class="form-label">{{__('分类')}}<span
+                                                class="text-danger ms-1">*</span></label>
+                                        <select id="category" name="category_id" class="select form-control"></select>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('简介')}}<span
                                                 class="text-danger ms-1">*</span></label>
-                                        <input type="text" id="short" name="short" class="form-control" value="{{$news->short??''}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control datetimepicker"
-                                                   placeholder="yyyy-mm-dd" id="start-date" name="start_date" value="{{$news->start_date??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control timepicker"
-                                                   placeholder="h:i A" id="start-time" name="start_time" value="{{$news->start_time??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control datetimepicker"
-                                                   placeholder="yyyy-mm-dd" id="end-date" name="end_date" value="{{$news->end_date??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control timepicker"
-                                                   placeholder="h:i A" id="end-time" name="end_time" value="{{$news->end_time??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
+                                        <input type="text" id="short" name="short" class="form-control" value="{{$resource->short??''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('描述')}}<span
                                                 class="text-danger ms-1">*</span></label>
-                                        <div class="summernote">{!! $news->description??'' !!}</div>
+                                        <div class="summernote">{!! $resource->description??'' !!}</div>
                                     </div>
                                 </div>
                             </div>
@@ -153,8 +105,8 @@
                             </div>
                         </div>
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <input type="hidden" id="status" value="{{$news->status??0}}">
-                        <input type="hidden" id="edit-id" value="{{$news->id??''}}">
+                        <input type="hidden" id="status" value="{{$resource->status??0}}">
+                        <input type="hidden" id="edit-id" value="{{$resource->id??''}}">
                     </form>
                 </div>
             </div>
@@ -165,7 +117,7 @@
 
 </div>
 
-@include('admin.news-category.new')
+@include('admin.resource-category.new')
 
 </body>
 <script>
@@ -236,7 +188,7 @@
         $category.select2({
             placeholder: '{{__('请选择或搜索分类')}}',
             ajax: {
-                url: '{{route('admin.get-news-category-list.html')}}',
+                url: '{{route('admin.get-resource-category-list.html')}}',
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -294,8 +246,8 @@
             }
         });
 
-        @if($news && $news->category)
-        const option = new Option('{{$news->category->title??''}}', {{$news->category->id??0}}, true, true);
+        @if($resource && $resource->category)
+        const option = new Option('{{$resource->category->title??''}}', {{$resource->category->id??0}}, true, true);
         $category.append(option).trigger('change');
         @endif
 
@@ -329,10 +281,10 @@
             if (editId) {
                 formData.append('id', editId);
                 formData.append('_method', 'PUT');
-                url = '{{route('admin.news.update.html', ['news' => ':id'])}}'.replace(':id', editId);
+                url = '{{route('admin.resource.update.html', ['resource' => ':id'])}}'.replace(':id', editId);
                 method = 'POST';
             } else {
-                url = '{{route('admin.news.store.html')}}';
+                url = '{{route('admin.resource.store.html')}}';
                 method = 'POST';
             }
 
@@ -353,9 +305,9 @@
                     editId = data.data.id;
                     let url;
                     if (keep) {
-                        url = '{{route('admin.news.update.view.html', ['news' => ':id'])}}'.replace(':id', editId);
+                        url = '{{route('admin.resource.update.view.html', ['resource' => ':id'])}}'.replace(':id', editId);
                     } else {
-                        url = '{{route('admin.news.html')}}';
+                        url = '{{route('admin.resource.html')}}';
                     }
                     window.location.href = url;
                 }, error: function () {

@@ -3,28 +3,27 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
-use App\Models\News\NewsCategory;
+use App\Models\Resource\ResourceCategory;
 use Illuminate\Validation\Rule;
 
-class NewsCategoryRequest extends BaseRequest
+class ResourceCategoryRequest extends BaseRequest
 {
 
     public function rules()
     {
         $rules = [
-            'title' => 'bail|required|unique:news_categories,title',
-            'is_nav' => 'bail|required|in:0,1',
+            'title' => 'bail|required|unique:resource_categories,title',
             'status' => 'bail|required|in:0,1'
         ];
 
         if ($this->method() == 'PUT') {
             $category = $this->route('category');
-            $id = $category instanceof NewsCategory ? $category->id : $category;
+            $id = $category instanceof ResourceCategory ? $category->id : $category;
 
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('news_categories')->ignore($id)
+                Rule::unique('resource_categories')->ignore($id)
             ];
         }
 
@@ -36,8 +35,6 @@ class NewsCategoryRequest extends BaseRequest
         return [
             'title.required' => __('标题不能为空'),
             'title.unique' => __('标题已经存在'),
-            'is_nav.required' => __('导航显示不能为空'),
-            'is_nav.in' => __('导航显示格式错误'),
             'status.required' => __('状态不能为空'),
             'status.in' => __('状态格式错误'),
         ];

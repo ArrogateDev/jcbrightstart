@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Resource;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\NewsCategoryRequest;
-use App\Models\NewsCategory;
+use App\Http\Requests\Admin\ResourceCategoryRequest;
+use App\Models\Resource\ResourceCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-class NewsCategoryController extends Controller
+class ResourceCategoryController extends Controller
 {
 
     public function index()
     {
-        return view('admin.news-category.list');
+        return view('admin.resource-category.list');
     }
 
     /**
@@ -29,7 +29,7 @@ class NewsCategoryController extends Controller
         $field = $request->query('field');
         $sort = $request->query('sort');
 
-        $list = NewsCategory::query()
+        $list = ResourceCategory::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })
@@ -44,13 +44,13 @@ class NewsCategoryController extends Controller
     }
 
     /**
-     * @param NewsCategoryRequest $request
+     * @param ResourceCategoryRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(NewsCategoryRequest $request)
+    public function store(ResourceCategoryRequest $request)
     {
         $user_id = $request->user('admin')->id;
-        if (!(($lock = Cache::lock("submit_news_category_store_lock:$user_id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_category_store_lock:$user_id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -59,11 +59,11 @@ class NewsCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'is_nav', 'status']);
+        $inputs = $request->only(['title', 'status']);
 
         try {
 
-            $category = new NewsCategory();
+            $category = new ResourceCategory();
             foreach ($inputs as $field => $value) {
                 $category->$field = $value;
             }
@@ -80,13 +80,13 @@ class NewsCategoryController extends Controller
     }
 
     /**
-     * @param NewsCategoryRequest $request
-     * @param NewsCategory $category
+     * @param ResourceCategoryRequest $request
+     * @param ResourceCategory $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(NewsCategoryRequest $request, NewsCategory $category)
+    public function update(ResourceCategoryRequest $request, ResourceCategory $category)
     {
-        if (!(($lock = Cache::lock("submit_news_category_update_lock:$category->id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_category_update_lock:$category->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 
@@ -95,7 +95,7 @@ class NewsCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'is_nav', 'status']);
+        $inputs = $request->only(['title', 'status']);
 
         try {
 
@@ -115,13 +115,13 @@ class NewsCategoryController extends Controller
     }
 
     /**
-     * @param NewsCategory $category
+     * @param ResourceCategory $category
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(NewsCategory $category)
+    public function destroy(ResourceCategory $category)
     {
-        if (!(($lock = Cache::lock("submit_news_category_destroy_lock:$category->id", 360))->get())) {
+        if (!(($lock = Cache::lock("submit_resource_category_destroy_lock:$category->id", 360))->get())) {
             throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
         }
 

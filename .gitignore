@@ -19,3 +19,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/resources/views/web/test.blade.php

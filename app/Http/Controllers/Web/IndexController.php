@@ -7,7 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\MessageRequest;
 use App\Models\Message;
-use App\Models\News;
+use App\Models\News\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;

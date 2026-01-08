@@ -364,13 +364,13 @@
                             }
 
                             if (code === 0 && data && data.data) {
-                                const quizResults = data.data.map(function (item) {
+                                const list = data.data.map(function (item) {
                                     return {
                                         id: item.id,
                                         text: item.title
                                     };
                                 });
-                                results.push.apply(results, quizResults);
+                                results.push.apply(results, list);
                             }
 
                             return {
@@ -437,13 +437,13 @@
                     }
 
                     if (code === 0 && data && data.data) {
-                        const certificateResults = data.data.map(function (item) {
+                        const list = data.data.map(function (item) {
                             return {
                                 id: item.id,
                                 text: item.title
                             };
                         });
-                        results.push.apply(results, certificateResults);
+                        results.push.apply(results, list);
                     }
 
                     return {

@@ -8,10 +8,12 @@ use App\Http\Controllers\Admin\Auth\SettingController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\NewsCategoryController;
-use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\QuizController;
-use App\Http\Controllers\Admin\QuizResultController;
+use App\Http\Controllers\Admin\News\NewsCategoryController;
+use App\Http\Controllers\Admin\News\NewsController;
+use App\Http\Controllers\Admin\Quiz\QuizController;
+use App\Http\Controllers\Admin\Quiz\QuizResultController;
+use App\Http\Controllers\Admin\Resource\ResourceCategoryController;
+use App\Http\Controllers\Admin\Resource\ResourceController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CommonController;
@@ -40,6 +42,7 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->get('get-quiz-list.html', [CommonController::class, 'getQuizList'])->name('admin.get-quiz-list.html');
         $route->get('get-certificate-list.html', [CommonController::class, 'getCertificateList'])->name('admin.get-certificate-list.html');
         $route->get('get-news-category-list.html', [CommonController::class, 'getNewsCategoryList'])->name('admin.get-news-category-list.html');
+        $route->get('get-resource-category-list.html', [CommonController::class, 'getResourceCategoryList'])->name('admin.get-resource-category-list.html');
     });
 
     //下载文件
@@ -153,6 +156,34 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->put('/news/category/{category}.html', [NewsCategoryController::class, 'update'])->middleware('admin:NewsCategoryEdit')->name('admin.news-category.update.html');
         //删除消息分类
         $route->delete('/news/category/{category}.html', [NewsCategoryController::class, 'destroy'])->middleware('admin:NewsCategoryDelete');
+
+        //资源列表页
+        $route->get('resource.html', [ResourceController::class, 'index'])->middleware('admin:NewsList')->name('admin.resource.html');
+        //资源列表
+        $route->get('resource/list.html', [ResourceController::class, 'list'])->middleware('admin:NewsList')->name('admin.resource.list.html');
+        //创建资源页
+        $route->get('resource/new.html', [ResourceController::class, 'view'])->middleware('admin:NewsAdd')->name('admin.resource.store.view.html');
+        //创建资源
+        $route->post('resource.html', [ResourceController::class, 'store'])->middleware('admin:NewsAdd')->name('admin.resource.store.html');
+        //修改资源
+        $route->put('/resource/{resource}.html', [ResourceController::class, 'update'])->middleware('admin:NewsEdit')->name('admin.resource.update.html');
+        //修改课程页
+        $route->get('/resource/edit/{resource}.html', [ResourceController::class, 'view'])->middleware('admin:NewsEdit')->name('admin.resource.update.view.html');
+        //修改课程状态
+        $route->put('/resource/status/{resource}.html', [ResourceController::class, 'status'])->middleware('admin:NewsEdit')->name('admin.resource.status.html');
+        //删除资源
+        $route->delete('/resource/{resource}.html', [ResourceController::class, 'destroy'])->middleware('admin:NewsDelete');
+
+        //资源分类列表页
+        $route->get('resource/category.html', [ResourceCategoryController::class, 'index'])->middleware('admin:NewsCategoryList')->name('admin.resource-category.html');
+        //资源分类列表
+        $route->get('resource/category/list.html', [ResourceCategoryController::class, 'list'])->middleware('admin:NewsCategoryList')->name('admin.resource-category.list.html');
+        //创建资源分类
+        $route->post('resource/category.html', [ResourceCategoryController::class, 'store'])->middleware('admin:NewsCategoryAdd')->name('admin.resource-category.store.html');
+        //修改资源分类
+        $route->put('/resource/category/{category}.html', [ResourceCategoryController::class, 'update'])->middleware('admin:NewsCategoryEdit')->name('admin.resource-category.update.html');
+        //删除资源分类
+        $route->delete('/resource/category/{category}.html', [ResourceCategoryController::class, 'destroy'])->middleware('admin:NewsCategoryDelete');
     });
 
     $route->group(['prefix' => 'system', 'middleware' => 'admin:AuthorityManage'], function ($route) {

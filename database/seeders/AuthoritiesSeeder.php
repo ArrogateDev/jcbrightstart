@@ -222,6 +222,66 @@ class AuthoritiesSeeder extends Seeder
                             'children' => []
                         ]
                     ]
+                ],
+                [
+                    'name' => '专业学习社群',
+                    'alias' => 'ResourceList',
+                    'icon' => 'isax isax-save-2',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加资源',
+                            'alias' => 'ResourceAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑资源',
+                            'alias' => 'ResourceEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除资源',
+                            'alias' => 'ResourceDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
+                ],
+                [
+                    'name' => '专业学习社群领域',
+                    'alias' => 'ResourceCategoryList',
+                    'icon' => 'isax isax-save-add',
+                    'sort' => 0,
+                    'type' => Authority::GPS_TYPE,
+                    'children' => [
+                        [
+                            'name' => '添加领域',
+                            'alias' => 'ResourceCategoryAdd',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '编辑领域',
+                            'alias' => 'ResourceCategoryEdit',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ],
+                        [
+                            'name' => '删除领域',
+                            'alias' => 'ResourceCategoryDelete',
+                            'sort' => 0,
+                            'type' => Authority::BUTTON_TYPE,
+                            'children' => []
+                        ]
+                    ]
                 ]
             ]
         ];

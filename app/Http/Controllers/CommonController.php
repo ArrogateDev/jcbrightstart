@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Models\Certificate;
-use App\Models\Manage\Authority;
 use App\Models\Manage\Role;
-use App\Models\NewsCategory;
+use App\Models\News\NewsCategory;
 use App\Models\Quiz;
+use App\Models\Resource\ResourceCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Mews\Captcha\Facades\Captcha;
@@ -103,6 +103,24 @@ class CommonController extends Controller
         $keyword = $request->query('keyword');
 
         $list = NewsCategory::query()
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', '%' . $keyword . '%');
+            })
+            ->orderByDesc('id')
+            ->select('id', 'title')
+            ->paginate(limit_page());
+
+        return $this->responseSuccess($list);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getResourceCategoryList(Request $request)
+    {
+        $keyword = $request->query('keyword');
+
+        $list = ResourceCategory::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })

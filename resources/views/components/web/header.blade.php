@@ -49,7 +49,7 @@
                         <nav class="header-navbar">
                             <ul class="list-unstyled">
                                 @foreach($navs as $nav)
-                                    <li @class(['header-navbar__item', 'has-sub' => !empty($nav['children'])])>
+                                    <li @class(['header-navbar__item', 'has-sub' => !empty($nav['children']),'active' =>!empty( $nav['active'])])>
                                         <a href="{{$nav['url']}}">
                                             <span class="bg-link">{{$nav['title']}}</span>
                                         </a>

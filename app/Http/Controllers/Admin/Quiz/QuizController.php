@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Quiz;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;

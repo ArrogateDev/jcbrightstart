@@ -11,6 +11,7 @@ class PageController extends Controller
     public function index($page)
     {
         $pages = [
+            'test.html',
             'terms-and-conditions.html',
             'privacy-policy.html',
             'about-us.html',

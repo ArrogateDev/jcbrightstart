@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Resource;
 
-class NewsCategory extends Base
+use App\Models\Base;
+
+class ResourceCategory extends Base
 {
     const STATUS_PUBLISHED = 2;
 

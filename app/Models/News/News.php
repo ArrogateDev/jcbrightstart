@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\News;
 
+use App\Models\Base;
 use Carbon\Carbon;
 
 class News extends Base
