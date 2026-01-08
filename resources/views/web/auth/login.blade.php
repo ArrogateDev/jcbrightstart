@@ -85,6 +85,11 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="text-center p-3" style="color: #666;">
+                        <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+                        <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+                    </div>
                 </div>
             </div>
         </div>
