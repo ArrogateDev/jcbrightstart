@@ -80,5 +80,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\PermissionAuth::class,
         'admin.middleware' => \App\Http\Middleware\AdminMiddleware::class,
         'web.middleware' => \App\Http\Middleware\WebMiddleware::class,
+        'web.user.middleware' => \App\Http\Middleware\WebUserMiddleware::class,
     ];
 }

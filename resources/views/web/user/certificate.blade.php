@@ -9,7 +9,7 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="My Certificates"/>
+    <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
 
     <div class="content">
         <div class="container">
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5>My Certificates</h5>
+                        <h5>{{__('我的证书')}}</h5>
                     </div>
                     <div class="table-responsive custom-table">
                         <table class="table">

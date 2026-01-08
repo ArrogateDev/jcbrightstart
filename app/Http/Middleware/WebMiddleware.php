@@ -195,7 +195,6 @@ class WebMiddleware
 
         $title = __('赛马会幼儿“喜步”计划');
 
-
         View::share('title', $title);
 
         return $next($request);

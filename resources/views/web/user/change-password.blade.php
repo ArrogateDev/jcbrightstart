@@ -9,7 +9,7 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="Settings"/>
+    <x-web.user.breadcrumb title="{{__('仪表盘')}}"/>
 
     <div class="content">
         <div class="container">
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-9">
                     <div class="mb-3">
-                        <h5>Settings</h5>
+                        <h5>{{__('仪表盘')}}</h5>
                     </div>
 
                     <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded">

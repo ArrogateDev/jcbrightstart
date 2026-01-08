@@ -9,7 +9,7 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="My Courses"/>
+    <x-web.user.breadcrumb title="{{__('我的课程')}}"/>
 
     <div class="content">
         <div class="container">
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex flex-wrap gap-3 align-items-center justify-content-between">
-                        <h5>Courses</h5>
+                        <h5>{{__('我的课程')}}</h5>
                         <div class="tab-list row justify-content-end">
                             <div class="col-md-4">
                                 <div class="input-icon mb-3">

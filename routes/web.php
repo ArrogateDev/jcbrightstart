@@ -71,7 +71,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     $route->post('/course/{course}/play-start.html', [CourseController::class, 'handleRecordPlayStart'])->name('course.play-start.html');
     $route->post('/course/{course}/play-end.html', [CourseController::class, 'handleRecordPlayEnd'])->name('course.play-end.html');
 
-    $route->group(['prefix' => 'user'], function ($route) {
+    $route->group(['prefix' => 'user', 'middleware' => 'web.user.middleware'], function ($route) {
         //修改头像
         $route->post('set-avatar.html', [ProfileController::class, 'handleSetAvatar'])->name('user.set-avatar.html');
         //删除头像

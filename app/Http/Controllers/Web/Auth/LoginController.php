@@ -62,13 +62,13 @@ class LoginController extends Controller
                 throw new ApiException('The account or password is incorrect', ResponseCode::FORBIDDEN);
             }
 
-//            if (!Hash::check($password, $user->password)) {
-//                throw new ApiException('The account or password is incorrect', ResponseCode::PARAM_ERR);
-//            }
+            if (!Hash::check($password, $user->password)) {
+                throw new ApiException('The account or password is incorrect', ResponseCode::PARAM_ERR);
+            }
 
             Auth::login($user, $remember_me === 'on');
 
-//            Auth::logoutOtherDevices($password);
+            Auth::logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
@@ -123,6 +123,7 @@ class LoginController extends Controller
                 [
                     'email' => $email,
                 ], [
+                    'full_name' => $first_name . ' ' . $last_name,
                     'first_name' => $first_name,
                     'last_name' => $last_name,
                     'status' => User::NORMAL

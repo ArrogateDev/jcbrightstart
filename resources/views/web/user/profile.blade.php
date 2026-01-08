@@ -9,7 +9,7 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="My Profile"/>
+    <x-web.user.breadcrumb title="{{__('我的资料')}}"/>
 
     <div class="content">
         <div class="container">
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">My Profile</h5>
+                        <h5 class="fw-bold">{{__('我的资料')}}</h5>
                         <a href="{{route('user.settings.html')}}" class="edit-profile-icon"><i class="isax isax-edit-2"></i></a>
                     </div>
                     <div class="card">

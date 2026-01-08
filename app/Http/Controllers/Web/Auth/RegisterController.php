@@ -56,6 +56,7 @@ class RegisterController extends Controller
                 $user->$field = $value;
             }
 
+            $user->full_name = $inputs['first_name'] . ' ' . $inputs['last_name'];
             $user->password = $password;
             if ($user->save() === false) {
                 throw new \Exception('user:failed');

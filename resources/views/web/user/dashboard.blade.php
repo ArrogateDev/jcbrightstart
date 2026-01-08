@@ -9,7 +9,7 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="Dashboard"/>
+    <x-web.user.breadcrumb title="{{__('仪表盘')}}"/>
 
     <div class="content">
         <div class="container">

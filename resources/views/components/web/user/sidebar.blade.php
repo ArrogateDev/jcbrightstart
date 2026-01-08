@@ -2,48 +2,21 @@
 <div class="col-lg-3 theiaStickySidebar d-none d-md-block">
     <div class="settings-sidebar mb-lg-0">
         <div>
-            <h6 class="mb-3">Main Menu</h6>
-            <ul class="mb-3 pb-1">
-                <li>
-                    <a href="{{route('user.dashboard.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'dashboard'])>
-                        <i class="isax isax-grid-35 me-2"></i>Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('user.profile.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'profile'])>
-                        <i class="fa-solid fa-user me-2"></i>My Profile
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('user.course.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'course'])>
-                        <i class="isax isax-teacher5 me-2"></i>My Courses
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('user.certificate.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'certificate'])>
-                        <i class="isax isax-note-215 me-2"></i>My Certificates
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('user.quiz.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'quiz'])>
-                        <i class="isax isax-medal-star5 me-2"></i>My Quiz
-                    </a>
-                </li>
-            </ul>
-            <hr>
-            <h6 class="mb-3">Account Settings</h6>
-            <ul>
-                <li>
-                    <a href="{{route('user.settings.html')}}" @class(['d-inline-flex align-items-center', 'active' => $active === 'settings'])>
-                        <i class="isax isax-setting-25 me-2"></i>Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="d-inline-flex align-items-center logout">
-                        <i class="isax isax-logout5 me-2"></i>Logout
-                    </a>
-                </li>
-            </ul>
+            @foreach($user_menus as $menu)
+                <h6 class="mb-3">{{$menu['title']}}</h6>
+                <ul class="mb-3 pb-1">
+                    @foreach($menu['children'] as $item)
+                        <li>
+                            <a href="{{$item['url']??'javascript:void(0);'}}" @class(['d-inline-flex align-items-center', 'active' => $active === $item['active'],$item['class']??''])>
+                                <i class="{{$item['icon']}} me-2"></i>{{$item['title']}}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                @if(!$loop->last)
+                    <hr>
+                @endif
+            @endforeach
         </div>
     </div>
 </div>

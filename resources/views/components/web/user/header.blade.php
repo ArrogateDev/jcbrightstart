@@ -1,3 +1,12 @@
+@php
+    $currentLocale = app()->getLocale();
+    $locales = [
+        'en' => 'EN',
+        'zh_CN' => '简体',
+        'zh_HK' => '繁體'
+    ];
+    $currentLang = $locales[$currentLocale] ?? '繁體';
+@endphp
 @props([
     'user' => null
 ])
@@ -6,41 +15,21 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex align-items-center justify-content-end">
-                    <div class="dropdown flag-dropdown mb-2 me-3 d-none">
-                        <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{web_resource_url('assets/admin/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
+                    <div class="dropdown flag-dropdown mb-2 me-3">
+                        <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe me-2"></i>{{ $currentLang }}
                         </a>
                         <ul class="dropdown-menu p-2 mt-2" style="">
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/admin/img/flags/us-flag.svg')}}" class="me-2" alt="flag">ENG
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/admin/img/flags/arab-flag.svg')}}" class="me-2" alt="flag">ARA
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded d-flex align-items-center"
-                                   href="javascript:void(0);">
-                                    <img src="{{web_resource_url('assets/admin/img/flags/france-flag.svg')}}" class="me-2" alt="flag">FRE
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown mb-2 me-3 d-none">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            USD
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2">
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">USD</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">YEN</a></li>
-                            <li><a class="dropdown-item rounded" href="javascript:void(0);">EURO</a></li>
+                            @foreach($locales as $locale => $label)
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="{{ route('language.switch', ['locale' => $locale]) }}">
+                                        {{ $label }}
+                                        @if($currentLocale === $locale)
+                                            <i class="fas fa-check ms-2"></i>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <ul class="social-icon d-flex align-items-center mb-2">
@@ -87,51 +76,20 @@
                     </a>
                 </div>
                 <ul class="main-nav d-md-none">
-                    <li class="has-submenu megamenu">
-                        <a href="#">Main Menu <i class="isax isax-add"></i></a>
-                        <ul class="submenu mega-submenu">
-                            <li>
-                                <a href="{{route('user.dashboard.html')}}">
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('user.profile.html')}}">
-                                    My Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('user.course.html')}}">
-                                    My Courses
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('user.certificate.html')}}">
-                                    My Certificates
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('user.quiz.html')}}">
-                                    My Quiz
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-submenu megamenu">
-                        <a href="#">Account Settings <i class="isax isax-add"></i></a>
-                        <ul class="submenu mega-submenu">
-                            <li>
-                                <a href="{{route('user.settings.html')}}">
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="logout">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @foreach($user_menus as $menu)
+                        <li class="has-submenu megamenu">
+                            <a href="#">{{$menu['title']}} <i class="isax isax-add"></i></a>
+                            <ul class="submenu mega-submenu">
+                                @foreach($menu['children'] as $item)
+                                    <li>
+                                        <a href="{{$item['url']??'javascript:void(0);'}}" class="{{$item['class']??''}}">
+                                            {{$item['title']}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="header-btn d-flex align-items-center">
@@ -164,41 +122,19 @@
                                 </div>
                             </div>
                             <ul class="profile-body">
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.profile.html')}}">
-                                        <i class="fa-solid fa-user me-2"></i>
-                                        My Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.course.html')}}">
-                                        <i class="isax isax-teacher5 me-2"></i>
-                                        My Courses
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.certificate.html')}}">
-                                        <i class="isax isax-note-215 me-2"></i>
-                                        My Certificates
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.quiz.html')}}">
-                                        <i class="isax isax-medal-star5 me-2"></i>
-                                        My Quiz
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{route('user.settings.html')}}">
-                                        <i class="isax isax-setting-25 me-2"></i>
-                                        Settings
-                                    </a>
-                                </li>
+                                @foreach($avatar_menus as $menu)
+                                    <li>
+                                        <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{$menu['url']??'javascript:void(0);'}}">
+                                            <i class="{{$menu['icon']}} me-2"></i>
+                                            {{$menu['title']}}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                             <div class="profile-footer">
                                 <a href="#"
                                    class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
-                                    <i class="isax isax-logout me-2"></i>Logout</a>
+                                    <i class="isax isax-logout me-2"></i>{{__('退出登录')}}</a>
                             </div>
                         </div>
                     </div>
