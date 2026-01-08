@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:admin', 'auth.session', 'admin.middleware']
         $route->get('get-certificate-list.html', [CommonController::class, 'getCertificateList'])->name('admin.get-certificate-list.html');
         $route->get('get-news-category-list.html', [CommonController::class, 'getNewsCategoryList'])->name('admin.get-news-category-list.html');
         $route->get('get-resource-category-list.html', [CommonController::class, 'getResourceCategoryList'])->name('admin.get-resource-category-list.html');
+        $route->post('upload-image.html', [CommonController::class, 'uploadImage'])->name('admin.upload-image.html');
     });
 
     //下载文件

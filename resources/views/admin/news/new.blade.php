@@ -367,4 +367,7 @@
         })
     })
 </script>
+
+<x-admin.summernote-editor :height="300" type="news"/>
+
 </html>

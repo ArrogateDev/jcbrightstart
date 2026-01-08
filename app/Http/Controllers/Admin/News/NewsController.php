@@ -97,8 +97,8 @@ class NewsController extends Controller
             foreach ($inputs as $key => $value) {
                 $news->$key = $value;
             }
-            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
-            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
+            $start_time && $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
+            $end_time && $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
 
             if ($file) {
                 $file_path = FileTool::existsAndMake('news');
@@ -163,8 +163,8 @@ class NewsController extends Controller
             foreach ($inputs as $key => $value) {
                 $news->$key = $value;
             }
-            $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
-            $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
+            $start_time && $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
+            $end_time && $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
 
             if ($news->save() === false) {
                 throw new \Exception('news:failed', ResponseCode::SERVER_ERR);

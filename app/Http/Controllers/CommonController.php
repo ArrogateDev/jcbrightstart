@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
+use App\Jobs\AutoDeleteExpiresFileJob;
 use App\Models\Certificate;
 use App\Models\Manage\Role;
 use App\Models\News\NewsCategory;
 use App\Models\Quiz;
 use App\Models\Resource\ResourceCategory;
+use App\Tools\FileTool;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Mews\Captcha\Facades\Captcha;
 
 class CommonController extends Controller
@@ -189,6 +193,47 @@ class CommonController extends Controller
             return Storage::download($file);
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * 上传图片（用于富文本编辑器）
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function uploadImage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'type' => 'required|in:news,course,resource',
+        ]);
+
+        if ($validator->fails()) {
+            throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
+        }
+
+        try {
+
+            $type = $request->input('type');
+            $file = $request->file('image');
+            $file_path = FileTool::existsAndMake('editor/' . $type);
+            $extension = $file->getClientOriginalExtension();
+            $file_name = uniqid() . '.' . $extension;
+            Storage::putFileAs($file_path, $file, $file_name);
+            $full_path = $file_path . $file_name;
+
+            $image_url = web_resource_url($full_path);
+
+            AutoDeleteExpiresFileJob::dispatch($full_path, $type)->delay(now()->addMinutes(30));
+
+            return $this->responseSuccess([
+                'url' => $image_url,
+                'path' => $full_path
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException(__('图片上传失败'), ResponseCode::SERVER_ERR);
         }
     }
 }
