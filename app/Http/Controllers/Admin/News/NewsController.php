@@ -208,8 +208,8 @@ class NewsController extends Controller
                 'short' => 'bail|required',
                 'start_date' => 'bail|required|date:Y-m-d',
                 'end_date' => 'bail|required|date:Y-m-d|after_or_equal:start_date',
-                'start_time' => 'bail|required|date:H:i:s',
-                'end_time' => 'bail|required|date:H:i:s|after_or_equal:start_time',
+                'start_time' => 'bail|required|date_format:H:i:s',
+                'end_time' => 'bail|required|date_format:H:i:s',
                 'description' => 'bail|required'
             ]);
 
