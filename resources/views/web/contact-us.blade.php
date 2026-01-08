@@ -2,6 +2,7 @@
 <html lang="en">
 
 <x-web.head/>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 
 <body class="animsition js-preloader">
 <div class="page-wrapper">
@@ -10,7 +11,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="聯繫我們" subtitle="聯繫我們"/>
+        <x-web.breadcrumb title="{{__('联系我们')}}" subtitle="{{__('联系我们')}}"/>
 
         <section class="section p-t-125">
             <div class="container">
@@ -75,33 +76,15 @@
                 </div>
             </div>
         </section>
-        <!-- END INFO-->
 
-        <!-- MESSAGE-->
         <section class="section p-t-30 p-b-85">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading section-heading-1">
-                            <h2 class="section-heading__title">Send Message</h2>
+                            <h2 class="section-heading__title">{{__('联系我们')}}</h2>
                         </div>
-                        <form class="js-contact-form" method="post">
-                            <div class="row">
-                                <div class="col-md-6 p-r-10 p-md-r-15">
-                                    <input class="input-border" type="text" name="name" required="" placeholder="Your name">
-                                </div>
-                                <div class="col-md-6 p-l-10 p-md-l-15">
-                                    <input class="input-border" type="email" name="email" required="" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" placeholder="Your e-mail">
-                                </div>
-                            </div>
-                            <textarea class="textarea-border" name="message" placeholder="Your message..." required=""></textarea>
-                            <div class="text-center">
-                                <button class="au-btn au-btn--blue" type="submit">submit
-                                    <i class="zmdi zmdi-chevron-right"></i>
-                                    <i class="zmdi zmdi-chevron-right"></i>
-                                </button>
-                            </div>
-                        </form>
+                        <x-forms.about-us/>
                     </div>
                 </div>
             </div>
