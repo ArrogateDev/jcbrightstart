@@ -36,7 +36,7 @@ class ResourceCategoryController extends Controller
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
-                $query->orderBy('id');
+                $query->orderByDesc('id');
             })
             ->paginate(limit_page());
 

@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\CourseRequest;
 use App\Models\Course;
 use App\Models\CourseChapter;
 use App\Models\CourseChapterUnit;
+use App\Jobs\FetchPdfPages;
+use App\Jobs\FetchVideoDuration;
 use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -340,6 +342,14 @@ class CourseController extends Controller
                 $unit_id = $unit_item['id'] ?? null;
                 $unit = $chapter->units()->where('id', $unit_id)->first();
 
+                // 记录旧值用于检测变化
+                $old_video_url = null;
+                $old_file = null;
+                if ($unit) {
+                    $old_video_url = $unit->getRawOriginal('video_url');
+                    $old_file = $unit->getRawOriginal('file');
+                }
+
                 if (!$unit) {
                     $unit = new CourseChapterUnit();
                     $unit->course_id = $course->id;
@@ -350,8 +360,12 @@ class CourseController extends Controller
                 $unit->type = $unit_item['type'] ?? 0;
                 $unit->quiz_id = $unit_item['quiz_id'] ?? 0;
 
+                $new_video_url = null;
+                $new_file = null;
+
                 if ($unit->type == 0) {
-                    $unit->video_url = $unit_item['video_url'] ?? null;
+                    $new_video_url = $unit_item['video_url'] ?? null;
+                    $unit->video_url = $new_video_url;
                     if ($unit->file) {
                         $old_path = $unit->getRawOriginal('file');
                         FileTool::existsAnddelete($old_path);
@@ -371,12 +385,29 @@ class CourseController extends Controller
                         $extension = $file->getClientOriginalExtension();
                         $file_name = uniqid() . '.' . $extension;
                         Storage::putFileAs($file_path, $file, $file_name);
-                        $unit->file = $file_path . $file_name;
+                        $new_file = $file_path . $file_name;
+                        $unit->file = $new_file;
+                    } else {
+                        // 如果没有新文件上传，保持原有文件
+                        $new_file = $old_file;
                     }
                 }
 
                 if ($unit->save() === false) {
                     throw new \Exception('unit:failed', ResponseCode::SERVER_ERR);
+                }
+
+                // 检测字段变化并分发队列任务
+                // 检测 video_url 变化
+                if ($unit->type == 0 && $new_video_url && $new_video_url !== $old_video_url) {
+                    FetchVideoDuration::dispatch($unit->id, $new_video_url);
+                    Log::info("Dispatched FetchVideoDuration job for unit {$unit->id}");
+                }
+
+                // 检测 file 变化
+                if ($unit->type == 1 && $new_file && $new_file !== $old_file) {
+                    FetchPdfPages::dispatch($unit->id, $new_file);
+                    Log::info("Dispatched FetchPdfPages job for unit {$unit->id}");
                 }
 
                 $new_unit_ids[] = $unit->id;

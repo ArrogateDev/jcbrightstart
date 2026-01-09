@@ -42,7 +42,7 @@ class UserController extends Controller
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
-                $query->orderBy('id');
+                $query->orderByDesc('id');
             })
             ->select('id', 'avatar', 'email', 'full_name', 'first_name', 'last_name', 'gender', 'age', 'role', 'status', 'created_at')
             ->paginate(limit_page());

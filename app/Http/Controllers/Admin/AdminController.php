@@ -35,7 +35,7 @@ class AdminController extends Controller
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
-                $query->orderBy('id');
+                $query->orderByDesc('id');
             })
             ->select('id as value', 'name as label')
             ->get();

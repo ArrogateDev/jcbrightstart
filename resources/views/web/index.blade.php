@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="box__body">
                                             <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;" href="#">{{__('HOME4_CONTENT01')}}</a>
+                                                <a style="color:#666;">{{__('HOME4_CONTENT01')}}</a>
                                             </h3>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@
                                         </div>
                                         <div class="box__body">
                                             <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;" href="#">{{__('HOME4_CONTENT02')}}</a>
+                                                <a style="color:#666;">{{__('HOME4_CONTENT02')}}</a>
                                             </h3>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@
                                         </div>
                                         <div class="box__body">
                                             <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;" href="#">{{__('HOME4_CONTENT03')}}</a>
+                                                <a style="color:#666;">{{__('HOME4_CONTENT03')}}</a>
                                             </h3>
                                         </div>
                                     </div>
@@ -186,7 +186,7 @@
                                         </div>
                                         <div class="box__body">
                                             <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;" href="#">{{__('HOME4_CONTENT04')}}</a>
+                                                <a style="color:#666;">{{__('HOME4_CONTENT04')}}</a>
                                             </h3>
                                         </div>
                                     </div>

@@ -42,7 +42,7 @@
         } else {
             $field = $fields.eq(0);
             field = $field.data('field');
-            sort = 'asc';
+            sort = 'desc';
             $field.attr('data-sort', sort)
         }
         if ($field) {
