@@ -116,36 +116,14 @@
                                         </div>
                                     </div>
                                     <ul class="profile-body">
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.profile.html')}}">
-                                                <i class="fa-solid fa-user mr-2"></i>
-                                                My Profile
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.course.html')}}">
-                                                <i class="isax isax-teacher5 mr-2"></i>
-                                                My Courses
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.certificate.html')}}">
-                                                <i class="isax isax-note-215 mr-2"></i>
-                                                My Certificates
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.quiz.html')}}">
-                                                <i class="isax isax-medal-star5 mr-2"></i>
-                                                My Quiz
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{route('user.settings.html')}}">
-                                                <i class="isax isax-setting-25 mr-2"></i>
-                                                Settings
-                                            </a>
-                                        </li>
+                                        @foreach($avatar_menus as $menu)
+                                            <li>
+                                                <a class="dropdown-item d-inline-flex align-items-center rounded" href="{{$menu['url']??'javascript:void(0);'}}">
+                                                    <i class="{{$menu['icon']}} mr-2"></i>
+                                                    {{$menu['title']}}
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                     <div class="profile-footer">
                                         <a href="#"
