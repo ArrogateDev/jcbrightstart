@@ -54,9 +54,6 @@ class AdminMiddleware
                 return $menus;
             });
 
-            App::setLocale('zh_HK');
-//            App::setLocale('zh_CN');
-//            App::setLocale('en');
             View::share('user', $user);
             View::share('menus', $menus);
         }

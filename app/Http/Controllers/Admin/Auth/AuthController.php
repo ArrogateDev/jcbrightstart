@@ -18,7 +18,9 @@ class AuthController extends Controller
 
     public function index()
     {
-        return view('admin.login');
+        $title = __('赛马会幼儿「喜步」计划');
+
+        return view('admin.login', compact('title'));
     }
 
     /**
