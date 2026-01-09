@@ -2,6 +2,11 @@
 <html lang="en">
 
 <x-web.head/>
+<style>
+    .media__img{
+        height: 300px;
+    }
+</style>
 
 <body class="animsition js-preloader">
 <div class="page-wrapper">

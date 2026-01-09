@@ -35,6 +35,10 @@
     .media-info img {
         width: 16px;
     }
+
+    .media__img {
+        height: 180px;
+    }
 </style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
@@ -91,7 +95,7 @@
                     <div class="col-md-8 col-lg-9">
                         <div class="row">
                             <div class="col-md-12">
-                                <nav class="au-tab-2 m-b-50">
+                                <nav class="au-tab-2 m-b-20">
                                     <ul class="type-box list-unstyled au-tab__nav au-tab__nav--sspace iostope-filter">
                                         <li class="active au-tab__nav-item d-flex justify-content-center align-items-center" data-type="1">
                                             <span class="au-tab__nav-item-inner">{{__('最新活动')}}</span>
@@ -104,6 +108,9 @@
                             </div>
                         </div>
                         <div class="p-l-10 p-sm-l-0">
+                            <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left m-b-30">
+                                <h2 class="section-heading__title" id="list-type">{{__('最新活动')}}</h2>
+                            </div>
                             <div class="row list-container"></div>
                             <nav class="au-pagination p-t-10 pagination-container"></nav>
                         </div>
@@ -179,6 +186,7 @@
         let params = {};
         let $search = $('#search-input');
         let $searchBtn = $('#search-btn');
+        let $type = $('#list-type');
 
         const urlKeywords = urlParams.get('keywords');
         const urlCategory = urlParams.get('category');
@@ -194,6 +202,7 @@
         if (urlType) {
             $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
             params = Object.assign(params, {type: urlType});
+            $type.text(urlType === '1' ? '{{__('最新活动')}}' : '{{__('过去活动')}}')
         }
 
         getData(page, params)
@@ -245,6 +254,7 @@
             $(this).addClass('active').siblings().removeClass('active');
             const type = $(this).data('type');
 
+            $type.text(type === '1' ? '{{__('最新活动')}}' : '{{__('过去活动')}}')
             page = 1
             params = Object.assign(params, {type: type, page: page});
             getData(page, params)

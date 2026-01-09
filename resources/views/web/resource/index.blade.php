@@ -36,6 +36,10 @@
         width: 16px;
     }
 
+    .media__img {
+        height: 180px;
+    }
+
     .category-box .category {
         background: #f5f5f5;
         color: #364050;
