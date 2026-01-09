@@ -2,6 +2,16 @@
 <html lang="en">
 
 <x-web.auth.head/>
+<style>
+    .login-content .section-heading__title {
+        color: #ff97a4;
+        font-weight: 400;
+    }
+
+    .login-content img.logo {
+        height: 60px;
+    }
+</style>
 <script type="text/javascript" src="{{web_resource_url('assets/js/lodash.js') }}"></script>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
@@ -109,12 +119,11 @@
                                 <div class="mb-4">
                                     <div class="remember-me d-flex align-items-center">
                                         <input class="form-check-input" type="checkbox" id="agree" name="agree">
-                                        <label class="form-check-label mb-0 d-inline-flex remember-me fs-14"
-                                               for="agree">
-                                            I agree with <a href="javascript:void(0);" class="link-2 mx-2">Terms of
-                                                Service</a> and <a href="javascript:void(0);"
-                                                                   class="link-2 mx-2">Privacy Policy
-                                            </a>
+                                        <label class="form-check-label mb-0 d-inline remember-me fs-14" for="agree">
+                                            I agree with
+                                            <a href="javascript:void(0);" class="link-2 mx-2">Terms of Service</a>
+                                            and
+                                            <a href="javascript:void(0);" class="link-2 mx-2">Privacy Policy</a>
                                         </label>
                                     </div>
                                     <div class="form-label" id="error-container-agree" style="height: 21px;"></div>
@@ -130,18 +139,44 @@
                                 Or
                             </div>
 
-                            <div class="d-flex align-items-center justify-content-center mb-3">
-
-                                <x-web.auth.google-quick-login type="signup"/>
-
-                                <x-web.auth.apple-quick-login type="signup"/>
-
+                            <div class="row mb-1">
+                                <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                    <x-web.auth.google-quick-login type="signup"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <x-web.auth.apple-quick-login type="signup"/>
+                                </div>
                             </div>
 
                             <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
                                 Already you have an account?<a href="{{route('login.html')}}" class="link-2 ms-1"> Login</a>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                    <h5 class="section-heading__title">Organised by 主辦機構</h5>
+                                </div>
+                                <div class="w-100 d-flex">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                    <h5 class="section-heading__title">Funded by 捐助機構</h5>
+                                </div>
+                                <div class="w-100 d-flex">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center p-3" style="color: #666;">
+                        <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+                        <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
                     </div>
                 </div>
             </div>

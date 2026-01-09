@@ -2,6 +2,16 @@
 <html lang="en">
 
 <x-admin.head/>
+<style>
+    .login-content .section-heading__title {
+        color: #ff97a4;
+        font-weight: 400;
+    }
+
+    .login-content img.logo {
+        height: 60px;
+    }
+</style>
 
 <!-- Slick CSS -->
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick.css')}}">
@@ -71,9 +81,29 @@
                         </div>
                     </div>
 
-                    <div class="text-center p-3" style="color: #666;">
-                        <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
-                        <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                    <h5 class="section-heading__title">Organised by 主辦機構</h5>
+                                </div>
+                                <div class="w-100 d-flex">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                    <h5 class="section-heading__title">Funded by 捐助機構</h5>
+                                </div>
+                                <div class="w-100 d-flex">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center p-3" style="color: #666;">
+                            <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+                            <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+                        </div>
                     </div>
                 </div>
             </div>

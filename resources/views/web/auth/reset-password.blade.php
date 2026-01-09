@@ -2,6 +2,16 @@
 <html lang="en">
 
 <x-web.auth.head/>
+<style>
+    .login-content .section-heading__title {
+        color: #ff97a4;
+        font-weight: 400;
+    }
+
+    .login-content img.logo {
+        height: 60px;
+    }
+</style>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
@@ -20,63 +30,88 @@
                 <div class="login-banner vh-100">
                     <img src="{{web_resource_url('assets/img/login-page.png')}}" class="img-fluid" alt="Logo">
                 </div>
-                </div>
             </div>
+        </div>
 
-            <div class="col-lg-6 login-wrap-bg">
-                <div class="login-wrapper">
-                    <div class="loginbox">
-                        <div class="w-100">
-                            <div class="d-flex align-items-center justify-content-between login-header">
-                                <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid" alt="Logo">
-                                <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
-                            </div>
-                            <div class="topic">
-                                <h1 class="fs-32 fw-bold mb-3">Forgot Password</h1>
-                                <p class="fs-14 fw-normal mb-0">Enter your email to reset your password.</p>
-                            </div>
-                            <form id="form" class="mb-3 pb-3" novalidate="novalidate">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">
-                                        New Password
-                                        <span class="text-danger">*</span>
-                                        <span id="error-container-password"></span>
-                                    </label>
-                                    <div class="position-relative" id="passwordInput">
-                                        <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
-                                        <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
-                                    </div>
-                                    <div class="password-strength" id="passwordStrength">
-                                        <span id="poor"></span>
-                                        <span id="weak"></span>
-                                        <span id="strong"></span>
-                                        <span id="heavy"></span>
-                                    </div>
-                                    <div class="mt-2" id="passwordInfo"></div>
-                                </div>
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">
-                                        Confirm Password
-                                        <span class="text-danger">*</span>
-                                        <span id="error-container-password-confirmation"></span>
-                                    </label>
-                                    <div class="position-relative">
-                                        <input id="password-confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
-                                        <span class="isax toggle-passworda isax-eye-slash text-gray-7 fs-14"></span>
-                                    </div>
-                                </div>
-                                <div class="d-grid">
-                                    <button class="btn btn-secondary btn-lg" type="submit">Reset Password<i
-                                            class="isax isax-arrow-right-3 ms-1"></i></button>
-                                </div>
-                                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            </form>
+        <div class="col-lg-6 login-wrap-bg">
+            <div class="login-wrapper flex-md-column justify-content-between">
+                <div class="loginbox mt-md-5">
+                    <div class="w-100">
+                        <div class="d-flex align-items-center justify-content-between login-header">
+                            <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
+                            <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
                         </div>
+                        <div class="topic">
+                            <h1 class="fs-32 fw-bold mb-3">Forgot Password</h1>
+                            <p class="fs-14 fw-normal mb-0">Enter your email to reset your password.</p>
+                        </div>
+                        <form id="form" class="mb-3 pb-3" novalidate="novalidate">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">
+                                    New Password
+                                    <span class="text-danger">*</span>
+                                    <span id="error-container-password"></span>
+                                </label>
+                                <div class="position-relative" id="passwordInput">
+                                    <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
+                                    <span class="isax toggle-passwords isax-eye-slash text-gray-7 fs-14"></span>
+                                </div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <span id="poor"></span>
+                                    <span id="weak"></span>
+                                    <span id="strong"></span>
+                                    <span id="heavy"></span>
+                                </div>
+                                <div class="mt-2" id="passwordInfo"></div>
+                            </div>
+                            <div class="mb-3 position-relative">
+                                <label class="form-label">
+                                    Confirm Password
+                                    <span class="text-danger">*</span>
+                                    <span id="error-container-password-confirmation"></span>
+                                </label>
+                                <div class="position-relative">
+                                    <input id="password-confirmation" type="password" name="password_confirmation" class="pass-inputa form-control form-control-lg">
+                                    <span class="isax toggle-passworda isax-eye-slash text-gray-7 fs-14"></span>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-secondary btn-lg" type="submit">Reset Password<i
+                                        class="isax isax-arrow-right-3 ms-1"></i></button>
+                            </div>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                <h5 class="section-heading__title">Organised by 主辦機構</h5>
+                            </div>
+                            <div class="w-100 d-flex">
+                                <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                                <h5 class="section-heading__title">Funded by 捐助機構</h5>
+                            </div>
+                            <div class="w-100 d-flex">
+                                <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center p-3" style="color: #666;">
+                        <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+                        <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>

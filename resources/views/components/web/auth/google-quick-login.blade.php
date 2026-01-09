@@ -10,7 +10,7 @@
      data-auto_select="false">
 </div>
 
-<div class="g_id_signin me-2"
+<div class="g_id_signin"
      data-type="standard"
      data-shape="pill"
      data-theme="outline"
