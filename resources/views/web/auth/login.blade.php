@@ -2,16 +2,7 @@
 <html lang="en">
 
 <x-web.auth.head/>
-<style>
-    .login-content .section-heading__title {
-        color: #ff97a4;
-        font-weight: 400;
-    }
 
-    .login-content img.logo {
-        height: 60px;
-    }
-</style>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
 <body>
@@ -27,7 +18,7 @@
 
             <div class="col-lg-6 login-wrap-bg">
                 <div class="login-wrapper">
-                    <div class="loginbox">
+                    <div class="container loginbox">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
                                 <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
@@ -84,10 +75,10 @@
 
                             <div class="row mb-1">
                                 <div class="col-12 col-md-6 mb-2 mb-md-0">
-                                    <x-web.auth.google-quick-login type="signup"/>
+                                    <x-web.auth.google-quick-login type="signin"/>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <x-web.auth.apple-quick-login type="signup"/>
+                                    <x-web.auth.apple-quick-login type="signin"/>
                                 </div>
                             </div>
 
@@ -97,29 +88,29 @@
                         </div>
                     </div>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                    <h5 class="section-heading__title">Organised by 主辦機構</h5>
+                    <div class="container organization">
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-6 mb-4 mb-md-2 organization-item">
+                                <div class="mb-1">
+                                    <h5 class="section-heading__title">{{__('Organised by 主办机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                    <h5 class="section-heading__title">Funded by 捐助機構</h5>
+                            <div class="col-12 col-md-6 mb-2 organization-item">
+                                <div class="mb-1">
+                                    <h5 class="section-heading__title">{{__('Funded by 捐助机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
                                     <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-center p-3" style="color: #666;">
-                        <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
-                        <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+                        <div class="text-center p-3" style="color: #666;">
+                            <p class="fw-normal p-0 m-0" style="font-size: 14px;">{{__('版权所有', ['date'=>date('Y')])}}</p>
+                            <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+                        </div>
                     </div>
                 </div>
             </div>

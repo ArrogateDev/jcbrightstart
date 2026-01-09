@@ -1,51 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-admin.head title="{{$title}}" />
-<style>
-    .login-content .section-heading__title {
-        color: #ff97a4;
-        font-weight: 400;
-        font-size: 1.2rem !important;
-    }
-
-    .login-content img.logo {
-        height: 75px;
-        max-width: unset !important;
-    }
-
-    .loginbox {
-        width: 80% !important;
-        max-width: 580px !important;
-        padding: 20px 0 !important;
-    }
-
-    .organization {
-        width: 80% !important;
-        max-width: 580px !important;
-    }
-
-    @media (max-width: 992px) {
-        .loginbox {
-            width: 100% !important;
-            max-width: 100% !important;
-            padding: 20px 10px !important;
-        }
-
-        .organization {
-            width: 100% !important;
-            max-width: 100% !important;
-            padding: 0 10px !important;
-        }
-    }
-
-    @media (min-width: 992px) and (max-width: 1380px) {
-        .col-md-6 {
-            flex: 0 0 auto;
-            width: 100%;
-        }
-    }
-</style>
+<x-admin.head title="{{$title}}"/>
 
 <!-- Slick CSS -->
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick.css')}}">
@@ -117,25 +73,25 @@
 
                     <div class="container organization">
                         <div class="row mb-3">
-                            <div class="col-12 col-md-6 mb-2">
+                            <div class="col-12 col-md-6 mb-4 mb-md-2 organization-item">
                                 <div class="mb-1">
-                                    <h5 class="section-heading__title">Organised by 主辦機構</h5>
+                                    <h5 class="section-heading__title">{{__('Organised by 主办机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-01_resized.png')}}1" class="logo" alt="">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 mb-2">
+                            <div class="col-12 col-md-6 mb-2 organization-item">
                                 <div class="mb-1">
-                                    <h5 class="section-heading__title">Funded by 捐助機構</h5>
+                                    <h5 class="section-heading__title">{{__('Funded by 捐助机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-02_03.png')}}" class="logo" alt="">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                                 </div>
                             </div>
                         </div>
                         <div class="text-center p-3" style="color: #666;">
-                            <p class="fw-normal p-0 m-0" style="font-size: 14px;">版權所有 © {{date('Y')}} 香港賽馬會慈善信託基金</p>
+                            <p class="fw-normal p-0 m-0" style="font-size: 14px;">{{__('版权所有', ['date'=>date('Y')])}}</p>
                             <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
                         </div>
                     </div>
