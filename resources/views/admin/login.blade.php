@@ -11,6 +11,31 @@
     .login-content img.logo {
         height: 60px;
     }
+
+    .loginbox {
+        width: 80% !important;
+        max-width: 580px !important;
+        padding: 20px 0 !important;
+    }
+
+    .organization {
+        width: 80% !important;
+        max-width: 580px !important;
+    }
+
+    @media (max-width: 992px) {
+        .loginbox {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 20px 10px !important;
+        }
+
+        .organization {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 0 10px !important;
+        }
+    }
 </style>
 
 <!-- Slick CSS -->
@@ -34,7 +59,7 @@
 
             <div class="col-lg-6 login-wrap-bg">
                 <div class="login-wrapper">
-                    <div class="loginbox">
+                    <div class="container loginbox">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
                                 <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
@@ -81,7 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="container">
+                    <div class="container organization">
                         <div class="row">
                             <div class="col-6">
                                 <div class="section-heading section-heading-1 section-heading-1--small text-left">
