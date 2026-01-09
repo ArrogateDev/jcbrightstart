@@ -26,8 +26,8 @@
                     </div>
 
                     <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded">
-                        <li><a href="{{route('user.settings.html')}}">Edit Profile</a></li>
-                        <li><a href="{{route('user.change-password.html')}}" class="active">Security</a></li>
+                        <li><a href="{{route('user.settings.html')}}">{{__('修改资料')}}</a></li>
+                        <li><a href="{{route('user.change-password.html')}}" class="active">{{__('修改密码')}}</a></li>
                     </ul>
                     <div class="card mb-0">
                         <div class="card-body">

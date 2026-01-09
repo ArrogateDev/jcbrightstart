@@ -84,7 +84,7 @@
                                                         <div class="mt-2 position-relative">
                                                             <a href="javascript:void(0);" class="preview-video-btn"
                                                                data-video-url="{{$unit->video_url}}">
-                                                                <img class="img-fluid rounded" style="max-height: 150px;"
+                                                                <img class="img-fluid rounded"
                                                                      src="{{web_resource_url('assets/admin/img/course/add-course-1.jpg')}}"
                                                                      alt="preview">
                                                                 <div class="play-icon">

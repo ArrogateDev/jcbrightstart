@@ -23,8 +23,8 @@
                         <h5>{{__('设置')}}</h5>
                     </div>
                     <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded">
-                        <li><a href="{{route('admin.settings.html')}}" class="active">Profile</a></li>
-                        <li><a href="{{route('admin.change-password.html')}}">Security</a></li>
+                        <li><a href="{{route('admin.settings.html')}}" class="active">{{__('修改资料')}}</a></li>
+                        <li><a href="{{route('admin.change-password.html')}}">{{__('修改密码')}}</a></li>
                     </ul>
                     <form id="form" novalidate="novalidate">
                         <div class="card">

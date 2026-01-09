@@ -9,7 +9,7 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="Settings"/>
+    <x-admin.breadcrumb title="{{__('设置')}}"/>
 
     <div class="content">
         <div class="container">
@@ -20,12 +20,12 @@
 
                 <div class="col-lg-9">
                     <div class="mb-3">
-                        <h5>Settings</h5>
+                        <h5>{{__('设置')}}</h5>
                     </div>
 
                     <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded">
-                        <li><a href="{{route('admin.settings.html')}}">Profile</a></li>
-                        <li><a href="{{route('admin.change-password.html')}}" class="active">Security</a></li>
+                        <li><a href="{{route('admin.settings.html')}}">{{__('修改资料')}}</a></li>
+                        <li><a href="{{route('admin.change-password.html')}}" class="active">{{__('修改密码')}}</a></li>
                     </ul>
                     <div class="card mb-0">
                         <div class="card-body">
