@@ -10,7 +10,7 @@
     }
 
     .login-content img.logo {
-        height: 60px;
+        height: 70px;
         max-width: unset !important;
     }
 
@@ -39,7 +39,7 @@
         }
     }
 
-    @media (min-width: 992px) and (max-width: 1200px) {
+    @media (min-width: 992px) and (max-width: 1380px) {
         .col-md-6 {
             flex: 0 0 auto;
             width: 100%;
@@ -122,7 +122,7 @@
                                     <h5 class="section-heading__title">Organised by 主辦機構</h5>
                                 </div>
                                 <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-01_resized.png')}}1" class="logo" alt="">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 mb-2">
