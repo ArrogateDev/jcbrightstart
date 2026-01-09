@@ -6,10 +6,12 @@
     .login-content .section-heading__title {
         color: #ff97a4;
         font-weight: 400;
+        font-size: 1.2rem !important;
     }
 
     .login-content img.logo {
         height: 60px;
+        max-width: unset !important;
     }
 
     .loginbox {
@@ -34,6 +36,13 @@
             width: 100% !important;
             max-width: 100% !important;
             padding: 0 10px !important;
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1200px) {
+        .col-md-6 {
+            flex: 0 0 auto;
+            width: 100%;
         }
     }
 </style>
@@ -107,21 +116,21 @@
                     </div>
 
                     <div class="container organization">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                        <div class="row mb-3">
+                            <div class="col-12 col-md-6 mb-2">
+                                <div class="mb-1">
                                     <h5 class="section-heading__title">Organised by 主辦機構</h5>
                                 </div>
                                 <div class="w-100 d-flex">
                                     <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                            <div class="col-12 col-md-6 mb-2">
+                                <div class="mb-1">
                                     <h5 class="section-heading__title">Funded by 捐助機構</h5>
                                 </div>
                                 <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                                    <img src="{{web_resource_url('assets/img/organization/organization-02_03.png')}}" class="logo" alt="">
                                 </div>
                             </div>
                         </div>

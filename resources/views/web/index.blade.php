@@ -140,7 +140,7 @@
                                             <div class="box__head-bg" style="width: 50px;">
                                                 <img src="{{web_resource_url('assets/web/images/icon/bg-program-05.png')}}" alt="Background">
                                                 <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-05.png')}}" alt="Icon">
+                                                    <img src="{{web_resource_url('assets/web/images/icon/program-09.png')}}" alt="Icon">
                                                 </div>
                                             </div>
                                         </div>
