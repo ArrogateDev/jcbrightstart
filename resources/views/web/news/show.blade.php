@@ -36,7 +36,7 @@
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
                             <a class="img-radius text-center" href="javascript:void(0);">
-                                <img class="w-100" src="{{web_resource_url('assets/web/images/blog-19.jpg')}}" alt="{{$news->title}}">
+                                <img class="w-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
                             </a>
                             <div class="media__date">
                                 <div class="media__date-inner">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="m-b-40">
                         {!! $news->description !!}
                     </div>
                     <div class="blog-single__info m-b-40">

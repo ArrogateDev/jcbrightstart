@@ -62,9 +62,6 @@
                                 <div class="widget p-b-30 p-t-45">
                                     <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
                                         <h2 class="section-heading__title">Categories</h2>
-                                        <div class="section-heading__line">
-                                            <img src="{{web_resource_url('assets/web/images/icon/line-blue-tiny.png')}}" alt="Line">
-                                        </div>
                                     </div>
                                     <ul class="list-bare list-unstyled">
                                         @foreach($category as $item)
@@ -79,9 +76,6 @@
                             <div class="widget p-b-35">
                                 <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
                                     <h2 class="section-heading__title">Tag Cloud</h2>
-                                    <div class="section-heading__line">
-                                        <img src="{{web_resource_url('assets/web/images/icon/line-blue-tiny.png')}}" alt="Line">
-                                    </div>
                                     <div class="m-b-25"></div>
                                 </div>
                                 <div class="au-tag-lists">
