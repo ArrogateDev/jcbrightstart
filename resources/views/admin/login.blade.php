@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<x-admin.head/>
+<x-admin.head title="{{$title}}" />
 <style>
     .login-content .section-heading__title {
         color: #ff97a4;
@@ -10,7 +10,7 @@
     }
 
     .login-content img.logo {
-        height: 70px;
+        height: 75px;
         max-width: unset !important;
     }
 
