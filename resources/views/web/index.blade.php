@@ -2,6 +2,7 @@
 <html lang="en">
 
 <x-web.head/>
+<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <style>
     .media__img{
         height: 300px;
