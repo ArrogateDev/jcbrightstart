@@ -9,7 +9,6 @@
 
 <!-- ApexChart JS -->
 <script src="{{web_resource_url('assets/admin/plugins/apexchart/apexcharts.min.js')}}" type="text/javascript"></script>
-{{--<script src="{{web_resource_url('assets/admin/plugins/apexchart/chart-data.js')}}" type="text/javascript"></script>--}}
 
 <body>
 

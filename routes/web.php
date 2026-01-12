@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Auth\LoginController;
@@ -67,7 +68,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
 
-    $route->get('quiz/{unit}.html', [\App\Http\Controllers\CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
+    $route->get('quiz/{unit}.html', [CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
     $route->post('/course/{course}/play-record.html', [CourseController::class, 'handleSavePlayRecord'])->name('course.save-play-record.html');
     $route->post('/course/{course}/play-start.html', [CourseController::class, 'handleRecordPlayStart'])->name('course.play-start.html');
     $route->post('/course/{course}/play-end.html', [CourseController::class, 'handleRecordPlayEnd'])->name('course.play-end.html');
@@ -86,6 +87,8 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
         $route->get('/course/list.html', [UserCourseController::class, 'list'])->name('user.course.list.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->name('user.certificate.html');
         $route->get('/quiz.html', [QuizController::class, 'index'])->name('user.quiz.html');
+        $route->get('/quiz/list.html', [QuizController::class, 'list'])->name('user.quiz.list.html');
+        $route->get('/quiz/{quiz}/result.html', [QuizController::class, 'result'])->name('user.quiz-results.html');
 
         $route->get('/settings.html', [SettingController::class, 'index'])->name('user.settings.html');
         $route->post('/settings.html', [SettingController::class, 'handleSetting']);
@@ -95,6 +98,6 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     });
 });
 
-Route::get('marker', [\App\Http\Controllers\CommonController::class, 'marker'])->name('marker');
+Route::get('marker', [CommonController::class, 'marker'])->name('marker');
 Route::get('404.html', [PageController::class, 'error'])->name('error');
 Route::get('{page}', [PageController::class, 'index'])->name('page');

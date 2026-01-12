@@ -51,6 +51,19 @@ class UserUnitQuizStatistics extends Base
     }
 
     /**
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        $course_title = $this->course->title ?? '';
+        $chapter_title = $this->chapter->title ?? '';
+        $unit_title = $this->unit->title ?? '';
+        $quiz_title = $this->quiz->title ?? '';
+
+        return $course_title . '/' . $chapter_title . '/' . $unit_title . '/' . $quiz_title;
+    }
+
+    /**
      * 更新或创建统计信息
      *
      * @param int $userId

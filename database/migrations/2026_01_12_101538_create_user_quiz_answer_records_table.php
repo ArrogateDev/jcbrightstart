@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quiz_answer_records', function (Blueprint $table) {
+        Schema::create('user_quiz_answer_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('User ID');
             $table->unsignedBigInteger('course_id')->comment('Course ID');
