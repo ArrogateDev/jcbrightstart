@@ -68,12 +68,16 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
 
+    //下载文件
+    $route->get('download.html', [CommonController::class, 'download'])->name('user.download.html');
+
     $route->get('quiz/{unit}.html', [CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
     $route->post('/course/{course}/play-record.html', [CourseController::class, 'handleSavePlayRecord'])->name('course.save-play-record.html');
     $route->post('/course/{course}/play-start.html', [CourseController::class, 'handleRecordPlayStart'])->name('course.play-start.html');
     $route->post('/course/{course}/play-end.html', [CourseController::class, 'handleRecordPlayEnd'])->name('course.play-end.html');
     $route->post('/course/{course}/quiz-answer.html', [CourseController::class, 'handleSaveQuizAnswer'])->name('course.save-quiz-answer.html');
     $route->get('/course/{course}/answered-questions.html', [CourseController::class, 'getAnsweredQuestions'])->name('course.answered-questions.html');
+    $route->post('/course/{course}/certificate.html', [CourseController::class, 'handleCertificate'])->name('course.handle.html');
 
     $route->group(['prefix' => 'user'], function ($route) {
         //修改头像
@@ -86,6 +90,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
         $route->get('/course.html', [UserCourseController::class, 'index'])->name('user.course.html');
         $route->get('/course/list.html', [UserCourseController::class, 'list'])->name('user.course.list.html');
         $route->get('/certificate.html', [CertificateController::class, 'index'])->name('user.certificate.html');
+        $route->get('/certificate/list.html', [CertificateController::class, 'list'])->name('user.certificate.list.html');
         $route->get('/quiz.html', [QuizController::class, 'index'])->name('user.quiz.html');
         $route->get('/quiz/list.html', [QuizController::class, 'list'])->name('user.quiz.list.html');
         $route->get('/quiz/{quiz}/result.html', [QuizController::class, 'result'])->name('user.quiz-results.html');

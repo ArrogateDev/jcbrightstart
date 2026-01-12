@@ -22,7 +22,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="course-complete-label">{{__('课程完成')}}</h5>
+                <h5 class="modal-title" id="course-complete-label">{{__('填写证书信息')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -495,7 +495,7 @@
         const $submitCertificateBtn = $('#submit-certificate-btn');
 
         $submitCertificateBtn.on('click', function () {
-            const name = $certificateNameInput.val().trim();
+            const name = $certificateNameInput.val('{{$user->full_name}}').trim();
             if (!name) {
                 showToast('error', '{{__('请输入姓名')}}');
                 $certificateNameInput.focus();
@@ -527,7 +527,7 @@
                 },
                 error: function () {
                     hideLoading($courseCompleteModal.find('.modal-content'));
-                    showToast('error', 'Login failed, please try again later')
+                    showToast('error', 'Failed, please try again later')
                     $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
                 }
             });

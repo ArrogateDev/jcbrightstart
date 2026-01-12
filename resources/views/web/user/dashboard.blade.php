@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="text-end">
-                                            <a href="{{route('user.quiz.html')}}" class="btn btn-primary rounded-pill">
+                                            <a href="{{$last_quiz->url}}" class="btn btn-primary rounded-pill">
                                                 {{__('继续测验')}}
                                             </a>
                                         </div>

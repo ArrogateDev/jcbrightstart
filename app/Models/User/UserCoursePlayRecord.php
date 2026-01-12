@@ -13,17 +13,17 @@ class UserCoursePlayRecord extends Base
     /**
      * 未完成
      */
-    const UNFINISHED = 0;
+    public const UNFINISHED = 0;
 
     /**
      * 播放完成
      */
-    const PLAY_COMPLETED = 1;
+    public const PLAY_COMPLETED = 1;
 
     /**
      * 测验完成
      */
-    const QUIZ_COMPLETED = 2;
+    public const QUIZ_COMPLETED = 2;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

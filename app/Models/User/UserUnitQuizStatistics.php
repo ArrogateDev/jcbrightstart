@@ -78,9 +78,9 @@ class UserUnitQuizStatistics extends Base
     {
         // 获取测验信息，确定题目总数
         $quiz = Quiz::find($quizId);
-        $totalQuestions = 0;
+        $total_questions = 0;
         if ($quiz && is_array($quiz->questions)) {
-            $totalQuestions = count($quiz->questions);
+            $total_questions = count($quiz->questions);
         }
 
         // 获取或创建统计记录
@@ -93,23 +93,23 @@ class UserUnitQuizStatistics extends Base
                 'quiz_id' => $quizId,
             ],
             [
-                'total_questions' => $totalQuestions,
+                'total_questions' => $total_questions,
                 'answered' => 0,
                 'correct' => 0,
                 'incorrect' => 0,
-                'unanswered' => $totalQuestions,
+                'unanswered' => $total_questions,
                 'correct_rate' => 0,
                 'first_answered_at' => now(),
             ]
         );
 
         // 如果题目总数发生变化，更新
-        if ($statistics->total_questions != $totalQuestions) {
-            $statistics->total_questions = $totalQuestions;
+        if ($statistics->total_questions != $total_questions) {
+            $statistics->total_questions = $total_questions;
         }
 
         // 获取该用户在该单元的所有答题记录
-        $answerRecords = UserQuizAnswerRecord::query()
+        $answer_records = UserQuizAnswerRecord::query()
             ->where('user_id', $userId)
             ->where('course_id', $courseId)
             ->where('chapter_id', $chapterId)
@@ -118,35 +118,35 @@ class UserUnitQuizStatistics extends Base
             ->get();
 
         // 按题目索引分组，取最新的答题记录
-        $latestAnswers = $answerRecords->groupBy('question_index')->map(function ($records) {
+        $latest_answers = $answer_records->groupBy('question_index')->map(function ($records) {
             return $records->sortByDesc('answered_at')->first();
         });
 
         // 统计已答题数（去重）
-        $answeredCount = $latestAnswers->count();
+        $answered_count = $latest_answers->count();
 
         // 统计正确数和错误数
-        $correctCount = $latestAnswers->where('is_correct', true)->count();
-        $incorrectCount = $latestAnswers->where('is_correct', false)->count();
+        $correct_count = $latest_answers->where('is_correct', true)->count();
+        $incorrectCount = $latest_answers->where('is_correct', false)->count();
 
         // 未答题数
-        $unansweredCount = max(0, $totalQuestions - $answeredCount);
+        $unanswered_count = max(0, $total_questions - $answered_count);
 
         // 正确率（百分比）
-        $correctRate = $answeredCount > 0
-            ? round(($correctCount / $answeredCount) * 100, 2)
+        $correctRate = $answered_count > 0
+            ? round(($correct_count / $answered_count) * 100, 2)
             : 0;
 
         // 更新统计信息
-        $statistics->answered = $answeredCount;
-        $statistics->correct = $correctCount;
+        $statistics->answered = $answered_count;
+        $statistics->correct = $correct_count;
         $statistics->incorrect = $incorrectCount;
-        $statistics->unanswered = $unansweredCount;
+        $statistics->unanswered = $unanswered_count;
         $statistics->correct_rate = $correctRate;
         $statistics->last_answered_at = now();
 
         // 如果所有题目都已答完，设置完成时间
-        if ($answeredCount >= $totalQuestions && $totalQuestions > 0) {
+        if ($answered_count >= $total_questions && $total_questions > 0) {
             if (!$statistics->completed_at) {
                 $statistics->completed_at = now();
             }

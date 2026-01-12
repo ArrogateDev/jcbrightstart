@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User\UserCoursePlayRecord;
 use App\Models\User\UserUnitQuizStatistics;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -23,6 +22,7 @@ class DashboardController extends Controller
             ->select('id', 'course_id', 'chapter_id', 'unit_id', 'quiz_id', 'total_questions', 'answered')
             ->first() ?? '';
         if ($last_quiz) {
+            $last_quiz->url = route('user.quiz-results.html', ['quiz' => $last_quiz->id]);
             $last_quiz->append(['title']);
             $last_quiz->makeHidden(['course_id', 'chapter_id', 'unit_id', 'quiz_id', 'course', 'chapter', 'unit', 'quiz']);
         }

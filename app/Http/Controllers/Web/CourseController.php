@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Web;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Jobs\CreateCourseCertificateJob;
+use App\Models\Certificate;
 use App\Models\Course\Course;
 use App\Models\Course\CourseChapterUnit;
 use App\Models\Quiz;
+use App\Models\User\UserCourseCertificate;
 use App\Models\User\UserCoursePlayRecord;
 use App\Models\User\UserQuizAnswerRecord;
 use App\Models\User\UserUnitQuizStatistics;
@@ -300,18 +303,20 @@ class CourseController extends Controller
 
             DB::beginTransaction();
 
-            UserQuizAnswerRecord::create([
-                'user_id' => $user->id,
-                'course_id' => $course->id,
-                'chapter_id' => $request->chapter_id,
-                'unit_id' => $request->unit_id,
-                'quiz_id' => $request->quiz_id,
-                'question_index' => $question_index,
-                'user_answer' => $user_answer,
-                'correct_answer' => $correct_answer,
-                'is_correct' => $is_correct,
-                'answered_at' => now(),
-            ]);
+            $record = new UserQuizAnswerRecord();
+            $record->user_id = $user->id;
+            $record->course_id = $course->id;
+            $record->chapter_id = $request->chapter_id;
+            $record->unit_id = $request->unit_id;
+            $record->quiz_id = $request->quiz_id;
+            $record->question_index = $question_index;
+            $record->user_answer = $user_answer;
+            $record->correct_answer = $correct_answer;
+            $record->is_correct = $is_correct;
+            $record->answered_at = now();
+            if ($record->save() === false) {
+                throw new \Exception('log:failed');
+            }
 
             $statistics = UserUnitQuizStatistics::updateStatistics(
                 $user->id,
@@ -328,13 +333,10 @@ class CourseController extends Controller
                 ]);
             }
 
-            DB::commit();
-
             $completed = UserCoursePlayRecord::query()
                 ->where('user_id', $user->id)
                 ->where('course_id', $course->id)
                 ->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)
-                ->groupBy('unit_id')
                 ->select(DB::raw('COUNT(DISTINCT unit_id) as num'))
                 ->value('num');
 
@@ -342,7 +344,20 @@ class CourseController extends Controller
                 ->where('course_id', $course->id)
                 ->count();
 
-            return $this->responseSuccess(['completed' => $completed >= $total]);
+            $is_completed = $completed >= $total;
+            if ($is_completed) {
+                $certificate = new UserCourseCertificate();
+                $certificate->user_id = $user->id;
+                $certificate->course_id = $course->id;
+                if ($certificate->save() === false) {
+                    throw new \Exception('certificate:failed');
+                }
+
+            }
+
+            DB::commit();
+
+            return $this->responseSuccess(['completed' => $is_completed]);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
@@ -370,7 +385,7 @@ class CourseController extends Controller
 
         try {
             // 获取该用户在该单元的所有答题记录
-            $answerRecords = UserQuizAnswerRecord::query()
+            $answer_records = UserQuizAnswerRecord::query()
                 ->where('user_id', $user->id)
                 ->where('course_id', $course->id)
                 ->where('chapter_id', $request->chapter_id)
@@ -380,7 +395,7 @@ class CourseController extends Controller
 
             // 按题目索引分组，取最新的答题记录
             // 返回所有已答过的题目索引（不管对错），用于判断哪些题目已经答过
-            $answeredQuestions = $answerRecords
+            $answered_questions = $answer_records
                 ->groupBy('question_index')
                 ->keys()
                 ->map(function ($index) {
@@ -389,7 +404,7 @@ class CourseController extends Controller
                 ->toArray();
 
             // 同时返回已答对的题目索引，用于统计
-            $completedQuestions = $answerRecords
+            $completed_questions = $answer_records
                 ->groupBy('question_index')
                 ->map(function ($records) {
                     return $records->sortByDesc('answered_at')->first();
@@ -404,10 +419,55 @@ class CourseController extends Controller
                 ->toArray();
 
             return $this->responseSuccess([
-                'answered_questions' => $answeredQuestions,  // 所有已答过的题目（不管对错）
-                'completed_questions' => $completedQuestions  // 已答对的题目
+                'answered_questions' => $answered_questions,  // 所有已答过的题目（不管对错）
+                'completed_questions' => $completed_questions  // 已答对的题目
             ]);
         } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+        }
+    }
+
+
+    public function handleCertificate(Request $request, Course $course)
+    {
+        $user = $request->user('web');
+        if (!(($lock = Cache::lock("submit_handle_certificate_lock:$user->id", 30))->get())) {
+            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $name = $request->name ?? $user->full_name;
+
+        try {
+
+            DB::beginTransaction();
+
+            $certificate = Certificate::query()->find($course->certificate_id);
+
+            $certificate = UserCourseCertificate::query()
+                ->firstOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'course_id' => $course->id,
+                    ],
+                    [
+                        'certificate_id' => $certificate->id,
+                        'certificate_name' => $certificate->name,
+                        'full_name' => $name,
+                    ]);
+
+            CreateCourseCertificateJob::dispatch($certificate)->afterCommit();
+
+            DB::commit();
+
+            return $this->responseSuccess();
+        } catch (\Exception $e) {
+            DB::rollBack();
             Log::error($e);
             throw new ApiException('Failure', ResponseCode::SERVER_ERR);
         }

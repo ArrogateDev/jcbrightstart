@@ -20,487 +20,145 @@
 
                 <x-web.user.sidebar active="quiz"/>
 
-                		<div class="col-lg-9 quiz-wizard">
-						<fieldset id="first-field">
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>{{__('我的测验')}}</h5>
-							</div>
-							<div class="quiz-attempt-card border-0">
-								<div class="quiz-attempt-body p-0">
-									<div class="border p-3 mb-3 rounded-2">
-										<div class="bg-light border p-3 mb-3 rounded-2 flex-wrap">
-											<div class="row align-items-center">
-												<div class="col-md-8">
-													<div class="mb-2 mb-md-0">
-														<div class="d-flex align-items-center">
-															<div class="avatar avatar-lg me-3 flex-shrink-0">
-																<img class="img-fluid rounded-3"
-																	src="assets/img/students/quiz.jpg" alt="">
-															</div>
-															<h5 class="fs-18">Information About UI/UX Design Degree</h5>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-md-end">
-														<p class="d-inline-flex align-items-center mb-0">
-															<i class="isax isax-clock me-1"></i>
-															00:02:21
-															<span class="text-dark ms-1"> / 00:03:00</span>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<div class="d-flex align-items-center justify-content-between mb-1">
-												<span class="fw-semibold text-gray-9">Quiz Progress</span>
-												<span>Question 1 out of 5</span>
-											</div>
-											<div class="progress progress-xs  flex-grow-1 mb-1">
-												<div class="progress-bar bg-success rounded" role="progressbar"
-													style="width: 20%;" aria-valuenow="20" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="mb-0">
-											<h6 class="mb-3">What does UI stand for?</h6>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-1"
-													id="Radio-sm-1">
-												<label class="form-check-label" for="Radio-sm-1">
-													User Intention
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-1"
-													id="Radio-sm-2">
-												<label class="form-check-label" for="Radio-sm-2">
-													User Interface
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-1"
-													id="Radio-sm-3">
-												<label class="form-check-label" for="Radio-sm-3">
-													Universal Interaction
-												</label>
-											</div>
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="radio" name="qusetion-1"
-													id="Radio-sm-4">
-												<label class="form-check-label" for="Radio-sm-4">
-													Usability Information
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn btn-secondary rounded-pill next_btn">Next<i
-												class="isax isax-arrow-right-3 ms-1 fs-10"></i></button>
-									</div>
-								</div>
-							</div>
+                <div class="col-lg-9">
+                    <div class="page-title d-flex align-items-center justify-content-between mb-4">
+                        <h5>{{__('我的测验')}}</h5>
+                    </div>
 
-						</fieldset>
+                    @if($is_completed)
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="quiz-circle-progress m-0 mb-3">
+                                    <div class="circle-progress mb-2" data-value='{{round($quiz_statistics->correct_rate)}}'>
+                                        <span class="progress-left">
+                                            <span class="progress-bar {{$quiz_statistics->correct_rate >= 80 ? 'border-success' : 'border-danger'}}"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar {{$quiz_statistics->correct_rate >= 80 ? 'border-success' : 'border-danger'}}"></span>
+                                        </span>
+                                        <div class="progress-value {{$quiz_statistics->correct_rate >= 80 ? 'text-success' : 'text-danger'}} fw-bold fs-24">{{round($quiz_statistics->correct_rate)}}%
+                                        </div>
+                                    </div>
+                                    <p class="text-center fs-14">Pass Score : 80%</p>
+                                </div>
+                                <div class="text-center mb-3">
+                                    @if($quiz_statistics->correct_rate >= 80)
+                                        <h6 class="mb-1">{{__('恭喜！您通过了测验')}}</h6>
+                                        <p class="fs-14">{{__('您成功完成了测验。继续保持！')}}</p>
+                                    @else
+                                        <h6 class="mb-1">{{__('抱歉，您这次没有通过')}}</h6>
+                                        <p class="fs-14">{{__('别担心，从这次尝试中学习，下次会更强！')}}</p>
+                                    @endif
+                                    <div class="mt-3">
+                                        <p class="mb-1"><strong>{{__('正确')}}:</strong> {{$quiz_statistics->correct}} / {{$quiz_statistics->total_questions}}</p>
+                                        <p class="mb-1"><strong>{{__('错误')}}:</strong> {{$quiz_statistics->incorrect}} / {{$quiz_statistics->total_questions}}</p>
+                                        <p class="mb-0"><strong>{{__('正确率')}}:</strong> {{round($quiz_statistics->correct_rate, 2)}}%</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="{{route('user.quiz.html')}}" class="btn btn-secondary rounded-pill">
+                                        <i class="isax isax-arrow-left-2 me-1 fs-10"></i>{{__('返回测验列表')}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="quiz-attempt-card border-0">
-								<div class="quiz-attempt-body p-0">
-									<div class="border p-3 mb-3 rounded-2">
-										<div class="bg-light border p-3 mb-3 rounded-2 flex-wrap">
-											<div class="row align-items-center">
-												<div class="col-md-8">
-													<div class="mb-2 mb-md-0">
-														<div class="d-flex align-items-center">
-															<div class="avatar avatar-lg me-3 flex-shrink-0">
-																<img class="img-fluid rounded-3"
-																	src="assets/img/students/quiz.jpg" alt="">
-															</div>
-															<h5 class="fs-18">Information About UI/UX Design Degree</h5>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-md-end">
-														<p class="d-inline-flex align-items-center mb-0">
-															<i class="isax isax-clock me-1"></i>
-															00:02:21
-															<span class="text-dark ms-1"> / 00:03:00</span>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<div class="d-flex align-items-center justify-content-between mb-1">
-												<span class="fw-semibold text-gray-9">Quiz Progress</span>
-												<span>Question 2 out of 5</span>
-											</div>
-											<div class="progress progress-xs  flex-grow-1 mb-1">
-												<div class="progress-bar bg-success rounded" role="progressbar"
-													style="width: 40%;" aria-valuenow="40" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="mb-0">
-											<h6 class="mb-3">Which of the following is a principle of UX design?</h6>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-2"
-													id="Radio-sm-5">
-												<label class="form-check-label" for="Radio-sm-5">
-													Minimalistic Design
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-2"
-													id="Radio-sm-6">
-												<label class="form-check-label" for="Radio-sm-6">
-													User-Centered Design
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-2"
-													id="Radio-sm-7">
-												<label class="form-check-label" for="Radio-sm-7">
-													Gradient Usage
-												</label>
-											</div>
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="radio" name="qusetion-2"
-													id="Radio-sm-8">
-												<label class="form-check-label" for="Radio-sm-8">
-													Typography Hierarchy
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex align-items-center justify-content-between">
-										<a href="javascript:void(0);"
-											class="btn bg-gray-100 d-inline-flex rounded-pill align-items-center prev_btn me-1"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Previous</a>
-										<button type="button" class="btn btn-secondary rounded-pill next_btn">Next<i
-												class="isax isax-arrow-right-3 ms-1 fs-10"></i></button>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="quiz-attempt-card border-0">
-								<div class="quiz-attempt-body p-0">
-									<div class="border p-3 mb-3 rounded-2">
-										<div class="bg-light border p-3 mb-3 rounded-2 flex-wrap">
-											<div class="row align-items-center">
-												<div class="col-md-8">
-													<div class="mb-2 mb-md-0">
-														<div class="d-flex align-items-center">
-															<div class="avatar avatar-lg me-3 flex-shrink-0">
-																<img class="img-fluid rounded-3"
-																	src="assets/img/students/quiz.jpg" alt="">
-															</div>
-															<h5 class="fs-18">Information About UI/UX Design Degree</h5>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-md-end">
-														<p class="d-inline-flex align-items-center mb-0">
-															<i class="isax isax-clock me-1"></i>
-															00:02:21
-															<span class="text-dark ms-1"> / 00:03:00</span>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<div class="d-flex align-items-center justify-content-between mb-1">
-												<span class="fw-semibold text-gray-9">Quiz Progress</span>
-												<span>Question 3 out of 5</span>
-											</div>
-											<div class="progress progress-xs  flex-grow-1 mb-1">
-												<div class="progress-bar bg-success rounded" role="progressbar"
-													style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="mb-0">
-											<h6 class="mb-3">Which tool is commonly used for wireframing?</h6>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-3"
-													id="Radio-sm-9">
-												<label class="form-check-label" for="Radio-sm-9">
-													Adobe Photoshop
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-3"
-													id="Radio-sm-10">
-												<label class="form-check-label" for="Radio-sm-10">
-													Figma
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-3"
-													id="Radio-sm-11">
-												<label class="form-check-label" for="Radio-sm-11">
-													Visual Studio Code
-												</label>
-											</div>
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="radio" name="qusetion-3"
-													id="Radio-sm-12">
-												<label class="form-check-label" for="Radio-sm-12">
-													GitHub
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex align-items-center justify-content-between">
-										<a href="javascript:void(0);"
-											class="btn bg-gray-100 d-inline-flex rounded-pill align-items-center prev_btn me-1"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Previous</a>
-										<button type="button" class="btn btn-secondary rounded-pill next_btn">Next<i
-												class="isax isax-arrow-right-3 ms-1 fs-10"></i></button>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="quiz-attempt-card border-0">
-								<div class="quiz-attempt-body p-0">
-									<div class="border p-3 mb-3 rounded-2">
-										<div class="bg-light border p-3 mb-3 rounded-2 flex-wrap">
-											<div class="row align-items-center">
-												<div class="col-md-8">
-													<div class="mb-2 mb-md-0">
-														<div class="d-flex align-items-center">
-															<div class="avatar avatar-lg me-3 flex-shrink-0">
-																<img class="img-fluid rounded-3"
-																	src="assets/img/students/quiz.jpg" alt="">
-															</div>
-															<h5 class="fs-18">Information About UI/UX Design Degree</h5>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-md-end">
-														<p class="d-inline-flex align-items-center mb-0">
-															<i class="isax isax-clock me-1"></i>
-															00:02:21
-															<span class="text-dark ms-1"> / 00:03:00</span>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<div class="d-flex align-items-center justify-content-between mb-1">
-												<span class="fw-bold text-gray-9">Quiz Progress</span>
-												<span>Question 4 out of 5</span>
-											</div>
-											<div class="progress progress-xs  flex-grow-1 mb-1">
-												<div class="progress-bar bg-success rounded" role="progressbar"
-													style="width: 80%;" aria-valuenow="80" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="mb-0">
-											<h6 class="mb-3">What is a wireframe?</h6>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-13">
-												<label class="form-check-label" for="Radio-sm-13">
-													A detailed, interactive prototype
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-14">
-												<label class="form-check-label" for="Radio-sm-14">
-													A low-fidelity representation of a design
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-15">
-												<label class="form-check-label" for="Radio-sm-15">
-													The codebase of a website
-												</label>
-											</div>
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-16">
-												<label class="form-check-label" for="Radio-sm-16">
-													A high-fidelity design concept
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex align-items-center justify-content-between">
-										<a href="javascript:void(0);"
-											class="btn btn-light d-inline-flex rounded-pill align-items-center prev_btn me-1"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Back</a>
-										<button type="button" class="btn btn-secondary rounded-pill next_btn">Next<i
-												class="isax isax-arrow-right-3 ms-1 fs-10"></i></button>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="quiz-attempt-card border-0">
-								<div class="quiz-attempt-body p-0">
-									<div class="border p-3 mb-3 rounded-2">
-										<div class="bg-light border p-3 mb-3 rounded-2 flex-wrap">
-											<div class="row align-items-center">
-												<div class="col-md-8">
-													<div class="mb-2 mb-md-0">
-														<div class="d-flex align-items-center">
-															<div class="avatar avatar-lg me-3 flex-shrink-0">
-																<img class="img-fluid rounded-3"
-																	src="assets/img/students/quiz.jpg" alt="">
-															</div>
-															<h5 class="fs-18">Information About UI/UX Design Degree</h5>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-md-end">
-														<p class="d-inline-flex align-items-center mb-0">
-															<i class="isax isax-clock me-1"></i>
-															00:02:21
-															<span class="text-dark ms-1"> / 00:03:00</span>
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="mb-3">
-											<div class="d-flex align-items-center justify-content-between mb-1">
-												<span class="fw-bold text-gray-9">Quiz Progress</span>
-												<span>Question 5 out of 5</span>
-											</div>
-											<div class="progress progress-xs  flex-grow-1 mb-1">
-												<div class="progress-bar bg-success rounded" role="progressbar"
-													style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
-													aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="mb-0">
-											<h6 class="mb-3">What is the primary goal of UX design?</h6>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-17">
-												<label class="form-check-label" for="Radio-sm-17">
-													To create a visually appealing design
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-18">
-												<label class="form-check-label" for="Radio-sm-18">
-													To enhance user satisfaction and usability
-												</label>
-											</div>
-											<div class="form-check mb-2">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-19">
-												<label class="form-check-label" for="Radio-sm-19">
-													To develop complex navigation flows
-												</label>
-											</div>
-											<div class="form-check mb-0">
-												<input class="form-check-input" type="radio" name="qusetion-4"
-													id="Radio-sm-20">
-												<label class="form-check-label" for="Radio-sm-20">
-													To optimize code performance
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="d-flex align-items-center justify-content-between">
-										<a href="javascript:void(0);"
-											class="btn bg-gray-100 d-inline-flex rounded-pill align-items-center prev_btn me-1"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Back</a>
-										<button type="button"
-											class="btn btn-secondary rounded-pill next_btn">Finish</button>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="card">
-								<div class="card-body">
-									<div class="quiz-circle-progress m-0 mb-3">
-										<div class="circle-progress mb-2" data-value='80'>
-											<span class="progress-left">
-												<span class="progress-bar border-success"></span>
-											</span>
-											<span class="progress-right">
-												<span class="progress-bar border-success"></span>
-											</span>
-											<div class="progress-value text-success fw-bold fs-24">80%</div>
-										</div>
-										<p class="text-center fs-14">Pass Score : 80%</p>
-									</div>
-									<div class="text-center mb-3">
-										<h6 class="mb-1">Congratulations! You Passed</h6>
-										<p class="fs-14">You’ve successfully passed the quiz. Keep up the great work!
-										</p>
-									</div>
-									<div class="d-flex align-items-center justify-content-center">
-										<a href="student-dashboard.html" class="btn btn-secondary rounded-pill"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Back to Dashboard</a>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-						<fieldset>
-							<div class="page-title d-flex align-items-center justify-content-between">
-								<h5>My Quiz Attempts</h5>
-							</div>
-							<div class="quiz-attempt-card">
-								<div class="quiz-attempt-body">
-									<div class="quiz-circle-progress m-0 mb-3">
-										<div class="circle-progress mb-2" data-value='20'>
-											<span class="progress-left">
-												<span class="progress-bar border-danger"></span>
-											</span>
-											<span class="progress-right">
-												<span class="progress-bar border-danger"></span>
-											</span>
-											<div class="progress-value text-danger fw-bold fs-24">20%</div>
-										</div>
-										<p class="text-center fs-14">Pass Score : 20%</p>
-									</div>
-									<div class="text-center mb-3">
-										<h6 class="mb-1">Sorry, You Didn't Pass This Time</h6>
-										<p class="fs-14">Don't worry, learn from this attempt and come back stronger
-											next time!</p>
-									</div>
-									<div class="d-flex align-items-center justify-content-center">
-										<a href="student-dashboard.html" class="btn btn-secondary rounded-pill"><i
-												class="isax isax-arrow-left-2 me-1 fs-10"></i>Back to Dashboard</a>
-									</div>
-								</div>
-							</div>
-						</fieldset>
-					</div>
+                        {{-- 显示所有题目和答案 --}}
+                        @if($quiz_data && count($quiz_data) > 0)
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">{{__('题目详情')}}</h5>
+                                </div>
+                                <div class="card-body">
+                                    @foreach($quiz_data as $index => $question)
+                                        @php
+                                            $user_answer = $user_answers[$index] ?? null;
+                                            $is_correct = $user_answer && $user_answer['is_correct'];
+                                            $user_answer_idx = $user_answer ? $user_answer['user_answer'] : null;
+                                            $correct_answer_idx = $user_answer ? $user_answer['correct_answer'] : ($question['correct_answer'] ?? 0);
+                                        @endphp
+                                        <div class="border p-3 mb-3 rounded-2 {{$is_correct ? 'border-success' : 'border-danger'}}">
+                                            <div class="d-flex align-items-start mb-3">
+                                                <span class="badge {{$is_correct ? 'badge-success' : 'badge-danger'}} me-2">{{$index + 1}}</span>
+                                                <h6 class="mb-0 flex-grow-1">{{$question['title'] ?? ''}}</h6>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                @if(isset($question['options']) && is_array($question['options']))
+                                                    @foreach($question['options'] as $opt_idx => $option)
+                                                        @php
+                                                            $is_user_answer = $user_answer_idx !== null && $user_answer_idx == $opt_idx;
+                                                            $is_correct_answer = $correct_answer_idx == $opt_idx;
+                                                            $option_class = '';
+                                                            if ($is_correct_answer) {
+                                                                $option_class = 'text-success fw-bold';
+                                                            } elseif ($is_user_answer && !$is_correct) {
+                                                                $option_class = 'text-danger';
+                                                            }
+                                                        @endphp
+                                                        <div class="form-check mb-2 {{$option_class}}">
+                                                            <input class="form-check-input" type="radio" disabled
+                                                                {{$is_user_answer ? 'checked' : ''}}>
+                                                            <label class="form-check-label">
+                                                                <span>{{chr(65 + $opt_idx)}}.</span> {{$option}}
+                                                                @if($is_correct_answer)
+                                                                    <i class="fa-solid fa-check text-success ms-2"></i>
+                                                                @endif
+                                                                @if($is_user_answer && !$is_correct)
+                                                                    <i class="fa-solid fa-times text-danger ms-2"></i>
+                                                                @endif
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+
+                                            <div class="alert alert-info mb-0">
+                                                <div class="fw-bold mb-2">{{__('解析')}}</div>
+                                                <div>{{$question['explanation'] ?? __('暂无解析')}}</div>
+                                                <div class="mt-2">
+                                                    <strong>{{__('正确答案')}}:</strong>
+                                                    <span class="text-success">
+                                                        {{chr(65 + $correct_answer_idx)}}.
+                                                        @if(isset($question['options'][$correct_answer_idx]))
+                                                            {{$question['options'][$correct_answer_idx]}}
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                @if($user_answer_idx !== null)
+                                                    <div class="mt-1">
+                                                        <strong>{{__('您的答案')}}:</strong>
+                                                        <span class="{{$is_correct ? 'text-success' : 'text-danger'}}">
+                                                            {{chr(65 + $user_answer_idx)}}.
+                                                            @if(isset($question['options'][$user_answer_idx]))
+                                                                {{$question['options'][$user_answer_idx]}}
+                                                            @endif
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        {{-- 未完成：显示测验界面 --}}
+                        <div id="quiz-container" class="quiz-wizard">
+                            <div class="quiz-attempt-card border-0">
+                                <div class="quiz-attempt-body p-0">
+                                    <div id="quiz-content">
+                                        <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">{{__('加载中...')}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -508,6 +166,334 @@
     <x-web.user.footer/>
 
 </div>
+
+@if(!$is_completed)
+    <script>
+        $(function () {
+            const $quizContent = $('#quiz-content');
+            let quizData = null;
+            let currentQuestionIndex = 0;
+            let selectedAnswer = null;
+            let isAnswered = false;
+            let currentCourseId = {{ $course_id }};
+            let currentChapterId = {{ $quiz_statistics->chapter_id }};
+            let currentUnitId = {{ $quiz_statistics->unit_id }};
+            let currentQuizId = {{ $quiz_statistics->quiz_id }};
+            let wrongAnswers = {};
+            let isAllCompleted = false;
+
+            function loadQuiz(unitId) {
+                $.ajax({
+                    url: `/quiz/${unitId}.html`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.code !== 0) {
+                            showToast('error', response.msg || '{{__('获取测验数据失败')}}');
+                            return;
+                        }
+
+                        if (!response.data || !response.data.questions || response.data.questions.length <= 0) {
+                            showToast('error', '{{__('测验数据为空')}}');
+                            return;
+                        }
+
+                        renderQuiz(response.data);
+                    },
+                    error: function () {
+                        showToast('error', 'Failed, please try again later')
+                    }
+                });
+            }
+
+            function renderQuiz(quiz) {
+                if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
+                    showToast('error', '{{__('测验数据无效')}}');
+                    return;
+                }
+
+                quizData = quiz;
+                selectedAnswer = null;
+                isAnswered = false;
+
+                getAnsweredQuestions(function (data) {
+                    const answeredQuestions = data.answered_questions || [];
+
+                    let startIndex = 0;
+                    for (let i = 0; i < quiz.questions.length; i++) {
+                        if (!answeredQuestions.includes(i)) {
+                            startIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (answeredQuestions.length >= quiz.questions.length) {
+                        startIndex = 0;
+                    }
+
+                    currentQuestionIndex = startIndex;
+                    showQuestion(startIndex);
+                });
+            }
+
+            function getAnsweredQuestions(callback) {
+                if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                    callback([]);
+                    return;
+                }
+
+                $.ajax({
+                    url: `/course/${currentCourseId}/answered-questions.html`,
+                    type: 'GET',
+                    data: {
+                        chapter_id: currentChapterId,
+                        unit_id: currentUnitId,
+                        quiz_id: currentQuizId,
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.code === 0 && response.data) {
+                            callback(response.data);
+                        } else {
+                            callback({answered_questions: [], completed_questions: []});
+                        }
+                    },
+                    error: function () {
+                        callback([]);
+                    }
+                });
+            }
+
+            function renderQuestion(question, index, totalQuestions) {
+                const isLastQuestion = index === totalQuestions - 1;
+                const buttonText = isLastQuestion ? '{{__('完成')}}' : '{{__('下一题')}}';
+
+                let html = `<div class="quiz-question border p-3 mb-3 rounded-2" data-question-index="${index}">`;
+                html += `<div class="quiz-question-title mb-3"><h6>${index + 1}. ${question.title || ''}</h6></div>`;
+                html += '<ul class="quiz-options list-unstyled mb-0">';
+
+                if (question.options && Array.isArray(question.options)) {
+                    question.options.forEach((option, optIndex) => {
+                        html += `<li class="quiz-option form-check mb-2 p-3 border rounded" data-option-index="${optIndex}">`;
+                        html += `<input class="form-check-input ms-2" type="radio" name="question-${index}" id="question-${index}-option-${optIndex}">`;
+                        html += `<label class="form-check-labe px-2" for="question-${index}-option-${optIndex}">`;
+                        html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}.</span> `;
+                        html += `<span class="quiz-option-text">${option}</span>`;
+                        html += '</label>';
+                        html += '</li>';
+                    });
+                }
+
+                html += '</ul>';
+
+                html += '<div class="quiz-explanation mt-3" style="display: none;">';
+                html += '<div class="quiz-explanation-title fw-bold mb-2">{{__('解析')}}</div>';
+                html += `<div class="quiz-explanation-content">${question.explanation || '{{__('暂无解析')}}'}</div>`;
+                html += '</div>';
+
+                html += '<div class="quiz-actions mt-3">';
+                html += `<button class="btn btn-secondary rounded-pill quiz-next-btn" data-is-last="${isLastQuestion}" style="display: none;">${buttonText}</button>`;
+                html += '</div>';
+
+                html += '</div>';
+                return html;
+            }
+
+            function showQuestion(index) {
+                if (!quizData || !quizData.questions || index < 0 || index >= quizData.questions.length) {
+                    return;
+                }
+
+                const question = quizData.questions[index];
+                const isLastQuestion = index === quizData.questions.length - 1;
+
+                // 只渲染当前题目
+                let html = '<div class="quiz-container">';
+                html += '<div class="quiz-progress mb-3">';
+                html += `<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span>`;
+                html += '</div>';
+                html += renderQuestion(question, index, quizData.questions.length);
+                html += '</div>';
+                $quizContent.html(html);
+
+                const $question = $(`.quiz-question[data-question-index="${index}"]`);
+                const $nextBtn = $question.find('.quiz-next-btn');
+                if (isLastQuestion) {
+                    $nextBtn.text('{{__('完成')}}').attr('data-is-last', 'true');
+                } else {
+                    $nextBtn.text('{{__('下一题')}}').attr('data-is-last', 'false');
+                }
+
+                selectedAnswer = null;
+                isAnswered = false;
+                $question.find('.quiz-explanation').hide();
+                $nextBtn.hide();
+
+                $question.find('.quiz-option input[type="radio"]').off('change').on('change', function () {
+                    if (isAnswered) return;
+
+                    const $option = $(this).closest('.quiz-option');
+                    const optionIndex = parseInt($option.data('option-index'), 10);
+                    const question = quizData.questions[index];
+
+                    let correctAnswer = 0;
+                    if (question.correct_answer !== undefined && question.correct_answer !== null) {
+                        correctAnswer = parseInt(question.correct_answer, 10);
+                        if (isNaN(correctAnswer)) {
+                            correctAnswer = 0;
+                        }
+                    }
+
+                    selectedAnswer = optionIndex;
+
+                    if (optionIndex === correctAnswer) {
+                        $option.addClass('bg-success-subtle');
+
+                        if (!$question.find('.quiz-explanation').is(':visible')) {
+                            $question.find('.quiz-explanation').show();
+                        }
+
+                        $question.find('.quiz-option input[type="radio"]').prop('disabled', true);
+                        $question.find('.quiz-next-btn').show();
+
+                        isAnswered = true;
+
+                        const wrongAnswer = wrongAnswers[index] !== undefined ? wrongAnswers[index] : null;
+                        const $nextBtn = $question.find('.quiz-next-btn');
+                        $nextBtn.prop('disabled', true).text('{{__('保存中...')}}');
+
+                        saveQuizAnswer(index, optionIndex, wrongAnswer)
+                            .then(function (response) {
+                                delete wrongAnswers[index];
+                                $nextBtn.prop('disabled', false);
+                                const isLast = index === quizData.questions.length - 1;
+                                if (isLast) {
+                                    if (response.completed === true) {
+                                        isAllCompleted = true;
+                                        showComplete(true);
+                                    } else {
+                                        isAllCompleted = false;
+                                        $nextBtn.text('{{__('完成')}}');
+                                    }
+                                } else {
+                                    $nextBtn.text('{{__('下一题')}}');
+                                }
+                            })
+                            .catch(function (error) {
+                                console.error('保存答案失败:', error);
+                                showToast('error', '{{__('保存答案失败，请重试')}}');
+                                $nextBtn.prop('disabled', false);
+                                const isLast = index === quizData.questions.length - 1;
+                                if (isLast) {
+                                    $nextBtn.text('{{__('完成')}}');
+                                } else {
+                                    $nextBtn.text('{{__('下一题')}}');
+                                }
+                            });
+                    } else {
+                        $option.addClass('bg-danger-subtle');
+
+                        $question.find('.quiz-explanation').addClass('error').show();
+
+                        if (wrongAnswers[index] === undefined) {
+                            wrongAnswers[index] = optionIndex;
+                        }
+                    }
+                });
+
+                $question.find('.quiz-next-btn').off('click').on('click', function () {
+                    const isLast = $(this).attr('data-is-last') === 'true';
+                    if (isLast) {
+                        showComplete(isAllCompleted);
+                    } else {
+                        nextQuestion();
+                    }
+                });
+            }
+
+            function nextQuestion() {
+                if (currentQuestionIndex < quizData.questions.length - 1) {
+                    currentQuestionIndex++;
+                    showQuestion(currentQuestionIndex);
+                } else {
+                    showComplete();
+                }
+            }
+
+            function showComplete(allCompleted = false) {
+                let html = '<div class="quiz-complete text-center">';
+                html += '<div class="quiz-complete-icon mb-3"><i class="fa-solid fa-circle-check fa-3x text-success"></i></div>';
+                html += '<div class="quiz-complete-title mb-2"><h5>{{__('测验完成')}}</h5></div>';
+                if (allCompleted) {
+                    html += '<div class="quiz-complete-message mb-3"><p>{{__('恭喜您完成了所有课程！')}}</p></div>';
+                } else {
+                    html += '<div class="quiz-complete-message mb-3"><p>{{__('恭喜您完成了本次测验！')}}</p></div>';
+                }
+                html += '<div class="mt-4">';
+                html += '<a href="{{route('user.quiz.html')}}" class="btn btn-secondary rounded-pill">{{__('返回测验列表')}}</a>';
+                html += '</div>';
+                html += '</div>';
+                $quizContent.html(html);
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500);
+            }
+
+            function saveQuizAnswer(questionIndex, userAnswer, wrongAnswer = null) {
+                return new Promise(function (resolve, reject) {
+                    if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                        reject(new Error('缺少必要的参数'));
+                        return;
+                    }
+
+                    userAnswer = parseInt(userAnswer, 10) || 0;
+
+                    if (wrongAnswer !== null && wrongAnswer !== undefined) {
+                        wrongAnswer = parseInt(wrongAnswer, 10);
+                        if (!isNaN(wrongAnswer)) {
+                            userAnswer = wrongAnswer;
+                        }
+                    }
+
+                    showLoading()
+
+                    $.ajax({
+                        url: `/course/${currentCourseId}/quiz-answer.html`,
+                        type: 'POST',
+                        data: {
+                            chapter_id: currentChapterId,
+                            unit_id: currentUnitId,
+                            quiz_id: currentQuizId,
+                            question_index: questionIndex,
+                            user_answer: userAnswer,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.code !== 0) {
+                                console.error('保存答题记录失败:', response.msg);
+                                reject(new Error(response.msg || '保存答题记录失败'));
+                            } else {
+                                console.log('答题记录保存成功:', response.data);
+                                resolve(response.data);
+                            }
+                        },
+                        error: function () {
+                            showToast('error', 'Failed, please try again later')
+                        },
+                        complete: function () {
+                            hideLoading()
+                        }
+                    });
+                });
+            }
+
+            // 页面加载时自动加载测验
+            loadQuiz({{ $quiz_statistics->unit_id }});
+        });
+    </script>
+@endif
 
 </body>
 

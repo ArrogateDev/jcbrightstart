@@ -28,114 +28,15 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
-                                <th>Certificate Name</th>
-                                <th>Date</th>
-                                <th>Marks</th>
-                                <th>Out of</th>
+                                <th>{{__('证书')}}</th>
+                                <th>{{__('日期')}}</th>
                                 <th></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td><a href="#" class="fw-semibold">UI/UX Design Certificate</a></td>
-                                <td>22 Aug 2025</td>
-                                <td>20</td>
-                                <td>20</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td><a href="#" class="fw-semibold">Wordpress Certificate</a></td>
-                                <td>10 Aug 2025</td>
-                                <td>18</td>
-                                <td>20</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td><a href="#" class="fw-semibold">HTML CSS Certificate</a></td>
-                                <td>26 Jul 2025</td>
-                                <td>25</td>
-                                <td>30</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td><a href="#" class="fw-semibold">JavaScript Certificate</a></td>
-                                <td>14 Jul 2025</td>
-                                <td>15</td>
-                                <td>20</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>05</td>
-                                <td><a href="#" class="fw-semibold">Photoshop Certificate</a></td>
-                                <td>19 Jun 2025</td>
-                                <td>20</td>
-                                <td>30</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>06</td>
-                                <td><a href="#" class="fw-semibold">Python Certificate</a></td>
-                                <td>12 Jun 2025</td>
-                                <td>20</td>
-                                <td>20</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                                           data-bs-toggle="modal" data-bs-target="#view_certificate"><i
-                                                class="isax isax-eye"></i></a>
-                                        <a href="#" class="d-inline-flex fs-14 action-icon"><i
-                                                class="isax isax-import"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
+                            <tbody id="table-body"></tbody>
                         </table>
                     </div>
+                    <x-admin.table-data url="{{route('user.certificate.list.html')}}"/>
                 </div>
             </div>
         </div>
@@ -143,31 +44,80 @@
 
     <x-web.user.footer/>
 
-    <!-- View Certificate -->
-    <div class="modal fade" id="view_certificate">
+    <div class="modal fade" id="view-certificate">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>View Certificate</h5>
+                    <h5>{{__('查看证书')}}</h5>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
                             aria-label="Close">
                         <i class="isax isax-close-circle5"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div><img src="{{web_resource_url('assets/admin/img/icon/certificate.svg')}}" class="img-fluid" alt=""></div>
+                    <div class="text-center"><img id="certificate-img" class="img-fluid" alt=""></div>
                     <div class="text-end mt-4">
-                        <a href="#" class="btn btn-secondary rounded-pill"><i
-                                class="isax isax-import me-2"></i>Download</a>
+                        <a id="certificate-url" href="#" class="btn btn-secondary rounded-pill">
+                            <i class="isax isax-import me-2"></i>
+                            {{__('下载')}}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /View Certificate -->
 
 </div>
 
 </body>
 
+<script>
+    function renderTable(list) {
+        const tbody = $('#table-body');
+        tbody.empty();
+        if (!list || list.length === 0) return;
+
+        list.forEach(function (item) {
+            const row = `
+                <tr>
+                    <td>${item.certificate_name}</td>
+                    <td>${item.created_at}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
+                               data-bs-toggle="modal" data-bs-target="#view-certificate" data-img="${item.file_url}" data-download="${item.download_url}">
+                                <i class="isax isax-eye"></i>
+                            </a>
+                            <a href="${item.download_url}" class="d-inline-flex fs-14 action-icon">
+                                <i class="isax isax-import"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            tbody.append(row);
+        });
+    }
+
+    $(function () {
+        getData(1);
+
+        const $modal = $('#view-certificate');
+
+        $modal.on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            const img = button.data('img') || button.attr('data-img') || '';
+            const download = button.data('download') || button.attr('data-download') || '';
+            if (!img) return;
+
+            $modal.find('#certificate-img').attr('src', img);
+            $modal.find('#certificate-url').attr('href', download);
+        });
+
+        $modal.on('hidden.bs.modal', function () {
+            $modal.find('#certificate-img').attr('src', '');
+            $modal.find('#certificate-url').attr('href', '#');
+        });
+    });
+</script>
 </html>
