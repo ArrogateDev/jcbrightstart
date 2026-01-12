@@ -32,7 +32,12 @@ class Admin extends Authenticatable
      */
     public function setPasswordAttribute(string $value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        if (empty($value)) return;
+        if (str_starts_with($value, '$2y$') || str_starts_with($value, '$2a$') || str_starts_with($value, '$2b$')) {
+            $this->attributes['password'] = $value;
+        } else {
+            $this->attributes['password'] = Hash::make($value);
+        }
     }
 
     /**

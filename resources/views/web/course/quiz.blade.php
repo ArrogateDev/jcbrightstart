@@ -1,138 +1,3 @@
-<style>
-    #quiz-box .modal-body {
-        padding: 2rem;
-        min-height: 400px;
-    }
-
-    .quiz-question {
-        display: none;
-    }
-
-    .quiz-question.active {
-        display: block;
-    }
-
-    .quiz-question-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        color: #333;
-    }
-
-    .quiz-options {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .quiz-option {
-        padding: 1rem;
-        margin-bottom: 0.75rem;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background-color: #fff;
-    }
-
-    .quiz-option:hover {
-        border-color: #5625e8;
-        background-color: #f8f9ff;
-    }
-
-    .quiz-option.selected {
-        border-color: #5625e8;
-        background-color: #f0f2ff;
-    }
-
-    .quiz-option.correct {
-        border-color: #28a745;
-        background-color: #d4edda;
-    }
-
-    .quiz-option.incorrect {
-        border-color: #dc3545;
-        background-color: #f8d7da;
-    }
-
-    .quiz-option.disabled {
-        cursor: not-allowed;
-        opacity: 0.7;
-    }
-
-    .quiz-option-label {
-        font-weight: 500;
-        margin-right: 0.5rem;
-        color: #5625e8;
-    }
-
-    .quiz-option-text {
-        color: #333;
-    }
-
-    .quiz-explanation {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        border-radius: 8px;
-        display: none;
-    }
-
-    .quiz-explanation.show {
-        display: block;
-    }
-
-    .quiz-explanation.error {
-        background-color: #f8d7da;
-        border-left: 4px solid #dc3545;
-    }
-
-    .quiz-explanation-title {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: #dc3545;
-    }
-
-    .quiz-explanation-content {
-        color: #721c24;
-        margin-bottom: 0.5rem;
-    }
-
-    .quiz-correct-answer {
-        color: #155724;
-        font-weight: 500;
-    }
-
-    .quiz-progress {
-        margin-bottom: 1.5rem;
-        font-size: 0.9rem;
-        color: #666;
-    }
-
-    .quiz-actions {
-        margin-top: 1.5rem;
-        text-align: right;
-    }
-
-    .quiz-next-btn {
-        display: none;
-    }
-
-    .quiz-next-btn.show {
-        display: inline-block;
-    }
-
-    .quiz-complete {
-        text-align: center;
-        padding: 2rem;
-    }
-
-    .quiz-complete-icon {
-        font-size: 4rem;
-        color: #28a745;
-        margin-bottom: 1rem;
-    }
-</style>
-
 <div class="modal fade" id="quiz-box" tabindex="-1" aria-labelledby="quiz-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -165,119 +30,126 @@
         let currentChapterId = null;
         let currentUnitId = null;
         let currentQuizId = null;
+        let wrongAnswers = {};
 
         function loadQuiz(unitId) {
-            // 从页面中获取单元信息
-            const $unit = $(`li[data-unit="${unitId}"]`);
-            if (!$unit.length) {
-                showError('{{__('未找到单元信息')}}');
-                return;
-            }
-
-            const unitInfo = $unit.data('info');
-            if (!unitInfo || !unitInfo.quiz_id) {
-                showError('{{__('该单元没有关联的测验')}}');
-                return;
-            }
-
-            // 保存当前单元和章节信息
-            currentChapterId = unitInfo.chapter_id;
-            currentUnitId = unitId;
-            currentQuizId = unitInfo.quiz_id;
-
-            // 获取quiz详情
-            const quizId = unitInfo.quiz_id;
-            loadQuizById(quizId);
-        }
-
-        function loadQuizById(quizId) {
-            if (!quizId) {
-                showError('{{__('测验ID无效')}}');
-                return;
-            }
-
             $.ajax({
-                url: `/quiz/${quizId}.html`,
+                url: `/quiz/${unitId}.html`,
                 type: 'GET',
                 dataType: 'json',
                 success: function (response) {
                     if (response.code !== 0) {
-                        showError(response.msg || '{{__('获取测验数据失败')}}');
+                        showToast('error', response.msg || '{{__('获取测验数据失败')}}');
                         return;
                     }
 
-                    if (response.data) {
-                        renderQuiz(response.data);
-                    } else {
-                        showError('{{__('测验数据为空')}}');
+                    if (!response.data || response.data.length <= 0) {
+                        showToast('error', '{{__('测验数据为空')}}');
                     }
+
+                    renderQuiz(response.data);
                 },
-                error: function (xhr) {
-                    let errorMsg = '{{__('获取测验数据失败')}}';
-                    if (xhr.responseJSON && xhr.responseJSON.msg) {
-                        errorMsg = xhr.responseJSON.msg;
-                    }
-                    showError(errorMsg);
+                error: function () {
+                    showToast('error', 'Failed, please try again later')
                 }
             });
         }
 
         function renderQuiz(quiz) {
             if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
-                showError('{{__('测验数据无效')}}');
+                showToast('error', '{{__('测验数据无效')}}');
                 return;
             }
 
             quizData = quiz;
-            currentQuestionIndex = 0;
             selectedAnswer = null;
             isAnswered = false;
 
-            let html = '<div class="quiz-container">';
-            html += '<div class="quiz-progress">';
-            html += `<span>{{__('第')}} <strong>1</strong> {{__('题，共')}} <strong>${quiz.questions.length}</strong> {{__('题')}}</span>`;
-            html += '</div>';
+            getAnsweredQuestions(function (data) {
+                const answeredQuestions = data.answered_questions || [];
 
-            // 渲染所有题目
-            quiz.questions.forEach((question, index) => {
-                html += renderQuestion(question, index, quiz.questions.length);
+                let startIndex = 0;
+                for (let i = 0; i < quiz.questions.length; i++) {
+                    if (!answeredQuestions.includes(i)) {
+                        startIndex = i;
+                        break;
+                    }
+                }
+
+                if (answeredQuestions.length >= quiz.questions.length) {
+                    startIndex = 0;
+                }
+
+                currentQuestionIndex = startIndex;
+
+                let html = '<div class="quiz-container">';
+                html += '<div class="quiz-progress">';
+                html += `<span>{{__('第')}} <strong>${startIndex + 1}</strong> {{__('题，共')}} <strong>${quiz.questions.length}</strong> {{__('题')}}</span>`;
+                html += '</div>';
+
+                quiz.questions.forEach((question, index) => {
+                    html += renderQuestion(question, index, quiz.questions.length);
+                });
+
+                html += '</div>';
+                $quizContent.html(html);
+
+                showQuestion(startIndex);
             });
+        }
 
-            html += '</div>';
-            $quizContent.html(html);
+        function getAnsweredQuestions(callback) {
+            if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                callback([]);
+                return;
+            }
 
-            // 显示第一题
-            showQuestion(0);
+            $.ajax({
+                url: `/course/${currentCourseId}/answered-questions.html`,
+                type: 'GET',
+                data: {
+                    chapter_id: currentChapterId,
+                    unit_id: currentUnitId,
+                    quiz_id: currentQuizId,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code === 0 && response.data) {
+                        callback(response.data);
+                    } else {
+                        callback({answered_questions: [], completed_questions: []});
+                    }
+                },
+                error: function () {
+                    callback([]);
+                }
+            });
         }
 
         function renderQuestion(question, index, totalQuestions) {
             const isLastQuestion = index === totalQuestions - 1;
-            const buttonText = isLastQuestion ? '{{__('提交')}}' : '{{__('下一题')}}';
+            const buttonText = isLastQuestion ? '{{__('完成')}}' : '{{__('下一题')}}';
 
             let html = `<div class="quiz-question" data-question-index="${index}">`;
-            html += `<div class="quiz-question-title">${index + 1}. ${escapeHtml(question.title || '')}</div>`;
+            html += `<div class="quiz-question-title">${index + 1}. ${question.title || ''}</div>`;
             html += '<ul class="quiz-options">';
 
             if (question.options && Array.isArray(question.options)) {
                 question.options.forEach((option, optIndex) => {
-                    const optionText = typeof option === 'string' ? option : (option.text || option);
                     html += `<li class="quiz-option" data-option-index="${optIndex}">`;
                     html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}.</span>`;
-                    html += `<span class="quiz-option-text">${escapeHtml(optionText)}</span>`;
+                    html += `<span class="quiz-option-text">${option}</span>`;
                     html += '</li>';
                 });
             }
 
             html += '</ul>';
 
-            // 解释区域
             html += '<div class="quiz-explanation">';
             html += '<div class="quiz-explanation-title">{{__('解析')}}</div>';
-            html += `<div class="quiz-explanation-content">${escapeHtml(question.explanation || '{{__('暂无解析')}}')}</div>`;
-            html += `<div class="quiz-correct-answer">{{__('正确答案')}}: <strong>${getCorrectAnswerText(question)}</strong></div>`;
+            html += `<div class="quiz-explanation-content">${question.explanation || '{{__('暂无解析')}}'}</div>`;
             html += '</div>';
 
-            // 操作按钮
             html += '<div class="quiz-actions">';
             html += `<button class="btn btn-primary quiz-next-btn" data-is-last="${isLastQuestion}">${buttonText}</button>`;
             html += '</div>';
@@ -286,113 +158,114 @@
             return html;
         }
 
-        function getCorrectAnswerText(question) {
-            if (!question.options || !Array.isArray(question.options)) {
-                return '';
-            }
-            const correctIndex = parseInt(question.correct_answer) || 0;
-            if (correctIndex >= 0 && correctIndex < question.options.length) {
-                const option = question.options[correctIndex];
-                const optionText = typeof option === 'string' ? option : (option.text || option);
-                return String.fromCharCode(65 + correctIndex) + '. ' + optionText;
-            }
-            return '';
-        }
-
         function showQuestion(index) {
             if (!quizData || !quizData.questions || index < 0 || index >= quizData.questions.length) {
                 return;
             }
 
-            // 隐藏所有题目
             $('.quiz-question').removeClass('active');
 
-            // 显示当前题目
             const $question = $(`.quiz-question[data-question-index="${index}"]`);
             $question.addClass('active');
 
-            // 更新进度
             $('.quiz-progress').html(`<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span>`);
 
-            // 更新按钮文本（判断是否是最后一题）
             const isLastQuestion = index === quizData.questions.length - 1;
             const $nextBtn = $question.find('.quiz-next-btn');
             if (isLastQuestion) {
-                $nextBtn.text('{{__('提交')}}').attr('data-is-last', 'true');
+                $nextBtn.text('{{__('完成')}}').attr('data-is-last', 'true');
             } else {
                 $nextBtn.text('{{__('下一题')}}').attr('data-is-last', 'false');
             }
 
-            // 重置状态
             selectedAnswer = null;
             isAnswered = false;
             $question.find('.quiz-option').removeClass('selected correct incorrect disabled');
             $question.find('.quiz-explanation').removeClass('show');
             $nextBtn.removeClass('show');
 
-            // 绑定选项点击事件
-            $question.find('.quiz-option').off('click').on('click', function() {
+            $question.find('.quiz-option').off('click').on('click', function () {
                 if (isAnswered) return;
 
                 const $option = $(this);
-                const optionIndex = parseInt($option.data('option-index'));
+                const optionIndex = parseInt($option.data('option-index'), 10);
                 const question = quizData.questions[index];
-                const correctAnswer = parseInt(question.correct_answer) || 0;
-                const isLastQuestion = index === quizData.questions.length - 1;
 
-                // 移除之前的选择标记（但保留正确/错误标记）
+                let correctAnswer = 0;
+                if (question.correct_answer !== undefined && question.correct_answer !== null) {
+                    correctAnswer = parseInt(question.correct_answer, 10);
+                    if (isNaN(correctAnswer)) {
+                        correctAnswer = 0;
+                    }
+                }
+
                 $question.find('.quiz-option').removeClass('selected');
 
-                // 标记当前选择
                 $option.addClass('selected');
                 selectedAnswer = optionIndex;
 
-                // 记录答题明细
-                saveQuizAnswer(index, optionIndex, correctAnswer);
-
-                // 判断答案
                 if (optionIndex === correctAnswer) {
-                    // 正确答案
-                    // 移除之前的错误标记（如果有）
                     $question.find('.quiz-option').removeClass('incorrect');
                     $option.addClass('correct');
 
-                    // 标记正确答案（如果还没标记）
                     $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`).addClass('correct');
 
-                    // 显示解释（如果还没显示）
                     if (!$question.find('.quiz-explanation').hasClass('show')) {
                         $question.find('.quiz-explanation').addClass('show');
                     }
 
-                    // 禁用所有选项
                     $question.find('.quiz-option').addClass('disabled');
 
-                    // 显示下一题/提交按钮
-                    $question.find('.quiz-next-btn').addClass('show');
-
                     isAnswered = true;
+
+                    const wrongAnswer = wrongAnswers[index] !== undefined ? wrongAnswers[index] : null;
+
+                    const $nextBtn = $question.find('.quiz-next-btn');
+                    $nextBtn.prop('disabled', true).text('{{__('保存中...')}}');
+
+                    saveQuizAnswer(index, optionIndex, wrongAnswer)
+                        .then(function (response) {
+                            console.log(response)
+                            delete wrongAnswers[index];
+                            $nextBtn.prop('disabled', false).addClass('show');
+                            const isLast = index === quizData.questions.length - 1;
+                            if (isLast) {
+                                $nextBtn.text('{{__('完成')}}');
+                            } else {
+                                $nextBtn.text('{{__('下一题')}}');
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error('保存答案失败:', error);
+                            showToast('error', '{{__('保存答案失败，请重试')}}');
+                            $nextBtn.prop('disabled', false).addClass('show');
+                            const isLast = index === quizData.questions.length - 1;
+                            if (isLast) {
+                                $nextBtn.text('{{__('完成')}}');
+                            } else {
+                                $nextBtn.text('{{__('下一题')}}');
+                            }
+                        });
                 } else {
-                    // 错误答案
                     $option.addClass('incorrect');
 
-                    // 标记正确答案（如果还没标记）
-                    const $correctOption = $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`);
-                    if (!$correctOption.hasClass('correct')) {
-                        $correctOption.addClass('correct');
-                    }
-
-                    // 显示解释
                     $question.find('.quiz-explanation').addClass('show error');
 
-                    // 不禁用选项，允许用户重新选择正确答案
-                    // 不显示下一题按钮，直到用户选择正确答案
-                    // 不设置 isAnswered = true，允许继续选择
+                    if (wrongAnswers[index] === undefined) {
+                        wrongAnswers[index] = optionIndex;
+                    }
+
+                    $question.find('.quiz-option').each(function () {
+                        const $opt = $(this);
+                        const optIndex = parseInt($opt.data('option-index'), 10);
+                        if (optIndex !== correctAnswer) {
+                            $opt.addClass('disabled');
+                        }
+                    });
                 }
             });
 
-            // 绑定下一题/提交按钮
-            $question.find('.quiz-next-btn').off('click').on('click', function() {
+            $question.find('.quiz-next-btn').off('click').on('click', function () {
                 const isLast = $(this).attr('data-is-last') === 'true';
                 if (isLast) {
                     showComplete();
@@ -407,12 +280,58 @@
                 currentQuestionIndex++;
                 showQuestion(currentQuestionIndex);
             } else {
-                // 所有题目完成
                 showComplete();
             }
         }
 
+        function updateUnitStatus(unitId, newStatus) {
+            const $unitItem = $(`li[data-unit="${unitId}"]`);
+            if (!$unitItem.length) {
+                return;
+            }
+
+            const $actionDiv = $unitItem.find('.d-flex.align-items-center');
+            if (!$actionDiv.length) {
+                return;
+            }
+
+            let unitInfo = $unitItem.data('info');
+            if (unitInfo) {
+                unitInfo.status = newStatus;
+                $unitItem.data('info', unitInfo);
+            }
+
+            if (newStatus === 2) {
+                const playPosition = unitInfo ? (unitInfo.play_position || 0) : 0;
+
+                $actionDiv.html(`
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
+                       data-unit="${unitId}"
+                       data-status="2"
+                       data-play-position="${playPosition}">Preview</a>
+                    <i class="fa-solid fa-circle-check text-success ml-3"></i>
+                `);
+            } else if (newStatus === 1) {
+                const courseId = unitInfo ? (unitInfo.course_id || 0) : 0;
+                const chapterId = unitInfo ? (unitInfo.chapter_id || 0) : 0;
+                const quizId = unitInfo ? (unitInfo.quiz_id || 0) : 0;
+
+                $actionDiv.html(`
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box"
+                       data-course="${courseId}"
+                       data-chapter="${chapterId}"
+                       data-unit="${unitId}"
+                       data-quiz="${quizId}"
+                       data-status="1">Quiz</a>
+                    <i class="fa-solid fa-book text-warning ml-3"></i>
+                `);
+            }
+        }
+
         function showComplete() {
+            if (currentUnitId) {
+                updateUnitStatus(currentUnitId, 2);
+            }
 
             let html = '<div class="quiz-complete">';
             html += '<div class="quiz-complete-icon"><i class="fa-solid fa-circle-check"></i></div>';
@@ -423,80 +342,90 @@
             $quizContent.html(html);
         }
 
-        function saveQuizAnswer(questionIndex, userAnswer, correctAnswer) {
-            if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
-                console.warn('缺少必要的课程信息，无法保存答题记录');
-                return;
-            }
-
-            $.ajax({
-                url: `/course/${currentCourseId}/quiz-answer.html`,
-                type: 'POST',
-                data: {
-                    chapter_id: currentChapterId,
-                    unit_id: currentUnitId,
-                    quiz_id: currentQuizId,
-                    question_index: questionIndex,
-                    user_answer: userAnswer,
-                    correct_answer: correctAnswer,
-                    _token: '{{csrf_token()}}'
-                },
-                dataType: 'json',
-                success: function (response) {
-                    if (response.code !== 0) {
-                        console.error('保存答题记录失败:', response.msg);
-                    }
-                },
-                error: function (xhr) {
-                    console.error('保存答题记录失败:', xhr);
+        function saveQuizAnswer(questionIndex, userAnswer, wrongAnswer = null) {
+            return new Promise(function (resolve, reject) {
+                if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                    reject(new Error('缺少必要的参数'));
+                    return;
                 }
+
+                userAnswer = parseInt(userAnswer, 10) || 0;
+
+                if (wrongAnswer !== null && wrongAnswer !== undefined) {
+                    wrongAnswer = parseInt(wrongAnswer, 10);
+                    if (!isNaN(wrongAnswer)) {
+                        userAnswer = wrongAnswer;
+                    }
+                }
+                showLoading($('#quiz-box .modal-content'))
+
+                $.ajax({
+                    url: `/course/${currentCourseId}/quiz-answer.html`,
+                    type: 'POST',
+                    data: {
+                        chapter_id: currentChapterId,
+                        unit_id: currentUnitId,
+                        quiz_id: currentQuizId,
+                        question_index: questionIndex,
+                        user_answer: userAnswer,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        hideLoading($('#quiz-box .modal-content'))
+                        if (response.code !== 0) {
+                            console.error('保存答题记录失败:', response.msg);
+                            reject(new Error(response.msg || '保存答题记录失败'));
+                        } else {
+                            console.log('答题记录保存成功:', response.data);
+                            resolve(response.data);
+                        }
+                    },
+                    error: function (xhr) {
+                        hideLoading($('#quiz-box .modal-content'))
+                        console.error('保存答题记录失败:', xhr);
+                        if (xhr.responseJSON) {
+                            console.error('错误详情:', xhr.responseJSON);
+                            reject(new Error(xhr.responseJSON.msg || '保存答题记录失败'));
+                        } else {
+                            reject(new Error('保存答题记录失败'));
+                        }
+                    }
+                });
             });
         }
 
-        function showError(message) {
-            $quizContent.html(`<div class="alert alert-danger text-center">${escapeHtml(message)}</div>`);
-        }
-
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
-        }
-
-        // 监听模态框显示事件
         $quizModal.on('show.bs.modal', function (event) {
-            // 从play.blade.php中获取当前单元ID
-            const $playModal = $('#play-box');
-            // 尝试从全局变量或DOM中获取当前单元信息
-            let unitId = null;
-
-            // 从play.blade.php的全局变量中获取
-            if (typeof currentUnit !== 'undefined' && currentUnit) {
-                unitId = currentUnit;
-            } else {
-                // 从DOM中获取最后播放的单元
-                const $lastPlayed = $('li[data-unit]').filter(function() {
-                    return $(this).data('info');
-                }).last();
-                if ($lastPlayed.length) {
-                    unitId = $lastPlayed.data('unit');
-                }
+            const button = event.relatedTarget
+            const params = $(this).data('params');
+            let course = 0
+            let chapter = 0
+            let unit = 0
+            let quiz = 0
+            if (button) {
+                course = parseInt(button.getAttribute('data-course') || 0)
+                chapter = parseInt(button.getAttribute('data-chapter') || 0)
+                unit = parseInt(button.getAttribute('data-unit') || 0)
+                quiz = parseInt(button.getAttribute('data-quiz') || 0)
+            } else if (params) {
+                course = params.course
+                chapter = params.chapter
+                unit = params.unit
+                quiz = params.quiz
             }
 
-            if (!unitId) {
-                showError('{{__('未找到单元信息')}}');
+            if (course <= 0 || chapter <= 0 || unit <= 0 || quiz <= 0) {
+                $quizModal.modal('hide')
                 return;
             }
+            currentCourseId = course
+            currentChapterId = chapter
+            currentUnitId = unit
+            currentQuizId = quiz
 
-            loadQuiz(unitId);
+            loadQuiz(unit);
         });
 
-        // 监听模态框隐藏事件，重置状态
         $quizModal.on('hidden.bs.modal', function () {
             quizData = null;
             currentQuestionIndex = 0;
@@ -505,11 +434,11 @@
             currentChapterId = null;
             currentUnitId = null;
             currentQuizId = null;
+            wrongAnswers = {};
             $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
         });
 
-        // 从play.blade.php接收quiz数据（备用方法）
-        window.setQuizData = function(quiz) {
+        window.setQuizData = function (quiz) {
             if (quiz) {
                 renderQuiz(quiz);
             }

@@ -25,8 +25,8 @@ function showToast(type, message, position, timeout) {
     toastr[t.type](t.msg);
 }
 
-function showLoading() {
-    $('body').waitMe({
+function showLoading($dom = $('body')) {
+    $dom.waitMe({
         effect: 'ios',
         bg: 'rgba(255,255,255,0.7)',
         color: '#000',
@@ -36,6 +36,6 @@ function showLoading() {
     });
 }
 
-function hideLoading() {
-    $('body').waitMe('hide');
+function hideLoading($dom = $('body')) {
+    $dom.waitMe('hide');
 }

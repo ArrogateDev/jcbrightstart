@@ -6,6 +6,8 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Jobs\AutoDeleteExpiresFileJob;
 use App\Models\Certificate;
+use App\Models\Course\Course;
+use App\Models\Course\CourseChapterUnit;
 use App\Models\Manage\Role;
 use App\Models\News\NewsCategory;
 use App\Models\Quiz;
@@ -72,12 +74,16 @@ class CommonController extends Controller
 
     /**
      * 获取测验详情
-     * @param Request $request
-     * @param Quiz $quiz
+     * @param int $unit
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getQuizDetail(Request $request, Quiz $quiz)
+    public function getQuizDetail(int $unit)
     {
+        $quiz = Quiz::query()
+            ->where('id', CourseChapterUnit::query()->where('id', $unit)->select('quiz_id'))
+            ->select('title', 'question_num', 'questions')
+            ->first();
+
         return $this->responseSuccess($quiz);
     }
 

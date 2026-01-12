@@ -7,12 +7,14 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Course;
 use App\Models\Course\CourseChapterUnit;
+use App\Models\Quiz;
 use App\Models\User\UserCoursePlayRecord;
 use App\Models\User\UserQuizAnswerRecord;
 use App\Models\User\UserUnitQuizStatistics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
@@ -51,7 +53,7 @@ class CourseController extends Controller
             });
         });
 
-        $play_record = $play_records->first() ?? null;
+        $play_record = $play_records->where('status', UserCoursePlayRecord::UNFINISHED)->first() ?? null;
 
         return view('web.course.show', compact('course', 'play_record'));
     }
@@ -82,13 +84,13 @@ class CourseController extends Controller
             'play_position' => 'nullable|integer|min:0',
         ]);
 
-        if (CourseChapterUnit::query()->where('course_id', $course->id)->where('course_id', $course->id)->where('chapter_id', $course->id)) {
+        if (!CourseChapterUnit::query()->where('course_id', $course->id)->where('chapter_id', $request->chapter_id)->where('id', $request->unit_id)->exists()) {
             throw new ApiException(__('参数错误'), ResponseCode::PARAM_ERR);
         }
 
         try {
 
-            $play_record = UserCoursePlayRecord::firstOrCreate(
+            $result = UserCoursePlayRecord::firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'course_id' => $course->id,
@@ -99,8 +101,11 @@ class CourseController extends Controller
                     'play_position' => $request->play_position
                 ]
             );
+            if ($result === false) {
+                throw new \Exception('log:failed');
+            }
 
-            return $this->responseSuccess($play_record);
+            return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Failure', ResponseCode::SERVER_ERR);
@@ -138,7 +143,7 @@ class CourseController extends Controller
 
         try {
 
-            $play_record = UserCoursePlayRecord::firstOrCreate(
+            $result = UserCoursePlayRecord::firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'course_id' => $course->id,
@@ -150,8 +155,11 @@ class CourseController extends Controller
                     'play_position' => 0,
                 ]
             );
+            if ($result === false) {
+                throw new \Exception('log:failed');
+            }
 
-            return $this->responseSuccess($play_record);
+            return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Failure', ResponseCode::SERVER_ERR);
@@ -206,14 +214,23 @@ class CourseController extends Controller
                 $duration = $endTime->diffInSeconds($play_record->start_time);
             }
 
-            $play_record->update([
+            $result = $play_record->update([
                 'end_time' => $endTime,
                 'duration' => $duration,
                 'status' => UserCoursePlayRecord::PLAY_COMPLETED,
                 'play_position' => $request->play_position ?? $play_record->play_position,
             ]);
+            if ($result === false) {
+                throw new \Exception('log:failed');
+            }
 
-            return $this->responseSuccess($play_record);
+            $quiz = CourseChapterUnit::query()
+                ->where('course_id', $course->id)
+                ->where('chapter_id', $request->chapter_id)
+                ->where('id', $request->unit_id)
+                ->value('quiz_id');
+
+            return $this->responseSuccess(['quiz' => $quiz]);
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Failure', ResponseCode::SERVER_ERR);
@@ -246,8 +263,17 @@ class CourseController extends Controller
             'quiz_id' => 'required|integer',
             'question_index' => 'required|integer|min:0',
             'user_answer' => 'required|integer|min:0',
-            'correct_answer' => 'required|integer|min:0',
         ]);
+
+        $play_record = UserCoursePlayRecord::query()
+            ->where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->where('chapter_id', $request->chapter_id)
+            ->where('unit_id', $request->unit_id)
+            ->first() ?? null;
+        if (!$play_record) {
+            throw new ApiException(__('参数错误'), ResponseCode::PARAM_ERR);
+        }
 
         if (!CourseChapterUnit::query()
             ->where('course_id', $course->id)
@@ -258,24 +284,36 @@ class CourseController extends Controller
         }
 
         try {
-            $is_correct = $request->user_answer === $request->correct_answer;
 
-            // 每次答题都创建新记录，保留历史记录（包括错误答案）
-            $answer_record = UserQuizAnswerRecord::create([
+            $quiz = Quiz::find($request->quiz_id);
+            if (!$quiz || !is_array($quiz->questions) || empty($quiz->questions)) {
+                throw new ApiException(__('测验数据不存在'), ResponseCode::NOT_FOUND);
+            }
+
+            $question_index = $request->question_index;
+
+            $question = $quiz->questions[$question_index];
+            $correct_answer = (int)($question['correct_answer'] ?? 0);
+            $user_answer = (int)$request->user_answer;
+
+            $is_correct = $user_answer === $correct_answer;
+
+            DB::beginTransaction();
+
+            UserQuizAnswerRecord::create([
                 'user_id' => $user->id,
                 'course_id' => $course->id,
                 'chapter_id' => $request->chapter_id,
                 'unit_id' => $request->unit_id,
                 'quiz_id' => $request->quiz_id,
-                'question_index' => $request->question_index,
-                'user_answer' => $request->user_answer,
-                'correct_answer' => $request->correct_answer,
+                'question_index' => $question_index,
+                'user_answer' => $user_answer,
+                'correct_answer' => $correct_answer,
                 'is_correct' => $is_correct,
                 'answered_at' => now(),
             ]);
 
-            // 更新答题统计（统计时会取最新的答题记录）
-            UserUnitQuizStatistics::updateStatistics(
+            $statistics = UserUnitQuizStatistics::updateStatistics(
                 $user->id,
                 $course->id,
                 $request->chapter_id,
@@ -284,7 +322,91 @@ class CourseController extends Controller
                 $is_correct
             );
 
-            return $this->responseSuccess($answer_record);
+            if ($statistics->total_questions > 0 && $statistics->answered >= $statistics->total_questions) {
+                $play_record->update([
+                    'status' => UserCoursePlayRecord::QUIZ_COMPLETED,
+                ]);
+            }
+
+            DB::commit();
+
+            $completed = UserCoursePlayRecord::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)
+                ->groupBy('unit_id')
+                ->select(DB::raw('COUNT(DISTINCT unit_id) as num'))
+                ->value('num');
+
+            $total = CourseChapterUnit::query()
+                ->where('course_id', $course->id)
+                ->count();
+
+            return $this->responseSuccess(['completed' => $completed >= $total]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * 获取用户已完成的题目索引
+     *
+     * @param Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function getAnsweredQuestions(Request $request, Course $course)
+    {
+        $user = $request->user('web');
+
+        $request->validate([
+            'chapter_id' => 'required|integer',
+            'unit_id' => 'required|integer',
+            'quiz_id' => 'required|integer',
+        ]);
+
+        try {
+            // 获取该用户在该单元的所有答题记录
+            $answerRecords = UserQuizAnswerRecord::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('chapter_id', $request->chapter_id)
+                ->where('unit_id', $request->unit_id)
+                ->where('quiz_id', $request->quiz_id)
+                ->get();
+
+            // 按题目索引分组，取最新的答题记录
+            // 返回所有已答过的题目索引（不管对错），用于判断哪些题目已经答过
+            $answeredQuestions = $answerRecords
+                ->groupBy('question_index')
+                ->keys()
+                ->map(function ($index) {
+                    return (int)$index;
+                })
+                ->toArray();
+
+            // 同时返回已答对的题目索引，用于统计
+            $completedQuestions = $answerRecords
+                ->groupBy('question_index')
+                ->map(function ($records) {
+                    return $records->sortByDesc('answered_at')->first();
+                })
+                ->filter(function ($record) {
+                    return $record->is_correct === true;
+                })
+                ->keys()
+                ->map(function ($index) {
+                    return (int)$index;
+                })
+                ->toArray();
+
+            return $this->responseSuccess([
+                'answered_questions' => $answeredQuestions,  // 所有已答过的题目（不管对错）
+                'completed_questions' => $completedQuestions  // 已答对的题目
+            ]);
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException('Failure', ResponseCode::SERVER_ERR);

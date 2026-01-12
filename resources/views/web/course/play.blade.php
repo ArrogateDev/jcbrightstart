@@ -1,89 +1,3 @@
-<style>
-    .modal {
-        z-index: 99999;
-    }
-
-    .modal-backdrop.show {
-        opacity: .5;
-    }
-
-    .modal-backdrop {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 99998;
-        width: 100vw;
-        height: 100vh;
-        background-color: #000;
-    }
-
-    #play-box .modal-body {
-        padding: 0;
-        position: relative;
-        aspect-ratio: 16 / 9;
-        min-height: 400px;
-        overflow: hidden;
-    }
-
-    #play-box .modal-body.has-dflip {
-        padding-bottom: 0;
-        height: 911px;
-    }
-
-    #play-box .modal-body:has(._df_book) {
-        padding-bottom: 0;
-        height: 911px;
-    }
-
-    #play-box .modal-body iframe,
-    #play-box .modal-body .pdf-viewer,
-    #play-box .modal-body #youtube-player {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
-    #play-box .modal-body #play-loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    #play-box .modal-body ._df_book {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 911px;
-    }
-
-    #play-box .modal-body ._df_book,
-    #play-box .modal-body ._df_book * {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-    }
-
-    #play-box.modal-pdf .modal-dialog {
-        max-width: 95%;
-        width: 95%;
-    }
-
-    @media (min-width: 1200px) {
-        #play-box.modal-pdf .modal-dialog {
-            max-width: 1150px;
-            width: 1150px;
-        }
-    }
-</style>
-
 <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
 
 <div class="modal fade" id="play-box" tabindex="-1" aria-labelledby="play-label" aria-hidden="true">
@@ -122,6 +36,7 @@
         let currentStartTime = 0;
         let dFlipInstance = null;
         let pageCount = 0;
+        let status = 0;
 
         function playUnit(unit, position = 0) {
 
@@ -309,6 +224,7 @@
         }
 
         function recordPlayStart(chapterId, unitId) {
+            if (status > 0) return
             playStartTime = new Date();
             $.ajax({
                 url: '{{route('course.play-start.html', ['course' => $course->id])}}',
@@ -322,10 +238,55 @@
             });
         }
 
+        function updateUnitStatus(unitId, newStatus) {
+            const $unitItem = $(`li[data-unit="${unitId}"]`);
+            if (!$unitItem.length) {
+                return;
+            }
+
+            const $actionDiv = $unitItem.find('.d-flex.align-items-center');
+            if (!$actionDiv.length) {
+                return;
+            }
+
+            let unitInfo = $unitItem.data('info');
+            if (unitInfo) {
+                unitInfo.status = newStatus;
+                $unitItem.data('info', unitInfo);
+            }
+
+            if (newStatus === 2) {
+                const playPosition = unitInfo ? (unitInfo.play_position || 0) : 0;
+
+                $actionDiv.html(`
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
+                       data-unit="${unitId}"
+                       data-status="2"
+                       data-play-position="${playPosition}">Preview</a>
+                    <i class="fa-solid fa-circle-check text-success ml-3"></i>
+                `);
+            } else if (newStatus === 1) {
+                const courseId = unitInfo ? (unitInfo.course_id || 0) : 0;
+                const chapterId = unitInfo ? (unitInfo.chapter_id || 0) : 0;
+                const quizId = unitInfo ? (unitInfo.quiz_id || 0) : 0;
+
+                $actionDiv.html(`
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box"
+                       data-course="${courseId}"
+                       data-chapter="${chapterId}"
+                       data-unit="${unitId}"
+                       data-quiz="${quizId}"
+                       data-status="1">Quiz</a>
+                    <i class="fa-solid fa-book text-warning ml-3"></i>
+                `);
+            }
+        }
+
         function recordPlayEnd(chapterId, unitId, playPosition) {
             if (!playStartTime) {
                 return;
             }
+            if (status > 0) return
 
             $.ajax({
                 url: '{{route('course.play-end.html', ['course' => $course->id])}}',
@@ -339,11 +300,20 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response.code !== 0) {
-                        showToast('error', data.msg);
+                        showToast('error', response.msg);
                         return;
                     }
+                    updateUnitStatus(unitId, 1);
 
+                    const quiz = response.data.quiz
                     $modal.modal('hide')
+                    const params = {
+                        course: {{$course->id}},
+                        chapter: chapterId,
+                        unit: unitId,
+                        quiz: quiz,
+                    };
+                    $quiz.data('params', params);
                     $quiz.modal('show')
                 },
                 error: function () {
@@ -355,6 +325,7 @@
         }
 
         function savePlayRecord(chapterId, unitId, playPosition) {
+            if (status > 0) return
             $.ajax({
                 url: '{{route('course.save-play-record.html', ['course' => $course->id])}}',
                 type: 'POST',
@@ -406,8 +377,9 @@
 
         $modal.on('show.bs.modal', function (event) {
             const button = event.relatedTarget
-            const unit = JSON.parse(button.getAttribute('data-unit')) || 0
-            const position = JSON.parse(button.getAttribute('data-play-position'))
+            const unit = parseInt(button.getAttribute('data-unit') || 0)
+            status = parseInt(button.getAttribute('data-status') || 0)
+            const position = parseInt(button.getAttribute('data-play-position'))
 
             let $unit = $(`li[data-unit="${unit}"]`);
             if (!$unit) {
@@ -444,6 +416,7 @@
 
             playStartTime = null;
             isPlaying = false;
+            status = 0;
             $('#play-loading').removeClass('d-none').addClass('d-flex')
         });
     })
