@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Auth;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;

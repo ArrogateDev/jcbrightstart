@@ -297,14 +297,26 @@
                                                     <div class="accordion-body p-0">
                                                         <ul>
                                                             @foreach($chapter->units as $unit)
-                                                                <li class="p-4 px-3 d-flex justify-content-between" data-title="{{$chapter->title}} - {{$unit->title}}" data-unit="{{$unit->id}}" data-info="{{$unit}}">
+                                                                <li class="p-4 px-3 d-flex justify-content-between" data-title="{{$chapter->title}} - {{$unit->title}}" data-unit="{{$unit->id}}"
+                                                                    data-info="{{$unit}}">
                                                                     <p class="mb-0">
                                                                         <img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">
                                                                         {{$unit->title}}
                                                                     </p>
                                                                     <div class="d-flex align-items-center">
-                                                                        <a href="#" class="preview-link mr-3 mr-xl-5"  data-toggle="modal" data-target="#play-box" data-unit="{{$unit->id??0}}" data-play-position="{{$unit->play_position??0}}">Preview</a>
-                                                                        <i class="fa-solid fa-circle-check text-success ml-1"></i>
+                                                                        @if($unit->status === 1)
+                                                                            <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box" data-unit="{{$unit->id??0}}"
+                                                                               data-play-position="{{$unit->play_position??0}}">Quiz</a>
+                                                                        @else
+                                                                            <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box" data-unit="{{$unit->id??0}}"
+                                                                               data-play-position="{{$unit->play_position??0}}">Preview</a>
+                                                                        @endif
+
+                                                                        @if($unit->status === 1)
+                                                                            <i class="fa-solid fa-book text-warning ml-3"></i>
+                                                                        @elseif($unit->status === 2)
+                                                                            <i class="fa-solid fa-circle-check text-success ml-3"></i>
+                                                                        @endif
                                                                     </div>
                                                                 </li>
                                                             @endforeach

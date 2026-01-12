@@ -131,18 +131,6 @@
         color: #28a745;
         margin-bottom: 1rem;
     }
-
-    .quiz-complete-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: #333;
-    }
-
-    .quiz-complete-message {
-        color: #666;
-        margin-bottom: 1.5rem;
-    }
 </style>
 
 <div class="modal fade" id="quiz-box" tabindex="-1" aria-labelledby="quiz-label" aria-hidden="true">
@@ -173,6 +161,10 @@
         let currentQuestionIndex = 0;
         let selectedAnswer = null;
         let isAnswered = false;
+        let currentCourseId = {{ $course->id }};
+        let currentChapterId = null;
+        let currentUnitId = null;
+        let currentQuizId = null;
 
         function loadQuiz(unitId) {
             // 从页面中获取单元信息
@@ -187,6 +179,11 @@
                 showError('{{__('该单元没有关联的测验')}}');
                 return;
             }
+
+            // 保存当前单元和章节信息
+            currentChapterId = unitInfo.chapter_id;
+            currentUnitId = unitId;
+            currentQuizId = unitInfo.quiz_id;
 
             // 获取quiz详情
             const quizId = unitInfo.quiz_id;
@@ -256,7 +253,7 @@
         function renderQuestion(question, index, totalQuestions) {
             const isLastQuestion = index === totalQuestions - 1;
             const buttonText = isLastQuestion ? '{{__('提交')}}' : '{{__('下一题')}}';
-            
+
             let html = `<div class="quiz-question" data-question-index="${index}">`;
             html += `<div class="quiz-question-title">${index + 1}. ${escapeHtml(question.title || '')}</div>`;
             html += '<ul class="quiz-options">';
@@ -350,41 +347,44 @@
                 $option.addClass('selected');
                 selectedAnswer = optionIndex;
 
+                // 记录答题明细
+                saveQuizAnswer(index, optionIndex, correctAnswer);
+
                 // 判断答案
                 if (optionIndex === correctAnswer) {
                     // 正确答案
                     // 移除之前的错误标记（如果有）
                     $question.find('.quiz-option').removeClass('incorrect');
                     $option.addClass('correct');
-                    
+
                     // 标记正确答案（如果还没标记）
                     $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`).addClass('correct');
-                    
+
                     // 显示解释（如果还没显示）
                     if (!$question.find('.quiz-explanation').hasClass('show')) {
                         $question.find('.quiz-explanation').addClass('show');
                     }
-                    
+
                     // 禁用所有选项
                     $question.find('.quiz-option').addClass('disabled');
-                    
+
                     // 显示下一题/提交按钮
                     $question.find('.quiz-next-btn').addClass('show');
-                    
+
                     isAnswered = true;
                 } else {
                     // 错误答案
                     $option.addClass('incorrect');
-                    
+
                     // 标记正确答案（如果还没标记）
                     const $correctOption = $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`);
                     if (!$correctOption.hasClass('correct')) {
                         $correctOption.addClass('correct');
                     }
-                    
+
                     // 显示解释
                     $question.find('.quiz-explanation').addClass('show error');
-                    
+
                     // 不禁用选项，允许用户重新选择正确答案
                     // 不显示下一题按钮，直到用户选择正确答案
                     // 不设置 isAnswered = true，允许继续选择
@@ -413,6 +413,7 @@
         }
 
         function showComplete() {
+
             let html = '<div class="quiz-complete">';
             html += '<div class="quiz-complete-icon"><i class="fa-solid fa-circle-check"></i></div>';
             html += '<div class="quiz-complete-title">{{__('测验完成')}}</div>';
@@ -420,6 +421,36 @@
             html += '<button class="btn btn-primary" data-dismiss="modal">{{__('关闭')}}</button>';
             html += '</div>';
             $quizContent.html(html);
+        }
+
+        function saveQuizAnswer(questionIndex, userAnswer, correctAnswer) {
+            if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                console.warn('缺少必要的课程信息，无法保存答题记录');
+                return;
+            }
+
+            $.ajax({
+                url: `/course/${currentCourseId}/quiz-answer.html`,
+                type: 'POST',
+                data: {
+                    chapter_id: currentChapterId,
+                    unit_id: currentUnitId,
+                    quiz_id: currentQuizId,
+                    question_index: questionIndex,
+                    user_answer: userAnswer,
+                    correct_answer: correctAnswer,
+                    _token: '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code !== 0) {
+                        console.error('保存答题记录失败:', response.msg);
+                    }
+                },
+                error: function (xhr) {
+                    console.error('保存答题记录失败:', xhr);
+                }
+            });
         }
 
         function showError(message) {
@@ -471,6 +502,9 @@
             currentQuestionIndex = 0;
             selectedAnswer = null;
             isAnswered = false;
+            currentChapterId = null;
+            currentUnitId = null;
+            currentQuizId = null;
             $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
         });
 

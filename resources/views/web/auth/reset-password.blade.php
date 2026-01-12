@@ -145,6 +145,12 @@
         showLoading()
 
         let form = $('#form').serializeArray()
+        form = form.map(item => {
+            if (item.name === 'password' || item.name === 'password_confirmation') {
+                item.value = md5(md5(item.value))
+            }
+            return item
+        })
 
         $.ajax({
             type: "post",

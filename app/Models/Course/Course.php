@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Course;
+
+use App\Models\Base;
+use App\Models\Certificate;
 
 class Course extends Base
 {

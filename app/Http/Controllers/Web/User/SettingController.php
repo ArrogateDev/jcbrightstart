@@ -6,8 +6,7 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\SettingRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 

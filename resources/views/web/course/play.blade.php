@@ -1,6 +1,6 @@
 <style>
     .modal {
-        z-index: 9999;
+        z-index: 99999;
     }
 
     .modal-backdrop.show {
@@ -11,7 +11,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1040;
+        z-index: 99998;
         width: 100vw;
         height: 100vh;
         background-color: #000;
@@ -20,8 +20,8 @@
     #play-box .modal-body {
         padding: 0;
         position: relative;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        height: 0;
+        aspect-ratio: 16 / 9;
+        min-height: 400px;
         overflow: hidden;
     }
 
@@ -44,6 +44,14 @@
         width: 100%;
         height: 100%;
         border: none;
+    }
+
+    #play-box .modal-body #play-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     #play-box .modal-body ._df_book {
@@ -87,8 +95,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="play-content">
-                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+            <div class="modal-body">
+                <div id="play-content"></div>
+                <div id="play-loading" class="d-flex justify-content-center align-items-center" style="height: 100%;">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">{{__('加载中...')}}</span>
                     </div>
@@ -145,6 +154,7 @@
                     onReady: function onReady(app) {
                         recordPlayStart(currentChapter, currentUnit);
                         pageCount = app.pageCount;
+                        $('#play-loading').removeClass('d-flex').addClass('d-none')
                     },
                     onPageChanged: function (app) {
                         const currentPage = app.currentPageNumber;
@@ -159,6 +169,7 @@
             } else {
                 $modal.removeClass('modal-pdf');
                 $('#play-content').html('<div class="alert alert-warning text-center">{{__('该单元暂无内容')}}</div>');
+                $('#play-loading').removeClass('d-flex').addClass('d-none')
             }
         }
 
@@ -212,6 +223,7 @@
             if (currentStartTime > 0) {
                 event.target.seekTo(currentStartTime, true);
             }
+            $('#play-loading').removeClass('d-flex').addClass('d-none')
         }
 
         function onPlayerStateChange(event) {
@@ -226,10 +238,14 @@
                 startPlayPositionTracking();
             } else if (state === YT.PlayerState.PAUSED) {
                 isPlaying = false;
+                if (currentUnit && currentChapter) {
+                    recordPlayStart(currentChapter, currentUnit);
+                }
                 updatePlayPosition();
             } else if (state === YT.PlayerState.ENDED) {
                 isPlaying = false;
                 if (currentUnit && currentChapter) {
+                    recordPlayStart(currentChapter, currentUnit);
                     const currentTime = event.target.getCurrentTime();
                     recordPlayEnd(currentChapter, currentUnit, Math.floor(currentTime));
                 }
@@ -428,7 +444,7 @@
 
             playStartTime = null;
             isPlaying = false;
-            $('#play-content').html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
+            $('#play-loading').removeClass('d-none').addClass('d-flex')
         });
     })
 </script>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use App\Traits\Model\BaseTrait;
 use Carbon\Carbon;

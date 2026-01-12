@@ -1,30 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
+use App\Models\Base;
 use App\Models\Course\Course;
 use App\Models\Course\CourseChapter;
 use App\Models\Course\CourseChapterUnit;
-use App\Models\User\User;
+use App\Models\Quiz;
 
-class CoursePlayRecord extends Base
+class UserQuizAnswerRecord extends Base
 {
-
-    /**
-     * 未完成
-     */
-    const UNFINISHED = 0;
-
-    /**
-     * 播放完成
-     */
-    const PLAY_COMPLETED = 1;
-
-    /**
-     * 测验完成
-     */
-    const QUIZ_COMPLETED = 2;
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -55,5 +40,13 @@ class CoursePlayRecord extends Base
     public function unit()
     {
         return $this->belongsTo(CourseChapterUnit::class, 'unit_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
     }
 }

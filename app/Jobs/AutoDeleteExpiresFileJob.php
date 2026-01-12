@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Course;
-use App\Models\Manage\Admin;
+use App\Models\Course\Course;
 use App\Models\News\News;
 use App\Models\Resource\Resource;
 use Illuminate\Bus\Queueable;

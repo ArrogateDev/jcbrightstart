@@ -3,10 +3,10 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\BaseRequest;
-use App\Models\Course;
+use App\Models\Course\Course;
 use App\Models\Quiz;
-use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rule;
 
 class CourseRequest extends BaseRequest
 {

@@ -6,7 +6,7 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Auth\RegisterRequest;
-use App\Models\User;
+use App\Models\User\User;
 use App\Models\VerificationCode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;

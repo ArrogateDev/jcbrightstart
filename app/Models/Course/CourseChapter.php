@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Course;
+
+use App\Models\Base;
 
 class CourseChapter extends Base
 {

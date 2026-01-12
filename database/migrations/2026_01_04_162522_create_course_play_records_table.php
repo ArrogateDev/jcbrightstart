@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('course_play_records', function (Blueprint $table) {
+        Schema::create('user_course_play_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('User ID');
             $table->unsignedBigInteger('course_id')->comment('Course ID');
@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('play_position')->default(0)->comment('Play Position (seconds)');
             $table->timestamp('start_time')->nullable()->comment('Play Start Time');
             $table->timestamp('end_time')->nullable()->comment('Play End Time');
-            $table->integer('duration')->default(0)->comment('Play Duration (seconds)');
+            $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();
 

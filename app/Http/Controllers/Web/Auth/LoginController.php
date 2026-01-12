@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Auth;
 use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\User\User;
 use App\Services\AppleService;
 use Carbon\Carbon;
 use Google_Client;

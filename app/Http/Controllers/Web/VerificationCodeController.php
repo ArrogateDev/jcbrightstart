@@ -7,7 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VerificationCodeRequest;
 use App\Mail\VerificationCodeMail;
-use App\Models\User;
+use App\Models\User\User;
 use App\Models\VerificationCode;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;

@@ -2,10 +2,9 @@
 
 namespace App\Mail;
 
-use App\Models\User;
+use App\Models\User\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;

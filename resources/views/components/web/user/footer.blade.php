@@ -9,10 +9,6 @@
                         </div>
                         <p>Platform designed to help organizations, educators, and learners manage, deliver, and
                             track learning and training activities.</p>
-                        <div class="d-flex align-items-center d-none">
-                            <a href="#" class="me-2"><img src="{{web_resource_url('assets/admin/img/icon/appstore.svg')}}" alt=""></a>
-                            <a href="#"><img src="{{web_resource_url('assets/admin/img/icon/googleplay.svg')}}" alt=""></a>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -52,23 +48,6 @@
                                     <li><a href="javascript:void(0);">Work at Future Learn</a></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 d-none">
-                    <div class="footer-widget footer-contact">
-                        <h5 class="footer-title">Subscribe Newsletter</h5>
-                        <div class="footer-newsletter">
-                            <p>Sign up to get updates & news.</p>
-                            <form action="javascript:void(0);">
-                                <div class="subscribe-form">
-											<span>
-												<i class="isax isax-message-text"></i>
-											</span>
-                                    <input type="email" class="form-control" placeholder="Email Address">
-                                </div>
-                                <button type="submit" class="btn btn-secondary btn-xl w-100">Subscribe</button>
-                            </form>
                         </div>
                     </div>
                 </div>
