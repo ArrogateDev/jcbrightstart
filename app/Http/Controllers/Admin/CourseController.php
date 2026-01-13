@@ -10,6 +10,7 @@ use App\Models\Course\Course;
 use App\Models\Course\CourseChapter;
 use App\Models\Course\CourseChapterUnit;
 use App\Models\CourseQuiz;
+use App\Models\Quiz;
 use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -71,13 +72,15 @@ class CourseController extends Controller
         $field = $request->query('field');
         $sort = $request->query('sort');
 
-        $list = Course::query()
+        $base_query = Course::query()
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })
             ->when($status, function ($query) use ($status) {
                 $query->where('status', $status);
-            })
+            });
+
+        $list = (clone $base_query)
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
@@ -85,8 +88,21 @@ class CourseController extends Controller
             })
             ->paginate(limit_page());
 
-        $list->map(function ($item) {
+        $unit_query = CourseChapterUnit::query()
+            ->whereIn('course_id', (clone $base_query)->select('id'));
+
+        $units = (clone $unit_query)
+            ->groupBy('course_id')
+            ->select(DB::raw('count(id) as num'), 'course_id')
+            ->pluck('num', 'course_id');
+
+        $list->map(function ($item) use ($base_query, $units) {
             $item->url = route('admin.course.update.view.html', ['course' => $item->id]);
+            $item->units = $units[$item->id] ?? 0;
+
+            $item->quizzes = Quiz::query()
+                ->whereIn('id', CourseChapterUnit::query()->whereIn('course_id', (clone $base_query)->select('id'))->select('id'))
+                ->sum('question_num') ?? 0;
         });
 
         return $this->responseSuccess($list);

@@ -141,14 +141,13 @@
                                 <fieldset class="form-inner wizard-form-card">
                                     <div class="title">
                                         <h5>{{__('课程媒体')}}</h5>
-                                        <p>Intro Course overview provider type. (YouTube.)</p>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-block">
                                                 <div class="row align-items-center">
                                                     <div class="col-md-12">
-                                                        <label class="form-label">Thumbnail<span
+                                                        <label class="form-label">{{__('封面图')}}<span
                                                                 class="text-danger ms-1">*</span></label>
                                                     </div>
                                                     <div class="col-md-12">
@@ -165,7 +164,7 @@
                                                                     <span class="d-flex align-items-center justify-content-center mb-1">
                                                                         <i class="isax isax-image5 text-secondary fs-24 text-center"></i>
                                                                     </span>
-                                                                    <p class="text-center fw-medium mb-1">Upload Image</p>
+                                                                    <p class="text-center fw-medium mb-1">{{__('上传图片')}}</p>
                                                                     <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 5 MB</span>
                                                                 @endif
                                                             </div>
@@ -314,7 +313,7 @@
                     reader.readAsDataURL(file);
                     thumbnailImageFile = file;
                 } else {
-                    showToast('error', "File size exceeds 2 MB or invalid format.");
+                    showToast('error', "File size exceeds 5 MB or invalid format.");
                 }
             }
         }

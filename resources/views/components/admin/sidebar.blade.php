@@ -40,7 +40,7 @@
 <script>
     $(function () {
         $('.logout').click(function () {
-            confirm_alert('Are you sure?', "You won't be able to revert this!", 'Yes, logout!')
+            confirm_alert('{{__('确定退出吗')}}', '{{__('你将无法撤销这一操作！')}}', '{{__('确定')}}')
                 .then((result) => {
                     if (result.isConfirmed) {
                         showLoading()

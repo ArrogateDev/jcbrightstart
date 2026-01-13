@@ -27,7 +27,7 @@
                         <div class="col-xxl col-lg-4 col-md-6">
                             <div class="card bg-success">
                                 <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Published Courses</h6>
+                                    <h6 class="fw-medium mb-1 text-white">{{__('发表')}}</h6>
                                     <h4 id="published-courses" class="fw-bold text-white">{{$courses[2]??0}}</h4>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                         <div class="col-xxl col-lg-4 col-md-6">
                             <div class="card bg-secondary">
                                 <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Suspensed Courses</h6>
+                                    <h6 class="fw-medium mb-1 text-white">{{__('暂停')}}</h6>
                                     <h4 id="suspensed-courses" class="fw-bold text-white">{{$courses[1]??0}}</h4>
                                 </div>
                             </div>
@@ -43,14 +43,14 @@
                         <div class="col-xxl col-lg-4 col-md-6">
                             <div class="card bg-info">
                                 <div class="card-body">
-                                    <h6 class="fw-medium mb-1 text-white">Draft Courses</h6>
+                                    <h6 class="fw-medium mb-1 text-white">{{__('草稿')}}</h6>
                                     <h4 id="draft-courses" class="fw-bold text-white">{{$courses[0]??0}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">Courses</h5>
+                        <h5 class="fw-bold">{{__('课程管理')}}</h5>
 
                         <div>
                             <a href="{{route('admin.course.store.view.html')}}" class="btn btn-secondary">{{__('新增课程')}}</a>
@@ -63,24 +63,24 @@
                                     <a href="javascript:void(0);"
                                        class="dropdown-toggle text-gray-6 btn rounded border d-inline-flex align-items-center"
                                        data-bs-toggle="dropdown" aria-expanded="false" id="statusDropdown">
-                                        <span id="selected-status-text">All Status</span>
+                                        <span id="selected-status-text">{{__('全部')}}</span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end p-3">
                                         <li>
                                             <a href="javascript:void(0);"
-                                               class="dropdown-item rounded-1 status-option" data-status="-1">All Status</a>
+                                               class="dropdown-item rounded-1 status-option" data-status="-1">{{__('全部')}}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
-                                               class="dropdown-item rounded-1 status-option" data-status="2">Published</a>
+                                               class="dropdown-item rounded-1 status-option" data-status="2">{{__('发表')}}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
-                                               class="dropdown-item rounded-1 status-option" data-status="1">Suspensed</a>
+                                               class="dropdown-item rounded-1 status-option" data-status="1">{{__('暂停')}}</a>
                                         </li>
                                         <li>
                                             <a href="javascript:void(0);"
-                                               class="dropdown-item rounded-1 status-option" data-status="0">Draft</a>
+                                               class="dropdown-item rounded-1 status-option" data-status="0">{{__('草稿')}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -135,15 +135,15 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
+                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('草稿')}}</span>`
                 : item.status === 1
-                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
-                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('暂停')}}</span>`
+                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('发表')}}</span>`;
 
             const statusOptions = [
-                { value: 0, label: 'Draft' },
-                { value: 1, label: 'Suspensed' },
-                { value: 2, label: 'Published' }
+                { value: 0, label: '{{__('草稿')}}' },
+                { value: 1, label: '{{__('暂停')}}' },
+                { value: 2, label: '{{__('发表')}}' }
             ];
 
             const statusMenuItems = statusOptions
@@ -171,11 +171,11 @@
                                     <div class="d-flex align-items-center">
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-video-circle me-1 text-gray-9 fw-bold"></i>
-                                            11 Lessons
+                                            ${item.units} {{__('单元')}}
                                         </span>
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
-                                            2 Quizzes
+                                            ${item.quizzes} {{__('问题')}}
                                         </span>
                                     </div>
                                 </div>

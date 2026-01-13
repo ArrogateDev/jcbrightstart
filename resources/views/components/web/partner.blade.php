@@ -1,7 +1,7 @@
 <section class="section bg-f7 p-t-60 p-b-60">
     <div class="container">
         <div class="section-heading section-heading-1 section-heading-1--small text-left">
-            <h2 class="section-heading__title" style="font-size: 24px;">專業合作夥伴</h2>
+            <h2 class="section-heading__title" style="font-size: 24px;">{{__('专业合作伙伴')}}</h2>
         </div>
         <div class="wrap wrap--w1760">
             <div class="slick-partner">

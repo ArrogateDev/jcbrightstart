@@ -101,7 +101,7 @@
             </select>
         </div>
         <div class="mb-3 position-relative">
-            <label class="form-label">New Password
+            <label class="form-label">{{__('新密码')}}
                 <span class="text-danger ms-1">*</span>
                 <span id="error-container-password"></span>
             </label>
@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="mb-3 position-relative">
-            <label class="form-label">Confirm Password
+            <label class="form-label">{{__('确认密码')}}
                 <span class="text-danger ms-1">*</span>
                 <span id="error-container-password-confirmation"></span>
             </label>

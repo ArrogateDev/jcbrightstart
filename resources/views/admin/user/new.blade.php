@@ -25,17 +25,17 @@
         <input id="email" type="text" class="form-control" name="email" placeholder="{{__('邮箱')}}">
     </div>
     <div class="mb-3 position-relative">
-        <label class="form-label">Gender
+        <label class="form-label">{{__('性别')}}
             <span class="text-danger ms-1">*</span>
             <span class="error-container" id="error-container-gender"></span>
         </label>
         <select id="gender" class="select" name="gender">
-            <option value="1">Male</option>
-            <option value="0">Female</option>
+            <option value="1">{{__('男')}}</option>
+            <option value="0">{{__('女')}}</option>
         </select>
     </div>
     <div class="mb-3 position-relative">
-        <label class="form-label">New Password
+        <label class="form-label">{{__('新密码')}}
             <span class="text-danger ms-1">*</span>
             <span class="error-container" id="error-container-password"></span>
         </label>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="mb-3 position-relative">
-        <label class="form-label">Confirm Password
+        <label class="form-label">{{__('确认密码')}}
             <span class="text-danger ms-1">*</span>
             <span class="error-container" id="error-container-password-confirmation"></span>
         </label>

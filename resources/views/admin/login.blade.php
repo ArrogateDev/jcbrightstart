@@ -2,11 +2,8 @@
 <html lang="en">
 
 <x-admin.head title="{{$title}}"/>
-
-<!-- Slick CSS -->
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick.css')}}">
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/slick/slick-theme.css')}}">
-<!-- Slick Slider -->
 <script src="{{web_resource_url('assets/admin/plugins/slick/slick.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>

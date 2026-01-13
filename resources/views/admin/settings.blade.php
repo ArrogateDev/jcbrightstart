@@ -38,26 +38,26 @@
                                 </div>
                                 <div>
                                     <div class="edit-profile-info mb-3">
-                                        <h5 class="mb-1 fs-18">Personal Details</h5>
-                                        <p>Edit your personal information</p>
+                                        <h5 class="mb-1 fs-18">{{__('个人资料')}}</h5>
+                                        <p>{{__('辑您的个人信息')}}</p>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Account</label>
+                                                <label class="form-label">{{__('账号')}}</label>
                                                 <input type="text" class="form-control" value="{{$user->account}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Role</label>
+                                                <label class="form-label">{{__('角色')}}</label>
                                                 <input type="text" class="form-control" value="{{$user->role->name}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    Name
+                                                    {{__('名称')}}
                                                     <span class="text-danger ms-1">*</span>
                                                     <span id="error-container-name"></span>
                                                 </label>
@@ -66,9 +66,7 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <button class="btn btn-secondary rounded-pill" type="submit">Update
-                                                Profile
-                                            </button>
+                                            <button class="btn btn-secondary rounded-pill" type="submit">{{__('保存')}}</button>
                                         </div>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                     </div>

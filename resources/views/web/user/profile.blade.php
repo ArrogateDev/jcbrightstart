@@ -27,41 +27,29 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="fs-18 pb-3 border-bottom mb-3">Basic Information</h5>
+                            <h5 class="fs-18 pb-3 border-bottom mb-3">{{__('基本信息')}}</h5>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <h6>First Name</h6>
+                                        <h6>{{__('姓')}}</h6>
                                         <span>{{$user->first_name}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <h6>Last Name</h6>
+                                        <h6>{{__('名')}}</h6>
                                         <span>{{$user->last_name}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <h6>Registration Date</h6>
+                                        <h6>{{__('注册时间')}}</h6>
                                         <span>{{$user->registration_date}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <h6>User Name</h6>
-                                        <span>instructordemo</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <h6>Phone Number</h6>
-                                        <span>89104-71829</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <h6>Email</h6>
+                                        <h6>{{__('邮箱')}}</h6>
                                         <span>
                                             <a href="#" class="__cf_email__">{{$user->email}}</a>
                                         </span>
@@ -69,7 +57,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <h6>Gender</h6>
+                                        <h6>{{__('性别')}}</h6>
                                         <span>{{$user->gender_text}}</span>
                                     </div>
                                 </div>

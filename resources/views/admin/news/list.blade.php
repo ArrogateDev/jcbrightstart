@@ -81,15 +81,15 @@
 
         list.forEach(function (item) {
             const statusBadge = item.status === 0
-                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>`
+                ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('草稿')}}</span>`
                 : item.status === 1
-                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>`
-                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>`;
+                    ? `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-secondary d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('暂停')}}</span>`
+                    : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('发表')}}</span>`;
 
             const statusOptions = [
-                { value: 0, label: 'Draft' },
-                { value: 1, label: 'Suspensed' },
-                { value: 2, label: 'Published' }
+                { value: 0, label: '{{__('草稿')}}' },
+                { value: 1, label: '{{__('暂停')}}' },
+                { value: 2, label: '{{__('发表')}}' }
             ];
 
             const statusMenuItems = statusOptions

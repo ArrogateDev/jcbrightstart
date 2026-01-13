@@ -63,7 +63,7 @@
                                 <div class="question-info d-flex align-items-center">
                                     <p class="d-flex align-items-center fs-14 me-2 pe-2 mb-0">
                                         <i class="isax isax-message-question5 text-primary-soft me-2"></i>
-                                        ${item.question_num} Questions
+                                        ${item.question_num} {{__('问题')}}
                                     </p>
                                 </div>
                             </div>

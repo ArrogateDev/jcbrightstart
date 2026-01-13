@@ -1,12 +1,9 @@
-ul {
+.course-details ul {
     list-style: none;
 }
 
-p {
+.course-details p {
     color: #6d6d6d;
-}
-
-p {
     margin-bottom: 20px;
 }
 
@@ -31,7 +28,7 @@ p {
     transition: var(--bs-accordion-transition);
 }
 
-h2 {
+.course-details h2 {
     font-size: 36px;
     font-weight: 700;
 }

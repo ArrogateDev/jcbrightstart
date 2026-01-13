@@ -139,9 +139,9 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
-                                <th>Courses</th>
-                                <th>Status</th>
-                                <th>Creat Date</th>
+                                <th>{{__('课程')}}</th>
+                                <th>{{__('状态')}}</th>
+                                <th>{{__('创建时间')}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -162,11 +162,11 @@
                                     </td>
                                     <td>
                                         @if($course->status ==2)
-                                            <span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Published</span>
+                                            <span class="badge badge-sm bg-success d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('发表')}}</span>
                                         @elseif($course->status ==1)
-                                            <span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Suspensed</span>
+                                            <span class="badge badge-sm bg-secondary d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('暂停')}}</span>
                                         @else
-                                            <span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>Draft</span>
+                                            <span class="badge badge-sm bg-info d-inline-flex align-items-center me-1"><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('草稿')}}</span>
                                         @endif
                                     </td>
                                     <td>{{$course->created_at}}</td>
