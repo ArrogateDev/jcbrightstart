@@ -29,7 +29,7 @@ class ChangePasswordController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_web_change_password_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -41,7 +41,7 @@ class ChangePasswordController extends Controller
         $password = $request->input('password');
 
         if (!Hash::check($current_password, $user->password)) {
-            throw new ApiException('Current Password is incorrect', ResponseCode::PARAM_ERR);
+            throw new ApiException(__('当前密码错误'), ResponseCode::PARAM_ERR);
         }
 
         try {
@@ -54,7 +54,7 @@ class ChangePasswordController extends Controller
             return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Change Password Failed', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('修改密码失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

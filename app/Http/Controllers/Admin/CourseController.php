@@ -117,7 +117,7 @@ class CourseController extends Controller
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_course_store_lock:$user_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -171,7 +171,7 @@ class CourseController extends Controller
     public function update(CourseRequest $request, Course $course)
     {
         if (!(($lock = Cache::lock("submit_course_update_lock:$course->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -230,7 +230,7 @@ class CourseController extends Controller
     public function status(Request $request, Course $course)
     {
         if (!(($lock = Cache::lock("submit_course_status_lock:$course->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -297,7 +297,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         if (!(($lock = Cache::lock("submit_course_destroy_lock:$course->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

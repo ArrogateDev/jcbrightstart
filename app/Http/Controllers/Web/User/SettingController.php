@@ -29,7 +29,7 @@ class SettingController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_web_setting_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -52,7 +52,7 @@ class SettingController extends Controller
             return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

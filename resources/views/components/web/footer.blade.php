@@ -28,12 +28,32 @@
     .footer img.logo {
         height: 100px;
     }
+
+    .footer-link {
+        list-style-type: none;
+    }
+
+    .footer-link li {
+        padding: 0 4px;
+    }
+
+    .footer-link a {
+        color: #666;
+    }
 </style>
 
 <section class="section copyright">
     <div class="container">
         <div class="text-center p-3">
-            <p class="copyright__text" style="font-size: 14px;">{{__('版权所有', ['date'=>date('Y')])}}</p>
+            <div class="copyright__text d-flex align-items-center justify-content-center " style="font-size: 14px;">
+                {{__('版权所有', ['date'=>date('Y')])}}
+                <span class="mx-2">|</span>
+                <ul class="d-flex align-items-center justify-content-center footer-link">
+                    <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                    <li class="mx-2">|</li>
+                    <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
+                </ul>
+            </div>
             <p class="copyright__text" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
         </div>
     </div>

@@ -10,34 +10,29 @@
 @props([
     'user' => null
 ])
-<div class="header-topbar text-center">
+<div class="header-topbar text-center bg-white">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex align-items-center justify-content-end">
-                    <div class="dropdown flag-dropdown mb-2 me-3">
-                        <a href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-globe me-2"></i>{{ $currentLang }}
-                        </a>
-                        <ul class="dropdown-menu p-2 mt-2" style="">
-                            @foreach($locales as $locale => $label)
-                                <li>
-                                    <a class="dropdown-item rounded d-flex align-items-center" href="{{ route('language.switch', ['locale' => $locale]) }}">
-                                        {{ $label }}
-                                        @if($currentLocale === $locale)
-                                            <i class="fas fa-check ms-2"></i>
-                                        @endif
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
                     <ul class="social-icon d-flex align-items-center mb-2">
-                        <li class="me-2">
-                            <a href="https://www.facebook.com/JCBrightStartProject"><i class="fa-brands fa-facebook-f"></i></a>
+                        <li style="padding: 0 9px;">
+                            <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
+                                <i class="zmdi zmdi-facebook-box" style="color: #00c8d4;font-size: 15px;"></i>
+                            </a>
                         </li>
-                        <li class="me-2">
-                            <a href="https://www.instagram.com/JCBrightStartProject/"><i class="fa-brands fa-instagram"></i></a>
+                        <li style="padding: 0 9px;">
+                            <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
+                                <i class="zmdi zmdi-instagram" style="color: #00c8d4;font-size: 15px;"></i>
+                            </a>
+                        </li>
+                        <li class="seprator" style="padding: 0 9px;">
+                            <span></span>
+                        </li>
+                        <li style="padding: 0 9px;">
+                            <a href="#" data-toggle="modal" data-target="#modal-search">
+                                <i class="fas fa-search" style="color: #00c8d4;font-size: 14px;"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -49,7 +44,7 @@
 <header class="header-two">
     <div class="container">
         <div class="header-nav">
-            <div class="navbar-header">
+            <div class="navbar-header" style="padding: 4px 0;">
                 <a id="mobile_btn" href="javascript:void(0);">
                     <span class="bar-icon">
                         <span></span>
@@ -59,10 +54,10 @@
                 </a>
                 <div class="navbar-logo py-2">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-65" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
+                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo logo-max-h-65" alt="Logo">
                     </a>
                 </div>
             </div>
@@ -93,13 +88,22 @@
                 </ul>
             </div>
             <div class="header-btn d-flex align-items-center">
-                <div class="icon-btn me-2 d-none">
-                    <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle activate">
-                        <i class="isax isax-sun-15"></i>
+                <div class="dropdown flag-dropdown">
+                    <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-1"></i>{{ $currentLang }}
                     </a>
-                    <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle">
-                        <i class="isax isax-moon"></i>
-                    </a>
+                    <ul class="dropdown-menu p-2 mt-2" style="">
+                        @foreach($locales as $locale => $label)
+                            <li>
+                                <a class="dropdown-item rounded d-flex align-items-center" href="{{ route('language.switch', ['locale' => $locale]) }}">
+                                    {{ $label }}
+                                    @if($currentLocale === $locale)
+                                        <i class="fas fa-check ms-2"></i>
+                                    @endif
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 @auth
                     <div class="dropdown profile-dropdown">

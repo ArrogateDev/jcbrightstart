@@ -32,7 +32,7 @@ class RegisterController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_register_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -72,7 +72,7 @@ class RegisterController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
-            throw new ApiException('Register failed', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('注册失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

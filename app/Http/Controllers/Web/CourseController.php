@@ -73,7 +73,7 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_handle_save_play_record_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -111,7 +111,7 @@ class CourseController extends Controller
             return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
@@ -127,7 +127,7 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_handle_record_play_start_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -165,7 +165,7 @@ class CourseController extends Controller
             return $this->responseSuccess();
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
@@ -181,7 +181,7 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_handle_record_play_end_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -236,7 +236,7 @@ class CourseController extends Controller
             return $this->responseSuccess(['quiz' => $quiz]);
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
@@ -252,7 +252,7 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_handle_save_quiz_answer_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -361,7 +361,7 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
@@ -424,7 +424,7 @@ class CourseController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 
@@ -433,7 +433,7 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_handle_certificate_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -469,7 +469,7 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
-            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

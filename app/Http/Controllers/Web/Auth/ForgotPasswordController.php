@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller
         $user = $request->user('web');
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_forgot_password_lock:" . ($user->id ?? $ip), 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -45,8 +45,8 @@ class ForgotPasswordController extends Controller
             $validator = Validator::make($inputs, [
                 'email' => 'bail|required|email',
             ], [
-                'email.required' => 'Email is required',
-                'email.email' => 'Invalid email address',
+                'email.required' => __('邮箱必填'),
+                'email.email' => __('邮箱格式错误'),
             ]);
 
             if ($validator->fails()) {
@@ -57,7 +57,7 @@ class ForgotPasswordController extends Controller
         try {
 
             !$user && $user = User::query()->where('email', $inputs['email'])->firstOr(function () {
-                throw new ApiException('Sorry, we could not locate an account associated with this email address', ResponseCode::USER_DOES_NOT_EXIST);
+                throw new ApiException(__('抱歉，我们无法找到与此邮箱地址关联的账号'), ResponseCode::USER_DOES_NOT_EXIST);
             });
 
             Mail::to($user)->send(new UserForgotPasswordMail($user));

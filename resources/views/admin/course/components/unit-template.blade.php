@@ -12,7 +12,7 @@
                            id=""
                            value="0" checked>
                     <label class="form-check-label" for="">
-                        {{__('Youtube URL')}}
+                        {{__('Youtube 链接')}}
                     </label>
                 </div>
                 <div class="form-check form-check-inline">

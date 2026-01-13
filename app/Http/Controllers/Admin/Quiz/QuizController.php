@@ -6,6 +6,7 @@ use App\Constants\ResponseCode;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\QuizRequest;
+use App\Models\Course\CourseChapterUnit;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -55,7 +56,7 @@ class QuizController extends Controller
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_quiz_store_lock:$user_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -92,7 +93,7 @@ class QuizController extends Controller
     public function update(QuizRequest $request, Quiz $quiz)
     {
         if (!(($lock = Cache::lock("submit_quiz_update_lock:$quiz->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -128,7 +129,7 @@ class QuizController extends Controller
     public function destroy(Quiz $quiz)
     {
         if (!(($lock = Cache::lock("submit_quiz_destroy_lock:$quiz->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -136,17 +137,17 @@ class QuizController extends Controller
             $lock->release();
         });
 
-//        if ($quiz->id === 1) {
-//            throw new ApiException(__('默认角色，不能删除'), ResponseCode::SERVER_ERR);
-//        }
-//        try {
-//
-//            $quiz->delete();
-//            $quiz->tokens()->delete();
-//
-//            return $this->responseSuccess(null, __('删除成功'));
-//        } catch (\Exception $e) {
-//            throw new ApiException(__('删除失败'), $e->getCode());
-//        }
+        if (CourseChapterUnit::query()->where('quiz_id', $quiz->id)->exists()){
+            throw new ApiException(__('请先删除该课程关联的课程单元'), ResponseCode::SERVER_ERR);
+        }
+
+        try {
+
+            $quiz->delete();
+
+            return $this->responseSuccess(null, __('删除成功'));
+        } catch (\Exception $e) {
+            throw new ApiException(__('删除失败'), $e->getCode());
+        }
     }
 }

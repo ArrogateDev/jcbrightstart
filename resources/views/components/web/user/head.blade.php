@@ -21,6 +21,7 @@
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/fontawesome/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/fontawesome/css/all.min.css')}}">
+    <link href="{{web_resource_url('assets/web/vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
 
     <!-- Select2 CSS -->
     <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">

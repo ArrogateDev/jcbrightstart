@@ -55,7 +55,7 @@
                                                                    value="0"
                                                                 @checked(($unit->type??0) == 0)>
                                                             <label class="form-check-label" for="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}">
-                                                                {{__('Youtube URL')}}
+                                                                {{__('Youtube 链接')}}
                                                             </label>
                                                         </div>
                                                         <div class="form-check form-check-inline">

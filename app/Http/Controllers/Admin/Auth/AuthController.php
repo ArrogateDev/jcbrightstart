@@ -34,7 +34,7 @@ class AuthController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -48,11 +48,11 @@ class AuthController extends Controller
         $redirect = $request->input('redirect', route('admin.dashboard.html'));
 
         if (!$account || !$password) {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         }
 
         $user = Admin::query()->where('account', $account)->firstOr(function () {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
         $user->password = $password;
         $user->save();
@@ -60,11 +60,11 @@ class AuthController extends Controller
         try {
 
             if ($user->status !== User::NORMAL) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::FORBIDDEN);
+                throw new ApiException(__('账号或密码错误'), ResponseCode::FORBIDDEN);
             }
 
             if (!Hash::check($password, $user->password)) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::PARAM_ERR);
+                throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
@@ -76,7 +76,7 @@ class AuthController extends Controller
             throw $e;
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
+            throw new ApiException(__('登录失败'), ResponseCode::LOGIN_FAIL);
         }
     }
 

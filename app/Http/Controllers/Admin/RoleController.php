@@ -95,7 +95,7 @@ class RoleController extends Controller
     {
         $admin_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_role_store_lock:$admin_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -145,7 +145,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         if (!(($lock = Cache::lock("submit_role_update_lock:$role->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -199,7 +199,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         if (!(($lock = Cache::lock("submit_role_destroy_lock:$role->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

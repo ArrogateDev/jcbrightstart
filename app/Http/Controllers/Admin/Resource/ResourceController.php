@@ -74,7 +74,7 @@ class ResourceController extends Controller
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_resource_store_lock:$user_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -124,7 +124,7 @@ class ResourceController extends Controller
     public function update(ResourceRequest $request, Resource $resource)
     {
         if (!(($lock = Cache::lock("submit_resource_update_lock:$resource->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -176,7 +176,7 @@ class ResourceController extends Controller
     public function status(Request $request, Resource $resource)
     {
         if (!(($lock = Cache::lock("submit_resource_status_lock:$resource->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -223,7 +223,7 @@ class ResourceController extends Controller
     public function destroy(Resource $resource)
     {
         if (!(($lock = Cache::lock("submit_resource_destroy_lock:$resource->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

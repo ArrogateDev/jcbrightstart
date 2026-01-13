@@ -10,7 +10,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('Privacy Policy')}}" subtitle="{{__('Privacy Policy')}}"/>
+        <x-web.breadcrumb title="{{__('隐私政策')}}" subtitle="{{__('隐私政策')}}"/>
 
         <section class="section p-t-125">
 

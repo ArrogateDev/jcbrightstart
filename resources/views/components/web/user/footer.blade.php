@@ -1,84 +1,71 @@
-<footer class="footer footer-one">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row row-gap-4">
-                <div class="col-lg-4">
-                    <div class="footer-about">
-                        <div class="footer-logo">
-                            <img class="logo-max-200" src="{{web_resource_url('assets/admin/img/logo-black.png')}}" alt="">
-                        </div>
-                        <p>Platform designed to help organizations, educators, and learners manage, deliver, and
-                            track learning and training activities.</p>
-                    </div>
+<footer class="footer">
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                    <h3 class="section-heading__title">{{__('Organised by 主办机构')}}</h3>
                 </div>
-                <div class="col-lg-5">
-                    <div class="row row-gap-4">
-                        <div class="col-lg-4 col-md-4 d-none">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">Support</h5>
-                                <ul>
-                                    <li><a href="course-grid.html">Education</a></li>
-                                    <li><a href="add-course.html">Enroll Course</a></li>
-                                    <li><a href="javscript:void(0);">Orders</a></li>
-                                    <li><a href="pricing-plan.html">Payments</a></li>
-                                    <li><a href="blog-grid.html">Blogs</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">About</h5>
-                                <ul>
-                                    <li class=" d-none"><a href="course-category.html">Categories</a></li>
-                                    <li class=" d-none"><a href="course-list.html">Courses</a></li>
-                                    <li><a href="{{route('page', ['page' => 'about-us.html'])}}">About Us</a></li>
-                                    <li><a href="{{route('page', ['page' => 'faq.html'])}}"">Faq</a></li>
-                                    <li><a href="{{route('page', ['page' => 'contact-us.html'])}}">Contacts</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 d-none">
-                            <div class="footer-widget footer-menu">
-                                <h5 class="footer-title">Useful Links</h5>
-                                <ul>
-                                    <li><a href="javascript:void(0);">Our values</a></li>
-                                    <li><a href="javascript:void(0);">Our advisory board</a></li>
-                                    <li><a href="javascript:void(0);">Our partners</a></li>
-                                    <li><a href="javascript:void(0);">Become a partner</a></li>
-                                    <li><a href="javascript:void(0);">Work at Future Learn</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="w-100 d-flex">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row row-gap-2">
-                <div class="col-lg-5">
-                    <div class="text-center text-lg-start">
-                        <p>Copyright {{date('Y')}} © <span class="text-secondary">Jockey Club Bright Start Project</span>. All
-                            right reserved.</p>
-                    </div>
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left">
+                    <h3 class="section-heading__title">{{__('Funded by 捐助机构')}}</h3>
                 </div>
-                <div class="col-lg-4">
-                    <ul class="d-flex align-items-center justify-content-center footer-link">
-                        <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
-                        <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <div class="social-icon">
-                        <a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="javascript:void(0);"><i class="fa-brands fa-linkedin"></i></a>
-                    </div>
+                <div class="w-100 d-flex">
+                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>
         </div>
     </div>
 </footer>
+<style>
+    .footer .section-heading__title {
+        font-size: 24px;
+    }
+
+    .footer img.logo {
+        height: 100px;
+    }
+
+    .footer-link {
+        list-style-type: none;
+    }
+
+    .footer-link li {
+        padding: 0 4px;
+    }
+
+    .footer-link a {
+        color: #666;
+    }
+
+    .section-heading-1--small {
+        margin-bottom: 40px;
+    }
+
+    .section-heading-1 .section-heading__title {
+        color: #ff97a4;
+        margin-bottom: 2px;
+        font-weight: 400;
+        font-size: 24px;
+    }
+</style>
+
+<section class="section copyright">
+    <div class="container">
+        <div class="text-center p-3">
+            <div class="copyright__text d-flex align-items-center justify-content-center " style="font-size: 14px;">
+                {{__('版权所有', ['date'=>date('Y')])}}
+                <span class="mx-2">|</span>
+                <ul class="d-flex align-items-center justify-content-center footer-link">
+                    <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                    <li class="mx-2">|</li>
+                    <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <p class="copyright__text" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
+        </div>
+    </div>
+</section>

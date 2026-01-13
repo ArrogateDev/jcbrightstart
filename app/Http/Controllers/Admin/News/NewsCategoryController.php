@@ -51,7 +51,7 @@ class NewsCategoryController extends Controller
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_news_category_store_lock:$user_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -87,7 +87,7 @@ class NewsCategoryController extends Controller
     public function update(NewsCategoryRequest $request, NewsCategory $category)
     {
         if (!(($lock = Cache::lock("submit_news_category_update_lock:$category->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -122,7 +122,7 @@ class NewsCategoryController extends Controller
     public function destroy(NewsCategory $category)
     {
         if (!(($lock = Cache::lock("submit_news_category_destroy_lock:$category->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

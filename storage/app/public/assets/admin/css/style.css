@@ -34441,6 +34441,10 @@ body
     max-height: 50px;
 }
 
+.logo-max-h-65 {
+    max-height: 65px;
+}
+
 .login-content .section-heading__title {
     color: #ff97a4;
     font-weight: 400;
@@ -34486,4 +34490,11 @@ body
     .organization-item {
         margin-bottom: 1.5rem !important;
     }
+}
+
+.seprator span {
+    display: inline-block;
+    width: 1px;
+    height: 13px;
+    background: #ccc;
 }

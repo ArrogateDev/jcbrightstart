@@ -60,7 +60,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         if (!(($lock = Cache::lock("submit_user_update_lock:$user->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -97,7 +97,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if (!(($lock = Cache::lock("submit_user_destroy_lock:$user->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -157,7 +157,7 @@ class UserController extends Controller
             return $this->responseSuccess(['url' => route('admin.download.html', ['file' => $file])]);
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException(__('fail'), ResponseCode::SERVER_ERR);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
 }

@@ -78,7 +78,7 @@ class IndexController extends Controller
         $ip = $request->ip();
         $key = $user->id ?? $request->ip();
         if (!(($lock = Cache::lock("submit_message_lock:$key", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

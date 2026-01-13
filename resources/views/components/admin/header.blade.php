@@ -1,3 +1,12 @@
+@php
+    $currentLocale = app()->getLocale();
+    $locales = [
+        'en' => 'EN',
+        'zh_CN' => '简体',
+        'zh_HK' => '繁體'
+    ];
+    $currentLang = $locales[$currentLocale] ?? '繁體';
+@endphp
 <header class="header-two">
     <div class="container">
         <div class="header-nav">
@@ -9,12 +18,12 @@
                         <span></span>
                     </span>
                 </a>
-                <div class="navbar-logo" style="padding: 15px 0;">
+                <div class="navbar-logo" style="padding: 12px 0;">
                     <a class="logo-white header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo" alt="Logo" style="height: 50px;">
+                        <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-65" alt="Logo">
                     </a>
                     <a class="logo-dark header-logo" href="{{route('index.html')}}">
-                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo" alt="Logo" style="height: 45px;">
+                        <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo logo-max-h-65" alt="Logo">
                     </a>
                 </div>
             </div>
@@ -47,8 +56,25 @@
                     </ul>
                 @endif
 
-                @if(isset($user) && !empty($user))
-                    <div class="header-btn d-flex align-items-center">
+                <div class="header-btn d-flex align-items-center">
+                    <div class="dropdown flag-dropdown">
+                        <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe me-1"></i>{{ $currentLang }}
+                        </a>
+                        <ul class="dropdown-menu p-2 mt-2" style="">
+                            @foreach($locales as $locale => $label)
+                                <li>
+                                    <a class="dropdown-item rounded d-flex align-items-center" href="{{ route('language.switch', ['locale' => $locale]) }}">
+                                        {{ $label }}
+                                        @if($currentLocale === $locale)
+                                            <i class="fas fa-check ms-2"></i>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @if(isset($user) && !empty($user))
                         <div class="dropdown profile-dropdown">
                             <a href="javascript:void(0);" class="d-flex align-items-center" data-bs-toggle="dropdown">
 								<span class="avatar">
@@ -84,9 +110,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
     </div>

@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_web_set_avatar_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -38,19 +38,19 @@ class ProfileController extends Controller
 
         $base64_image = $request->input('avatar');
         if (!preg_match('/^data:image\/(\w+);base64,/', $base64_image, $type)) {
-            throw new ApiException(__('Invalid image type'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('图片格式无效'), ResponseCode::PARAM_ERR);
         }
 
         $data = substr($base64_image, strpos($base64_image, ',') + 1);
         $type = strtolower($type[1]);
 
         if (!in_array($type, ['jpeg', 'jpg', 'png', 'gif'])) {
-            throw new ApiException(__('Invalid image type'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('图片格式无效'), ResponseCode::PARAM_ERR);
         }
         $data = base64_decode($data);
 
         if ($data === false) {
-            throw new ApiException(__('Invalid image type'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('图片格式无效'), ResponseCode::PARAM_ERR);
         }
 
         try {
@@ -86,7 +86,7 @@ class ProfileController extends Controller
     {
         $user = $request->user('web');
         if (!(($lock = Cache::lock("submit_web_remove_avatar_lock:$user->id", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁

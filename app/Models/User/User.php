@@ -84,7 +84,7 @@ class User extends Authenticatable
     public function getGenderTextAttribute()
     {
         $gender = $this->gender;
-        return is_integer($gender) ? ($gender === 1 ? 'Male' : 'Female') : 'UNKNOWN';
+        return is_integer($gender) ? ($gender === 1 ? __('男') : __('女')) : __('未知');
     }
 
     /**
@@ -93,7 +93,7 @@ class User extends Authenticatable
     public function getAgeTextAttribute()
     {
         $age = $this->age;
-        return is_integer($age) ? self::AGE_MAPS[$age] ?? 'UNKNOWN' : 'UNKNOWN';
+        return is_integer($age) ? (isset(self::AGE_MAPS[$age]) ? __(self::AGE_MAPS[$age]) : __('未知')) : __('未知');
     }
 
     /**

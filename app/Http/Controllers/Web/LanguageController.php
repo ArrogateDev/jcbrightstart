@@ -29,7 +29,7 @@ class LanguageController extends Controller
 
         App::setLocale($locale);
 
-        return redirect()->back()->with('success', __('Language switched successfully'));
+        return redirect()->back()->with('success', __('语言切换成功'));
     }
 }
 

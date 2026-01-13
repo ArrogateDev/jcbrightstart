@@ -28,7 +28,7 @@ class VerificationCodeController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_get_code_lock:$ip", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -90,7 +90,7 @@ class VerificationCodeController extends Controller
             $log->status = 1;
             $log->used = 0;
             $log->ip = $ip;
-            $log->message = 'ok';
+            $log->message = __('成功');
             if ($log->save() === false) {
                 throw new \Exception('failed', ResponseCode::FORBIDDEN);
             }

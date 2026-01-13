@@ -29,7 +29,7 @@ class ResetPasswordController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_reset_password_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -38,7 +38,7 @@ class ResetPasswordController extends Controller
         });
 
         if (!$request->hasValidSignature()) {
-            throw new ApiException('Invalid request,Link expired!', ResponseCode::PARAM_ERR);
+            throw new ApiException(__('无效请求，链接已过期'), ResponseCode::PARAM_ERR);
         }
 
         $email = $request->input('email');
@@ -55,7 +55,7 @@ class ResetPasswordController extends Controller
         try {
 
             $user = User::query()->where('email', $email)->firstOr(function () {
-                throw new ApiException('Sorry, we could not locate an account associated with this email address', ResponseCode::USER_DOES_NOT_EXIST);
+                throw new ApiException(__('抱歉，我们无法找到与此邮箱地址关联的账号'), ResponseCode::USER_DOES_NOT_EXIST);
             });
 
             $user->password = $inputs['password'];

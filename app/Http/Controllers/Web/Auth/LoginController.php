@@ -35,7 +35,7 @@ class LoginController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -49,21 +49,21 @@ class LoginController extends Controller
         $redirect = $request->input('redirect', route('user.dashboard.html'));
 
         if (!$email || !$password) {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         }
 
         $user = User::query()->where('email', $email)->firstOr(function () {
-            throw new ApiException('The account or password is incorrect', ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+            throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
 
         try {
 
             if ($user->status !== User::NORMAL) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::FORBIDDEN);
+                throw new ApiException(__('账号或密码错误'), ResponseCode::FORBIDDEN);
             }
 
             if (!Hash::check($password, $user->password)) {
-                throw new ApiException('The account or password is incorrect', ResponseCode::PARAM_ERR);
+                throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
             Auth::login($user, $remember_me === 'on');
@@ -75,7 +75,7 @@ class LoginController extends Controller
             throw $e;
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
+            throw new ApiException(__('登录失败'), ResponseCode::LOGIN_FAIL);
         }
     }
 
@@ -90,7 +90,7 @@ class LoginController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -100,7 +100,7 @@ class LoginController extends Controller
 
         $credential = $request->input('credential');
         if (!$credential) {
-            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
         }
         $redirect = $request->input('redirect', route('user.dashboard.html'));
 
@@ -109,11 +109,11 @@ class LoginController extends Controller
             $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
             $result = $client->verifyIdToken($credential);
             if (!$result) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+                throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
             }
             $exp = $result['exp'];
             if (Carbon::now()->gt(Carbon::createFromTimestamp($exp))) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+                throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
             }
 
             $email = $result['email'];
@@ -131,7 +131,7 @@ class LoginController extends Controller
             );
 
             if ($user->status !== User::NORMAL) {
-                throw new ApiException(__('Account has been disabled.'), ResponseCode::FORBIDDEN);
+                throw new ApiException(__('账号已被禁用'), ResponseCode::FORBIDDEN);
             }
 
             Auth::login($user);
@@ -141,7 +141,7 @@ class LoginController extends Controller
             throw $e;
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
+            throw new ApiException(__('登录失败'), ResponseCode::LOGIN_FAIL);
         }
     }
 
@@ -156,7 +156,7 @@ class LoginController extends Controller
     {
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -171,11 +171,11 @@ class LoginController extends Controller
         $redirect = $request->input('redirect', route('user.dashboard.html'));
 
         if (!$code && !$id_token) {
-            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
         }
 
         if ($state && $state !== $request->session()->token()) {
-            throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
         }
 
         try {
@@ -186,7 +186,7 @@ class LoginController extends Controller
             }
 
             if (!$id_token) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::PARAM_ERR);
+                throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
             }
 
             $claims = $apple_service->verifyIdToken($id_token);
@@ -197,7 +197,7 @@ class LoginController extends Controller
 
             $email = $claims['email'] ?? Arr::get($user_info, 'email');
             if (!$email) {
-                throw new ApiException(__('Invalid Parameter'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
+                throw new ApiException(__('参数无效'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
             }
 
             $first_name = Arr::get($user_info, 'name.firstName', '');
@@ -220,7 +220,7 @@ class LoginController extends Controller
             );
 
             if ($user->status !== User::NORMAL) {
-                throw new ApiException(__('Account has been disabled.'), ResponseCode::FORBIDDEN);
+                throw new ApiException(__('账号已被禁用'), ResponseCode::FORBIDDEN);
             }
 
             Auth::login($user);
@@ -230,7 +230,7 @@ class LoginController extends Controller
             throw $e;
         } catch (\Exception $e) {
             Log::error($e);
-            throw new ApiException('Login failure', ResponseCode::LOGIN_FAIL);
+            throw new ApiException(__('登录失败'), ResponseCode::LOGIN_FAIL);
         }
     }
 }

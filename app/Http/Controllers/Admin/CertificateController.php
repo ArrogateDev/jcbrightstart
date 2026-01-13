@@ -48,7 +48,7 @@ class CertificateController extends Controller
     {
         $user_id = $request->user('admin')->id;
         if (!(($lock = Cache::lock("submit_certificate_store_lock:$user_id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -94,7 +94,7 @@ class CertificateController extends Controller
     public function update(CertificateRequest $request, Certificate $certificate)
     {
         if (!(($lock = Cache::lock("submit_certificate_update_lock:$certificate->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
@@ -143,7 +143,7 @@ class CertificateController extends Controller
     public function destroy(Certificate $certificate)
     {
         if (!(($lock = Cache::lock("submit_certificate_destroy_lock:$certificate->id", 360))->get())) {
-            throw new ApiException(__('Frequent operation, please try again later'), ResponseCode::FREQUENTLY);
+            throw new ApiException(__('操作过于频繁，请稍后再试'), ResponseCode::FREQUENTLY);
         }
 
         // 请求结束后关闭锁
