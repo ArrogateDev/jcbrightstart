@@ -2,7 +2,7 @@
 
 <div href="javascript:void(0);" id="apple-quick-login-btn" class="apple-quick-login">
     <img src="{{web_resource_url('assets/admin/img/icons/apple.svg')}}" alt="img">
-    <div class="flex-grow-1">{{__('使用 Apple 账号',['type'=>$type==='signin'? '登录' : '注册'])}}</div>
+    <div class="flex-grow-1">{{__('使用 Apple 账号',['type'=>$type==='signin'? __('登录') : __('注册')])}}</div>
 </div>
 
 <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>

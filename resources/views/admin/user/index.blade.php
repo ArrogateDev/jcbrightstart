@@ -7,7 +7,15 @@
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
+<style>
+    .email {
+        width: 200px;
+    }
 
+    .full-name {
+        width: 60px;
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -91,7 +99,7 @@
             const row = `
                 <tr>
                     <td><span class="text-primary">#${item.id}</span></td>
-                    <td>${item.email}</td>
+                    <td><p class="fs-14 full-email text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.email}">${item.email}</p></td>
                     <td>
                         <div class="d-flex align-items-center">
                             <a href="javascript:void(0);"
@@ -99,7 +107,7 @@
                                 <img src="${item.avatar}" alt="${item.full_name}">
                             </a>
                             <a href="javascript:void(0);">
-                                <p class="fs-14">${item.full_name}</p>
+                                <p class="fs-14 full-name text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.full_name}">${item.full_name}</p>
                             </a>
                         </div>
                     </td>
@@ -128,6 +136,15 @@
                 </tr>
             `;
             tbody.append(row);
+        });
+
+        const tooltipTriggerList = tbody.find('[data-bs-toggle="tooltip"]').toArray();
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            const existingTooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+            if (existingTooltip) {
+                existingTooltip.dispose();
+            }
+            new bootstrap.Tooltip(tooltipTriggerEl);
         });
     }
 
@@ -213,6 +230,7 @@
                 }
             });
         })
+
     })
 </script>
 </html>

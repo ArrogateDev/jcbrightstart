@@ -73,6 +73,15 @@ class User extends Authenticatable
      * @param $value
      * @return string
      */
+    public function getFullNameAttribute($value)
+    {
+        return $value ?? $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
     public function getAvatarAttribute($value)
     {
         return $value ? web_resource_url($value) : web_resource_url('assets/img/avatar.png');
