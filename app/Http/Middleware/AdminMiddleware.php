@@ -25,6 +25,9 @@ class AdminMiddleware
     {
         if ($request->expectsJson()) return $next($request);
 
+        $locale = session('locale', config('app.locale', 'zh_HK'));
+        App::setLocale($locale);
+
         $user = $request->user();
 
         if ($user && Str::contains($request->url(), ['login.html'])) {
