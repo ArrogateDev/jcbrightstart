@@ -36,7 +36,7 @@
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
                             <a class="img-radius text-center" href="javascript:void(0);">
-                                <img class="w-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
+                                <img class="mw-100 mh-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
                             </a>
                             <div class="media__date">
                                 <div class="media__date-inner">

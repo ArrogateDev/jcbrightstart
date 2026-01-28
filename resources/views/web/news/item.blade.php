@@ -3,7 +3,7 @@
     <div class="col-md-6 col-lg-4">
  @endif
         <div class="media media-blog-2">
-            <div class="media__img">
+            <div class="media__img text-center">
                 <a href="{{$news->url}}">
                     <img src="{{$news->thumbnail}}" alt="How to coax children">
                 </a>
