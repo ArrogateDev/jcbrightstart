@@ -15,10 +15,6 @@
     .full-name {
         width: 60px;
     }
-
-    .tooltip-item{
-        cursor: pointer;
-    }
 </style>
 <body>
 
@@ -103,7 +99,7 @@
             const row = `
                 <tr>
                     <td><span class="text-primary">#${item.id}</span></td>
-                    <td><p class="fs-14 email text-truncate tooltip-item" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${item.email}">${item.email}</p></td>
+                    <td><p class="fs-14 full-email text-truncate"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.email}">${item.email}</p></td>
                     <td>
                         <div class="d-flex align-items-center">
                             <a href="javascript:void(0);"
@@ -111,7 +107,7 @@
                                 <img src="${item.avatar}" alt="${item.full_name}">
                             </a>
                             <a href="javascript:void(0);">
-                                <p class="fs-14 full-name text-truncate tooltip-item" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${item.full_name}">${item.full_name}</p>
+                                <p class="fs-14 full-name text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.full_name}">${item.full_name}</p>
                             </a>
                         </div>
                     </td>
@@ -140,15 +136,6 @@
                 </tr>
             `;
             tbody.append(row);
-        });
-
-        const tooltipTriggerList = tbody.find('[data-bs-toggle="tooltip"]').toArray();
-        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-            const existingTooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
-            if (existingTooltip) {
-                existingTooltip.dispose();
-            }
-            new bootstrap.Tooltip(tooltipTriggerEl);
         });
     }
 
@@ -235,38 +222,6 @@
             });
         })
 
-        $('#table-body').on('click', '.tooltip-item', function (e) {
-            e.stopPropagation();
-            let item = $(this).attr('data-bs-title');
-            if (!item) {
-                showToast('error', '{{__('复制失败：未找到内容')}}');
-                return;
-            }
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(item).then(function () {
-                    showToast('success', '{{__('复制成功')}}');
-                }).catch(function (err) {
-                    console.error('复制失败:', err);
-                    showToast('error', '{{__('复制失败，请稍后再试')}}');
-                });
-            } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = item;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast('success', '{{__('复制成功')}}');
-                } catch (err) {
-                    console.error('复制失败:', err);
-                    showToast('error', '{{__('复制失败，请稍后再试')}}');
-                }
-                document.body.removeChild(textArea);
-            }
-        })
     })
 </script>
 </html>

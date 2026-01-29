@@ -10,6 +10,19 @@
 
         try {
             var preloader_object = $('.js-preloader');
+            
+            // 强制隐藏 loading 的函数
+            var forceHideLoading = function() {
+                var $animsition = $('.animsition');
+                if ($animsition.hasClass('animsition-loading')) {
+                    console.warn('Force hiding loading animation');
+                    $animsition.removeClass('animsition-loading');
+                    $('.loader-wrapper').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }
+            };
+
             preloader_object.animsition({
                 inClass: 'fade-in',
                 outClass: 'fade-out',
@@ -21,7 +34,7 @@
                 loadingClass: 'loader-wrapper',
                 loadingInner: '<div class="loader"></div>',
                 timeout: true,
-                timeoutCountdown: 10000, // 增加到10秒
+                timeoutCountdown: 5000, // 5秒超时
                 onLoadEvent: true,
                 browser: ['animation-duration', '-webkit-animation-duration'],
                 overlay: false,
@@ -32,21 +45,64 @@
                 }
             });
 
-            // 添加额外的安全措施，防止长时间加载
-            setTimeout(function() {
-                var $animsition = $('.animsition');
-                if ($animsition.hasClass('animsition-loading')) {
-                    console.warn('Animsition loading timeout, forcing finish');
-                    $animsition.removeClass('animsition-loading');
-                    $('.loader-wrapper').hide();
+            // 监听 window.load 事件，如果已经触发但 loading 还在，强制隐藏
+            if (document.readyState === 'complete') {
+                // 如果页面已经加载完成
+                setTimeout(forceHideLoading, 500);
+            } else {
+                // 监听 window.load 事件
+                $(window).on('load', function() {
+                    setTimeout(forceHideLoading, 500);
+                });
+            }
+
+            // 备用机制：检查所有图片是否加载完成
+            var checkImagesLoaded = function() {
+                var images = $('img');
+                var loadedCount = 0;
+                var totalImages = images.length;
+                
+                if (totalImages === 0) {
+                    setTimeout(forceHideLoading, 1000);
+                    return;
                 }
-            }, 15000); // 15秒后强制结束
+
+                images.each(function() {
+                    var img = this;
+                    if (img.complete) {
+                        loadedCount++;
+                    } else {
+                        $(img).on('load error', function() {
+                            loadedCount++;
+                            if (loadedCount >= totalImages) {
+                                setTimeout(forceHideLoading, 500);
+                            }
+                        });
+                    }
+                });
+
+                // 如果所有图片都已加载
+                if (loadedCount >= totalImages) {
+                    setTimeout(forceHideLoading, 1000);
+                }
+            };
+
+            // DOM 加载完成后检查图片
+            setTimeout(checkImagesLoaded, 1000);
+
+            // 多重安全措施：3秒后强制隐藏（如果还在显示）
+            setTimeout(forceHideLoading, 3000);
+            
+            // 最终安全措施：8秒后强制隐藏
+            setTimeout(forceHideLoading, 8000);
 
         } catch (err) {
             console.error('Animsition error:', err);
             // 如果出现异常，手动移除加载状态
             $('.js-preloader').removeClass('animsition-loading');
-            $('.loader-wrapper').hide();
+            $('.loader-wrapper').fadeOut(300, function() {
+                $(this).remove();
+            });
         }
     }); // 结束第一个 document.ready
 
@@ -939,7 +995,95 @@
 
 })(jQuery);
 
+//-------------------------------------------------------
+// 全局 Loading 动画隐藏处理（适用于所有页面）
+//-------------------------------------------------------
+(function ($) {
+    'use strict';
 
+    // 强制隐藏 loading 的函数
+    var forceHideLoading = function() {
+        var $animsition = $('.animsition');
+        if ($animsition && $animsition.length > 0 && $animsition.hasClass('animsition-loading')) {
+            $animsition.removeClass('animsition-loading');
+            $('.loader-wrapper').fadeOut(300, function() {
+                $(this).remove();
+            });
+        }
+    };
 
+    // 确保在 DOM 和 jQuery 都准备好后执行
+    $(document).ready(function() {
+        // 如果页面已经加载完成，立即隐藏 loading
+        if (document.readyState === 'complete') {
+            setTimeout(forceHideLoading, 100);
+        } else {
+            // 等待所有资源加载完成
+            $(window).on('load', function() {
+                setTimeout(forceHideLoading, 100);
+            });
+        }
+        
+        // 最终保险：5秒后强制隐藏（防止某些资源加载失败导致 loading 一直显示）
+        setTimeout(forceHideLoading, 5000);
+    });
+
+    // 如果 jQuery 还没加载，使用原生 JavaScript
+    if (typeof jQuery === 'undefined') {
+        if (document.readyState === 'complete') {
+            setTimeout(function() {
+                var animsition = document.querySelector('.animsition');
+                var loaderWrapper = document.querySelector('.loader-wrapper');
+                if (animsition && animsition.classList.contains('animsition-loading')) {
+                    animsition.classList.remove('animsition-loading');
+                    if (loaderWrapper) {
+                        loaderWrapper.style.opacity = '0';
+                        setTimeout(function() {
+                            if (loaderWrapper.parentNode) {
+                                loaderWrapper.parentNode.removeChild(loaderWrapper);
+                            }
+                        }, 300);
+                    }
+                }
+            }, 100);
+        } else {
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    var animsition = document.querySelector('.animsition');
+                    var loaderWrapper = document.querySelector('.loader-wrapper');
+                    if (animsition && animsition.classList.contains('animsition-loading')) {
+                        animsition.classList.remove('animsition-loading');
+                        if (loaderWrapper) {
+                            loaderWrapper.style.opacity = '0';
+                            setTimeout(function() {
+                                if (loaderWrapper.parentNode) {
+                                    loaderWrapper.parentNode.removeChild(loaderWrapper);
+                                }
+                            }, 300);
+                        }
+                    }
+                }, 100);
+            });
+        }
+        
+        // 最终保险：5秒后强制隐藏
+        setTimeout(function() {
+            var animsition = document.querySelector('.animsition');
+            var loaderWrapper = document.querySelector('.loader-wrapper');
+            if (animsition && animsition.classList.contains('animsition-loading')) {
+                animsition.classList.remove('animsition-loading');
+                if (loaderWrapper) {
+                    loaderWrapper.style.opacity = '0';
+                    setTimeout(function() {
+                        if (loaderWrapper.parentNode) {
+                            loaderWrapper.parentNode.removeChild(loaderWrapper);
+                        }
+                    }, 300);
+                }
+            }
+        }, 5000);
+    }
+
+})(jQuery);
 
 
