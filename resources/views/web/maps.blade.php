@@ -54,35 +54,40 @@
         font-size: 17px;
     }
 
-    .location-info {
-        font-size: 13px;
-        line-height: normal;
-        padding-left: 2px;
-    }
-
-    .types {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-column-gap: 8px;
-        grid-row-gap: 8px;
-        margin-bottom: 20px;
-    }
-
     .type-item {
         font-weight: 700;
         padding: 10px;
         border-radius: 10px;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         background: #7dd0f8;
         cursor: pointer;
+        color: white;
     }
 
-    .type-item.active {
-        background: #ff97a4;
-        color: white;
+    .type-item.collapsed .icon-expand {
+        display: inline-block;
+    }
+
+    .type-item.collapsed .icon-collapse {
+        display: none;
+    }
+    .type-item:not(.collapsed)  {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .type-item:not(.collapsed) .icon-expand {
+        display: none;
+    }
+
+    .type-item:not(.collapsed) .icon-collapse {
+        display: inline-block;
+    }
+
+    .location-lists .collapse.show {
+        border: 1px solid #7dd0f8;
+        border-radius: 0 0 10px 10px;
     }
 
     #map-box {
@@ -121,56 +126,42 @@
                                         <h2 class="section-heading__title">Map</h2>
                                         <div class="m-b-25"></div>
                                     </div>
-                                    <div class="location-lists overflow-auto">
-                                        @foreach($maps as $map)
-                                            <div class="location-item" data-type="{{$map['Type of Child Care Centers']}}">
-                                                <i class="iconfont icon-location"></i>
-                                                <div class="ml-2">
-                                                    <h5 class="title title--black location-title">
-                                                        {{$map['Organization']}}
-                                                    </h5>
-                                                    @if(isset($map['Type of Child Care Centers']) && !empty($map['Type of Child Care Centers']))
-                                                        <p class="location-info">Type: {{$map['Type of Child Care Centers']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Age of Child (Age range)']) && !empty($map['Age of Child (Age range)']))
-                                                        <p class="location-info">Age range:{{$map['Age of Child (Age range)']}}</p>
-                                                    @endif
-                                                    @if(isset($map['District']) && !empty($map['District']))
-                                                        <p class="location-info">District: {{$map['District']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Capacity']) && !empty($map['Capacity']))
-                                                        <p class="location-info">Capacity: {{$map['Capacity']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Contact']['Address']) && !empty($map['Contact']['Address']))
-                                                        <p class="location-info">Address: {{$map['Contact']['Address']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Contact']['Phone no.']) && !empty($map['Contact']['Phone no.']))
-                                                        <p class="location-info">Phone no.: {{$map['Contact']['Phone no.']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Contact']['Email']) && !empty($map['Contact']['Email']))
-                                                        <p class="location-info">Email: {{$map['Contact']['Email']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Contact']['Webpage']) && !empty($map['Contact']['Webpage']))
-                                                        <p class="location-info">Webpage: {{$map['Contact']['Webpage']}}</p>
-                                                    @endif
-                                                    @if(isset($map['Service Hour']) && !empty($map['Service Hour']))
-                                                        <p class="location-info">Service Hour: {{$map['Service Hour']}}</p>
-                                                    @endif
+                                    <div class="location-lists overflow-auto" id="accordion">
+
+                                        @foreach($types as $type => $list)
+                                            <div class="mb-3">
+                                                <div class="type-item collapsed" id="{{$type}}" data-toggle="collapse" data-target="#collapse-{{Str::slug($type, '-')}}" aria-expanded="false"
+                                                     aria-controls="collapse-{{Str::slug($type, '-')}}">
+                                                    <span>{{$type}}</span>
+                                                    <span class="icon">
+                                                            <i class="fas fa-chevron-down icon-expand"></i>
+                                                            <i class="fas fa-chevron-up icon-collapse"></i>
+                                                        </span>
+                                                </div>
+
+                                                <div id="collapse-{{Str::slug($type, '-')}}" class="collapse p-2" aria-labelledby="{{Str::slug($type, '-')}}" data-parent="#accordion">
+
+                                                    @foreach($list as $map)
+                                                        <div class="location-item" data-id="{{$map->id}}">
+                                                            <i class="iconfont icon-location"></i>
+                                                            <div class="ml-2">
+                                                                <h5 class="title title--black location-title">
+                                                                    {{$map->organization}}
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
+
                                         @endforeach
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-9 p-1">
-                        <div class="types">
-                            <div class="type-item active" data-type="all">{{__('全部')}}</div>
-                            @foreach($types as $type)
-                                <div class="type-item" data-type="{{$type}}">{{$type}}</div>
-                            @endforeach
-                        </div>
                         <div id="map-box" class="w-100 position-relative">
                             <div id="map" class="w-100 h-100"></div>
                         </div>
@@ -232,9 +223,9 @@
         let markerData = [];
         @foreach($maps as $map)
         markerData.push({
-            id: '{{$map['Type of Child Care Centers']}}',
-            coordinates: [{{$map['Longitude']}}, {{$map['Latitude']}}],
-            title: '{{$map['Organization']}}',
+            id: '{{$map->id}}',
+            coordinates: [{{$map->longitude}}, {{$map->latitude}}],
+            title: '{{$map->organization}}',
             mapData: @json($map)
         });
         @endforeach
@@ -339,15 +330,6 @@
                 map.render();
             }
 
-            function updateLocations(type) {
-                if (type === 'all') {
-                    $location.show()
-                } else {
-                    $location.hide()
-                    $(`.location-item[data-type="${type}"]`).show()
-                }
-            }
-
             function updateMarkerSelection(featureToSelect) {
                 const source = markers.getSource();
                 const allFeatures = source.getFeatures();
@@ -427,19 +409,6 @@
             });
 
             updateMarkers('all');
-            updateLocations('all');
-
-            $('.types .type-item').click(function () {
-                $(this).siblings().removeClass('active');
-                $(this).addClass('active')
-                const type = $(this).data('type').trim();
-
-                updateMarkerSelection(null);
-
-                updateMarkers(type);
-                updateLocations(type);
-                return false;
-            })
 
             $location.click(function () {
                 const $clickedItem = $(this);

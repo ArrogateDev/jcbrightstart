@@ -109,7 +109,7 @@ class WebMiddleware
                 'children' => [
                     [
                         'title' => __('服务机构地址'),
-                        'url' => '',
+                        'url' => route('maps.html'),
                         'children' => []
                     ],
                     [
