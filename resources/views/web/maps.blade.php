@@ -351,8 +351,8 @@
                         $location.removeClass('active');
                         $location.each(function () {
                             const $item = $(this);
-                            const orgName = $item.find('.location-title').text().trim();
-                            if (orgName === featureData.title.trim()) {
+                            const orgId = $item.data('id');
+                            if (orgId == featureData.mapData.id) {
                                 $item.addClass('active');
                                 const container = $item.closest('.location-lists')[0];
                                 if (container) {
@@ -412,8 +412,8 @@
 
             $location.click(function () {
                 const $clickedItem = $(this);
-                const orgName = $clickedItem.find('.location-title').text().trim();
-                const marker = markerData.find(m => m.title.trim() === orgName);
+                const orgId = $clickedItem.data('id');
+                const marker = markerData.find(m => m.id == orgId);
 
                 if (marker) {
                     const source = markers.getSource();
@@ -421,7 +421,7 @@
 
                     const featureToSelect = allFeatures.find(feature => {
                         const featureData = feature.get('data');
-                        return featureData && featureData.title.trim() === marker.title.trim();
+                        return featureData && featureData.id == orgId;
                     });
 
                     if (featureToSelect) {
