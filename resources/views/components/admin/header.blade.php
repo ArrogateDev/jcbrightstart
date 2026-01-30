@@ -104,7 +104,7 @@
                                 </ul>
                                 <div class="profile-footer">
                                     <a href="javascript:void(0);"
-                                       class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
+                                       class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout" style="display: inline-flex !important;">
                                         <i class="isax isax-logout me-2"></i>{{__('退出登录')}}
                                     </a>
                                 </div>

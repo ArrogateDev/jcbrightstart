@@ -138,7 +138,7 @@
                             <script>
                                 $(function () {
                                     $('.logout').click(function () {
-                                        confirm_alert('{{__('确定退出吗')}}', '{{__('你将无法撤销这一操作！')}}', '{{__('确定')}}')
+                                        confirm_alert('{{__('确定退出吗')}}', '{{__('你将无法撤销这一操作！')}}', '{{__('确定')}}', 'warning', '{{__('取消')}}')
                                             .then((result) => {
                                                 if (result.isConfirmed) {
                                                     showLoading()

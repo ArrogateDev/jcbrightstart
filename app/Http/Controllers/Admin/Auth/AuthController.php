@@ -55,8 +55,6 @@ class AuthController extends Controller
         $user = Admin::query()->where('account', $account)->firstOr(function () {
             throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
-        $user->password = $password;
-        $user->save();
 
         try {
 

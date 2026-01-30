@@ -38,9 +38,10 @@ class AdminMiddleware
             Cache::tags(['MENUS'])->flush();
             $role = $user->role;
             $role_id = $role->id;
-            $menus = Cache::tags(['MENUS', 'ROLE:' . $role->id])->rememberForever('MENU_LIST', function () use ($role_id, $user) {
+            $menus = Cache::tags(['MENUS', 'ROLE:' . $role->id])->rememberForever('MENU_LIST', function () use ($role, $role_id, $user) {
 
-                $authority = $role_id === 1 ? Authority::query()->whereIn('type', [Authority::MENU_TYPE, Authority::GPS_TYPE])->get() : $user->role_authority;
+                $authority = $role_id === 1 ? Authority::query()->whereIn('type', [Authority::MENU_TYPE, Authority::GPS_TYPE])->get() : $role->permissions;
+
                 $authority = authority_format($authority->toArray());
                 $menus = [];
                 foreach ($authority as $key => $value) {

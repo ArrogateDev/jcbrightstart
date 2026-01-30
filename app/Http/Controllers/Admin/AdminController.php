@@ -54,11 +54,12 @@ class AdminController extends Controller
         $role_id = $request->query('role_id');
 
         $admin = $request->user('admin');
+        $admin_id = $admin->id;
 
         $list = Admin::query()
             ->with(['role:id,name'])
-            ->when($admin->id != 1, function ($query) {
-                $query->where('id', '>', 1);
+            ->when($admin->id != 1, function ($query) use ($admin_id) {
+                $query->whereNotIn('id', [1, $admin_id]);
             })
             ->when($name, function ($query) use ($name) {
                 $query->where('name', 'like', '%' . $name . '%');

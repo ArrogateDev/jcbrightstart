@@ -1,6 +1,6 @@
 <script type="text/javascript" src="{{web_resource_url('assets/admin/js/sweetalert2.js') }}"></script>
 <script>
-    function confirm_alert(title = 'Are you sure?', text = "You won't be able to revert this!", confirmText = 'Yes, Delete!', icon = 'warning') {
+    function confirm_alert(title = 'Are you sure?', text = "You won't be able to revert this!", confirmText = 'Yes, Delete!', icon = 'warning', cancelButtonText = 'Cancel') {
         return Swal.fire({
             title,
             text,
@@ -8,7 +8,8 @@
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: confirmText
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelButtonText
         });
     }
 </script>

@@ -22,13 +22,15 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $admin = $request->user('admin');
-        $role_id = $admin->role->id ?? 0;
-        $role_level = $admin->role->level ?? 0;
-        $admin_permissions = $admin->role->permissions->pluck('id');
+        $role = $admin->role;
+        $role->load('permissions');
+        $role_id = $role->id ?? 0;
+        $role_level = $role->level ?? 0;
+        $admin_permissions = $role->permissions->pluck('id')->toArray();
 
         $superiors = Role::query()
-            ->when($role_id != 1, function ($query) use ($role_level) {
-                $query->where('level', '>', $role_level);
+            ->when($role_id != 1, function ($query) use ($role_level, $role_id) {
+                $query->where('level', '>', $role_level)->orWhere('id', $role_id);
             })
             ->orderBy('id')
             ->select('id as value', 'name as label')
