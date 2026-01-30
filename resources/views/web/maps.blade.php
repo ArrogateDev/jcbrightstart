@@ -104,6 +104,55 @@
         display: flex;
         flex-direction: column;
     }
+
+    .map-popup {
+        position: fixed;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        padding: 15px;
+        min-width: 250px;
+        max-width: 350px;
+        z-index: 1000;
+        display: none;
+        transform: translateX(-50%);
+    }
+
+    .map-popup:before {
+        content: '';
+        position: absolute;
+        top: 99%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 10px solid transparent;
+        border-top-color: white;
+    }
+
+    .popup-title {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .popup-content {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.4;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #999;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -164,6 +213,12 @@
                     <div class="col-md-9 p-1">
                         <div id="map-box" class="w-100 position-relative">
                             <div id="map" class="w-100 h-100"></div>
+                            <!-- 信息弹窗 -->
+                            <div id="map-popup" class="map-popup">
+                                <span class="popup-close">&times;</span>
+                                <div class="popup-title" id="popup-title"></div>
+                                <div class="popup-content" id="popup-content"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -330,6 +385,81 @@
                 map.render();
             }
 
+            function showPopup(featureData, pixel) {
+                const popup = document.getElementById('map-popup');
+                const title = document.getElementById('popup-title');
+                const content = document.getElementById('popup-content');
+
+                if (featureData && featureData.mapData) {
+                    const data = featureData.mapData;
+                    title.textContent = data.organization || data.title || '未知机构';
+
+                    let popupHtml = '';
+                    if (data.address) {
+                        popupHtml += `<div><strong>地址:</strong> ${data.address}</div>`;
+                    }
+                    if (data.phone) {
+                        popupHtml += `<div><strong>电话:</strong> ${data.phone}</div>`;
+                    }
+                    if (data.email) {
+                        popupHtml += `<div><strong>邮箱:</strong> ${data.email}</div>`;
+                    }
+                    if (data.description) {
+                        popupHtml += `<div><strong>描述:</strong> ${data.description}</div>`;
+                    }
+                    if (data.service_type) {
+                        popupHtml += `<div><strong>服务类型:</strong> ${data.service_type}</div>`;
+                    }
+
+                    content.innerHTML = popupHtml || '<div>暂无详细信息</div>';
+
+                    // 设置弹窗位置 - 确保在锚点上方
+                    const coordinate = featureData.coordinates;
+                    const pixel = map.getPixelFromCoordinate(coordinate);
+
+                    // 获取地图容器的边界信息
+                    const mapViewport = map.getViewport();
+                    const mapRect = mapViewport.getBoundingClientRect();
+
+                    // 计算弹窗的绝对位置
+                    const popupLeft = mapRect.left + pixel[0];
+                    const popupTop = mapRect.top + pixel[1];
+
+                    // 设置弹窗位置，让它出现在锚点上方
+                    let finalLeft = popupLeft;
+                    let finalTop = popupTop - popup.offsetHeight - 45; // 上移弹窗高度+20px
+
+                    // 边界检测，防止弹窗超出屏幕
+                    const popupWidth = popup.offsetWidth;
+                    const popupHeight = popup.offsetHeight;
+                    const windowWidth = window.innerWidth;
+                    const windowHeight = window.innerHeight;
+
+                    // 水平边界检测
+                    if (finalLeft - popupWidth/2 < 0) {
+                        finalLeft = popupWidth/2 + 10;
+                    } else if (finalLeft + popupWidth/2 > windowWidth) {
+                        finalLeft = windowWidth - popupWidth/2 - 10;
+                    }
+
+                    // 垂直边界检测
+                    if (finalTop < 10) {
+                        finalTop = popupTop + 30; // 如果上方空间不足，显示在下方
+                    } else if (finalTop + popupHeight > windowHeight) {
+                        finalTop = windowHeight - popupHeight - 10;
+                    }
+
+                    popup.style.left = finalLeft + 'px';
+                    popup.style.top = finalTop + 'px';
+                    popup.style.display = 'block';
+                }
+            }
+
+            function hidePopup() {
+                const popup = document.getElementById('map-popup');
+                popup.style.display = 'none';
+            }
+
             function updateMarkerSelection(featureToSelect) {
                 const source = markers.getSource();
                 const allFeatures = source.getFeatures();
@@ -372,6 +502,7 @@
                     }
                 } else {
                     $location.removeClass('active');
+                    hidePopup();
                 }
 
                 map.render();
@@ -394,7 +525,10 @@
                 if (clickedFeature) {
                     updateMarkerSelection(clickedFeature);
 
+                    // 显示信息弹窗
                     const featureData = clickedFeature.get('data');
+                    showPopup(featureData, e.pixel);
+
                     if (featureData && featureData.coordinates) {
                         const view = map.getView();
                         view.animate({
@@ -409,6 +543,39 @@
             });
 
             updateMarkers('all');
+
+            // 关闭弹窗按钮事件
+            document.querySelector('.popup-close').addEventListener('click', function() {
+                hidePopup();
+            });
+
+            // 点击地图其他区域关闭弹窗
+            map.on('pointermove', function(e) {
+                const pixel = map.getEventPixel(e.originalEvent);
+                const hit = map.hasFeatureAtPixel(pixel, {
+                    layerFilter: function(layer) {
+                        return layer === markers;
+                    }
+                });
+                map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+            });
+
+            // 监听地图视图变化，更新弹窗位置
+            map.getView().on('change:center', function() {
+                if (document.getElementById('map-popup').style.display === 'block') {
+                    // 如果弹窗正在显示，重新定位
+                    const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
+                    if (activeFeature) {
+                        const featureData = activeFeature.get('data');
+                        showPopup(featureData, null);
+                    }
+                }
+            });
+
+            map.getView().on('change:resolution', function() {
+                // 缩放时隐藏弹窗
+                hidePopup();
+            });
 
             $location.click(function () {
                 const $clickedItem = $(this);
@@ -426,6 +593,9 @@
 
                     if (featureToSelect) {
                         updateMarkerSelection(featureToSelect);
+
+                        // 显示信息弹窗
+                        showPopup(marker, null);
 
                         $location.removeClass('active');
                         $clickedItem.addClass('active');
