@@ -390,74 +390,114 @@
                 const title = document.getElementById('popup-title');
                 const content = document.getElementById('popup-content');
 
-                if (featureData && featureData.mapData) {
-                    const data = featureData.mapData;
-                    title.textContent = data.organization || data.title || '{{__('未知机构')}}';
-
-                    let popupHtml = '';
-                    if (data.type) {
-                        popupHtml += `<div><strong>{{__('类型')}}:</strong> ${data.address}</div>`;
-                    }
-                    if (data.age) {
-                        popupHtml += `<div><strong>{{__('年龄范围')}}:</strong> ${data.type}</div>`;
-                    }
-                    if (data.district) {
-                        popupHtml += `<div><strong>{{__('区域')}}:</strong> ${data.age}</div>`;
-                    }
-                    if (data.capacity) {
-                        popupHtml += `<div><strong>{{__('容量')}}:</strong> ${data.district}</div>`;
-                    }
-                    if (data.organization) {
-                        popupHtml += `<div><strong>{{__('地址')}}:</strong> ${data.capacity}</div>`;
-                    }
-                    if (data.address) {
-                        popupHtml += `<div><strong>{{__('电话号码。')}}:</strong> ${data.organization}</div>`;
-                    }
-                    if (data.phone) {
-                        popupHtml += `<div><strong>{{__('电子邮件')}}:</strong> ${data.address}</div>`;
-                    }
-                    if (data.email) {
-                        popupHtml += `<div><strong>{{__('网页')}}:</strong> ${data.phone}</div>`;
-                    }
-                    if (data.webpage) {
-                        popupHtml += `<div><strong>{{__('服务时间')}}:</strong> ${data.email}</div>`;
-                    }
-
-                    content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
-
-                    const coordinate = featureData.coordinates;
-                    const pixel = map.getPixelFromCoordinate(coordinate);
-
-                    const mapViewport = map.getViewport();
-                    const mapRect = mapViewport.getBoundingClientRect();
-
-                    const popupLeft = mapRect.left + pixel[0];
-                    const popupTop = mapRect.top + pixel[1];
-
-                    let finalLeft = popupLeft;
-                    let finalTop = popupTop - popup.offsetHeight - 45;
-
-                    const popupWidth = popup.offsetWidth;
-                    const popupHeight = popup.offsetHeight;
-                    const windowWidth = window.innerWidth;
-                    const windowHeight = window.innerHeight;
-
-                    if (finalLeft - popupWidth/2 < 0) {
-                        finalLeft = popupWidth/2 + 10;
-                    } else if (finalLeft + popupWidth/2 > windowWidth) {
-                        finalLeft = windowWidth - popupWidth/2 - 10;
-                    }
-
-                    if (finalTop < 10) {
-                        finalTop = popupTop + 30;
-                    } else if (finalTop + popupHeight > windowHeight) {
-                        finalTop = windowHeight - popupHeight - 10;
-                    }
-
-                    popup.style.left = finalLeft + 'px';
-                    popup.style.top = finalTop + 'px';
-                    popup.style.display = 'block';
+                if (!popup || !title || !content) {
+                    console.error('弹窗元素未找到');
+                    return;
                 }
+
+                let data = null;
+                let coordinates = null;
+
+                if (featureData) {
+                    if (featureData.mapData) {
+                        data = featureData.mapData;
+                        coordinates = featureData.coordinates;
+                    } else if (featureData.id !== undefined) {
+                        data = featureData.mapData;
+                        coordinates = featureData.coordinates;
+                    } else {
+                        data = featureData;
+                    }
+                }
+
+                if (!data) {
+                    console.warn('showPopup: 没有可用的数据', featureData);
+                    return;
+                }
+
+                title.textContent = data.organization || data.title || '{{__('未知机构')}}';
+
+                let popupHtml = '';
+                if (data.type) {
+                    popupHtml += `<div><strong>{{__('类型')}}:</strong> ${data.type}</div>`;
+                }
+                if (data.age) {
+                    popupHtml += `<div><strong>{{__('年龄范围')}}:</strong> ${data.age}</div>`;
+                }
+                if (data.district) {
+                    popupHtml += `<div><strong>{{__('区域')}}:</strong> ${data.district}</div>`;
+                }
+                if (data.capacity) {
+                    popupHtml += `<div><strong>{{__('容量')}}:</strong> ${data.capacity}</div>`;
+                }
+                if (data.address) {
+                    popupHtml += `<div><strong>{{__('地址')}}:</strong> ${data.address}</div>`;
+                }
+                if (data.phone) {
+                    popupHtml += `<div><strong>{{__('电话号码')}}:</strong> ${data.phone}</div>`;
+                }
+                if (data.email) {
+                    popupHtml += `<div><strong>{{__('电子邮件')}}:</strong> ${data.email}</div>`;
+                }
+                if (data.webpage) {
+                    popupHtml += `<div><strong>{{__('网页')}}:</strong> ${data.webpage}</div>`;
+                }
+                if (data.service_hours || data.serviceHours) {
+                    popupHtml += `<div><strong>{{__('服务时间')}}:</strong> ${data.service_hours || data.serviceHours || ''}</div>`;
+                }
+
+                content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
+
+                popup.style.display = 'block';
+
+                requestAnimationFrame(function() {
+                    if (!pixel) {
+                        if (coordinates) {
+                            pixel = map.getPixelFromCoordinate(coordinates);
+                        } else if (featureData && featureData.coordinates) {
+                            pixel = map.getPixelFromCoordinate(featureData.coordinates);
+                        } else if (data.longitude !== undefined && data.latitude !== undefined) {
+                            pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
+                        }
+                    }
+
+                    if (pixel && pixel.length === 2) {
+                        const mapViewport = map.getViewport();
+                        const mapRect = mapViewport.getBoundingClientRect();
+
+                        const popupLeft = mapRect.left + pixel[0];
+                        const popupTop = mapRect.top + pixel[1];
+
+                        const popupWidth = popup.offsetWidth;
+                        const popupHeight = popup.offsetHeight;
+                        const windowWidth = window.innerWidth;
+                        const windowHeight = window.innerHeight;
+
+                        let finalLeft = popupLeft;
+                        let finalTop = popupTop - popupHeight - 45;
+
+                        if (finalLeft - popupWidth/2 < 0) {
+                            finalLeft = popupWidth/2 + 10;
+                        } else if (finalLeft + popupWidth/2 > windowWidth) {
+                            finalLeft = windowWidth - popupWidth/2 - 10;
+                        }
+
+                        if (finalTop < 10) {
+                            finalTop = popupTop + 30;
+                        } else if (finalTop + popupHeight > windowHeight) {
+                            finalTop = windowHeight - popupHeight - 10;
+                        }
+
+                        popup.style.left = finalLeft + 'px';
+                        popup.style.top = finalTop + 'px';
+                    } else {
+                        const mapViewport = map.getViewport();
+                        const mapRect = mapViewport.getBoundingClientRect();
+                        const popupWidth = popup.offsetWidth;
+                        popup.style.left = (mapRect.left + mapRect.width / 2) + 'px';
+                        popup.style.top = (mapRect.top + mapRect.height / 2 - 100) + 'px';
+                    }
+                });
             }
 
             function hidePopup() {
@@ -549,12 +589,10 @@
 
             updateMarkers('all');
 
-            // 关闭弹窗按钮事件
             document.querySelector('.popup-close').addEventListener('click', function() {
                 hidePopup();
             });
 
-            // 点击地图其他区域关闭弹窗
             map.on('pointermove', function(e) {
                 const pixel = map.getEventPixel(e.originalEvent);
                 const hit = map.hasFeatureAtPixel(pixel, {
@@ -565,20 +603,27 @@
                 map.getTargetElement().style.cursor = hit ? 'pointer' : '';
             });
 
-            // 监听地图视图变化，更新弹窗位置
+            let pendingPopupData = null;
             map.getView().on('change:center', function() {
-                if (document.getElementById('map-popup').style.display === 'block') {
-                    // 如果弹窗正在显示，重新定位
-                    const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
-                    if (activeFeature) {
-                        const featureData = activeFeature.get('data');
-                        showPopup(featureData, null);
+                const popup = document.getElementById('map-popup');
+                const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
+
+                if (activeFeature) {
+                    const featureData = activeFeature.get('data');
+                    if (popup.style.display === 'block' || !popup.style.display || popup.style.display === 'none') {
+                        setTimeout(function() {
+                            showPopup(featureData, null);
+                        }, 50);
                     }
+                } else if (pendingPopupData) {
+                    setTimeout(function() {
+                        showPopup(pendingPopupData, null);
+                        pendingPopupData = null;
+                    }, 50);
                 }
             });
 
             map.getView().on('change:resolution', function() {
-                // 缩放时隐藏弹窗
                 hidePopup();
             });
 
@@ -599,18 +644,29 @@
                     if (featureToSelect) {
                         updateMarkerSelection(featureToSelect);
 
-                        // 显示信息弹窗
-                        showPopup(marker, null);
-
                         $location.removeClass('active');
                         $clickedItem.addClass('active');
 
                         const view = map.getView();
-                        view.animate({
-                            center: marker.coordinates,
-                            zoom: 15,
-                            duration: 500
-                        });
+                        const currentCenter = view.getCenter();
+                        const targetCenter = marker.coordinates;
+
+                        showPopup(marker, null);
+
+                        if (currentCenter &&
+                            (Math.abs(currentCenter[0] - targetCenter[0]) > 0.001 ||
+                             Math.abs(currentCenter[1] - targetCenter[1]) > 0.001)) {
+                            pendingPopupData = marker;
+                            view.animate({
+                                center: marker.coordinates,
+                                zoom: 15,
+                                duration: 500
+                            });
+                        } else {
+                            setTimeout(function() {
+                                showPopup(marker, null);
+                            }, 100);
+                        }
                     }
                 }
             })
