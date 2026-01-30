@@ -10,6 +10,7 @@ use App\Models\Manage\Admin;
 use App\Models\Manage\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -51,15 +52,33 @@ class AdminController extends Controller
     {
         $name = $request->query('name');
         $account = $request->query('account');
-        $role_id = $request->query('role_id');
 
         $admin = $request->user('admin');
         $admin_id = $admin->id;
+        $role = $admin->role;
+        $role_id = $role->id;
+
+        $role_ids = [];
+        if ($role_id > 1) {
+            $role_ids = DB::select(sprintf('WITH RECURSIVE role_hierarchy AS (
+                        SELECT id, name, level, pid, status
+                        FROM roles
+                        WHERE pid = %s and deleted_at IS NULL
+                        UNION ALL
+                        SELECT r.id, r.name, r.level, r.pid, r.status
+                        FROM roles r
+                        INNER JOIN role_hierarchy rh ON r.pid = rh.id
+                        WHERE r.deleted_at IS NULL
+                    )
+                    SELECT id FROM role_hierarchy', $role_id));
+            $role_ids = array_column($role_ids, 'id');
+        }
+
 
         $list = Admin::query()
             ->with(['role:id,name'])
             ->when($admin->id != 1, function ($query) use ($admin_id) {
-                $query->whereNotIn('id', [1, $admin_id]);
+                $query->whereNotIn('id', [$admin_id]);
             })
             ->when($name, function ($query) use ($name) {
                 $query->where('name', 'like', '%' . $name . '%');
@@ -67,9 +86,9 @@ class AdminController extends Controller
             ->when($account, function ($query) use ($account) {
                 $query->where('account', 'like', '%' . $account . '%');
             })
-            ->when($role_id, function ($query) use ($role_id) {
-                $query->whereHas('role', function ($query) use ($role_id) {
-                    $query->where('id', $role_id);
+            ->when(!empty($role_ids), function ($query) use ($role_ids) {
+                $query->whereHasIn('role', function ($query) use ($role_ids) {
+                    $query->whereIn('id', $role_ids);
                 });
             })
             ->select('id', 'account', 'avatar', 'name', 'status', 'created_at')
