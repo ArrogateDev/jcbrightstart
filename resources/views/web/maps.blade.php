@@ -392,59 +392,64 @@
 
                 if (featureData && featureData.mapData) {
                     const data = featureData.mapData;
-                    title.textContent = data.organization || data.title || '未知机构';
+                    title.textContent = data.organization || data.title || '{{__('未知机构')}}';
 
                     let popupHtml = '';
+                    if (data.type) {
+                        popupHtml += `<div><strong>{{__('类型')}}:</strong> ${data.address}</div>`;
+                    }
+                    if (data.age) {
+                        popupHtml += `<div><strong>{{__('年龄范围')}}:</strong> ${data.type}</div>`;
+                    }
+                    if (data.district) {
+                        popupHtml += `<div><strong>{{__('区域')}}:</strong> ${data.age}</div>`;
+                    }
+                    if (data.capacity) {
+                        popupHtml += `<div><strong>{{__('容量')}}:</strong> ${data.district}</div>`;
+                    }
+                    if (data.organization) {
+                        popupHtml += `<div><strong>{{__('地址')}}:</strong> ${data.capacity}</div>`;
+                    }
                     if (data.address) {
-                        popupHtml += `<div><strong>地址:</strong> ${data.address}</div>`;
+                        popupHtml += `<div><strong>{{__('电话号码。')}}:</strong> ${data.organization}</div>`;
                     }
                     if (data.phone) {
-                        popupHtml += `<div><strong>电话:</strong> ${data.phone}</div>`;
+                        popupHtml += `<div><strong>{{__('电子邮件')}}:</strong> ${data.address}</div>`;
                     }
                     if (data.email) {
-                        popupHtml += `<div><strong>邮箱:</strong> ${data.email}</div>`;
+                        popupHtml += `<div><strong>{{__('网页')}}:</strong> ${data.phone}</div>`;
                     }
-                    if (data.description) {
-                        popupHtml += `<div><strong>描述:</strong> ${data.description}</div>`;
-                    }
-                    if (data.service_type) {
-                        popupHtml += `<div><strong>服务类型:</strong> ${data.service_type}</div>`;
+                    if (data.webpage) {
+                        popupHtml += `<div><strong>{{__('服务时间')}}:</strong> ${data.email}</div>`;
                     }
 
-                    content.innerHTML = popupHtml || '<div>暂无详细信息</div>';
+                    content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
 
-                    // 设置弹窗位置 - 确保在锚点上方
                     const coordinate = featureData.coordinates;
                     const pixel = map.getPixelFromCoordinate(coordinate);
 
-                    // 获取地图容器的边界信息
                     const mapViewport = map.getViewport();
                     const mapRect = mapViewport.getBoundingClientRect();
 
-                    // 计算弹窗的绝对位置
                     const popupLeft = mapRect.left + pixel[0];
                     const popupTop = mapRect.top + pixel[1];
 
-                    // 设置弹窗位置，让它出现在锚点上方
                     let finalLeft = popupLeft;
-                    let finalTop = popupTop - popup.offsetHeight - 45; // 上移弹窗高度+20px
+                    let finalTop = popupTop - popup.offsetHeight - 45;
 
-                    // 边界检测，防止弹窗超出屏幕
                     const popupWidth = popup.offsetWidth;
                     const popupHeight = popup.offsetHeight;
                     const windowWidth = window.innerWidth;
                     const windowHeight = window.innerHeight;
 
-                    // 水平边界检测
                     if (finalLeft - popupWidth/2 < 0) {
                         finalLeft = popupWidth/2 + 10;
                     } else if (finalLeft + popupWidth/2 > windowWidth) {
                         finalLeft = windowWidth - popupWidth/2 - 10;
                     }
 
-                    // 垂直边界检测
                     if (finalTop < 10) {
-                        finalTop = popupTop + 30; // 如果上方空间不足，显示在下方
+                        finalTop = popupTop + 30;
                     } else if (finalTop + popupHeight > windowHeight) {
                         finalTop = windowHeight - popupHeight - 10;
                     }
