@@ -141,9 +141,9 @@
                     : `<span data-bs-toggle="dropdown" aria-expanded="false" class="status-tag badge badge-sm bg-success d-inline-flex align-items-center me-1""><i class="fa-solid fa-circle fs-5 me-1"></i>{{__('发表')}}</span>`;
 
             const statusOptions = [
-                { value: 0, label: '{{__('草稿')}}' },
-                { value: 1, label: '{{__('暂停')}}' },
-                { value: 2, label: '{{__('发表')}}' }
+                {value: 0, label: '{{__('草稿')}}'},
+                {value: 1, label: '{{__('暂停')}}'},
+                {value: 2, label: '{{__('发表')}}'}
             ];
 
             const statusMenuItems = statusOptions
@@ -172,29 +172,29 @@
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-video-circle me-1 text-gray-9 fw-bold"></i>
                                             ${item.units} {{__('单元')}}
-                                        </span>
-                                        <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
-                                            <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
-                                            ${item.quizzes} {{__('问题')}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>0</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
-                                <span>5.0 (0)</span>
-                            </div>
-                        </td>
-                        <td>${statusMenu}</td>
+            </span>
+            <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
+                <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
+${item.quizzes} {{__('问题')}}
+            </span>
+        </div>
+    </div>
+</div>
+</td>
+<td>0</td>
+<td>
+<div class="d-flex align-items-center">
+    <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
+    <span>5.0 (0)</span>
+</div>
+</td>
+<td>${statusMenu}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="${item.url}" class="d-inline-flex fs-14 me-1 action-icon">
                                     <i class="isax isax-edit-2"></i>
                                 </a>
-                                <a href="#" class="d-inline-flex fs-14 action-icon" onclick="handleDelete(${item.id}, '${item.title}')" title="{{__('删除')}}">
+                                <a href="#" class="d-inline-flex fs-14 action-icon" onclick="handleDelete(${item.id}, '${item.title}', '${item.status}')" title="{{__('删除')}}">
                                    <i class="isax isax-trash"></i>
                                 </a>
                             </div>
@@ -205,12 +205,18 @@
         });
     }
 
-    function handleDelete(id, name) {
+    function handleDelete(id, name, status) {
         const deleteMessage = '{{__('确定要删除课程:name吗？')}}'.replace(':name', `"${name}"`);
         confirm_alert(deleteMessage, "{{__('此操作不可恢复！')}}", 'Yes!')
             .then((result) => {
                 if (result.isConfirmed) {
                     showLoading();
+
+                    const statusTotalMaps = {
+                        0: 'draft-courses',
+                        1: 'suspensed-courses',
+                        2: 'published-courses'
+                    };
 
                     $.ajax({
                         url: '{{route('admin.course.destroy.html', ['course' => ':id'])}}'.replace(':id', id),
@@ -226,6 +232,9 @@
                             }
                             showToast('success', '{{__('删除成功')}}');
                             getData(currentPage, {keyword: searchKeyword});
+
+                            const $oldStatusTotal = $(`#${statusTotalMaps[status]}`)
+                            $oldStatusTotal.text(parseInt($oldStatusTotal.text()) - 1)
                         },
                         error: function () {
                             showToast('error', '{{__('操作失败，请稍后再试！')}}');
