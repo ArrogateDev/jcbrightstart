@@ -4,8 +4,14 @@
 <x-web.head/>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <style>
-    .media__img{
+    .media__img {
         height: 300px;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
     }
 </style>
 
@@ -21,7 +27,10 @@
                 @foreach($banners as $banner)
                     <div class="col-md-{{$banner['col']??0}} p-1">
                         <a class="w-100 h-100" href="{{$banner['url']??'javascript:void(0);'}}">
-                            <div class="picture-wal overflow-hidden position-relative" style="background: url('{{$banner['bg']??''}}');">
+                            <div class="picture-wal overflow-hidden position-relative">
+                                <img src="{{$banner['bg']??''}}"
+                                     class="w-100 h-100 object-fit-cover"
+                                     alt="{{$banner['title']??''}}">
                                 <div class="title h2 position-absolute">
                                     {{$banner['title']??''}}
                                 </div>
@@ -38,7 +47,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--blue">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-08.jpg')}}" alt="Welcome">
+                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="Welcome">
                             </div>
                         </div>
                     </div>
@@ -91,7 +100,7 @@
                     <div class="col-md-6 offset-md-1">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-02.png')}}" alt="Welcome 2">
                             </div>
                         </div>
                     </div>
@@ -105,7 +114,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--blue">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/about-us-01.jpg')}}" alt="About Us">
+                                <img src="{{web_resource_url('assets/img/home/home-03.png')}}" alt="About Us">
                             </div>
                         </div>
                     </div>
@@ -204,7 +213,7 @@
                     <div class="col-md-6 offset-md-1">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-04.png')}}" alt="Welcome 2">
                             </div>
                         </div>
                     </div>
@@ -218,7 +227,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-05.png')}}" alt="Welcome 2">
                             </div>
                         </div>
                     </div>

@@ -27,25 +27,25 @@ class IndexController extends Controller
         $banners = [
             [
                 'title' => __('最新消息'),
-                'bg' => web_resource_url('assets/web/images/our-class-11.jpg'),
+                'bg' => web_resource_url('assets/img/latest-news.png'),
                 'url' => route('news.html'),
                 'col' => 8
             ],
             [
                 'title' => __('香港0-3岁婴幼儿服务资讯'),
-                'bg' => web_resource_url('assets/web/images/our-class-11.jpg'),
+                'bg' => web_resource_url('assets/img/service-information.png'),
                 'url' => route('maps.html'),
                 'col' => 4
             ],
             [
                 'title' => __('专业学习社群'),
-                'bg' => web_resource_url('assets/web/images/our-class-11.jpg'),
+                'bg' => web_resource_url('assets/img/professional-learning-community.png'),
                 'url' => route('news.html'),
                 'col' => 4
             ],
             [
                 'title' => __('家长学习平台'),
-                'bg' => web_resource_url('assets/web/images/our-class-11.jpg'),
+                'bg' => web_resource_url('assets/img/parent-learning-platform.png'),
                 'url' => route($user ? 'user.dashboard.html' : 'login.html'),
                 'col' => 8
             ]
