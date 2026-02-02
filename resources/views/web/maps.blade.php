@@ -106,7 +106,7 @@
     }
 
     .map-popup {
-        position: fixed;
+        position: absolute;
         background: white;
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
@@ -448,8 +448,6 @@
 
                 content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
 
-                popup.style.display = 'block';
-
                 requestAnimationFrame(function() {
                     if (!pixel) {
                         if (coordinates) {
@@ -461,41 +459,87 @@
                         }
                     }
 
-                    if (pixel && pixel.length === 2) {
-                        const mapViewport = map.getViewport();
-                        const mapRect = mapViewport.getBoundingClientRect();
+                    const mapViewport = map.getViewport();
+                    const mapBox = document.getElementById('map-box');
+                    if (!mapBox) {
+                        console.error('地图容器未找到');
+                        return;
+                    }
 
-                        const popupLeft = mapRect.left + pixel[0];
-                        const popupTop = mapRect.top + pixel[1];
+                    const mapBoxRect = mapBox.getBoundingClientRect();
+                    const mapViewportRect = mapViewport.getBoundingClientRect();
+                    let shouldShow = false;
+
+                    if (pixel && pixel.length === 2) {
+                        // 计算相对于地图容器的位置
+                        // pixel[0] 和 pixel[1] 是相对于地图视口的像素位置
+                        const popupLeft = pixel[0];
+                        const popupTop = pixel[1];
 
                         const popupWidth = popup.offsetWidth;
                         const popupHeight = popup.offsetHeight;
-                        const windowWidth = window.innerWidth;
-                        const windowHeight = window.innerHeight;
+                        const mapBoxWidth = mapBoxRect.width;
+                        const mapBoxHeight = mapBoxRect.height;
 
                         let finalLeft = popupLeft;
                         let finalTop = popupTop - popupHeight - 45;
 
+                        // 确保弹窗在地图容器内
                         if (finalLeft - popupWidth/2 < 0) {
                             finalLeft = popupWidth/2 + 10;
-                        } else if (finalLeft + popupWidth/2 > windowWidth) {
-                            finalLeft = windowWidth - popupWidth/2 - 10;
+                        } else if (finalLeft + popupWidth/2 > mapBoxWidth) {
+                            finalLeft = mapBoxWidth - popupWidth/2 - 10;
                         }
 
                         if (finalTop < 10) {
                             finalTop = popupTop + 30;
-                        } else if (finalTop + popupHeight > windowHeight) {
-                            finalTop = windowHeight - popupHeight - 10;
+                        } else if (finalTop + popupHeight > mapBoxHeight) {
+                            finalTop = mapBoxHeight - popupHeight - 10;
                         }
 
-                        popup.style.left = finalLeft + 'px';
-                        popup.style.top = finalTop + 'px';
+                        // 检查弹窗是否在地图区域内（相对于地图容器）
+                        const popupRight = finalLeft + popupWidth / 2;
+                        const popupLeftEdge = finalLeft - popupWidth / 2;
+                        const popupBottom = finalTop + popupHeight;
+                        const popupTopEdge = finalTop;
+
+                        // 检查弹窗是否与地图区域有重叠
+                        shouldShow = !(popupRight < 0 || 
+                                     popupLeftEdge > mapBoxWidth || 
+                                     popupBottom < 0 || 
+                                     popupTopEdge > mapBoxHeight);
+
+                        if (shouldShow) {
+                            popup.style.left = finalLeft + 'px';
+                            popup.style.top = finalTop + 'px';
+                            popup.style.display = 'block';
+                        } else {
+                            popup.style.display = 'none';
+                        }
                     } else {
-                        const mapViewport = map.getViewport();
-                        const mapRect = mapViewport.getBoundingClientRect();
+                        // 如果无法计算位置，使用地图容器中心
                         const popupWidth = popup.offsetWidth;
-                        popup.style.left = (mapRect.left + mapRect.width / 2) + 'px';
-                        popup.style.top = (mapRect.top + mapRect.height / 2 - 100) + 'px';
+                        const popupHeight = popup.offsetHeight;
+                        const defaultLeft = mapBoxWidth / 2;
+                        const defaultTop = mapBoxHeight / 2 - 100;
+                        
+                        const popupRight = defaultLeft + popupWidth / 2;
+                        const popupLeftEdge = defaultLeft - popupWidth / 2;
+                        const popupBottom = defaultTop + popupHeight;
+                        const popupTopEdge = defaultTop;
+
+                        shouldShow = !(popupRight < 0 || 
+                                     popupLeftEdge > mapBoxWidth || 
+                                     popupBottom < 0 || 
+                                     popupTopEdge > mapBoxHeight);
+
+                        if (shouldShow) {
+                            popup.style.left = defaultLeft + 'px';
+                            popup.style.top = defaultTop + 'px';
+                            popup.style.display = 'block';
+                        } else {
+                            popup.style.display = 'none';
+                        }
                     }
                 });
             }
@@ -570,17 +614,33 @@
                 if (clickedFeature) {
                     updateMarkerSelection(clickedFeature);
 
-                    // 显示信息弹窗
                     const featureData = clickedFeature.get('data');
-                    showPopup(featureData, e.pixel);
+                    const view = map.getView();
+                    const currentCenter = view.getCenter();
+                    const targetCenter = featureData && featureData.coordinates;
 
-                    if (featureData && featureData.coordinates) {
-                        const view = map.getView();
+                    // 检查是否需要动画
+                    const needsAnimation = targetCenter && currentCenter &&
+                        (Math.abs(currentCenter[0] - targetCenter[0]) > 0.001 ||
+                         Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
+
+                    if (needsAnimation) {
+                        // 如果需要动画，先隐藏弹窗，等动画完成后再显示
+                        hidePopup();
+                        isAnimating = true;
                         view.animate({
-                            center: featureData.coordinates,
+                            center: targetCenter,
                             zoom: 15,
                             duration: 500
                         });
+                        // 动画完成后显示弹窗
+                        setTimeout(function() {
+                            isAnimating = false;
+                            showPopup(featureData, null);
+                        }, 600);
+                    } else {
+                        // 如果不需要动画，直接显示弹窗
+                        showPopup(featureData, e.pixel);
                     }
                 } else {
                     updateMarkerSelection(null);
@@ -604,22 +664,27 @@
             });
 
             let pendingPopupData = null;
+            let isAnimating = false;
+            
             map.getView().on('change:center', function() {
                 const popup = document.getElementById('map-popup');
                 const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
 
+                // 如果正在动画中，延迟显示弹窗
+                if (isAnimating) {
+                    return;
+                }
+
                 if (activeFeature) {
                     const featureData = activeFeature.get('data');
-                    if (popup.style.display === 'block' || !popup.style.display || popup.style.display === 'none') {
-                        setTimeout(function() {
-                            showPopup(featureData, null);
-                        }, 50);
-                    }
+                    setTimeout(function() {
+                        showPopup(featureData, null);
+                    }, 100);
                 } else if (pendingPopupData) {
                     setTimeout(function() {
                         showPopup(pendingPopupData, null);
                         pendingPopupData = null;
-                    }, 50);
+                    }, 100);
                 }
             });
 
@@ -651,18 +716,30 @@
                         const currentCenter = view.getCenter();
                         const targetCenter = marker.coordinates;
 
-                        showPopup(marker, null);
-
-                        if (currentCenter &&
+                        // 检查是否需要动画
+                        const needsAnimation = currentCenter &&
                             (Math.abs(currentCenter[0] - targetCenter[0]) > 0.001 ||
-                             Math.abs(currentCenter[1] - targetCenter[1]) > 0.001)) {
+                             Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
+
+                        if (needsAnimation) {
+                            // 如果需要动画，先隐藏弹窗，等动画完成后再显示
+                            hidePopup();
                             pendingPopupData = marker;
+                            isAnimating = true;
+                            
                             view.animate({
                                 center: marker.coordinates,
                                 zoom: 15,
                                 duration: 500
                             });
+                            
+                            // 动画完成后显示弹窗
+                            setTimeout(function() {
+                                isAnimating = false;
+                                showPopup(marker, null);
+                            }, 600);
                         } else {
+                            // 如果不需要动画，直接显示弹窗
                             setTimeout(function() {
                                 showPopup(marker, null);
                             }, 100);
