@@ -22,7 +22,8 @@ return new class extends Migration
             $table->date('end_date')->nullable()->comment('End Date');
             $table->time('start_time')->nullable()->comment('Start Time');
             $table->time('end_time')->nullable()->comment('End Time');
-            $table->tinyInteger('status')->default(0)->comment('Status');
+            $table->date('end_date')->nullable()->comment('End Date');
+            $table->timestamp('release_date')->nullable()->comment('Release Date');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -20,10 +20,11 @@ class NewsRequest extends BaseRequest
             $rules['title'] = 'bail|required';
             $rules['category_id'] = 'bail|required|exists:news_categories,id';
             $rules['short'] = 'bail|required';
-            $rules['start_date'] = 'bail|required|date:Y-m-d';
-            $rules['end_date'] = 'bail|required|date:Y-m-d|after_or_equal:start_date';
-            $rules['start_time'] = 'bail|required|date_format:h:i A';
-            $rules['end_time'] = 'bail|required|date_format:h:i A';
+            $rules['release_date'] = 'bail|required|date:Y-m-d H:i:s';
+//            $rules['start_date'] = 'bail|required|date:Y-m-d';
+//            $rules['end_date'] = 'bail|required|date:Y-m-d|after_or_equal:start_date';
+//            $rules['start_time'] = 'bail|required|date_format:h:i A';
+//            $rules['end_time'] = 'bail|required|date_format:h:i A';
             $rules['description'] = 'bail|required';
         }
 
@@ -52,6 +53,8 @@ class NewsRequest extends BaseRequest
             'category_id.required' => __('分类不能为空'),
             'category_id.exists' => __('选择的分类不存在'),
             'short.required' => __('简介不能为空'),
+            'release_date.required' => __('发布日期不能为空'),
+            'release_date.date' => __('发布日期格式错误'),
             'start_date.required' => __('开始日期不能为空'),
             'start_date.date' => __('开始日期格式错误'),
             'end_date.required' => __('结束日期不能为空'),
