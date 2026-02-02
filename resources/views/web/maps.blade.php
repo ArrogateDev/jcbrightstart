@@ -448,99 +448,118 @@
 
                 content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
 
+                // 先显示弹窗（但位置可能不对），以便正确计算尺寸
+                popup.style.display = 'block';
+                popup.style.visibility = 'hidden';
+
+                // 使用双重 requestAnimationFrame 确保 DOM 完全渲染后再计算位置
                 requestAnimationFrame(function() {
-                    if (!pixel) {
-                        if (coordinates) {
-                            pixel = map.getPixelFromCoordinate(coordinates);
-                        } else if (featureData && featureData.coordinates) {
-                            pixel = map.getPixelFromCoordinate(featureData.coordinates);
-                        } else if (data.longitude !== undefined && data.latitude !== undefined) {
-                            pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
+                    requestAnimationFrame(function() {
+                        const mapViewport = map.getViewport();
+                        const mapBox = document.getElementById('map-box');
+                        if (!mapBox) {
+                            console.error('地图容器未找到');
+                            popup.style.display = 'none';
+                            popup.style.visibility = 'visible';
+                            return;
                         }
-                    }
 
-                    const mapViewport = map.getViewport();
-                    const mapBox = document.getElementById('map-box');
-                    if (!mapBox) {
-                        console.error('地图容器未找到');
-                        return;
-                    }
+                        const mapBoxRect = mapBox.getBoundingClientRect();
+                        const mapViewportRect = mapViewport.getBoundingClientRect();
 
-                    const mapBoxRect = mapBox.getBoundingClientRect();
-                    const mapViewportRect = mapViewport.getBoundingClientRect();
-                    let shouldShow = false;
+                        // 计算视口相对于容器的偏移量
+                        const viewportOffsetX = mapViewportRect.left - mapBoxRect.left;
+                        const viewportOffsetY = mapViewportRect.top - mapBoxRect.top;
 
-                    if (pixel && pixel.length === 2) {
-                        // 计算相对于地图容器的位置
-                        // pixel[0] 和 pixel[1] 是相对于地图视口的像素位置
-                        const popupLeft = pixel[0];
-                        const popupTop = pixel[1];
+                        if (!pixel) {
+                            if (coordinates) {
+                                pixel = map.getPixelFromCoordinate(coordinates);
+                            } else if (featureData && featureData.coordinates) {
+                                pixel = map.getPixelFromCoordinate(featureData.coordinates);
+                            } else if (data.longitude !== undefined && data.latitude !== undefined) {
+                                pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
+                            }
+                        }
 
+                        // 现在弹窗已显示，可以正确获取尺寸
                         const popupWidth = popup.offsetWidth;
                         const popupHeight = popup.offsetHeight;
                         const mapBoxWidth = mapBoxRect.width;
                         const mapBoxHeight = mapBoxRect.height;
 
-                        let finalLeft = popupLeft;
-                        let finalTop = popupTop - popupHeight - 45;
+                        let shouldShow = false;
 
-                        // 确保弹窗在地图容器内
-                        if (finalLeft - popupWidth/2 < 0) {
-                            finalLeft = popupWidth/2 + 10;
-                        } else if (finalLeft + popupWidth/2 > mapBoxWidth) {
-                            finalLeft = mapBoxWidth - popupWidth/2 - 10;
-                        }
+                        if (pixel && pixel.length === 2) {
+                            // 计算相对于地图容器的位置
+                            // pixel[0] 和 pixel[1] 是相对于地图视口的像素位置
+                            // 需要加上视口相对于容器的偏移量
+                            // 注意：弹窗使用了 transform: translateX(-50%)，所以 left 值应该是弹窗中心的位置
+                            const popupLeft = pixel[0] + viewportOffsetX;
+                            const popupTop = pixel[1] + viewportOffsetY;
 
-                        if (finalTop < 10) {
-                            finalTop = popupTop + 30;
-                        } else if (finalTop + popupHeight > mapBoxHeight) {
-                            finalTop = mapBoxHeight - popupHeight - 10;
-                        }
+                            let finalLeft = popupLeft;
+                            let finalTop = popupTop - popupHeight - 45;
 
-                        // 检查弹窗是否在地图区域内（相对于地图容器）
-                        const popupRight = finalLeft + popupWidth / 2;
-                        const popupLeftEdge = finalLeft - popupWidth / 2;
-                        const popupBottom = finalTop + popupHeight;
-                        const popupTopEdge = finalTop;
+                            // 确保弹窗在地图容器内
+                            if (finalLeft - popupWidth/2 < 0) {
+                                finalLeft = popupWidth/2 + 10;
+                            } else if (finalLeft + popupWidth/2 > mapBoxWidth) {
+                                finalLeft = mapBoxWidth - popupWidth/2 - 10;
+                            }
 
-                        // 检查弹窗是否与地图区域有重叠
-                        shouldShow = !(popupRight < 0 || 
-                                     popupLeftEdge > mapBoxWidth || 
-                                     popupBottom < 0 || 
-                                     popupTopEdge > mapBoxHeight);
+                            if (finalTop < 10) {
+                                finalTop = popupTop + 30;
+                            } else if (finalTop + popupHeight > mapBoxHeight) {
+                                finalTop = mapBoxHeight - popupHeight - 10;
+                            }
 
-                        if (shouldShow) {
-                            popup.style.left = finalLeft + 'px';
-                            popup.style.top = finalTop + 'px';
-                            popup.style.display = 'block';
+                            // 检查弹窗是否在地图区域内（相对于地图容器）
+                            const popupRight = finalLeft + popupWidth / 2;
+                            const popupLeftEdge = finalLeft - popupWidth / 2;
+                            const popupBottom = finalTop + popupHeight;
+                            const popupTopEdge = finalTop;
+
+                            // 检查弹窗是否与地图区域有重叠
+                            shouldShow = !(popupRight < 0 ||
+                                         popupLeftEdge > mapBoxWidth ||
+                                         popupBottom < 0 ||
+                                         popupTopEdge > mapBoxHeight);
+
+                            if (shouldShow) {
+                                popup.style.left = finalLeft + 'px';
+                                popup.style.top = finalTop + 'px';
+                                popup.style.display = 'block';
+                                popup.style.visibility = 'visible';
+                            } else {
+                                popup.style.display = 'none';
+                                popup.style.visibility = 'visible';
+                            }
                         } else {
-                            popup.style.display = 'none';
-                        }
-                    } else {
-                        // 如果无法计算位置，使用地图容器中心
-                        const popupWidth = popup.offsetWidth;
-                        const popupHeight = popup.offsetHeight;
-                        const defaultLeft = mapBoxWidth / 2;
-                        const defaultTop = mapBoxHeight / 2 - 100;
-                        
-                        const popupRight = defaultLeft + popupWidth / 2;
-                        const popupLeftEdge = defaultLeft - popupWidth / 2;
-                        const popupBottom = defaultTop + popupHeight;
-                        const popupTopEdge = defaultTop;
+                            // 如果无法计算位置，使用地图容器中心
+                            const defaultLeft = mapBoxWidth / 2;
+                            const defaultTop = mapBoxHeight / 2 - 100;
 
-                        shouldShow = !(popupRight < 0 || 
-                                     popupLeftEdge > mapBoxWidth || 
-                                     popupBottom < 0 || 
-                                     popupTopEdge > mapBoxHeight);
+                            const popupRight = defaultLeft + popupWidth / 2;
+                            const popupLeftEdge = defaultLeft - popupWidth / 2;
+                            const popupBottom = defaultTop + popupHeight;
+                            const popupTopEdge = defaultTop;
 
-                        if (shouldShow) {
-                            popup.style.left = defaultLeft + 'px';
-                            popup.style.top = defaultTop + 'px';
-                            popup.style.display = 'block';
-                        } else {
-                            popup.style.display = 'none';
+                            shouldShow = !(popupRight < 0 ||
+                                         popupLeftEdge > mapBoxWidth ||
+                                         popupBottom < 0 ||
+                                         popupTopEdge > mapBoxHeight);
+
+                            if (shouldShow) {
+                                popup.style.left = defaultLeft + 'px';
+                                popup.style.top = defaultTop + 'px';
+                                popup.style.display = 'block';
+                                popup.style.visibility = 'visible';
+                            } else {
+                                popup.style.display = 'none';
+                                popup.style.visibility = 'visible';
+                            }
                         }
-                    }
+                    });
                 });
             }
 
@@ -665,7 +684,7 @@
 
             let pendingPopupData = null;
             let isAnimating = false;
-            
+
             map.getView().on('change:center', function() {
                 const popup = document.getElementById('map-popup');
                 const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
@@ -726,13 +745,13 @@
                             hidePopup();
                             pendingPopupData = marker;
                             isAnimating = true;
-                            
+
                             view.animate({
                                 center: marker.coordinates,
                                 zoom: 15,
                                 duration: 500
                             });
-                            
+
                             // 动画完成后显示弹窗
                             setTimeout(function() {
                                 isAnimating = false;
