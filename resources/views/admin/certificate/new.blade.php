@@ -81,7 +81,7 @@
         </button>
         <button class="btn btn-secondary rounded-pill" type="submit" onclick="handleSubmit()">{{__('提交')}}</button>
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <input type="hidden" id="edit-id">
+        <input type="hidden" id="cert-edit-id">
     </x-slot:footer>
 </x-layouts.modal>
 
@@ -562,7 +562,7 @@
         showLoading()
 
         const $modal = $('#certificate-form-modal');
-        const editId = $('#certificate-form-modal #edit-id').val();
+        const editId = $('#certificate-form-modal #cert-edit-id').val();
         let formData = new FormData();
 
         formData.append('name', name);
@@ -644,7 +644,7 @@
             if (!params) return
 
             $modal.find('.modal-header h5').text('{{__('编辑证书')}}');
-            $('#certificate-form-modal #edit-id').val(params.id || '');
+            $('#certificate-form-modal #cert-edit-id').val(params.id || '');
             $('#certificate_name').val(params.name || '');
             pendingCertificateData = params;
         });
@@ -703,7 +703,7 @@
             clearCanvasForReset();
 
             $modal.find('.modal-header h5').text('{{__('新增证书')}}');
-            $('#certificate-form-modal #edit-id').val('');
+            $('#certificate-form-modal #cert-edit-id').val('');
             $('#certificate_name').val('');
             $('#certificate_image').val('');
         });

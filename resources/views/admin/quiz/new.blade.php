@@ -21,7 +21,7 @@
         </button>
         <button class="btn btn-secondary rounded-pill submit" type="submit">{{__('提交')}}</button>
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <input type="hidden" id="edit-id">
+        <input type="hidden" id="quiz-edit-id">
     </x-slot:footer>
 
 </x-layouts.modal>
@@ -222,7 +222,7 @@
 
             showLoading();
             const formData = $form.serializeArray();
-            const editId = $('#edit-id').val();
+            const editId = $('#quiz-edit-id').val();
 
             let url, method;
             if (editId) {
@@ -265,14 +265,14 @@
                 $form[0].reset();
             }
             $questionsContainer.empty();
-            $('#edit-id').val('');
+            $('#quiz-edit-id').val('');
             $('#no-of-questions').text(0);
             $modal.find('.modal-header h5').text(quizLang.addTitle);
         }
 
         function populateForm(params) {
             $modal.find('.modal-header h5').text(quizLang.editTitle);
-            $('#edit-id').val(params.id || '');
+            $('#quiz-edit-id').val(params.id || '');
             $('#quiz-title').val(params.title || params.name || '');
 
             const questions = extractQuestionList(params);
