@@ -51,8 +51,7 @@
                             </h4>
                             <p class="media__text">{{$news->short}}</p>
                             <div class="date-box w-100">
-                                <p class="p-b-5">{{__('日期')}}：{{$news->event_date_text}}</p>
-                                <p class="p-b-5">{{__('时间')}}：{{$news->event_time_text}}</p>
+                                <p class="p-b-5">{{__('发布日期')}}：{{$news->release_date}}</p>
                             </div>
                         </div>
                     </div>

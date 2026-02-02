@@ -629,6 +629,37 @@ Version      : 1.0
 
   if ($(".datetimepicker").length > 0 && $.fn.datetimepicker) {
     $(".datetimepicker").datetimepicker({
+      format: "YYYY-MM-DD HH:mm:ss",
+      icons: {
+        up: "fa fa-angle-up",
+        down: "fa-solid fa-angle-down",
+        next: "fa-solid fa-angle-right",
+        previous: "fa-solid fa-angle-left",
+      },
+      sideBySide: true,
+      widgetPositioning: {
+        horizontal: 'auto',
+        vertical: 'auto'
+      },
+      allowInputToggle: true
+    });
+    
+    // 绑定图标点击事件来触发日期选择器
+    $(".datetimepicker").each(function() {
+      const $input = $(this);
+      const $icon = $input.siblings('.input-icon-addon').find('i');
+      if ($icon.length > 0) {
+        $icon.parent().on('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $input.focus().datetimepicker('show');
+        });
+      }
+    });
+  }
+
+  if ($(".datepicker").length > 0 && $.fn.datetimepicker) {
+    $(".datepicker").datetimepicker({
       format: "YYYY-MM-DD",
       icons: {
         up: "fa fa-angle-up",

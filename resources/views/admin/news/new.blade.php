@@ -86,52 +86,64 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>
+                                        <label class="form-label">{{__('发布日期')}}<span class="text-danger"> *</span></label>
                                         <div class="input-icon-end position-relative">
                                             <input type="text" class="form-control datetimepicker"
-                                                   placeholder="yyyy-mm-dd" id="start-date" name="start_date" value="{{$news->start_date??''}}">
+                                                   placeholder="yyyy-mm-dd H:i:s" id="release-date" name="release_date" value="{{$news->release_date??''}}">
                                             <span class="input-icon-addon">
 												<i class="isax isax-calendar"></i>
 											</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control timepicker"
-                                                   placeholder="h:i A" id="start-time" name="start_time" value="{{$news->start_time??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control datetimepicker"
-                                                   placeholder="yyyy-mm-dd" id="end-date" name="end_date" value="{{$news->end_date??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control timepicker"
-                                                   placeholder="h:i A" id="end-time" name="end_time" value="{{$news->end_time??''}}">
-                                            <span class="input-icon-addon">
-												<i class="isax isax-calendar"></i>
-											</span>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>--}}
+{{--                                        <div class="input-icon-end position-relative">--}}
+{{--                                            <input type="text" class="form-control datetimepicker"--}}
+{{--                                                   placeholder="yyyy-mm-dd" id="start-date" name="start_date" value="{{$news->start_date??''}}">--}}
+{{--                                            <span class="input-icon-addon">--}}
+{{--												<i class="isax isax-calendar"></i>--}}
+{{--											</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>--}}
+{{--                                        <div class="input-icon-end position-relative">--}}
+{{--                                            <input type="text" class="form-control timepicker"--}}
+{{--                                                   placeholder="h:i A" id="start-time" name="start_time" value="{{$news->start_time??''}}">--}}
+{{--                                            <span class="input-icon-addon">--}}
+{{--												<i class="isax isax-calendar"></i>--}}
+{{--											</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>--}}
+{{--                                        <div class="input-icon-end position-relative">--}}
+{{--                                            <input type="text" class="form-control datetimepicker"--}}
+{{--                                                   placeholder="yyyy-mm-dd" id="end-date" name="end_date" value="{{$news->end_date??''}}">--}}
+{{--                                            <span class="input-icon-addon">--}}
+{{--												<i class="isax isax-calendar"></i>--}}
+{{--											</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>--}}
+{{--                                        <div class="input-icon-end position-relative">--}}
+{{--                                            <input type="text" class="form-control timepicker"--}}
+{{--                                                   placeholder="h:i A" id="end-time" name="end_time" value="{{$news->end_time??''}}">--}}
+{{--                                            <span class="input-icon-addon">--}}
+{{--												<i class="isax isax-calendar"></i>--}}
+{{--											</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('描述')}}<span

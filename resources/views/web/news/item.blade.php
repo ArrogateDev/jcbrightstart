@@ -17,11 +17,7 @@
                     <div class="d-flex align-items-center flex-wrap justify-content-between">
                         <div class="d-flex align-items-center flex-wrap gap-2">
                             <img class="me-1" src="{{web_resource_url('assets/img/icons/calendar.svg')}}" alt="img">
-                            <p>{{$news->event_date_text}}</p>
-                        </div>
-                        <div class="d-flex align-items-center flex-wrap gap-2">
-                            <img class="me-1" src="{{web_resource_url('assets/img/icons/clock.svg')}}" alt="img">
-                            <p>{{$news->event_time_text}}</p>
+                            <p>{{__('发布日期')}}：{{$news->release_date}}</p>
                         </div>
                     </div>
                 </div>

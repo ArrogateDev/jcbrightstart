@@ -44,22 +44,18 @@ class NewsController extends Controller
                 $query->where('category_id', $category);
             })
             ->when($type === 1, function ($query) use ($now) {
-                $query->where(DB::raw("CONCAT(`end_date`, ' ', `end_time`)"), '>', $now);
+                $query->where('release_date', '>', $now);
             }, function ($query) use ($now) {
-                $query->where(DB::raw("CONCAT(`end_date`, ' ', `end_time`)"), '<=', $now);
+                $query->where('release_date', '<=', $now);
             })
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('id')
+            ->select('id', 'title', 'thumbnail', 'short', 'release_date')
             ->paginate(12);
 
         $list->map(function ($item) {
-            $date = Carbon::parse($item->created_at);
-            $item->month = $date->format('M');
-            $item->day = $date->format('d');
             $item->url = route('news.show.html', ['news' => $item->id]);
         });
-
-        $list->append(['event_date_text', 'event_time_text']);
 
         $html = '';
 
@@ -86,7 +82,6 @@ class NewsController extends Controller
         $date = Carbon::parse($news->created_at);
         $news->month = $date->format('M');
         $news->day = $date->format('d');
-        $news->append(['event_date_text', 'event_time_text']);
 
         $prev = News::query()
             ->where('id', '<', $news->id)
