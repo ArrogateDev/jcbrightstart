@@ -111,7 +111,53 @@ li
     gap: 10px;
 }
 
+/* 单元项展开样式 */
+.unit-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unit-item:hover {
+    background-color: #f8f9fa;
+}
+
+.unit-expand-icon {
+    transition: transform 0.3s ease;
+}
+
+.unit-item.expanded .unit-expand-icon {
+    transform: rotate(180deg);
+}
+
+.unit-expand-content {
+    border-top: 1px solid #e9ecef;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.unit-title {
+    font-weight: 500;
+}
+
+.unit-description h6 {
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.unit-description p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.unit-duration small {
+    font-size: 0.8rem;
+}
+
 .course-page-content .accordion-body ul li:last-child {
+    border-bottom: none;
+}
+
+.course-page-content .accordion-body ul li:last-child .unit-expand-content {
     border-bottom: none;
 }
 

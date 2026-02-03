@@ -233,6 +233,19 @@
                                 
                                 // 当用户选择图片时自动上传，并传递保存的光标位置
                                 uploadImageToServer(files[0], $editor, savedCursorRange);
+                            },
+                            onChange: function(contents, $editable) {
+                                // 同步内容到对应的textarea
+                                const chapterIndex = $editor.data('chapter-index');
+                                const unitIndex = $editor.data('unit-index');
+                                
+                                if (chapterIndex !== undefined && unitIndex !== undefined) {
+                                    // 这是单元描述的Summernote
+                                    const $textarea = $(`textarea[data-chapter-index="${chapterIndex}"][data-unit-index="${unitIndex}"]`);
+                                    if ($textarea.length) {
+                                        $textarea.val(contents);
+                                    }
+                                }
                             }
                         }
                     });

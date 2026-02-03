@@ -129,6 +129,14 @@
                                                         @endif
                                                     </select>
                                                 </div>
+                                                <div class="mt-2">
+                                                    <label class="form-label">{{__('描述')}}</label>
+                                                    <div class="summernote" data-chapter-index="{{$chapterIdx}}" data-unit-index="{{$unitIdx}}">{!! $unit->description??'' !!}</div>
+                                                    <textarea name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][description]" 
+                                                              class="form-control d-none unit-description-textarea" 
+                                                              data-chapter-index="{{$chapterIdx}}" 
+                                                              data-unit-index="{{$unitIdx}}">{!! $unit->description??'' !!}</textarea>
+                                                </div>
                                                 <input type="hidden" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][id]"
                                                        value="{{$unit->id??''}}">
                                             </div>
