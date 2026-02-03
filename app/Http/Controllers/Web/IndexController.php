@@ -51,7 +51,7 @@ class IndexController extends Controller
             ]
         ];
 
-        $now = Carbon::now()->toDateTimeString();
+        $now = Carbon::now()->toDateString();
         $news = News::query()
             ->where('release_date', '>=', $now)
             ->where('status', News::STATUS_PUBLISHED)
