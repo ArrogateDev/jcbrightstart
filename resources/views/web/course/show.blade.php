@@ -17,7 +17,7 @@
             <div class="container">
 
                 <div class="row mt-4">
-                    <div class="col-lg-8">
+                    <div class="col-12">
                         <div class="position-relative">
                             <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
                         </div>
@@ -89,34 +89,6 @@
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="course-sidebar-sec mt-0">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <h5 class="subs-title mb-4">Includes</h5>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play.svg')}}" alt="img">11 hours
-                                        on-demand video</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/import.svg')}}" alt="img">69
-                                        downloadable resources</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/key.svg')}}" alt="img">Full
-                                        lifetime access</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/monitor-mobbile.svg')}}" alt="img">Access on mobile and TV</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/cloud-lightning.svg')}}" alt="img">Assignments</p>
-                                    <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/teacher.svg')}}" alt="img">Certificate of Completion</p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body cou-features">
-                                    <h5 class="subs-title mb-4">Course Features</h5>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/people2.svg')}}" alt="img">Enrolled: 32 students</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/timer-start3.svg')}}" alt="img">Duration: 20 hours</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/note.svg')}}" alt="img">Chapters: 15</p>
-                                    <p class="mb-3"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/play3.svg')}}" alt="img">Video: 12 hours</p>
-                                    <p class="mb-0"><img class="mr-2" src="{{web_resource_url('assets/admin/img/icons/chart.svg')}}" alt="img">Level: Beginner</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

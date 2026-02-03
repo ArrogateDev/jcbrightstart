@@ -324,6 +324,45 @@ li
     max-height: 100% !important;
 }
 
+/* 确保PDF内的链接可以点击，不被翻页事件拦截 */
+#play-box .modal-body ._df_book .df-link-content {
+    pointer-events: all !important;
+    z-index: 10 !important;
+}
+
+#play-box .modal-body ._df_book .linkAnnotation,
+#play-box .modal-body ._df_book .customLinkAnnotation,
+#play-box .modal-body ._df_book section.linkAnnotation,
+#play-box .modal-body ._df_book a.linkAnnotation,
+#play-box .modal-body ._df_book a.df-autolink,
+#play-box .modal-body ._df_book .df-link-content section,
+#play-box .modal-body ._df_book .df-link-content a {
+    z-index: 15 !important;
+    pointer-events: all !important;
+    cursor: pointer !important;
+    position: relative !important;
+}
+
+#play-box .modal-body ._df_book .df-page-content {
+    pointer-events: none;
+}
+
+#play-box .modal-body ._df_book .df-page-content .df-link-content,
+#play-box .modal-body ._df_book .df-page-content .annotationLayer {
+    pointer-events: all !important;
+    z-index: 10 !important;
+}
+
+/* 确保链接元素在页面内容之上 */
+#play-box .modal-body ._df_book .df-page {
+    pointer-events: none;
+}
+
+#play-box .modal-body ._df_book .df-page .df-link-content,
+#play-box .modal-body ._df_book .df-page .annotationLayer {
+    pointer-events: all !important;
+}
+
 #play-box.modal-pdf .modal-dialog {
     max-width: 95%;
     width: 95%;
