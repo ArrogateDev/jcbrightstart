@@ -266,12 +266,14 @@ li
 
 #play-box .modal-body.has-dflip {
     padding-bottom: 0;
-    height: 911px;
+    height: 80vh;
+    aspect-ratio: unset;
 }
 
 #play-box .modal-body:has(._df_book) {
     padding-bottom: 0;
-    height: 911px;
+    height: 80vh;
+    aspect-ratio: unset;
 }
 
 #play-box .modal-body iframe,
@@ -298,7 +300,8 @@ li
     top: 0;
     left: 0;
     width: 100%;
-    height: 911px;
+    height: 100%;
+    max-height: 80vh;
 }
 
 #play-box .modal-body ._df_book,
@@ -310,9 +313,31 @@ li
     -webkit-touch-callout: none;
 }
 
+#play-box .modal-body ._df_book .df-container,
+#play-box .modal-body ._df_book .df-app {
+    height: 100% !important;
+    max-height: 100% !important;
+}
+
+#play-box .modal-body ._df_book .df-container .df-viewer-container {
+    height: 100% !important;
+    max-height: 100% !important;
+}
+
 #play-box.modal-pdf .modal-dialog {
     max-width: 95%;
     width: 95%;
+    height: auto;
+    max-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+}
+
+#play-box.modal-pdf .modal-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 100px);
 }
 
 @media (min-width: 1200px) {

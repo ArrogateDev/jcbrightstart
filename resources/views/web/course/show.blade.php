@@ -19,9 +19,6 @@
                 <div class="row mt-4">
                     <div class="col-lg-8">
                         <div class="position-relative">
-                            <div class="play-icon" data-toggle="modal" data-target="#play-box" data-unit="{{$play_record->unit_id??0}}" data-play-position="{{$play_record->play_position??0}}">
-                                <i class="fa-solid fa-play" style="font-size: 1.5rem;"></i>
-                            </div>
                             <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
                         </div>
                         <div class="course-page-content pt-0">

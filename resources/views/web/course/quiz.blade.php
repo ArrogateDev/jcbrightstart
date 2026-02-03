@@ -279,19 +279,9 @@
                 } else {
                     $option.addClass('incorrect');
 
-                    $question.find('.quiz-explanation').addClass('show error');
-
                     if (wrongAnswers[index] === undefined) {
                         wrongAnswers[index] = optionIndex;
                     }
-
-                    $question.find('.quiz-option').each(function () {
-                        const $opt = $(this);
-                        const optIndex = parseInt($opt.data('option-index'), 10);
-                        if (optIndex !== correctAnswer) {
-                            $opt.addClass('disabled');
-                        }
-                    });
                 }
             });
 

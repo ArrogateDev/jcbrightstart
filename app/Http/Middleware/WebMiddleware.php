@@ -191,7 +191,7 @@ class WebMiddleware
                 'title' => __('主菜单'),
                 'children' => [
                     [
-                        'title' => __('仪表盘'),
+                        'title' => __('仪表板'),
                         'icon' => 'isax isax-grid-35',
                         'url' => route('user.dashboard.html'),
                         'active' => 'dashboard'
