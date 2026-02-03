@@ -23,7 +23,7 @@ return new class extends Migration
             $table->time('start_time')->nullable()->comment('Start Time');
             $table->time('end_time')->nullable()->comment('End Time');
             $table->date('end_date')->nullable()->comment('End Date');
-            $table->timestamp('release_date')->nullable()->comment('Release Date');
+            $table->date('release_date')->nullable()->comment('Release Date');
             $table->softDeletes();
             $table->timestamps();
         });

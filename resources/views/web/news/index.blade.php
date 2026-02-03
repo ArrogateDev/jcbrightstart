@@ -202,7 +202,7 @@
         if (urlType) {
             $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
             params = Object.assign(params, {type: urlType});
-            $type.text(urlType === '1' ? '{{__('最新活动')}}' : '{{__('过去活动')}}')
+            $type.text(urlType === '1' ? '{{__('最新消息')}}' : '{{__('过去消息')}}')
         }
 
         getData(page, params)

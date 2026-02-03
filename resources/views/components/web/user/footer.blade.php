@@ -46,7 +46,7 @@
     }
 
     .section-heading-1 .section-heading__title {
-        color: #ff97a4;
+        color: #000;
         margin-bottom: 2px;
         font-weight: 400;
         font-size: 24px;

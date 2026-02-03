@@ -88,8 +88,8 @@
                                     <div class="mb-3">
                                         <label class="form-label">{{__('发布日期')}}<span class="text-danger"> *</span></label>
                                         <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control datetimepicker"
-                                                   placeholder="yyyy-mm-dd H:i:s" id="release-date" name="release_date" value="{{$news->release_date??''}}">
+                                            <input type="text" class="form-control datepicker"
+                                                   placeholder="yyyy-mm-dd" id="release-date" name="release_date" value="{{$news->release_date??''}}">
                                             <span class="input-icon-addon">
 												<i class="isax isax-calendar"></i>
 											</span>
