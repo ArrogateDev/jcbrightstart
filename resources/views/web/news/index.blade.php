@@ -118,32 +118,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="section cta-1 bg-pink p-t-80 p-b-55">
-            <div class="container">
-                <div class="cta-wrap">
-                    <div class="cta__img wow fadeInUp" data-wow-delay=".2s">
-                        <img src="{{web_resource_url('assets/web/images/cta-item-01.png')}}" alt="CTA">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-7 offset-md-5">
-                            <div class="wrap--w625">
-                                <div class="cta">
-                                    <div class="cta__body">
-                                        <h2 class="title cta__title">How to Enroll Your Child to a Class?</h2>
-                                        <p class="cta__text">Interested in good preschool education for your child? Our kindergarten is the right decision!</p>
-                                        <a class="au-btn au-btn--blue" href="#">find our more
-                                            <i class="zmdi zmdi-chevron-right"></i>
-                                            <i class="zmdi zmdi-chevron-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <x-web.footer/>

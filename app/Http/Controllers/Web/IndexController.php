@@ -53,7 +53,7 @@ class IndexController extends Controller
 
         $now = Carbon::now()->toDateTimeString();
         $news = News::query()
-            ->where(DB::raw("CONCAT(`end_date`, ' ', `end_time`)"), '>', $now)
+            ->where('release_date', '>=', $now)
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('id')
             ->limit(10)
