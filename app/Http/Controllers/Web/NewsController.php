@@ -44,9 +44,9 @@ class NewsController extends Controller
                 $query->where('category_id', $category);
             })
             ->when($type === 1, function ($query) use ($now) {
-                $query->where('release_date', '>', $now);
+                $query->where('release_date', '>=', $now);
             }, function ($query) use ($now) {
-                $query->where('release_date', '<=', $now);
+                $query->where('release_date', '<', $now);
             })
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('id')
