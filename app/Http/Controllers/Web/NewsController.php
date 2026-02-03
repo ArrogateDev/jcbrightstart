@@ -34,7 +34,7 @@ class NewsController extends Controller
         $keywords = $request->query('keywords');
         $category = $request->query('category');
         $type = (int)$request->query('type', 1);
-        $now = Carbon::now()->toDateTimeString();
+        $now = Carbon::now()->toDateString();
 
         $list = News::query()
             ->when($keywords, function ($query) use ($keywords) {
