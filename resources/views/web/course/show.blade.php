@@ -24,8 +24,8 @@
                         <div class="course-page-content pt-0">
                             <div class="card mb-4">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Overview</h5>
-                                    <h6 class="mb-2">Course Description</h6>
+                                    <h5 class="mb-3">{{__('概览')}}</h5>
+                                    <h6 class="mb-2">{{__('课程简介')}}</h6>
                                     <div>
                                         {!! $course->description !!}
                                     </div>
@@ -34,8 +34,8 @@
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between flex-wrap">
-                                        <h5 class="subs-title mb-2 mb-sm-3">Course Content</h5>
-                                        <h6 class="fs-16 fw-medium text-gray-7 mb-3">{{$course->unit_num??0}} Units</h6>
+                                        <h5 class="subs-title mb-2 mb-sm-3">{{__('课程内容')}}</h5>
+                                        <h6 class="fs-16 fw-medium text-gray-7 mb-3">{{$course->unit_num??0}} {{__('单元')}}</h6>
                                     </div>
                                     <div class="accordion accordion-customicon1 accordions-items-seperate p-0" id="chapter-box">
                                         @foreach($course->chapters as $chapter)
@@ -67,11 +67,11 @@
                                                                                        data-chapter="{{$unit->chapter_id??0}}"
                                                                                        data-unit="{{$unit->id??0}}"
                                                                                        data-quiz="{{$unit->quiz_id??0}}"
-                                                                                       data-status="{{$unit->status??0}}">Quiz</a>
+                                                                                       data-status="{{$unit->status??0}}">{{__('测验')}}</a>
                                                                                 @else
                                                                                     <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
                                                                                        data-unit="{{$unit->id??0}}"
-                                                                                       data-status="{{$unit->status??0}}" data-play-position="{{$unit->play_position??0}}">Preview</a>
+                                                                                       data-status="{{$unit->status??0}}" data-play-position="{{$unit->play_position??0}}">{{__('打开')}}</a>
                                                                                 @endif
 
                                                                                 @if($unit->status === 1)
