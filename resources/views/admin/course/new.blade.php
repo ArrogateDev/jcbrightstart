@@ -738,7 +738,7 @@
             }
 
             // 处理章节和单元数据
-            $('.chapter-item').each(function (chapterIdx) {
+            $('#course-form .chapter-item').each(function (chapterIdx) {
                 const $chapter = $(this);
                 const chapterIndex = $chapter.data('chapter-index') !== undefined ? $chapter.data('chapter-index') : chapterIdx;
                 const chapterTitle = $chapter.find('input[name*="[title]"]').val();
@@ -775,6 +775,19 @@
                                 formData.append(`chapters[${chapterIndex}][units][${unitIndex}][quiz_id]`, quizId);
                             }
 
+                            // 处理单元描述
+                            const $unitSummernote = $unit.find('.summernote');
+                            console.log($unitSummernote);
+                            let unitDescription = '';
+                            try {
+                                unitDescription = $unitSummernote.eq(0).summernote('code') || '';
+                            console.log(unitDescription);
+                            } catch (e) {
+                                unitDescription = '';
+                            }
+
+                            formData.append(`chapters[${chapterIndex}][units][${unitIndex}][description]`, unitDescription);
+
                             if (unitType == 0) {
                                 const videoUrl = $unit.find('input[name*="[video_url]"]').val();
                                 if (videoUrl) {
@@ -790,6 +803,7 @@
                     });
                 }
             });
+            return false;
 
             let url, method;
             if (editId) {

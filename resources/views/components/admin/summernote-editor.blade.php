@@ -7,7 +7,7 @@
         try {
             // 聚焦编辑区域
             $editable.focus();
-            
+
             // 获取当前选择
             const selection = window.getSelection();
             if (selection.rangeCount > 0) {
@@ -38,7 +38,7 @@
             return false;
         }
     }
-    
+
     // 图片上传函数
     function uploadImageToServer(file, $editor, savedCursorRange) {
         // 验证文件类型和大小
@@ -60,10 +60,10 @@
         // 获取 summernote 的编辑区域
         const $noteEditor = $editor.next('.note-editor');
         const $noteEditable = $noteEditor.find('.note-editable');
-        
+
         // 使用传入的保存范围，如果没有则尝试获取当前光标位置
         let savedRange = savedCursorRange || null;
-        
+
         if (!savedRange) {
             try {
                 // 聚焦编辑区域以确保有选择
@@ -107,26 +107,26 @@
                     try {
                         // 获取当前内容
                         let editableContent = $noteEditable.html() || '';
-                        
+
                         // 如果编辑器为空，直接设置内容
                         if (!editableContent || editableContent.trim() === '' || editableContent === '<br>' || editableContent === '<p><br></p>') {
                             $noteEditable.html(imgNode.outerHTML);
                         } else {
                             // 聚焦编辑区域
                             $noteEditable.focus();
-                            
+
                             // 尝试恢复保存的光标位置
                             if (savedRange) {
                                 try {
                                     const selection = window.getSelection();
                                     selection.removeAllRanges();
-                                    
+
                                     // 检查保存的范围是否仍然有效
                                     if (savedRange.startContainer && document.contains(savedRange.startContainer)) {
                                         selection.addRange(savedRange);
                                         // 在光标位置插入图片
                                         savedRange.insertNode(imgNode);
-                                        
+
                                         // 将光标移到图片后面
                                         const newRange = document.createRange();
                                         newRange.setStartAfter(imgNode);
@@ -219,7 +219,7 @@
                                 // 在回调中立即保存光标位置（此时光标还在）
                                 const $noteEditor = $editor.next('.note-editor');
                                 const $noteEditable = $noteEditor.find('.note-editable');
-                                
+
                                 let savedCursorRange = null;
                                 try {
                                     $noteEditable.focus();
@@ -230,22 +230,9 @@
                                 } catch(e) {
                                     // 忽略错误
                                 }
-                                
+
                                 // 当用户选择图片时自动上传，并传递保存的光标位置
                                 uploadImageToServer(files[0], $editor, savedCursorRange);
-                            },
-                            onChange: function(contents, $editable) {
-                                // 同步内容到对应的textarea
-                                const chapterIndex = $editor.data('chapter-index');
-                                const unitIndex = $editor.data('unit-index');
-                                
-                                if (chapterIndex !== undefined && unitIndex !== undefined) {
-                                    // 这是单元描述的Summernote
-                                    const $textarea = $(`textarea[data-chapter-index="${chapterIndex}"][data-unit-index="${unitIndex}"]`);
-                                    if ($textarea.length) {
-                                        $textarea.val(contents);
-                                    }
-                                }
                             }
                         }
                     });
