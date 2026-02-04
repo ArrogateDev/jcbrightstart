@@ -66,7 +66,7 @@ class LoginController extends Controller
                 throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
-            Auth::login($user, $remember_me === 'on');
+            Auth::guard('web')->login($user, $remember_me === 'on');
 
             Auth::logoutOtherDevices($password);
 
@@ -134,7 +134,7 @@ class LoginController extends Controller
                 throw new ApiException(__('账号已被禁用'), ResponseCode::FORBIDDEN);
             }
 
-            Auth::login($user);
+            Auth::guard('web')->login($user);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
@@ -223,7 +223,7 @@ class LoginController extends Controller
                 throw new ApiException(__('账号已被禁用'), ResponseCode::FORBIDDEN);
             }
 
-            Auth::login($user);
+            Auth::guard('web')->login($user);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
@@ -233,4 +233,6 @@ class LoginController extends Controller
             throw new ApiException(__('登录失败'), ResponseCode::LOGIN_FAIL);
         }
     }
+
+
 }

@@ -68,7 +68,7 @@ class AuthController extends Controller
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
 
-            Auth::guard('admin')->logoutOtherDevices($password);
+            Auth::logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
@@ -91,7 +91,13 @@ class AuthController extends Controller
 
         Auth::guard('admin')->logout();
 
-        $request->session()->invalidate();
+        $user = Auth::guard('admin')->user();
+        if ($user) {
+            $request->session()->forget([
+                'login_admin_' . sha1($user->getAuthIdentifier()),
+                'password_hash_admin'
+            ]);
+        }
 
         $request->session()->regenerateToken();
 
@@ -100,4 +106,6 @@ class AuthController extends Controller
 
         return $this->responseSuccess(null, __('退出成功'));
     }
+
+
 }

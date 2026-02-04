@@ -20,9 +20,15 @@ class AuthController extends Controller
     {
         $locale = $request->session()->get('locale');
 
-        Auth::logout();
+        Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        $user = Auth::guard('web')->user();
+        if ($user) {
+            $request->session()->forget([
+                'login_web_' . sha1($user->getAuthIdentifier()),
+                'password_hash_web'
+            ]);
+        }
 
         $request->session()->regenerateToken();
 
