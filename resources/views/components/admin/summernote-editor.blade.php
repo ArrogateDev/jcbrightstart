@@ -188,56 +188,68 @@
         });
     }
 
+    // 初始化单个 Summernote 编辑器的函数
+    function initSingleSummernote($editor) {
+        if (!$editor || !$editor.length) {
+            return;
+        }
+        // 如果已经初始化，先销毁
+        try {
+            if ($editor.summernote('code') !== undefined) {
+                $editor.summernote('destroy');
+            }
+        } catch (e) {
+            // 如果还没有初始化，忽略错误
+        }
+        // 初始化并配置图片上传
+        $editor.summernote({
+            height: {{ $height }},
+            minHeight: null,
+            maxHeight: null,
+            toolbar: [
+                ['fontsize', ['fontsize']],
+                ['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough']],
+                ['insert', ['picture', 'link']],
+                ['para', ['ul', 'ol', 'paragraph']],
+            ],
+            callbacks: {
+                onImageUpload: function (files) {
+                    // 在回调中立即保存光标位置（此时光标还在）
+                    const $noteEditor = $editor.next('.note-editor');
+                    const $noteEditable = $noteEditor.find('.note-editable');
+
+                    let savedCursorRange = null;
+                    try {
+                        $noteEditable.focus();
+                        const selection = window.getSelection();
+                        if (selection.rangeCount > 0) {
+                            savedCursorRange = selection.getRangeAt(0).cloneRange();
+                        }
+                    } catch(e) {
+                        // 忽略错误
+                    }
+
+                    // 当用户选择图片时自动上传，并传递保存的光标位置
+                    uploadImageToServer(files[0], $editor, savedCursorRange);
+                }
+            }
+        });
+    }
+
+    // 初始化所有 Summernote 编辑器
+    function initAllSummernote() {
+        if ($('.summernote').length > 0) {
+            $('.summernote').each(function () {
+                initSingleSummernote($(this));
+            });
+        }
+    }
+
     // 初始化 Summernote 编辑器，配置图片上传
     // 使用 setTimeout 确保在 script.js 初始化之后执行
     $(document).ready(function () {
         setTimeout(function () {
-            if ($('.summernote').length > 0) {
-                $('.summernote').each(function () {
-                    const $editor = $(this);
-                    // 如果已经初始化，先销毁
-                    try {
-                        if ($editor.summernote('code') !== undefined) {
-                            $editor.summernote('destroy');
-                        }
-                    } catch (e) {
-                        // 如果还没有初始化，忽略错误
-                    }
-                    // 重新初始化并配置图片上传
-                    $editor.summernote({
-                        height: {{ $height }},
-                        minHeight: null,
-                        maxHeight: null,
-                        toolbar: [
-                            ['fontsize', ['fontsize']],
-                            ['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough']],
-                            ['insert', ['picture', 'link']],
-                            ['para', ['ul', 'ol', 'paragraph']],
-                        ],
-                        callbacks: {
-                            onImageUpload: function (files) {
-                                // 在回调中立即保存光标位置（此时光标还在）
-                                const $noteEditor = $editor.next('.note-editor');
-                                const $noteEditable = $noteEditor.find('.note-editable');
-
-                                let savedCursorRange = null;
-                                try {
-                                    $noteEditable.focus();
-                                    const selection = window.getSelection();
-                                    if (selection.rangeCount > 0) {
-                                        savedCursorRange = selection.getRangeAt(0).cloneRange();
-                                    }
-                                } catch(e) {
-                                    // 忽略错误
-                                }
-
-                                // 当用户选择图片时自动上传，并传递保存的光标位置
-                                uploadImageToServer(files[0], $editor, savedCursorRange);
-                            }
-                        }
-                    });
-                });
-            }
+            initAllSummernote();
         }, 100);
     });
 </script>

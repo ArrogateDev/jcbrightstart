@@ -619,6 +619,11 @@
             // 更新隐藏的ID字段
             template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][id]`);
 
+            // 更新 summernote 的 data 属性
+            const $summernote = template.find('.summernote');
+            $summernote.attr('data-chapter-index', chapterIndex);
+            $summernote.attr('data-unit-index', unitIndex);
+
             template.css('display', 'block');
             $(this).closest('.chapter-item').find('.units-container').append(template);
 
@@ -777,13 +782,34 @@
 
                             // 处理单元描述
                             const $unitSummernote = $unit.find('.summernote');
-                            console.log($unitSummernote);
                             let unitDescription = '';
-                            try {
-                                unitDescription = $unitSummernote.eq(0).summernote('code') || '';
-                            console.log(unitDescription);
-                            } catch (e) {
-                                unitDescription = '';
+                            if ($unitSummernote.length > 0) {
+                                const $editor = $unitSummernote.first();
+                                // 方法1: 优先从 .note-editable 获取（summernote 初始化后的实际内容区域）
+                                const $noteEditor = $editor.next('.note-editor');
+                                if ($noteEditor.length > 0) {
+                                    const $noteEditable = $noteEditor.find('.note-editable');
+                                    if ($noteEditable.length > 0) {
+                                        unitDescription = $noteEditable.html() || '';
+                                    }
+                                }
+                                
+                                // 方法2: 如果方法1没有获取到内容，尝试通过 summernote API 获取
+                                if (!unitDescription) {
+                                    try {
+                                        const code = $editor.summernote('code');
+                                        if (code !== undefined && code !== null) {
+                                            unitDescription = code;
+                                        }
+                                    } catch (e) {
+                                        // API 调用失败，忽略
+                                    }
+                                }
+                                
+                                // 方法3: 如果前两种方法都失败，从原始元素获取
+                                if (!unitDescription) {
+                                    unitDescription = $editor.html() || '';
+                                }
                             }
 
                             formData.append(`chapters[${chapterIndex}][units][${unitIndex}][description]`, unitDescription);
@@ -803,7 +829,6 @@
                     });
                 }
             });
-            return false;
 
             let url, method;
             if (editId) {
