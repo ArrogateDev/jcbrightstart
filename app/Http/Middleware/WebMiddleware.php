@@ -33,68 +33,6 @@ class WebMiddleware
 
             $url = $request->url();
 
-//            $navs[] = [
-//                'title' => __('關於我們'),
-//                'url' => route('page', ['page' => 'about-us.html']),
-//                'active' => $url === route('page', ['page' => 'about-us.html']),
-//                'children' => [
-//                    [
-//                        'title' => __('參與幼兒中心名稱'),
-//                        'url' => route('page', ['page' => 'about-us.html']),
-//                        'children' => [
-//                            [
-//                                'title' => 'Cohort 1',
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => 'Cohort 2',
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => 'Cohort 3',
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ]
-//                        ]
-//                    ],
-//                    [
-//                        'title' => __('計劃團隊'),
-//                        'url' => route('page', ['page' => 'about-us.html']),
-//                        'children' => [
-//                            [
-//                                'title' => __('計劃總監暨首席研究員'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => __('首席聯席研究員'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => __('聯席研究員'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ]
-//                        ]
-//                    ],
-//                    [
-//                        'title' => __('計劃夥伴'),
-//                        'url' => route('page', ['page' => 'about-us.html']),
-//                        'children' => [
-//                            [
-//                                'title' => __('主編機構'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => __('捐助機構'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ],
-//                            [
-//                                'title' => __('專業合作夥伴'),
-//                                'url' => route('page', ['page' => 'about-us.html']),
-//                            ]
-//                        ]
-//                    ]
-//                ]
-//            ];
-
             $navs[] = [
                 'title' => __('最新消息'),
                 'url' => route('news.html'),

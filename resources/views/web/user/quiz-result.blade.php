@@ -143,7 +143,6 @@
                             </div>
                         @endif
                     @else
-                        {{-- 未完成：显示测验界面 --}}
                         <div id="quiz-container" class="quiz-wizard">
                             <div class="quiz-attempt-card border-0">
                                 <div class="quiz-attempt-body p-0">
