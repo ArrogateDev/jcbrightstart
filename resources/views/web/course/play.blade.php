@@ -1,23 +1,9 @@
 <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
 
-<div class="modal fade" id="play-box" tabindex="-1" aria-labelledby="play-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="play-label">{{__('播放课程')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="play-content"></div>
-                <div id="play-loading" class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">{{__('加载中...')}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="play-content"></div>
+<div id="play-loading" class="d-flex justify-content-center align-items-center" style="height: 100%;">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">{{__('加载中...')}}</span>
     </div>
 </div>
 
@@ -25,8 +11,7 @@
 
 <script>
     $(function () {
-        const $modal = $('#play-box');
-        const $quiz = $('#quiz-box');
+        const $modal = $('#learn-box');
         let currentUnit = null;
         let currentChapter = null;
         let playStartTime = null;
@@ -38,12 +23,15 @@
         let pageCount = 0;
         let status = 0;
         let pdfAutoCompleteTimer = null;
+        let pendingPdfInit = null;
 
         function playUnit(unit, position = 0) {
 
             clearPlay()
             currentUnit = unit.id
             currentChapter = unit.chapter_id
+            // 开始加载新内容时显示 Loading
+            $('#play-loading').removeClass('d-none').addClass('d-flex')
             if (unit.type === 0 && unit.video_url) {
                 $modal.removeClass('modal-pdf');
                 let videoId = unit.video_id;
@@ -55,43 +43,58 @@
                 }
             } else if (unit.type === 1 && unit.file_url) {
                 $('#play-content').html(`<div class="_df_book" id="pdf-viewer"></div>`);
-                $('#play-box .modal-body').addClass('has-dflip');
+                $('#learn-box .modal-body').addClass('has-dflip');
 
                 $modal.addClass('modal-pdf');
 
-                $('#pdf-viewer').flipBook(unit.file_url, {
-                    showDownloadControl: false,
-                    enableDownload: false,
-                    showPrintControl: false,
-                    showSearchControl: false,
-                    autoOpenOutline: false,
-                    showThumbnail: false,
-                    autoOpenThumbnail: false,
-                    onReady: function onReady(app) {
-                        recordPlayStart(currentChapter, currentUnit);
-                        pageCount = app.pageCount;
-                        $('#play-loading').removeClass('d-flex').addClass('d-none')
+                const pdfHeight = $(window).height() * 0.75;
 
-                        // 对于少页数PDF，设置自动完成检查
-                        setupPdfAutoComplete(pageCount);
-                    },
-                    onPageChanged: function (app) {
-                        const currentPage = app.currentPageNumber;
-                        const totalPages = app.pageCount;
+                pendingPdfInit = function () {
+                    if (!$('#pdf-viewer').length) return;
+                    try {
+                        $('#pdf-viewer').flipBook(unit.file_url, {
+                            showDownloadControl: false,
+                            enableDownload: false,
+                            showPrintControl: false,
+                            showSearchControl: false,
+                            height: pdfHeight + 'px',
+                            autoOpenOutline: false,
+                            showThumbnail: false,
+                            autoOpenThumbnail: false,
+                            onReady: function onReady(app) {
+                                recordPlayStart(currentChapter, currentUnit);
+                                pageCount = app.pageCount;
+                                $('#play-loading').removeClass('d-flex').addClass('d-none')
 
-                        // 清除自动完成定时器，因为用户已经手动翻页
-                        if (pdfAutoCompleteTimer) {
-                            clearTimeout(pdfAutoCompleteTimer);
-                            pdfAutoCompleteTimer = null;
-                        }
+                                setupPdfAutoComplete(pageCount);
+                            },
+                            onPageChanged: function (app) {
+                                const currentPage = app.currentPageNumber;
+                                const totalPages = app.pageCount;
 
-                        if (currentPage === totalPages) {
-                            recordPlayEnd(currentChapter, currentUnit)
-                        } else {
-                            savePlayRecord(currentChapter, currentUnit, currentPage)
-                        }
+                                if (pdfAutoCompleteTimer) {
+                                    clearTimeout(pdfAutoCompleteTimer);
+                                    pdfAutoCompleteTimer = null;
+                                }
+
+                                if (currentPage === totalPages) {
+                                    recordPlayEnd(currentChapter, currentUnit)
+                                } else {
+                                    savePlayRecord(currentChapter, currentUnit, currentPage)
+                                }
+                            }
+                        });
+                        pendingPdfInit = null;
+                    } catch (e) {
+                        console.error('初始化PDF失败:', e);
                     }
-                });
+                };
+
+                if ($('#learn-play').hasClass('active') && $modal.hasClass('show')) {
+                    setTimeout(function () {
+                        if (pendingPdfInit) pendingPdfInit();
+                    }, 80);
+                }
             } else {
                 $modal.removeClass('modal-pdf');
                 $('#play-content').html('<div class="alert alert-warning text-center">{{__('该单元暂无内容')}}</div>');
@@ -270,7 +273,7 @@
                 const playPosition = unitInfo ? (unitInfo.play_position || 0) : 0;
 
                 $actionDiv.html(`
-                    <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
                        data-unit="${unitId}"
                        data-status="2"
                        data-play-position="${playPosition}">{{__('打开')}}</a>
@@ -282,7 +285,7 @@
                 const quizId = unitInfo ? (unitInfo.quiz_id || 0) : 0;
 
                 $actionDiv.html(`
-                    <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box"
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
                        data-course="${courseId}"
                        data-chapter="${chapterId}"
                        data-unit="${unitId}"
@@ -317,15 +320,19 @@
                     updateUnitStatus(unitId, 1);
 
                     const quiz = response.data.quiz
-                    $modal.modal('hide')
                     const params = {
                         course: {{$course->id}},
                         chapter: chapterId,
                         unit: unitId,
                         quiz: quiz,
                     };
-                    $quiz.data('params', params);
-                    $quiz.modal('show')
+                    // 切换到测验Tab并加载测验
+                    $('#learn-tabs a[href="#learn-quiz"]').tab('show');
+                    if (typeof window.openQuiz === 'function') {
+                        window.openQuiz(params);
+                    } else {
+                        $modal.data('params', params);
+                    }
                 },
                 error: function () {
                     // 记录失败，但不影响
@@ -351,13 +358,11 @@
         }
 
         function setupPdfAutoComplete(totalPages) {
-            // 如果PDF只有1-2页，则设置自动完成检查
             if (totalPages <= 2) {
-                const delay = totalPages === 1 ? 3000 : 6000; // 1页30秒，2页60秒
+                const delay = totalPages === 1 ? 3000 : 6000;
 
-                pdfAutoCompleteTimer = setTimeout(function() {
+                pdfAutoCompleteTimer = setTimeout(function () {
                     if (currentUnit && currentChapter) {
-                        // 直接记录播放结束
                         recordPlayEnd(currentChapter, currentUnit, totalPages);
                     }
                 }, delay);
@@ -390,16 +395,16 @@
                 window.dFlipPageCheckInterval = null;
             }
 
-            // 清除PDF自动完成定时器
             if (pdfAutoCompleteTimer) {
                 clearTimeout(pdfAutoCompleteTimer);
                 pdfAutoCompleteTimer = null;
             }
 
+            pendingPdfInit = null;
             window.dFlipBindRetryCount = 0;
 
             $('#dflip-pdf-viewer').remove();
-            $('#play-box .modal-body').removeClass('has-dflip');
+            $('#learn-box .modal-body').removeClass('has-dflip');
 
             $modal.removeClass('modal-pdf');
 
@@ -411,6 +416,7 @@
             const unit = parseInt(button.getAttribute('data-unit') || 0)
             status = parseInt(button.getAttribute('data-status') || 0)
             const position = parseInt(button.getAttribute('data-play-position'))
+            const tab = button.getAttribute('data-tab') || 'play'
 
             let $unit = $(`li[data-unit="${unit}"]`);
             if (!$unit) {
@@ -424,7 +430,14 @@
             }
 
             const title = $unit.data('title')
-            $('#play-label').text(title);
+            $('#learn-label').text(title);
+            $modal.data('lastUnit', unit);
+            if (tab === 'quiz') {
+                $('#learn-tabs a[href="#learn-quiz"]').tab('show');
+                return;
+            } else {
+                $('#learn-tabs a[href="#learn-play"]').tab('show');
+            }
             playUnit(info, position);
         });
 
@@ -450,5 +463,42 @@
             status = 0;
             $('#play-loading').removeClass('d-none').addClass('d-flex')
         });
+
+        $modal.on('shown.bs.modal', function () {
+            if (pendingPdfInit && $('#learn-play').hasClass('active')) {
+                setTimeout(function () {
+                    if (pendingPdfInit) pendingPdfInit();
+                }, 80);
+            }
+        });
+
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-play"]', function () {
+            if (pendingPdfInit && $modal.hasClass('show')) {
+                setTimeout(function () {
+                    if (pendingPdfInit) pendingPdfInit();
+                }, 80);
+            }
+            if (!currentUnit && $modal.hasClass('show')) {
+                const lastUnit = parseInt($modal.data('lastUnit') || 0);
+                if (lastUnit > 0 && typeof window.openPlay === 'function') {
+                    const $unitItem = $(`li[data-unit="${lastUnit}"]`);
+                    let pos = 0;
+                    if ($unitItem.length) {
+                        const info = $unitItem.data('info');
+                        pos = info ? (parseInt(info.play_position || 0) || 0) : 0;
+                    }
+                    window.openPlay(lastUnit, pos);
+                }
+            }
+        });
+
+        window.openPlay = function (unitId, position) {
+            let $unit = $(`li[data-unit="${unitId}"]`);
+            const info = $unit.data('info')
+            if (!info) return;
+            $modal.data('lastUnit', unitId);
+            $('#learn-tabs a[href="#learn-play"]').tab('show');
+            playUnit(info, position || 0);
+        }
     })
 </script>

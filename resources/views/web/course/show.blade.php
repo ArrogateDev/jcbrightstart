@@ -1,9 +1,73 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
+<style>
+    #learn-box .tab-content {
+        height: 500px;
+        overflow: hidden;
+    }
 
+    #learn-box.modal-pdf .tab-content {
+        height: 75vh;
+    }
+
+    #learn-box #learn-play,
+    #learn-box #learn-quiz,
+    #learn-box #play-content,
+    #learn-box #quiz-content {
+        height: 100%;
+    }
+
+    #learn-box #pdf-viewer,
+    #learn-box ._df_book {
+        height: 100%;
+    }
+
+    #learn-box #play-loading {
+        height: 100% !important;
+    }
+
+    .modal-dialog {
+        width: 1080px;
+        max-width: 100%;
+    }
+
+    .modal {
+        padding: 15px !important;
+    }
+
+    #learn-box .nav {
+        border: unset;
+        gap: .5rem;
+    }
+
+    #learn-box .nav-item {
+        border: unset;
+        border-radius: 45px;
+        padding: 0.5rem 1rem;
+        background-color: #f8f9fa;
+    }
+
+    #learn-box .nav-item a {
+        padding: 0;
+        border: unset;
+        color: black;
+        background: transparent;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+    }
+
+    #learn-box .nav-item:has(.active) {
+        background-color: #ffb900;
+    }
+
+    #learn-box .nav-item:has(.active) a {
+        color: white;
+    }
+</style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
 
@@ -62,14 +126,14 @@
                                                                             </p>
                                                                             <div class="d-flex align-items-center">
                                                                                 @if($unit->status === 1)
-                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box"
+                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
                                                                                        data-course="{{$unit->course_id??0}}"
                                                                                        data-chapter="{{$unit->chapter_id??0}}"
                                                                                        data-unit="{{$unit->id??0}}"
                                                                                        data-quiz="{{$unit->quiz_id??0}}"
                                                                                        data-status="{{$unit->status??0}}">{{__('测验')}}</a>
                                                                                 @else
-                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
+                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
                                                                                        data-unit="{{$unit->id??0}}"
                                                                                        data-status="{{$unit->status??0}}" data-play-position="{{$unit->play_position??0}}">{{__('打开')}}</a>
                                                                                 @endif
@@ -116,35 +180,27 @@
 
     <x-web.footer/>
 
-    @include('web.course.play')
-    @include('web.course.quiz')
+    @include('web.course.content')
 
     <script>
         $(document).ready(function () {
-            // 单元项点击展开/收起功能
             $('.unit-item').on('click', function (e) {
-                // 如果点击的是链接或按钮，则不触发展开
                 if ($(e.target).closest('a, button').length > 0) {
                     return;
                 }
 
                 const $item = $(this);
                 const $expandContent = $item.find('.unit-expand-content');
-                const $icon = $item.find('.unit-expand-icon');
 
-                // 切换展开状态
                 if ($item.hasClass('expanded')) {
-                    // 收起
                     $expandContent.slideUp(300);
                     $item.removeClass('expanded');
                 } else {
-                    // 展开
                     $expandContent.slideDown(300);
                     $item.addClass('expanded');
                 }
             });
 
-            // 点击展开区域外部时收起所有展开的单元
             $(document).on('click', function (e) {
                 if (!$(e.target).closest('.unit-item').length) {
                     $('.unit-item.expanded').each(function () {

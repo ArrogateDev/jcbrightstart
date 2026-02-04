@@ -1,19 +1,7 @@
-<div class="modal fade" id="quiz-box" tabindex="-1" aria-labelledby="quiz-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quiz-label">{{__('课程测验')}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="quiz-content">
-                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">{{__('加载中...')}}</span>
-                    </div>
-                </div>
-            </div>
+<div id="quiz-content">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">{{__('加载中...')}}</span>
         </div>
     </div>
 </div>
@@ -44,7 +32,7 @@
 
 <script>
     $(function () {
-        const $quizModal = $('#quiz-box');
+        const $learnModal = $('#learn-box');
         const $quizContent = $('#quiz-content');
         let quizData = null;
         let currentQuestionIndex = 0;
@@ -325,10 +313,10 @@
                 const playPosition = unitInfo ? (unitInfo.play_position || 0) : 0;
 
                 $actionDiv.html(`
-                    <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
                        data-unit="${unitId}"
                        data-status="2"
-                       data-play-position="${playPosition}">Preview</a>
+                       data-play-position="${playPosition}">{{__('打开')}}</a>
                     <i class="fa-solid fa-circle-check text-success ml-3"></i>
                 `);
             } else if (newStatus === 1) {
@@ -337,12 +325,12 @@
                 const quizId = unitInfo ? (unitInfo.quiz_id || 0) : 0;
 
                 $actionDiv.html(`
-                    <a href="#" class="preview-link" data-toggle="modal" data-target="#quiz-box"
+                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
                        data-course="${courseId}"
                        data-chapter="${chapterId}"
                        data-unit="${unitId}"
                        data-quiz="${quizId}"
-                       data-status="1">Quiz</a>
+                       data-status="1">{{__('测验')}}</a>
                     <i class="fa-solid fa-book text-warning ml-3"></i>
                 `);
             }
@@ -392,7 +380,7 @@
                         userAnswer = wrongAnswer;
                     }
                 }
-                showLoading($('#quiz-box .modal-content'))
+                showLoading($('#learn-box .modal-content'))
 
                 $.ajax({
                     url: `/course/${currentCourseId}/quiz-answer.html`,
@@ -407,7 +395,7 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-                        hideLoading($('#quiz-box .modal-content'))
+                        hideLoading($('#learn-box .modal-content'))
                         if (response.code !== 0) {
                             console.error('保存答题记录失败:', response.msg);
                             reject(new Error(response.msg || '保存答题记录失败'));
@@ -417,7 +405,7 @@
                         }
                     },
                     error: function (xhr) {
-                        hideLoading($('#quiz-box .modal-content'))
+                        hideLoading($('#learn-box .modal-content'))
                         console.error('保存答题记录失败:', xhr);
                         if (xhr.responseJSON) {
                             console.error('错误详情:', xhr.responseJSON);
@@ -430,38 +418,7 @@
             });
         }
 
-        $quizModal.on('show.bs.modal', function (event) {
-            const button = event.relatedTarget
-            const params = $(this).data('params');
-            let course = 0
-            let chapter = 0
-            let unit = 0
-            let quiz = 0
-            if (button) {
-                course = parseInt(button.getAttribute('data-course') || 0)
-                chapter = parseInt(button.getAttribute('data-chapter') || 0)
-                unit = parseInt(button.getAttribute('data-unit') || 0)
-                quiz = parseInt(button.getAttribute('data-quiz') || 0)
-            } else if (params) {
-                course = params.course
-                chapter = params.chapter
-                unit = params.unit
-                quiz = params.quiz
-            }
-
-            if (course <= 0 || chapter <= 0 || unit <= 0 || quiz <= 0) {
-                $quizModal.modal('hide')
-                return;
-            }
-            currentCourseId = course
-            currentChapterId = chapter
-            currentUnitId = unit
-            currentQuizId = quiz
-
-            loadQuiz(unit);
-        });
-
-        $quizModal.on('hidden.bs.modal', function () {
+        $learnModal.on('hidden.bs.modal', function () {
             quizData = null;
             currentQuestionIndex = 0;
             selectedAnswer = null;
@@ -474,18 +431,81 @@
             $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
         });
 
-        window.setQuizData = function (quiz) {
-            if (quiz) {
-                renderQuiz(quiz);
+        // 统一入口：切换到测验Tab后调用，或播放结束自动切换调用
+        window.openQuiz = function (paramsOrEl) {
+            let course = 0, chapter = 0, unit = 0, quiz = 0;
+            // 允许传入 params 对象 或 触发按钮元素
+            if (paramsOrEl && paramsOrEl.getAttribute) {
+                course = parseInt(paramsOrEl.getAttribute('data-course') || 0);
+                chapter = parseInt(paramsOrEl.getAttribute('data-chapter') || 0);
+                unit = parseInt(paramsOrEl.getAttribute('data-unit') || 0);
+                quiz = parseInt(paramsOrEl.getAttribute('data-quiz') || 0);
+            } else if (paramsOrEl) {
+                course = parseInt(paramsOrEl.course || 0);
+                chapter = parseInt(paramsOrEl.chapter || 0);
+                unit = parseInt(paramsOrEl.unit || 0);
+                quiz = parseInt(paramsOrEl.quiz || 0);
             }
+
+            if (course <= 0 || chapter <= 0 || unit <= 0 || quiz <= 0) {
+                return;
+            }
+            currentCourseId = course;
+            currentChapterId = chapter;
+            currentUnitId = unit;
+            currentQuizId = quiz;
+            // 缓存最近一次unit，方便切回播放Tab自动打开
+            $('#learn-box').data('lastUnit', unit);
+            loadQuiz(unit);
         };
+
+        // 点击“测验”打开 learn-box 时：自动切到测验Tab并加载
+        $learnModal.on('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            if (!button) return;
+            const tab = button.getAttribute('data-tab') || '';
+            if (tab !== 'quiz') return;
+            $('#learn-tabs a[href="#learn-quiz"]').tab('show');
+            window.openQuiz(button);
+        });
+
+        // 从“内容”Tab 手动切换到“测验”Tab 时，如果当前没有加载测验，则自动根据 lastUnit 加载
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-quiz"]', function () {
+            // modal 没打开或已经有 quizData 就不用再加载
+            if (!$learnModal.hasClass('show') || quizData) {
+                return;
+            }
+
+            const lastUnit = parseInt($learnModal.data('lastUnit') || 0);
+            if (!lastUnit) {
+                return;
+            }
+
+            const $unitItem = $(`li[data-unit="${lastUnit}"]`);
+            if (!$unitItem.length) {
+                return;
+            }
+
+            const info = $unitItem.data('info') || {};
+
+            const params = {
+                course: parseInt(info.course_id || {{ $course->id }} || 0),
+                chapter: parseInt(info.chapter_id || 0),
+                unit: lastUnit,
+                quiz: parseInt(info.quiz_id || 0),
+            };
+
+            if (params.course > 0 && params.chapter > 0 && params.unit > 0 && params.quiz > 0) {
+                window.openQuiz(params);
+            }
+        });
 
         const $courseCompleteModal = $('#course-complete-box');
         const $certificateNameInput = $('#certificate-name');
         const $submitCertificateBtn = $('#submit-certificate-btn');
 
         $submitCertificateBtn.on('click', function () {
-            const name = $certificateNameInput.val('{{$user->full_name}}').trim();
+            const name = $certificateNameInput.val().trim();
             if (!name) {
                 showToast('error', '{{__('请输入姓名')}}');
                 $certificateNameInput.focus();
