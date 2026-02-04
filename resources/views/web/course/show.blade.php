@@ -8,6 +8,10 @@
         height: 500px;
         overflow: hidden;
     }
+    #learn-box .tab-content:has(#learn-quiz) {
+        height: 700px;
+        overflow: hidden;
+    }
 
     #learn-box.modal-pdf .tab-content {
         height: 75vh;
@@ -65,6 +69,59 @@
     }
 
     #learn-box .nav-item:has(.active) a {
+        color: white;
+    }
+
+    .quiz-start {
+        background-image: linear-gradient(to bottom right, #fffbeb, #fff7ed);
+        gap: 4rem;
+    }
+
+    .quiz-line {
+        width: 8rem;
+        height: .25rem;
+        background-image: linear-gradient(to right, transparent, #fbbf24, transparent);
+    }
+
+    #quiz-start-button {
+        background-image: linear-gradient(to right, #10b981, #0d9488);
+        border-radius: .75rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 700;
+        padding: 1rem;
+        color: white;
+    }
+
+    .quiz-question {
+        border-radius: 1rem;
+    }
+
+    .quiz-question-title {
+        background-image: linear-gradient(to right, #4f46e5, #9333ea);
+        padding: 1.5rem;
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .quiz-question-title .tag {
+        width: fit-content;
+        margin-bottom: .75rem;
+        border-radius: 9999px;
+        background-color: #ffffff33;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: .375rem;
+        padding-bottom: .375rem;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+        color: white;
+    }
+
+    .quiz-question-title .title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
         color: white;
     }
 </style>

@@ -466,6 +466,8 @@ li
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: #fff;
+    display: flex;
+    align-items: center;
 }
 
 .quiz-option:hover {
@@ -497,10 +499,20 @@ li
     font-weight: 500;
     margin-right: 0.5rem;
     color: #5625e8;
+    background-color: #e5e7eb;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 .quiz-option-text {
     color: #333;
+    font-size: 1rem;
+    line-height: 1.5rem;
 }
 
 .quiz-explanation {
@@ -536,7 +548,6 @@ li
 }
 
 .quiz-progress {
-    margin-bottom: 1.5rem;
     font-size: 0.9rem;
     color: #666;
 }

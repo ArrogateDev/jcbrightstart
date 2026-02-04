@@ -58,13 +58,51 @@
 
                     if (!response.data || response.data.length <= 0) {
                         showToast('error', '{{__('测验数据为空')}}');
+                        return;
                     }
 
-                    renderQuiz(response.data);
+                    renderQuizStart(response.data);
                 },
                 error: function () {
                     showToast('error', 'Failed, please try again later')
                 }
+            });
+        }
+
+        // 测验开始页：加载完题目后先展示“开始测验”按钮，点击后真正进入答题
+        function renderQuizStart(quiz) {
+            if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
+                showToast('error', '{{__('测验数据无效')}}');
+                return;
+            }
+
+            quizData = quiz;
+            selectedAnswer = null;
+            isAnswered = false;
+
+            const startHtml = `
+                <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                    <div class="quiz-line"></div>
+                    <div class="text-center px-8">
+                        <div class="display-4 mb-5">
+                            {{__('测验准备就绪')}}
+            </div>
+            <p class="mb-5">
+{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+            </p>
+            <button type="button" id="quiz-start-button">
+                🎯 {{__('开始测验')}}
+            </button>
+        </div>
+        <div class="quiz-line"></div>
+    </div>
+`;
+
+            $quizContent.html(startHtml);
+
+            // 点击“开始测验”后再真正渲染题目列表
+            $('#quiz-start-button').off('click').on('click', function () {
+                renderQuiz(quizData);
             });
         }
 
@@ -95,10 +133,11 @@
 
                 currentQuestionIndex = startIndex;
 
-                let html = '<div class="quiz-container">';
+                let html = '<div class="quiz-container p-4">';
                 html += '<div class="quiz-progress">';
                 html += `<span>{{__('第')}} <strong>${startIndex + 1}</strong> {{__('题，共')}} <strong>${quiz.questions.length}</strong> {{__('题')}}</span>`;
                 html += '</div>';
+                html += '<div class="progress mb-3"><div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>';
 
                 quiz.questions.forEach((question, index) => {
                     html += renderQuestion(question, index, quiz.questions.length);
@@ -144,15 +183,23 @@
             const buttonText = isLastQuestion ? '{{__('完成')}}' : '{{__('下一题')}}';
 
             let html = `<div class="quiz-question" data-question-index="${index}">`;
-            html += `<div class="quiz-question-title">${index + 1}. ${question.title || ''}</div>`;
+            html += `<div class="quiz-question-title"><div class="tag">{{__('问题')}}${index + 1}</div><div class="title">${question.title || ''}</div></div>`;
             html += '<ul class="quiz-options">';
 
             if (question.options && Array.isArray(question.options)) {
                 question.options.forEach((option, optIndex) => {
                     html += `<li class="quiz-option" data-option-index="${optIndex}">`;
-                    html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}.</span>`;
+                    html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}</span>`;
                     html += `<span class="quiz-option-text">${option}</span>`;
                     html += '</li>';
+                });
+                question.options.forEach((option, optIndex) => {
+                    if (optIndex < 1) {
+                        html += `<li class="quiz-option" data-option-index="${optIndex}">`;
+                        html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}</span>`;
+                        html += `<span class="quiz-option-text">${option}</span>`;
+                        html += '</li>';
+                    }
                 });
             }
 
