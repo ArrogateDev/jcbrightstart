@@ -80,13 +80,13 @@
                                                                                     <i class="fa-solid fa-circle-check text-success ml-3"></i>
                                                                                 @endif
 
-                                                                                @if(!empty($unit->description))
+                                                                                @if(!empty(html_entity_decode(strip_tags($unit->description))))
                                                                                     <i class="fas fa-chevron-down unit-expand-icon ml-3 text-muted"></i>
                                                                                 @endif
                                                                             </div>
                                                                         </div>
 
-                                                                        @if(!empty($unit->description))
+                                                                        @if(!empty(html_entity_decode(strip_tags($unit->description))))
                                                                             <div class="unit-expand-content mt-3" style="display: none;">
                                                                                 <div class="unit-description">
                                                                                     <p class="text-muted mb-0">{!! $unit->description !!}</p>
