@@ -45,7 +45,44 @@
         let wrongAnswers = {};
         let isAllCompleted = false;
 
-        function loadQuiz(unitId) {
+        // 切换到测验 Tab 时，先只展示“开始测验”页面，点击按钮后再去请求题目数据
+        function renderInitialQuizStart() {
+            quizData = null;
+            selectedAnswer = null;
+            isAnswered = false;
+
+            const startHtml = `
+                <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                    <div class="quiz-line"></div>
+                    <div class="text-center px-8">
+                        <div class="display-4 mb-5">
+                            {{__('测验准备就绪')}}
+            </div>
+            <p class="mb-5">
+{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+            </p>
+            <button type="button" id="quiz-start-button">
+                🎯 {{__('开始测验')}}
+            </button>
+        </div>
+        <div class="quiz-line"></div>
+    </div>
+`;
+
+            $quizContent.html(startHtml);
+
+            $('#quiz-start-button').off('click').on('click', function () {
+                if (!currentUnitId) {
+                    return;
+                }
+
+                // 点击开始测验后再去获取题目内容
+                $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
+                loadQuiz(currentUnitId, true);
+            });
+        }
+
+        function loadQuiz(unitId, autoStart = false) {
             $.ajax({
                 url: `/quiz/${unitId}.html`,
                 type: 'GET',
@@ -61,7 +98,13 @@
                         return;
                     }
 
-                    renderQuizStart(response.data);
+                    // autoStart=true：直接进入答题
+                    // autoStart=false：先展示“开始测验”页，再由用户点击进入答题
+                    if (autoStart) {
+                        renderQuiz(response.data);
+                    } else {
+                        renderQuizStart(response.data);
+                    }
                 },
                 error: function () {
                     showToast('error', 'Failed, please try again later')
@@ -132,12 +175,14 @@
                 }
 
                 currentQuestionIndex = startIndex;
+                let total = quiz.questions.length;
+                let progress = Math.floor((startIndex + 1) / total * 100);
 
                 let html = '<div class="quiz-container p-4">';
                 html += '<div class="quiz-progress">';
-                html += `<span>{{__('第')}} <strong>${startIndex + 1}</strong> {{__('题，共')}} <strong>${quiz.questions.length}</strong> {{__('题')}}</span>`;
+                html += `<span>{{__('第')}} <strong>${startIndex + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}</span>`;
                 html += '</div>';
-                html += '<div class="progress mb-3"><div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div>';
+                html += `<div class="progress mb-3"><div class="progress-bar" role="progressbar" style="width: ${progress}%" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div></div>`;
 
                 quiz.questions.forEach((question, index) => {
                     html += renderQuestion(question, index, quiz.questions.length);
@@ -192,14 +237,6 @@
                     html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}</span>`;
                     html += `<span class="quiz-option-text">${option}</span>`;
                     html += '</li>';
-                });
-                question.options.forEach((option, optIndex) => {
-                    if (optIndex < 1) {
-                        html += `<li class="quiz-option" data-option-index="${optIndex}">`;
-                        html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}</span>`;
-                        html += `<span class="quiz-option-text">${option}</span>`;
-                        html += '</li>';
-                    }
                 });
             }
 
@@ -503,7 +540,8 @@
             currentQuizId = quiz;
             // 缓存最近一次unit，方便切回播放Tab自动打开
             $('#learn-box').data('lastUnit', unit);
-            loadQuiz(unit);
+            // 打开测验时，先展示“开始测验”页，真正加载题目在点击按钮后进行
+            renderInitialQuizStart();
         };
 
         // 点击“测验”打开 learn-box 时：自动切到测验Tab并加载

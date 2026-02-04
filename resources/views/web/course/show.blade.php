@@ -8,6 +8,7 @@
         height: 500px;
         overflow: hidden;
     }
+
     #learn-box .tab-content:has(#learn-quiz) {
         height: 700px;
         overflow: hidden;
@@ -97,6 +98,14 @@
         border-radius: 1rem;
     }
 
+    #quiz-content .progress {
+        border-radius: 1rem;
+    }
+
+    #quiz-content .progress-bar {
+        background-image: linear-gradient(to right, #4f46e5, #9333ea);
+    }
+
     .quiz-question-title {
         background-image: linear-gradient(to right, #4f46e5, #9333ea);
         padding: 1.5rem;
@@ -108,10 +117,7 @@
         margin-bottom: .75rem;
         border-radius: 9999px;
         background-color: #ffffff33;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-top: .375rem;
-        padding-bottom: .375rem;
+        padding: .375rem 1rem;
         font-size: .875rem;
         line-height: 1.25rem;
         font-weight: 500;
@@ -122,6 +128,22 @@
         font-weight: 700;
         font-size: 1.25rem;
         line-height: 1.75rem;
+        color: white;
+    }
+
+    .per-btn, .next-btn {
+        font-weight: 500;
+        padding: .75rem 1rem;
+        border-radius: 0.5rem;
+        color: #374151;
+    }
+
+    .per-btn {
+        background-color: #e5e7eb;
+    }
+
+    .next-btn {
+        background-image: linear-gradient(to right, #10b981, #0d9488);
         color: white;
     }
 </style>
