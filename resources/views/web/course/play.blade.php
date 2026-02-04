@@ -37,6 +37,7 @@
         let dFlipInstance = null;
         let pageCount = 0;
         let status = 0;
+        let pdfAutoCompleteTimer = null;
 
         function playUnit(unit, position = 0) {
 
@@ -70,10 +71,20 @@
                         recordPlayStart(currentChapter, currentUnit);
                         pageCount = app.pageCount;
                         $('#play-loading').removeClass('d-flex').addClass('d-none')
+
+                        // 对于少页数PDF，设置自动完成检查
+                        setupPdfAutoComplete(pageCount);
                     },
                     onPageChanged: function (app) {
                         const currentPage = app.currentPageNumber;
                         const totalPages = app.pageCount;
+
+                        // 清除自动完成定时器，因为用户已经手动翻页
+                        if (pdfAutoCompleteTimer) {
+                            clearTimeout(pdfAutoCompleteTimer);
+                            pdfAutoCompleteTimer = null;
+                        }
+
                         if (currentPage === totalPages) {
                             recordPlayEnd(currentChapter, currentUnit)
                         } else {
@@ -262,7 +273,7 @@
                     <a href="#" class="preview-link" data-toggle="modal" data-target="#play-box"
                        data-unit="${unitId}"
                        data-status="2"
-                       data-play-position="${playPosition}">Preview</a>
+                       data-play-position="${playPosition}">{{__('打开')}}</a>
                     <i class="fa-solid fa-circle-check text-success ml-3"></i>
                 `);
             } else if (newStatus === 1) {
@@ -276,7 +287,7 @@
                        data-chapter="${chapterId}"
                        data-unit="${unitId}"
                        data-quiz="${quizId}"
-                       data-status="1">Quiz</a>
+                       data-status="1">{{__('测验')}}</a>
                     <i class="fa-solid fa-book text-warning ml-3"></i>
                 `);
             }
@@ -339,6 +350,20 @@
             });
         }
 
+        function setupPdfAutoComplete(totalPages) {
+            // 如果PDF只有1-2页，则设置自动完成检查
+            if (totalPages <= 2) {
+                const delay = totalPages === 1 ? 3000 : 6000; // 1页30秒，2页60秒
+
+                pdfAutoCompleteTimer = setTimeout(function() {
+                    if (currentUnit && currentChapter) {
+                        // 直接记录播放结束
+                        recordPlayEnd(currentChapter, currentUnit, totalPages);
+                    }
+                }, delay);
+            }
+        }
+
         function clearPlay() {
             if (youtubePlayer) {
                 try {
@@ -363,6 +388,12 @@
             if (window.dFlipPageCheckInterval) {
                 clearInterval(window.dFlipPageCheckInterval);
                 window.dFlipPageCheckInterval = null;
+            }
+
+            // 清除PDF自动完成定时器
+            if (pdfAutoCompleteTimer) {
+                clearTimeout(pdfAutoCompleteTimer);
+                pdfAutoCompleteTimer = null;
             }
 
             window.dFlipBindRetryCount = 0;
