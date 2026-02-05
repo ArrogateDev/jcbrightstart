@@ -57,17 +57,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-            </div>
-            <p class="mb-5">
-{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-            </p>
-            <button type="button" id="quiz-start-button">
-                🎯 {{__('开始测验')}}
-            </button>
-        </div>
-        <div class="quiz-line"></div>
-    </div>
-`;
+                        </div>
+                        <p class="mb-5">
+                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+                        </p>
+                        <button type="button" id="quiz-start-button">
+                            🎯 {{__('开始测验')}}
+                        </button>
+                    </div>
+                    <div class="quiz-line"></div>
+                </div>
+            `;
 
             $quizContent.html(startHtml);
 
@@ -125,17 +125,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-            </div>
-            <p class="mb-5">
-{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-            </p>
-            <button type="button" id="quiz-start-button">
-                🎯 {{__('开始测验')}}
-            </button>
-        </div>
-        <div class="quiz-line"></div>
-    </div>
-`;
+                        </div>
+                        <p class="mb-5">
+                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+                        </p>
+                        <button type="button" id="quiz-start-button">
+                            🎯 {{__('开始测验')}}
+                        </button>
+                    </div>
+                    <div class="quiz-line"></div>
+                </div>
+            `;
 
             $quizContent.html(startHtml);
 
