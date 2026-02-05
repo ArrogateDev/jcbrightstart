@@ -1,5 +1,5 @@
 <div class="modal fade" id="learn-box" tabindex="-1" aria-labelledby="learn-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex align-items-center">

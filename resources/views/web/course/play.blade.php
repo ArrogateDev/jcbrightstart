@@ -47,11 +47,24 @@
 
                 $modal.addClass('modal-pdf');
 
-                const pdfHeight = $(window).height() * 0.75;
+                function getPdfHeight() {
+                    const $playContent = $('#play-content');
+                    const modalHeader = $('#learn-box .modal-header').height() || 0;
+                    let height = $(window).height() - modalHeader + 120;
+
+                    const $parent = $playContent.parent();
+                    if ($parent.length && $parent.height() > 0) {
+                        height = Math.min(height, $parent.height());
+                    }
+
+                    return Math.max(height, 400);
+                }
 
                 pendingPdfInit = function () {
                     if (!$('#pdf-viewer').length) return;
                     try {
+                        const pdfHeight = getPdfHeight();
+                        console.log('PDF高度:', pdfHeight);
                         $('#pdf-viewer').flipBook(unit.file_url, {
                             showDownloadControl: false,
                             enableDownload: false,
@@ -93,7 +106,7 @@
                 if ($('#learn-play').hasClass('active') && $modal.hasClass('show')) {
                     setTimeout(function () {
                         if (pendingPdfInit) pendingPdfInit();
-                    }, 80);
+                    }, 150);
                 }
             } else {
                 $modal.removeClass('modal-pdf');
@@ -471,7 +484,7 @@
             if (pendingPdfInit && $('#learn-play').hasClass('active')) {
                 setTimeout(function () {
                     if (pendingPdfInit) pendingPdfInit();
-                }, 80);
+                }, 150);
             }
         });
 
@@ -479,9 +492,9 @@
             if (pendingPdfInit && $modal.hasClass('show')) {
                 setTimeout(function () {
                     if (pendingPdfInit) pendingPdfInit();
-                }, 80);
+                }, 150);
             }
-            
+
             // 检查是否需要加载内容
             const lastUnit = parseInt($modal.data('lastUnit') || 0);
             if (lastUnit > 0 && $modal.hasClass('show')) {

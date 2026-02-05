@@ -5,17 +5,17 @@
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
 <style>
     #learn-box .tab-content {
-        height: 500px;
+        height: calc(100vh - 120px);
         overflow: hidden;
     }
 
-    #learn-box .tab-content:has(#learn-quiz) {
-        height: 670px;
+    #learn-box .tab-content:has(#learn-quiz.active) {
+        height: calc(100vh - 145px);
         overflow: hidden;
     }
 
-    #learn-box.modal-pdf .tab-content {
-        height: 75vh;
+    #learn-box .tab-content:has(#learn-play.active) {
+        height: calc(100vh - 65px);
     }
 
     #learn-box #learn-play,
@@ -23,11 +23,15 @@
     #learn-box #play-content,
     #learn-box #quiz-content {
         height: 100%;
+        max-height: 100%;
+        overflow: hidden;
     }
 
     #learn-box #pdf-viewer,
     #learn-box ._df_book {
         height: 100%;
+        max-height: 100%;
+        overflow: hidden;
     }
 
     #learn-box #play-loading {
@@ -35,12 +39,21 @@
     }
 
     #learn-box .modal-dialog {
-        width: 1080px;
+        width: 100%;
         max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        margin: 0;
+    }
+
+    #learn-box .modal-content {
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
     }
 
     .modal {
-        padding: 15px !important;
+        padding: 0 !important;
     }
 
     #learn-box .nav {
@@ -73,6 +86,11 @@
         color: white;
     }
 
+    #youtube-player {
+        padding: 20px;
+        background: black;
+    }
+
     .quiz-start {
         background-image: linear-gradient(to bottom right, #fffbeb, #fff7ed);
         gap: 4rem;
@@ -92,6 +110,12 @@
         font-weight: 700;
         padding: 1rem;
         color: white;
+    }
+
+    .quiz-container {
+        width: 800px;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .quiz-question {

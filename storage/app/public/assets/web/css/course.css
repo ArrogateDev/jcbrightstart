@@ -312,13 +312,13 @@ li
 
 #play-box .modal-body.has-dflip {
     padding-bottom: 0;
-    height: 80vh;
+    height: 100vh;
     aspect-ratio: unset;
 }
 
 #play-box .modal-body:has(._df_book) {
     padding-bottom: 0;
-    height: 80vh;
+    height: 100vh;
     aspect-ratio: unset;
 }
 
