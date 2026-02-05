@@ -128,7 +128,7 @@
                                     <div class="profile-footer">
                                         <a href="#"
                                            class="btn btn-secondary d-inline-flex align-items-center justify-content-center w-100 logout">
-                                            <i class="isax isax-logout mr-2"></i>Logout</a>
+                                            <i class="isax isax-logout mr-2"></i>{{__('退出登录')}}</a>
                                     </div>
                                 </div>
                             </div>
