@@ -20,3 +20,5 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/views/web/test.blade.php
+/deduplicate_and_sort_translations.py
+/extract_translations.py
