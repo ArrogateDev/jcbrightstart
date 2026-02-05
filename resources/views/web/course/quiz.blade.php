@@ -515,8 +515,56 @@
             currentUnitId = params.unit;
             currentQuizId = params.quiz;
             $learnModal.data('lastUnit', params.unit);
-            renderQuizStart();
+            
+            // 检查测验是否已完成，如果已完成直接进入内容，否则显示开始页
+            checkQuizCompletion();
         };
+        
+        // 检查测验是否已完成
+        function checkQuizCompletion() {
+            if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
+                renderQuizStart();
+                return;
+            }
+            
+            showQuizLoading();
+            
+            // 先加载测验数据获取题目总数
+            $.ajax({
+                url: `/quiz/${currentUnitId}.html`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code !== 0 || !response.data || !response.data.questions || !Array.isArray(response.data.questions)) {
+                        renderQuizStart();
+                        return;
+                    }
+                    
+                    const totalQuestions = response.data.questions.length;
+                    if (totalQuestions === 0) {
+                        renderQuizStart();
+                        return;
+                    }
+                    
+                    // 获取已答题列表
+                    getAnsweredQuestions(function (data) {
+                        const answeredQuestions = data.answered_questions || [];
+                        const isCompleted = answeredQuestions.length >= totalQuestions;
+                        
+                        if (isCompleted) {
+                            // 已完成，直接渲染测验内容
+                            renderQuiz(response.data);
+                        } else {
+                            // 未完成，显示开始页面（使用已加载的数据）
+                            renderQuizStart(response.data);
+                        }
+                    });
+                },
+                error: function () {
+                    renderQuizStart();
+                }
+            });
+        }
 
         // Modal关闭时重置状态
         $learnModal.on('hidden.bs.modal', function () {
