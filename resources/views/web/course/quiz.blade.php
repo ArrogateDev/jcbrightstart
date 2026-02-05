@@ -29,7 +29,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(function () {
         const $learnModal = $('#learn-box');
@@ -199,6 +198,8 @@
                 $learnModal.find('.modal-footer').show();
 
                 showQuestion(startIndex);
+                // 初始化按钮状态
+                updateNavigationButtons();
             });
         }
 
@@ -656,6 +657,8 @@
                 showQuestion(currentQuestionIndex);
                 // 更新进度条
                 updateProgress();
+                // 更新按钮状态
+                updateNavigationButtons();
             }
         });
 
@@ -665,6 +668,8 @@
                 showQuestion(currentQuestionIndex);
                 // 更新进度条
                 updateProgress();
+                // 更新按钮状态
+                updateNavigationButtons();
             }
         });
 
@@ -677,6 +682,26 @@
 
             $('.quiz-progress span').html(`{{__('第')}} <strong>${currentQuestionIndex + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}`);
             $('.progress-bar').css('width', `${progress}%`).attr('aria-valuenow', progress);
+        }
+
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const $prevBtn = $learnModal.find('.per-btn');
+            const $nextBtn = $learnModal.find('.next-btn');
+
+            // 上一题按钮：只有不是第一题时才可点击
+            if (currentQuestionIndex > 0) {
+                $prevBtn.removeClass('disabled').prop('disabled', false);
+            } else {
+                $prevBtn.addClass('disabled').prop('disabled', true);
+            }
+
+            // 下一题按钮：只有不是最后一题时才可点击
+            if (currentQuestionIndex < quizData.questions.length - 1) {
+                $nextBtn.removeClass('disabled').prop('disabled', false);
+            } else {
+                $nextBtn.addClass('disabled').prop('disabled', true);
+            }
         }
     });
 </script>

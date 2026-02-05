@@ -146,6 +146,14 @@
         background-image: linear-gradient(to right, #10b981, #0d9488);
         color: white;
     }
+
+    .per-btn.disabled, .per-btn.disabled:hover {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: #d1d5db !important;
+        border-color: #6b7280 !important;
+        transform: none !important;
+    }
 </style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
