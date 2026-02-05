@@ -44,13 +44,11 @@
         let wrongAnswers = {};
         let isAllCompleted = false;
 
-        // 切换到测验 Tab 时，先只展示“开始测验”页面，点击按钮后再去请求题目数据
         function renderInitialQuizStart() {
             quizData = null;
             selectedAnswer = null;
             isAnswered = false;
 
-            // 隐藏导航按钮
             $learnModal.find('.modal-footer').hide();
 
             const startHtml = `
@@ -59,17 +57,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-            </div>
-            <p class="mb-5">
-{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-            </p>
-            <button type="button" id="quiz-start-button">
-                🎯 {{__('开始测验')}}
-            </button>
-        </div>
-        <div class="quiz-line"></div>
-    </div>
-`;
+                            </div>
+                            <p class="mb-5">
+                                {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+                            </p>
+                            <button type="button" id="quiz-start-button">
+                                🎯 {{__('开始测验')}}
+                            </button>
+                        </div>
+                        <div class="quiz-line"></div>
+                    </div>
+                `;
 
             $quizContent.html(startHtml);
 
@@ -78,7 +76,6 @@
                     return;
                 }
 
-                // 点击开始测验后再去获取题目内容
                 $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
                 loadQuiz(currentUnitId, true);
             });
@@ -100,8 +97,6 @@
                         return;
                     }
 
-                    // autoStart=true：直接进入答题
-                    // autoStart=false：先展示“开始测验”页，再由用户点击进入答题
                     if (autoStart) {
                         renderQuiz(response.data);
                     } else {
@@ -114,7 +109,6 @@
             });
         }
 
-        // 测验开始页：加载完题目后先展示“开始测验”按钮，点击后真正进入答题
         function renderQuizStart(quiz) {
             if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
                 showToast('error', '{{__('测验数据无效')}}');
@@ -131,17 +125,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-            </div>
-            <p class="mb-5">
-{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-            </p>
-            <button type="button" id="quiz-start-button">
-                🎯 {{__('开始测验')}}
-            </button>
-        </div>
-        <div class="quiz-line"></div>
-    </div>
-`;
+                        </div>
+                        <p class="mb-5">
+                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+                        </p>
+                        <button type="button" id="quiz-start-button">
+                            🎯 {{__('开始测验')}}
+                        </button>
+                    </div>
+                    <div class="quiz-line"></div>
+                </div>
+            `;
 
             $quizContent.html(startHtml);
 
@@ -194,11 +188,10 @@
                 html += '</div>';
                 $quizContent.html(html);
 
-                // 显示导航按钮
                 $learnModal.find('.modal-footer').show();
 
                 showQuestion(startIndex);
-                // 初始化按钮状态
+
                 updateNavigationButtons();
             });
         }
@@ -255,10 +248,6 @@
             html += `<div class="quiz-explanation-content">${question.explanation || '{{__('暂无解析')}}'}</div>`;
             html += '</div>';
 
-            html += '<div class="quiz-actions">';
-            html += `<button class="btn btn-primary quiz-next-btn" data-is-last="${isLastQuestion}">${buttonText}</button>`;
-            html += '</div>';
-
             html += '</div>';
             return html;
         }
@@ -286,8 +275,7 @@
 
             selectedAnswer = null;
             isAnswered = false;
-            $question.find('.quiz-option').removeClass('selected correct incorrect disabled');
-            $question.find('.quiz-option-label').removeClass('fa-check fa-times');
+            $question.find('.quiz-option').removeClass('disabled');
             $question.find('.quiz-explanation').removeClass('show');
             $nextBtn.removeClass('show');
 
@@ -312,7 +300,6 @@
                 selectedAnswer = optionIndex;
 
                 if (optionIndex === correctAnswer) {
-                    $question.find('.quiz-option').removeClass('incorrect');
                     $option.addClass('correct');
                     $option.find('.quiz-option-label').addClass('fa fa-check');
 
@@ -370,6 +357,12 @@
             });
 
             $question.find('.quiz-next-btn').off('click').on('click', function () {
+                // 只有答对题目后才能点击下一题
+                if (!isAnswered) {
+                    showToast('warning', '{{__('请先回答当前题目')}}');
+                    return;
+                }
+
                 const isLast = $(this).attr('data-is-last') === 'true';
                 if (isLast) {
                     showComplete(isAllCompleted);
@@ -527,7 +520,7 @@
             currentQuizId = null;
             wrongAnswers = {};
             isAllCompleted = false;
-            // 隐藏导航按钮
+
             $learnModal.find('.modal-footer').hide();
             $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
         });
@@ -663,6 +656,12 @@
         });
 
         $learnModal.find('.next-btn').on('click', function () {
+            // 只有答对题目后才能使用导航按钮跳转
+            if (!isAnswered) {
+                showToast('warning', '{{__('请先回答当前题目')}}');
+                return;
+            }
+
             if (currentQuestionIndex < quizData.questions.length - 1) {
                 currentQuestionIndex++;
                 showQuestion(currentQuestionIndex);
@@ -696,8 +695,9 @@
                 $prevBtn.addClass('disabled').prop('disabled', true);
             }
 
-            // 下一题按钮：只有不是最后一题时才可点击
-            if (currentQuestionIndex < quizData.questions.length - 1) {
+            // 下一题按钮：只有答对当前题目且不是最后一题时才可点击
+            const isCurrentAnswered = isAnswered;
+            if (currentQuestionIndex < quizData.questions.length - 1 && isCurrentAnswered) {
                 $nextBtn.removeClass('disabled').prop('disabled', false);
             } else {
                 $nextBtn.addClass('disabled').prop('disabled', true);
@@ -705,3 +705,29 @@
         }
     });
 </script>
+
+<style>
+    .modal-footer .btn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+    }
+
+    .modal-footer .btn.disabled:hover {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        transform: none !important;
+    }
+
+    /* 题目内的下一题按钮样式 */
+    .quiz-next-btn.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: #6c757d !important;
+    }
+
+    .quiz-next-btn:not(.disabled) {
+        background-color: #007bff !important;
+    }
+</style>

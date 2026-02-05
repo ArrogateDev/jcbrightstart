@@ -525,6 +525,7 @@ li
 
 .quiz-explanation.show {
     display: block;
+    background-color: #e1f2e5;
 }
 
 .quiz-explanation.error {
@@ -535,7 +536,7 @@ li
 .quiz-explanation-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #dc3545;
+    color: #4CAF50;
 }
 
 .quiz-explanation-content {
