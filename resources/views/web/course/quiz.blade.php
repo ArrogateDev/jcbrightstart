@@ -431,6 +431,27 @@
                     const totalQuestions = parseInt(stats.total_questions) || quizData.questions.length;
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
+                    const isAllCompleted = stats.is_all_completed || false;
+                    const hasSignature = stats.has_signature || false;
+                    const certificateFile = stats.certificate_file || null;
+                    const nextUnit = stats.next_unit || null;
+
+                    // 根据状态确定按钮文本和类型
+                    let mainButtonText = '{{__('下一个单元')}}';
+                    let mainButtonClass = 'btn-primary';
+                    let mainButtonAction = 'next-unit';
+
+                    if (isAllCompleted && hasSignature) {
+                        // 完成所有测验并设置了签名 -> 下载证书
+                        mainButtonText = '{{__('下载证书')}}';
+                        mainButtonClass = 'btn-success';
+                        mainButtonAction = 'download-certificate';
+                    } else if (isAllCompleted && !hasSignature) {
+                        // 完成所有测验但没设置签名 -> 设置签名
+                        mainButtonText = '{{__('设置签名')}}';
+                        mainButtonClass = 'btn-warning';
+                        mainButtonAction = 'set-signature';
+                    }
 
                     const html = `
                         <div class="quiz-statistics">
@@ -443,7 +464,12 @@
                                 </div>
                             </div>
                             <div class="quiz-statistics-btn">
-                                <button class="btn btn-primary w-100 p-3 mb-4 btn-next-unit">{{__('下一个单元')}}</button>
+                                <button class="btn ${mainButtonClass} w-100 p-3 mb-4 btn-main-action"
+                                    data-action="${mainButtonAction}"
+                                    data-certificate-file="${certificateFile || ''}"
+                                    data-next-unit-id="${nextUnit ? nextUnit.id : ''}"
+                                    data-next-chapter-id="${nextUnit ? nextUnit.chapter_id : ''}"
+                                    ${mainButtonAction === 'no-action' ? 'disabled' : ''}>${mainButtonText}</button>
                                 <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
                                 <button class="btn btn-danger w-100 p-3 mb-4 btn-close">{{__('关闭')}}</button>
                             </div>
@@ -477,6 +503,30 @@
                     }
 
                     // 绑定按钮事件
+                    $('.btn-main-action').off('click').on('click', function () {
+                        const $btn = $(this);
+                        const action = $btn.data('action');
+
+                        if (action === 'download-certificate') {
+                            // 下载证书
+                            const certificateFile = $btn.data('certificate-file');
+                            if (certificateFile) {
+                                window.open(`/download.html?file=${encodeURIComponent(certificateFile)}`, '_blank');
+                            } else {
+                                showToast('error', '{{__('证书文件不存在')}}');
+                            }
+                        } else if (action === 'set-signature') {
+                            // 设置签名，关闭当前窗口并显示证书填写框
+                            $learnModal.modal('hide');
+                            setTimeout(function () {
+                                $('#course-complete-box').modal('show');
+                            }, 300);
+                        } else if (action === 'next-unit') {
+                            // 跳转到下一单元
+                            console.log('跳转到下一单元');
+                        }
+                    });
+
                     $('.btn-review').off('click').on('click', function () {
                         // 点击复习答案，渲染测验内容
                         if (quizData) {
@@ -490,13 +540,6 @@
                     $('.btn-close').off('click').on('click', function () {
                         // 点击关闭，关闭窗口
                         $learnModal.modal('hide');
-                        
-                        // 如果全部课程完成，在关闭modal后显示证书填写框
-                        if (isAllCompleted) {
-                            setTimeout(function () {
-                                $('#course-complete-box').modal('show');
-                            }, 300);
-                        }
                     });
                 },
                 error: function () {

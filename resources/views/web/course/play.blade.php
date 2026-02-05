@@ -258,7 +258,7 @@
                 return;
             }
 
-            const $actionDiv = $unitItem.find('.d-flex.align-items-center');
+            const $actionDiv = $unitItem.find('.unit-status');
             if (!$actionDiv.length) {
                 return;
             }

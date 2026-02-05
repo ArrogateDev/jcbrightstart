@@ -340,11 +340,13 @@ class CourseController extends Controller
                 ->select(DB::raw('COUNT(DISTINCT unit_id) as num'))
                 ->value('num');
 
-            $total = CourseChapterUnit::query()
-                ->where('course_id', $course->id)
-                ->count();
-
-            $is_completed = $completed >= $total;
+            $course->load([
+                'chapters.units'
+            ]);
+            $course->unit_num = $course->chapters->sum(function ($chapter) {
+                return $chapter->units->count();
+            });
+            $is_completed = $completed >= $course->unit_num;
             if ($is_completed) {
                 $certificate = new UserCourseCertificate();
                 $certificate->user_id = $user->id;
@@ -460,13 +462,38 @@ class CourseController extends Controller
                 throw new ApiException(__('统计信息不存在'), ResponseCode::NOT_FOUND);
             }
 
+            // 检查是否完成所有测验
+            $completed = UserCoursePlayRecord::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)
+                ->select(DB::raw('COUNT(DISTINCT unit_id) as num'))
+                ->value('num');
+
+            $course->load([
+                'chapters.units'
+            ]);
+            $course->unit_num = $course->chapters->sum(function ($chapter) {
+                return $chapter->units->count();
+            });
+            $is_all_completed = $completed >= $course->unit_num;
+
+            // 检查证书状态（是否有签名）
+            $certificate = UserCourseCertificate::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->first();
+
+            $has_signature = $certificate && !empty($certificate->certificate_name);
+            $certificate_file = $certificate ? $certificate->file : null;
+
             return $this->responseSuccess([
                 'total_questions' => $statistics->total_questions,
                 'answered' => $statistics->answered,
-//                'correct' => $statistics->correct,
-//                'incorrect' => $statistics->incorrect,
-//                'correct_rate' => $statistics->correct_rate,
                 'correct_rate' => 100,
+                'is_all_completed' => $is_all_completed,
+                'has_signature' => $has_signature,
+                'certificate_file' => $certificate_file,
             ]);
         } catch (ApiException $e) {
             throw $e;
