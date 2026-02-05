@@ -44,6 +44,7 @@
         let currentQuizId = null;
         let wrongAnswers = {};
         let isAllCompleted = false;
+        let answeredQuestionsList = []; // 保存已答题列表
 
         // 重置状态
         function resetQuizState() {
@@ -55,6 +56,7 @@
             currentQuizId = null;
             wrongAnswers = {};
             isAllCompleted = false;
+            answeredQuestionsList = [];
         }
 
         // 显示加载状态（仅用于quiz内容区域）
@@ -138,6 +140,7 @@
 
             getAnsweredQuestions(function (data) {
                 const answeredQuestions = data.answered_questions || [];
+                answeredQuestionsList = answeredQuestions; // 保存已答题列表
                 let startIndex = 0;
 
                 // 找到第一个未答题的题目
@@ -236,18 +239,46 @@
 
             updateProgress(index);
             isAnswered = $question.data('answered') || false;
+            
+            // 检查题目是否已答过
+            const isQuestionAnswered = answeredQuestionsList.includes(index);
+            
             $question.find('.quiz-option').removeClass('disabled selected correct incorrect');
             $question.find('.quiz-option-label').removeClass('fa fa-check fa-times');
             $question.find('.quiz-explanation').removeClass('show');
+
+            // 如果题目已答过，显示正确答案
+            if (isQuestionAnswered) {
+                isAnswered = true;
+                const question = quizData.questions[index];
+                const correctAnswer = parseInt(question.correct_answer, 10) || 0;
+                
+                // 标记正确答案
+                const $correctOption = $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`);
+                $correctOption.addClass('correct');
+                $correctOption.find('.quiz-option-label').addClass('fa fa-check');
+                
+                // 禁用所有选项
+                $question.find('.quiz-option').addClass('disabled');
+                
+                // 显示解析
+                $question.find('.quiz-explanation').addClass('show');
+                
+                // 标记为已答
+                $question.attr('data-answered', true);
+                
+                // 移除选项点击事件（已答题不能再点击）
+                $question.find('.quiz-option').off('click');
+            } else {
+                // 绑定选项点击事件
+                bindOptionClick($question, index);
+            }
 
             if (isAnswered) {
                 $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
             } else {
                 $learnModal.find('.next-btn').hide().addClass('disabled');
             }
-
-            // 绑定选项点击事件
-            bindOptionClick($question, index);
         }
 
         // 绑定选项点击事件处理
@@ -295,6 +326,11 @@
 
                     delete wrongAnswers[questionIndex];
                     $question.attr('data-answered', true);
+                    
+                    // 更新已答题列表
+                    if (!answeredQuestionsList.includes(questionIndex)) {
+                        answeredQuestionsList.push(questionIndex);
+                    }
 
                     const isLast = questionIndex === quizData.questions.length - 1;
                     const $nextBtn = $learnModal.find('.next-btn');
