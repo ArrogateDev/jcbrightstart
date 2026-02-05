@@ -51,6 +51,9 @@
             selectedAnswer = null;
             isAnswered = false;
 
+            // 隐藏导航按钮
+            $learnModal.find('.modal-footer').hide();
+
             const startHtml = `
                 <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
                     <div class="quiz-line"></div>
@@ -181,6 +184,7 @@
                 let html = '<div class="quiz-container p-4">';
                 html += '<div class="quiz-progress">';
                 html += `<span>{{__('第')}} <strong>${startIndex + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}</span>`;
+                html += `<span>${progress}%</span>`;
                 html += '</div>';
                 html += `<div class="progress mb-3"><div class="progress-bar" role="progressbar" style="width: ${progress}%" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div></div>`;
 
@@ -190,6 +194,9 @@
 
                 html += '</div>';
                 $quizContent.html(html);
+
+                // 显示导航按钮
+                $learnModal.find('.modal-footer').show();
 
                 showQuestion(startIndex);
             });
@@ -264,8 +271,9 @@
 
             const $question = $(`.quiz-question[data-question-index="${index}"]`);
             $question.addClass('active');
-
-            $('.quiz-progress').html(`<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span>`);
+            let total = quizData.questions.length;
+            let progress = Math.floor((index + 1) / total * 100);
+            $('.quiz-progress').html(`<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span><span>${progress}%</span>`);
 
             const isLastQuestion = index === quizData.questions.length - 1;
             const $nextBtn = $question.find('.quiz-next-btn');
@@ -425,6 +433,9 @@
                 updateUnitStatus(currentUnitId, 2);
             }
 
+            // 隐藏导航按钮
+            $learnModal.find('.modal-footer').hide();
+
             let html = '<div class="quiz-complete">';
             html += '<div class="quiz-complete-icon"><i class="fa-solid fa-circle-check"></i></div>';
             html += '<div class="quiz-complete-title">{{__('测验完成')}}</div>';
@@ -512,6 +523,8 @@
             currentQuizId = null;
             wrongAnswers = {};
             isAllCompleted = false;
+            // 隐藏导航按钮
+            $learnModal.find('.modal-footer').hide();
             $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
         });
 
@@ -632,5 +645,35 @@
             $certificateNameInput.val('');
             $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
         });
+
+        // 导航按钮事件处理
+        $learnModal.find('.per-btn').on('click', function () {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                // 更新进度条
+                updateProgress();
+            }
+        });
+
+        $learnModal.find('.next-btn').on('click', function () {
+            if (currentQuestionIndex < quizData.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                // 更新进度条
+                updateProgress();
+            }
+        });
+
+        // 更新进度条函数
+        function updateProgress() {
+            if (!quizData || !quizData.questions) return;
+
+            let total = quizData.questions.length;
+            let progress = Math.floor((currentQuestionIndex + 1) / total * 100);
+
+            $('.quiz-progress span').html(`{{__('第')}} <strong>${currentQuestionIndex + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}`);
+            $('.progress-bar').css('width', `${progress}%`).attr('aria-valuenow', progress);
+        }
     });
 </script>
