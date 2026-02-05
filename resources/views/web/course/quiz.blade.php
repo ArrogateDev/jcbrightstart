@@ -359,6 +359,7 @@
                 unitInfo.status = newStatus;
                 $unitItem.data('info', unitInfo);
             }
+            $unitItem.attr('data-status', newStatus)
 
             if (newStatus === 2) {
                 const playPosition = unitInfo.play_position || 0;
