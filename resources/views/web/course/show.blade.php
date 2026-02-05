@@ -154,6 +154,69 @@
         border-color: #6b7280 !important;
         transform: none !important;
     }
+
+    .quiz-statistics {
+        width: 400px;
+        max-width: 100%;
+        margin: 10px auto;
+        height: calc(100% - 30px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 #0000, 0 25px 50px -12px #00000040;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .quiz-statistics-icon {
+        height: 95px;
+        line-height: normal;
+        font-size: 5rem;
+    }
+
+    .quiz-statistics-title {
+        color: #1f2937;
+        font-weight: 700;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+
+    .quiz-statistics-progress {
+        width: 100%;
+        text-align: center;
+        background-image: linear-gradient(to right, #6366f1, #9333ea);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        color: white;
+    }
+
+    .quiz-statistics-progress h1 {
+        color: white;
+        font-size: 3rem;
+        line-height: 1;
+        margin-bottom: .5rem;
+    }
+
+    .quiz-statistics-progress .progress-value {
+        opacity: .9;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .quiz-statistics-btn {
+        width: 100%;
+    }
+
+    .quiz-statistics-btn .btn {
+        width: 100%;
+        border-radius: .75rem;
+        font-weight: 700;
+    }
+
+    .quiz-statistics-btn .btn-next-unit {
+        background-image: linear-gradient(to right, #10b981, #0d9488);
+    }
 </style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">

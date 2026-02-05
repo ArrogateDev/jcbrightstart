@@ -429,46 +429,23 @@
 
                     const stats = response.data || {};
                     const totalQuestions = parseInt(stats.total_questions) || quizData.questions.length;
-                    const correct = parseInt(stats.correct) || 0;
-                    const incorrect = parseInt(stats.incorrect) || 0;
+                    const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
-                    const passed = correctRate >= 80;
 
                     const html = `
-                        <div class="quiz-statistics p-4">
-                            <div class="text-center mb-4">
-                                <div class="quiz-statistics-icon mb-3">
-                                    <i class="fa-solid fa-circle-check fa-3x ${passed ? 'text-success' : 'text-danger'}"></i>
-                                </div>
-                                <h4 class="mb-2">{{__('测验完成')}}</h4>
-                                <div class="quiz-statistics-progress mb-3">
-                                    <div class="circle-progress" data-value="${isNaN(correctRate) ? 0 : Math.round(correctRate)}">
-                                        <span class="progress-left">
-                                            <span class="progress-bar ${passed ? 'border-success' : 'border-danger'}"></span>
-                                        </span>
-                                        <span class="progress-right">
-                                            <span class="progress-bar ${passed ? 'border-success' : 'border-danger'}"></span>
-                                        </span>
-                                        <div class="progress-value ${passed ? 'text-success' : 'text-danger'} fw-bold fs-24">
-                                            ${isNaN(correctRate) ? 0 : Math.round(correctRate)}%
-                                        </div>
-                                    </div>
-                                    <p class="text-center fs-14 mt-2">Pass Score : 80%</p>
-                                </div>
-                                <div class="quiz-statistics-message mb-3">
-                                    ${passed
-                                        ? '<h6 class="mb-1">{{__('恭喜！您通过了测验')}}</h6><p class="fs-14">{{__('您成功完成了测验。继续保持！')}}</p>'
-                                        : '<h6 class="mb-1">{{__('抱歉，您这次没有通过')}}</h6><p class="fs-14">{{__('别担心，从这次尝试中学习，下次会更强！')}}</p>'
-                                    }
-                                </div>
-                                <div class="quiz-statistics-details">
-                                    <p class="mb-1"><strong>{{__('正确')}}:</strong> ${correct} / ${totalQuestions}</p>
-                                    <p class="mb-1"><strong>{{__('错误')}}:</strong> ${incorrect} / ${totalQuestions}</p>
-                                    <p class="mb-0"><strong>{{__('正确率')}}:</strong> ${isNaN(correctRate) ? '0.00' : correctRate.toFixed(2)}%</p>
+                        <div class="quiz-statistics">
+                            <div class="quiz-statistics-icon">🎉</div>
+                            <h4 class="quiz-statistics-title">{{__('测验完成')}}</h4>
+                            <div class="quiz-statistics-progress">
+                                <h1>${answered} / ${totalQuestions}</h1>
+                                <div class="progress-value">
+                                    ${isNaN(correctRate) ? 0 : Math.round(correctRate)}%
                                 </div>
                             </div>
-                            <div class="text-center mt-4">
-                                <button class="btn btn-primary" data-dismiss="modal">{{__('关闭')}}</button>
+                            <div class="quiz-statistics-btn">
+                                <button class="btn btn-primary w-100 p-3 mb-4 btn-next-unit">{{__('下一个单元')}}</button>
+                                <button class="btn btn-light w-100 p-3 mb-4 btn-review" data-dismiss="modal">{{__('复习答案')}}</button>
+                                <button class="btn btn-danger w-100 p-3 mb-4">{{__('关闭')}}</button>
                             </div>
                         </div>
                     `;
@@ -479,7 +456,7 @@
                         initCircleProgress();
                     } else {
                         // 简单的圆形进度条初始化
-                        $('.circle-progress').each(function() {
+                        $('.circle-progress').each(function () {
                             const $this = $(this);
                             const value = parseFloat($this.data('value')) || 0;
                             const percentage = Math.min(100, Math.max(0, value));
@@ -501,8 +478,8 @@
 
                     // 如果全部课程完成，在关闭modal后显示证书填写框
                     if (isAllCompleted) {
-                        $('.btn[data-dismiss="modal"]').on('click', function() {
-                            setTimeout(function() {
+                        $('.btn[data-dismiss="modal"]').on('click', function () {
+                            setTimeout(function () {
                                 $('#course-complete-box').modal('show');
                             }, 300);
                         });
@@ -603,6 +580,8 @@
 
         // 检查测验是否已完成
         function checkQuizCompletion() {
+            showQuizStatistics()
+            return;
             if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
                 renderQuizStart();
                 return;
