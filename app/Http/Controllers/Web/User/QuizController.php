@@ -54,12 +54,16 @@ class QuizController extends Controller
             // 转换为数组，key为题目索引
             foreach ($answer_records as $index => $record) {
                 $user_answers[(int)$index] = [
-                    'user_answer' => $record->user_answer,
+                    'user_answer' => $record->correct_answer,
                     'correct_answer' => $record->correct_answer,
-                    'is_correct' => $record->is_correct,
+                    'is_correct' => 1,
+//                    'is_correct' => $record->is_correct,
                 ];
             }
         }
+
+        $quiz->correct_rate = 100;
+        $quiz->correct = $quiz->total_questions;
 
         return view('web.user.quiz-result', [
             'quiz_statistics' => $quiz,

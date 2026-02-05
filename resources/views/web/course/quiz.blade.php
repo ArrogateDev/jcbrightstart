@@ -501,7 +501,7 @@
                             }, 300);
                         } else if (action === 'next-unit') {
                             // 跳转到下一单元
-                            console.log('跳转到下一单元');
+                            findAndOpenNextUnit();
                         }
                     });
 
@@ -596,6 +596,52 @@
                 return {course, chapter, unit, quiz};
             }
             return null;
+        }
+
+        // 查找并打开下一单元（优先查找 status=0 的单元）
+        function findAndOpenNextUnit() {
+            if (!currentUnitId) {
+                showToast('warning', '{{__('无法确定当前单元')}}');
+                return;
+            }
+
+            // 获取所有单元项
+            const $allUnits = $('.unit-item');
+            if ($allUnits.length === 0) {
+                showToast('warning', '{{__('未找到单元列表')}}');
+                return;
+            }
+
+            let foundUnit = $('.unit-item[data-status=0]').eq(0);
+            if (!foundUnit) {
+                foundUnit = $('.unit-item[data-status=1]').eq(0);
+            }
+
+            if (!foundUnit) {
+                showToast('info', '{{__('没有找到下一个未开始的单元')}}');
+                return;
+            }
+
+            // 获取单元信息
+            const unitInfo = foundUnit.data('info') || {};
+            const unitId = parseInt(foundUnit.data('unit') || 0);
+            const status = parseInt(foundUnit.data('status') || 0);
+
+            // 如果没有链接，根据状态手动打开
+            if (status === 0 || status === 2) {
+                // status=0 或 status=2，打开播放内容
+                const playPosition = unitInfo.play_position || 0;
+                window.openPlay(unitId, playPosition);
+            } else if (status === 1) {
+                // status=1，打开测验
+                const params = {
+                    course: parseInt(unitInfo.course_id || currentCourseId || 0),
+                    chapter: parseInt(unitInfo.chapter_id || 0),
+                    unit: unitId,
+                    quiz: parseInt(unitInfo.quiz_id || 0),
+                };
+                window.openQuiz(params);
+            }
         }
 
         // 打开测验的统一入口

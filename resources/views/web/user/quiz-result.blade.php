@@ -39,7 +39,6 @@
                                         <div class="progress-value {{$quiz_statistics->correct_rate >= 80 ? 'text-success' : 'text-danger'}} fw-bold fs-24">{{round($quiz_statistics->correct_rate)}}%
                                         </div>
                                     </div>
-                                    <p class="text-center fs-14">Pass Score : 80%</p>
                                 </div>
                                 <div class="text-center mb-3">
                                     @if($quiz_statistics->correct_rate >= 80)
@@ -51,7 +50,6 @@
                                     @endif
                                     <div class="mt-3">
                                         <p class="mb-1"><strong>{{__('正确')}}:</strong> {{$quiz_statistics->correct}} / {{$quiz_statistics->total_questions}}</p>
-                                        <p class="mb-1"><strong>{{__('错误')}}:</strong> {{$quiz_statistics->incorrect}} / {{$quiz_statistics->total_questions}}</p>
                                         <p class="mb-0"><strong>{{__('正确率')}}:</strong> {{round($quiz_statistics->correct_rate, 2)}}%</p>
                                     </div>
                                 </div>
@@ -391,8 +389,6 @@
                             });
                     } else {
                         $option.addClass('bg-danger-subtle');
-
-                        $question.find('.quiz-explanation').addClass('error').show();
 
                         if (wrongAnswers[index] === undefined) {
                             wrongAnswers[index] = optionIndex;

@@ -267,6 +267,7 @@
                                                             @foreach($chapter->units as $unit)
                                                                 <li class="unit-item p-4 px-3 d-flex justify-content-between" data-title="{{$chapter->title}} - {{$unit->title}}"
                                                                     data-unit="{{$unit->id}}"
+                                                                    data-status="{{$unit->status}}"
                                                                     data-info="{{$unit}}">
                                                                     <div class="unit-main-content w-100">
                                                                         <div class="d-flex justify-content-between align-items-center">
