@@ -462,6 +462,8 @@
             playStartTime = null;
             isPlaying = false;
             status = 0;
+            currentUnit = null;
+            currentChapter = null;
             $('#play-loading').removeClass('d-none').addClass('d-flex')
         });
 
@@ -479,16 +481,21 @@
                     if (pendingPdfInit) pendingPdfInit();
                 }, 80);
             }
-            if (!currentUnit && $modal.hasClass('show')) {
-                const lastUnit = parseInt($modal.data('lastUnit') || 0);
-                if (lastUnit > 0 && typeof window.openPlay === 'function') {
+            
+            // 检查是否需要加载内容
+            const lastUnit = parseInt($modal.data('lastUnit') || 0);
+            if (lastUnit > 0 && $modal.hasClass('show')) {
+                // 如果当前没有加载内容，或者加载的不是lastUnit的内容，则重新加载
+                if (!currentUnit || currentUnit !== lastUnit) {
                     const $unitItem = $(`li[data-unit="${lastUnit}"]`);
-                    let pos = 0;
-                    if ($unitItem.length) {
+                    if ($unitItem.length && typeof window.openPlay === 'function') {
                         const info = $unitItem.data('info');
-                        pos = info ? (parseInt(info.play_position || 0) || 0) : 0;
+                        if (info) {
+                            let pos = 0;
+                            pos = info ? (parseInt(info.play_position || 0) || 0) : 0;
+                            window.openPlay(lastUnit, pos);
+                        }
                     }
-                    window.openPlay(lastUnit, pos);
                 }
             }
         });
