@@ -57,17 +57,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-                            </div>
-                            <p class="mb-5">
-                                {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-                            </p>
-                            <button type="button" id="quiz-start-button">
-                                🎯 {{__('开始测验')}}
-                            </button>
-                        </div>
-                        <div class="quiz-line"></div>
-                    </div>
-                `;
+            </div>
+            <p class="mb-5">
+{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+            </p>
+            <button type="button" id="quiz-start-button">
+                🎯 {{__('开始测验')}}
+            </button>
+        </div>
+        <div class="quiz-line"></div>
+    </div>
+`;
 
             $quizContent.html(startHtml);
 
@@ -125,17 +125,17 @@
                     <div class="text-center px-8">
                         <div class="display-4 mb-5">
                             {{__('测验准备就绪')}}
-                        </div>
-                        <p class="mb-5">
-                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-                        </p>
-                        <button type="button" id="quiz-start-button">
-                            🎯 {{__('开始测验')}}
-                        </button>
-                    </div>
-                    <div class="quiz-line"></div>
-                </div>
-            `;
+            </div>
+            <p class="mb-5">
+{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
+            </p>
+            <button type="button" id="quiz-start-button">
+                🎯 {{__('开始测验')}}
+            </button>
+        </div>
+        <div class="quiz-line"></div>
+    </div>
+`;
 
             $quizContent.html(startHtml);
 
@@ -225,8 +225,6 @@
         }
 
         function renderQuestion(question, index, totalQuestions) {
-            const isLastQuestion = index === totalQuestions - 1;
-            const buttonText = isLastQuestion ? '{{__('完成')}}' : '{{__('下一题')}}';
 
             let html = `<div class="quiz-question" data-question-index="${index}">`;
             html += `<div class="quiz-question-title"><div class="tag">{{__('问题')}}${index + 1}</div><div class="title">${question.title || ''}</div></div>`;
@@ -258,6 +256,7 @@
             }
 
             $('.quiz-question').removeClass('active');
+            $learnModal.find('.next-btn').hide().addClass('disabled').prop('disabled', false);
 
             const $question = $(`.quiz-question[data-question-index="${index}"]`);
             $question.addClass('active');
@@ -265,19 +264,13 @@
             let progress = Math.floor((index + 1) / total * 100);
             $('.quiz-progress').html(`<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span><span>${progress}%</span>`);
 
-            const isLastQuestion = index === quizData.questions.length - 1;
-            const $nextBtn = $question.find('.quiz-next-btn');
-            if (isLastQuestion) {
-                $nextBtn.text('{{__('完成')}}').attr('data-is-last', 'true');
-            } else {
-                $nextBtn.text('{{__('下一题')}}').attr('data-is-last', 'false');
-            }
-
             selectedAnswer = null;
-            isAnswered = false;
+            isAnswered = $question.data('answered') || false;
             $question.find('.quiz-option').removeClass('disabled');
             $question.find('.quiz-explanation').removeClass('show');
-            $nextBtn.removeClass('show');
+            if (isAnswered) {
+                $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
+            }
 
             $question.find('.quiz-option').off('click').on('click', function () {
                 if (isAnswered) return;
@@ -315,13 +308,12 @@
 
                     const wrongAnswer = wrongAnswers[index] !== undefined ? wrongAnswers[index] : null;
 
-                    const $nextBtn = $question.find('.quiz-next-btn');
-                    $nextBtn.prop('disabled', true).text('{{__('保存中...')}}');
-
                     saveQuizAnswer(index, optionIndex, wrongAnswer)
                         .then(function (response) {
                             delete wrongAnswers[index];
-                            $nextBtn.prop('disabled', false).addClass('show');
+
+                            $question.attr('data-answered', true)
+                            $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
                             const isLast = index === quizData.questions.length - 1;
                             if (isLast) {
                                 if (response.completed === true) {
@@ -329,22 +321,15 @@
                                     showComplete(true);
                                 } else {
                                     isAllCompleted = false;
-                                    $nextBtn.text('{{__('完成')}}');
+                                    $learnModal.find('.next-btn').text('{{__('完成')}}');
                                 }
                             } else {
-                                $nextBtn.text('{{__('下一题')}}');
+                                $learnModal.find('.next-btn').text('{{__('下一题')}} →');
                             }
                         })
                         .catch(function (error) {
                             console.error('保存答案失败:', error);
                             showToast('error', '{{__('保存答案失败，请重试')}}');
-                            $nextBtn.prop('disabled', false).addClass('show');
-                            const isLast = index === quizData.questions.length - 1;
-                            if (isLast) {
-                                $nextBtn.text('{{__('完成')}}');
-                            } else {
-                                $nextBtn.text('{{__('下一题')}}');
-                            }
                         });
                 } else {
                     $option.addClass('incorrect');

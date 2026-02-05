@@ -34,10 +34,10 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between" style="display: none;">
-                <button class="d-flex justify-content-center align-items-center per-btn">
+                <button class="per-btn">
                     ← {{__('上一题')}}
                 </button>
-                <button class="d-flex justify-content-center align-items-center next-btn">
+                <button class="next-btn" style="display: none;">
                     {{__('下一题')}} →
                 </button>
             </div>
