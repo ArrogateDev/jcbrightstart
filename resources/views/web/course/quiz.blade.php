@@ -628,6 +628,9 @@
             const unitId = parseInt(foundUnit.data('unit') || 0);
             const status = parseInt(foundUnit.data('status') || 0);
 
+            const title = foundUnit.data('title') || ''
+            $('#learn-label').text(title);
+
             // 如果没有链接，根据状态手动打开
             if (status === 0 || status === 2) {
                 // status=0 或 status=2，打开播放内容
