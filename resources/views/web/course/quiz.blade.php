@@ -286,6 +286,7 @@
             selectedAnswer = null;
             isAnswered = false;
             $question.find('.quiz-option').removeClass('selected correct incorrect disabled');
+            $question.find('.quiz-option-label').removeClass('fa-check fa-times');
             $question.find('.quiz-explanation').removeClass('show');
             $nextBtn.removeClass('show');
 
@@ -312,6 +313,7 @@
                 if (optionIndex === correctAnswer) {
                     $question.find('.quiz-option').removeClass('incorrect');
                     $option.addClass('correct');
+                    $option.find('.quiz-option-label').addClass('fa fa-check');
 
                     $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`).addClass('correct');
 
@@ -358,6 +360,7 @@
                         });
                 } else {
                     $option.addClass('incorrect');
+                    $option.find('.quiz-option-label').addClass('fa fa-times');
 
                     if (wrongAnswers[index] === undefined) {
                         wrongAnswers[index] = optionIndex;

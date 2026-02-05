@@ -153,10 +153,7 @@
     <x-web.header/>
 
     <main id="main">
-{{--<i class="fas fa-times"></i>--}}
-{{--        <i class="fas fa-check"></i>--}}
-{{--        <li class="quiz-option selected correct" data-option-index="2"><span class="quiz-option-label fas fa-check">C</span><span class="quiz-option-text">選項 3</span></li>--}}
-{{--        <li class="quiz-option selected incorrect" data-option-index="2"><span class="quiz-option-label">C</span><span class="quiz-option-text">選項 3</span></li>--}}
+
         <x-web.breadcrumb title="{{__('课程')}}" subtitle="{{__('课程')}}"/>
 
         <section class="section p-t-125 p-b-75 p-md-t-60 course-details">
