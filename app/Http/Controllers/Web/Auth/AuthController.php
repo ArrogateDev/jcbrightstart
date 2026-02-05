@@ -18,8 +18,6 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $locale = $request->session()->get('locale');
-
         Auth::guard('web')->logout();
 
         $user = Auth::guard('web')->user();
@@ -31,9 +29,6 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerateToken();
-
-        session(['locale' => $locale]);
-        App::setLocale($locale);
 
         return $this->responseSuccess(null, __('退出成功'));
     }

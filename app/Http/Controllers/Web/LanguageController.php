@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cookie;
 
 class LanguageController extends Controller
 {
@@ -26,10 +27,11 @@ class LanguageController extends Controller
         }
 
         session(['locale' => $locale]);
-
         App::setLocale($locale);
 
-        return redirect()->back()->with('success', __('语言切换成功'));
+        $cookie = Cookie::make('locale', $locale, 60 * 24 * 365);
+
+        return redirect()->back()->with('success', __('语言切换成功'))->withCookie($cookie);
     }
 }
 

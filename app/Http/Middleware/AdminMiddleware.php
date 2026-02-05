@@ -24,9 +24,13 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->expectsJson()) return $next($request);
-
-        $locale = session('locale', config('app.locale', 'zh_HK'));
-        App::setLocale($locale);
+        $locale = $request->cookie('locale') ?? $request->session()->get('locale');
+        if ($locale && in_array($locale, ['en', 'zh_CN', 'zh_HK'])) {
+            App::setLocale($locale);
+            if ($request->cookie('locale') && !$request->session()->has('locale')) {
+                session(['locale' => $locale]);
+            }
+        }
 
         $user = $request->user();
 
