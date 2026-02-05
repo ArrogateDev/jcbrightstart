@@ -36,7 +36,7 @@ class CreateCourseCertificateJob implements ShouldQueue
 
             $certificate = Certificate::query()->find($log->certificate_id);
 
-            $name = $log->name;
+            $name = $log->full_name;
 
             $path = $this->handleCreateCertificateImage($certificate, $name, $log->user_id, date('m/d/y'));
             $log->file = $path;

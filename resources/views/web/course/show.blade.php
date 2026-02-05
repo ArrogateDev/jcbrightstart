@@ -34,7 +34,7 @@
         height: 100% !important;
     }
 
-    .modal-dialog {
+    #learn-box .modal-dialog {
         width: 1080px;
         max-width: 100%;
     }
@@ -333,6 +333,7 @@
     <x-web.footer/>
 
     @include('web.course.content')
+    @include('web.course.signature')
 
     <script>
         $(document).ready(function () {
