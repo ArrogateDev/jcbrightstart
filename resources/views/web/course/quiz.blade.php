@@ -33,9 +33,10 @@
     $(function () {
         const $learnModal = $('#learn-box');
         const $quizContent = $('#quiz-content');
+        const LOADING_HTML = '<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>';
+
         let quizData = null;
         let currentQuestionIndex = 0;
-        let selectedAnswer = null;
         let isAnswered = false;
         let currentCourseId = {{ $course->id }};
         let currentChapterId = null;
@@ -44,26 +45,39 @@
         let wrongAnswers = {};
         let isAllCompleted = false;
 
-        function renderInitialQuizStart() {
+        // 重置状态
+        function resetQuizState() {
             quizData = null;
-            selectedAnswer = null;
+            currentQuestionIndex = 0;
             isAnswered = false;
+            currentChapterId = null;
+            currentUnitId = null;
+            currentQuizId = null;
+            wrongAnswers = {};
+            isAllCompleted = false;
+        }
 
+        // 显示加载状态（仅用于quiz内容区域）
+        function showQuizLoading() {
+            $quizContent.html(LOADING_HTML);
+        }
+
+        // 渲染开始页面
+        function renderQuizStart(quiz = null) {
+            if (quiz) {
+                quizData = quiz;
+            }
+
+            isAnswered = false;
             $learnModal.find('.modal-footer').hide();
 
             const startHtml = `
                 <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
                     <div class="quiz-line"></div>
                     <div class="text-center px-8">
-                        <div class="display-4 mb-5">
-                            {{__('测验准备就绪')}}
-                        </div>
-                        <p class="mb-5">
-                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-                        </p>
-                        <button type="button" id="quiz-start-button">
-                            🎯 {{__('开始测验')}}
-                        </button>
+                        <div class="display-4 mb-5">{{__('测验准备就绪')}}</div>
+                        <p class="mb-5">{{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}</p>
+                        <button type="button" id="quiz-start-button">🎯 {{__('开始测验')}}</button>
                     </div>
                     <div class="quiz-line"></div>
                 </div>
@@ -72,15 +86,18 @@
             $quizContent.html(startHtml);
 
             $('#quiz-start-button').off('click').on('click', function () {
-                if (!currentUnitId) {
-                    return;
-                }
+                if (!currentUnitId) return;
 
-                $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
-                loadQuiz(currentUnitId, true);
+                if (quizData) {
+                    renderQuiz(quizData);
+                } else {
+                    showQuizLoading();
+                    loadQuiz(currentUnitId, true);
+                }
             });
         }
 
+        // 加载测验数据
         function loadQuiz(unitId, autoStart = false) {
             $.ajax({
                 url: `/quiz/${unitId}.html`,
@@ -92,7 +109,7 @@
                         return;
                     }
 
-                    if (!response.data || response.data.length <= 0) {
+                    if (!response.data || !response.data.questions || !Array.isArray(response.data.questions) || response.data.questions.length === 0) {
                         showToast('error', '{{__('测验数据为空')}}');
                         return;
                     }
@@ -104,47 +121,12 @@
                     }
                 },
                 error: function () {
-                    showToast('error', 'Failed, please try again later')
+                    showToast('error', '{{__('加载失败，请重试')}}');
                 }
             });
         }
 
-        function renderQuizStart(quiz) {
-            if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
-                showToast('error', '{{__('测验数据无效')}}');
-                return;
-            }
-
-            quizData = quiz;
-            selectedAnswer = null;
-            isAnswered = false;
-
-            const startHtml = `
-                <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
-                    <div class="quiz-line"></div>
-                    <div class="text-center px-8">
-                        <div class="display-4 mb-5">
-                            {{__('测验准备就绪')}}
-                        </div>
-                        <p class="mb-5">
-                            {{__('您已完成本单元内容的学习，点击下方按钮开始测验')}}
-                        </p>
-                        <button type="button" id="quiz-start-button">
-                            🎯 {{__('开始测验')}}
-                        </button>
-                    </div>
-                    <div class="quiz-line"></div>
-                </div>
-            `;
-
-            $quizContent.html(startHtml);
-
-            // 点击“开始测验”后再真正渲染题目列表
-            $('#quiz-start-button').off('click').on('click', function () {
-                renderQuiz(quizData);
-            });
-        }
-
+        // 渲染测验题目
         function renderQuiz(quiz) {
             if (!quiz || !quiz.questions || !Array.isArray(quiz.questions) || quiz.questions.length === 0) {
                 showToast('error', '{{__('测验数据无效')}}');
@@ -152,13 +134,13 @@
             }
 
             quizData = quiz;
-            selectedAnswer = null;
             isAnswered = false;
 
             getAnsweredQuestions(function (data) {
                 const answeredQuestions = data.answered_questions || [];
-
                 let startIndex = 0;
+
+                // 找到第一个未答题的题目
                 for (let i = 0; i < quiz.questions.length; i++) {
                     if (!answeredQuestions.includes(i)) {
                         startIndex = i;
@@ -166,13 +148,9 @@
                     }
                 }
 
-                if (answeredQuestions.length >= quiz.questions.length) {
-                    startIndex = 0;
-                }
-
                 currentQuestionIndex = startIndex;
-                let total = quiz.questions.length;
-                let progress = Math.floor((startIndex + 1) / total * 100);
+                const total = quiz.questions.length;
+                const progress = Math.floor((startIndex + 1) / total * 100);
 
                 let html = '<div class="quiz-container p-4">';
                 html += '<div class="quiz-progress">';
@@ -182,23 +160,21 @@
                 html += `<div class="progress mb-3"><div class="progress-bar" role="progressbar" style="width: ${progress}%" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div></div>`;
 
                 quiz.questions.forEach((question, index) => {
-                    html += renderQuestion(question, index, quiz.questions.length);
+                    html += renderQuestion(question, index);
                 });
 
                 html += '</div>';
                 $quizContent.html(html);
-
                 $learnModal.find('.modal-footer').show();
-
                 showQuestion(startIndex);
-
                 updateNavigationButtons();
             });
         }
 
+        // 获取已答题列表
         function getAnsweredQuestions(callback) {
             if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
-                callback([]);
+                callback({answered_questions: [], completed_questions: []});
                 return;
             }
 
@@ -219,13 +195,13 @@
                     }
                 },
                 error: function () {
-                    callback([]);
+                    callback({answered_questions: [], completed_questions: []});
                 }
             });
         }
 
-        function renderQuestion(question, index, totalQuestions) {
-
+        // 渲染单个题目
+        function renderQuestion(question, index) {
             let html = `<div class="quiz-question" data-question-index="${index}">`;
             html += `<div class="quiz-question-title"><div class="tag">{{__('问题')}}${index + 1}</div><div class="title">${question.title || ''}</div></div>`;
             html += '<ul class="quiz-options">';
@@ -240,201 +216,181 @@
             }
 
             html += '</ul>';
-
             html += '<div class="quiz-explanation">';
             html += '<div class="quiz-explanation-title">{{__('解析')}}</div>';
             html += `<div class="quiz-explanation-content">${question.explanation || '{{__('暂无解析')}}'}</div>`;
             html += '</div>';
-
             html += '</div>';
             return html;
         }
 
+        // 显示指定题目
         function showQuestion(index) {
             if (!quizData || !quizData.questions || index < 0 || index >= quizData.questions.length) {
                 return;
             }
 
             $('.quiz-question').removeClass('active');
-            $learnModal.find('.next-btn').hide().addClass('disabled').prop('disabled', false);
-
             const $question = $(`.quiz-question[data-question-index="${index}"]`);
             $question.addClass('active');
-            let total = quizData.questions.length;
-            let progress = Math.floor((index + 1) / total * 100);
-            $('.quiz-progress').html(`<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span><span>${progress}%</span>`);
 
-            selectedAnswer = null;
+            updateProgress(index);
             isAnswered = $question.data('answered') || false;
-            $question.find('.quiz-option').removeClass('disabled');
+            $question.find('.quiz-option').removeClass('disabled selected correct incorrect');
+            $question.find('.quiz-option-label').removeClass('fa fa-check fa-times');
             $question.find('.quiz-explanation').removeClass('show');
+
             if (isAnswered) {
                 $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
+            } else {
+                $learnModal.find('.next-btn').hide().addClass('disabled');
             }
 
+            // 绑定选项点击事件
+            bindOptionClick($question, index);
+        }
+
+        // 绑定选项点击事件处理
+        function bindOptionClick($question, questionIndex) {
             $question.find('.quiz-option').off('click').on('click', function () {
-                if (isAnswered) return;
+                if (isAnswered || $question.data('saving')) return;
 
                 const $option = $(this);
                 const optionIndex = parseInt($option.data('option-index'), 10);
-                const question = quizData.questions[index];
-
-                let correctAnswer = 0;
-                if (question.correct_answer !== undefined && question.correct_answer !== null) {
-                    correctAnswer = parseInt(question.correct_answer, 10);
-                    if (isNaN(correctAnswer)) {
-                        correctAnswer = 0;
-                    }
-                }
+                const question = quizData.questions[questionIndex];
+                const correctAnswer = parseInt(question.correct_answer, 10) || 0;
 
                 $question.find('.quiz-option').removeClass('selected');
-
                 $option.addClass('selected');
-                selectedAnswer = optionIndex;
 
                 if (optionIndex === correctAnswer) {
-                    $option.addClass('correct');
-                    $option.find('.quiz-option-label').addClass('fa fa-check');
-
-                    $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`).addClass('correct');
-
-                    if (!$question.find('.quiz-explanation').hasClass('show')) {
-                        $question.find('.quiz-explanation').addClass('show');
-                    }
-
-                    $question.find('.quiz-option').addClass('disabled');
-
-                    isAnswered = true;
-
-                    const wrongAnswer = wrongAnswers[index] !== undefined ? wrongAnswers[index] : null;
-
-                    saveQuizAnswer(index, optionIndex, wrongAnswer)
-                        .then(function (response) {
-                            delete wrongAnswers[index];
-
-                            $question.attr('data-answered', true)
-                            $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
-                            const isLast = index === quizData.questions.length - 1;
-                            if (isLast) {
-                                if (response.completed === true) {
-                                    isAllCompleted = true;
-                                    showComplete(true);
-                                } else {
-                                    isAllCompleted = false;
-                                    $learnModal.find('.next-btn').text('{{__('完成')}}');
-                                }
-                            } else {
-                                $learnModal.find('.next-btn').text('{{__('下一题')}} →');
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error('保存答案失败:', error);
-                            showToast('error', '{{__('保存答案失败，请重试')}}');
-                        });
+                    $question.data('saving', true);
+                    handleCorrectAnswer($question, $option, questionIndex, correctAnswer);
                 } else {
-                    $option.addClass('incorrect');
-                    $option.find('.quiz-option-label').addClass('fa fa-times');
-
-                    if (wrongAnswers[index] === undefined) {
-                        wrongAnswers[index] = optionIndex;
-                    }
-                }
-            });
-
-            $question.find('.quiz-next-btn').off('click').on('click', function () {
-                // 只有答对题目后才能点击下一题
-                if (!isAnswered) {
-                    showToast('warning', '{{__('请先回答当前题目')}}');
-                    return;
-                }
-
-                const isLast = $(this).attr('data-is-last') === 'true';
-                if (isLast) {
-                    showComplete(isAllCompleted);
-                } else {
-                    nextQuestion();
+                    handleIncorrectAnswer($option, questionIndex, optionIndex);
                 }
             });
         }
 
-        function nextQuestion() {
-            if (currentQuestionIndex < quizData.questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-            } else {
-                showComplete();
+        // 处理正确答案
+        function handleCorrectAnswer($question, $option, questionIndex, correctAnswer) {
+            $option.addClass('correct');
+            $option.find('.quiz-option-label').addClass('fa fa-check');
+            $question.find(`.quiz-option[data-option-index="${correctAnswer}"]`).addClass('correct');
+            $question.find('.quiz-explanation').addClass('show');
+            $question.find('.quiz-option').addClass('disabled');
+            isAnswered = true;
+
+            showLoading($learnModal);
+
+            $question.find('.quiz-option').off('click');
+
+            const wrongAnswer = wrongAnswers[questionIndex];
+            saveQuizAnswer(questionIndex, correctAnswer, wrongAnswer)
+                .then(function (response) {
+                    // 隐藏loading
+                    if (typeof hideLoading === 'function') {
+                        hideLoading();
+                    }
+
+                    delete wrongAnswers[questionIndex];
+                    $question.attr('data-answered', true);
+
+                    const isLast = questionIndex === quizData.questions.length - 1;
+                    const $nextBtn = $learnModal.find('.next-btn');
+                    $nextBtn.show().removeClass('disabled').prop('disabled', false);
+
+                    if (isLast) {
+                        if (response.completed === true) {
+                            isAllCompleted = true;
+                            showComplete(true);
+                        } else {
+                            isAllCompleted = false;
+                            $nextBtn.text('{{__('完成')}}');
+                        }
+                    } else {
+                        $nextBtn.text('{{__('下一题')}} →');
+                    }
+                    updateNavigationButtons();
+                    $question.data('saving', false);
+                })
+                .catch(function (error) {
+                    console.error('保存答案失败:', error);
+                    showToast('error', '{{__('保存答案失败，请重试')}}');
+                    // 恢复选项点击（允许重试）
+                    isAnswered = false;
+                    $question.data('saving', false);
+                    $question.find('.quiz-option').removeClass('disabled');
+                    // 重新绑定点击事件
+                    bindOptionClick($question, questionIndex);
+                })
+                .finally(function () {
+                    hideLoading($learnModal);
+                });
+        }
+
+        // 处理错误答案
+        function handleIncorrectAnswer($option, questionIndex, optionIndex) {
+            $option.addClass('incorrect');
+            $option.find('.quiz-option-label').addClass('fa fa-times');
+            if (wrongAnswers[questionIndex] === undefined) {
+                wrongAnswers[questionIndex] = optionIndex;
             }
         }
 
+        // 更新单元状态
         function updateUnitStatus(unitId, newStatus) {
             const $unitItem = $(`li[data-unit="${unitId}"]`);
-            if (!$unitItem.length) {
-                return;
-            }
+            if (!$unitItem.length) return;
 
             const $actionDiv = $unitItem.find('.d-flex.align-items-center');
-            if (!$actionDiv.length) {
-                return;
-            }
+            if (!$actionDiv.length) return;
 
-            let unitInfo = $unitItem.data('info');
+            const unitInfo = $unitItem.data('info') || {};
             if (unitInfo) {
                 unitInfo.status = newStatus;
                 $unitItem.data('info', unitInfo);
             }
 
             if (newStatus === 2) {
-                const playPosition = unitInfo ? (unitInfo.play_position || 0) : 0;
-
+                const playPosition = unitInfo.play_position || 0;
                 $actionDiv.html(`
                     <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
-                       data-unit="${unitId}"
-                       data-status="2"
-                       data-play-position="${playPosition}">{{__('打开')}}</a>
+                       data-unit="${unitId}" data-status="2" data-play-position="${playPosition}">{{__('打开')}}</a>
                     <i class="fa-solid fa-circle-check text-success ml-3"></i>
                 `);
             } else if (newStatus === 1) {
-                const courseId = unitInfo ? (unitInfo.course_id || 0) : 0;
-                const chapterId = unitInfo ? (unitInfo.chapter_id || 0) : 0;
-                const quizId = unitInfo ? (unitInfo.quiz_id || 0) : 0;
-
                 $actionDiv.html(`
                     <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
-                       data-course="${courseId}"
-                       data-chapter="${chapterId}"
-                       data-unit="${unitId}"
-                       data-quiz="${quizId}"
-                       data-status="1">{{__('测验')}}</a>
+                       data-course="${unitInfo.course_id || 0}" data-chapter="${unitInfo.chapter_id || 0}"
+                       data-unit="${unitId}" data-quiz="${unitInfo.quiz_id || 0}" data-status="1">{{__('测验')}}</a>
                     <i class="fa-solid fa-book text-warning ml-3"></i>
                 `);
             }
         }
 
+        // 显示完成页面
         function showComplete(allCompleted = false) {
             if (currentUnitId) {
                 updateUnitStatus(currentUnitId, 2);
             }
 
-            // 隐藏导航按钮
             $learnModal.find('.modal-footer').hide();
 
-            let html = '<div class="quiz-complete">';
-            html += '<div class="quiz-complete-icon"><i class="fa-solid fa-circle-check"></i></div>';
-            html += '<div class="quiz-complete-title">{{__('测验完成')}}</div>';
-            if (allCompleted) {
-                html += '<div class="quiz-complete-message">{{__('恭喜您完成了所有课程！')}}</div>';
-            } else {
-                html += '<div class="quiz-complete-message">{{__('恭喜您完成了本次测验！')}}</div>';
-            }
-            if (!allCompleted) {
-                html += '<button class="btn btn-primary" data-dismiss="modal">{{__('关闭')}}</button>';
-            }
-            html += '</div>';
+            const message = allCompleted ? '{{__('恭喜您完成了所有课程！')}}' : '{{__('恭喜您完成了本次测验！')}}';
+            const html = `
+                <div class="quiz-complete">
+                    <div class="quiz-complete-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="quiz-complete-title">{{__('测验完成')}}</div>
+                    <div class="quiz-complete-message">${message}</div>
+                    ${!allCompleted ? '<button class="btn btn-primary" data-dismiss="modal">{{__('关闭')}}</button>' : ''}
+                </div>
+            `;
             $quizContent.html(html);
 
             if (allCompleted) {
                 setTimeout(function () {
-                    $quizModal.modal('hide');
+                    $learnModal.modal('hide');
                     setTimeout(function () {
                         $('#course-complete-box').modal('show');
                     }, 300);
@@ -442,6 +398,7 @@
             }
         }
 
+        // 保存答题记录
         function saveQuizAnswer(questionIndex, userAnswer, wrongAnswer = null) {
             return new Promise(function (resolve, reject) {
                 if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
@@ -449,15 +406,15 @@
                     return;
                 }
 
-                userAnswer = parseInt(userAnswer, 10) || 0;
-
+                // 如果有错误答案记录，使用错误答案
                 if (wrongAnswer !== null && wrongAnswer !== undefined) {
-                    wrongAnswer = parseInt(wrongAnswer, 10);
-                    if (!isNaN(wrongAnswer)) {
-                        userAnswer = wrongAnswer;
+                    const wrong = parseInt(wrongAnswer, 10);
+                    if (!isNaN(wrong)) {
+                        userAnswer = wrong;
                     }
+                } else {
+                    userAnswer = parseInt(userAnswer, 10) || 0;
                 }
-                showLoading($('#learn-box .modal-content'))
 
                 $.ajax({
                     url: `/course/${currentCourseId}/quiz-answer.html`,
@@ -472,102 +429,89 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-                        hideLoading($('#learn-box .modal-content'))
                         if (response.code !== 0) {
-                            console.error('保存答题记录失败:', response.msg);
-                            reject(new Error(response.msg || '保存答题记录失败'));
+                            reject(new Error(response.msg || '{{__('保存答题记录失败')}}'));
                         } else {
-                            console.log('答题记录保存成功:', response.data);
                             resolve(response.data);
                         }
                     },
                     error: function (xhr) {
-                        hideLoading($('#learn-box .modal-content'))
-                        console.error('保存答题记录失败:', xhr);
-                        if (xhr.responseJSON) {
-                            console.error('错误详情:', xhr.responseJSON);
-                            reject(new Error(xhr.responseJSON.msg || '保存答题记录失败'));
-                        } else {
-                            reject(new Error('保存答题记录失败'));
-                        }
+                        const errorMsg = xhr.responseJSON?.msg || '{{__('保存答题记录失败')}}';
+                        reject(new Error(errorMsg));
                     }
                 });
             });
         }
 
-        $learnModal.on('hidden.bs.modal', function () {
-            quizData = null;
-            currentQuestionIndex = 0;
-            selectedAnswer = null;
-            isAnswered = false;
-            currentChapterId = null;
-            currentUnitId = null;
-            currentQuizId = null;
-            wrongAnswers = {};
-            isAllCompleted = false;
+        // 解析参数（支持元素或对象）
+        function parseQuizParams(paramsOrEl) {
+            if (!paramsOrEl) return null;
 
-            $learnModal.find('.modal-footer').hide();
-            $quizContent.html('<div class="d-flex justify-content-center align-items-center" style="height: 100%;"><div class="spinner-border" role="status"><span class="sr-only">{{__('加载中...')}}</span></div></div>');
-        });
-
-        // 统一入口：切换到测验Tab后调用，或播放结束自动切换调用
-        window.openQuiz = function (paramsOrEl) {
             let course = 0, chapter = 0, unit = 0, quiz = 0;
-            // 允许传入 params 对象 或 触发按钮元素
-            if (paramsOrEl && paramsOrEl.getAttribute) {
+
+            if (paramsOrEl.getAttribute) {
+                // 元素对象
                 course = parseInt(paramsOrEl.getAttribute('data-course') || 0);
                 chapter = parseInt(paramsOrEl.getAttribute('data-chapter') || 0);
                 unit = parseInt(paramsOrEl.getAttribute('data-unit') || 0);
                 quiz = parseInt(paramsOrEl.getAttribute('data-quiz') || 0);
-            } else if (paramsOrEl) {
+            } else {
+                // 普通对象
                 course = parseInt(paramsOrEl.course || 0);
                 chapter = parseInt(paramsOrEl.chapter || 0);
                 unit = parseInt(paramsOrEl.unit || 0);
                 quiz = parseInt(paramsOrEl.quiz || 0);
             }
 
-            if (course <= 0 || chapter <= 0 || unit <= 0 || quiz <= 0) {
-                return;
+            if (course > 0 && chapter > 0 && unit > 0 && quiz > 0) {
+                return {course, chapter, unit, quiz};
             }
-            currentCourseId = course;
-            currentChapterId = chapter;
-            currentUnitId = unit;
-            currentQuizId = quiz;
-            // 缓存最近一次unit，方便切回播放Tab自动打开
-            $('#learn-box').data('lastUnit', unit);
-            // 打开测验时，先展示“开始测验”页，真正加载题目在点击按钮后进行
-            renderInitialQuizStart();
+            return null;
+        }
+
+        // 打开测验的统一入口
+        window.openQuiz = function (paramsOrEl) {
+            const params = parseQuizParams(paramsOrEl);
+            if (!params) return;
+
+            currentCourseId = params.course;
+            currentChapterId = params.chapter;
+            currentUnitId = params.unit;
+            currentQuizId = params.quiz;
+            $learnModal.data('lastUnit', params.unit);
+            renderQuizStart();
         };
 
-        // 点击“测验”打开 learn-box 时：自动切到测验Tab并加载
+        // Modal关闭时重置状态
+        $learnModal.on('hidden.bs.modal', function () {
+            resetQuizState();
+            $learnModal.find('.modal-footer').hide();
+            $quizContent.html(LOADING_HTML);
+        });
+
+        // 点击"测验"打开Modal时自动切换到测验Tab
         $learnModal.on('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             if (!button) return;
+
             const tab = button.getAttribute('data-tab') || '';
             if (tab !== 'quiz') return;
+
             $('#learn-tabs a[href="#learn-quiz"]').tab('show');
             window.openQuiz(button);
         });
 
-        // 从“内容”Tab 手动切换到“测验”Tab 时，如果当前没有加载测验，则自动根据 lastUnit 加载
+        // 手动切换到测验Tab时自动加载
         $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-quiz"]', function () {
-            // modal 没打开或已经有 quizData 就不用再加载
-            if (!$learnModal.hasClass('show') || quizData) {
-                return;
-            }
+            if (!$learnModal.hasClass('show') || quizData) return;
 
             const lastUnit = parseInt($learnModal.data('lastUnit') || 0);
-            if (!lastUnit) {
-                return;
-            }
+            if (!lastUnit) return;
 
             const $unitItem = $(`li[data-unit="${lastUnit}"]`);
-            if (!$unitItem.length) {
-                return;
-            }
+            if (!$unitItem.length) return;
 
             const info = $unitItem.data('info') || {};
-
             const params = {
                 course: parseInt(info.course_id || {{ $course->id }} || 0),
                 chapter: parseInt(info.chapter_id || 0),
@@ -575,11 +519,56 @@
                 quiz: parseInt(info.quiz_id || 0),
             };
 
-            if (params.course > 0 && params.chapter > 0 && params.unit > 0 && params.quiz > 0) {
-                window.openQuiz(params);
+            window.openQuiz(params);
+        });
+
+        // 更新进度条
+        function updateProgress(index = currentQuestionIndex) {
+            if (!quizData || !quizData.questions) return;
+
+            const total = quizData.questions.length;
+            const progress = Math.floor((index + 1) / total * 100);
+            const progressHtml = `{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}`;
+
+            $('.quiz-progress').html(`<span>${progressHtml}</span><span>${progress}%</span>`);
+            $('.progress-bar').css('width', `${progress}%`).attr('aria-valuenow', progress);
+        }
+
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const $prevBtn = $learnModal.find('.per-btn');
+            const $nextBtn = $learnModal.find('.next-btn');
+
+            $prevBtn.toggleClass('disabled', currentQuestionIndex === 0)
+                .prop('disabled', currentQuestionIndex === 0);
+
+            const canGoNext = currentQuestionIndex < quizData.questions.length - 1 && isAnswered;
+            $nextBtn.toggleClass('disabled', !canGoNext).prop('disabled', !canGoNext);
+        }
+
+        // 导航按钮事件
+        $learnModal.find('.per-btn').on('click', function () {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
             }
         });
 
+        $learnModal.find('.next-btn').on('click', function () {
+            if (!isAnswered) {
+                showToast('warning', '{{__('请先回答当前题目')}}');
+                return;
+            }
+
+            if (currentQuestionIndex < quizData.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+
+        // 证书提交处理
         const $courseCompleteModal = $('#course-complete-box');
         const $certificateNameInput = $('#certificate-name');
         const $submitCertificateBtn = $('#submit-certificate-btn');
@@ -608,16 +597,15 @@
                     if (response.code !== 0) {
                         showToast('error', response.msg || '{{__('提交失败')}}');
                         $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
-                        return
+                        return;
                     }
 
                     showToast('success', '{{__('提交成功')}}');
                     $courseCompleteModal.modal('hide');
-                    // 可以在这里处理成功后的逻辑，比如跳转或显示证书
                 },
                 error: function () {
                     hideLoading($courseCompleteModal.find('.modal-content'));
-                    showToast('error', 'Failed, please try again later')
+                    showToast('error', '{{__('提交失败，请重试')}}');
                     $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
                 }
             });
@@ -627,92 +615,5 @@
             $certificateNameInput.val('');
             $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
         });
-
-        // 导航按钮事件处理
-        $learnModal.find('.per-btn').on('click', function () {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion(currentQuestionIndex);
-                // 更新进度条
-                updateProgress();
-                // 更新按钮状态
-                updateNavigationButtons();
-            }
-        });
-
-        $learnModal.find('.next-btn').on('click', function () {
-            // 只有答对题目后才能使用导航按钮跳转
-            if (!isAnswered) {
-                showToast('warning', '{{__('请先回答当前题目')}}');
-                return;
-            }
-
-            if (currentQuestionIndex < quizData.questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion(currentQuestionIndex);
-                // 更新进度条
-                updateProgress();
-                // 更新按钮状态
-                updateNavigationButtons();
-            }
-        });
-
-        // 更新进度条函数
-        function updateProgress() {
-            if (!quizData || !quizData.questions) return;
-
-            let total = quizData.questions.length;
-            let progress = Math.floor((currentQuestionIndex + 1) / total * 100);
-
-            $('.quiz-progress span').html(`{{__('第')}} <strong>${currentQuestionIndex + 1}</strong> {{__('题，共')}} <strong>${total}</strong> {{__('题')}}`);
-            $('.progress-bar').css('width', `${progress}%`).attr('aria-valuenow', progress);
-        }
-
-        // 更新导航按钮状态
-        function updateNavigationButtons() {
-            const $prevBtn = $learnModal.find('.per-btn');
-            const $nextBtn = $learnModal.find('.next-btn');
-
-            // 上一题按钮：只有不是第一题时才可点击
-            if (currentQuestionIndex > 0) {
-                $prevBtn.removeClass('disabled').prop('disabled', false);
-            } else {
-                $prevBtn.addClass('disabled').prop('disabled', true);
-            }
-
-            // 下一题按钮：只有答对当前题目且不是最后一题时才可点击
-            const isCurrentAnswered = isAnswered;
-            if (currentQuestionIndex < quizData.questions.length - 1 && isCurrentAnswered) {
-                $nextBtn.removeClass('disabled').prop('disabled', false);
-            } else {
-                $nextBtn.addClass('disabled').prop('disabled', true);
-            }
-        }
     });
 </script>
-
-<style>
-    .modal-footer .btn.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-    }
-
-    .modal-footer .btn.disabled:hover {
-        background-color: #6c757d !important;
-        border-color: #6c757d !important;
-        transform: none !important;
-    }
-
-    /* 题目内的下一题按钮样式 */
-    .quiz-next-btn.disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        background-color: #6c757d !important;
-    }
-
-    .quiz-next-btn:not(.disabled) {
-        background-color: #007bff !important;
-    }
-</style>
