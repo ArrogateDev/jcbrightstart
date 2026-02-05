@@ -444,8 +444,8 @@
                             </div>
                             <div class="quiz-statistics-btn">
                                 <button class="btn btn-primary w-100 p-3 mb-4 btn-next-unit">{{__('下一个单元')}}</button>
-                                <button class="btn btn-light w-100 p-3 mb-4 btn-review" data-dismiss="modal">{{__('复习答案')}}</button>
-                                <button class="btn btn-danger w-100 p-3 mb-4">{{__('关闭')}}</button>
+                                <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
+                                <button class="btn btn-danger w-100 p-3 mb-4 btn-close">{{__('关闭')}}</button>
                             </div>
                         </div>
                     `;
@@ -476,14 +476,28 @@
                         updateUnitStatus(currentUnitId, 2);
                     }
 
-                    // 如果全部课程完成，在关闭modal后显示证书填写框
-                    if (isAllCompleted) {
-                        $('.btn[data-dismiss="modal"]').on('click', function () {
+                    // 绑定按钮事件
+                    $('.btn-review').off('click').on('click', function () {
+                        // 点击复习答案，渲染测验内容
+                        if (quizData) {
+                            renderQuiz(quizData);
+                        } else {
+                            showQuizLoading();
+                            loadQuiz(currentUnitId, true);
+                        }
+                    });
+
+                    $('.btn-close').off('click').on('click', function () {
+                        // 点击关闭，关闭窗口
+                        $learnModal.modal('hide');
+                        
+                        // 如果全部课程完成，在关闭modal后显示证书填写框
+                        if (isAllCompleted) {
                             setTimeout(function () {
                                 $('#course-complete-box').modal('show');
                             }, 300);
-                        });
-                    }
+                        }
+                    });
                 },
                 error: function () {
                     hideLoading($learnModal);
@@ -580,8 +594,6 @@
 
         // 检查测验是否已完成
         function checkQuizCompletion() {
-            showQuizStatistics()
-            return;
             if (!currentCourseId || !currentChapterId || !currentUnitId || !currentQuizId) {
                 renderQuizStart();
                 return;
@@ -612,8 +624,10 @@
                         const isCompleted = answeredQuestions.length >= totalQuestions;
 
                         if (isCompleted) {
-                            // 已完成，直接渲染测验内容
-                            renderQuiz(response.data);
+                            // 已完成，保存测验数据并直接显示统计内容
+                            quizData = response.data;
+                            answeredQuestionsList = answeredQuestions;
+                            showQuizStatistics();
                         } else {
                             // 未完成，显示开始页面（使用已加载的数据）
                             renderQuizStart(response.data);
