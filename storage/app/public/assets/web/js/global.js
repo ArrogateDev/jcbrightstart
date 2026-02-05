@@ -10,7 +10,7 @@
 
         try {
             var preloader_object = $('.js-preloader');
-            
+
             // 强制隐藏 loading 的函数
             var forceHideLoading = function() {
                 var $animsition = $('.animsition');
@@ -61,7 +61,7 @@
                 var images = $('img');
                 var loadedCount = 0;
                 var totalImages = images.length;
-                
+
                 if (totalImages === 0) {
                     setTimeout(forceHideLoading, 1000);
                     return;
@@ -92,7 +92,7 @@
 
             // 多重安全措施：3秒后强制隐藏（如果还在显示）
             setTimeout(forceHideLoading, 3000);
-            
+
             // 最终安全措施：8秒后强制隐藏
             setTimeout(forceHideLoading, 8000);
 
@@ -892,6 +892,7 @@
                 var posParallax = that.offset().top;
                 var hParallax = that.outerHeight();
                 var setPosParallax = function () {
+                    return
                     if ($(window).width() > 992) {
                         if (bgParallax.outerHeight() < $(window).height()) {
 
@@ -1023,7 +1024,7 @@
                 setTimeout(forceHideLoading, 100);
             });
         }
-        
+
         // 最终保险：5秒后强制隐藏（防止某些资源加载失败导致 loading 一直显示）
         setTimeout(forceHideLoading, 5000);
     });
@@ -1065,7 +1066,7 @@
                 }, 100);
             });
         }
-        
+
         // 最终保险：5秒后强制隐藏
         setTimeout(function() {
             var animsition = document.querySelector('.animsition');
