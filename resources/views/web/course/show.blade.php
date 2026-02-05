@@ -212,24 +212,26 @@
                                                                                 {{$unit->title}}
                                                                             </p>
                                                                             <div class="d-flex align-items-center">
-                                                                                @if($unit->status === 1)
-                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
-                                                                                       data-course="{{$unit->course_id??0}}"
-                                                                                       data-chapter="{{$unit->chapter_id??0}}"
-                                                                                       data-unit="{{$unit->id??0}}"
-                                                                                       data-quiz="{{$unit->quiz_id??0}}"
-                                                                                       data-status="{{$unit->status??0}}">{{__('测验')}}</a>
-                                                                                @else
-                                                                                    <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
-                                                                                       data-unit="{{$unit->id??0}}"
-                                                                                       data-status="{{$unit->status??0}}" data-play-position="{{$unit->play_position??0}}">{{__('打开')}}</a>
-                                                                                @endif
+                                                                                <div class="unit-status">
+                                                                                    @if($unit->status === 1)
+                                                                                        <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="quiz"
+                                                                                           data-course="{{$unit->course_id??0}}"
+                                                                                           data-chapter="{{$unit->chapter_id??0}}"
+                                                                                           data-unit="{{$unit->id??0}}"
+                                                                                           data-quiz="{{$unit->quiz_id??0}}"
+                                                                                           data-status="{{$unit->status??0}}">{{__('测验')}}</a>
+                                                                                    @else
+                                                                                        <a href="#" class="preview-link" data-toggle="modal" data-target="#learn-box" data-tab="play"
+                                                                                           data-unit="{{$unit->id??0}}"
+                                                                                           data-status="{{$unit->status??0}}" data-play-position="{{$unit->play_position??0}}">{{__('打开')}}</a>
+                                                                                    @endif
 
-                                                                                @if($unit->status === 1)
-                                                                                    <i class="fa-solid fa-book text-warning ml-3"></i>
-                                                                                @elseif($unit->status === 2)
-                                                                                    <i class="fa-solid fa-circle-check text-success ml-3"></i>
-                                                                                @endif
+                                                                                    @if($unit->status === 1)
+                                                                                        <i class="fa-solid fa-book text-warning ml-3"></i>
+                                                                                    @elseif($unit->status === 2)
+                                                                                        <i class="fa-solid fa-circle-check text-success ml-3"></i>
+                                                                                    @endif
+                                                                                </div>
 
                                                                                 @if(!empty(html_entity_decode(strip_tags($unit->description))))
                                                                                     <i class="fas fa-chevron-down unit-expand-icon ml-3 text-muted"></i>

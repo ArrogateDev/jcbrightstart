@@ -77,6 +77,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     $route->post('/course/{course}/play-end.html', [CourseController::class, 'handleRecordPlayEnd'])->name('course.play-end.html');
     $route->post('/course/{course}/quiz-answer.html', [CourseController::class, 'handleSaveQuizAnswer'])->name('course.save-quiz-answer.html');
     $route->get('/course/{course}/answered-questions.html', [CourseController::class, 'getAnsweredQuestions'])->name('course.answered-questions.html');
+    $route->get('/course/{course}/quiz-statistics.html', [CourseController::class, 'getQuizStatistics'])->name('course.quiz-statistics.html');
     $route->post('/course/{course}/certificate.html', [CourseController::class, 'handleCertificate'])->name('course.handle.html');
 
     $route->group(['prefix' => 'user'], function ($route) {

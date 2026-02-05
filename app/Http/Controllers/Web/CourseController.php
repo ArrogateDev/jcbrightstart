@@ -428,6 +428,52 @@ class CourseController extends Controller
         }
     }
 
+    /**
+     * 获取测验统计信息
+     *
+     * @param Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function getQuizStatistics(Request $request, Course $course)
+    {
+        $user = $request->user('web');
+
+        $request->validate([
+            'chapter_id' => 'required|integer',
+            'unit_id' => 'required|integer',
+            'quiz_id' => 'required|integer',
+        ]);
+
+        try {
+            // 获取统计记录
+            $statistics = UserUnitQuizStatistics::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('chapter_id', $request->chapter_id)
+                ->where('unit_id', $request->unit_id)
+                ->where('quiz_id', $request->quiz_id)
+                ->first();
+
+            if (!$statistics) {
+                throw new ApiException(__('统计信息不存在'), ResponseCode::NOT_FOUND);
+            }
+
+            return $this->responseSuccess([
+                'total_questions' => $statistics->total_questions,
+                'answered' => $statistics->answered,
+                'correct' => $statistics->correct,
+                'incorrect' => $statistics->incorrect,
+                'correct_rate' => $statistics->correct_rate,
+            ]);
+        } catch (ApiException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
 
     public function handleCertificate(Request $request, Course $course)
     {
