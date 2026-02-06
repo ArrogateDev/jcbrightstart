@@ -45,6 +45,9 @@
         function renderQuizStart(quiz = null) {
             if (quiz) {
                 quizData = quiz;
+            } else {
+                // 如果没有传入quiz参数，清空quizData，确保不会使用旧数据
+                quizData = null;
             }
 
             isAnswered = false;
@@ -67,12 +70,9 @@
             $('#quiz-start-button').off('click').on('click', function () {
                 if (!currentUnitId) return;
 
-                if (quizData) {
-                    renderQuiz(quizData);
-                } else {
-                    showQuizLoading();
-                    loadQuiz(currentUnitId, true);
-                }
+                // 总是重新加载当前单元的数据，确保使用最新的数据
+                showQuizLoading();
+                loadQuiz(currentUnitId, true);
             });
         }
 
@@ -385,7 +385,8 @@
                 return;
             }
 
-            showLoading($learnModal);
+            // 先清空内容区域，避免显示上一个单元的内容
+            showQuizLoading();
             $learnModal.find('.modal-footer').hide();
 
             // 获取统计信息
@@ -406,7 +407,7 @@
                     }
 
                     const stats = response.data || {};
-                    const totalQuestions = parseInt(stats.total_questions) || quizData.questions.length;
+                    const totalQuestions = parseInt(stats.total_questions) || 0;
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
                     const isAllCompleted = stats.is_all_completed || false;
@@ -507,13 +508,9 @@
                     });
 
                     $('.btn-review').off('click').on('click', function () {
-                        // 点击复习答案，渲染测验内容
-                        if (quizData) {
-                            renderQuiz(quizData);
-                        } else {
-                            showQuizLoading();
-                            loadQuiz(currentUnitId, true);
-                        }
+                        // 点击复习答案，总是重新加载当前单元的数据，确保使用最新的数据
+                        showQuizLoading();
+                        loadQuiz(currentUnitId, true);
                     });
 
                     $('.btn-close').off('click').on('click', function () {
@@ -522,7 +519,6 @@
                     });
                 },
                 error: function () {
-                    hideLoading($learnModal);
                     showToast('error', '{{__('获取统计信息失败，请重试')}}');
                 }
             });
@@ -653,6 +649,15 @@
             const params = parseQuizParams(paramsOrEl);
             if (!params) return;
 
+            // 重置测验状态，确保新单元开始时状态是干净的
+            resetQuizState();
+
+            // 立即清空内容区域，避免显示上一个单元的内容
+            showQuizLoading();
+
+            // 确保切换到quiz tab
+            $('#learn-tabs a[href="#learn-quiz"]').tab('show');
+
             currentCourseId = params.course;
             currentChapterId = params.chapter;
             currentUnitId = params.unit;
@@ -670,6 +675,9 @@
                 return;
             }
 
+            // 清空旧的测验数据，确保不会显示上一个单元的内容
+            quizData = null;
+            answeredQuestionsList = [];
             showQuizLoading();
 
             // 先加载测验数据获取题目总数
@@ -732,10 +740,14 @@
 
         // 手动切换到测验Tab时自动加载
         $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-quiz"]', function () {
-            if (!$learnModal.hasClass('show') || quizData) return;
+            if (!$learnModal.hasClass('show')) return;
 
+            // 如果已经有当前单元的数据，且quizData存在，说明已经加载过了，不需要重复加载
             const lastUnit = parseInt($learnModal.data('lastUnit') || 0);
             if (!lastUnit) return;
+
+            // 检查当前单元ID是否匹配，如果匹配且quizData存在，说明已经加载了当前单元的数据
+            if (currentUnitId === lastUnit && quizData) return;
 
             const $unitItem = $(`li[data-unit="${lastUnit}"]`);
             if (!$unitItem.length) return;
