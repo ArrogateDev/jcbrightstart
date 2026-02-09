@@ -77,7 +77,7 @@
                         <div class="row mb-3">
                             <div class="col-12 col-md-6 mb-4 mb-md-2 organization-item">
                                 <div class="mb-1">
-                                    <h5 class="section-heading__title">{{__('Organised by 主办机构')}}</h5>
+                                    <h5 class="section-heading__title">{{__('主办机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
                                     <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-12 col-md-6 mb-2 organization-item">
                                 <div class="mb-1">
-                                    <h5 class="section-heading__title">{{__('Funded by 捐助机构')}}</h5>
+                                    <h5 class="section-heading__title">{{__('捐助机构')}}</h5>
                                 </div>
                                 <div class="w-100 d-flex">
                                     <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">

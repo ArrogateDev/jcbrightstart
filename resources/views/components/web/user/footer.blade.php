@@ -3,7 +3,7 @@
         <div class="row my-5">
             <div class="col-12 col-md-6">
                 <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                    <h3 class="section-heading__title">{{__('Organised by 主办机构')}}</h3>
+                    <h3 class="section-heading__title">{{__('主办机构')}}</h3>
                 </div>
                 <div class="w-100 d-flex">
                     <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
@@ -11,7 +11,7 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                    <h3 class="section-heading__title">{{__('Funded by 捐助机构')}}</h3>
+                    <h3 class="section-heading__title">{{__('捐助机构')}}</h3>
                 </div>
                 <div class="w-100 d-flex">
                     <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">

@@ -39,6 +39,44 @@ class WebMiddleware
             $url = $request->url();
 
             $navs[] = [
+                'title' => __('首页'),
+                'url' => route('index.html'),
+                'active' => $url === route('index.html'),
+                'children' => [
+                    [
+                        'title' => __('HOME1_TITLE'),
+                        'url' => route('index.html') . '#bright-start',
+                        'anchor' => true,
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('HOME2_TITLE'),
+                        'url' => route('index.html') . '#plan',
+                        'anchor' => true,
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('HOME3_TITLE'),
+                        'url' => route('index.html') . '#vision',
+                        'anchor' => true,
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('HOME4_TITLE'),
+                        'url' => route('index.html') . '#goals',
+                        'anchor' => true,
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('HOME5_TITLE'),
+                        'url' => route('index.html') . '#professional-development',
+                        'anchor' => true,
+                        'children' => []
+                    ]
+                ]
+            ];
+
+            $navs[] = [
                 'title' => __('最新消息'),
                 'url' => route('news.html'),
                 'active' => $url === route('news.html'),
@@ -130,7 +168,8 @@ class WebMiddleware
                 'active' => $url === route('page', ['page' => 'contact-us.html']),
                 'url' => route('page', ['page' => 'contact-us.html']),
                 'children' => []
-            ]; $user_menus[] = [
+            ];
+            $user_menus[] = [
                 'title' => __('主菜单'),
                 'children' => [
                     [

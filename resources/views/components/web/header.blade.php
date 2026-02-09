@@ -50,14 +50,14 @@
                             <ul class="list-unstyled">
                                 @foreach($navs as $nav)
                                     <li @class(['header-navbar__item', 'has-sub' => !empty($nav['children']),'active' =>!empty( $nav['active'])])>
-                                        <a href="{{$nav['url']}}">
+                                        <a href="{{$nav['url']}}" @if(!empty($nav['class'])) class="{{$nav['class']}}" @endif>
                                             <span class="bg-link">{{$nav['title']}}</span>
                                         </a>
                                         @if(!empty($nav['children']))
                                             <ul class="list-unstyled header-navbar-child first">
                                                 @foreach($nav['children'] as $child)
                                                     <li @class(['has-sub' => !empty($child['children'])])>
-                                                        <a href="{{$child['url']}}">{{$child['title']}}</a>
+                                                        <a @class(['nav-anchor' => !empty($child['anchor'])]) href="{{$child['url']}}">{{$child['title']}}</a>
                                                         @if(!empty($child['children']))
                                                             <ul class="list-unstyled header-navbar-child second">
                                                                 @foreach($child['children'] as $item)

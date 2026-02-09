@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <section class="section p-t-150 p-b-140 p-md-t-60 p-md-b-60">
+        <section class="section p-t-150 p-b-140 p-md-t-60 p-md-b-60" id="bright-start">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -74,7 +74,7 @@
             </div>
         </section>
 
-        <section class="section p-t-75 p-b-75">
+        <section class="section p-t-75 p-b-75" id="plan">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 d-flex align-items-center">
@@ -108,7 +108,7 @@
             </div>
         </section>
 
-        <section class="section p-t-75 p-b-75 p-md-t-60">
+        <section class="section p-t-75 p-b-75 p-md-t-60" id="vision">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -135,7 +135,7 @@
             </div>
         </section>
 
-        <section class="section p-t-75 p-b-75">
+        <section class="section p-t-75 p-b-75" id="goals">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5 d-flex align-items-center">
@@ -221,7 +221,7 @@
             </div>
         </section>
 
-        <section class="section p-t-75 p-b-75">
+        <section class="section p-t-75 p-b-75" id="professional-development">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -239,11 +239,31 @@
                                         <h2 class="section-heading__title">{{__('HOME5_TITLE')}}</h2>
                                     </div>
                                     <div class="realm-box">
-                                        <div class="realm-item">{{__('HOME5_CONTENT01')}}</div>
-                                        <div class="realm-item">{{__('HOME5_CONTENT02')}}</div>
-                                        <div class="realm-item">{{__('HOME5_CONTENT03')}}</div>
-                                        <div class="realm-item">{{__('HOME5_CONTENT04')}}</div>
-                                        <div class="realm-item">{{__('HOME5_CONTENT05')}}</div>
+                                        <div class="realm-item">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-1">
+                                                {{__('HOME5_CONTENT01')}}
+                                            </a>
+                                        </div>
+                                        <div class="realm-item">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-2">
+                                                {{__('HOME5_CONTENT02')}}
+                                            </a>
+                                        </div>
+                                        <div class="realm-item">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-3">
+                                                {{__('HOME5_CONTENT03')}}
+                                            </a>
+                                        </div>
+                                        <div class="realm-item">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-4">
+                                                {{__('HOME5_CONTENT04')}}
+                                            </a>
+                                        </div>
+                                        <div class="realm-item">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-5">
+                                                {{__('HOME5_CONTENT05')}}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +275,7 @@
 
         <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80">
             <div class="bg-cloud-5">
-                <img src="{{web_resource_url('assets/web/images/icon/bg-cloud-05.png')}}" alt="Cloud">
+                <img src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('最新消息')}}">
             </div>
             <div class="container">
                 <div class="row">
@@ -297,7 +317,7 @@
             </div>
         </section>
 
-        <section class="section p-t-30 p-b-85">
+        <section class="section p-t-30">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -310,7 +330,6 @@
             </div>
         </section>
 
-        <x-web.partner/>
     </main>
 
     <x-web.footer/>

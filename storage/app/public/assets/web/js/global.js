@@ -28,7 +28,7 @@
                 outClass: 'fade-out',
                 inDuration: 800,
                 outDuration: 800,
-                linkElement: 'a:not([target="_blank"]):not([href^="#"]):not([class^="chosen-single"])',
+                linkElement: 'a:not([target="_blank"]):not([class^="chosen-single"]):not(.nav-anchor)',
                 loading: true,
                 loadingParentElement: 'html',
                 loadingClass: 'loader-wrapper',
@@ -105,6 +105,40 @@
             });
         }
     }); // 结束第一个 document.ready
+
+    // 添加锚点跳转处理
+    $(document).ready(function() {
+        // 处理带有 nav-anchor 类的锚点链接
+        $('a.nav-anchor').on('click', function(e) {
+            var target = $(this).attr('href');
+            if (target && target.indexOf('#') !== -1) {
+                var hash = target.substring(target.indexOf('#'));
+                var targetElement = $(hash);
+                if (targetElement.length) {
+                    e.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - 80 // 减去头部高度
+                    }, 800);
+                    // 更新URL hash但不刷新页面
+                    if (history.pushState) {
+                        history.pushState(null, null, hash);
+                    }
+                }
+            }
+        });
+
+        // 处理页面直接访问带hash的URL
+        if (window.location.hash) {
+            var targetElement = $(window.location.hash);
+            if (targetElement.length) {
+                setTimeout(function() {
+                    $('html, body').animate({
+                        scrollTop: targetElement.offset().top - 80
+                    }, 800);
+                }, 1000); // 等待页面完全加载
+            }
+        }
+    });
 
 
 })(jQuery);
