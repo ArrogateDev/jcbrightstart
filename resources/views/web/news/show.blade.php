@@ -2,6 +2,12 @@
 <html lang="en">
 
 <x-web.head/>
+
+<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
+        data-target-selector=".gallery-img"
+        data-allow-rotate="false"
+        data-allow-download="false">
+</script>
 <style>
     .post-btn {
         font-size: 32px;
@@ -23,6 +29,7 @@
     .thumbnail-box {
         max-height: 80vh;
         text-align: center;
+        cursor: pointer;
     }
 </style>
 
@@ -40,10 +47,11 @@
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
-                            <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
-                                <img class="mh-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
-                            </a>
+                            <div class="img-radius text-center thumbnail-box">
+                                <img class="mh-100 gallery-img" src="{{$news->thumbnail}}" alt="{{$news->title}}">
+                            </div>
                         </div>
+
                         <div class="media__body">
                             <h4 class="media__title title title--black title--s35">
                                 <a href="javascript:void(0);">{{$news->title}}</a>

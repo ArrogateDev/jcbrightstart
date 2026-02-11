@@ -2,6 +2,11 @@
 <html lang="en">
 
 <x-web.head/>
+<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
+        data-target-selector=".gallery-img"
+        data-allow-rotate="false"
+        data-allow-download="false">
+</script>
 <style>
     .post-btn {
         font-size: 32px;
@@ -28,7 +33,7 @@
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
                             <a class="img-radius text-center" href="javascript:void(0);">
-                                <img class="w-100" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
+                                <img class="w-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                             </a>
                             <div class="media__date">
                                 <div class="media__date-inner">

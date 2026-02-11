@@ -2,6 +2,11 @@
 <html lang="en">
 
 <x-web.head/>
+<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
+        data-target-selector=".gallery-img"
+        data-allow-rotate="false"
+        data-allow-download="false">
+</script>
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
 <style>
     .thumbnail-box {
@@ -24,7 +29,7 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="position-relative thumbnail-box">
-                            <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
+                            <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4 gallery-img" style="border-radius: .25rem;">
                         </div>
                         <div class="course-page-content pt-0">
                             <div class="card mb-4">
