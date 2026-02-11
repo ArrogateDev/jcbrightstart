@@ -37,7 +37,7 @@
     }
 
     .thumbnail-box img {
-        max-height: 85vh;
+        max-height: 85vh !important;
         height: auto;
         width: auto;
     }
