@@ -317,7 +317,7 @@
             </div>
         </section>
 
-        <section class="section p-t-30">
+        <section class="section p-t-100">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
