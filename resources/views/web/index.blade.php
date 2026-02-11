@@ -20,7 +20,7 @@
 
     <x-web.header/>
 
-    <main id="main">
+    <main id="main" class="d-flex flex-column">
 
         <div class="container">
             <div class="row picture-wall-box">
@@ -273,9 +273,9 @@
             </div>
         </section>
 
-        <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80">
+        <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80 overflow-hidden">
             <div class="bg-cloud-5">
-                <img src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('最新消息')}}">
+                <img class="w-100" src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('最新消息')}}">
             </div>
             <div class="container">
                 <div class="row">
@@ -317,7 +317,7 @@
             </div>
         </section>
 
-        <section class="section p-t-100">
+        <section class="section p-t-80 p-b-100">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
