@@ -51,12 +51,10 @@ class IndexController extends Controller
             ]
         ];
 
-        $now = Carbon::now()->toDateString();
         $news = News::query()
-            ->where('release_date', '>=', $now)
             ->where('status', News::STATUS_PUBLISHED)
-            ->orderByDesc('id')
-            ->limit(10)
+            ->orderByDesc('release_date')
+            ->limit(3)
             ->get();
 
         $news->map(function ($item) {
