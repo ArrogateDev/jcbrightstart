@@ -18,17 +18,19 @@
         align-items: center;
         justify-content: center;
         overflow: visible;
-        min-height: 0;
-        position: relative;
     }
 
-    .thumbnail-box img.img-fluid,
     .thumbnail-box img {
         max-height: 85vh !important;
-        max-width: 100% !important;
         height: auto !important;
         width: auto !important;
+        max-width: 100% !important;
         object-fit: contain;
+    }
+    
+    .thumbnail-box img.img-fluid {
+        max-width: 100% !important;
+        width: auto !important;
     }
 </style>
 <body class="animsition js-preloader">
