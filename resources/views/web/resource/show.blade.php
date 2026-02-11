@@ -24,10 +24,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: visible;
     }
 
     .thumbnail-box img {
         max-height: 100%;
+        height: auto;
         width: auto;
         object-fit: contain;
     }
