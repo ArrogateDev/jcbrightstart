@@ -486,7 +486,7 @@ class CourseController extends Controller
                 ->where('course_id', $course->id)
                 ->first();
 
-            $has_signature = $certificate && !empty($certificate->certificate_name);
+            $has_signature = $certificate && !empty($certificate->full_name);
             $certificate_file = $certificate ? $certificate->file : null;
 
             return $this->responseSuccess([
@@ -505,6 +505,12 @@ class CourseController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
     public function handleCertificate(Request $request, Course $course)
     {
         $user = $request->user('web');
@@ -525,7 +531,7 @@ class CourseController extends Controller
 
             $certificate = Certificate::query()->find($course->certificate_id);
 
-            $certificate = UserCourseCertificate::query()
+            $user_certificate = UserCourseCertificate::query()
                 ->firstOrCreate(
                     [
                         'user_id' => $user->id,
@@ -536,14 +542,64 @@ class CourseController extends Controller
                         'certificate_name' => $certificate->name,
                         'full_name' => $name,
                     ]);
+            $user_certificate->certificate_id = $certificate->id;
+            $user_certificate->certificate_name = $certificate->name;
+            $user_certificate->full_name = $name;
+            if ($user_certificate->save() === false) {
+                throw new \Exception(__('failed'), ResponseCode::SERVER_ERR);
+            }
 
-            CreateCourseCertificateJob::dispatch($certificate)->afterCommit();
+            CreateCourseCertificateJob::dispatch($user_certificate)->afterCommit();
 
             DB::commit();
 
             return $this->responseSuccess();
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e);
+            throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
+        }
+    }
+
+    /**
+     * 检查证书生成状态
+     *
+     * @param Request $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function checkCertificateStatus(Request $request, Course $course)
+    {
+        $user = $request->user('web');
+
+        try {
+            $certificate = UserCourseCertificate::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->first();
+
+            if (!$certificate) {
+                return $this->responseSuccess([
+                    'status' => UserCourseCertificate::STATUS_NOT_GENERATED,
+                    'file' => null,
+                    'download_url' => null,
+                ]);
+            }
+
+            $data = [
+                'status' => $certificate->status,
+            ];
+
+            // 如果证书已生成，返回下载链接
+            if ($certificate->status === UserCourseCertificate::STATUS_GENERATED && $certificate->file) {
+                $data['download_url'] = route('user.download.html', ['file' => $certificate->file]);
+            } else {
+                $data['download_url'] = null;
+            }
+
+            return $this->responseSuccess($data);
+        } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }

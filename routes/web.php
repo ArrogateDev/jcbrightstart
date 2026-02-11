@@ -80,6 +80,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     $route->get('/course/{course}/answered-questions.html', [CourseController::class, 'getAnsweredQuestions'])->name('course.answered-questions.html');
     $route->get('/course/{course}/quiz-statistics.html', [CourseController::class, 'getQuizStatistics'])->name('course.quiz-statistics.html');
     $route->post('/course/{course}/certificate.html', [CourseController::class, 'handleCertificate'])->name('course.handle.html');
+    $route->get('/course/{course}/certificate-status.html', [CourseController::class, 'checkCertificateStatus'])->name('course.certificate-status.html');
 
     $route->group(['prefix' => 'user'], function ($route) {
         //修改头像

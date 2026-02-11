@@ -427,7 +427,7 @@
                         mainButtonAction = 'download-certificate';
                     } else if (isAllCompleted && !hasSignature) {
                         // 完成所有测验但没设置签名 -> 设置签名
-                        mainButtonText = '{{__('设置签名')}}';
+                        mainButtonText = '{{__('确定证书姓名及下载')}}';
                         mainButtonClass = 'btn-warning';
                         mainButtonAction = 'set-signature';
                     }

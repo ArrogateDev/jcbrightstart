@@ -129,6 +129,7 @@
 
     <script>
         $(document).ready(function () {
+
             $('.unit-item').on('click', function (e) {
                 if ($(e.target).closest('a, button').length > 0) {
                     return;
