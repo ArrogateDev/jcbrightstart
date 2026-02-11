@@ -9,9 +9,20 @@
 </script>
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
 <style>
+
     .thumbnail-box {
         max-height: 90vh;
         text-align: center;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .thumbnail-box img {
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
     }
 </style>
 <body class="animsition js-preloader">

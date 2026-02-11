@@ -30,6 +30,15 @@
         max-height: 90vh;
         text-align: center;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .thumbnail-box img {
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
     }
 </style>
 
