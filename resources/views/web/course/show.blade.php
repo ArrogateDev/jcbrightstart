@@ -10,7 +10,7 @@
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
 <style>
     .thumbnail-box {
-        max-height: 80vh;
+        height: 90vh;
         text-align: center;
     }
 </style>

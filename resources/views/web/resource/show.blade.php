@@ -16,6 +16,11 @@
     .list-nav-blog__item a:hover .post-btn, .list-nav-blog__item a:hover .post-btn {
         color: #ff97a4;
     }
+
+    .thumbnail-box {
+        height: 90vh;
+        text-align: center;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -32,7 +37,7 @@
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
-                            <a class="img-radius text-center" href="javascript:void(0);">
+                            <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
                                 <img class="w-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                             </a>
                             <div class="media__date">

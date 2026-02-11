@@ -27,7 +27,7 @@
     }
 
     .thumbnail-box {
-        max-height: 80vh;
+        height: 90vh;
         text-align: center;
         cursor: pointer;
     }
