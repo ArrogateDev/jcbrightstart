@@ -91,7 +91,18 @@ class WebMiddleware
                     [
                         'title' => __('服务机构地址'),
                         'url' => route('maps.html'),
-                        'children' => []
+                        'children' => [
+                            [
+                                'title' => __('地图'),
+                                'url' => route('maps.html'),
+                                'children' => []
+                            ],
+                            [
+                                'title' => __('列表'),
+                                'url' => route('maps-list.html'),
+                                'children' => []
+                            ],
+                        ]
                     ],
                     [
                         'title' => __('0-3岁相关实用连结'),

@@ -57,6 +57,7 @@ Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('new
 Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('news.show.html');
 
 Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
+Route::get('/maps/list.html', [MapsController::class, 'list'])->name('maps-list.html');
 
 Route::get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
 
