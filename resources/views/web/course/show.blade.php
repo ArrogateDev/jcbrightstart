@@ -11,7 +11,7 @@
 <style>
 
     .thumbnail-box {
-        max-height: 90vh;
+        max-height: 85vh;
         text-align: center;
         cursor: pointer;
         display: flex;
