@@ -18,7 +18,7 @@
     }
 
     .thumbnail-box {
-        height: 90vh;
+        max-height: 90vh;
         text-align: center;
     }
 </style>
