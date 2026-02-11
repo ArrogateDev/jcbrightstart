@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\User;
 use App\Http\Controllers\Controller;
 use App\Models\User\UserCourseCertificate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class CertificateController extends Controller
 {
@@ -29,8 +30,11 @@ class CertificateController extends Controller
             ->paginate(limit_page());
 
         $list->append(['file_url']);
-        $list->map(function ($item) {
-            $item->download_url = route('user.download.html', ['file' => $item->file]);
+        $url = env('APP_URL');
+        $list->map(function ($item) use ($url) {
+            $item->download_url = $url . URL::temporarySignedRoute(
+                    'user.download.html', now()->addDay(), ['file' => $item->file], false
+                );
         });
 
         return $this->responseSuccess($list);

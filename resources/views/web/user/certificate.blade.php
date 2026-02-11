@@ -3,6 +3,11 @@
 
 <x-web.user.head/>
 
+<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
+        data-target-selector=".gallery-img"
+        data-allow-rotate="false"
+        data-allow-download="false">
+</script>
 <body>
 
 <div class="main-wrapper">
@@ -24,19 +29,12 @@
                     <div class="page-title d-flex align-items-center justify-content-between">
                         <h5>{{__('我的证书')}}</h5>
                     </div>
-                    <div class="table-responsive custom-table">
-                        <table class="table">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>{{__('证书')}}</th>
-                                <th>{{__('日期')}}</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody id="table-body"></tbody>
-                        </table>
+                    <div class="p-0">
+                        <div class="row" id="table-body"></div>
+
+                        <x-admin.table-data url="{{route('user.certificate.list.html')}}"/>
+
                     </div>
-                    <x-admin.table-data url="{{route('user.certificate.list.html')}}"/>
                 </div>
             </div>
         </div>
@@ -79,21 +77,32 @@
 
         list.forEach(function (item) {
             const row = `
-                <tr>
-                    <td>${item.certificate_name}</td>
-                    <td>${item.created_at}</td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="d-inline-flex fs-14 me-1 action-icon"
-                               data-bs-toggle="modal" data-bs-target="#view-certificate" data-img="${item.file_url}" data-download="${item.download_url}">
-                                <i class="isax isax-eye"></i>
-                            </a>
-                            <a href="${item.download_url}" class="d-inline-flex fs-14 action-icon">
-                                <i class="isax isax-import"></i>
-                            </a>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="mb-3 d-flex justify-content-center">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#view_certificate">
+                                    <img class="img-fluid rounded gallery-img" src="${item.file_url}" alt="${item.certificate_name}" style="height: 200px;">
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center flex-wrap justify-content-between gap-2">
+                                <h6>${item.certificate_name}</h6>
+                                <ul class="edit-delete-icon d-flex align-items-center">
+                                    <li>
+                                        <a href="javascript:;" class="btn-eye">
+                                            <i class="isax isax-eye"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="${item.download_url}" class="d-inline-flex fs-14 action-icon">
+                                            <i class="isax isax-import"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             `;
             tbody.append(row);
         });
@@ -118,6 +127,17 @@
             $modal.find('#certificate-img').attr('src', '');
             $modal.find('#certificate-url').attr('href', '#');
         });
+
+        $(document).on('click', '.btn-eye', function (e) {
+            $(this).parents('.card-body').find('img').click()
+        })
     });
 </script>
+
+<style>
+    #table-body tr, #table-body td {
+        display: block;
+        width: 100%;
+    }
+</style>
 </html>

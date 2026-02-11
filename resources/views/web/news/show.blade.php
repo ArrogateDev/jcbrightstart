@@ -9,6 +9,17 @@
         data-allow-download="false">
 </script>
 <style>
+    .container {
+        max-width: 1000px !important;
+    }
+
+    .blog-single {
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
     .post-btn {
         font-size: 32px;
         color: #666;

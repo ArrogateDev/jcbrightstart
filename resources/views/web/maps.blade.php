@@ -179,8 +179,8 @@
 
                                         @foreach($types as $type => $list)
                                             <div class="mb-3">
-                                                <div class="type-item collapsed" id="{{$type}}" data-toggle="collapse" data-target="#collapse-{{Str::slug($type, '-')}}" aria-expanded="false"
-                                                     aria-controls="collapse-{{Str::slug($type, '-')}}">
+                                                <div class="type-item collapsed" id="{{md5($type)}}" data-toggle="collapse" data-target="#collapse-{{md5($type)}}" aria-expanded="false"
+                                                     aria-controls="collapse-{{md5($type)}}">
                                                     <span>{{$type}}</span>
                                                     <span class="icon">
                                                             <i class="fas fa-chevron-down icon-expand"></i>
@@ -188,7 +188,7 @@
                                                         </span>
                                                 </div>
 
-                                                <div id="collapse-{{Str::slug($type, '-')}}" class="collapse p-2" aria-labelledby="{{Str::slug($type, '-')}}" data-parent="#accordion">
+                                                <div id="collapse-{{md5($type)}}" class="collapse p-2" aria-labelledby="{{md5($type)}}" data-parent="#accordion">
 
                                                     @foreach($list as $map)
                                                         <div class="location-item" data-id="{{$map->id}}">

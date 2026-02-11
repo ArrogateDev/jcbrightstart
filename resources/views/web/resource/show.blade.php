@@ -8,6 +8,17 @@
         data-allow-download="false">
 </script>
 <style>
+    .container {
+        max-width: 1000px !important;
+    }
+
+    .blog-single {
+        padding: 2rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
     .post-btn {
         font-size: 32px;
         color: #666;
@@ -51,12 +62,6 @@
                             <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
                                 <img class="w-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                             </a>
-                            <div class="media__date">
-                                <div class="media__date-inner">
-                                    <span class="day">{{$resource->day}}</span>
-                                    <span class="month">{{$resource->month}}</span>
-                                </div>
-                            </div>
                         </div>
                         <div class="media__body">
                             <h4 class="media__title title title--black title--s35">

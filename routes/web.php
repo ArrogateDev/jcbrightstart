@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\Auth\LoginController;
 use App\Http\Controllers\Web\Auth\RegisterController;
 use App\Http\Controllers\Web\Auth\ResetPasswordController;
 use App\Http\Controllers\Web\CourseController;
+use App\Http\Controllers\Web\DownloadController;
 use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\Web\MapsController;
 use App\Http\Controllers\Web\NewsController;
@@ -70,7 +71,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
 
     //下载文件
-    $route->get('download.html', [CommonController::class, 'download'])->name('user.download.html');
+    $route->get('download.html', [DownloadController::class, 'download'])->name('user.download.html');
 
     $route->get('quiz/{unit}.html', [CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
     $route->post('/course/{course}/play-record.html', [CourseController::class, 'handleSavePlayRecord'])->name('course.save-play-record.html');

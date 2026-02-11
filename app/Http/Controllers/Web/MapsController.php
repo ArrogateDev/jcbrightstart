@@ -15,7 +15,11 @@ class MapsController extends Controller
             ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
             ->get();
 
-        $types = $maps->groupBy('type');
+        $maps = $maps->map(function ($item) {
+            $item->type_text = md5($item->type);
+            return $item;
+        });
+        $types = $maps->groupBy('type')->sort();
 
         return view('web.maps', compact('types', 'maps'));
     }
@@ -26,7 +30,7 @@ class MapsController extends Controller
             ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
             ->get();
 
-        $types = $maps->groupBy('type');
+        $types = $maps->groupBy('type')->sort();
 
         return view('web.maps-list', compact('types', 'maps'));
     }
