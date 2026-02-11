@@ -18,12 +18,16 @@
         align-items: center;
         justify-content: center;
         overflow: visible;
+        min-height: 0;
+        position: relative;
     }
 
+    .thumbnail-box img.img-fluid,
     .thumbnail-box img {
-        max-height: 100%;
-        height: auto;
-        width: auto;
+        max-height: 85vh !important;
+        max-width: 100% !important;
+        height: auto !important;
+        width: auto !important;
         object-fit: contain;
     }
 </style>
