@@ -16,15 +16,15 @@
                 <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
                     <h2 class="section-heading__title">{{__('主办机构')}}</h2>
                 </div>
-                <div class="w-100 d-flex">
-                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
                     <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
                 </div>
-                <div class="w-100 d-flex">
+                <div class="w-100 d-flex mb-3 mb-md-0">
                     <img style="height: 110px;" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>

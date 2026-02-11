@@ -28,7 +28,7 @@
                 outClass: 'fade-out',
                 inDuration: 800,
                 outDuration: 800,
-                linkElement: 'a:not([target="_blank"]):not([class^="chosen-single"]):not(.nav-anchor)',
+                linkElement: 'a:not([target="_blank"]):not([class^="chosen-single"]):not(.nav-anchor):not([href="#"]):not([href^="javascript"])',
                 loading: true,
                 loadingParentElement: 'html',
                 loadingClass: 'loader-wrapper',
