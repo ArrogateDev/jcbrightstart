@@ -28,10 +28,9 @@
     }
 
     .thumbnail-box img {
-        max-height: 100%;
+        max-height: 85vh;
         height: auto;
         width: auto;
-        object-fit: contain;
     }
 </style>
 
