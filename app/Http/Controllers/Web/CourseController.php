@@ -351,6 +351,8 @@ class CourseController extends Controller
                 $certificate = new UserCourseCertificate();
                 $certificate->user_id = $user->id;
                 $certificate->course_id = $course->id;
+                $certificate->certificate_id = 0;
+                $certificate->certificate_name = '';
                 if ($certificate->save() === false) {
                     throw new \Exception('certificate:failed');
                 }
