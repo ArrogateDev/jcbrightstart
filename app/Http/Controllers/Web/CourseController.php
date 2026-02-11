@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 
 class CourseController extends Controller
 {
@@ -593,7 +594,9 @@ class CourseController extends Controller
 
             // 如果证书已生成，返回下载链接
             if ($certificate->status === UserCourseCertificate::STATUS_GENERATED && $certificate->file) {
-                $data['download_url'] = route('user.download.html', ['file' => $certificate->file]);
+                $data['download_url'] = env('APP_URL') . URL::temporarySignedRoute(
+                        'user.download.html', now()->addDay(), ['file' => $certificate->file], false
+                    );
             } else {
                 $data['download_url'] = null;
             }
