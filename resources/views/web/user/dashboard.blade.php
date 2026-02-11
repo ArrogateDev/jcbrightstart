@@ -54,7 +54,7 @@
                                                 class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0"><img
                                                     src="{{web_resource_url('assets/admin/img/icon/graduation.svg')}}" alt=""></span>
                                         <div>
-                                            <span class="d-block">{{__('开始课程')}}</span>
+                                            <span class="d-block">{{__('我的课程')}}</span>
                                             <h4 class="fs-24 mt-1">{{$start_course}}</h4>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
                                                 class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0"><img
                                                     src="{{web_resource_url('assets/admin/img/icon/book.svg')}}" alt=""></span>
                                         <div>
-                                            <span class="d-block">{{__('完成课程')}}</span>
+                                            <span class="d-block">{{__('待完成课程')}}</span>
                                             <h4 class="fs-24 mt-1">{{$complete_course}}</h4>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                                 class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0"><img
                                                     src="{{web_resource_url('assets/admin/img/icon/bookmark.svg')}}" alt=""></span>
                                         <div>
-                                            <span class="d-block">{{__('完成测验')}}</span>
+                                            <span class="d-block">{{__('我的证书')}}</span>
                                             <h4 class="fs-24 mt-1">{{$complete_quizzes}}</h4>
                                         </div>
                                     </div>

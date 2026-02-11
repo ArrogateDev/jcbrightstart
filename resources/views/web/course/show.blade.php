@@ -3,7 +3,12 @@
 
 <x-web.head/>
 <link href="{{web_resource_url('assets/web/css/course.css')}}" rel="stylesheet" media="all">
-
+<style>
+    .thumbnail-box {
+        max-height: 80vh;
+        text-align: center;
+    }
+</style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
 
@@ -18,7 +23,7 @@
 
                 <div class="row mt-4">
                     <div class="col-12">
-                        <div class="position-relative">
+                        <div class="position-relative thumbnail-box">
                             <img src="{{$course->thumbnail}}" alt="img" class="img-fluid mb-4" style="border-radius: .25rem;">
                         </div>
                         <div class="course-page-content pt-0">

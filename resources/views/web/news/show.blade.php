@@ -19,6 +19,11 @@
         padding: 20px;
         border-radius: 20px;
     }
+
+    .thumbnail-box {
+        max-height: 80vh;
+        text-align: center;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -35,15 +40,9 @@
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
-                            <a class="img-radius text-center" href="javascript:void(0);">
-                                <img class="mw-100 mh-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
+                            <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
+                                <img class="mh-100" src="{{$news->thumbnail}}" alt="{{$news->title}}">
                             </a>
-                            <div class="media__date">
-                                <div class="media__date-inner">
-                                    <span class="day">{{$news->day}}</span>
-                                    <span class="month">{{$news->month}}</span>
-                                </div>
-                            </div>
                         </div>
                         <div class="media__body">
                             <h4 class="media__title title title--black title--s35">

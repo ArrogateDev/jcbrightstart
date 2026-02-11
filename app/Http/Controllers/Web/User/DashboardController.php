@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course\Course;
+use App\Models\User\UserCourseCertificate;
 use App\Models\User\UserCoursePlayRecord;
 use App\Models\User\UserUnitQuizStatistics;
 use Illuminate\Http\Request;
@@ -27,12 +29,17 @@ class DashboardController extends Controller
             $last_quiz->makeHidden(['course_id', 'chapter_id', 'unit_id', 'quiz_id', 'course', 'chapter', 'unit', 'quiz']);
         }
 
-        //开始课程
-        $start_course = 0;
-        //完成课程
-        $complete_course = 0;
-        //完成测验
-        $complete_quizzes = 0;
+        //我的课程
+        $start_course = Course::query()
+            ->where('status', Course::STATUS_PUBLISHED)
+            ->count();
+        //我的证书
+        $complete_quizzes = UserCourseCertificate::query()
+            ->where('user_id', $user->id)
+            ->where('status', UserCourseCertificate::STATUS_GENERATED)
+            ->count();
+        //待完成课程
+        $complete_course = max(0, bcsub($start_course, $complete_quizzes, 0));
 
         $courses = UserCoursePlayRecord::query()
             ->with(['course:id,title,thumbnail,status,created_at'])
