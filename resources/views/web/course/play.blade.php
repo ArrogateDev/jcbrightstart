@@ -478,6 +478,8 @@
             currentUnit = null;
             currentChapter = null;
             $('#play-loading').removeClass('d-none').addClass('d-flex')
+            $('#certificate-loading').removeClass('d-none').addClass('d-flex')
+            $('#certificate-content').hide()
         });
 
         $modal.on('shown.bs.modal', function () {

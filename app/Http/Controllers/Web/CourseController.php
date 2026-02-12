@@ -44,6 +44,16 @@ class CourseController extends Controller
             return $chapter->units->count();
         });
 
+        $certificate = UserCourseCertificate::query()
+            ->where('user_id', $user->id ?? 0)
+            ->where('course_id', $course->id)
+            ->first();
+
+        $course->certificate_url = $certificate->file_url ?? null;
+        $course->certificate_download_url = $course->certificate_url ? env('APP_URL') . URL::temporarySignedRoute(
+                'user.download.html', now()->addDay(), ['file' => $certificate->file], false
+            ) : null;
+
         $play_records = UserCoursePlayRecord::query()
             ->where('user_id', $user->id ?? 0)
             ->where('course_id', $course->id)

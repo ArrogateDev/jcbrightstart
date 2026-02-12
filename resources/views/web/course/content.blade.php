@@ -15,6 +15,13 @@
                                 ❓ {{__('测验')}}
                             </a>
                         </li>
+                        @if($course->certificate_url??null)
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="learn-certificate-tab" data-toggle="tab" href="#learn-certificate" role="tab" aria-controls="learn-certificate" aria-selected="false">
+                                    🏅 {{__('证书')}}
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
 
@@ -31,11 +38,15 @@
                     <div class="tab-pane fade" id="learn-quiz" role="tabpanel" aria-labelledby="learn-quiz-tab">
                         @include('web.course.quiz')
                     </div>
+                    <div class="tab-pane fade" id="learn-certificate" role="tabpanel" aria-labelledby="learn-certificate-tab">
+                        @include('web.course.certificate')
+                    </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-between" style="display: none;">
                 <button class="per-btn">← {{__('上一题')}}</button>
                 <button class="next-btn" style="display: none;">{{__('下一题')}} →</button>
+                <button class="download-btn" style="display: none;">{{__('下载')}}</button>
             </div>
         </div>
     </div>
