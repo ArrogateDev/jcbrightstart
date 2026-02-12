@@ -97,6 +97,12 @@
                         $courseCompleteModal.find('.btn-main-action').attr('data-file', data.download_url);
                         $('#look-certificate-img').attr('src', data.file);
 
+                        // 确保查看证书按钮能正常工作
+                        $courseCompleteModal.find('[data-toggle="modal"][data-target="#look-certificate-box"]').off('click').on('click', function(e) {
+                            e.preventDefault();
+                            $('#look-certificate-box').modal('show');
+                        });
+
                         let tabs = $('#learn-tabs');
                         let certificateTabExists = tabs.find('#learn-certificate-tab').length > 0;
 
@@ -189,7 +195,9 @@
         });
 
 
-        $courseCompleteModal.find('.btn-main-action').off('click').on('click', function () {
+        // 使用事件委托来处理动态添加的按钮
+        $(document).off('click', '.btn-main-action').on('click', '.btn-main-action', function (e) {
+            e.preventDefault();
             const file = $(this).data('file');
             if (file) {
                 window.open(file, '_blank');
