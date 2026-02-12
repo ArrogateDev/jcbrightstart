@@ -240,27 +240,27 @@
                                     </div>
                                     <div class="realm-box">
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-1">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT01')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-2">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT02')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-3">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT03')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-4">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#plc">
                                                 {{__('HOME5_CONTENT04')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#professional-5">
+                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#support">
                                                 {{__('HOME5_CONTENT05')}}
                                             </a>
                                         </div>

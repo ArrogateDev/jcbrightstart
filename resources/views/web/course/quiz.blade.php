@@ -420,12 +420,7 @@
                     let mainButtonClass = 'btn-primary';
                     let mainButtonAction = 'next-unit';
 
-                    if (isAllCompleted && hasSignature) {
-                        // 完成所有测验并设置了签名 -> 下载证书
-                        mainButtonText = '{{__('下载证书')}}';
-                        mainButtonClass = 'btn-success';
-                        mainButtonAction = 'download-certificate';
-                    } else if (isAllCompleted && !hasSignature) {
+                    if (isAllCompleted && !hasSignature) {
                         // 完成所有测验但没设置签名 -> 设置签名
                         mainButtonText = '{{__('确定证书姓名及下载')}}';
                         mainButtonClass = 'btn-warning';
