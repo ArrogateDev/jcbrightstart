@@ -48,6 +48,35 @@
                 <button class="next-btn" style="display: none;">{{__('下一题')}} →</button>
                 <button class="download-btn" style="display: none;">{{__('下载')}}</button>
             </div>
+            <script>
+                $(function () {
+                    const $modal = $('#learn-box');
+                    const $footer = $modal.find('.modal-footer');
+                    const $perBtn = $footer.find('.per-btn');
+                    const $nextBtn = $footer.find('.next-btn');
+                    const $downloadBtn = $footer.find('.download-btn');
+
+                    $('#learn-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                        const target = $(e.target).attr('href');
+
+                        if (target === '#learn-play') {
+                            $footer.hide();
+                        }else if (target === '#learn-certificate') {
+                            $footer.show();
+                            $perBtn.hide();
+                            $nextBtn.hide();
+                            $downloadBtn.show();
+                        }
+                    });
+
+                    $modal.on('shown.bs.modal', function () {
+                        const activeTab = $('#learn-tabs .nav-link.active').attr('href');
+                        if (activeTab === '#learn-play') {
+                            $footer.hide();
+                        }
+                    });
+                });
+            </script>
         </div>
     </div>
 </div>

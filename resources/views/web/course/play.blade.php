@@ -490,25 +490,31 @@
             }
         });
 
-        $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-play"]', function () {
-            if (pendingPdfInit && $modal.hasClass('show')) {
-                setTimeout(function () {
-                    if (pendingPdfInit) pendingPdfInit();
-                }, 150);
-            }
+        // 监听所有标签页切换事件
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+            const target = $(e.target).attr('href');
+            
+            if (target === '#learn-play') {
+                // 切换到内容标签页
+                if (pendingPdfInit && $modal.hasClass('show')) {
+                    setTimeout(function () {
+                        if (pendingPdfInit) pendingPdfInit();
+                    }, 150);
+                }
 
-            // 检查是否需要加载内容
-            const lastUnit = parseInt($modal.data('lastUnit') || 0);
-            if (lastUnit > 0 && $modal.hasClass('show')) {
-                // 如果当前没有加载内容，或者加载的不是lastUnit的内容，则重新加载
-                if (!currentUnit || currentUnit !== lastUnit) {
-                    const $unitItem = $(`li[data-unit="${lastUnit}"]`);
-                    if ($unitItem.length && typeof window.openPlay === 'function') {
-                        const info = $unitItem.data('info');
-                        if (info) {
-                            let pos = 0;
-                            pos = info ? (parseInt(info.play_position || 0) || 0) : 0;
-                            window.openPlay(lastUnit, pos);
+                // 检查是否需要加载内容
+                const lastUnit = parseInt($modal.data('lastUnit') || 0);
+                if (lastUnit > 0 && $modal.hasClass('show')) {
+                    // 如果当前没有加载内容，或者加载的不是lastUnit的内容，则重新加载
+                    if (!currentUnit || currentUnit !== lastUnit) {
+                        const $unitItem = $(`li[data-unit="${lastUnit}"]`);
+                        if ($unitItem.length && typeof window.openPlay === 'function') {
+                            const info = $unitItem.data('info');
+                            if (info) {
+                                let pos = 0;
+                                pos = info ? (parseInt(info.play_position || 0) || 0) : 0;
+                                window.openPlay(lastUnit, pos);
+                            }
                         }
                     }
                 }

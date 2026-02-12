@@ -52,6 +52,9 @@
 
             isAnswered = false;
             $learnModal.find('.modal-footer').hide();
+            // 隐藏所有导航按钮
+            $learnModal.find('.per-btn').hide();
+            $learnModal.find('.next-btn').hide();
 
             const startHtml = `
                 <div class="quiz-start w-100 h-100 d-flex flex-column justify-content-center align-items-center">
@@ -148,6 +151,10 @@
                 $learnModal.find('.modal-footer').show();
                 showQuestion(startIndex);
                 updateNavigationButtons();
+
+                // 确保导航按钮初始状态正确
+                $learnModal.find('.per-btn').hide();
+                $learnModal.find('.next-btn').hide();
             });
         }
 
@@ -251,10 +258,22 @@
                 bindOptionClick($question, index);
             }
 
-            if (isAnswered) {
-                $learnModal.find('.next-btn').show().removeClass('disabled').prop('disabled', false);
+            // 控制导航按钮显示
+            const $prevBtn = $learnModal.find('.per-btn');
+            const $nextBtn = $learnModal.find('.next-btn');
+
+            // 上一题按钮：如果不是第一题则显示
+            if (currentQuestionIndex > 0) {
+                $prevBtn.show().removeClass('disabled').prop('disabled', false);
             } else {
-                $learnModal.find('.next-btn').hide().addClass('disabled');
+                $prevBtn.hide().addClass('disabled').prop('disabled', true);
+            }
+
+            // 下一题按钮：根据答题状态控制
+            if (isAnswered) {
+                $nextBtn.show().removeClass('disabled').prop('disabled', false);
+            } else {
+                $nextBtn.hide().addClass('disabled').prop('disabled', true);
             }
         }
 
@@ -388,6 +407,9 @@
             // 先清空内容区域，避免显示上一个单元的内容
             showQuizLoading();
             $learnModal.find('.modal-footer').hide();
+            // 隐藏所有导航按钮
+            $learnModal.find('.per-btn').hide();
+            $learnModal.find('.next-btn').hide();
 
             // 获取统计信息
             $.ajax({
@@ -420,8 +442,9 @@
                     let mainButtonClass = 'btn-primary';
                     let mainButtonAction = 'next-unit';
 
-                    if (isAllCompleted && !hasSignature) {
-                        // 完成所有测验但没设置签名 -> 设置签名
+                    if (isAllCompleted && hasSignature) {
+                        mainButtonClass = 'd-none';
+                    } else if (isAllCompleted && !hasSignature) {
                         mainButtonText = '{{__('确定证书姓名及下载')}}';
                         mainButtonClass = 'btn-warning';
                         mainButtonAction = 'set-signature';
@@ -775,8 +798,12 @@
             const $prevBtn = $learnModal.find('.per-btn');
             const $nextBtn = $learnModal.find('.next-btn');
 
-            $prevBtn.toggleClass('disabled', currentQuestionIndex === 0)
-                .prop('disabled', currentQuestionIndex === 0);
+            // 上一题按钮：只有不是第一题时才显示
+            if (currentQuestionIndex > 0) {
+                $prevBtn.show().removeClass('disabled').prop('disabled', false);
+            } else {
+                $prevBtn.hide().addClass('disabled').prop('disabled', true);
+            }
 
             const isLastQuestion = currentQuestionIndex === quizData.questions.length - 1;
             const canGoNext = isAnswered;
@@ -788,7 +815,7 @@
                 // 非最后一题且已答，显示"下一题"按钮
                 $nextBtn.text('{{__('下一题')}} →').show().removeClass('disabled').prop('disabled', false);
             } else {
-                // 未答题，隐藏或禁用按钮
+                // 未答题，隐藏按钮
                 $nextBtn.hide().addClass('disabled').prop('disabled', true);
             }
         }
@@ -817,6 +844,14 @@
                 // 非最后一题，显示下一题
                 currentQuestionIndex++;
                 showQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+            }
+        });
+
+        // 监听标签页切换事件，确保测验标签页激活时按钮状态正确
+        $(document).on('shown.bs.tab', 'a[data-toggle="tab"][href="#learn-quiz"]', function () {
+            // 当切换到测验标签页时，更新按钮状态
+            if (quizData && quizData.questions && quizData.questions.length > 0) {
                 updateNavigationButtons();
             }
         });

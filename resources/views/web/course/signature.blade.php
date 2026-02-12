@@ -13,6 +13,7 @@
                         <div class="quiz-statistics-icon">🎉</div>
                         <h4 class="quiz-statistics-title">{{__('证书完成')}}</h4>
                         <div class="quiz-statistics-btn">
+                            <button class="btn btn-warning w-100 p-3 mb-4" data-toggle="modal" data-target="#look-certificate-box">{{__('查看证书')}}</button>
                             <button class="btn btn-warning w-100 p-3 mb-4 btn-main-action">{{__('下载证书')}}</button>
                         </div>
                     </div>
@@ -27,7 +28,21 @@
             <div class="modal-footer">
                 <input type="hidden" id="course-certificate">
                 <button type="button" class="btn btn-primary" id="submit-certificate-btn">{{__('提交')}}</button>
-                <a href="#" class="btn btn-success" id="download-certificate-btn" style="display: none;" target="_blank">{{__('下载证书')}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="look-certificate-box" tabindex="-1" aria-labelledby="look-certificate-label" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="course-complete-label">{{__('查看证书')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="h-100 gallery-img" id="look-certificate-img" alt="Certificate">
             </div>
         </div>
     </div>
@@ -80,6 +95,7 @@
                         $courseCompleteModal.find('.modal-footer').hide();
                         $courseCompleteModal.find('#quiz-content').show();
                         $courseCompleteModal.find('.btn-main-action').attr('data-file', data.download_url);
+                        $('#look-certificate-img').attr('src', data.file);
                         showToast('success', '{{__('证书生成成功')}}');
                     }
                 },

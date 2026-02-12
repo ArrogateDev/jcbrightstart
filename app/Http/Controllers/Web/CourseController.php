@@ -604,6 +604,7 @@ class CourseController extends Controller
 
             // 如果证书已生成，返回下载链接
             if ($certificate->status === UserCourseCertificate::STATUS_GENERATED && $certificate->file) {
+                $data['file'] = $certificate->file_url;
                 $data['download_url'] = env('APP_URL') . URL::temporarySignedRoute(
                         'user.download.html', now()->addDay(), ['file' => $certificate->file], false
                     );
