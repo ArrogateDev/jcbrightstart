@@ -105,12 +105,18 @@
 
                         let tabs = $('#learn-tabs');
                         let certificateTabExists = tabs.find('#learn-certificate-tab').length > 0;
+                        $('#download-btn').attr('data-url', data.file);
 
                         if (!certificateTabExists) {
                             let certificateTab = '<li class="nav-item" role="presentation"><a class="nav-link" id="learn-certificate-tab" data-toggle="tab" href="#learn-certificate" role="tab" aria-controls="learn-certificate" aria-selected="false">🏅 ' + "{{__('证书')}}" + '</a></li>';
                             tabs.append(certificateTab);
                             $('#learn-tabs a[data-toggle="tab"]').tab();
-                            $('#certificate-img').attr('src', data.file);
+
+                            // 触发自定义事件来更新证书图片和下载链接
+                            $(document).trigger('certificate:updated', [data.file, data.download_url]);
+                        } else {
+                            // 如果标签页已存在，也更新证书信息
+                            $(document).trigger('certificate:updated', [data.file, data.download_url]);
                         }
 
                         showToast('success', "{{__('证书生成成功')}}");

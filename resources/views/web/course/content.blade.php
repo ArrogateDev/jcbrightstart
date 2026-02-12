@@ -61,7 +61,7 @@
 
                         if (target === '#learn-play') {
                             $footer.hide();
-                        }else if (target === '#learn-certificate') {
+                        } else if (target === '#learn-certificate') {
                             $footer.show();
                             $perBtn.hide();
                             $nextBtn.hide();
@@ -75,6 +75,15 @@
                             $footer.hide();
                         }
                     });
+
+                    $downloadBtn.click(function () {
+                        const file = $(this).data('url');
+                        if (file) {
+                            window.open(file, '_blank');
+                        } else {
+                            showToast('error', "{{__('证书文件不存在')}}");
+                        }
+                    })
                 });
             </script>
         </div>
