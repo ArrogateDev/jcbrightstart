@@ -41,7 +41,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <img class="h-100 gallery-img" id="look-certificate-img" alt="Certificate">
             </div>
         </div>
@@ -65,8 +65,8 @@
                     pollTimer = null;
                 }
                 hideLoading($courseCompleteModal.find('.modal-content'));
-                showToast('error', '{{__('证书生成超时，请稍后刷新页面查看')}}');
-                $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}').show();
+                showToast('error', "{{__('证书生成超时，请稍后刷新页面查看')}}");
+                $submitCertificateBtn.prop('disabled', false).text("{{__('提交')}}").show();
                 return;
             }
 
@@ -96,7 +96,18 @@
                         $courseCompleteModal.find('#quiz-content').show();
                         $courseCompleteModal.find('.btn-main-action').attr('data-file', data.download_url);
                         $('#look-certificate-img').attr('src', data.file);
-                        showToast('success', '{{__('证书生成成功')}}');
+
+                        let tabs = $('#learn-tabs');
+                        let certificateTabExists = tabs.find('#learn-certificate-tab').length > 0;
+
+                        if (!certificateTabExists) {
+                            let certificateTab = '<li class="nav-item" role="presentation"><a class="nav-link" id="learn-certificate-tab" data-toggle="tab" href="#learn-certificate" role="tab" aria-controls="learn-certificate" aria-selected="false">🏅 ' + "{{__('证书')}}" + '</a></li>';
+                            tabs.append(certificateTab);
+                            $('#learn-tabs a[data-toggle="tab"]').tab();
+                            $('#certificate-img').attr('src', data.file);
+                        }
+
+                        showToast('success', "{{__('证书生成成功')}}");
                     }
                 },
                 error: function () {
@@ -108,13 +119,13 @@
         $submitCertificateBtn.on('click', function () {
             const name = $certificateNameInput.val().trim();
             if (!name) {
-                showToast('error', '{{__('请输入姓名')}}');
+                showToast('error', "{{__('请输入姓名')}}");
                 $certificateNameInput.focus();
                 return;
             }
 
-            const currentCourseId = $('#course-certificate').val()
-            $submitCertificateBtn.prop('disabled', true).text('{{__('提交中...')}}');
+            const currentCourseId = $('#course-certificate').val();
+            $submitCertificateBtn.prop('disabled', true).text("{{__('提交中...')}}");
             showLoading($courseCompleteModal.find('.modal-content'));
 
             $.ajax({
@@ -122,19 +133,19 @@
                 type: 'POST',
                 data: {
                     name: name,
-                    _token: '{{csrf_token()}}'
+                    _token: "{{csrf_token()}}"
                 },
                 dataType: 'json',
                 success: function (response) {
                     if (response.code !== 0) {
                         hideLoading($courseCompleteModal.find('.modal-content'));
-                        showToast('error', response.msg || '{{__('提交失败')}}');
-                        $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
+                        showToast('error', response.msg || "{{__('提交失败')}}");
+                        $submitCertificateBtn.prop('disabled', false).text("{{__('提交')}}");
                         return;
                     }
 
                     // 提交成功，不关闭模态框，继续显示loading
-                    showToast('success', '{{__('提交成功，正在生成证书...')}}');
+                    showToast('success', "{{__('提交成功，正在生成证书...')}}");
 
                     // 隐藏提交按钮
                     $submitCertificateBtn.hide();
@@ -155,8 +166,8 @@
                 },
                 error: function () {
                     hideLoading($courseCompleteModal.find('.modal-content'));
-                    showToast('error', '{{__('提交失败，请重试')}}');
-                    $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}');
+                    showToast('error', "{{__('提交失败，请重试')}}");
+                    $submitCertificateBtn.prop('disabled', false).text("{{__('提交')}}");
                 }
             });
         });
@@ -171,7 +182,7 @@
             // 重置状态
             pollStartTime = null;
             $certificateNameInput.val('');
-            $submitCertificateBtn.prop('disabled', false).text('{{__('提交')}}').show();
+            $submitCertificateBtn.prop('disabled', false).text("{{__('提交')}}").show();
             $courseCompleteModal.find('.course-complete-form').show();
             $courseCompleteModal.find('.modal-footer').show();
             $courseCompleteModal.find('#quiz-content').hide();
@@ -183,7 +194,7 @@
             if (file) {
                 window.open(file, '_blank');
             } else {
-                showToast('error', '{{__('证书文件不存在')}}');
+                showToast('error', "{{__('证书文件不存在')}}");
             }
         });
     })

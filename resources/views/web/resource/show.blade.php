@@ -5,6 +5,8 @@
 <script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
         data-target-selector=".gallery-img"
         data-allow-rotate="false"
+        data-allow-image-info="false"
+        data-allow-navigation="false"
         data-allow-download="false">
 </script>
 <style>
