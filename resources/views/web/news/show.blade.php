@@ -63,7 +63,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}" subtitle="{{__('最新消息')}}"/>
+        <x-web.breadcrumb title="{{__('最新活动')}}" subtitle="{{__('最新活动')}}"/>
 
         <section class="section p-t-125 p-b-80">
             <div class="container">

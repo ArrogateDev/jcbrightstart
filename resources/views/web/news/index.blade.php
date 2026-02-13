@@ -47,7 +47,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}" subtitle="{{__('最新消息')}}"/>
+        <x-web.breadcrumb title="{{__('最新活动')}}" subtitle="{{__('最新活动')}}"/>
 
         <section class="section p-t-125 p-b-80">
             <div class="container">
@@ -98,10 +98,10 @@
                                 <nav class="au-tab-2 m-b-20">
                                     <ul class="type-box list-unstyled au-tab__nav au-tab__nav--sspace iostope-filter">
                                         <li class="active au-tab__nav-item d-flex justify-content-center align-items-center" data-type="1">
-                                            <span class="au-tab__nav-item-inner">{{__('最新消息')}}</span>
+                                            <span class="au-tab__nav-item-inner">{{__('最新活动')}}</span>
                                         </li>
                                         <li class="au-tab__nav-item d-flex justify-content-center align-items-center" data-type="0">
-                                            <span class="au-tab__nav-item-inner">{{__('过去消息')}}</span>
+                                            <span class="au-tab__nav-item-inner">{{__('过去活动')}}</span>
                                         </li>
                                     </ul>
                                 </nav>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="p-l-10 p-sm-l-0">
                             <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left m-b-30">
-                                <h2 class="section-heading__title" id="list-type">{{__('最新消息')}}</h2>
+                                <h2 class="section-heading__title" id="list-type">{{__('最新活动')}}</h2>
                             </div>
                             <div class="row list-container"></div>
                             <nav class="au-pagination p-t-10 pagination-container"></nav>
@@ -176,7 +176,7 @@
         if (urlType) {
             $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
             params = Object.assign(params, {type: urlType});
-            $type.text(urlType === '1' ? '{{__('最新消息')}}' : '{{__('过去消息')}}')
+            $type.text(urlType === '1' ? '{{__('最新活动')}}' : '{{__('过去活动')}}')
         }
 
         getData(page, params)

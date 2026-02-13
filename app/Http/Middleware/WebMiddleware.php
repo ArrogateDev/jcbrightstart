@@ -77,7 +77,7 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __('最新消息'),
+                'title' => __('最新活动'),
                 'url' => route('news.html'),
                 'active' => $url === route('news.html'),
                 'children' => []

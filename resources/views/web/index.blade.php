@@ -61,11 +61,6 @@
                                     </div>
                                     <p class="m-b-15">{{__('HOME1_CONTENT01')}}</p>
                                     <p class="m-b-60">{{__('HOME1_CONTENT02')}}</p>
-                                    <a class="au-btn--blue au-btn" href="{{route('page',['page'=>'about-us.html'])}}">
-                                        {{__('更多')}}
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -88,11 +83,6 @@
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT02')}}</p>
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT03')}}</p>
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT04')}}</p>
-                                    <a class="au-btn--blue au-btn" href="#">
-                                        {{__('更多')}}
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>
