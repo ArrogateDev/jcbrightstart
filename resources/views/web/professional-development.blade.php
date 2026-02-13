@@ -25,6 +25,14 @@
         --shadow-strong: 0 16px 60px rgba(45, 80, 22, 0.16);
     }
 
+    .page-heading-inner {
+        background: linear-gradient(46deg, #007078 0%, #007982 100%);
+    }
+
+    .section-heading__title {
+        color: white !important;
+    }
+
     /* ===== HERO ===== */
     .development {
         position: relative;
@@ -70,6 +78,14 @@
         66% {
             transform: translate(-20px, 20px) scale(0.95);
         }
+    }
+
+    .development-page section:nth-child(odd) {
+        background: linear-gradient(160deg, var(--forest) 0%, var(--forest-light) 40%, var(--sage) 100%) !important;
+    }
+
+    .development-page section:nth-child(even) {
+        background: white !important;
     }
 
     .development-content {
@@ -133,7 +149,7 @@
         gap: 0.5rem;
         color: var(--gold-light);
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 1.2rem;
         letter-spacing: 2px;
         transition: all 0.3s;
     }
@@ -195,12 +211,12 @@
 
     .section-label {
         display: inline-block;
-        font-size: 0.75rem;
         letter-spacing: 4px;
         text-transform: uppercase;
         color: var(--sage);
         margin-bottom: 1rem;
         font-weight: 700;
+        font-size: 18px;
     }
 
     .section-title {
@@ -212,11 +228,10 @@
     }
 
     .section-desc {
-        font-size: 1.05rem;
         color: var(--text-mid);
-        max-width: 700px;
         margin-bottom: 3rem;
         font-weight: 300;
+        font-size: 18px;
     }
 
     /* ===== PROFESSIONAL DEVELOPMENT (Tier Cards) ===== */
@@ -263,16 +278,16 @@
         border-radius: 24px 24px 0 0;
     }
 
-    .tier-card:nth-child(1)::before {
-        background: linear-gradient(90deg, var(--sage), var(--sage-light));
-    }
-
-    .tier-card:nth-child(2)::before {
-        background: linear-gradient(90deg, var(--forest-light), var(--sage));
-    }
-
     .tier-card:nth-child(3)::before {
-        background: linear-gradient(90deg, var(--forest), var(--forest-light));
+        background: #ff71eb;
+    }
+
+    .tier-card:nth-child(4)::before {
+        background: #00c8d4;
+    }
+
+    .tier-card:nth-child(5)::before {
+        background: #ffb900;
     }
 
     .tier-number {
@@ -295,19 +310,19 @@
         margin-bottom: 1rem;
     }
 
-    .tier-card:nth-child(1) .tier-label {
-        background: rgba(168, 198, 143, 0.2);
-        color: var(--sage);
-    }
-
-    .tier-card:nth-child(2) .tier-label {
-        background: rgba(58, 107, 30, 0.1);
-        color: var(--forest-light);
-    }
-
     .tier-card:nth-child(3) .tier-label {
+        background: rgba(168, 198, 143, 0.2);
+        color: #ff71eb;
+    }
+
+    .tier-card:nth-child(4) .tier-label {
+        background: rgba(58, 107, 30, 0.1);
+        color: #00c8d4;
+    }
+
+    .tier-card:nth-child(5) .tier-label {
         background: rgba(45, 80, 22, 0.1);
-        color: var(--forest);
+        color: #ffb900;
     }
 
     .tier-name {
@@ -336,13 +351,13 @@
 
     .tier-target-icon {
         flex-shrink: 0;
-        width: 28px;
-        height: 28px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.85rem;
+        font-size: 2rem;
         margin-top: 2px;
     }
 
@@ -359,7 +374,7 @@
     }
 
     .tier-target-text {
-        font-size: 0.95rem;
+        font-size: 1.2rem;
         line-height: 1.7;
         color: var(--text-mid);
     }
@@ -473,7 +488,7 @@
     }
 
     .plc-title {
-        font-size: 1.35rem;
+        font-size: 1.55rem;
         font-weight: 700;
         color: var(--text-dark);
         margin-bottom: 1.2rem;
@@ -487,8 +502,8 @@
         position: relative;
         padding-left: 1.2rem;
         margin-bottom: 0.8rem;
-        font-size: 0.95rem;
-        color: var(--text-mid);
+        font-size: 1.2rem;
+        color: black;
         line-height: 1.6;
     }
 
@@ -533,15 +548,17 @@
     }
 
     .support-section .section-label {
-        color: var(--gold-light);
+        color: var(--forest);
+        font-size: 18px;
     }
 
     .support-section .section-title {
-        color: #fff;
+        color: var(--forest);
     }
 
     .support-section .section-desc {
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--forest);
+        font-size: 18px;
     }
 
     .support-layout {
@@ -559,7 +576,7 @@
     }
 
     .support-main {
-        background: rgba(255, 255, 255, 0.06);
+        background: linear-gradient(145deg, #98d4f9, #ccf7ff);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 24px;
@@ -567,15 +584,14 @@
     }
 
     .support-main-title {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: var(--gold-light);
+        color: var(--forest);
     }
 
     .support-main-subtitle {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--forest);
         margin-bottom: 2rem;
     }
 
@@ -585,7 +601,7 @@
         gap: 1rem;
         margin-bottom: 1.2rem;
         padding: 1rem;
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.4);
         border-radius: 14px;
         transition: background 0.3s;
     }
@@ -598,14 +614,14 @@
         flex-shrink: 0;
         width: 8px;
         height: 8px;
-        background: var(--gold);
+        background: var(--forest);
         border-radius: 50%;
         margin-top: 8px;
     }
 
     .support-item-text {
-        font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.2rem;
+        color: var(--forest);
         line-height: 1.6;
     }
 
@@ -630,33 +646,40 @@
     }
 
     .support-highlight:nth-child(1) {
-        background: linear-gradient(135deg, var(--gold), #D4A84E);
+        background: linear-gradient(145deg, #c0e178, #ddff9b);
         color: var(--forest);
     }
 
     .support-highlight:nth-child(2) {
-        background: linear-gradient(135deg, var(--sage), var(--sage-light));
+        background: linear-gradient(145deg, #f6a3ad, #ffdce0);
         color: var(--forest);
     }
 
     .support-highlight:nth-child(3) {
-        background: linear-gradient(135deg, var(--coral), #E09B80);
-        color: #fff;
+        background: linear-gradient(145deg, #f7e26f, #fff5c3);
+        color: var(--forest);
     }
 
     .support-highlight-icon {
         font-size: 2rem;
         margin-bottom: 0.8rem;
+        background: rgba(180, 130, 180, 0.2);
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .support-highlight-title {
-        font-size: 1.1rem;
+        font-size: 1.6rem;
         font-weight: 700;
         margin-bottom: 0.4rem;
     }
 
     .support-highlight-desc {
-        font-size: 0.85rem;
+        font-size: 1.2rem;
         opacity: 0.85;
         line-height: 1.5;
     }
@@ -805,9 +828,9 @@
 
             <section class="plc-section" id="plc">
                 <div class="container">
-                    <span class="section-label reveal">{{__('第二层面')}}</span>
-                    <h2 class="section-title reveal">{{__('专业学习社群')}}</h2>
-                    <p class="section-desc reveal">
+                    <span class="section-label reveal text-white">{{__('第二层面')}}</span>
+                    <h2 class="section-title reveal text-white">{{__('专业学习社群')}}</h2>
+                    <p class="section-desc reveal text-white">
                         {{__('透过学校互访、专业交流会及海外考察，建构开放的学习型社群，促进知识分享与持续成长。')}}
                     </p>
 
@@ -847,9 +870,9 @@
 
             <section class="support-section" id="support">
                 <div class="container">
-                    <span class="section-label reveal">{{__('第三层面')}}</span>
-                    <h2 class="section-title reveal">{{__('持续专业支援')}}</h2>
-                    <p class="section-desc reveal">
+                    <span class="section-label reveal text-black">{{__('第三层面')}}</span>
+                    <h2 class="section-title reveal text-black">{{__('持续专业支援')}}</h2>
+                    <p class="section-desc reveal text-black">
                         {{__('专业介入后提供为期一年的持续支援，确保实践成果的巩固与延续。')}}
                     </p>
 

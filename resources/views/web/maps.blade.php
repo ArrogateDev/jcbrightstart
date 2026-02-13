@@ -21,12 +21,14 @@
 
     .icon-location:before {
         content: "\e7e6";
+        color: white;
     }
 
     .location-lists {
         overflow: auto;
         flex: 1;
         min-height: 0;
+        padding: 0 10px;
     }
 
     .location-item {
@@ -37,6 +39,7 @@
         padding: 8px;
         border-radius: 8px;
         cursor: pointer;
+        background: #00c8d4;
     }
 
     .location-item:hover, .location-item.active {
@@ -52,6 +55,7 @@
     .location-title {
         font-weight: 600;
         font-size: 17px;
+        color: white;
     }
 
     .type-item {
@@ -61,7 +65,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #7dd0f8;
+        background: #00c8d4;
         cursor: pointer;
         color: white;
     }
@@ -73,7 +77,8 @@
     .type-item.collapsed .icon-collapse {
         display: none;
     }
-    .type-item:not(.collapsed)  {
+
+    .type-item:not(.collapsed) {
         border-radius: 10px 10px 0 0;
     }
 
@@ -109,7 +114,7 @@
         position: absolute;
         background: white;
         border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         padding: 15px;
         min-width: 250px;
         max-width: 350px;
@@ -153,6 +158,11 @@
     .popup-close:hover {
         color: #333;
     }
+
+    #map-location .section-heading__title {
+        padding: 15px;
+        color: white !important;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -167,7 +177,7 @@
         <section class="section p-t-125">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 p-1">
+                    <div class="col-md-3 p-1" style="background: #ffb900; background-clip: content-box; border-radius: 10px;">
                         <div id="map-location" class="w-100">
                             <div class="page-sidebar h-100 p-sm-b-70">
                                 <div class="widget h-100 d-flex flex-column">
@@ -453,8 +463,8 @@
                 popup.style.visibility = 'hidden';
 
                 // 使用双重 requestAnimationFrame 确保 DOM 完全渲染后再计算位置
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
                         const mapViewport = map.getViewport();
                         const mapBox = document.getElementById('map-box');
                         if (!mapBox) {
@@ -501,10 +511,10 @@
                             let finalTop = popupTop - popupHeight - 45;
 
                             // 确保弹窗在地图容器内
-                            if (finalLeft - popupWidth/2 < 0) {
-                                finalLeft = popupWidth/2 + 10;
-                            } else if (finalLeft + popupWidth/2 > mapBoxWidth) {
-                                finalLeft = mapBoxWidth - popupWidth/2 - 10;
+                            if (finalLeft - popupWidth / 2 < 0) {
+                                finalLeft = popupWidth / 2 + 10;
+                            } else if (finalLeft + popupWidth / 2 > mapBoxWidth) {
+                                finalLeft = mapBoxWidth - popupWidth / 2 - 10;
                             }
 
                             if (finalTop < 10) {
@@ -521,9 +531,9 @@
 
                             // 检查弹窗是否与地图区域有重叠
                             shouldShow = !(popupRight < 0 ||
-                                         popupLeftEdge > mapBoxWidth ||
-                                         popupBottom < 0 ||
-                                         popupTopEdge > mapBoxHeight);
+                                popupLeftEdge > mapBoxWidth ||
+                                popupBottom < 0 ||
+                                popupTopEdge > mapBoxHeight);
 
                             if (shouldShow) {
                                 popup.style.left = finalLeft + 'px';
@@ -545,9 +555,9 @@
                             const popupTopEdge = defaultTop;
 
                             shouldShow = !(popupRight < 0 ||
-                                         popupLeftEdge > mapBoxWidth ||
-                                         popupBottom < 0 ||
-                                         popupTopEdge > mapBoxHeight);
+                                popupLeftEdge > mapBoxWidth ||
+                                popupBottom < 0 ||
+                                popupTopEdge > mapBoxHeight);
 
                             if (shouldShow) {
                                 popup.style.left = defaultLeft + 'px';
@@ -641,7 +651,7 @@
                     // 检查是否需要动画
                     const needsAnimation = targetCenter && currentCenter &&
                         (Math.abs(currentCenter[0] - targetCenter[0]) > 0.001 ||
-                         Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
+                            Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
 
                     if (needsAnimation) {
                         // 如果需要动画，先隐藏弹窗，等动画完成后再显示
@@ -653,7 +663,7 @@
                             duration: 500
                         });
                         // 动画完成后显示弹窗
-                        setTimeout(function() {
+                        setTimeout(function () {
                             isAnimating = false;
                             showPopup(featureData, null);
                         }, 600);
@@ -668,14 +678,14 @@
 
             updateMarkers('all');
 
-            document.querySelector('.popup-close').addEventListener('click', function() {
+            document.querySelector('.popup-close').addEventListener('click', function () {
                 hidePopup();
             });
 
-            map.on('pointermove', function(e) {
+            map.on('pointermove', function (e) {
                 const pixel = map.getEventPixel(e.originalEvent);
                 const hit = map.hasFeatureAtPixel(pixel, {
-                    layerFilter: function(layer) {
+                    layerFilter: function (layer) {
                         return layer === markers;
                     }
                 });
@@ -685,7 +695,7 @@
             let pendingPopupData = null;
             let isAnimating = false;
 
-            map.getView().on('change:center', function() {
+            map.getView().on('change:center', function () {
                 const popup = document.getElementById('map-popup');
                 const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
 
@@ -696,18 +706,18 @@
 
                 if (activeFeature) {
                     const featureData = activeFeature.get('data');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         showPopup(featureData, null);
                     }, 100);
                 } else if (pendingPopupData) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         showPopup(pendingPopupData, null);
                         pendingPopupData = null;
                     }, 100);
                 }
             });
 
-            map.getView().on('change:resolution', function() {
+            map.getView().on('change:resolution', function () {
                 hidePopup();
             });
 
@@ -738,7 +748,7 @@
                         // 检查是否需要动画
                         const needsAnimation = currentCenter &&
                             (Math.abs(currentCenter[0] - targetCenter[0]) > 0.001 ||
-                             Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
+                                Math.abs(currentCenter[1] - targetCenter[1]) > 0.001);
 
                         if (needsAnimation) {
                             // 如果需要动画，先隐藏弹窗，等动画完成后再显示
@@ -753,13 +763,13 @@
                             });
 
                             // 动画完成后显示弹窗
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 isAnimating = false;
                                 showPopup(marker, null);
                             }, 600);
                         } else {
                             // 如果不需要动画，直接显示弹窗
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 showPopup(marker, null);
                             }, 100);
                         }
