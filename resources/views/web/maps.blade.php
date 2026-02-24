@@ -5,9 +5,9 @@
 <style>
     @font-face {
         font-family: 'iconfont';  /* Project id 5094721 */
-        src: url('//at.alicdn.com/t/c/font_5094721_7f48db2ppu6.woff2?t=1766384383609') format('woff2'),
-        url('//at.alicdn.com/t/c/font_5094721_7f48db2ppu6.woff?t=1766384383609') format('woff'),
-        url('//at.alicdn.com/t/c/font_5094721_7f48db2ppu6.ttf?t=1766384383609') format('truetype');
+        src: url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.woff2')}}') format('woff2'),
+        url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.woff')}}') format('woff'),
+        url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.ttf')}}') format('truetype');
     }
 
     .iconfont {
@@ -90,10 +90,83 @@
         display: inline-block;
     }
 
+    /* 折叠面板基础样式 */
+    .collapse {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    /* 收起状态 */
+    .collapse:not(.show) {
+        height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        padding: 0 0.5rem !important;
+    }
+
+    /* 展开状态 */
     .location-lists .collapse.show {
         border: 1px solid #ffb900;
         border-radius: 0 0 10px 10px;
+        opacity: 1;
+        transform: translateY(0);
+        padding: 0.5rem !important;
     }
+
+    /* 类型项动画效果 */
+    .type-item {
+        transition: all 0.25s ease;
+        position: relative;
+        z-index: 1;
+    }
+
+    .type-item:not(.collapsed) {
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 4px 15px rgba(255, 185, 0, 0.25);
+        z-index: 2;
+    }
+
+    /* 图标旋转动画 */
+    .icon-expand, .icon-collapse {
+        transition: transform 0.25s ease;
+        display: inline-block;
+    }
+
+    .type-item.collapsed .icon-expand {
+        transform: rotate(0deg);
+    }
+
+    .type-item:not(.collapsed) .icon-expand {
+        transform: rotate(180deg);
+    }
+
+    .type-item.collapsed .icon-collapse {
+        display: none;
+    }
+
+    .type-item:not(.collapsed) .icon-collapse {
+        transform: rotate(0deg);
+    }
+
+    /* 位置项淡入动画 */
+    .location-item {
+        transition: all 0.2s ease;
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+
+    .collapse.show .location-item {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* 交错延迟动画 */
+    .collapse.show .location-item:nth-child(1) { transition-delay: 0.05s; }
+    .collapse.show .location-item:nth-child(2) { transition-delay: 0.1s; }
+    .collapse.show .location-item:nth-child(3) { transition-delay: 0.15s; }
+    .collapse.show .location-item:nth-child(4) { transition-delay: 0.2s; }
+    .collapse.show .location-item:nth-child(5) { transition-delay: 0.25s; }
+    .collapse.show .location-item:nth-child(6) { transition-delay: 0.3s; }
 
     #map-box {
         height: 800px;
@@ -260,6 +333,33 @@
 <script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
 
 <script>
+    // 增强折叠动画交互
+    document.addEventListener('DOMContentLoaded', function () {
+        // 监听折叠事件
+        const accordions = document.querySelectorAll('#accordion .type-item');
+
+        accordions.forEach(item => {
+            item.addEventListener('click', function (e) {
+                // 添加点击反馈效果
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // 监听折叠完成事件
+        const collapses = document.querySelectorAll('.collapse');
+        collapses.forEach(collapse => {
+            collapse.addEventListener('transitionend', function () {
+                // 确保完全展开后重置样式
+                if (this.classList.contains('show')) {
+                    this.style.height = 'auto';
+                }
+            });
+        });
+    });
+
     function adjustMapLocationHeight() {
         const typesElement = document.querySelector('.types');
         const mapBoxElement = document.getElementById('map-box');
@@ -304,8 +404,8 @@
             });
         }
 
-        const normalIconUrl = '{{route('marker',['hex'=>'ff71eb'])}}';
-        const selectedIconUrl = '{{route('marker',['hex'=>'ffb900'])}}';
+        const normalIconUrl = '{!! route('marker',['hex'=>'ff71eb','border'=>60]) !!}';
+        const selectedIconUrl = '{!! route('marker',['hex'=>'ffb900','border'=>60]) !!}';
 
         Promise.all([
             preloadImage(normalIconUrl),
