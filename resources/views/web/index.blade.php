@@ -41,34 +41,6 @@
             </div>
         </div>
 
-        <section class="section p-t-150 p-b-140 p-md-t-60 p-md-b-60" id="bright-start">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="img-border img-border--blue">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="Welcome">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="p-l-70 p-md-l-0">
-                            <div class="welcome-wrap">
-                                <div class="welcome-wrap__inner">
-                                    <div
-                                        class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">{{__('HOME1_TITLE')}}</h2>
-                                    </div>
-                                    <p class="m-b-15">{{__('HOME1_CONTENT01')}}</p>
-                                    <p class="m-b-60">{{__('HOME1_CONTENT02')}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="section p-t-75 p-b-75" id="plan">
             <div class="container">
                 <div class="row">
@@ -104,7 +76,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--blue">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-03.png')}}" alt="About Us">
+                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="About Us">
                             </div>
                         </div>
                     </div>

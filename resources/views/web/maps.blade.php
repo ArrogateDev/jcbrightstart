@@ -65,7 +65,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #00c8d4;
+        background: #ffb900;
         cursor: pointer;
         color: white;
     }
@@ -91,7 +91,7 @@
     }
 
     .location-lists .collapse.show {
-        border: 1px solid #7dd0f8;
+        border: 1px solid #ffb900;
         border-radius: 0 0 10px 10px;
     }
 
@@ -177,7 +177,7 @@
         <section class="section p-t-125">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 p-1" style="background: #ffb900; background-clip: content-box; border-radius: 10px;">
+                    <div class="col-md-3 p-1" style="background: #00c8d4; background-clip: content-box; border-radius: 10px;">
                         <div id="map-location" class="w-100">
                             <div class="page-sidebar h-100 p-sm-b-70">
                                 <div class="widget h-100 d-flex flex-column">
@@ -304,7 +304,7 @@
             });
         }
 
-        const normalIconUrl = '{{route('marker',['hex'=>'00c8d4'])}}';
+        const normalIconUrl = '{{route('marker',['hex'=>'ff71eb'])}}';
         const selectedIconUrl = '{{route('marker',['hex'=>'ffb900'])}}';
 
         Promise.all([

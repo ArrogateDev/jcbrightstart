@@ -4,10 +4,10 @@
             <h2 class="section-heading__title">{{__('专业合作伙伴')}}</h2>
         </div>
         <div class="w-100 d-flex" style="margin-bottom: 80px;">
-            <div class="mr-5" style="height: 120px;">
+            <div class="mr-5" style="height: 110px;">
                 <img class="h-100" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA">
             </div>
-            <div class="ml-5" style="height: 120px;">
+            <div class="ml-5" style="height: 110px;">
                 <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
             </div>
         </div>
@@ -25,7 +25,7 @@
                     <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
                 </div>
                 <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img style="height: 110px;" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                    <img style="height: 90px;" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
     }
 
     .footer img.logo {
-        height: 100px;
+        height: 80px;
     }
 
     .footer-link {

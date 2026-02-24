@@ -19,7 +19,7 @@
                     <div class="col-md-5">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-05.png')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/contact-us.jpg')}}" alt="Welcome 2">
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                             <div class="welcome-wrap welcome-wrap-2 p-t-0">
                                 <div class="section-heading section-heading-1 m-b-10">
                                     <h2 class="section-heading__title">{{__('联系我们')}}</h2>
-                                    <p> If you have any questions, please fill out the form or email us at <a href="mailto:brightstart.jc@yccece.edu.hk">brightstart.jc@yccece.edu.hk</a> orsubmit your message in below:</p>
+                                    <p>{!! __('如欲查询更多详情，可电邮至 <a href="mailto:brightstart.jc@yccece.edu.hk">brightstart.jc@yccece.edu.hk</a> 或填写以下表格。') !!}</p>
                                 </div>
                                 <x-forms.about-us/>
                             </div>

@@ -44,12 +44,6 @@ class WebMiddleware
                 'active' => $url === route('index.html'),
                 'children' => [
                     [
-                        'title' => __('HOME1_TITLE'),
-                        'url' => route('index.html') . '#bright-start',
-                        'anchor' => true,
-                        'children' => []
-                    ],
-                    [
                         'title' => __('HOME2_TITLE'),
                         'url' => route('index.html') . '#plan',
                         'anchor' => true,
