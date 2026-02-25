@@ -1,86 +1,41 @@
 <footer class="footer p-t-85">
     <div class="container">
-        <div class="related-item d-flex align-items-start">
-            <div class="related-title">{{__('捐助机构')}}</div>
-            <div class="related-item-logo-box">
-                <div class="related-item-logo">
-                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
-                </div>
+        <div class="section-heading section-heading-1 section-heading-1--small text-left">
+            <h2 class="section-heading__title">{{__('专业合作伙伴')}}</h2>
+        </div>
+        <div class="w-100 d-flex" style="margin-bottom: 80px;">
+            <div class="mr-5" style="height: 110px;">
+                <img class="h-100" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA">
+            </div>
+            <div class="ml-5" style="height: 110px;">
+                <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
             </div>
         </div>
-        <div class="related-item d-flex align-items-start">
-            <div class="related-title">{{__('主办机构')}}</div>
-            <div class="related-item-logo-box">
-                <div class="related-item-logo">
-                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
+        <div class="row my-5">
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('主办机构')}}</h2>
+                </div>
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
                 </div>
             </div>
-        </div>
-        <div class="related-item d-flex align-items-start">
-            <div class="related-title">{{__('专业合作伙伴')}}</div>
-            <div class="related-item-logo-box d-flex">
-                <div class="related-item-logo">
-                    <img src="{{web_resource_url('assets/img/partner/PECERA.png')}}" class="logo" alt="">
+            <div class="col-12 col-md-6">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
                 </div>
-                <div class="related-item-logo">
-                    <img src="{{web_resource_url('assets/img/partner/CUHK.png')}}" class="logo" alt="">
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img style="height: 90px;" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>
         </div>
     </div>
 </footer>
-<style>
-    .related-item {
-        margin-bottom: 40px;
-    }
-
-    .related-title {
-        width: 150px;
-        min-width: 150px;
-        max-width: 150px;
-        color: #2d3748;
-        text-align: left;
-    }
-
-    .related-item-logo-box {
-        gap: 40px;
-    }
-
-    .related-item-logo {
-        height: 55px;
-    }
-
-    .related-item-logo img {
-        height: 100%;
-    }
-
-    .footer-link {
-        list-style-type: none;
-    }
-
-    .footer-link li {
-        padding: 0 4px;
-    }
-
-    .footer-link a {
-        color: #666;
-    }
-
-    @media (max-width: 780px) {
-        .copyright-box {
-            display: block !important;
-        }
-
-        .copyright-box span {
-            display: none !important;
-        }
-    }
-</style>
 
 <section class="section copyright">
     <div class="container">
         <div class="text-center p-3">
-            <div class="copyright-box copyright__text d-flex align-items-center justify-content-center " style="font-size: 14px;">
+            <div class="copyright__text d-flex align-items-center justify-content-center " style="font-size: 14px;">
                 {{__('版权所有', ['date'=>date('Y')])}}
                 <span class="mx-2">|</span>
                 <ul class="d-flex align-items-center justify-content-center footer-link">
@@ -99,3 +54,25 @@
         <img src="{{web_resource_url('assets/web/images/icon/to-top.png')}}" alt="To Top">
     </a>
 </div>
+
+<style>
+    .footer .section-heading__title {
+        font-size: 24px;
+    }
+
+    .footer img.logo {
+        height: 80px;
+    }
+
+    .footer-link {
+        list-style-type: none;
+    }
+
+    .footer-link li {
+        padding: 0 4px;
+    }
+
+    .footer-link a {
+        color: #666;
+    }
+</style>
