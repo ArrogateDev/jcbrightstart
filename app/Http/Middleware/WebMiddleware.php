@@ -50,14 +50,8 @@ class WebMiddleware
                         'children' => []
                     ],
                     [
-                        'title' => __('HOME3_TITLE'),
+                        'title' => __('HOME3&4_TITLE'),
                         'url' => route('index.html') . '#vision',
-                        'anchor' => true,
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('HOME4_TITLE'),
-                        'url' => route('index.html') . '#goals',
                         'anchor' => true,
                         'children' => []
                     ],
@@ -71,7 +65,7 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __('最新活动'),
+                'title' => __('最新消息'),
                 'url' => route('news.html'),
                 'active' => $url === route('news.html'),
                 'children' => []
