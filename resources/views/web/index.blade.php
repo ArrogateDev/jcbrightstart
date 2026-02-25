@@ -189,7 +189,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-05.png')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="Welcome 2">
                             </div>
                         </div>
                     </div>
