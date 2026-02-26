@@ -36,7 +36,7 @@
                         <label for="apple-bind-code">{{ __('验证码') }}</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="apple-bind-code" placeholder="{{ __('验证码') }}" maxlength="6" autocomplete="one-time-code">
-                            <div class="input-group-text" id="apple-bind-get-code">
+                            <div class="input-group-text" id="apple-bind-get-code" role="button">
                                 {{ __('获取验证码') }}
                             </div>
                         </div>

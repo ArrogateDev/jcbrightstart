@@ -112,6 +112,7 @@ class LoginController extends Controller
             if (!$result) {
                 throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
             }
+
             $exp = $result['exp'];
             if (Carbon::now()->gt(Carbon::createFromTimestamp($exp))) {
                 throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
@@ -193,6 +194,7 @@ class LoginController extends Controller
         }
 
         try {
+
             if ($code) {
                 $token_response = $apple_service->exchangeCode($code);
                 $id_token = $token_response['id_token'] ?? $id_token;
@@ -225,11 +227,23 @@ class LoginController extends Controller
 
             $result = [];
 
-            // 仅按 apple_id 查询，存在则直接登录
-            $user = User::query()->where('apple_id', $apple_id)->first();
+            if ($is_email_hidden) {
+                // 私有邮箱：仅用 apple_id 查
+                $user = User::query()->where('apple_id', $apple_id)->first();
+            } else {
+                // 非私有邮箱：仅用邮箱查；未绑定苹果 id 则自动绑定并登录
+                $user = User::query()->where('email', $email)->first();
+            }
+
             if ($user) {
+
                 if ($user->status !== User::NORMAL) {
                     throw new ApiException(__('账号已被禁用'), ResponseCode::FORBIDDEN);
+                }
+
+                if (empty($user->apple_id)) {
+                    $user->apple_id = $apple_id;
+                    $user->save();
                 }
 
                 Auth::guard('web')->login($user);
@@ -237,7 +251,7 @@ class LoginController extends Controller
                 $result['redirect'] = $redirect;
             } else {
 
-                // 不存在：写入临时缓存，返回 need_choice + apple_pending_token
+                // 未找到：写入临时缓存，返回 need_choice + apple_pending_token
                 $pending_token = \Illuminate\Support\Str::random(64);
                 $cache_key = self::APPLE_PENDING_CACHE_PREFIX . $pending_token;
                 Cache::put($cache_key, [
