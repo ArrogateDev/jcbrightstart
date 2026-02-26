@@ -339,7 +339,7 @@ class LoginController extends Controller
             throw new ApiException(__('链接已过期，请重新使用 Apple 登录'), ResponseCode::PARAM_ERR);
         }
 
-        $ver_code = VerificationCode::check($email, 'apple_bind', trim($code));
+        $ver_code = VerificationCode::check($email, 'bind', trim($code));
         $ver_code->used();
 
         $user = User::query()->where('email', $email)->first();

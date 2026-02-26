@@ -12,7 +12,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="apple-choice-label">{{ __('未找到关联账号') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="isax isax-close-circle5"></i>
                 </button>
             </div>
             <div class="modal-body">
@@ -28,20 +28,20 @@
                 <div id="apple-bind-form" class="mt-4 d-none">
                     <hr>
                     <p class="mb-2">{{ __('请输入您在本站注册的邮箱，我们将发送验证码完成绑定：') }}</p>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="apple-bind-email">{{ __('邮箱') }}</label>
                         <input type="email" class="form-control" id="apple-bind-email" placeholder="{{ __('邮箱') }}">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="apple-bind-code">{{ __('验证码') }}</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="apple-bind-code" placeholder="{{ __('验证码') }}" maxlength="6" autocomplete="one-time-code">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary" id="apple-bind-get-code">{{ __('获取验证码') }}</button>
+                            <div class="input-group-text" id="apple-bind-get-code">
+                                {{ __('获取验证码') }}
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 justify-content-end">
                         <button type="button" class="btn btn-secondary" id="apple-bind-cancel">{{ __('取消') }}</button>
                         <button type="button" class="btn btn-primary" id="apple-bind-submit">{{ __('确认绑定并登录') }}</button>
                     </div>
@@ -217,10 +217,12 @@
         });
 
         var appleBindCodeCountdown = 0;
+
         function resetAppleBindCodeBtn() {
             appleBindCodeCountdown = 0;
             $('#apple-bind-get-code').prop('disabled', false).text('{{ __('获取验证码') }}');
         }
+
         $('#apple-bind-get-code').on('click', function () {
             var $btn = $(this);
             if ($btn.prop('disabled')) return;
@@ -233,7 +235,7 @@
             $.ajax({
                 type: 'post',
                 url: '{{ route('get-code') }}',
-                data: { email: email, scene: 'apple_bind', _token: '{{ csrf_token() }}' },
+                data: {email: email, scene: 'bind', _token: '{{ csrf_token() }}'},
                 dataType: 'json',
                 success: function (data) {
                     if (data.code !== 0) {
