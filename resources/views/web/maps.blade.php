@@ -161,12 +161,29 @@
     }
 
     /* 交错延迟动画 */
-    .collapse.show .location-item:nth-child(1) { transition-delay: 0.05s; }
-    .collapse.show .location-item:nth-child(2) { transition-delay: 0.1s; }
-    .collapse.show .location-item:nth-child(3) { transition-delay: 0.15s; }
-    .collapse.show .location-item:nth-child(4) { transition-delay: 0.2s; }
-    .collapse.show .location-item:nth-child(5) { transition-delay: 0.25s; }
-    .collapse.show .location-item:nth-child(6) { transition-delay: 0.3s; }
+    .collapse.show .location-item:nth-child(1) {
+        transition-delay: 0.05s;
+    }
+
+    .collapse.show .location-item:nth-child(2) {
+        transition-delay: 0.1s;
+    }
+
+    .collapse.show .location-item:nth-child(3) {
+        transition-delay: 0.15s;
+    }
+
+    .collapse.show .location-item:nth-child(4) {
+        transition-delay: 0.2s;
+    }
+
+    .collapse.show .location-item:nth-child(5) {
+        transition-delay: 0.25s;
+    }
+
+    .collapse.show .location-item:nth-child(6) {
+        transition-delay: 0.3s;
+    }
 
     #map-box {
         height: 800px;
@@ -288,6 +305,30 @@
 
                                         @endforeach
 
+                                        <div class="mb-3">
+                                            <div class="type-item collapsed" id="o-url" data-toggle="collapse" data-target="#collapse-o-url" aria-expanded="false"
+                                                 aria-controls="collapse-o-url">
+                                                <span>{{__('其它实用链接')}}</span>
+                                                <span class="icon">
+                                                            <i class="fas fa-chevron-down icon-expand"></i>
+                                                            <i class="fas fa-chevron-up icon-collapse"></i>
+                                                        </span>
+                                            </div>
+
+                                            <div id="collapse-o-url" class="collapse p-2" aria-labelledby="o-url" data-parent="#accordion">
+
+                                                @foreach($urls as $url)
+                                                    <a href="{{$url['url']}}" target="_blank" class="location-item">
+                                                        <i class="iconfont icon-location"></i>
+                                                        <div class="ml-2">
+                                                            <h5 class="title title--black location-title">
+                                                                {{$url['title']}}
+                                                            </h5>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
