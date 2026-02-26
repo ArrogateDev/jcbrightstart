@@ -104,6 +104,8 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
         $route->get('/change-password.html', [ChangePasswordController::class, 'index'])->name('user.change-password.html');
         $route->post('/change-password.html', [ChangePasswordController::class, 'handleChangePassword']);
+
+        $route->post('/user/info/confirm.html', [ProfileController::class, 'handleInfoConfirm'])->name('user.info.confirm.html');
     });
 });
 

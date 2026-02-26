@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
@@ -18,6 +19,59 @@ class ProfileController extends Controller
         return view('web.user.profile');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ApiException
+     */
+    public function handleInfoConfirm(Request $request)
+    {
+        $user = $request->user('web');
+        if (!(($lock = Cache::lock("submit_web_info_confirm_lock:$user->id", 30))->get())) {
+            throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
+        }
+
+        // 请求结束后关闭锁
+        def($_Context, function () use (&$lock) {
+            $lock->release();
+        });
+
+        $inputs = $request->only(['email', 'first_name', 'last_name']);
+
+        $validator = Validator::make($inputs, [
+            'first_name' => 'bail|required',
+            'last_name' => 'bail|required',
+            'email' => 'nullable|unique:users,email,' . $user->id . ',deleted_at',
+        ], [
+            'first_name.required' => __('名字不能为空'),
+            'last_name.required' => __('姓氏不能为空'),
+            'email.required' => __('邮箱不能为空'),
+            'email.email' => __('邮箱格式不正确'),
+            'email.unique' => __('邮箱已经被注册')
+        ]);
+
+        if ($validator->fails()) {
+            throw new ApiException($validator->errors()->first(), ResponseCode::PARAM_ERR);
+        }
+
+        try {
+
+            foreach ($inputs as $field => $value) {
+                $user->$field = $value;
+            }
+
+            $user->full_name = $inputs['first_name'] . ' ' . $inputs['last_name'];
+            $user->is_private_email = 1;
+            $user->is_first_login = 1;
+            if ($user->save() === false) {
+                throw new \Exception('user:failed', ResponseCode::SERVER_ERR);
+            }
+            return $this->responseSuccess();
+        } catch (\Exception $e) {
+            Log::error($e);
+            throw new ApiException('Failure', ResponseCode::SERVER_ERR);
+        }
+    }
 
     /**
      * @param Request $request

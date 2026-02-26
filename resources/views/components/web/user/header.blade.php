@@ -147,3 +147,126 @@
         </div>
     </div>
 </header>
+@if($user->is_private_email === 0 || $user->is_first_login === 0)
+
+    <div class="modal fade" id="info-modal" tabindex="-1" aria-labelledby="info-form"
+         aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="fw-bold">{{ __('确认信息')}}</h5>
+                </div>
+
+                <form id="info-form" novalidate="novalidate">
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="first_name">
+                                {{__('姓')}}
+                                <span class="text-danger"> *</span>
+                                <span id="error-container-first-name"></span>
+                            </label>
+                            <input type="text" id="first-name" name="first_name" class="form-control" placeholder="{{__('请输入姓')}}" value="{{$user->first_name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="last-name">
+                                {{__('名')}}
+                                <span class="text-danger"> *</span>
+                                <span id="error-container-last-name"></span>
+                            </label>
+                            <input type="text" id="last-name" name="last_name" class="form-control" placeholder="{{__('请输入名')}}" value="{{$user->last_name}}">
+                        </div>
+                        @if($user->is_private_email === 0)
+                            <div class="mb-3">
+                                <label class="form-label" for="email">
+                                    {{__('邮箱')}}
+                                    <span class="text-danger"> * {{__('请输入正确的邮箱，填写后无法修改！')}}</span>
+                                    <span id="error-container-email"></span>
+                                </label>
+                                <input type="text" id="email" name="email" class="form-control" placeholder="{{__('请输入邮箱')}}" value="{{$user->email}}">
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary rounded-pill submit" type="submit">{{__('提交')}}</button>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
+    <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+    <script>
+        $(function () {
+            let $modal = $('#info-modal');
+
+            $modal.modal('show')
+            const validator = new window.JustValidate('#info-form', {
+                errorLabelCssClass: 'd-inline',
+            });
+            validator
+                .addField('#first-name', [
+                    {
+                        rule: 'required',
+                        errorMessage: '{{__('请输入姓')}}'
+                    }
+                ], {
+                    errorsContainer: '#error-container-first-name'
+                })
+                .addField('#last-name', [
+                    {
+                        rule: 'required',
+                        errorMessage: '{{__('请输入名')}}'
+                    }
+                ], {
+                    errorsContainer: '#error-container-last-name'
+                })
+                .addField('#email', [
+                    {
+                        rule: 'required',
+                        errorMessage: '{{__('请输入邮箱')}}'
+                    }
+                ], {
+                    errorsContainer: '#error-container-email'
+                })
+                .onSuccess(() => {
+                    handleSubmit();
+                });
+
+            function handleSubmit() {
+                showLoading()
+
+                let form = $('#info-form').serializeArray()
+
+                $.ajax({
+                    url: '{{route('user.info.confirm.html')}}',
+                    type: 'POST',
+                    data: form,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code !== 0) {
+                            showToast('error', data.msg);
+                            return;
+                        }
+
+                        showToast('success', '{{__('更新成功')}}');
+                        $modal.modal('hide');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    }, error: function () {
+                        showToast('error', '{{__('操作失败，请稍后再试！')}}')
+                    }, complete: function () {
+                        hideLoading()
+                    }
+                });
+            }
+        });
+    </script>
+
+@endif
