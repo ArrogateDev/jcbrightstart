@@ -10,7 +10,7 @@ class VerificationCodeRequest extends BaseRequest
     {
         $rules = [
             'email' => 'bail|required|email',
-            'scene' => 'bail|required|in:register',
+            'scene' => 'bail|required|in:register,bind',
         ];
 
         return $rules;

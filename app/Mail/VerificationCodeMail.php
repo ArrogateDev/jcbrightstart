@@ -21,6 +21,10 @@ class VerificationCodeMail extends Mailable
         'register' => [
             'subject' => '註冊驗證碼',
             'view' => 'email.register',
+        ],
+        'bind' => [
+            'subject' => '綁定電郵地址',
+            'view' => 'email.bind',
         ]
     ];
 

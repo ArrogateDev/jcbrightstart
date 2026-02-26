@@ -39,7 +39,6 @@ class VerificationCodeController extends Controller
         $email = $request->input('email');
         $scene = (string)$request->input('scene', 'register');
 
-
         $is_exists = User::query()
             ->when($email, function ($query) use ($email) {
                 $query->where('email', $email);
@@ -50,13 +49,10 @@ class VerificationCodeController extends Controller
             throw new ApiException(__('電郵地址已註冊'), ResponseCode::PARAM_ERR);
         }
 
-        if ($scene === 'forgot_password' && !$is_exists) {
-            throw new ApiException(__('賬號不存在'), ResponseCode::PARAM_ERR);
-        }
-
         $environment = app()->environment(['production']);
-        if (!in_array($scene, ['register', 'forgot_password'])) {
-            throw new ApiException(__('参数错误'), ResponseCode::PARAM_ERR);
+
+        if ($scene === 'bind' && !$is_exists) {
+            throw new ApiException(__('账号不存在'), ResponseCode::PARAM_ERR);
         }
 
         $status_query = VerificationCode::query()
@@ -65,7 +61,7 @@ class VerificationCodeController extends Controller
             });
 
         $today = Carbon::now()->toDateString();
-        if ($environment && (clone $status_query)->where(['used' => 0, 'scene' => 'register'])->count() > 10) {
+        if ($environment && (clone $status_query)->where(['used' => 0, 'scene' => $scene])->count() > 10) {
             throw new ApiException(__('長期獲取驗證碼未使用已禁用!'), ResponseCode::FORBIDDEN);
         }
 
