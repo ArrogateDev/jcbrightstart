@@ -25,7 +25,7 @@
                     <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
                 </div>
                 <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img style="height: 90px;" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>
         </div>
