@@ -52,11 +52,10 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr id="field-list">
-                                <th data-field="id">ID</th>
                                 <th data-field="email">{{__('邮箱')}}</th>
                                 <th data-field="full_name">{{__('姓名')}}</th>
                                 <th>{{__('性别')}}</th>
-                                <th data-field="created_at">{{__('注册时间')}}</th>
+                                <th data-field="created_at" data-sort="desc">{{__('注册时间')}}</th>
                                 <th>{{__('课程')}}</th>
                                 <th data-field="status">{{__('状态')}}</th>
                                 <th></th>
@@ -98,8 +97,7 @@
 
             const row = `
                 <tr>
-                    <td><span class="text-primary">#${item.id}</span></td>
-                    <td><p class="fs-14 full-email text-truncate"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.email}">${item.email}</p></td>
+                    <td><p class="fs-14 email text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.email}">${item.email}</p></td>
                     <td>
                         <div class="d-flex align-items-center">
                             <a href="javascript:void(0);"

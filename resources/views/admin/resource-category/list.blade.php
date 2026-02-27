@@ -33,7 +33,6 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
                                 <th>{{__('名称')}}</th>
                                 <th>{{__('状态')}}</th>
                                 <th>{{__('创建时间')}}</th>
@@ -74,7 +73,6 @@
 
             const row = `
                 <tr>
-                    <td><span class="text-primary">#${item.id}</span></td>
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.title}</p>
                     </td>

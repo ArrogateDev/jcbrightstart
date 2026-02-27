@@ -6,6 +6,10 @@
     .status-tag {
         cursor: pointer;
     }
+
+    .title {
+        width: 200px;
+    }
 </style>
 <body>
 
@@ -99,11 +103,11 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr id="field-list">
-                                <th data-field="id">ID</th>
                                 <th data-field="title">{{__('标题')}}</th>
                                 <th>{{__('家长')}}</th>
                                 <th>{{__('评分')}}</th>
                                 <th>{{__('状态')}}</th>
+                                <th data-field="created_at" data-sort="desc">{{__('创建时间')}}</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -160,35 +164,35 @@
 
             const row = `
                     <tr>
-                        <td><span class="text-primary">#${item.id}</span></td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="javascript:void(0);" class="avatar avatar-lg me-2"><img
                                         class="img-fluid object-fit-cover"
                                         src="${item.thumbnail}" alt=""></a>
                                 <div>
-                                    <h6 class="fw-medium mb-2"><a href="javascript:void(0);">${item.title}</a></h6>
+                                    <h6 class="fw-medium mb-2 title text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.title}">${item.title}</h6>
                                     <div class="d-flex align-items-center">
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-video-circle me-1 text-gray-9 fw-bold"></i>
                                             ${item.units} {{__('单元')}}
-            </span>
-            <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
-                <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
-${item.quizzes} {{__('问题')}}
-            </span>
-        </div>
-    </div>
-</div>
-</td>
-<td>0</td>
-<td>
-<div class="d-flex align-items-center">
-    <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
-    <span>5.0 (0)</span>
-</div>
-</td>
-<td>${statusMenu}</td>
+                                        </span>
+                                        <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
+                                            <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
+                            ${item.quizzes} {{__('问题')}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>0</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
+                                <span>5.0 (0)</span>
+                            </div>
+                        </td>
+                        <td>${statusMenu}</td>
+                        <td>${item.created_at}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <a href="${item.url}" class="d-inline-flex fs-14 me-1 action-icon">

@@ -45,7 +45,6 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
                                 <th>{{__('角色名称')}}</th>
                                 <th>{{__('级别')}}</th>
                                 <th>{{__('上级')}}</th>
@@ -152,7 +151,6 @@
 
             const row = `
                 <tr>
-                    <td><span class="text-primary">#${item.id}</span></td>
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.name}</p>
                     </td>

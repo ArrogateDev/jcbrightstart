@@ -45,7 +45,6 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
                                 <th>{{__('名称')}}</th>
                                 <th>{{__('头像')}}</th>
                                 <th>{{__('账号')}}</th>
@@ -183,7 +182,6 @@
 
             const row = `
                 <tr>
-                    <td><span class="text-primary">#${item.id}</span></td>
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.name}</p>
                     </td>
