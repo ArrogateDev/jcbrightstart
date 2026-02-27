@@ -135,6 +135,15 @@
             `;
             tbody.append(row);
         });
+
+        tbody.find('[data-bs-toggle="tooltip"]').each(function () {
+            const el = this;
+            const title = el.getAttribute('data-bs-title');
+            if (title == null || title === '') return;
+            const existing = bootstrap.Tooltip.getInstance(el);
+            if (existing) existing.dispose();
+            new bootstrap.Tooltip(el);
+        });
     }
 
     function handleDelete(id, name) {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-admin.head/>
@@ -178,7 +178,7 @@
                                         </span>
                                         <span class="d-inline-flex fs-12 align-items-center me-2 pe-2 border-end">
                                             <i class="isax isax-message-question me-1 text-gray-9 fw-bold"></i>
-                            ${item.quizzes} {{__('问题')}}
+                                            ${item.quizzes} {{__('问题')}}
                                         </span>
                                     </div>
                                 </div>
@@ -206,6 +206,15 @@
                     </tr>
             `;
             tbody.append(row);
+        });
+
+        tbody.find('[data-bs-toggle="tooltip"]').each(function () {
+            const el = this;
+            const title = el.getAttribute('data-bs-title');
+            if (title == null || title === '') return;
+            const existing = bootstrap.Tooltip.getInstance(el);
+            if (existing) existing.dispose();
+            new bootstrap.Tooltip(el);
         });
     }
 
