@@ -29,7 +29,7 @@
         background: linear-gradient(46deg, #007078 0%, #007982 100%);
     }
 
-    .section-heading__title {
+    .page-heading-inner .section-heading__title {
         color: white !important;
     }
 
