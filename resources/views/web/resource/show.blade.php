@@ -10,7 +10,7 @@
         data-allow-download="false">
 </script>
 <style>
-    .container {
+    .page-show .container {
         max-width: 1000px !important;
     }
 
@@ -56,7 +56,7 @@
 
         <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{__('专业学习社群')}}"/>
 
-        <section class="section p-t-125 p-b-80">
+        <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
