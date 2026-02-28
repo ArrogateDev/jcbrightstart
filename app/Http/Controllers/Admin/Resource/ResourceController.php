@@ -107,6 +107,8 @@ class ResourceController extends Controller
                 throw new \Exception('resource:failed', ResponseCode::SERVER_ERR);
             }
 
+            DB::commit();
+
             return $this->responseSuccess(['id' => $resource->id], __('成功'));
         } catch (\Exception $e) {
             DB::rollBack();
@@ -158,6 +160,8 @@ class ResourceController extends Controller
             if ($resource->save() === false) {
                 throw new \Exception('resource:failed', ResponseCode::SERVER_ERR);
             }
+
+            DB::commit();
 
             return $this->responseSuccess(['id' => $resource->id], __('成功'));
         } catch (\Exception $e) {
