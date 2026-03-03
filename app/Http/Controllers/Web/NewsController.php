@@ -13,14 +13,19 @@ class NewsController extends Controller
 {
 
     /**
+     * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $category = NewsCategory::query()
             ->where('status', 0)
             ->select('id', 'title')
             ->get();
+
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
 
         return view('web.news.index', compact('category'));
     }
@@ -68,15 +73,19 @@ class NewsController extends Controller
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
 
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
+
         return $this->responseSuccess(compact('html', 'total', 'page', 'pagination'));
     }
 
     /**
      * News $news
+     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(News $news)
+    public function show(News $news, Request $request)
     {
 
         $date = Carbon::parse($news->created_at);
@@ -95,6 +104,8 @@ class NewsController extends Controller
             ->orderBy('id')
             ->value('id');
 
-        return view('web.news.show', compact('news', 'prev', 'next'));
+        $url = $request->session()->get('resource-url');
+
+        return view('web.news.show', compact('news', 'prev', 'next', 'url'));
     }
 }

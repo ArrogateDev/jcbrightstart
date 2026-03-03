@@ -45,6 +45,17 @@
         height: auto;
         width: auto;
     }
+
+    .btn-per {
+        cursor: pointer;
+        background: #ff97a4;
+        width: fit-content;
+        padding: 2px 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -58,6 +69,11 @@
 
         <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">
+                @if($url)
+                    <a href="{{$url}}" class="d-flex align-items-center btn-per">
+                        <i class="zmdi zmdi-chevron-left mr-1"></i> {{__('返回')}}
+                    </a>
+                @endif
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">

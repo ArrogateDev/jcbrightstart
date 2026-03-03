@@ -26,6 +26,9 @@ class ResourceController extends Controller
             ->select('id', 'title')
             ->get();
 
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
+
         return view('web.resource.index', compact('category'));
     }
 
@@ -70,15 +73,21 @@ class ResourceController extends Controller
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
 
-        return $this->responseSuccess(compact('html', 'total', 'page', 'pagination'));
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
+
+        return $this->responseSuccess(compact('html', 'total', 'page', 'pagination', 'url'));
     }
 
     /**
      * Resource $resource
      *
+     * @param Resource $resource
+     * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Resource $resource)
+    public function show(Resource $resource, Request $request)
     {
 
         $date = Carbon::parse($resource->created_at);
@@ -97,6 +106,8 @@ class ResourceController extends Controller
             ->orderBy('id')
             ->value('id');
 
-        return view('web.resource.show', compact('resource', 'prev', 'next'));
+        $url = $request->session()->get('resource-url');
+
+        return view('web.resource.show', compact('resource', 'prev', 'next', 'url'));
     }
 }
