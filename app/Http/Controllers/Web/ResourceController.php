@@ -26,16 +26,7 @@ class ResourceController extends Controller
             ->select('id', 'title')
             ->get();
 
-        $new_resource = Resource::query()
-            ->where('status', News::STATUS_PUBLISHED)
-            ->orderByDesc('id')
-            ->first();
-
-        $new_resource && $new_resource->url = route('resource.show.html', ['resource' => $new_resource->id]);
-        $new_resource && $new_resource->append(['category_text']);
-        $request->session()->put('resource_new', $new_resource->id ?? 0);
-
-        return view('web.resource.index', compact('category', 'new_resource'));
+        return view('web.resource.index', compact('category'));
     }
 
     /**
@@ -44,15 +35,11 @@ class ResourceController extends Controller
      */
     public function list(Request $request)
     {
-        $new_resource_id = $request->session()->get('resource_new');
         $keywords = $request->query('keywords');
         $category = $request->query('category');
         $sort = $request->query('sort', 'time');
 
         $list = Resource::query()
-//            ->when($new_resource_id > 0, function ($query) use ($new_resource_id) {
-//                $query->whereNotIn('id', [$new_resource_id]);
-//            })
             ->when($keywords, function ($query) use ($keywords) {
                 $query->where('title', 'like', '%' . $keywords . '%');
             })

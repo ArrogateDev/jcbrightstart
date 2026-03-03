@@ -112,38 +112,6 @@
             </div>
         </section>
 
-        @if(!empty($new_resource))
-            <section class="section">
-                <div class="container">
-                    <div class="row bg-white shadow-lg rounded m-0 p-0">
-                        <div class="col-md-6 m-0 p-0">
-                            <div style="height: 350px;">
-                                <img alt="{{$new_resource->title}}" class="h-100 rounded-left" src="{{$new_resource->thumbnail}}">
-                            </div>
-                        </div>
-                        <div class="col-md-6 m-0 p-0">
-                            <div class="p-4 d-flex flex-column justify-content-center">
-                                <div class="d-flex align-items-center mb-4">
-                                    <span class="category-tag">{{$new_resource->category_text}}</span>
-                                    <span>{{$new_resource->created_at}}</span>
-                                </div>
-                                <h3 class="mb-4">{{$new_resource->title}}</h3>
-                                <p class="mb-4 top-short">{{$new_resource->short}}</p>
-                                <div class="d-flex align-items-center">
-                                    <a href="{{$new_resource->url}}" class="d-flex align-items-center" style="flex: 1;">
-                                        <span>{{__('阅读全文')}}</span>
-                                        <svg style="width: 25px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        @endif
-
         <section>
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between my-4">
