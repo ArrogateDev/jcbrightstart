@@ -118,7 +118,7 @@
                     <div class="row bg-white shadow-lg rounded m-0 p-0">
                         <div class="col-md-6 m-0 p-0">
                             <div style="height: 350px;">
-                                <img alt="{{$resource->title}}" class="h-100 rounded-left" src="{{$resource->thumbnail}}">
+                                <img alt="{{$new_resource->title}}" class="h-100 rounded-left" src="{{$new_resource->thumbnail}}">
                             </div>
                         </div>
                         <div class="col-md-6 m-0 p-0">
