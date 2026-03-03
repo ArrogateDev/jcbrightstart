@@ -1,6 +1,6 @@
 ﻿@props(['resource' => null, 'col'=>true])
 @if($col)
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-6 col-lg-3">
  @endif
         <div class="media media-blog-2">
             <div class="media__img">

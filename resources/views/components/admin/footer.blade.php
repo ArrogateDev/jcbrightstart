@@ -1,32 +1,47 @@
-<footer class="footer">
+<footer class="footer pt-5">
     <div class="container">
+        <div class="section-heading section-heading-1 section-heading-1--small text-left">
+            <h2 class="section-heading__title" style="margin-bottom: 55px;">{{__('专业合作伙伴')}}</h2>
+        </div>
+        <div class="w-100 d-flex" style="margin-bottom: 80px;">
+            <div class="me-5" style="height: 110px;">
+                <img class="h-100" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA">
+            </div>
+            <div class="ms-5" style="height: 110px;">
+                <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
+            </div>
+        </div>
         <div class="row my-5">
             <div class="col-12 col-md-6">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                    <h3 class="section-heading__title">{{__('主办机构')}}</h3>
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('主办机构')}}</h2>
                 </div>
-                <div class="w-100 d-flex">
-                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}1" class="logo" alt="">
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                    <h3 class="section-heading__title">{{__('捐助机构')}}</h3>
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
                 </div>
-                <div class="w-100 d-flex">
+                <div class="w-100 d-flex mb-3 mb-md-0">
                     <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
                 </div>
             </div>
         </div>
     </div>
 </footer>
+
 <style>
     .footer .section-heading__title {
         font-size: 24px;
+        color: #000;
+        margin-bottom: 2px;
+        font-weight: 400;
     }
 
     .footer img.logo {
-        height: 100px;
+        height: 80px;
     }
 
     .footer-link {
@@ -39,17 +54,6 @@
 
     .footer-link a {
         color: #666;
-    }
-
-    .section-heading-1--small {
-        margin-bottom: 40px;
-    }
-
-    .section-heading-1 .section-heading__title {
-        color: #000;
-        margin-bottom: 2px;
-        font-weight: 400;
-        font-size: 24px;
     }
 </style>
 
