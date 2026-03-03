@@ -50,9 +50,9 @@ class ResourceController extends Controller
         $sort = $request->query('sort', 'time');
 
         $list = Resource::query()
-            ->when($new_resource_id > 0, function ($query) use ($new_resource_id) {
-                $query->whereNotIn('id', [$new_resource_id]);
-            })
+//            ->when($new_resource_id > 0, function ($query) use ($new_resource_id) {
+//                $query->whereNotIn('id', [$new_resource_id]);
+//            })
             ->when($keywords, function ($query) use ($keywords) {
                 $query->where('title', 'like', '%' . $keywords . '%');
             })
