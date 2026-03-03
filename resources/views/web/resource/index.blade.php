@@ -118,8 +118,7 @@
                     <div class="row bg-white shadow-lg rounded m-0 p-0">
                         <div class="col-md-6 m-0 p-0">
                             <div style="height: 350px;">
-                                <img alt="遊戲化學習：如何在幼兒課堂中融入STRAW教學法" class="h-100 rounded-left"
-                                     src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&amp;h=500&amp;fit=crop">
+                                <img alt="{{$resource->title}}" class="h-100 rounded-left" src="{{$resource->thumbnail}}">
                             </div>
                         </div>
                         <div class="col-md-6 m-0 p-0">

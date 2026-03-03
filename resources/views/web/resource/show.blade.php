@@ -62,7 +62,7 @@
                     <div class="media media-blog-4 m-b-10">
                         <div class="media__img">
                             <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
-                                <img class="w-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
+                                <img class="mh-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                             </a>
                         </div>
                         <div class="media__body">
