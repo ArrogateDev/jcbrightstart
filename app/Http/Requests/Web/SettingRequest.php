@@ -12,7 +12,7 @@ class SettingRequest extends BaseRequest
         $rules = [
             'first_name' => 'bail|required',
             'last_name' => 'bail|required',
-            'gender' => 'bail|required|in:0,1',
+            'gender' => 'bail|required|in:0,1,2',
         ];
 
         return $rules;

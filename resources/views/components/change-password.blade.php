@@ -7,18 +7,18 @@
 <div class="row">
     <div class="col-md-8">
         <div class="mb-3">
-            <h5 class="mb-1 fs-18">Change Password</h5>
+            <h5 class="mb-1 fs-18">{{__('更改密码')}}</h5>
             @if($module === 'web')
                 <p>
-                    Can't remember your current password?
-                    <a href="#" class="text-decoration-underline rest-password">Reset your password via email</a>
+                    {{__('不记得您当前的密码？')}}
+                    <a href="#" class="text-decoration-underline rest-password">{{__('通过电子邮件重置密码')}}</a>
                 </p>
             @endif
         </div>
         <form id="form" novalidate="novalidate">
             <div class="mb-3 position-relative">
                 <label class="form-label">
-                    Current Password
+                    {{__('当前密码')}}
                     <span class="text-danger ms-1">*</span>
                     <span id="error-container-current-password"></span>
                 </label>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="mb-3 position-relative">
-                <label class="form-label">New Password
+                <label class="form-label">{{__('新密码')}}
                     <span class="text-danger ms-1">*</span>
                     <span id="error-container-password"></span>
                 </label>
@@ -43,11 +43,11 @@
                     <span id="heavy"></span>
                 </div>
                 <div class="mt-2 fs-14" id="passwordInfo">
-                    Use upper & lower case letters, numbers, symbols and 8+ characters.
+                    {{__('使用大小写字母、数字、符号组合且8个以上字符。')}}
                 </div>
             </div>
             <div class="mb-3 position-relative">
-                <label class="form-label">Confirm Password
+                <label class="form-label">{{__('确认密码')}}
                     <span class="text-danger ms-1">*</span>
                     <span id="error-container-password-confirmation"></span>
                 </label>
@@ -58,7 +58,7 @@
             </div>
             <div>
                 <button class="btn btn-secondary" type="submit">
-                    Change Password
+                    {{__('更改密码')}}
                 </button>
             </div>
             <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -74,7 +74,7 @@
         .addField('#current-password', [
             {
                 rule: 'required',
-                errorMessage: 'Please enter your Current Password.',
+                errorMessage: '{{__('请输入您当前的密码。')}}',
             }
         ], {
             errorsContainer: '#error-container-current-password'
@@ -86,7 +86,7 @@
             {
                 rule: 'customRegexp',
                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.#?!@$%^&*-]).{8,}$/,
-                errorMessage: 'Use uppercase, lowercase, numbers, symbols and 8+ characters.'
+                errorMessage: '{{__('使用大小写字母、数字、符号组合且8个以上字符。')}}'
             }
         ], {
             errorsContainer: '#error-container-password'
@@ -104,7 +104,7 @@
                         return value === password;
                     }
                 },
-                errorMessage: 'Password does not match',
+                errorMessage: '{{__('密码不匹配')}}',
             }
         ], {
             errorsContainer: '#error-container-password-confirmation'
@@ -149,7 +149,7 @@
     @if($module === 'web')
     $(function () {
         $('.rest-password').click(function () {
-            confirm_alert('Are you sure?', "You won't be able to revert this!", 'Yes, Rest Password!').then((result) => {
+            confirm_alert('{{__('你确定吗？')}}', "{{__('您将无法恢复此设置！')}}", '{{__('是的，重置密码')}}').then((result) => {
                 if (!result.isConfirmed) {
                     return;
                 }

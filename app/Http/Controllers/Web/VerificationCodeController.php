@@ -46,7 +46,7 @@ class VerificationCodeController extends Controller
             ->exists();
 
         if ($scene === 'register' && $is_exists) {
-            throw new ApiException(__('電郵地址已註冊'), ResponseCode::PARAM_ERR);
+            throw new ApiException(__('邮箱地址已注册'), ResponseCode::PARAM_ERR);
         }
 
         $environment = app()->environment(['production']);
@@ -62,7 +62,7 @@ class VerificationCodeController extends Controller
 
         $today = Carbon::now()->toDateString();
         if ($environment && (clone $status_query)->where(['used' => 0, 'scene' => $scene])->count() > 10) {
-            throw new ApiException(__('長期獲取驗證碼未使用已禁用!'), ResponseCode::FORBIDDEN);
+            throw new ApiException(__('长期获取验证码未使用已禁用!'), ResponseCode::FORBIDDEN);
         }
 
         if ($environment && VerificationCode::query()->where(['ip' => $ip, 'status' => 1])->whereDate('created_at', $today)->count() > 10) {
@@ -70,7 +70,7 @@ class VerificationCodeController extends Controller
         }
 
         if ($environment && (clone $status_query)->whereDate('created_at', $today)->count() > 10) {
-            throw new ApiException(__('發送數量已達上限!!'), ResponseCode::FORBIDDEN);
+            throw new ApiException(__('邮箱地址已注册!!'), ResponseCode::FORBIDDEN);
         }
 
         try {

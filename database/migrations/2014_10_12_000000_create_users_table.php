@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('full_name')->nullable()->comment('全名');
             $table->string('first_name')->nullable()->comment('名字');
             $table->string('last_name')->nullable()->comment('姓氏');
-			$table->tinyInteger('gender')->default(0)->comment('性别:0-女/1-男');
+			$table->tinyInteger('gender')->default(2)->comment('性别:0-女/1-男/2-沒有提供');
 			$table->tinyInteger('age')->default(0)->comment('年龄');
 			$table->tinyInteger('role')->default(0)->comment('状态:0-学生/1-老师');
 			$table->tinyInteger('is_private_email')->default(1)->comment('私有邮箱:0-是/1-否');

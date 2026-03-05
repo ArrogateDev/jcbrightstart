@@ -41,14 +41,14 @@
                                 </div>
                                 <div>
                                     <div class="edit-profile-info mb-3">
-                                        <h5 class="mb-1 fs-18">Personal Details</h5>
-                                        <p>Edit your personal information</p>
+                                        <h5 class="mb-1 fs-18">{{__('个人资料')}}</h5>
+                                        <p>{{__('编辑您的个人信息')}}</p>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">
-                                                    First Name
+                                                    {{__('名字')}}
                                                     <span class="text-danger ms-1">*</span>
                                                     <span id="error-container-first-name"></span>
                                                 </label>
@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Last Name
+                                                <label class="form-label">{{__('姓氏')}}
                                                     <span class="text-danger ms-1">*</span>
                                                     <span id="error-container-last-name"></span>
                                                 </label>
@@ -66,38 +66,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">User Name
-                                                    <span class="text-danger ms-1">*</span>
-                                                    <span id="error-container-name"></span>
-                                                </label>
-                                                <input type="text" class="form-control" value="instructordemo">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Phone Number
-                                                    <span class="text-danger ms-1">*</span>
-                                                    <span id="error-container-name"></span>
-                                                </label>
-                                                <input type="text" class="form-control" value="90154-91036">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Gender
+                                                <label class="form-label">{{__('性别')}}
                                                     <span class="text-danger ms-1">*</span>
                                                     <span id="error-container-gender"></span>
                                                 </label>
                                                 <select id="gender" class="select" name="gender">
-                                                    <option @selected($user->gender === 1) value="1">Male</option>
-                                                    <option @selected($user->gender === 0) value="0">Female</option>
+                                                    <option @selected($user->gender === 1) value="1">{{__('男性')}}</option>
+                                                    <option @selected($user->gender === 0) value="0">{{__('女性')}}</option>
+                                                    <option @selected($user->gender === 2) value="2">{{__('沒有提供')}}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button class="btn btn-secondary rounded-pill" type="submit">Update
-                                                Profile
-                                            </button>
+                                            <button class="btn btn-secondary rounded-pill" type="submit">{{__('更新资料')}}</button>
                                         </div>
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                     </div>
@@ -142,13 +123,6 @@
             }
         ], {
             errorsContainer: '#error-container-gender'
-        })
-        .addField('#age', [
-            {
-                rule: 'required',
-            }
-        ], {
-            errorsContainer: '#error-container-age'
         })
         .onSuccess(() => {
             handleSetting();

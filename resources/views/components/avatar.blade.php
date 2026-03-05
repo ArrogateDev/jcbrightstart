@@ -14,20 +14,18 @@
     <img src="{{$user->avatar}}" alt="Img" class="img-fluid avatar-img">
 </a>
 <div class="profile-upload-head">
-    <h6><a href="javascript:void(0);">Your Avatar</a></h6>
-    <p class="fs-14 mb-0">PNG or JPG no bigger than 800px width and height
-    </p>
+    <h6><a href="javascript:void(0);">{{__('头像')}}</a></h6>
+    <p class="fs-14 mb-0">{{__('PNG或JPG的宽度和高度不超过800px')}}</p>
     <div class="new-employee-field">
         <div class="d-flex align-items-center mt-2">
             <div class="image-upload position-relative mb-0 me-2">
                 <input type="file" id="avatar-file-input" accept="image/*">
                 <a href="#"
                    class="btn bg-gray-100 btn-sm rounded-pill image-uploads"
-                   data-avatar-trigger="true">Upload</a>
+                   data-avatar-trigger="true">{{__('上传')}}</a>
             </div>
             <div class="img-delete ms-1">
-                <a href="#"
-                   class="btn btn-secondary btn-sm rounded-pill remove-avatar">Delete</a>
+                <a href="#" class="btn btn-secondary btn-sm rounded-pill remove-avatar">{{__('删除')}}</a>
             </div>
         </div>
     </div>
@@ -38,25 +36,25 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">修改头像</h5>
+                <h5 class="modal-title">{{__('修改头像')}}</h5>
             </div>
             <div class="modal-body">
                 <div class="row g-3">
                     <div class="col-lg-8">
                         <div class="ratio ratio-1x1 bg-light border rounded d-flex align-items-center justify-content-center">
                             <img id="avatar-cropper-image" src="" alt="Avatar Crop" class="img-fluid d-none">
-                            <span id="avatar-cropper-placeholder" class="text-muted">请选择一张图片</span>
+                            <span id="avatar-cropper-placeholder" class="text-muted">{{__('请选择一张图片')}}</span>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="avatar-crop-preview shadow-sm mx-auto cropper-preview"></div>
-                        <p class="text-muted text-center mt-3 fs-14">预览区域为最终圆形头像效果</p>
+                        <p class="text-muted text-center mt-3 fs-14">{{__('预览区域为最终圆形头像效果')}}</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-secondary" id="avatar-crop-confirm">保存头像</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{__('取消')}}</button>
+                <button type="button" class="btn btn-secondary" id="avatar-crop-confirm">{{__('保存头像')}}</button>
             </div>
         </div>
     </div>
