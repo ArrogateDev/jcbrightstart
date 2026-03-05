@@ -15,8 +15,8 @@
     }
 
     @media (max-width: 765px) {
-        .pe-title {
-            padding-top: 32px;
+        .pe-box {
+            flex-direction: column-reverse;
         }
     }
 </style>
@@ -78,7 +78,7 @@
 
         <section class="section p-t-75 p-b-75 p-md-t-60" id="vision">
             <div class="container">
-                <div class="row">
+                <div class="row pe-box">
                     <div class="col-md-6">
                         <div class="img-border img-border--blue">
                             <div class="img-border-inner">
@@ -191,7 +191,7 @@
 
         <section class="section p-t-75 p-b-75" id="professional-development">
             <div class="container">
-                <div class="row">
+                <div class="row pe-box">
                     <div class="col-md-6">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
@@ -201,7 +201,7 @@
                     </div>
                     <div class="col-md-5 d-flex align-items-center">
                         <div class="p-l-70 p-md-l-0 w-100">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
+                            <div class="welcome-wrap welcome-wrap-2 p-t-0 p-b-30">
                                 <div class="welcome-wrap__inner">
                                     <div class="section-heading section-heading-1 section-heading-1--small text-left">
                                         <h2 class="section-heading__title pe-title">{{__('HOME5_TITLE')}}</h2>
