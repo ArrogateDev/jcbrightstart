@@ -13,6 +13,12 @@
         width: 100%;
         height: 100%;
     }
+
+    @media (max-width: 765px) {
+        .pe-title {
+            padding-top: 32px;
+        }
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -76,7 +82,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--blue">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="About Us">
+                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="{{__('HOME3_TITLE')}}">
                             </div>
                         </div>
                     </div>
@@ -85,7 +91,7 @@
                             <div class="welcome-wrap welcome-wrap-2 p-t-0">
                                 <div class="welcome-wrap__inner">
                                     <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">{{__('HOME3_TITLE')}}</h2>
+                                        <h2 class="section-heading__title pe-title">{{__('HOME3_TITLE')}}</h2>
                                     </div>
                                     <p class="m-b-15">
                                         {{__('HOME3_CONTENT01')}}</p>
@@ -175,7 +181,7 @@
                     <div class="col-md-6 offset-md-1">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-04.png')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-04.png')}}" alt="{{__('HOME4_TITLE')}}">
                             </div>
                         </div>
                     </div>
@@ -189,7 +195,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="{{__('HOME5_TITLE')}}2">
                             </div>
                         </div>
                     </div>
@@ -198,7 +204,7 @@
                             <div class="welcome-wrap welcome-wrap-2 p-t-0">
                                 <div class="welcome-wrap__inner">
                                     <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">{{__('HOME5_TITLE')}}</h2>
+                                        <h2 class="section-heading__title pe-title">{{__('HOME5_TITLE')}}</h2>
                                     </div>
                                     <div class="realm-box">
                                         <div class="realm-item">

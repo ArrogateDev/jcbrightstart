@@ -75,4 +75,14 @@
     .footer-link a {
         color: #666;
     }
+
+    @media (max-width: 776px) {
+        .copyright__text {
+            display: block !important;
+        }
+
+        .copyright__text span {
+            display: none !important;
+        }
+    }
 </style>
