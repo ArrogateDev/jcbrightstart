@@ -226,6 +226,7 @@
                 ], {
                     errorsContainer: '#error-container-last-name'
                 })
+                @if($user->is_private_email === 0)
                 .addField('#email', [
                     {
                         rule: 'required',
@@ -234,6 +235,7 @@
                 ], {
                     errorsContainer: '#error-container-email'
                 })
+                @endif
                 .onSuccess(() => {
                     handleSubmit();
                 });
