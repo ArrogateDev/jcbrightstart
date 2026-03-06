@@ -200,15 +200,37 @@
     </div>
     <div class="header-mobile js-header-mobile d-block d-lg-none">
         <div class="header-mobile__bar">
-            <div class="container-fluid clearfix">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
                 <a class="logo" href="{{route('index.html')}}">
                     <img src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jooby" style="height: 55px;">
                 </a>
-                <button class="hamburger hamburger--slider float-right" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                </button>
+                <div class="d-flex align-items-center">
+                    @auth
+                        <div class="btn-group">
+                            <div class="d-inline-flex align-items-center mr-2 position-relative" data-toggle="dropdown" aria-expanded="false">
+                                <span class="avatar" style="width: 2rem;height: 2rem; display: block;">
+                                    <img src="{{$user->avatar}}" alt="Img" class="img-fluid rounded-circle">
+                                </span>
+                            </div>
+                            <div class="dropdown-menu">
+                                @foreach($avatar_menus as $menu)
+                                    <a class="dropdown-item" href="{{$menu['url']??'javascript:void(0);'}}">{{$menu['title']}}</a>
+                                @endforeach
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item logout" href="#">{{__('退出登录')}}</a>
+                            </div>
+                        </div>
+                    @else
+                        <a href="{{route('login.html')}}" class="au-btn-3 au-btn2--blue d-inline-flex align-items-center mr-2" style="line-height: 32px;">
+                            {{__('家长登入')}}
+                        </a>
+                    @endauth
+                    <button class="hamburger hamburger--slider" type="button">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                    </button>
+                </div>
             </div>
         </div>
         @if(!empty($navs))
