@@ -93,7 +93,7 @@
                                     <div class="section-heading section-heading-1 section-heading-1--small text-left">
                                         <h2 class="section-heading__title pe-title">{{__('HOME3_TITLE')}}</h2>
                                     </div>
-                                    <p class="m-b-15">
+                                    <p class="m-b-15" style="text-indent: 50px;">
                                         {{__('HOME3_CONTENT01')}}</p>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                     <div class="col-md-6">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="{{__('HOME5_TITLE')}}2">
+                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="{{__('HOME5_TITLE')}}">
                             </div>
                         </div>
                     </div>
