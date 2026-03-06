@@ -591,7 +591,7 @@
                     popupHtml += `<div><strong>{{__('电子邮件')}}:</strong> ${data.email}</div>`;
                 }
                 if (data.webpage) {
-                    popupHtml += `<div><strong>{{__('网页')}}:</strong> ${data.webpage}</div>`;
+                    popupHtml += `<div><strong>{{__('网页')}}:</strong> <a href="${data.webpage}" target="_blank">${data.webpage}</a></div>`;
                 }
                 if (data.service_hours || data.serviceHours) {
                     popupHtml += `<div><strong>{{__('服务时间')}}:</strong> ${data.service_hours || data.serviceHours || ''}</div>`;
