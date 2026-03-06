@@ -22,6 +22,7 @@ class WebMiddleware
     public function handle(Request $request, Closure $next)
     {
         $locale = $request->cookie('locale') ?? $request->session()->get('locale');
+        $locale = 'zh_HK';
         if ($locale && in_array($locale, ['en', 'zh_CN', 'zh_HK'])) {
             App::setLocale($locale);
             if ($request->cookie('locale') && !$request->session()->has('locale')) {
