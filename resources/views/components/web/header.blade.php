@@ -78,10 +78,10 @@
                     @endif
                     <div class="header-btn d-flex align-items-center">
                         <div class="dropdown mr-3 position-relative d-inline-block" id="language-box">
-                            <a href="#" class="dropdown-toggle" id="language-dropdown" data-toggle="dropdown" aria-expanded="false" role="button">
+                            <a href="#" class="dropdown-toggle d-none" id="language-dropdown" data-toggle="dropdown" aria-expanded="false" role="button">
                                 <i class="fas fa-globe mr-1"></i>{{ $currentLang }}
                             </a>
-                            <ul class="dropdown-menu p-2 mt-2" id="language-menu">
+                            <ul class="dropdown-menu d-none p-2 mt-2" id="language-menu">
                                 @foreach($locales as $locale => $label)
                                     <li>
                                         <a class="dropdown-item rounded {{ $currentLocale === $locale ? 'active' : '' }}"
@@ -214,7 +214,7 @@
         @if(!empty($navs))
             <nav class="navbar-mobile">
                 <ul class="navbar-mobile__list list-unstyled">
-                    <li class="language-selector-mobile">
+                    <li class="language-selector-mobile d-none">
                         <a href="javascript:void(0);" class="bg-link">
                             <i class="fas fa-globe mr-2"></i>{{ $currentLang }}
                         </a>

@@ -89,10 +89,10 @@
             </div>
             <div class="header-btn d-flex align-items-center">
                 <div class="dropdown flag-dropdown">
-                    <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3 d-none" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-globe me-1"></i>{{ $currentLang }}
                     </a>
-                    <ul class="dropdown-menu p-2 mt-2" style="">
+                    <ul class="dropdown-menu p-2 mt-2 d-none" style="">
                         @foreach($locales as $locale => $label)
                             <li>
                                 <a class="dropdown-item rounded d-flex align-items-center" href="{{ route('language.switch', ['locale' => $locale]) }}">

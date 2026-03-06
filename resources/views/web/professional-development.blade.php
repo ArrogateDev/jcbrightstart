@@ -861,7 +861,7 @@
                             <div class="plc-icon">✈️</div>
                             <h3 class="plc-title">{{__('海外考察团')}}</h3>
                             <ul class="plc-items">
-                                <li>{{__('PECERA 国际会议及国内婴幼园参访')}}</li>
+                                <li>{!! __('PECERA 国际会议及<strong> 海外 </strong>婴幼园参访') !!}</li>
                             </ul>
                         </div>
                     </div>

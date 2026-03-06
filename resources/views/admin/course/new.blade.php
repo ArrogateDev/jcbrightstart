@@ -803,7 +803,6 @@
                     });
                 }
             });
-            return false;
 
             let url, method;
             if (editId) {

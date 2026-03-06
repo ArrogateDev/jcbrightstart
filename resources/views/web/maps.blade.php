@@ -262,7 +262,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('香港0-3岁婴幼儿服务资讯')}}" subtitle="{{__('香港0-3岁婴幼儿服务资讯')}}"/>
+        <x-web.breadcrumb title="{!! __('香港0-3岁<br />婴幼儿服务资讯') !!}" subtitle="{{__('香港0-3岁婴幼儿服务资讯')}}"/>
 
         <section class="section p-t-125">
             <div class="container">
