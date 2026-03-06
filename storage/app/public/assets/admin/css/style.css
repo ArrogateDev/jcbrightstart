@@ -21233,6 +21233,7 @@ a:hover {
 .login-content .login-wrap-bg .login-wrapper {
     max-width: 100%;
     height: 100vh;
+    overflow: auto;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -21296,7 +21297,7 @@ a:hover {
 }
 
 .login-content .login-wrap-bg .topic {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 @media (max-width: 767.98px) {

@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-6 login-bg d-none d-lg-flex">
                 <div class="login-banner vh-100">
-                    <img src="{{web_resource_url('assets/img/login-page.png')}}" class="img-fluid" alt="Logo">
+                    <img src="{{web_resource_url('assets/img/login-bg.jpg')}}" class="img-fluid" alt="Logo">
                 </div>
             </div>
 
