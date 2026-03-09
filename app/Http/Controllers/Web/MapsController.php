@@ -11,6 +11,7 @@ class MapsController extends Controller
     public function index()
     {
         $maps = ServiceLocation::query()
+            ->where('status', ServiceLocation::NORMAL)
             ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
             ->get();
 
@@ -65,6 +66,7 @@ class MapsController extends Controller
     public function list()
     {
         $maps = ServiceLocation::query()
+            ->where('status', ServiceLocation::NORMAL)
             ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
             ->get();
 
