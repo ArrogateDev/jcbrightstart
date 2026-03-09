@@ -11,7 +11,7 @@ class MapsController extends Controller
     public function index()
     {
         $maps = ServiceLocation::query()
-            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
+            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
             ->get();
 
         $maps = $maps->map(function ($item) {
@@ -19,8 +19,11 @@ class MapsController extends Controller
             return $item;
         });
 
-        $maps = $maps->where('status', ServiceLocation::NORMAL);
         $types = $maps->groupBy('type')->sort();
+
+        $types = $types->map(function ($services) {
+            return $services->where('status', ServiceLocation::NORMAL);
+        });
 
         $urls = [
             [
@@ -67,11 +70,14 @@ class MapsController extends Controller
     public function list()
     {
         $maps = ServiceLocation::query()
-            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude')
+            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
             ->get();
 
-        $maps = $maps->where('status', ServiceLocation::NORMAL);
         $types = $maps->groupBy('type')->sort();
+
+        $types = $types->map(function ($services) {
+            return $services->where('status', ServiceLocation::NORMAL);
+        });
 
         return view('web.maps-list', compact('types', 'maps'));
     }
