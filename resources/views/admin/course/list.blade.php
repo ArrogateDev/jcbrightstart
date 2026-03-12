@@ -104,8 +104,6 @@
                             <thead class="thead-light">
                             <tr id="field-list">
                                 <th data-field="title">{{__('标题')}}</th>
-                                <th>{{__('家长')}}</th>
-                                <th>{{__('评分')}}</th>
                                 <th>{{__('状态')}}</th>
                                 <th data-field="created_at" data-sort="desc">{{__('创建时间')}}</th>
                                 <th></th>
@@ -182,13 +180,6 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>0</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-star fs-12 filled text-warning me-1"></i>
-                                <span>5.0 (0)</span>
                             </div>
                         </td>
                         <td>${statusMenu}</td>

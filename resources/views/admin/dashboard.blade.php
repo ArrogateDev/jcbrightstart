@@ -10,6 +10,11 @@
 <!-- ApexChart JS -->
 <script src="{{web_resource_url('assets/admin/plugins/apexchart/apexcharts.min.js')}}" type="text/javascript"></script>
 
+<style>
+    .title {
+        width: 200px;
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -152,7 +157,8 @@
                                             <a href="javascript:void(0);" class="avatar avatar-xl flex-shrink-0 me-2">
                                                 <img src="{{$course->thumbnail}}" alt="{{$course->title}}"></a>
                                             <div>
-                                                <p class="fw-medium">
+                                                <p class="fw-medium title text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                   data-bs-title="{{$course->title}}">
                                                     <a href="javascript:void(0);">
                                                         {{$course->title}}
                                                     </a>
@@ -319,6 +325,16 @@
             );
 
             booking_range(start, end);
+
+
+            $('.custom-table').find('[data-bs-toggle="tooltip"]').each(function () {
+                const el = this;
+                const title = el.getAttribute('data-bs-title');
+                if (title == null || title === '') return;
+                const existing = bootstrap.Tooltip.getInstance(el);
+                if (existing) existing.dispose();
+                new bootstrap.Tooltip(el);
+            });
         })
     </script>
 
