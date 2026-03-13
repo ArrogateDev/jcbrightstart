@@ -25,14 +25,15 @@
             <div class="col-lg-6 login-wrap-bg">
                 <div class="login-wrapper flex-md-column justify-content-between">
                     <div class="container loginbox mt-md-5">
-                        <div class="w-100 d-flex flex-column" style="gap: 220px;">
+                        <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
                                 <a href="{{route('index.html')}}">
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
-                                <h1 class="fs-32 fw-bold">{{__('重设密码'}}</h1>
                             </div>
-                            <form id="form" class="mb-3 pb-3" novalidate="novalidate" style="padding: 0 55px;">
+                            <h4 class="mt-4 mb-3">{{__('赛马会')}}<span class="text-secondary">{{__('幼儿“喜步”计划')}}</span></h4>
+                            <h1 class="fs-32 fw-bold topic px-md-5">{{__('重设密码')}}</h1>
+                            <form id="form" class="mb-3 pb-3 px-md-5" novalidate="novalidate">
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
                                         {{__('新密码')}}
@@ -64,7 +65,7 @@
                                 </div>
                                 <div class="d-grid">
                                     <button class="btn btn-secondary btn-lg" type="submit">{{__('重设密码')}}<i
-                                                class="isax isax-arrow-right-3 ms-1"></i></button>
+                                            class="isax isax-arrow-right-3 ms-1"></i></button>
                                 </div>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                             </form>

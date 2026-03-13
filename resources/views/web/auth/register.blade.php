@@ -31,12 +31,13 @@
                                 <a href="{{route('index.html')}}">
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
-                                <h1 class="fs-32 fw-bold">{{__('注册')}}</h1>
                             </div>
-                            <form id="form" class="mb-3 pb-3" novalidate="novalidate" style="padding: 0 55px;">
+                            <h4 class="mt-4 mb-3">{{__('赛马会')}}<span class="text-secondary">{{__('幼儿“喜步”计划')}}</span></h4>
+                            <h1 class="fs-32 fw-bold topic px-md-5">{{__('注册')}}</h1>
+                            <form id="form" class="pb-3 px-md-5" novalidate="novalidate">
                                 <div class="row m-0">
                                     <div class="col-12 col-md-6 p-0">
-                                        <div class="mb-3 position-relative pe-md-1">
+                                        <div class="mb-2 position-relative pe-md-1">
                                             <label class="form-label">
                                                 {{__('名字')}}
                                                 <span class="text-danger ms-1">*</span>
@@ -49,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
-                                        <div class="mb-3 position-relative ps-md-1">
+                                        <div class="mb-2 position-relative ps-md-1">
                                             <label class="form-label">
                                                 {{__('姓氏')}}
                                                 <span class="text-danger ms-1">*</span>
@@ -64,7 +65,7 @@
                                 </div>
                                 <div class="row m-0">
                                     <div class="col-12 col-md-8 p-0">
-                                        <div class="mb-3 position-relative pe-md-1">
+                                        <div class="mb-2 position-relative pe-md-1">
                                             <label class="form-label">
                                                 {{__('电子邮件')}}
                                                 <span class="text-danger ms-1">*</span>
@@ -77,13 +78,13 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 p-0">
-                                        <div class="mb-3 position-relative ps-md-1">
+                                        <div class="mb-2 position-relative ps-md-1">
                                             <label class="form-label">
                                                 {{__('验证码')}}
                                                 <span class="text-danger ms-1">*</span>
                                                 <span id="error-container-code"></span>
                                             </label>
-                                            <div class="input-group mb-3">
+                                            <div class="input-group mb-2">
                                                 <input id="code" type="text" name="code" class="form-control form-control-lg">
                                                 <button type="button" class="btn border" id="get-code"
                                                         style="border-radius: 0 var(--bs-border-radius-lg) var(--bs-border-radius-lg) 0;">{{__('获取')}}</button>
@@ -91,7 +92,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 position-relative">
+                                <div class="mb-2 position-relative">
                                     <label class="form-label">
                                         {{__('新密码')}}
                                         <span class="text-danger">*</span>
@@ -109,7 +110,7 @@
                                     </div>
                                     <div class="mt-2" id="passwordInfo"></div>
                                 </div>
-                                <div class="mb-3 position-relative">
+                                <div class="mb-2 position-relative">
                                     <label class="form-label">
                                         {{__('确认密码')}}
                                         <span class="text-danger">*</span>
@@ -136,19 +137,6 @@
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                             </form>
 
-                            <div class="d-flex align-items-center justify-content-center or fs-14 mb-3">
-                                {{__('或')}}
-                            </div>
-
-                            <div class="row m-0 mb-1">
-                                <div class="col-12 col-md-6 mb-2 mb-md-0">
-                                    <x-web.auth.google-quick-login type="signup"/>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <x-web.auth.apple-quick-login type="signup"/>
-                                </div>
-                            </div>
-
                             <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
                                 {{__('你已经有账户了吗？')}}<a href="{{route('login.html')}}" class="link-2 ms-1"> {{__('登录')}}</a>
                             </div>
@@ -171,7 +159,7 @@
         .addField('#first_name', [
             {
                 rule: 'required',
-                errorMessage: 'Please enter your first name.',
+                errorMessage: '{{__('请输入您的名字。')}}',
             }
         ], {
             errorsContainer: '#error-container-first-name'
@@ -179,7 +167,7 @@
         .addField('#last_name', [
             {
                 rule: 'required',
-                errorMessage: 'Please enter your last name.'
+                errorMessage: '{{__('请输入您的姓氏。')}}'
             }
         ], {
             errorsContainer: '#error-container-last-name'
@@ -187,11 +175,11 @@
         .addField('#email', [
             {
                 rule: 'required',
-                errorMessage: 'Please enter your email.'
+                errorMessage: '{{__('请输入您的电子邮件。')}}'
             },
             {
                 rule: 'email',
-                errorMessage: 'Please enter the correct email address.'
+                errorMessage: '{{__('请输入正确的电子邮件地址。')}}'
             },
         ], {
             errorsContainer: '#error-container-email'
@@ -199,11 +187,11 @@
         .addField('#code', [
             {
                 rule: 'required',
-                errorMessage: 'Please enter Verify Code.'
+                errorMessage: '{{__('请输入验证码。')}}'
             },
             {
                 rule: 'number',
-                errorMessage: 'Please enter Verify Code.'
+                errorMessage: '{{__('请输入验证码。')}}'
             },
         ], {
             errorsContainer: '#error-container-code'
@@ -215,7 +203,7 @@
             {
                 rule: 'customRegexp',
                 value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.#?!@$%^&*-]).{8,}$/,
-                errorMessage: 'Use uppercase, lowercase, numbers, symbols and 8+ characters.'
+                errorMessage: '{{__('使用大小写字母、数字、符号组合且8个以上字符。')}}'
             }
         ], {
             errorsContainer: '#error-container-password'
@@ -233,7 +221,7 @@
                         return value === password;
                     }
                 },
-                errorMessage: 'Password does not match',
+                errorMessage: '{{__('密码不匹配')}}',
             }
         ], {
             errorsContainer: '#error-container-password-confirmation'
@@ -241,7 +229,7 @@
         .addField('#agree', [
             {
                 rule: 'required',
-                errorMessage: 'Please read and agree to the Terms of Service and Privacy Policy',
+                errorMessage: '{{__('请阅读并同意服务条款和隐私政策')}}',
             }
         ], {
             errorsContainer: '#error-container-agree'
