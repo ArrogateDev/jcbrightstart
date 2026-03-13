@@ -18,18 +18,18 @@
 
             <div class="col-lg-6 login-wrap-bg">
                 <div class="login-wrapper">
-                    <div class="container loginbox">
+                    <div class="container loginbox p-0">
                         <div class="w-100">
-                            <div class="d-flex align-items-center justify-content-between login-header">
-                                <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-200" alt="Logo">
-                                <a href="{{route('index.html')}}" class="link-1">Back to Home</a>
+                            <div class="d-flex align-items-center justify-content-between login-header mb-3">
+                                <a href="{{route('index.html')}}">
+                                    <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
+                                </a>
+                                <h1 class="fs-32 fw-bold">{{__('登录')}}</h1>
                             </div>
-                            <h4 class="mt-3 mb-5">Welcome to <br><span class="text-secondary">Jockey Club Bright Start Project</span></h4>
-                            <h1 class="fs-32 fw-bold topic">Sign into Your Account</h1>
-                            <form id="form" class="mb-3 pb-3" novalidate="novalidate">
+                            <form id="form" class="mb-3 pb-3" novalidate="novalidate" style="padding: 0 55px;">
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
-                                        Email
+                                        {{__('电子邮件')}}
                                         <span class="text-danger ms-1">*</span>
                                         <span id="error-container-email"></span>
                                     </label>
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="mb-3 position-relative">
                                     <label class="form-label">
-                                        Password
+                                        {{__('密码')}}
                                         <span class="text-danger">*</span>
                                         <span id="error-container-password"></span>
                                     </label>
@@ -53,27 +53,27 @@
                                     <div class="remember-me d-flex align-items-center">
                                         <input class="form-check-input" type="checkbox" name="remember_me" id="remember-me">
                                         <label class="form-check-label ms-2" for="remember-me">
-                                            Remember Me
+                                            {{__('记住密码')}}
                                         </label>
                                     </div>
                                     <div class="">
                                         <a href="{{route('forgot-password.html')}}" class="link-2">
-                                            Forgot Password ?
+                                            {{__('忘记密码？')}}
                                         </a>
                                     </div>
                                 </div>
                                 <div class="d-grid">
-                                    <button class="btn btn-secondary btn-lg" type="submit">Login <i
-                                            class="isax isax-arrow-right-3 ms-1"></i></button>
+                                    <button class="btn btn-secondary btn-lg" type="submit">{{__('登录')}} <i
+                                                class="isax isax-arrow-right-3 ms-1"></i></button>
                                 </div>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                             </form>
 
                             <div class="d-flex align-items-center justify-content-center or fs-14 mb-3">
-                                Or
+                                {{__('或')}}
                             </div>
 
-                            <div class="row mb-1">
+                            <div class="row m-0 mb-1">
                                 <div class="col-12 col-md-6 mb-2 mb-md-0">
                                     <x-web.auth.google-quick-login type="signin"/>
                                 </div>
@@ -83,35 +83,13 @@
                             </div>
 
                             <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
-                                Don't you have an account?<a href="{{route('register.html')}}" class="link-2 ms-1"> Sign up</a>
+                                {{__('你没有账户吗？')}}<a href="{{route('register.html')}}" class="link-2 ms-1"> {{__('注册')}}</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="container organization">
-                        <div class="row mb-3">
-                            <div class="col-12 col-md-6 mb-4 mb-md-2 organization-item">
-                                <div class="mb-1">
-                                    <h5 class="section-heading__title">{{__('主办机构')}}</h5>
-                                </div>
-                                <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 mb-2 organization-item">
-                                <div class="mb-1">
-                                    <h5 class="section-heading__title">{{__('捐助机构')}}</h5>
-                                </div>
-                                <div class="w-100 d-flex">
-                                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center p-3" style="color: #666;">
-                            <p class="fw-normal p-0 m-0" style="font-size: 14px;">{{__('版权所有', ['date'=>date('Y')])}}</p>
-                            <p class="fw-normal p-0 m-0" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
-                        </div>
-                    </div>
+                    <x-auth-organization/>
+
                 </div>
             </div>
         </div>
