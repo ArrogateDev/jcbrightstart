@@ -19,6 +19,16 @@
             flex-direction: column-reverse;
         }
     }
+
+    @media (max-width: 1200px) {
+        .header-navbar__item > a {
+            padding: 30px 2px;
+        }
+    }
+
+    .welcome-wrap__inner p {
+        font-size: 18px;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -27,6 +37,37 @@
     <x-web.header/>
 
     <main id="main" class="d-flex flex-column">
+
+        @if($news_banners)
+            <div class="container">
+                <div class="row picture-wall-box">
+                    <div class="col-12 p-1">
+                        <div id="carousel-banner" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                @foreach($news_banners as $index => $banner)
+                                    <li data-target="#carousel-banner" data-slide-to="{{$index}}" @class(['active' => $loop->first])></li>
+                                @endforeach
+                            </ol>
+                            <div class="carousel-inner">
+                                @foreach($news_banners as $banner)
+                                    <div @class(['carousel-item', 'active' => $loop->first])>
+                                        <img src="{{$banner->thumbnail_url}}" class="d-block w-100" alt="{{$banner->title}}">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-target="#carousel-banner" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-target="#carousel-banner" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <div class="container">
             <div class="row picture-wall-box">
@@ -65,10 +106,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 offset-md-1">
+                    <div class="col-md-6 offset-md-1 d-flex align-items-center">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-02.png')}}" alt="Welcome 2">
+                                <img src="{{web_resource_url('assets/img/home/home-02.png')}}" alt="{{__('HOME2_TITLE')}}">
                             </div>
                         </div>
                     </div>

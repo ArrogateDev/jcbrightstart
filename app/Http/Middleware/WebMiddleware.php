@@ -43,26 +43,14 @@ class WebMiddleware
                 'title' => __('首页'),
                 'url' => route('index.html'),
                 'active' => $url === route('index.html'),
-                'children' => [
-                    [
-                        'title' => __('HOME2_TITLE'),
-                        'url' => route('index.html') . '#plan',
-                        'anchor' => true,
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('HOME3&4_TITLE'),
-                        'url' => route('index.html') . '#vision',
-                        'anchor' => true,
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('HOME5_TITLE'),
-                        'url' => route('index.html') . '#professional-development',
-                        'anchor' => true,
-                        'children' => []
-                    ]
-                ]
+                'children' => []
+            ];
+
+            $navs[] = [
+                'title' => __('HOME2_TITLE'),
+                'url' => route('index.html') . '#plan',
+                'active' => $url === route('index.html') . '#plan',
+                'children' => []
             ];
 
             $navs[] = [

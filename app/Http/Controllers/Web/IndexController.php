@@ -26,12 +26,6 @@ class IndexController extends Controller
         $user = $request->user('web');
         $banners = [
             [
-                'title' => __('最新消息'),
-                'bg' => web_resource_url('assets/img/latest-news.png'),
-                'url' => route('news.html'),
-                'col' => 8
-            ],
-            [
                 'title' => __('香港0-3岁婴幼儿服务资讯'),
                 'bg' => web_resource_url('assets/img/service-information.png'),
                 'url' => route('maps.html'),
@@ -47,9 +41,19 @@ class IndexController extends Controller
                 'title' => __('家长学习平台'),
                 'bg' => web_resource_url('assets/img/parent-learning-platform.png'),
                 'url' => route($user ? 'user.dashboard.html' : 'login.html'),
-                'col' => 8
+                'col' => 4
             ]
         ];
+
+        $news_banners = News::query()
+            ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('id')
+            ->limit(5)
+            ->select('id', 'title', 'thumbnail')
+            ->get();
+        $news_banners->map(function ($item) {
+            $item->url = route('news.show.html', ['news' => $item->id]);
+        });
 
         $news = News::query()
             ->where('status', News::STATUS_PUBLISHED)
@@ -66,7 +70,7 @@ class IndexController extends Controller
 
         $news->append(['event_date_text', 'event_time_text']);
 
-        return view('web.index', compact('banners', 'news'));
+        return view('web.index', compact('news_banners', 'banners', 'news'));
     }
 
 
