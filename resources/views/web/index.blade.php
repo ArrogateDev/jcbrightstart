@@ -30,6 +30,30 @@
         font-size: 18px;
     }
 
+    #carousel-banner .carousel-caption {
+        width: 100%;
+        bottom: 0;
+        opacity: 1;
+        margin: 0;
+        left: 0;
+        padding: 0;
+    }
+
+    #carousel-banner .carousel-caption h5 {
+        width: 100%;
+        background: #00c8d4bd;
+        bottom: 0;
+        opacity: 1;
+        margin: 0;
+        padding: 16px;
+        color: #fff;
+        transition: all .4s ease;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        left: 0;
+    }
+
     .carousel-item {
         height: 560px;
     }
@@ -53,16 +77,14 @@
                 <div class="row picture-wall-box">
                     <div class="col-12 p-1">
                         <div id="carousel-banner" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                @foreach($news_banners as $index => $banner)
-                                    <li data-target="#carousel-banner" data-slide-to="{{$index}}" @class(['active' => $loop->first])></li>
-                                @endforeach
-                            </ol>
                             <div class="carousel-inner">
                                 @foreach($news_banners as $banner)
-                                    <div @class(['carousel-item', 'active' => $loop->first])>
+                                    <a @class(['carousel-item', 'active' => $loop->first]) href="{{$banner->url}}">
                                         <img src="{{$banner->thumbnail}}" class="d-block w-100" alt="{{$banner->title}}">
-                                    </div>
+                                        <div class="carousel-caption">
+                                            <h5 class="h2">{{__('最新消息')}}</h5>
+                                        </div>
+                                    </a>
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button" data-target="#carousel-banner" data-slide="prev">
