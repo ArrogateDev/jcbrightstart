@@ -29,6 +29,16 @@
     .welcome-wrap__inner p {
         font-size: 18px;
     }
+
+    .carousel-item {
+        height: 560px;
+    }
+
+    .carousel-item img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 
 <body class="animsition js-preloader">
@@ -51,7 +61,7 @@
                             <div class="carousel-inner">
                                 @foreach($news_banners as $banner)
                                     <div @class(['carousel-item', 'active' => $loop->first])>
-                                        <img src="{{$banner->thumbnail_url}}" class="d-block w-100" alt="{{$banner->title}}">
+                                        <img src="{{$banner->thumbnail}}" class="d-block w-100" alt="{{$banner->title}}">
                                     </div>
                                 @endforeach
                             </div>
