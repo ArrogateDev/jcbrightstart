@@ -97,7 +97,7 @@
                     <h3>{{__('最新视频')}}</h3>
                 </div>
                 <div class="row list-container">
-                    @if($videos)
+                    @if($videos->isNotEmpty())
                         @foreach($videos as $video)
                             @include('web.resource.item-video', ['resource' => $video])
                         @endforeach
@@ -125,7 +125,7 @@
                     <h3>{{__('最新文章')}}</h3>
                 </div>
                 <div class="row list-container">
-                    @if($articles)
+                    @if($articles->isNotEmpty())
                         @foreach($articles as $article)
                             @include('web.resource.item', ['resource' => $article])
                         @endforeach
