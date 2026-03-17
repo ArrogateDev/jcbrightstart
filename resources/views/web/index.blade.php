@@ -265,7 +265,7 @@
         <section class="section p-t-75 p-b-75" id="professional-development">
             <div class="container">
                 <div class="row pe-box">
-                    <div class="col-md-6">
+                    <div class="col-md-6 d-flex align-items-center">
                         <div class="img-border img-border--pink">
                             <div class="img-border-inner">
                                 <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="{{__('HOME5_TITLE')}}">
