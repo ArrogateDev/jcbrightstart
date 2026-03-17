@@ -54,6 +54,7 @@ class ResourceController extends Controller
             }, function ($query) {
                 $query->orderByDesc('id');
             })
+            ->select('id', 'title', 'thumbnail', 'category_id', 'type', 'status', 'created_at')
             ->paginate(limit_page());
 
         $list->map(function ($item) {
@@ -82,11 +83,12 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'description', 'status']);
 
         try {
 
             $file = $request->file('thumbnail');
+            $video = $request->input('video');
 
             DB::beginTransaction();
 
@@ -101,6 +103,10 @@ class ResourceController extends Controller
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
                 $resource->thumbnail = $file_path . $file_name;
+            }
+
+            if ($resource->type == Resource::TYPE_VIDEO && $video) {
+                $resource->short = $video;
             }
 
             if ($resource->save() === false) {
@@ -134,13 +140,15 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'description', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'description', 'status']);
 
         try {
 
             DB::beginTransaction();
 
             $file = $request->file('thumbnail');
+            $video = $request->input('video');
+
             if ($file) {
                 $file_path = FileTool::existsAndMake('resource');
                 $extension = $file->getClientOriginalExtension();
@@ -155,6 +163,10 @@ class ResourceController extends Controller
 
             foreach ($inputs as $key => $value) {
                 $resource->$key = $value;
+            }
+
+            if ($resource->type == Resource::TYPE_VIDEO && $video) {
+                $resource->short = $video;
             }
 
             if ($resource->save() === false) {

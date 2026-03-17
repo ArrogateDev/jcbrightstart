@@ -81,7 +81,7 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('专业学习社群'),
                 'url' => route('resource.html'),
-                'active' => $url === route('resource.html'),
+                'active' => $url === route('resource.html') || $url === route('resource.more.html'),
                 'children' => []
             ];
 
@@ -91,6 +91,7 @@ class WebMiddleware
                 'url' => route('page', ['page' => 'contact-us.html']),
                 'children' => []
             ];
+
             $user_menus[] = [
                 'title' => __('主菜单'),
                 'children' => [

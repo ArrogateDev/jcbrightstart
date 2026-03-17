@@ -34,17 +34,52 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="input-block">
-                                        <label class="form-label">{{__('标题')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <input type="text" id="title" name="title" class="form-control" value="{{$resource->title??''}}">
+                                        <label class="form-label mb-1">
+                                            {{__('类型')}}
+                                            <span class="text-danger ms-1">*</span>
+                                            <span id="error-container-type"></span>
+                                        </label>
+                                        <div class="d-flex align-items-center ">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="type"
+                                                       id="type-normal" value="0" @checked($resource->type == 0) @disabled($resource->id > 0)>
+                                                <label class="form-check-label" for="type-normal">
+                                                    {{__('文章')}}
+                                                </label>
+                                            </div>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="type"
+                                                       id="type-disabled" value="1" @checked($resource->type == 1) @disabled($resource->id > 0)>
+                                                <label class="form-check-label" for="type-disabled">
+                                                    {{__('视频')}}
+                                                </label>
+                                            </div>
+                                            @if($resource->id > 0)
+                                                <input type="hidden" name="type" value="{{$resource->type}}">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
+                                        <label class="form-label">{{__('标题')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                        <input type="text" id="title" name="title" class="form-control" value="{{$resource->title??''}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 type-video">
+                                    <div class="input-block">
+                                        <label class="form-label">{{__('视频')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                        <input type="text" id="video" name="video" class="form-control" value="{{$resource->short??''}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 type-article">
+                                    <div class="input-block">
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
                                                 <label class="form-label">{{__('封面图')}}<span
-                                                        class="text-danger ms-1">*</span></label>
+                                                            class="text-danger ms-1">*</span></label>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="upload-img-section d-flex align-items-center justify-content-center"
@@ -70,32 +105,33 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 type-article">
                                     <div class="input-block">
                                         <label class="form-label">{{__('分类')}}<span
-                                                class="text-danger ms-1">*</span></label>
+                                                    class="text-danger ms-1">*</span></label>
                                         <select id="category" name="category_id" class="select form-control"></select>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12 type-article">
                                     <div class="input-block">
                                         <label class="form-label">{{__('简介')}}<span
-                                                class="text-danger ms-1">*</span></label>
+                                                    class="text-danger ms-1">*</span></label>
                                         <input type="text" id="short" name="short" class="form-control" value="{{$resource->short??''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('描述')}}<span
-                                                class="text-danger ms-1">*</span></label>
+                                                    class="text-danger ms-1">*</span></label>
                                         <div class="summernote">{!! $resource->description??'' !!}</div>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
+                                    class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
                                 <div class="btn-left">
-                                    <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                    <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white"
+                                       style="background: #00b050;border-color: #00b050;">{{__('储存')}}
                                     </a>
                                     <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit text-white"
                                        style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
@@ -255,6 +291,25 @@
         $modal.on('show.bs.modal', function () {
             $category.select2('close');
         });
+
+        @if($resource->type == 1)
+        $('.type-article').hide()
+        $('.type-video').show()
+        @else
+        $('.type-article').show()
+        $('.type-video').hide()
+        @endif
+
+        $('input[name="type"]').change(function () {
+            const type = parseInt($(this).val());
+            if (type === 1) {
+                $('.type-article').hide()
+                $('.type-video').show()
+            } else {
+                $('.type-article').show()
+                $('.type-video').hide()
+            }
+        })
 
         const $form = $('#news-form');
         $('.btn-submit').click(function () {

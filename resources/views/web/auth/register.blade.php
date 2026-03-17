@@ -18,8 +18,13 @@
     <div class="login-content">
         <div class="row">
             <div class="col-lg-6 d-none d-lg-block">
-                <div class="login-banner vh-100">
+                <div class="login-banner vh-100 position-relative">
                     <img src="{{web_resource_url('assets/img/login-bg.jpg')}}" class="img-fluid" alt="Logo">
+                    <div class="d-flex align-items-center justify-content-between login-header mb-3 position-absolute" style="top: 30px;right: 30px;width: 200px;">
+                        <a href="{{route('index.html')}}">
+                            <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -27,7 +32,7 @@
                 <div class="login-wrapper">
                     <div class="container loginbox">
                         <div class="w-100">
-                            <div class="d-flex align-items-center justify-content-between login-header mb-3">
+                            <div class="d-flex d-lg-none align-items-center justify-content-between login-header mb-3">
                                 <a href="{{route('index.html')}}">
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
@@ -132,10 +137,23 @@
                                 </div>
                                 <div class="d-grid">
                                     <button class="btn btn-secondary btn-lg" type="submit">{{__('注册')}} <i
-                                                class="isax isax-arrow-right-3 ms-1"></i></button>
+                                            class="isax isax-arrow-right-3 ms-1"></i></button>
                                 </div>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                             </form>
+
+                            <div class="d-flex align-items-center justify-content-center or fs-14 mb-3">
+                                {{__('或')}}
+                            </div>
+
+                            <div class="row m-0 mb-1">
+                                <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                    <x-web.auth.google-quick-login type="signin"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <x-web.auth.apple-quick-login type="signin"/>
+                                </div>
+                            </div>
 
                             <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
                                 {{__('你已经有账户了吗？')}}<a href="{{route('login.html')}}" class="link-2 ms-1"> {{__('登录')}}</a>

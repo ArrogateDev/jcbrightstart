@@ -21,6 +21,48 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
+        $articles = Resource::query()
+            ->where('type', Resource::TYPE_ARTICLE)
+            ->where('status', Resource::STATUS_PUBLISHED)
+            ->orderByDesc('id')
+            ->limit(7)
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
+            ->get();
+
+        $articles->map(function ($item) {
+            $item->url = route('resource.show.html', ['resource' => $item->id]);
+        });
+        $articles->append(['category_text']);
+
+        $videos = Resource::query()
+            ->where('type', Resource::TYPE_VIDEO)
+            ->where('status', Resource::STATUS_PUBLISHED)
+            ->orderByDesc('id')
+            ->limit(7)
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
+            ->get();
+
+        $videos->map(function ($item) {
+            $item->url = route('resource.show.html', ['resource' => $item->id]);
+        });
+        $videos->append(['category_text']);
+
+
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
+
+        return view('web.resource.index', compact('articles', 'videos'));
+    }
+
+    /**
+     * Request $request
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function more(Request $request)
+    {
+        $type = (int)$request->query('type');
+
         $category = ResourceCategory::query()
             ->where('status', 0)
             ->select('id', 'title')
@@ -29,7 +71,7 @@ class ResourceController extends Controller
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);
 
-        return view('web.resource.index', compact('category'));
+        return view('web.resource.more', compact('category', 'type'));
     }
 
     /**
@@ -38,11 +80,17 @@ class ResourceController extends Controller
      */
     public function list(Request $request)
     {
+        $type = (int)$request->query('type');
         $keywords = $request->query('keywords');
         $category = $request->query('category');
         $sort = $request->query('sort', 'time');
 
         $list = Resource::query()
+            ->when($type === Resource::TYPE_VIDEO, function ($query) {
+                $query->where('type', Resource::TYPE_VIDEO);
+            }, function ($query) {
+                $query->where('type', Resource::TYPE_ARTICLE);
+            })
             ->when($keywords, function ($query) use ($keywords) {
                 $query->where('title', 'like', '%' . $keywords . '%');
             })
@@ -68,7 +116,7 @@ class ResourceController extends Controller
         $page = $list->currentPage();
         $data = $list->items();
         foreach ($data as $resource) {
-            $html .= view('web.resource.item', compact('resource'))->render();
+            $html .= view(sprintf('web.resource.item%s', $resource->type === Resource::TYPE_VIDEO ? '-video' : ''), compact('resource'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
@@ -108,6 +156,6 @@ class ResourceController extends Controller
 
         $url = $request->session()->get('resource-url');
 
-        return view('web.resource.show', compact('resource', 'prev', 'next', 'url'));
+        return view(sprintf('web.resource.show%s', $resource->type === Resource::TYPE_VIDEO ? '-video' : ''), compact('resource', 'prev', 'next', 'url'));
     }
 }

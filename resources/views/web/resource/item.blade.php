@@ -5,7 +5,7 @@
         <div class="media media-blog-2">
             <div class="media__img">
                 <a href="{{$resource->url}}">
-                    <img src="{{$resource->thumbnail}}" alt="How to coax children">
+                    <img src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                 </a>
             </div>
             <div class="media__body">

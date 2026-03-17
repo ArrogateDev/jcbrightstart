@@ -63,6 +63,7 @@ Route::get('/maps/list.html', [MapsController::class, 'list'])->name('maps-list.
 Route::get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
 
 Route::get('/resource-kit.html', [ResourceController::class, 'index'])->name('resource.html');
+Route::get('/resource-kit/more.html', [ResourceController::class, 'more'])->name('resource.more.html');
 Route::get('/resource-kit/list.html', [ResourceController::class, 'list'])->name('resource.list.html');
 Route::get('/resource-kit/{resource}.html', [ResourceController::class, 'show'])->name('resource.show.html');
 

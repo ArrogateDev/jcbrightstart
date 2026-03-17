@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@php
+    $embed_url = $resource->short??'';
+    // Convert YouTube watch URL to embed URL
+    if (str_contains($embed_url, 'youtube.com/watch?v=') || str_contains($embed_url, 'youtu.be/')) {
+        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $embed_url, $matches);
+        if (isset($matches[1])) {
+            $embed_url = 'https://www.youtube.com/embed/' . $matches[1];
+        }
+    }
+@endphp
+    <!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -76,33 +86,12 @@
                 @endif
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
-                        <div class="media__img">
-                            <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
-                                <img class="mh-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
-                            </a>
-                        </div>
-                        <div class="media__body">
-                            <h4 class="media__title title title--black title--s35">
-                                <a href="javascript:void(0);">{{$resource->title}}</a>
-                            </h4>
-                            <p class="media__text">{{$resource->short}}</p>
-                        </div>
+                        <iframe height="500" class="w-100" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="m-b-40">
                         {!! $resource->description !!}
                     </div>
-                    <div class="blog-single__info m-b-40">
-                        <ul class="list-tags list-unstyled">
-                            <li class="list-tags__icon">
-                                <i class="fas fa-tags"></i>
-                            </li>
-                            <li class="list-tags__item">
-                                <a href="#">Learning</a>
-                            </li>
-                            <li class="list-tags__item">
-                                <a href="#">Education</a>
-                            </li>
-                        </ul>
+                    <div class="blog-single__info m-b-40 justify-content-end">
                         <ul class="list-unstyled list-inline list-social list-social-3">
                             <li class="list-inline-item">
                                 <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
@@ -116,28 +105,6 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="blog-single__footer">
-                        <nav class="nav-blog">
-                            <ul class="list-nav-blog list-unstyled">
-                                <li class="list-nav-blog__item prev">
-                                    @if($prev)
-                                        <a href="{{route('resource.show.html', ['resource' => $prev])}}">
-                                            <i class="zmdi zmdi-chevron-left post-btn mr-1"></i>
-                                            <span class="list-nav-blog__text">previous post</span>
-                                        </a>
-                                    @endif
-                                </li>
-                                <li class="list-nav-blog__item next">
-                                    @if($next)
-                                        <a href="{{route('resource.show.html', ['resource' => $next])}}">
-                                            <i class="zmdi zmdi-chevron-right post-btn ml-1"></i>
-                                            <span class="list-nav-blog__text">next post</span>
-                                        </a>
-                                    @endif
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </section>
@@ -146,6 +113,7 @@
     <x-web.footer/>
 
 </div>
+
 </body>
 
 </html>
