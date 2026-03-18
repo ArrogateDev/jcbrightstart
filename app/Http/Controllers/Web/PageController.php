@@ -15,7 +15,8 @@ class PageController extends Controller
             'terms-and-conditions.html',
             'privacy-policy.html',
             'professional-development.html',
-            'contact-us.html'
+            'contact-us.html',
+            'test001.html',
         ];
 
         $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';

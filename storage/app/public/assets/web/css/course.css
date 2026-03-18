@@ -627,7 +627,7 @@ li
 }
 
 #learn-box .tab-content:has(#learn-play.active) {
-    height: calc(100vh - 65px);
+    height: calc(100vh - 66px);
 }
 
 #learn-box .tab-content:has(#learn-certificate.active) {

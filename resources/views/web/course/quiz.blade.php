@@ -46,13 +46,20 @@
             if (quiz) {
                 quizData = quiz;
             } else {
-                // 如果没有传入quiz参数，清空quizData，确保不会使用旧数据
+                // 如果没有传入 quiz 参数，清空 quizData，确保不会使用旧数据
                 quizData = null;
             }
-
+        
             isAnswered = false;
-            $learnModal.find('.modal-footer').hide();
-            // 隐藏所有导航按钮
+                    
+            // 测验开始页面：隐藏 footer
+            if (typeof window.updateFooterButtons === 'function') {
+                window.updateFooterButtons({ showFooter: false });
+            } else {
+                $learnModal.find('.modal-footer').hide();
+            }
+                    
+            // 隐藏所有导航按钮 (兼容旧代码)
             $learnModal.find('.per-btn').hide();
             $learnModal.find('.next-btn').hide();
 
@@ -148,13 +155,22 @@
 
                 html += '</div>';
                 $quizContent.html(html);
-                $learnModal.find('.modal-footer').show();
+                
+                // 显示 footer，但先隐藏所有按钮，由 updateNavigationButtons 统一控制
+                if (typeof window.updateFooterButtons === 'function') {
+                    window.updateFooterButtons({
+                        showFooter: true,
+                        showPerBtn: currentQuestionIndex > 0,
+                        showNextBtn: isAnswered
+                    });
+                } else {
+                    $learnModal.find('.modal-footer').show();
+                    $learnModal.find('.per-btn').hide();
+                    $learnModal.find('.next-btn').hide();
+                }
+                
                 showQuestion(startIndex);
                 updateNavigationButtons();
-
-                // 确保导航按钮初始状态正确
-                $learnModal.find('.per-btn').hide();
-                $learnModal.find('.next-btn').hide();
             });
         }
 
@@ -258,23 +274,8 @@
                 bindOptionClick($question, index);
             }
 
-            // 控制导航按钮显示
-            const $prevBtn = $learnModal.find('.per-btn');
-            const $nextBtn = $learnModal.find('.next-btn');
-
-            // 上一题按钮：如果不是第一题则显示
-            if (currentQuestionIndex > 0) {
-                $prevBtn.show().removeClass('disabled').prop('disabled', false);
-            } else {
-                $prevBtn.hide().addClass('disabled').prop('disabled', true);
-            }
-
-            // 下一题按钮：根据答题状态控制
-            if (isAnswered) {
-                $nextBtn.show().removeClass('disabled').prop('disabled', false);
-            } else {
-                $nextBtn.hide().addClass('disabled').prop('disabled', true);
-            }
+            // 使用统一的 footer 控制函数
+            updateNavigationButtons();
         }
 
         // 绑定选项点击事件处理
@@ -795,29 +796,44 @@
 
         // 更新导航按钮状态
         function updateNavigationButtons() {
-            const $prevBtn = $learnModal.find('.per-btn');
-            const $nextBtn = $learnModal.find('.next-btn');
+            if (typeof window.updateFooterButtons !== 'function') {
+                // 兼容旧代码，如果 updateFooterButtons 不存在，使用原有逻辑
+                const $prevBtn = $learnModal.find('.per-btn');
+                const $nextBtn = $learnModal.find('.next-btn');
 
-            // 上一题按钮：只有不是第一题时才显示
-            if (currentQuestionIndex > 0) {
-                $prevBtn.show().removeClass('disabled').prop('disabled', false);
-            } else {
-                $prevBtn.hide().addClass('disabled').prop('disabled', true);
+                if (currentQuestionIndex > 0) {
+                    $prevBtn.show().removeClass('disabled').prop('disabled', false);
+                } else {
+                    $prevBtn.hide().addClass('disabled').prop('disabled', true);
+                }
+
+                const isLastQuestion = currentQuestionIndex === quizData.questions.length - 1;
+                const canGoNext = isAnswered;
+
+                if (isLastQuestion && isAnswered) {
+                    $nextBtn.text('{{__('完成')}}').show().removeClass('disabled').prop('disabled', false);
+                } else if (isAnswered) {
+                    $nextBtn.text('{{__('下一题')}} →').show().removeClass('disabled').prop('disabled', false);
+                } else {
+                    $nextBtn.hide().addClass('disabled').prop('disabled', true);
+                }
+                return;
             }
-
+            
+            // 使用统一的 footer 控制
             const isLastQuestion = currentQuestionIndex === quizData.questions.length - 1;
-            const canGoNext = isAnswered;
-
+            let nextBtnText = '{{__('下一题')}} →';
+            
             if (isLastQuestion && isAnswered) {
-                // 最后一题且已答，显示"完成"按钮
-                $nextBtn.text('{{__('完成')}}').show().removeClass('disabled').prop('disabled', false);
-            } else if (isAnswered) {
-                // 非最后一题且已答，显示"下一题"按钮
-                $nextBtn.text('{{__('下一题')}} →').show().removeClass('disabled').prop('disabled', false);
-            } else {
-                // 未答题，隐藏按钮
-                $nextBtn.hide().addClass('disabled').prop('disabled', true);
+                nextBtnText = '{{__('完成')}}';
             }
+            
+            window.updateFooterButtons({
+                showFooter: true,
+                showPerBtn: currentQuestionIndex > 0,
+                showNextBtn: isAnswered,
+                nextBtnText: nextBtnText
+            });
         }
 
         // 导航按钮事件

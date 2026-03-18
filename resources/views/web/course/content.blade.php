@@ -33,7 +33,7 @@
             <div class="modal-body p-0">
                 <div class="tab-content" id="learn-tab-content">
                     <div class="tab-pane fade show active" id="learn-play" role="tabpanel" aria-labelledby="learn-play-tab">
-                        @include('web.course.play')
+                        @include('web.course.components.play')
                     </div>
                     <div class="tab-pane fade" id="learn-quiz" role="tabpanel" aria-labelledby="learn-quiz-tab">
                         @include('web.course.quiz')
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between" style="display: none;">
-                <button class="per-btn">← {{__('上一题')}}</button>
+                <button class="per-btn" style="display: none;">← {{__('上一题')}}</button>
                 <button class="next-btn" style="display: none;">{{__('下一题')}} →</button>
                 <button class="download-btn" style="display: none;">{{__('下载')}}</button>
             </div>
@@ -56,26 +56,82 @@
                     const $nextBtn = $footer.find('.next-btn');
                     const $downloadBtn = $footer.find('.download-btn');
 
+                    // 统一的 Footer 控制函数
+                    window.updateFooterButtons = function(config) {
+                        const defaultConfig = {
+                            showFooter: false,
+                            showPerBtn: false,
+                            showNextBtn: false,
+                            showDownloadBtn: false,
+                            nextBtnText: '{{__('下一题')}} →',
+                            justifyEnd: false
+                        };
+                        
+                        const settings = $.extend({}, defaultConfig, config);
+                        
+                        // 控制 footer 显示/隐藏
+                        if (settings.showFooter) {
+                            $footer.show();
+                        } else {
+                            $footer.hide();
+                            return; // footer 隐藏时，不需要再处理按钮
+                        }
+                        
+                        // 控制各个按钮显示/隐藏
+                        $perBtn.toggle(settings.showPerBtn);
+                        $nextBtn.toggle(settings.showNextBtn);
+                        $downloadBtn.toggle(settings.showDownloadBtn);
+                        
+                        // 设置下一题按钮文本
+                        if (settings.nextBtnText) {
+                            $nextBtn.text(settings.nextBtnText);
+                        }
+                        
+                        // 动态调整 justify-content 类
+                        $footer.removeClass('justify-content-between').removeClass('justify-content-end');
+                        
+                        // 计算可见按钮数量
+                        const visibleButtons = [
+                            settings.showPerBtn,
+                            settings.showNextBtn,
+                            settings.showDownloadBtn
+                        ].filter(Boolean).length;
+                        
+                        // 只有一个按钮时靠右显示
+                        if (visibleButtons === 1 || settings.justifyEnd) {
+                            $footer.addClass('justify-content-end');
+                        } else {
+                            $footer.addClass('justify-content-between');
+                        }
+                    };
+
+                    // 标签页切换时的 footer 控制
                     $('#learn-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                         const target = $(e.target).attr('href');
 
                         if (target === '#learn-play') {
-                            $footer.hide();
+                            // 学习内容页面：隐藏 footer
+                            window.updateFooterButtons({ showFooter: false });
                         } else if (target === '#learn-certificate') {
-                            $footer.show();
-                            $perBtn.hide();
-                            $nextBtn.hide();
-                            $downloadBtn.show();
+                            // 证书页面：显示 footer，只显示下载按钮
+                            window.updateFooterButtons({
+                                showFooter: true,
+                                showDownloadBtn: true,
+                                justifyEnd: true
+                            });
                         }
+                        // quiz 页面的 footer 由 quiz.blade.php 自己控制
                     });
 
+                    // Modal 显示时根据当前激活的 tab 设置 footer
                     $modal.on('shown.bs.modal', function () {
                         const activeTab = $('#learn-tabs .nav-link.active').attr('href');
                         if (activeTab === '#learn-play') {
-                            $footer.hide();
+                            window.updateFooterButtons({ showFooter: false });
                         }
                     });
 
+                    // 下载按钮点击事件
                     $downloadBtn.click(function () {
                         const file = $(this).data('url');
                         if (file) {

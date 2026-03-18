@@ -25,9 +25,18 @@
             function hideLoading() {
                 $loading.removeClass('d-flex').addClass('d-none');
                 $content.show();
-                // 证书加载完成后再显示footer和下载按钮
-                $learnModal.find('.modal-footer').show();
-                $downloadBtn.show().removeClass('disabled').prop('disabled', false).attr('data-url', '{!! $course->certificate_download_url ?? '' !!}');
+                // 证书加载完成后再显示 footer 和下载按钮
+                if (typeof window.updateFooterButtons === 'function') {
+                    window.updateFooterButtons({
+                        showFooter: true,
+                        showDownloadBtn: true,
+                        justifyEnd: true
+                    });
+                } else {
+                    // 兼容旧代码
+                    $learnModal.find('.modal-footer').show();
+                    $downloadBtn.show().removeClass('disabled').prop('disabled', false).attr('data-url', '{!! $course->certificate_download_url ?? '' !!}');
+                }
             }
 
             // 如果图片已经加载完成或者没有有效src，则直接隐藏loading

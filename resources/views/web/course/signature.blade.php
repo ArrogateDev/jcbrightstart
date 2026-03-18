@@ -21,7 +21,7 @@
                 <div class="course-complete-form">
                     <div class="form-group">
                         <label for="certificate-name">{{__('请输入您的姓名')}}</label>
-                        <input type="text" class="form-control" id="certificate-name" placeholder="{{__('请输入姓名')}}" value="{{$user->full_name}}">
+                        <input type="text" class="form-control" id="certificate-name" placeholder="{{__('请输入姓名')}}" value="{{$user->full_name??''}}">
                     </div>
                 </div>
             </div>
@@ -88,14 +88,23 @@
                             pollTimer = null;
                         }
 
-                        // 隐藏loading
+                        // 隐藏 loading
                         hideLoading($courseCompleteModal.find('.modal-content'));
-
+                        
                         $courseCompleteModal.find('.course-complete-form').hide();
                         $courseCompleteModal.find('.modal-footer').hide();
                         $courseCompleteModal.find('#quiz-content').show();
                         $courseCompleteModal.find('.btn-main-action').attr('data-file', data.download_url);
                         $('#look-certificate-img').attr('src', data.file);
+                                                
+                        // 更新主学习窗口的 footer 状态（如果证书 tab 存在）
+                        if (typeof window.updateFooterButtons === 'function') {
+                            window.updateFooterButtons({
+                                showFooter: true,
+                                showDownloadBtn: true,
+                                justifyEnd: true
+                            });
+                        }
 
                         // 确保查看证书按钮能正常工作
                         $courseCompleteModal.find('[data-toggle="modal"][data-target="#look-certificate-box"]').off('click').on('click', function(e) {
