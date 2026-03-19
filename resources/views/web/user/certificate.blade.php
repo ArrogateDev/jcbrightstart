@@ -14,8 +14,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -26,6 +24,9 @@
                 <x-web.user.sidebar active="certificate"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
+
                     <div class="page-title d-flex align-items-center justify-content-between">
                         <h5>{{__('我的证书')}}</h5>
                     </div>
@@ -78,7 +79,7 @@
         list.forEach(function (item) {
             const row = `
                 <div class="col-md-6">
-                    <div class="card mb-4">
+                    <div class="card mb-4 j-user-box">
                         <div class="card-body">
                             <div class="mb-3 d-flex justify-content-center">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#view_certificate">

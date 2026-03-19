@@ -1,26 +1,17 @@
 @props(['active' => 'dashboard'])
-<div class="col-lg-3 theiaStickySidebar d-none d-md-block">
-    <div class="settings-sidebar mb-lg-0">
-        <div>
-            @foreach($user_menus as $menu)
-                <h6 class="mb-3">{{$menu['title']}}</h6>
-                <ul class="mb-3 pb-1">
-                    @foreach($menu['children'] as $item)
-                        <li>
-                            <a href="{{$item['url']??'javascript:void(0);'}}" @class(['d-inline-flex align-items-center', 'active' => $active === $item['active'],$item['class']??''])>
-                                <i class="{{$item['icon']}} me-2"></i>{{$item['title']}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                @if(!$loop->last)
-                    <hr>
-                @endif
+<div class="col-lg-2 theiaStickySidebar d-none d-md-block">
+    <aside class="sidebar">
+        @foreach($user_menus as $menu)
+            <div class="sidebar-title">{{$menu['title']}}</div>
+            @foreach($menu['children'] as $item)
+                <a href="{{$item['url']??'javascript:void(0);'}}" @class(['sidebar-item', 'active' => $active === $item['active'],$item['class']??'']) class="sidebar-item">
+                    <span class="s-icon">{{$item['icon']}}</span>
+                    {{$item['title']}}
+                </a>
             @endforeach
-        </div>
-    </div>
+        @endforeach
+    </aside>
 </div>
-
 <x-sweetalert/>
 
 <script>

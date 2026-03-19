@@ -10,8 +10,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('设置')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -22,15 +20,18 @@
                 <x-web.user.sidebar active="settings"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('设置')}}"/>
+
                     <div class="mb-3">
                         <h5>{{__('设置')}}</h5>
                     </div>
-                    <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded">
-                        <li><a href="{{route('user.settings.html')}}" class="active">{{__('修改资料')}}</a></li>
+                    <ul class="settings-nav d-flex align-items-center flex-wrap border bg-light-900 rounded j-user-box">
+                        <li class="ms-3"><a href="{{route('user.settings.html')}}" class="active">{{__('修改资料')}}</a></li>
                         <li><a href="{{route('user.change-password.html')}}">{{__('修改密码')}}</a></li>
                     </ul>
                     <form id="form" novalidate="novalidate">
-                        <div class="card">
+                        <div class="card j-user-box">
                             <div class="card-body">
                                 <div class="profile-upload-group">
                                     <div class="d-flex align-items-center">

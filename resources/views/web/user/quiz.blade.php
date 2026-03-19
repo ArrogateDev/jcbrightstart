@@ -9,8 +9,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -21,6 +19,9 @@
                 <x-web.user.sidebar active="quiz"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
+
                     <div class="page-title d-flex align-items-center justify-content-between">
                         <h5>{{__('我的测验')}}</h5>
                     </div>
@@ -47,7 +48,7 @@
 
         list.forEach(function (item) {
             const row = `
-                <div class="border rounded-2 p-3 mb-3">
+                <div class="border rounded-2 p-3 mb-3 j-user-box">
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <div>

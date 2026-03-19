@@ -9,8 +9,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('我的资料')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -21,11 +19,14 @@
                 <x-web.user.sidebar active="profile"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('我的资料')}}"/>
+                    
                     <div class="page-title d-flex align-items-center justify-content-between">
                         <h5 class="fw-bold">{{__('我的资料')}}</h5>
                         <a href="{{route('user.settings.html')}}" class="edit-profile-icon"><i class="isax isax-edit-2"></i></a>
                     </div>
-                    <div class="card">
+                    <div class="card j-user-box">
                         <div class="card-body">
                             <h5 class="fs-18 pb-3 border-bottom mb-3">{{__('基本信息')}}</h5>
                             <div class="row">

@@ -9,8 +9,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('我的课程')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -21,6 +19,9 @@
                 <x-web.user.sidebar active="course"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('我的课程')}}"/>
+
                     <div class="page-title d-flex flex-wrap gap-3 align-items-center justify-content-between">
                         <h5>{{__('我的课程')}}</h5>
                         <div class="tab-list row justify-content-end">
@@ -53,7 +54,7 @@
 
                         <div class="row mt-4">
                             <div class="col-12 text-center">
-                                <button type="button" class="btn btn-primary load-more-btn">
+                                <button type="button" class="btn btn-primary load-more-btn border-0 m-auto">
                                     <span class="btn-text" style="display: none;">Load More</span>
                                     <span class="btn-loading">
                                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

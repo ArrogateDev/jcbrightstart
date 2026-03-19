@@ -97,31 +97,31 @@ class WebMiddleware
                 'children' => [
                     [
                         'title' => __('仪表板'),
-                        'icon' => 'isax isax-grid-35',
+                        'icon' => '🏠',
                         'url' => route('user.dashboard.html'),
                         'active' => 'dashboard'
                     ],
                     [
                         'title' => __('我的资料'),
-                        'icon' => 'fa-solid fa-user',
+                        'icon' => '👤',
                         'url' => route('user.profile.html'),
                         'active' => 'profile'
                     ],
                     [
                         'title' => __('我的课程'),
-                        'icon' => 'isax isax-teacher5',
+                        'icon' => '📚',
                         'url' => route('user.course.html'),
                         'active' => 'course'
                     ],
                     [
                         'title' => __('我的证书'),
-                        'icon' => 'isax isax-note-215',
+                        'icon' => '🏅',
                         'url' => route('user.certificate.html'),
                         'active' => 'certificate'
                     ],
                     [
                         'title' => __('我的测验'),
-                        'icon' => 'isax isax-medal-star5',
+                        'icon' => '📝',
                         'url' => route('user.quiz.html'),
                         'active' => 'quiz'
                     ]
@@ -133,13 +133,13 @@ class WebMiddleware
                 'children' => [
                     [
                         'title' => __('设置'),
-                        'icon' => 'isax isax-setting-25',
+                        'icon' => '⚙️',
                         'url' => route('user.settings.html'),
                         'active' => 'settings'
                     ],
                     [
                         'title' => __('退出登录'),
-                        'icon' => 'isax isax-logout5',
+                        'icon' => '👋',
                         'url' => 'javascript:void(0);',
                         'active' => 'logout',
                         'class' => 'logout'

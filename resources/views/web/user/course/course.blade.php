@@ -1,6 +1,6 @@
 @props(['course' => null])
 <div class="col-xl-4 col-md-6">
-    <div class="course-item-two course-item mx-0">
+    <div class="course-item-two course-item mx-0 j-user-box">
         <div class="course-img">
             <a href="{{route('course.details.html',['course'=>$course->id])}}">
                 <img src="{{$course->thumbnail}}" alt="img"

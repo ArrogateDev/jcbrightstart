@@ -9,8 +9,6 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
-
     <div class="content">
         <div class="container">
 
@@ -21,12 +19,15 @@
                 <x-web.user.sidebar active="quiz"/>
 
                 <div class="col-lg-9">
+
+                    <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
+
                     <div class="page-title d-flex align-items-center justify-content-between mb-4">
                         <h5>{{__('我的测验')}}</h5>
                     </div>
 
                     @if($is_completed)
-                        <div class="card mb-4">
+                        <div class="card mb-4 j-user-box">
                             <div class="card-body">
                                 <div class="quiz-circle-progress m-0 mb-3">
                                     <div class="circle-progress mb-2" data-value='{{round($quiz_statistics->correct_rate)}}'>
@@ -63,7 +64,7 @@
 
                         {{-- 显示所有题目和答案 --}}
                         @if($quiz_data && count($quiz_data) > 0)
-                            <div class="card">
+                            <div class="card j-user-box">
                                 <div class="card-header">
                                     <h5 class="mb-0">{{__('题目详情')}}</h5>
                                 </div>

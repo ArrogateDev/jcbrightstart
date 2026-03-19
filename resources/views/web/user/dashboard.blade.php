@@ -9,20 +9,21 @@
 
     <x-web.user.header :user="$user"/>
 
-    <x-web.user.breadcrumb title="{{__('仪表板')}}"/>
-
     <div class="content">
         <div class="container">
 
             <x-web.user.profile :user="$user"/>
 
-            <div class="row">
+            <div class="row m-0">
 
                 <x-web.user.sidebar active="dashboard"/>
 
-                <div class="col-lg-9">
+                <div class="col-lg-10">
+
+                    <x-web.user.breadcrumb title="{{__('仪表板')}}"/>
+
                     @if($last_quiz)
-                        <div class="card bg-light quiz-ans-card">
+                        <div class="card bg-light quiz-ans-card j-user-box">
                             <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg1.svg')}}" class="quiz-ans-bg1" alt="img">
                             <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg2.svg')}}" class="quiz-ans-bg2" alt="img">
                             <div class="card-body">
@@ -47,12 +48,11 @@
 
                     <div class="row">
                         <div class="col-md-6 col-xl-4">
-                            <div class="card">
+                            <div class="card j-user-box">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span
-                                                class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0"><img
-                                                    src="{{web_resource_url('assets/admin/img/icon/graduation.svg')}}" alt=""></span>
+                                                class="icon-box bg-primary-transparent me-2 me-xxl-3 flex-shrink-0" style="font-size: 36px;">📚</span>
                                         <div>
                                             <span class="d-block">{{__('我的课程')}}</span>
                                             <h4 class="fs-24 mt-1">{{$start_course}}</h4>
@@ -62,12 +62,11 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-4">
-                            <div class="card">
+                            <div class="card j-user-box">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span
-                                                class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0"><img
-                                                    src="{{web_resource_url('assets/admin/img/icon/book.svg')}}" alt=""></span>
+                                                class="icon-box bg-secondary-transparent me-2 me-xxl-3 flex-shrink-0" style="font-size: 36px;">📖</span>
                                         <div>
                                             <span class="d-block">{{__('待完成课程')}}</span>
                                             <h4 class="fs-24 mt-1">{{$complete_course}}</h4>
@@ -77,12 +76,11 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-4">
-                            <div class="card">
+                            <div class="card j-user-box">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
 											<span
-                                                class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0"><img
-                                                    src="{{web_resource_url('assets/admin/img/icon/bookmark.svg')}}" alt=""></span>
+                                                class="icon-box bg-success-transparent me-2 me-xxl-3 flex-shrink-0" style="font-size: 36px;">🏅</span>
                                         <div>
                                             <span class="d-block">{{__('我的证书')}}</span>
                                             <h4 class="fs-24 mt-1">{{$complete_quizzes}}</h4>
@@ -98,7 +96,7 @@
                         <div class="row">
                             @foreach($courses as $item)
                                 <div class="col-xl-4 col-md-6">
-                                    <div class="course-item-two course-item mx-0">
+                                    <div class="course-item-two course-item mx-0 j-user-box">
                                         <div class="course-img">
                                             <a href="{{$item->url}}">
                                                 <img src="{{$item->course->thumbnail}}" alt="img" class="img-fluid">
@@ -110,7 +108,7 @@
                                             </h6>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <a href="{{$item->url}}" class="btn btn-dark btn-sm d-inline-flex align-items-center">
-                                                    View  Course<i class="isax isax-arrow-right-3 ms-1"></i>
+                                                    View Course<i class="isax isax-arrow-right-3 ms-1"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -122,7 +120,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="card mb-0">
+                            <div class="card mb-0 j-user-box">
                                 <div class="card-body">
                                     <h5 class="mb-3 fs-18 border-bottom pb-3">{{__('最新测验记录')}}</h5>
                                     @foreach($quizzes as $quiz)

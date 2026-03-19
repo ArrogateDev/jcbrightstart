@@ -10,7 +10,7 @@
 @props([
     'user' => null
 ])
-<div class="header-topbar text-center bg-white">
+<div class="header-topbar text-center bg-transparent">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -129,7 +129,7 @@
                                 @foreach($avatar_menus as $menu)
                                     <li>
                                         <a class="dropdown-item d-inline-flex align-items-center rounded fw-medium" href="{{$menu['url']??'javascript:void(0);'}}">
-                                            <i class="{{$menu['icon']}} me-2"></i>
+                                            <span class="me-1">{{$menu['icon']}}</span>
                                             {{$menu['title']}}
                                         </a>
                                     </li>
