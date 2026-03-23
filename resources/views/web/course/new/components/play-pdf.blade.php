@@ -10,12 +10,65 @@
         let pdfAutoCompleteTimer = null;
         let pendingPdfInit = null;
         let hasRecordedEnd = false;
+        let pdfIsReady = false;
+        let pendingResize = false;
+        let resizeObserver = null;
+        let resizeObserverTimer = null;
+        let resizeTarget = null;
+        let lastTargetSize = { w: 0, h: 0 };
+
+        function resizePdfNow() {
+            if (!dFlipInstance) return;
+            if (!pdfIsReady) {
+                // dFlip 在 onReady 之前还没准备好 viewer/viewPort，此时 resize 会报错
+                pendingResize = true;
+                return;
+            }
+            if (typeof dFlipInstance.resize !== 'function') return;
+            try {
+                dFlipInstance.resize();
+            } catch (e) {
+                console.error('PDF 重排失败:', e);
+            }
+        }
+
+        function bindPdfResizeObserver() {
+            const $target = $('#play-content').closest('.video-container');
+            resizeTarget = $target && $target.length ? $target[0] : null;
+            if (!resizeTarget) return;
+
+            if (typeof ResizeObserver === 'undefined') return;
+
+            if (resizeObserver) {
+                try {
+                    resizeObserver.disconnect();
+                } catch (e) {}
+            }
+
+            resizeObserver = new ResizeObserver(function () {
+                if (resizeObserverTimer) clearTimeout(resizeObserverTimer);
+                resizeObserverTimer = setTimeout(function () {
+                    resizeObserverTimer = null;
+                    if (!resizeTarget) return;
+                    const rect = resizeTarget.getBoundingClientRect();
+                    const w = Math.round(rect.width);
+                    const h = Math.round(rect.height);
+                    if (w === lastTargetSize.w && h === lastTargetSize.h) return;
+                    lastTargetSize = { w, h };
+                    resizePdfNow();
+                }, 120);
+            });
+
+            resizeObserver.observe(resizeTarget);
+        }
 
         function playPdf(unit, position = 0) {
             clearPdf()
             currentUnit = unit.id
             currentChapter = unit.chapter_id
             hasRecordedEnd = false;
+            pdfIsReady = false;
+            pendingResize = false;
 
             // 开始加载新内容时显示 Loading
             $loading.removeClass('d-none').addClass('d-flex')
@@ -38,6 +91,7 @@
                         showThumbnail: false,
                         autoOpenThumbnail: false,
                         onReady: function onReady(app) {
+                            pdfIsReady = true;
                             // 使用主文件的公用函数
                             if (typeof window.recordPlayStart === 'function') {
                                 window.recordPlayStart(currentChapter, currentUnit);
@@ -46,6 +100,12 @@
                             currentPdfPage = app.currentPageNumber || 1;
                             $loading.removeClass('d-flex').addClass('d-none')
                             setupPdfAutoComplete(pageCount);
+
+                            // 如果尺寸变化在 onReady 之前发生过，这里补一次重排
+                            if (pendingResize) {
+                                pendingResize = false;
+                                setTimeout(resizePdfNow, 0);
+                            }
                         },
                         onPageChanged: function (app) {
                             const currentPage = app.currentPageNumber;
@@ -78,6 +138,10 @@
                     }
 
                     dFlipInstance = $('#pdf-viewer').flipBook(unit.file_url, flipOptions);
+                    // 容器宽高变化时自动重排（右栏折叠/展开、响应式布局都会触发）
+                    bindPdfResizeObserver();
+                    // 初始化后立即对齐一次：若尚未 onReady 会被自动挂起（不报错）
+                    setTimeout(resizePdfNow, 0);
                     pendingPdfInit = null;
                 } catch (e) {
                     console.error('初始化 PDF 失败:', e);
@@ -116,6 +180,23 @@
                 dFlipInstance = null;
             }
 
+            if (resizeObserver) {
+                try {
+                    resizeObserver.disconnect();
+                } catch (e) {}
+            }
+            resizeObserver = null;
+            resizeTarget = null;
+            lastTargetSize = { w: 0, h: 0 };
+
+            pdfIsReady = false;
+            pendingResize = false;
+
+            if (resizeObserverTimer) {
+                clearTimeout(resizeObserverTimer);
+                resizeObserverTimer = null;
+            }
+
             if (pdfAutoCompleteTimer) {
                 clearTimeout(pdfAutoCompleteTimer);
                 pdfAutoCompleteTimer = null;
@@ -134,6 +215,8 @@
         // 导出函数供外部调用
         window.playPdf = playPdf;
         window.clearPdf = clearPdf;
+        // 供 show-unit 在 rightColumn 切换时手动触发一次重排
+        window.resizePdfViewer = resizePdfNow;
 
         // 暴露一些必要的变量和方法
         // 注意：这里按项目现有逻辑，用它来返回“当前页码”，用于保存/续播

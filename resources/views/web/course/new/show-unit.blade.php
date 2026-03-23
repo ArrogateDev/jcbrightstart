@@ -829,6 +829,16 @@
             expandHintWrapper.classList.add('show');
         }
         quizHidden = !quizHidden;
+
+        // 右栏切换会改变 left-column 宽高，确保 PDF（dFlip）自动适配当前尺寸
+        if (typeof window.resizePdfViewer === 'function') {
+            requestAnimationFrame(function () {
+                window.resizePdfViewer();
+            });
+            setTimeout(function () {
+                window.resizePdfViewer();
+            }, 250);
+        }
     }
 </script>
 
