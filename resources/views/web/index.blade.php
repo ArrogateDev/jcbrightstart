@@ -81,9 +81,6 @@
                                 @foreach($news_banners as $banner)
                                     <a @class(['carousel-item', 'active' => $loop->first]) href="{{$banner->url}}">
                                         <img src="{{$banner->thumbnail}}" class="d-block w-100" alt="{{$banner->title}}">
-                                        <div class="carousel-caption">
-                                            <h5 class="h2">{{__('最新消息')}}</h5>
-                                        </div>
                                     </a>
                                 @endforeach
                             </div>

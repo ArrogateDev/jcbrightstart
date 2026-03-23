@@ -104,18 +104,7 @@
                     <div class="m-b-40">
                         {!! $news->description !!}
                     </div>
-                    <div class="blog-single__info m-b-40">
-                        <ul class="list-tags list-unstyled">
-                            <li class="list-tags__icon">
-                                <i class="fas fa-tags"></i>
-                            </li>
-                            <li class="list-tags__item">
-                                <a href="#">Learning</a>
-                            </li>
-                            <li class="list-tags__item">
-                                <a href="#">Education</a>
-                            </li>
-                        </ul>
+                    <div class="blog-single__info m-b-40 justify-content-end">
                         <ul class="list-unstyled list-inline list-social list-social-3">
                             <li class="list-inline-item">
                                 <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">

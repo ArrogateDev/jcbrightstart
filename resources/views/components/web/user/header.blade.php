@@ -89,7 +89,8 @@
             </div>
             <div class="header-btn d-flex align-items-center">
                 <div class="dropdown flag-dropdown">
-                    <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3 d-none" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a style="color:#666;font-size: 15px;" href="javascript:void(0);" class="dropdown-toggle d-inline-flex align-items-center me-3 d-none" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         <i class="fas fa-globe me-1"></i>{{ $currentLang }}
                     </a>
                     <ul class="dropdown-menu p-2 mt-2 d-none" style="">
@@ -147,7 +148,7 @@
         </div>
     </div>
 </header>
-@if($user->is_private_email === 0 || $user->is_first_login === 0)
+@if(($user->is_private_email ?? null) === 0 || ($user->is_first_login ?? null) === 0)
 
     <div class="modal fade" id="info-modal" tabindex="-1" aria-labelledby="info-form"
          aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
