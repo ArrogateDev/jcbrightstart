@@ -60,8 +60,6 @@ Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('n
 Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 Route::get('/maps/list.html', [MapsController::class, 'list'])->name('maps-list.html');
 
-Route::get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
-
 Route::get('/resource-kit.html', [ResourceController::class, 'index'])->name('resource.html');
 Route::get('/resource-kit/more.html', [ResourceController::class, 'more'])->name('resource.more.html');
 Route::get('/resource-kit/list.html', [ResourceController::class, 'list'])->name('resource.list.html');
@@ -73,6 +71,9 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     //下载文件
     $route->get('download.html', [DownloadController::class, 'download'])->name('user.download.html');
+
+    $route->get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
+    $route->get('/course/{course}/unit/{unit}.html', [CourseController::class, 'handleUnitShow'])->name('course.unit.details.html');
 
     $route->get('quiz/{unit}.html', [CommonController::class, 'getQuizDetail'])->name('common.get-quiz-detail.html');
     $route->post('/course/{course}/play-record.html', [CourseController::class, 'handleSavePlayRecord'])->name('course.save-play-record.html');

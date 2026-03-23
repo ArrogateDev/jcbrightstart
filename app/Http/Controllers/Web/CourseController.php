@@ -40,6 +40,8 @@ class CourseController extends Controller
             'chapters:id,course_id,title',
             'chapters.units'
         ]);
+
+        $course->chapter_num = $course->chapters->count();
         $course->unit_num = $course->chapters->sum(function ($chapter) {
             return $chapter->units->count();
         });
@@ -62,14 +64,36 @@ class CourseController extends Controller
             ->get();
 
         $course->chapters->map(function ($item) use ($play_records) {
+            $item->unit_num = $item->units->count();
             $item->units->map(function ($unit) use ($play_records) {
+                $unit->url = route('course.unit.details.html', ['course' => $unit->course_id, 'unit' => $unit->id]);
                 $unit->status = $play_records->where('chapter_id', $unit->chapter_id)->where('unit_id', $unit->id)->value('status') ?? 0;
             });
+            $item->unit_num_completed = $item->units->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)->count();
         });
+
+        $completed = UserCoursePlayRecord::query()
+            ->where('user_id', $user->id ?? 0)
+            ->where('course_id', $course->id)
+            ->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)
+            ->count() ?? 0;
+
+        $progress = $completed > 0 ? bcdiv($completed, $course->unit_num) * 100 : 0;
+        $surplus = $course->unit_num - $completed;
+        $surplus = $surplus < 0 ? 0 : $surplus;
 
         $play_record = $play_records->where('status', UserCoursePlayRecord::UNFINISHED)->first() ?? null;
 
-        return view('web.course.show', compact('course', 'play_record'));
+        return view('web.course.new.show', compact('course', 'completed', 'progress', 'surplus', 'play_record'));
+//        return view('web.course.show', compact('course', 'play_record'));
+    }
+
+    public function handleUnitShow(Request $request, Course $course, CourseChapterUnit $unit)
+    {
+//        print_r($course->toArray());
+//        print_r($unit->toArray());
+//        die;
+        return view('web.course.new.show-unit', compact('course', 'unit'));
     }
 
     /**
