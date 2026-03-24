@@ -90,10 +90,59 @@ class CourseController extends Controller
 
     public function handleUnitShow(Request $request, Course $course, CourseChapterUnit $unit)
     {
-//        print_r($course->toArray());
-//        print_r($unit->toArray());
-//        die;
-        return view('web.course.new.show-unit', compact('course', 'unit'));
+        $user = $request->user('web');
+
+        $answer_records = UserQuizAnswerRecord::query()
+            ->where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->where('chapter_id', $unit->chapter_id)
+            ->where('unit_id', $unit->unit_id)
+            ->where('quiz_id', $unit->quiz_id)
+            ->get();
+
+        // 按题目索引分组，取最新的答题记录
+        // 返回所有已答过的题目索引（不管对错），用于判断哪些题目已经答过
+        $answered_questions = $answer_records
+            ->groupBy('question_index')
+            ->keys()
+            ->map(function ($index) {
+                return (int)$index;
+            })
+            ->toArray();
+
+        // 同时返回已答对的题目索引，用于统计
+        $completed_questions = $answer_records
+            ->groupBy('question_index')
+            ->map(function ($records) {
+                return $records->sortByDesc('answered_at')->first();
+            })
+            ->filter(function ($record) {
+                return $record->is_correct === true;
+            })
+            ->keys()
+            ->map(function ($index) {
+                return (int)$index;
+            })
+            ->toArray();
+
+        $quiz = Quiz::query()
+            ->where('id', $unit->quiz_id)
+            ->select('title', 'question_num', 'questions')
+            ->first();
+
+        $prev = CourseChapterUnit::query()
+            ->where('course_id', $course->id)
+            ->where('id', '<', $unit->id)
+            ->orderBy('id')
+            ->value('id');
+
+        $next = CourseChapterUnit::query()
+            ->where('course_id', $course->id)
+            ->where('id', '>', $unit->id)
+            ->orderBy('id')
+            ->value('id');
+
+        return view('web.course.new.show-unit', compact('course', 'unit', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
     }
 
     /**

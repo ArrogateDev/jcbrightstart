@@ -715,88 +715,27 @@
 
                         <!-- Navigation Footer -->
                         <div class="nav-footer">
-                            <a href="#" class="nav-btn secondary">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="15 18 9 12 15 6"/>
-                                </svg>
-                                上一課
-                            </a>
+                                <a href="{{$prev ? route('course.unit.details.html', ['course' => $unit->course_id, 'unit' => $prev]) : 'javascript:;' }}" @class(['nav-btn', 'primary' => $prev, 'secondary' => !$prev])>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"/>
+                                    </svg>
+                                    上一課
+                                </a>
 
-                            <a href="#" class="nav-btn primary">
-                                下一課
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"/>
-                                </svg>
-                            </a>
+                                <a href="{{$next ? route('course.unit.details.html', ['course' => $unit->course_id, 'unit' => $next]) : 'javascript:;' }}" @class(['nav-btn', 'primary' => $next, 'secondary' => !$next])>
+                                    下一課
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"/>
+                                    </svg>
+                                </a>
                         </div>
 
                     </div>
 
                     <!-- Right Column (Quiz) -->
                     <div class="right-column hidden" id="rightColumn">
-                        <div class="quiz-card hidden">
-                            <div class="quiz-header">
-                                <div class="quiz-title">
-                                    <div class="quiz-icon">✏️</div>
-                                    <span class="quiz-label">隨堂測驗</span>
-                                </div>
-                                <button class="collapse-btn" onclick="toggleQuiz()" title="摺疊測驗區">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="15 6 9 12 15 18"/>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="quiz-progress">
-                                <div class="quiz-progress-bar">
-                                    <div class="quiz-progress-fill" style="width: 33%;" id="quizProgressFill"></div>
-                                </div>
-                                <div class="quiz-progress-text">
-                                    <span id="quizCurrent">1</span>/3
-                                </div>
-                            </div>
-
-                            <div class="quiz-question" id="quizQuestion">
-                                <div class="question-text">Q1. 以下哪項是 0-6 個月嬰兒的最佳食物？</div>
-                                <div class="options-list">
-                                    <div class="option-item" onclick="selectOption(1)">
-                                        <div class="option-marker">A</div>
-                                        <div class="option-text">母乳或配方奶</div>
-                                    </div>
-                                    <div class="option-item" onclick="selectOption(2)">
-                                        <div class="option-marker">B</div>
-                                        <div class="option-text">米糊</div>
-                                    </div>
-                                    <div class="option-item" onclick="selectOption(3)">
-                                        <div class="option-marker">C</div>
-                                        <div class="option-text">蔬菜泥</div>
-                                    </div>
-                                    <div class="option-item" onclick="selectOption(4)">
-                                        <div class="option-marker">D</div>
-                                        <div class="option-text">果汁</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="quiz-feedback" id="quizFeedback">
-                                <div class="feedback-title correct" id="feedbackTitle">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="20 6 9 17 4 12"/>
-                                    </svg>
-                                    <span id="feedbackText">正確！</span>
-                                </div>
-                                <div class="feedback-text">
-                                    <p id="feedbackExplanation">母乳或配方奶是 0-6 個月嬰兒最理想的食物，能提供寶寶所需的所有營養。世界衞生組織建議首 6 個月應純母乳餵哺。</p>
-                                </div>
-                            </div>
-
-                            <div class="quiz-actions">
-                                <button class="btn btn-outline">重置</button>
-                                <button class="btn btn-primary" id="submitBtn">提交答案</button>
-                            </div>
-                        </div>
+                        @include('web.course.new.components.quiz')
                     </div>
-
                 </div>
 
             </div>
@@ -808,39 +747,6 @@
 
 </div>
 </body>
-<script>
-    // Quiz Panel Toggle
-    let quizHidden = true;
-
-    function toggleQuiz() {
-        const rightCol = document.getElementById('rightColumn');
-        const mainLayout = document.getElementById('mainLayout');
-        const expandHintWrapper = document.getElementById('btn-quiz');
-
-        if (quizHidden) {
-            // Show quiz
-            rightCol.classList.remove('hidden');
-            mainLayout.classList.remove('quiz-hidden');
-            expandHintWrapper.classList.remove('show');
-        } else {
-            // Hide quiz
-            rightCol.classList.add('hidden');
-            mainLayout.classList.add('quiz-hidden');
-            expandHintWrapper.classList.add('show');
-        }
-        quizHidden = !quizHidden;
-
-        // 右栏切换会改变 left-column 宽高，确保 PDF（dFlip）自动适配当前尺寸
-        if (typeof window.resizePdfViewer === 'function') {
-            requestAnimationFrame(function () {
-                window.resizePdfViewer();
-            });
-            setTimeout(function () {
-                window.resizePdfViewer();
-            }, 250);
-        }
-    }
-</script>
 
 <script>
     $(function () {
