@@ -66,9 +66,9 @@
         </div>
     </div>
 
-    <div class="quiz-actions">
-        <button class="btn btn-outline" id="quizResetBtn" type="button">{{__('重置')}}</button>
-        <button class="btn btn-primary" id="submitBtn" type="button" disabled>{{__('提交答案')}}</button>
+    <div class="quiz-actions d-none" id="quizActions">
+        <button class="btn btn-outline" id="quizPrevBtn" type="button" disabled>{{__('上一题')}}</button>
+        <button class="btn btn-primary" id="quizNextBtn" type="button" disabled>{{__('下一题')}}</button>
     </div>
 </div>
 <script>
@@ -142,8 +142,9 @@
         const quizTotalEl = document.getElementById('quizTotal');
 
         const quizStartButton = document.getElementById('quizStartButton');
-        const quizResetBtn = document.getElementById('quizResetBtn');
-        const submitBtn = document.getElementById('submitBtn');
+        const quizActions = document.getElementById('quizActions');
+        const quizPrevBtn = document.getElementById('quizPrevBtn');
+        const quizNextBtn = document.getElementById('quizNextBtn');
 
         const quizStatsAnswered = document.getElementById('quizStatsAnswered');
         const quizStatsCorrectRate = document.getElementById('quizStatsCorrectRate');
@@ -190,10 +191,25 @@
             el.style.display = '';
         }
 
-        function setSubmitEnabled(enabled, text) {
-            if (!submitBtn) return;
-            submitBtn.disabled = !enabled;
-            if (typeof text === 'string') submitBtn.textContent = text;
+        function showQuizActions(show) {
+            if (!quizActions) return;
+            if (show) showEl(quizActions);
+            else hideEl(quizActions);
+        }
+
+        function updateQuestionNavButtons() {
+            if (!quizData || !Array.isArray(quizData.questions)) return;
+
+            const isFirst = currentQuestionIndex <= 0;
+            const isLast = currentQuestionIndex >= quizData.questions.length - 1;
+
+            if (quizPrevBtn) {
+                quizPrevBtn.disabled = isFirst;
+            }
+            if (quizNextBtn) {
+                quizNextBtn.disabled = !isAnswered;
+                quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
+            }
         }
 
         function setFeedback(type, titleText, explanationText) {
@@ -263,9 +279,17 @@
             if (quizStatisticsView) hideEl(quizStatisticsView);
             if (quizQuestionView) hideEl(quizQuestionView);
             if (quizStartView) showEl(quizStartView);
+            showQuizActions(false);
 
             clearFeedback();
-            setSubmitEnabled(false, '{{__('提交答案')}}');
+            if (quizPrevBtn) {
+                quizPrevBtn.disabled = true;
+                quizPrevBtn.textContent = '{{__('上一题')}}';
+            }
+            if (quizNextBtn) {
+                quizNextBtn.disabled = true;
+                quizNextBtn.textContent = '{{__('下一题')}}';
+            }
 
             if (quizOptionsList) quizOptionsList.innerHTML = '';
             if (quizQuestionText) quizQuestionText.textContent = '';
@@ -275,8 +299,8 @@
             if (quizStartView) showEl(quizStartView);
             if (quizQuestionView) hideEl(quizQuestionView);
             if (quizStatisticsView) hideEl(quizStatisticsView);
+            showQuizActions(false);
             clearFeedback();
-            setSubmitEnabled(false);
 
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
             const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
@@ -319,7 +343,8 @@
             const correctAnswer = parseInt(question.correct_answer, 10) || 0;
 
             isAnswered = true;
-            setSubmitEnabled(true);
+            showQuizActions(true);
+            updateQuestionNavButtons();
 
             if (quizOptionsList) {
                 const optionEls = quizOptionsList.querySelectorAll('.option-item');
@@ -347,8 +372,10 @@
             }
 
             const isLast = index === quizData.questions.length - 1;
-            const submitText = isLast ? '{{__('完成')}}' : '{{__('下一题')}} →';
-            setSubmitEnabled(true, submitText);
+            if (quizNextBtn) {
+                quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
+            }
+            updateQuestionNavButtons();
         }
 
         function bindOptionClick(index) {
@@ -385,7 +412,8 @@
                 wrongAnswers[questionIndex] = optionIndex;
             }
 
-            setSubmitEnabled(false);
+            showQuizActions(true);
+            updateQuestionNavButtons();
             clearFeedback();
         }
 
@@ -450,7 +478,8 @@
             );
 
             isAnswered = true;
-            setSubmitEnabled(false);
+            showQuizActions(true);
+            updateQuestionNavButtons();
 
             const wrongAnswer = wrongAnswers[questionIndex];
             saveQuizAnswer(questionIndex, correctAnswer, wrongAnswer)
@@ -465,16 +494,18 @@
                     }
 
                     const isLast = questionIndex === quizData.questions.length - 1;
-                    const submitText = isLast ? '{{__('完成')}}' : '{{__('下一题')}} →';
-                    setSubmitEnabled(true, submitText);
+                    if (quizNextBtn) {
+                        quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
+                    }
 
                     updateProgress(questionIndex);
+                    updateQuestionNavButtons();
                 })
                 .catch(function (error) {
                     console.error(error);
                     showToast('error', error.message || '{{__('保存答案失败，请重试')}}');
                     isAnswered = false;
-                    setSubmitEnabled(false);
+                    updateQuestionNavButtons();
                     // 发生保存失败：回到当前题可继续作答
                     showQuestion(questionIndex);
                 });
@@ -490,6 +521,7 @@
             if (quizStartView) hideEl(quizStartView);
             if (quizStatisticsView) hideEl(quizStatisticsView);
             if (quizQuestionView) showEl(quizQuestionView);
+            showQuizActions(true);
 
             clearFeedback();
 
@@ -504,12 +536,13 @@
             const isQuestionAnswered = answeredQuestionsList.includes(index);
             if (isQuestionAnswered) {
                 markAnsweredQuestion(index);
+                updateQuestionNavButtons();
                 return;
             }
 
             // 未答题：允许点击
             isAnswered = false;
-            setSubmitEnabled(false);
+            updateQuestionNavButtons();
             clearFeedback();
             bindOptionClick(index);
         }
@@ -530,15 +563,15 @@
 
             if (quizStartView) hideEl(quizStartView);
             if (quizQuestionView) hideEl(quizQuestionView);
+            showQuizActions(false);
             clearFeedback();
             if (quizStatisticsView) showEl(quizStatisticsView);
 
             if (quizStatsAnswered) quizStatsAnswered.textContent = '{{__('加载中...')}}';
             if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = '0%';
 
-            setSubmitEnabled(false);
-            if (quizResetBtn) quizResetBtn.onclick = null;
-            if (submitBtn) submitBtn.onclick = null;
+            if (quizPrevBtn) quizPrevBtn.onclick = null;
+            if (quizNextBtn) quizNextBtn.onclick = null;
 
             $.ajax({
                 url: `/course/${currentCourseId}/quiz-statistics.html`,
@@ -564,25 +597,7 @@
                     if (quizStatsAnswered) quizStatsAnswered.textContent = `${answered} / ${totalQuestions}`;
                     if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = `${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`;
 
-                    if (quizResetBtn) {
-                        quizResetBtn.textContent = '{{__('复习答案')}}';
-                        quizResetBtn.onclick = function () {
-                            loadQuiz(currentUnitId, {startIndexMode: 'review'});
-                        };
-                    }
-
-                    const nextText = nextUnit && nextUnit.id ? '{{__('下一单元')}}' : '{{__('关闭')}}';
-                    if (submitBtn) {
-                        submitBtn.textContent = nextText;
-                        submitBtn.disabled = false;
-                        submitBtn.onclick = function () {
-                            if (nextUnit && nextUnit.id) {
-                                window.location.href = `/course/${currentCourseId}/unit/${nextUnit.id}.html`;
-                            } else if (typeof window.hideQuizPanel === 'function') {
-                                window.hideQuizPanel();
-                            }
-                        };
-                    }
+                    // 统计态不显示题目导航按钮
 
                     // 标记单元完成测验（尽力而为：DOM 中不一定存在对应 unit 列表）
                     if (typeof window.updateUnitStatus === 'function') {
@@ -604,7 +619,6 @@
             wrongAnswers = {};
 
             clearFeedback();
-            setSubmitEnabled(false);
             if (quizStatisticsView) hideEl(quizStatisticsView);
 
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
@@ -685,27 +699,15 @@
             renderQuizStart();
         };
 
-        if (quizResetBtn) {
-            quizResetBtn.onclick = function () {
-                // 重置：回到后端初始“已答题状态”，并从第一个未答题开始
-                wrongAnswers = {};
-                isAnswered = false;
-                answeredQuestionsList = Array.isArray(initialAnsweredQuestionsList)
-                    ? initialAnsweredQuestionsList.slice()
-                    : [];
-                currentQuestionIndex = 0;
-                resetQuizState();
-
-                // 根据是否已完成显示复习/开始
-                const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
-                const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
-                if (isCompleted) showQuestion(0);
-                else renderQuizStart();
+        if (quizPrevBtn) {
+            quizPrevBtn.onclick = function () {
+                if (currentQuestionIndex <= 0) return;
+                showQuestion(currentQuestionIndex - 1);
             };
         }
 
-        if (submitBtn) {
-            submitBtn.onclick = function () {
+        if (quizNextBtn) {
+            quizNextBtn.onclick = function () {
                 if (!quizData || !Array.isArray(quizData.questions)) return;
                 if (!isAnswered) {
                     showToast('warning', '{{__('请先回答当前题目')}}');
