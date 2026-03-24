@@ -149,6 +149,11 @@
         const quizStatsAnswered = document.getElementById('quizStatsAnswered');
         const quizStatsCorrectRate = document.getElementById('quizStatsCorrectRate');
 
+        const $quizOptionsList = $('#quizOptionsList');
+        const $quizProgressFill = $('#quizProgressFill');
+        const $quizCurrent = $('#quizCurrent');
+        const $quizTotal = $('#quizTotal');
+
         if (!quizCard) return;
 
         // 初始化：来自后端的已答题列表（用于打开时决定从第几个题开始）
@@ -181,14 +186,12 @@
 
         function hideEl(el) {
             if (!el) return;
-            el.classList.add('d-none');
-            el.style.display = 'none';
+            $(el).addClass('d-none').hide();
         }
 
         function showEl(el) {
             if (!el) return;
-            el.classList.remove('d-none');
-            el.style.display = '';
+            $(el).removeClass('d-none').show();
         }
 
         function showQuizActions(show) {
@@ -247,12 +250,10 @@
             if (!quizData || !Array.isArray(quizData.questions)) return;
             const total = quizData.questions.length;
             const current = index + 1;
-            if (quizTotalEl) quizTotalEl.textContent = String(total);
-            if (quizCurrentEl) quizCurrentEl.textContent = String(current);
-            if (quizProgressFill) {
-                const progress = Math.floor((current / total) * 100);
-                quizProgressFill.style.width = `${progress}%`;
-            }
+            const progress = Math.floor((current / total) * 100);
+            if (quizTotalEl) $quizTotal.text(String(total));
+            if (quizCurrentEl) $quizCurrent.text(String(current));
+            if (quizProgressFill) $quizProgressFill.css('width', `${progress}%`);
         }
 
         function resetQuizState() {
@@ -315,27 +316,14 @@
 
         function renderOptions(question) {
             if (!quizOptionsList) return;
-            quizOptionsList.innerHTML = '';
-
             const options = Array.isArray(question.options) ? question.options : [];
-            options.forEach((optText, optIndex) => {
-                const optionEl = document.createElement('div');
-                optionEl.className = 'option-item';
-                optionEl.setAttribute('data-option-index', String(optIndex));
-
-                const marker = document.createElement('div');
-                marker.className = 'option-marker';
-                marker.textContent = String.fromCharCode(65 + optIndex);
-
-                const text = document.createElement('div');
-                text.className = 'option-text';
-                text.textContent = optText;
-
-                optionEl.appendChild(marker);
-                optionEl.appendChild(text);
-
-                quizOptionsList.appendChild(optionEl);
-            });
+            const html = options.map((optText, optIndex) => (
+                `<div class="option-item" data-option-index="${optIndex}">
+                    <div class="option-marker">${String.fromCharCode(65 + optIndex)}</div>
+                    <div class="option-text">${_.escape(optText)}</div>
+                </div>`
+            )).join('');
+            $quizOptionsList.html(html);
         }
 
         function markAnsweredQuestion(index) {
@@ -365,11 +353,7 @@
             );
 
             // 禁用继续点击：通过检查 isAnswered 控制即可，但这里也清空事件（避免重复绑定）
-            if (quizOptionsList) {
-                quizOptionsList.querySelectorAll('.option-item').forEach((el) => {
-                    el.onclick = null;
-                });
-            }
+            $quizOptionsList.off('click.quizOption');
 
             const isLast = index === quizData.questions.length - 1;
             if (quizNextBtn) {
@@ -383,20 +367,21 @@
             const question = quizData.questions[index];
             const correctAnswer = parseInt(question.correct_answer, 10) || 0;
 
-            quizOptionsList.querySelectorAll('.option-item').forEach((el) => {
-                el.onclick = function () {
+            $quizOptionsList
+                .off('click.quizOption')
+                .on('click.quizOption', '.option-item', function () {
                     if (isAnswered) return;
-                    const optIndex = parseInt(el.getAttribute('data-option-index') || '0', 10);
+                    const $el = $(this);
+                    const optIndex = parseInt($el.data('option-index') || 0, 10);
 
-                    el.classList.add('selected');
+                    $el.addClass('selected');
 
                     if (optIndex === correctAnswer) {
                         handleCorrectAnswer(index, optIndex);
                     } else {
                         handleIncorrectAnswer(index, optIndex);
                     }
-                };
-            });
+                });
         }
 
         function handleIncorrectAnswer(questionIndex, optionIndex) {
@@ -526,8 +511,7 @@
             clearFeedback();
 
             if (quizQuestionText) {
-                const title = question.title || '';
-                quizQuestionText.textContent = title;
+                quizQuestionText.textContent = question.title || '';
             }
 
             renderOptions(question);
