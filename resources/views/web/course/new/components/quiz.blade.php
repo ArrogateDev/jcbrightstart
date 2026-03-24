@@ -69,7 +69,6 @@
     </div>
 </div>
 <style>
-
     .quiz-statistics {
         margin: 10px auto;
         display: flex;
@@ -122,11 +121,6 @@
         border-radius: .75rem;
         font-weight: 700;
     }
-
-    .quiz-statistics-btn .btn-next-unit {
-        background-image: linear-gradient(to right, #10b981, #0d9488);
-    }
-
 </style>
 <script>
     // Quiz Panel Toggle
@@ -179,9 +173,7 @@
 
     window.showQuizPanel = showQuizPanel;
     window.hideQuizPanel = hideQuizPanel;
-</script>
 
-<script>
     $(function () {
         const quizCard = document.getElementById('quizCard');
         const quizStartView = document.getElementById('quizStartView');
@@ -234,6 +226,7 @@
         };
         let currentQuestionIndex = 0;
         let isAnswered = false;
+        let isReviewMode = false;
         let wrongAnswers = {}; // 记录用户本轮对某题的“错误选项”，用于保存请求兼容旧逻辑
 
         let currentCourseId = {{ $course->id }};
@@ -268,7 +261,9 @@
             }
             if (quizNextBtn) {
                 quizNextBtn.disabled = !isAnswered;
-                quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
+                quizNextBtn.textContent = isLast
+                    ? (isReviewMode ? '{{__('完成')}}' : '{{__('提交答案')}}')
+                    : '{{__('下一题')}}';
             }
         }
 
@@ -321,6 +316,7 @@
             };
             currentQuestionIndex = 0;
             isAnswered = false;
+            isReviewMode = false;
             wrongAnswers = {};
 
             answeredQuestionsList = Array.isArray(initialAnsweredQuestionsList)
@@ -417,6 +413,35 @@
                 quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
             }
             updateQuestionNavButtons();
+        }
+
+        function markReviewQuestion(index) {
+            const question = quizData.questions[index];
+            const correctAnswer = parseInt(question.correct_answer, 10) || 0;
+
+            isAnswered = true;
+            showQuizActions(true);
+            updateQuestionNavButtons();
+
+            if (quizOptionsList) {
+                const optionEls = quizOptionsList.querySelectorAll('.option-item');
+                optionEls.forEach((el) => {
+                    const optIdx = parseInt(el.getAttribute('data-option-index') || '0', 10);
+                    el.classList.remove('selected', 'correct', 'incorrect');
+                    if (optIdx === correctAnswer) {
+                        el.classList.add('selected', 'correct');
+                    }
+                });
+            }
+
+            setFeedback(
+                'correct',
+                '{{__('正確！')}}',
+                question.explanation || '{{__('暂无解析')}}'
+            );
+
+            // 复习模式下只允许上一题/下一题切换，不允许点击选项
+            $quizOptionsList.off('click.quizOption');
         }
 
         function bindOptionClick(index) {
@@ -574,6 +599,12 @@
             renderOptions(question);
             updateProgress(index);
 
+            if (isReviewMode) {
+                markReviewQuestion(index);
+                updateQuestionNavButtons();
+                return;
+            }
+
             const isQuestionAnswered = answeredQuestionsList.includes(index);
             if (isQuestionAnswered) {
                 markAnsweredQuestion(index);
@@ -614,9 +645,6 @@
             // 统计数据加载完成前不显示“复习答案”
             $reviewBtn.hide().off('click');
 
-            if (quizPrevBtn) quizPrevBtn.onclick = null;
-            if (quizNextBtn) quizNextBtn.onclick = null;
-
             $.ajax({
                 url: `/course/${currentCourseId}/quiz-statistics.html`,
                 type: 'GET',
@@ -636,7 +664,6 @@
                     const totalQuestions = parseInt(stats.total_questions) || 0;
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
-                    const nextUnit = stats.next_unit || null;
 
                     if (quizStatsAnswered) quizStatsAnswered.textContent = `${answered} / ${totalQuestions}`;
                     if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = `${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`;
@@ -663,6 +690,7 @@
 
             currentQuestionIndex = 0;
             isAnswered = false;
+            isReviewMode = (startIndexMode === 'review');
             wrongAnswers = {};
 
             clearFeedback();
@@ -746,28 +774,32 @@
             renderQuizStart();
         };
 
+        const handlePrevQuestion = _.debounce(function () {
+            if (currentQuestionIndex <= 0) return;
+            showQuestion(currentQuestionIndex - 1);
+        }, 180, {leading: true, trailing: false});
+
+        const handleNextQuestion = _.debounce(function () {
+            if (!quizData || !Array.isArray(quizData.questions)) return;
+            if (!isAnswered) {
+                showToast('warning', '{{__('请先回答当前题目')}}');
+                return;
+            }
+
+            const isLast = currentQuestionIndex === quizData.questions.length - 1;
+            if (isLast) {
+                showQuizStatistics();
+            } else {
+                showQuestion(currentQuestionIndex + 1);
+            }
+        }, 180, {leading: true, trailing: false});
+
         if (quizPrevBtn) {
-            quizPrevBtn.onclick = function () {
-                if (currentQuestionIndex <= 0) return;
-                showQuestion(currentQuestionIndex - 1);
-            };
+            quizPrevBtn.onclick = handlePrevQuestion;
         }
 
         if (quizNextBtn) {
-            quizNextBtn.onclick = function () {
-                if (!quizData || !Array.isArray(quizData.questions)) return;
-                if (!isAnswered) {
-                    showToast('warning', '{{__('请先回答当前题目')}}');
-                    return;
-                }
-
-                const isLast = currentQuestionIndex === quizData.questions.length - 1;
-                if (isLast) {
-                    showQuizStatistics();
-                } else {
-                    showQuestion(currentQuestionIndex + 1);
-                }
-            };
+            quizNextBtn.onclick = handleNextQuestion;
         }
 
         // 初始化：已完成显示复习，未完成显示开始测验
