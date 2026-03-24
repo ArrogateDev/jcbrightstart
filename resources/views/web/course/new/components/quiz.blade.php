@@ -48,20 +48,17 @@
             </div>
         </div>
 
-        <div class="quiz-feedback show" id="quizStatisticsView" style="display: none;">
-            <div class="feedback-title correct">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>{{__('测验完成')}}</span>
-            </div>
-            <div class="feedback-text">
-                <p style="margin-bottom: .25rem;">
-                    <span id="quizStatsAnswered">0</span>
-                </p>
-                <p>
+        <div class="quiz-statistics" id="quizStatisticsView" style="display: none;">
+            <div class="quiz-statistics-icon">🎉</div>
+            <h4 class="quiz-statistics-title">{{__('测验完成')}}</h4>
+            <div class="quiz-statistics-progress">
+                <h1><span id="quizStatsAnswered">0 / 0</span></h1>
+                <div class="progress-value">
                     <span id="quizStatsCorrectRate">0%</span>
-                </p>
+                </div>
+            </div>
+            <div class="quiz-statistics-btn">
+                <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
             </div>
         </div>
     </div>
@@ -71,6 +68,66 @@
         <button class="btn btn-primary" id="quizNextBtn" type="button" disabled>{{__('下一题')}}</button>
     </div>
 </div>
+<style>
+
+    .quiz-statistics {
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .quiz-statistics-icon {
+        height: 95px;
+        line-height: normal;
+        font-size: 5rem;
+    }
+
+    .quiz-statistics-title {
+        color: #1f2937;
+        font-weight: 700;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+    }
+
+    .quiz-statistics-progress {
+        width: 100%;
+        text-align: center;
+        background-image: linear-gradient(to right, #6366f1, #9333ea);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        color: white;
+    }
+
+    .quiz-statistics-progress h1 {
+        color: white;
+        font-size: 3rem;
+        line-height: 1;
+        margin-bottom: .5rem;
+    }
+
+    .quiz-statistics-progress .progress-value {
+        opacity: .9;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .quiz-statistics-btn {
+        width: 100%;
+    }
+
+    .quiz-statistics-btn .btn {
+        width: 100%;
+        border-radius: .75rem;
+        font-weight: 700;
+    }
+
+    .quiz-statistics-btn .btn-next-unit {
+        background-image: linear-gradient(to right, #10b981, #0d9488);
+    }
+
+</style>
 <script>
     // Quiz Panel Toggle
     function toggleQuiz() {
@@ -544,6 +601,7 @@
                 showToast('error', '{{__('参数错误')}}');
                 return;
             }
+            const $reviewBtn = $('#quizStatisticsView .btn-review');
 
             if (quizStartView) hideEl(quizStartView);
             if (quizQuestionView) hideEl(quizQuestionView);
@@ -553,6 +611,8 @@
 
             if (quizStatsAnswered) quizStatsAnswered.textContent = '{{__('加载中...')}}';
             if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = '0%';
+            // 统计数据加载完成前不显示“复习答案”
+            $reviewBtn.hide().off('click');
 
             if (quizPrevBtn) quizPrevBtn.onclick = null;
             if (quizNextBtn) quizNextBtn.onclick = null;
@@ -581,7 +641,10 @@
                     if (quizStatsAnswered) quizStatsAnswered.textContent = `${answered} / ${totalQuestions}`;
                     if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = `${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`;
 
-                    // 统计态不显示题目导航按钮
+                    // 统计数据加载完成后显示“复习答案”
+                    $reviewBtn.show().on('click', function () {
+                        loadQuiz(currentUnitId, {startIndexMode: 'review'});
+                    });
 
                     // 标记单元完成测验（尽力而为：DOM 中不一定存在对应 unit 列表）
                     if (typeof window.updateUnitStatus === 'function') {
