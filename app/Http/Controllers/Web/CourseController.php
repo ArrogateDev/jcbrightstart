@@ -143,19 +143,26 @@ class CourseController extends Controller
             ->select('title', 'question_num', 'questions')
             ->first();
 
-        $prev = CourseChapterUnit::query()
-            ->where('course_id', $course->id)
-            ->where('id', '<', $unit->id)
-            ->orderBy('id')
-            ->value('id');
+        $course->load([
+            'chapters.units:id,chapter_id'
+        ]);
 
-        $next = CourseChapterUnit::query()
-            ->where('course_id', $course->id)
-            ->where('id', '>', $unit->id)
-            ->orderBy('id')
-            ->value('id');
+        // 从预加载的集合中获取所有未删除章节的单元，并按 ID 排序
+        $all_units = $course->chapters->flatMap(function ($chapter) {
+            return $chapter->units;
+        })->values();
 
-        return view('web.course.new.show-unit', compact('course', 'unit', 'play_record', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
+        // 查找当前单元在集合中的位置
+        $current_index = $all_units->search(fn($u) => $u->id === $unit->id);
+        $total_index = $all_units->count();
+
+        // 获取上一单元（集合中的前一个）
+        $prev = $current_index > 0 ? $all_units[$current_index - 1]->id : null;
+
+        // 获取下一单元（集合中的后一个）
+        $next = $current_index !== false && $current_index < $all_units->count() - 1 ? $all_units[$current_index + 1]->id : null;
+
+        return view('web.course.new.show-unit', compact('course', 'unit', 'current_index', 'total_index', 'play_record', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
     }
 
     /**

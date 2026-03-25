@@ -1071,13 +1071,13 @@
                             <div class="section-header-icon icon-blue">
                                 🏅
                             </div>
-                            <span class="section-label">{{__('证书状态}}</span>
+                            <span class="section-label">{{__('证书状态')}}</span>
                         </div>
                         <div class="certificate-status-container">
                             <div class="certificate-icon">
                                 🏆
                             </div>
-                            <p class="certificate-description">{{__('完成所有章节和测验后可申请证书)}}</p>
+                            <p class="certificate-description">{{__('完成所有章节和测验后可申请证书')}}</p>
                             <div class="certificate-requirements">
                                 <div class="certificate-requirement-item">
                                     <div @class(['certificate-requirement-icon', 'certificate-unit', 'in-progress'=>$read_completed < $course->unit_num, 'completed'=>$read_completed >= $course->unit_num])>{{$read_completed >= $course->unit_num?'✓' : '◐'}}</div>

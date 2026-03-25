@@ -665,7 +665,7 @@
                 <div class="course-info-card">
                     <div class="info-header">
                         <div class="info-title-block">
-                            <div class="info-tag">{{__('单元')}} 1 of 7</div>
+                            <div class="info-tag">{{__('章节')}} {{$current_index + 1}} of {{$total_index}}</div>
                             <h1 class="info-title">{{$unit->title}}</h1>
                             <div class="info-meta">
                                 <div class="meta-item">
@@ -681,7 +681,7 @@
                                                 fill="#5E5E5E"></path>
                                         </svg>
                                     @endif
-                                    <span>{{__($unit->type === 0?'影片课程':'PDF课程'}}</span>
+                                    <span>{{__($unit->type === 0?'影片课程':'PDF课程')}}</span>
                                 </div>
                                 <div class="meta-item">
                                     @if($play_record && $play_record->status === 2)
@@ -699,11 +699,11 @@
                                         </div>
                                     @endif
                                     @if($play_record && $play_record->status === 1)
-                                        <span id="playStatusText">{{__('已观看'}}</span>
+                                        <span id="playStatusText">{{__('已观看')}}</span>
                                     @elseif($play_record && $play_record->status === 2)
-                                        <span id="playStatusText">{{__('已完成'}}</span>
+                                        <span id="playStatusText">{{__('已完成')}}</span>
                                     @else
-                                        <span id="playStatusText">{{__('未观看'}}</span>
+                                        <span id="playStatusText">{{__('未观看')}}</span>
                                     @endif
                                 </div>
                             </div>
@@ -724,7 +724,7 @@
 
                         <!-- Video Container -->
                         <div class="video-container">
-                            <div id="btn-quiz" class="position-absolute alert alert-warning show" onclick="toggleQuiz()">{{__('进入测验'}}</div>
+                            <div id="btn-quiz" class="position-absolute alert alert-warning show" onclick="toggleQuiz()">{{__('进入测验')}}</div>
 
                             <div id="play-content">
                                 @if($unit->type === 0)
@@ -798,13 +798,13 @@
 
         if (status === 2) {
             $chip.removeClass('pending').addClass('done').html(doneSvg);
-            $text.text('{{__('已完成'}}');
+            $text.text('{{__('已完成')}}');
         } else if (status === 1) {
             $chip.removeClass('done').addClass('pending').html(pendingSvg);
-            $text.text('{{__('已观看'}}');
+            $text.text('{{__('已观看')}}');
         } else {
             $chip.removeClass('done').addClass('pending').html(pendingSvg);
-            $text.text('{{__('未观看'}}');
+            $text.text('{{__('未观看')}}');
         }
     };
 </script>
