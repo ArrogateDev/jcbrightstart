@@ -665,7 +665,7 @@
                 <div class="course-info-card">
                     <div class="info-header">
                         <div class="info-title-block">
-                            <div class="info-tag">單元 1 of 7</div>
+                            <div class="info-tag">{{__('单元')}} 1 of 7</div>
                             <h1 class="info-title">{{$unit->title}}</h1>
                             <div class="info-meta">
                                 <div class="meta-item">
@@ -681,7 +681,7 @@
                                                 fill="#5E5E5E"></path>
                                         </svg>
                                     @endif
-                                    <span>{{$unit->type === 0?'影片課程':'PDF課程'}}</span>
+                                    <span>{{__($unit->type === 0?'影片课程':'PDF课程'}}</span>
                                 </div>
                                 <div class="meta-item">
                                     @if($play_record && $play_record->status === 2)
@@ -699,11 +699,11 @@
                                         </div>
                                     @endif
                                     @if($play_record && $play_record->status === 1)
-                                        <span id="playStatusText">已观看</span>
+                                        <span id="playStatusText">{{__('已观看'}}</span>
                                     @elseif($play_record && $play_record->status === 2)
-                                        <span id="playStatusText">已完成</span>
+                                        <span id="playStatusText">{{__('已完成'}}</span>
                                     @else
-                                        <span id="playStatusText">未观看</span>
+                                        <span id="playStatusText">{{__('未观看'}}</span>
                                     @endif
                                 </div>
                             </div>
@@ -724,7 +724,7 @@
 
                         <!-- Video Container -->
                         <div class="video-container">
-                            <div id="btn-quiz" class="position-absolute alert alert-warning show" onclick="toggleQuiz()">进入測驗</div>
+                            <div id="btn-quiz" class="position-absolute alert alert-warning show" onclick="toggleQuiz()">{{__('进入测验'}}</div>
 
                             <div id="play-content">
                                 @if($unit->type === 0)
@@ -747,11 +747,11 @@
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6"/>
                                 </svg>
-                                上一課
+                                {{__('上一单元')}}
                             </a>
 
                             <a href="{{$next ? route('course.unit.details.html', ['course' => $unit->course_id, 'unit' => $next]) : 'javascript:;' }}" @class(['nav-btn', 'primary' => $next, 'secondary' => !$next])>
-                                下一課
+                                {{__('下一单元')}}
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6"/>
                                 </svg>
@@ -798,13 +798,13 @@
 
         if (status === 2) {
             $chip.removeClass('pending').addClass('done').html(doneSvg);
-            $text.text('已完成');
+            $text.text('{{__('已完成'}}');
         } else if (status === 1) {
             $chip.removeClass('done').addClass('pending').html(pendingSvg);
-            $text.text('已观看');
+            $text.text('{{__('已观看'}}');
         } else {
             $chip.removeClass('done').addClass('pending').html(pendingSvg);
-            $text.text('未观看');
+            $text.text('{{__('未观看'}}');
         }
     };
 </script>

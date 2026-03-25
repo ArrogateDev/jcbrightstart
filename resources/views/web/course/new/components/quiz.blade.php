@@ -2,9 +2,9 @@
     <div class="quiz-header">
         <div class="quiz-title">
             <div class="quiz-icon">✏️</div>
-            <span class="quiz-label">隨堂測驗：{{$quiz->title}}</span>
+            <span class="quiz-label">{{__('随堂测验')}}：{{$quiz->title}}</span>
         </div>
-        <button class="collapse-btn" onclick="toggleQuiz()" title="摺疊測驗區">
+        <button class="collapse-btn" onclick="toggleQuiz()" title="{{__('折叠测验区')}}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 6 9 12 15 18"/>
             </svg>
