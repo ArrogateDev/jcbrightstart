@@ -100,9 +100,9 @@
         position: relative;
         width: 100%;
         @if($unit->type === 0)
-        aspect-ratio: 16 / 9;
+          aspect-ratio: 16 / 9;
         @endif
-        border-radius: 24px;
+          border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 16px 56px rgba(26, 39, 68, .28);
         margin-bottom: 2rem;
@@ -966,17 +966,28 @@
             }
         });
 
-        // 导出全局函数
-        window.openPlay = function (unitId, position) {
-            let $unit = $(`li[data-unit="${unitId}"]`);
-            const info = $unit.data('info');
-            if (!info) return;
-            currentUnitId = unitId;
-            currentChapterId = info.chapter_id;
-            playUnit(info, position || 0);
-        };
+        /**
+         * 跨标签页更新单元状态
+         */
+        function updateUnitStatus(unitId, newStatus, isAllCompleted = false) {
+            const message = {
+                type: 'UPDATE_UNIT_STATUS',
+                unitId: unitId,
+                newStatus: newStatus,
+                isAllCompleted: isAllCompleted
+            };
 
-                        window.updateUnitStatus(6, 1);
+            try {
+                const channel = new BroadcastChannel('course_updates');
+                channel.postMessage(message);
+                channel.close();
+            } catch (e) {
+                console.error('✗ Failed to send via BroadcastChannel:', e);
+            }
+        }
+
+        window.updateUnitStatus = updateUnitStatus;
+
         window.savePlayRecord = savePlayRecord;
         window.recordPlayEnd = recordPlayEnd;
         window.recordPlayStart = recordPlayStart;

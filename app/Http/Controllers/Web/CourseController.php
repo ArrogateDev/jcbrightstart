@@ -450,7 +450,7 @@ class CourseController extends Controller
                 return $chapter->units->count();
             });
             $is_completed = $completed >= $course->unit_num;
-            if ($is_completed) {
+            if ($is_completed && !UserCourseCertificate::query()->where('user_id', $user->id)->where('course_id', $course->id)->exists()) {
                 $certificate = new UserCourseCertificate();
                 $certificate->user_id = $user->id;
                 $certificate->course_id = $course->id;

@@ -639,6 +639,8 @@
                     const totalQuestions = parseInt(stats.total_questions) || 0;
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
+                    const isAllCompleted = stats.is_all_completed || false;
+                    console.log(stats,isAllCompleted);
 
                     if ($quizStatsAnswered.length) $quizStatsAnswered.text(`${answered} / ${totalQuestions}`);
                     if ($quizStatsCorrectRate.length) $quizStatsCorrectRate.text(`${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`);
@@ -650,7 +652,7 @@
 
                     // 标记单元完成测验（尽力而为：DOM 中不一定存在对应 unit 列表）
                     if (typeof window.updateUnitStatus === 'function') {
-                        window.updateUnitStatus(currentUnitId, 2);
+                        window.updateUnitStatus(currentUnitId, 2, isAllCompleted);
                     }
 
                     // 同步更新本页“观看/完成”状态为已完成（status=2）

@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                           / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                                       / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -695,7 +695,6 @@
 
     .certificate-requirement-item {
         display: flex;
-        align-items: center;
         justify-content: center;
         gap: 0.5rem;
     }
@@ -909,7 +908,7 @@
 
                                 <div class="lesson-list open">
                                     @foreach($chapter->units as $unit)
-                                        <div @class(['lesson-row', 'done'=>$unit->status === 2]) data-unit="{{$unit}}">
+                                        <div @class(['lesson-row', 'done'=>$unit->status === 2]) data-unit="{{$unit->id}}">
                                             <div @class(['play-btn', 'ti-nutrition', 'done'=>$unit->status === 2])>
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="38" height="38">
                                                     <text x="100" y="130"
@@ -984,15 +983,14 @@
                             </div>
                             <p class="certificate-description">完成所有章節和測驗後可申請證書</p>
                             <div class="certificate-requirements">
-
                                 <div class="certificate-requirement-item">
-                                    <div @class(['certificate-requirement-icon', 'in-progress'=>$read_completed < $course->unit_num, 'completed'=>$read_completed >= $course->unit_num])>{{$read_completed >= $course->unit_num?'✓' : '◐'}}</div>
+                                    <div @class(['certificate-requirement-icon', 'certificate-unit', 'in-progress'=>$read_completed < $course->unit_num, 'completed'=>$read_completed >= $course->unit_num])>{{$read_completed >= $course->unit_num?'✓' : '◐'}}</div>
                                     <div>完成所有章节學習 (<span id="unit-progress">{{$read_completed > 0 ? bcdiv($read_completed, $course->unit_num, 2) * 100 : 0}}</span>%)</div>
                                 </div>
 
                                 <div class="certificate-requirement-item">
-                                    <div @class(['certificate-requirement-icon', 'in-progress'=>$progress < 100, 'completed'=>$progress >=  100])>{{$progress >= 100?'✓' : '◐'}}</div>
-                                    <div>完成所有測驗 (<span id="unit-progress">{{$progress}}</span>%)</div>
+                                    <div @class(['certificate-requirement-icon', 'certificate-quiz', 'in-progress'=>$progress < 100, 'completed'=>$progress >=  100])>{{$progress >= 100?'✓' : '◐'}}</div>
+                                    <div>完成所有測驗 (<span id="quiz-progress">{{$progress}}</span>%)</div>
                                 </div>
                             </div>
 
@@ -1002,17 +1000,19 @@
                                 data-url="{{$course->certificate_download_url}}"
                             >
                                 <span class="certificate-button-content">
-                                    @if($progress >= 100)
-                                        <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                    </svg>
-                                    @else
-                                        <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                    @endif
+                                    <span class="svg">
+                                        @if($progress >= 100)
+                                            <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                            </svg>
+                                        @else
+                                            <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                            </svg>
+                                        @endif
+                                    </span>
                                     <span>申請證書</span>
                                 </span>
                             </button>
@@ -1031,36 +1031,84 @@
 
 </body>
 <script>
+    const channel = new BroadcastChannel('course_updates');
+    channel.onmessage = function (event) {
+        if (event.data && event.data.type === 'UPDATE_UNIT_STATUS') {
+            if (typeof window.updateUnitStatusInternal === 'function') {
+                window.updateUnitStatusInternal(event.data.unitId, event.data.newStatus, event.data.isAllCompleted);
+            } else {
+                console.error('✗ updateUnitStatusInternal not defined yet!');
+            }
+        }
+    };
+
     $(function () {
         /**
-         * 更新单元状态
+         * 更新单元状态（内部实现）
          */
-        function updateUnitStatus(unitId, newStatus) {
-            const total = {{$course->unit_num}};
-            const $unit = $('#unit-progress');
-            const progress = Math.ceil(1 / total * 100);
-            $unit.text(Math.max(parseInt($unit.text()) + progress, 100))
-
-            const $unitItem = $(`div[data-unit="${unitId}"]`);
-            if (!$unitItem.length) {
-                return;
+        function updateUnitStatusInternal(unitId, newStatus, isAllCompleted) {
+            console.log('updateUnitStatusInternal', unitId, newStatus, isAllCompleted);
+            if (newStatus === 1) {
+                const total = {{$course->unit_num}};
+                const $unit = $('#unit-progress');
+                const step = Math.ceil(1 / total * 100);
+                const progress = Math.max(parseInt($unit.text()) + step, 100);
+                $unit.text(progress)
+                if (progress >= 100) {
+                    $('.certificate-unit').html(`✓`).removeClass('in-progress').addClass('completed');
+                }
             }
 
-            if (newStatus !== 2) return;
+            if (newStatus === 2) {
 
-            $unitItem.addClass('done');
-            $unitItem.find('play-btn').addClass('done');
-            $unitItem.find('status-chip').removeClass('pending').addClass('done');
+                const total = {{$course->unit_num}};
+                const $unit = $('#quiz-progress');
+                const step = Math.ceil(1 / total * 100);
+                const progress = Math.max(parseInt($unit.text()) + step, 100);
+                $unit.text(progress)
+                if (progress >= 100) {
+                    $('.certificate-quiz').html(`✓`).removeClass('in-progress').addClass('completed');
+                }
 
-            $unitItem.find('status-chip').html(`
+                const $unitItem = $(`div[data-unit="${unitId}"]`);
+                if (!$unitItem.length) {
+                    return;
+                }
+
+                $unitItem.addClass('done');
+                $unitItem.find('.play-btn').addClass('done');
+                $unitItem.find('.status-chip').removeClass('pending').addClass('done');
+
+                $unitItem.find('.status-chip').html(`
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
                         <polyline points="8 12 11 15 16 9"/>
                     </svg>
                 `);
+
+                if (isAllCompleted) {
+                    $('.certificate-button').removeClass('disabled').addClass('enabled').removeAttr('disabled');
+                    $('.certificate-button .svg').html(`
+                                                <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                                </svg>`);
+                }
+            }
         }
 
-        window.updateUnitStatus = updateUnitStatus;
+        // 导出为全局函数供监听器调用
+        window.updateUnitStatusInternal = updateUnitStatusInternal;
+
+        $(document).on('click', '.certificate-button[data-url]', function () {
+            let url = $(this).attr('data-url');
+            if (url) {
+                window.open(url, '_blank');
+                return
+            }
+            console.log('certificate-button', url);
+            // window.open(url);
+        });
     })
 </script>
 </html>
