@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                                                          / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                                                           / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -1159,6 +1159,12 @@
 
 </body>
 <script>
+    function toggleLevel(header) {
+        header.classList.toggle('open');
+        var list = header.nextElementSibling;
+        list.classList.toggle('open');
+    }
+
     const channel = new BroadcastChannel('course_updates');
     channel.onmessage = function (event) {
         if (event.data && event.data.type === 'UPDATE_UNIT_STATUS') {
