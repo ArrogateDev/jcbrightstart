@@ -60,7 +60,7 @@ class CourseController extends Controller
             ->where('user_id', $user->id ?? 0)
             ->where('course_id', $course->id)
             ->orderByDesc('id')
-            ->select('course_id', 'chapter_id', 'unit_id', 'play_position', 'status')
+            ->select('course_id', 'chapter_id', 'unit_id', 'status')
             ->get();
 
         $course->chapters->map(function ($item) use ($play_records) {
@@ -72,19 +72,25 @@ class CourseController extends Controller
             $item->unit_num_completed = $item->units->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)->count();
         });
 
+        $read_completed = UserCoursePlayRecord::query()
+            ->where('user_id', $user->id ?? 0)
+            ->where('course_id', $course->id)
+            ->where('status', '>', UserCoursePlayRecord::UNFINISHED)
+            ->count() ?? 0;
+
         $completed = UserCoursePlayRecord::query()
             ->where('user_id', $user->id ?? 0)
             ->where('course_id', $course->id)
             ->where('status', UserCoursePlayRecord::QUIZ_COMPLETED)
             ->count() ?? 0;
 
-        $progress = $completed > 0 ? bcdiv($completed, $course->unit_num) * 100 : 0;
+        $progress = $completed > 0 ? bcdiv($completed, $course->unit_num, 2) * 100 : 0;
         $surplus = $course->unit_num - $completed;
         $surplus = $surplus < 0 ? 0 : $surplus;
 
         $play_record = $play_records->where('status', UserCoursePlayRecord::UNFINISHED)->first() ?? null;
 
-        return view('web.course.new.show', compact('course', 'completed', 'progress', 'surplus', 'play_record'));
+        return view('web.course.new.show', compact('course', 'read_completed', 'completed', 'progress', 'surplus', 'play_record'));
 //        return view('web.course.show', compact('course', 'play_record'));
     }
 
@@ -186,16 +192,16 @@ class CourseController extends Controller
 
             $result = UserCoursePlayRecord::query()
                 ->firstOrCreate(
-                [
-                    'user_id' => $user->id,
-                    'course_id' => $course->id,
-                    'chapter_id' => $request->chapter_id,
-                    'unit_id' => $request->unit_id,
-                ],
-                [
-                    'play_position' => $request->play_position
-                ]
-            );
+                    [
+                        'user_id' => $user->id,
+                        'course_id' => $course->id,
+                        'chapter_id' => $request->chapter_id,
+                        'unit_id' => $request->unit_id,
+                    ],
+                    [
+                        'play_position' => $request->play_position
+                    ]
+                );
             if ($result === false) {
                 throw new \Exception('log:failed');
             }

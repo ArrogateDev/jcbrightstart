@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}         / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                  / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -665,6 +665,109 @@
             transform: translateY(0)
         }
     }
+
+    /* ─── CERTIFICATE STATUS ─────────────────────────────────── */
+    .certificate-status-container {
+        text-align: center;
+        padding: 1.5rem 0;
+    }
+
+    .certificate-icon {
+        font-size: 3.75rem;
+        line-height: 1;
+        margin-bottom: 1rem;
+    }
+
+    .certificate-description {
+        color: #4b5563;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+    }
+
+    .certificate-requirements {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #4b5563;
+        margin-bottom: 1.5rem;
+    }
+
+    .certificate-requirement-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .certificate-requirement-icon {
+        font-weight: bold;
+    }
+
+    .certificate-requirement-icon.completed {
+        color: #22c55e;
+    }
+
+    .certificate-requirement-icon.in-progress {
+        color: #eab308;
+    }
+
+    /* Certificate Button Base Styles */
+    .certificate-button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .certificate-button-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .certificate-button-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    /* Disabled State */
+    .certificate-button.disabled {
+        cursor: not-allowed;
+        background-color: #e5e7eb;
+        color: #9ca3af;
+        border: 1px solid #d1d5db;
+        box-shadow: none;
+    }
+
+    .certificate-button.disabled:hover,
+    .certificate-button.disabled:active {
+        background-color: #e5e7eb;
+        color: #9ca3af;
+        box-shadow: none;
+        transform: none;
+    }
+
+    /* Active/Enabled State */
+    .certificate-button.enabled {
+        cursor: pointer;
+        background: linear-gradient(to right, #facc15, #f97316);
+        color: white;
+        border: unset;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .certificate-button.enabled:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        background: linear-gradient(to right, #eab308, #ea580c);
+    }
+
+    .certificate-button.enabled:active {
+        transform: scale(0.98);
+    }
 </style>
 
 <body>
@@ -685,7 +788,7 @@
                 <div class="course-hero-info">
                     <div class="course-hero-title">{{$course->title}}</div>
                     <div class="course-hero-meta">
-                        <div class="meta-chip"><span class="dot"></span>{{$course->chapter_num??0}} 個學習單元</div>
+                        <div class="meta-chip"><span class="dot"></span>{{$course->unit_num??0}} 個學習章节</div>
                         <div class="meta-chip"><span class="dot" style="background:var(--mint)"></span>{{$completed}} 已完成</div>
                     </div>
                 </div>
@@ -709,11 +812,9 @@
                 </div>
             </div>
 
-            <!-- Quick Stats -->
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-icon-box sb-coral">
-                        <!-- books / courses -->
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
@@ -723,12 +824,11 @@
                     </div>
                     <div class="stat-info">
                         <div class="num nc">{{$course->unit_num??0}}</div>
-                        <div class="lbl">課程單元</div>
+                        <div class="lbl">課程章节</div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon-box sb-mint">
-                        <!-- check circle -->
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <polyline points="8 12 11 15 16 9"/>
@@ -736,12 +836,11 @@
                     </div>
                     <div class="stat-info">
                         <div class="num nm">{{$completed}}</div>
-                        <div class="lbl">已完成單元</div>
+                        <div class="lbl">已完成章节</div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon-box sb-lavender">
-                        <!-- hourglass -->
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B39DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 2h14"/>
                             <path d="M5 22h14"/>
@@ -751,7 +850,7 @@
                     </div>
                     <div class="stat-info">
                         <div class="num nl">{{$surplus}}</div>
-                        <div class="lbl">待完成單元</div>
+                        <div class="lbl">待完成章节</div>
                     </div>
                 </div>
             </div>
@@ -775,100 +874,159 @@
                     {!! $course->description !!}
                 </div>
             </div>
-
-            <!-- Curriculum -->
-            <div class="curriculum-card">
-                <div class="section-header">
-                    <div class="section-header-icon icon-blue">
-                        <!-- folder tabs / curriculum -->
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 6h4l2-2h6l2 2h4v14H3z"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                            <line x1="8" y1="14" x2="16" y2="14"/>
-                            <line x1="8" y1="18" x2="13" y2="18"/>
-                        </svg>
-                    </div>
-                    <span class="section-label">課程內容</span>
-                    <span class="section-count">{{$course->unit_num??0}} 個單元</span>
-                </div>
-
-                @foreach($course->chapters as $index => $chapter)
-                    <div class="level-block">
-                        <div class="level-header open" onclick="toggleLevel(this)">
-                            <div class="level-left">
-                                <div class="level-badge">{{$index + 1}}</div>
-                                <span class="level-name">{{$chapter->title}}</span>
-                            </div>
-                            <div class="level-right">
-                                <span class="level-meta">{{$chapter->unit_num}} 個章节 · {{$chapter->unit_num_completed}} 已完成</span>
-                                <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="6 9 12 15 18 9"/>
+            <div class="row mt-4">
+                <div class="col-9">
+                    <!-- Curriculum -->
+                    <div class="curriculum-card">
+                        <div class="section-header">
+                            <div class="section-header-icon icon-blue">
+                                <!-- folder tabs / curriculum -->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h4l2-2h6l2 2h4v14H3z"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                    <line x1="8" y1="14" x2="16" y2="14"/>
+                                    <line x1="8" y1="18" x2="13" y2="18"/>
                                 </svg>
                             </div>
+                            <span class="section-label">課程內容</span>
+                            <span class="section-count">{{$course->unit_num??0}} 個章节</span>
                         </div>
 
-                        <div class="lesson-list open">
-                            @foreach($chapter->units as $unit)
-                                <div class="lesson-row done">
-                                    <div class="play-btn done ti-nutrition">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="38" height="38">
-
-                                            <text x="100" y="130"
-                                                  font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"
-                                                  font-size="80"
-                                                  font-weight="800"
-                                                  fill="#2C3E66"
-                                                  text-anchor="middle"
-                                                  dominant-baseline="middle">
-                                                {{ $loop->parent->iteration }}.{{ $loop->iteration }}
-                                            </text>
-
-                                            <line x1="45" y1="155" x2="155" y2="155" stroke="#A0B8D4" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                        @foreach($course->chapters as $index => $chapter)
+                            <div class="level-block">
+                                <div class="level-header open" onclick="toggleLevel(this)">
+                                    <div class="level-left">
+                                        <div class="level-badge">{{$index + 1}}</div>
+                                        <span class="level-name">{{$chapter->title}}</span>
+                                    </div>
+                                    <div class="level-right">
+                                        <span class="level-meta">{{$chapter->unit_num}} 個章节 · {{$chapter->unit_num_completed}} 已完成</span>
+                                        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="6 9 12 15 18 9"/>
                                         </svg>
                                     </div>
-                                    <div class="lesson-info">
-                                        <div class="lesson-title">{{$unit->title}}</div>
-                                        <div class="lesson-sub">
-                                            @if($unit->type === 0)
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <polygon points="23 7 16 12 23 17 23 7"/>
-                                                    <rect x="1" y="5" width="15" height="14" rx="2"/>
-                                                </svg>
-                                                <span>影片課程</span>
-                                            @else
-                                                <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-                                                    <path
-                                                        d="M905.185809 178.844158C898.576738 172.685485 891.19337 165.824412 883.21687 158.436127 860.422682 137.322863 837.434925 116.207791 815.697647 96.487895 813.243072 94.261877 813.243072 94.261877 810.786411 92.037081 781.783552 65.781062 757.590948 44.376502 739.713617 29.293612 729.254178 20.469111 721.020606 13.860686 714.970549 9.501727 710.955023 6.608611 707.690543 4.524745 704.47155 2.998714 700.417679 1.07689 696.638044-0.094029 691.307277 0.005928 677.045677 0.273349 665.6 11.769337 665.6 26.182727L665.6 77.352844 665.6 128.522961 665.6 230.863194 665.6 256.448252 691.2 256.448252 896 256.448252 870.4 230.863194 870.4 998.414942 896 972.829884 230.381436 972.829884C187.90385 972.829884 153.6 938.623723 153.6 896.20663L153.6 26.182727 128 51.767786 588.8 51.767786C602.93849 51.767786 614.4 40.312965 614.4 26.182727 614.4 12.05249 602.93849 0.597669 588.8 0.597669L128 0.597669 102.4 0.597669 102.4 26.182727 102.4 896.20663C102.4 966.91021 159.652833 1024 230.381436 1024L896 1024 921.6 1024 921.6 998.414942 921.6 230.863194 921.6 205.278135 896 205.278135 691.2 205.278135 716.8 230.863194 716.8 128.522961 716.8 77.352844 716.8 26.182727C716.8 39.813762 705.748075 50.91427 692.267725 51.167041 687.705707 51.252584 685.069822 50.435995 682.52845 49.231204 682.259458 49.103682 683.344977 49.796618 685.029451 51.010252 689.779394 54.432502 697.145822 60.34494 706.686383 68.394196 724.009052 83.009121 747.816448 104.072869 776.413589 129.961594 778.850014 132.168064 778.850014 132.168064 781.285216 134.376514 802.876774 153.964212 825.739479 174.96442 848.413564 195.966437 856.350957 203.3185 863.697005 210.144893 870.269888 216.269843 874.209847 219.941299 877.019309 222.565641 878.499674 223.951409 888.81866 233.610931 905.019017 233.081212 914.684179 222.768247 924.349344 212.455283 923.819315 196.264383 913.500326 186.604861 911.981323 185.182945 909.155025 182.542876 905.185809 178.844158ZM102.4 461.128719 0 461.128719 0 896.074709 512 896.074709 1024 896.074709 1024 461.128719 153.6 461.128719 153.6 460.531049 102.4 460.531049 102.4 461.128719ZM208.2 711 208.2 819.2 157.6 819.2 157.6 528 269 528C301.533495 528 327.366571 536.466581 346.5 553.4 365.633429 570.333419 375.2 592.733195 375.2 620.6 375.2 649.133476 365.833427 671.333254 347.1 687.2 328.366573 703.066746 302.133502 711 268.4 711L208.2 711ZM208.2 670.4 269 670.4C287.00009 670.4 300.733286 666.166709 310.2 657.7 319.666714 649.233291 324.4 637.000079 324.4 621 324.4 605.266588 319.600047 592.700047 310 583.3 300.399951 573.899953 287.200083 569.066669 270.4 568.8L208.2 568.8 208.2 670.4ZM419.4 819.2 419.4 528 505.4 528C531.133461 528 553.966566 533.733276 573.9 545.2 593.833434 556.666724 609.266611 572.933229 620.2 594 631.133389 615.066771 636.6 639.199863 636.6 666.4L636.6 681C636.6 708.600139 631.100055 732.866562 620.1 753.8 609.099945 774.733438 593.433436 790.866609 573.1 802.2 552.766564 813.533391 529.466799 819.2 503.2 819.2L419.4 819.2ZM470 568.8 470 778.8 503 778.8C529.533466 778.8 549.89993 770.500083 564.1 753.9 578.30007 737.299917 585.533331 713.466822 585.8 682.4L585.8 666.2C585.8 634.599842 578.933402 610.46675 565.2 593.8 551.466598 577.13325 531.533463 568.8 505.4 568.8L470 568.8ZM854.8 695.8 737.6 695.8 737.6 819.2 687 819.2 687 528 872 528 872 568.8 737.6 568.8 737.6 655.4 854.8 655.4 854.8 695.8Z"
-                                                        fill="#5E5E5E"></path>
-                                                </svg>
-                                                <span>PDF課程</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="lesson-actions">
-                                        <a class="open-btn" href="{{$unit->url}}">打開</a>
-                                        @if($unit->status === 2)
-                                            <div class="status-chip done">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="12" cy="12" r="10"/>
-                                                    <polyline points="8 12 11 15 16 9"/>
-                                                </svg>
-                                            </div>
-                                        @else
-                                            <div class="status-chip pending">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <circle cx="12" cy="12" r="10"/>
-                                                </svg>
-                                            </div>
-                                        @endif
-                                    </div>
                                 </div>
-                            @endforeach
 
+                                <div class="lesson-list open">
+                                    @foreach($chapter->units as $unit)
+                                        <div class="lesson-row done">
+                                            <div class="play-btn done ti-nutrition">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="38" height="38">
+
+                                                    <text x="100" y="130"
+                                                          font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+                                                          font-size="80"
+                                                          font-weight="800"
+                                                          fill="#2C3E66"
+                                                          text-anchor="middle"
+                                                          dominant-baseline="middle">
+                                                        {{ $loop->parent->iteration }}.{{ $loop->iteration }}
+                                                    </text>
+
+                                                    <line x1="45" y1="155" x2="155" y2="155" stroke="#A0B8D4" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+                                                </svg>
+                                            </div>
+                                            <div class="lesson-info">
+                                                <div class="lesson-title">{{$unit->title}}</div>
+                                                <div class="lesson-sub">
+                                                    @if($unit->type === 0)
+                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                             stroke-linejoin="round">
+                                                            <polygon points="23 7 16 12 23 17 23 7"/>
+                                                            <rect x="1" y="5" width="15" height="14" rx="2"/>
+                                                        </svg>
+                                                        <span>影片課程</span>
+                                                    @else
+                                                        <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
+                                                            <path
+                                                                d="M905.185809 178.844158C898.576738 172.685485 891.19337 165.824412 883.21687 158.436127 860.422682 137.322863 837.434925 116.207791 815.697647 96.487895 813.243072 94.261877 813.243072 94.261877 810.786411 92.037081 781.783552 65.781062 757.590948 44.376502 739.713617 29.293612 729.254178 20.469111 721.020606 13.860686 714.970549 9.501727 710.955023 6.608611 707.690543 4.524745 704.47155 2.998714 700.417679 1.07689 696.638044-0.094029 691.307277 0.005928 677.045677 0.273349 665.6 11.769337 665.6 26.182727L665.6 77.352844 665.6 128.522961 665.6 230.863194 665.6 256.448252 691.2 256.448252 896 256.448252 870.4 230.863194 870.4 998.414942 896 972.829884 230.381436 972.829884C187.90385 972.829884 153.6 938.623723 153.6 896.20663L153.6 26.182727 128 51.767786 588.8 51.767786C602.93849 51.767786 614.4 40.312965 614.4 26.182727 614.4 12.05249 602.93849 0.597669 588.8 0.597669L128 0.597669 102.4 0.597669 102.4 26.182727 102.4 896.20663C102.4 966.91021 159.652833 1024 230.381436 1024L896 1024 921.6 1024 921.6 998.414942 921.6 230.863194 921.6 205.278135 896 205.278135 691.2 205.278135 716.8 230.863194 716.8 128.522961 716.8 77.352844 716.8 26.182727C716.8 39.813762 705.748075 50.91427 692.267725 51.167041 687.705707 51.252584 685.069822 50.435995 682.52845 49.231204 682.259458 49.103682 683.344977 49.796618 685.029451 51.010252 689.779394 54.432502 697.145822 60.34494 706.686383 68.394196 724.009052 83.009121 747.816448 104.072869 776.413589 129.961594 778.850014 132.168064 778.850014 132.168064 781.285216 134.376514 802.876774 153.964212 825.739479 174.96442 848.413564 195.966437 856.350957 203.3185 863.697005 210.144893 870.269888 216.269843 874.209847 219.941299 877.019309 222.565641 878.499674 223.951409 888.81866 233.610931 905.019017 233.081212 914.684179 222.768247 924.349344 212.455283 923.819315 196.264383 913.500326 186.604861 911.981323 185.182945 909.155025 182.542876 905.185809 178.844158ZM102.4 461.128719 0 461.128719 0 896.074709 512 896.074709 1024 896.074709 1024 461.128719 153.6 461.128719 153.6 460.531049 102.4 460.531049 102.4 461.128719ZM208.2 711 208.2 819.2 157.6 819.2 157.6 528 269 528C301.533495 528 327.366571 536.466581 346.5 553.4 365.633429 570.333419 375.2 592.733195 375.2 620.6 375.2 649.133476 365.833427 671.333254 347.1 687.2 328.366573 703.066746 302.133502 711 268.4 711L208.2 711ZM208.2 670.4 269 670.4C287.00009 670.4 300.733286 666.166709 310.2 657.7 319.666714 649.233291 324.4 637.000079 324.4 621 324.4 605.266588 319.600047 592.700047 310 583.3 300.399951 573.899953 287.200083 569.066669 270.4 568.8L208.2 568.8 208.2 670.4ZM419.4 819.2 419.4 528 505.4 528C531.133461 528 553.966566 533.733276 573.9 545.2 593.833434 556.666724 609.266611 572.933229 620.2 594 631.133389 615.066771 636.6 639.199863 636.6 666.4L636.6 681C636.6 708.600139 631.100055 732.866562 620.1 753.8 609.099945 774.733438 593.433436 790.866609 573.1 802.2 552.766564 813.533391 529.466799 819.2 503.2 819.2L419.4 819.2ZM470 568.8 470 778.8 503 778.8C529.533466 778.8 549.89993 770.500083 564.1 753.9 578.30007 737.299917 585.533331 713.466822 585.8 682.4L585.8 666.2C585.8 634.599842 578.933402 610.46675 565.2 593.8 551.466598 577.13325 531.533463 568.8 505.4 568.8L470 568.8ZM854.8 695.8 737.6 695.8 737.6 819.2 687 819.2 687 528 872 528 872 568.8 737.6 568.8 737.6 655.4 854.8 655.4 854.8 695.8Z"
+                                                                fill="#5E5E5E"></path>
+                                                        </svg>
+                                                        <span>PDF課程</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="lesson-actions">
+                                                <a class="open-btn" href="{{$unit->url}}" target="_blank">打開</a>
+                                                @if($unit->status === 2)
+                                                    <div class="status-chip done">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                            <circle cx="12" cy="12" r="10"/>
+                                                            <polyline points="8 12 11 15 16 9"/>
+                                                        </svg>
+                                                    </div>
+                                                @else
+                                                    <div class="status-chip pending">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <circle cx="12" cy="12" r="10"/>
+                                                        </svg>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="curriculum-card">
+                        <div class="section-header">
+                            <div class="section-header-icon icon-blue">
+                                🏅
+                            </div>
+                            <span class="section-label">證書狀態</span>
+                        </div>
+                        <div class="certificate-status-container">
+                            <div class="certificate-icon">
+                                🏆
+                            </div>
+                            <p class="certificate-description">完成所有章節和測驗後可申請證書</p>
+                            <div class="certificate-requirements">
+                                @if($read_completed >= $course->unit_num)
+                                    <div class="certificate-requirement-item">
+                                        <span class="certificate-requirement-icon completed">✓</span>
+                                        <span>完成所有章节學習 ({{$read_completed > 0 ? bcdiv($read_completed, $course->unit_num, 2) * 100 : 0}}%)</span>
+                                    </div>
+                                @else
+                                    <div class="certificate-requirement-item">
+                                        <span class="certificate-requirement-icon in-progress">◐</span>
+                                        <span>完成所有章节學習</span>
+                                    </div>
+                                @endif
+                                @if($progress >= 100)
+                                    <div class="certificate-requirement-item">
+                                        <span class="certificate-requirement-icon completed">✓</span>
+                                        <span>完成所有測驗</span>
+                                    </div>
+                                @else
+                                    <div class="certificate-requirement-item">
+                                        <span class="certificate-requirement-icon in-progress">◐</span>
+                                        <span>完成所有測驗 ({{$progress}}%)</span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <button
+                                @disabled($progress < 100)
+                                @class(['certificate-button', 'disabled'=> $progress < 100, 'enabled'=> $progress >= 100])
+                                data-url="{{$course->certificate_download_url}}"
+                            >
+                                <span class="certificate-button-content">
+                                    <svg class="certificate-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                    <span>申請證書</span>
+                                </span>
+                            </button>
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
 
         </div>
