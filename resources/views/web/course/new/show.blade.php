@@ -1109,7 +1109,7 @@
                                             </svg>
                                         @endif
                                     </span>
-                                    <span>{{__('申请证书')}}</span>
+                                    <span>{{__('下载证书')}}</span>
                                 </span>
                                 <span class="loader-wrapper hide">
                                     <span>{{__('生成中')}}</span>
