@@ -653,6 +653,11 @@
                     if (typeof window.updateUnitStatus === 'function') {
                         window.updateUnitStatus(currentUnitId, 2);
                     }
+
+                    // 同步更新本页“观看/完成”状态为已完成（status=2）
+                    if (typeof window.setPlayRecordStatus === 'function') {
+                        window.setPlayRecordStatus(2);
+                    }
                 },
                 error: function () {
                     showToast('error', '{{__('获取统计信息失败，请重试')}}');

@@ -685,25 +685,25 @@
                                 </div>
                                 <div class="meta-item">
                                     @if($play_record && $play_record->status === 2)
-                                        <div class="status-chip done">
+                                        <div class="status-chip done" id="playStatusChip">
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                                 <circle cx="12" cy="12" r="10"/>
                                                 <polyline points="8 12 11 15 16 9"/>
                                             </svg>
                                         </div>
                                     @else
-                                        <div class="status-chip pending">
+                                        <div class="status-chip pending" id="playStatusChip">
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <circle cx="12" cy="12" r="10"/>
                                             </svg>
                                         </div>
                                     @endif
                                     @if($play_record && $play_record->status === 1)
-                                        <span>已观看</span>
+                                        <span id="playStatusText">已观看</span>
                                     @elseif($play_record && $play_record->status === 2)
-                                        <span>已完成</span>
+                                        <span id="playStatusText">已完成</span>
                                     @else
-                                        <span>未观看</span>
+                                        <span id="playStatusText">未观看</span>
                                     @endif
                                 </div>
                             </div>
@@ -775,6 +775,39 @@
 
 </div>
 </body>
+
+<script>
+    // 供测验完成后即时更新“观看/完成”状态
+    window.setPlayRecordStatus = function (newStatus) {
+        const status = parseInt(newStatus || 0, 10);
+        const $chip = $('#playStatusChip');
+        const $text = $('#playStatusText');
+        if (!$chip.length || !$text.length) return;
+
+        const doneSvg = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="8 12 11 15 16 9"/>
+            </svg>
+        `;
+        const pendingSvg = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+            </svg>
+        `;
+
+        if (status === 2) {
+            $chip.removeClass('pending').addClass('done').html(doneSvg);
+            $text.text('已完成');
+        } else if (status === 1) {
+            $chip.removeClass('done').addClass('pending').html(pendingSvg);
+            $text.text('已观看');
+        } else {
+            $chip.removeClass('done').addClass('pending').html(pendingSvg);
+            $text.text('未观看');
+        }
+    };
+</script>
 
 <script>
     $(function () {
