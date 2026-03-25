@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                                                        / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                                                          / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -1231,7 +1231,12 @@
         const $courseCompleteModal = $('#course-complete-box');
         let pollTimer = null;
         let pollStartTime = null;
-        const POLL_TIMEOUT = 60000; // 60秒超时
+        const POLL_TIMEOUT = 60000; // 60 秒超时
+
+        // 关闭模态框
+        $courseCompleteModal.on('click', '[data-dismiss="modal"]', function () {
+            $courseCompleteModal.modal('hide');
+        });
 
         $(document).on('click', '.certificate-button[data-url]', function () {
             let url = $(this).attr('data-url');
@@ -1324,14 +1329,27 @@
                         // 隐藏 loading
                         hideLoading($courseCompleteModal.find('.modal-content'));
 
-                        $('.certificate-button-content').show()
-                        $('.loader-wrapper').addClass('hide')
                         $courseCompleteModal.modal('hide');
+                        $('.certificate-button').attr('data-url', data.download_url)
                         showToast('success', "{{__('证书生成成功')}}");
+                        window.open(data.download_url, '_blank');
                     }
                 }
             });
         }
+
+        $courseCompleteModal.on('hidden.bs.modal', function () {
+            // 停止轮询
+            if (pollTimer) {
+                clearInterval(pollTimer);
+                pollTimer = null;
+            }
+
+            // 重置状态
+            pollStartTime = null;
+            $('.certificate-button-content').show()
+            $('.loader-wrapper').addClass('hide')
+        });
     })
 </script>
 </html>
