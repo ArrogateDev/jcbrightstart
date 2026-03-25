@@ -92,6 +92,13 @@ class CourseController extends Controller
     {
         $user = $request->user('web');
 
+        $play_record = UserCoursePlayRecord::query()
+            ->where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->where('chapter_id', $unit->chapter_id)
+            ->where('unit_id', $unit->id)
+            ->first() ?? null;
+
         $answer_records = UserQuizAnswerRecord::query()
             ->where('user_id', $user->id)
             ->where('course_id', $course->id)
@@ -142,7 +149,7 @@ class CourseController extends Controller
             ->orderBy('id')
             ->value('id');
 
-        return view('web.course.new.show-unit', compact('course', 'unit', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
+        return view('web.course.new.show-unit', compact('course', 'unit', 'play_record', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
     }
 
     /**
@@ -177,7 +184,8 @@ class CourseController extends Controller
 
         try {
 
-            $result = UserCoursePlayRecord::firstOrCreate(
+            $result = UserCoursePlayRecord::query()
+                ->firstOrCreate(
                 [
                     'user_id' => $user->id,
                     'course_id' => $course->id,
@@ -230,19 +238,21 @@ class CourseController extends Controller
 
         try {
 
-            $result = UserCoursePlayRecord::firstOrCreate(
-                [
-                    'user_id' => $user->id,
-                    'course_id' => $course->id,
-                    'chapter_id' => $request->chapter_id,
-                    'unit_id' => $request->unit_id,
-                ],
-                [
-                    'start_time' => now(),
-                    'play_position' => 0,
-                ]
-            );
-            if ($result === false) {
+            $play_record = UserCoursePlayRecord::query()
+                ->firstOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'course_id' => $course->id,
+                        'chapter_id' => $request->chapter_id,
+                        'unit_id' => $request->unit_id,
+                    ],
+                    [
+                        'play_position' => 0,
+                    ]
+                );
+
+            $play_record->start_time = now();
+            if ($play_record === false) {
                 throw new \Exception('log:failed');
             }
 
@@ -284,7 +294,7 @@ class CourseController extends Controller
         }
 
         $play_record = UserCoursePlayRecord::query()
-            ->where('user_id', Auth::id())
+            ->where('user_id', $user->id)
             ->where('course_id', $course->id)
             ->where('chapter_id', $request->chapter_id)
             ->where('unit_id', $request->unit_id)
@@ -294,15 +304,15 @@ class CourseController extends Controller
 
         try {
 
-            $endTime = now();
+            $end_time = now();
             $duration = 0;
 
             if ($play_record->start_time) {
-                $duration = $endTime->diffInSeconds($play_record->start_time);
+                $duration = $end_time->diffInSeconds($play_record->start_time);
             }
 
             $result = $play_record->update([
-                'end_time' => $endTime,
+                'end_time' => $end_time,
                 'duration' => $duration,
                 'status' => UserCoursePlayRecord::PLAY_COMPLETED,
                 'play_position' => $request->play_position ?? $play_record->play_position,
@@ -353,14 +363,17 @@ class CourseController extends Controller
         ]);
 
         $play_record = UserCoursePlayRecord::query()
-            ->where('user_id', $user->id)
-            ->where('course_id', $course->id)
-            ->where('chapter_id', $request->chapter_id)
-            ->where('unit_id', $request->unit_id)
-            ->first() ?? null;
-        if (!$play_record) {
-            throw new ApiException(__('参数错误'), ResponseCode::PARAM_ERR);
-        }
+            ->firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'course_id' => $course->id,
+                    'chapter_id' => $request->chapter_id,
+                    'unit_id' => $request->unit_id,
+                ],
+                [
+                    'play_position' => 0,
+                ]
+            );
 
         if (!CourseChapterUnit::query()
             ->where('course_id', $course->id)

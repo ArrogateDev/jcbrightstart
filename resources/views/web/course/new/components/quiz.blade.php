@@ -123,11 +123,11 @@
     }
 </style>
 <script>
+
     // Quiz Panel Toggle
     function toggleQuiz() {
-        const rightCol = document.getElementById('rightColumn');
-
-        const isHidden = rightCol && rightCol.classList.contains('hidden');
+        const $rightCol = $('#rightColumn');
+        const isHidden = $rightCol.length && $rightCol.hasClass('hidden');
         if (isHidden) {
             showQuizPanel();
         } else {
@@ -146,14 +146,14 @@
     }
 
     function showQuizPanel() {
-        const rightCol = document.getElementById('rightColumn');
-        const mainLayout = document.getElementById('mainLayout');
-        const expandHintWrapper = document.getElementById('btn-quiz');
+        const $rightCol = $('#rightColumn');
+        const $mainLayout = $('#mainLayout');
+        const $expandHintWrapper = $('#btn-quiz');
 
-        if (!rightCol) return;
-        rightCol.classList.remove('hidden');
-        if (mainLayout) mainLayout.classList.remove('quiz-hidden');
-        if (expandHintWrapper) expandHintWrapper.classList.remove('show');
+        if (!$rightCol.length) return;
+        $rightCol.removeClass('hidden');
+        if ($mainLayout.length) $mainLayout.removeClass('quiz-hidden');
+        if ($expandHintWrapper.length) $expandHintWrapper.removeClass('show');
 
         if (typeof window.ensureQuizLoaded === 'function') {
             window.ensureQuizLoaded({autoStart: false});
@@ -161,49 +161,44 @@
     }
 
     function hideQuizPanel() {
-        const rightCol = document.getElementById('rightColumn');
-        const mainLayout = document.getElementById('mainLayout');
-        const expandHintWrapper = document.getElementById('btn-quiz');
+        const $rightCol = $('#rightColumn');
+        const $mainLayout = $('#mainLayout');
+        const $expandHintWrapper = $('#btn-quiz');
 
-        if (!rightCol) return;
-        rightCol.classList.add('hidden');
-        if (mainLayout) mainLayout.classList.add('quiz-hidden');
-        if (expandHintWrapper) expandHintWrapper.classList.add('show');
+        if (!$rightCol.length) return;
+        $rightCol.addClass('hidden');
+        if ($mainLayout.length) $mainLayout.addClass('quiz-hidden');
+        if ($expandHintWrapper.length) $expandHintWrapper.addClass('show');
     }
 
     window.showQuizPanel = showQuizPanel;
     window.hideQuizPanel = hideQuizPanel;
 
     $(function () {
-        const quizCard = document.getElementById('quizCard');
-        const quizStartView = document.getElementById('quizStartView');
-        const quizQuestionView = document.getElementById('quizQuestionView');
-        const quizQuestionText = document.getElementById('quizQuestionText');
-        const quizOptionsList = document.getElementById('quizOptionsList');
-        const quizFeedback = document.getElementById('quizFeedback');
-        const feedbackTitle = document.getElementById('feedbackTitle');
-        const feedbackText = document.getElementById('feedbackText');
-        const feedbackExplanation = document.getElementById('feedbackExplanation');
-        const quizStatisticsView = document.getElementById('quizStatisticsView');
-
-        const quizProgressFill = document.getElementById('quizProgressFill');
-        const quizCurrentEl = document.getElementById('quizCurrent');
-        const quizTotalEl = document.getElementById('quizTotal');
-
-        const quizStartButton = document.getElementById('quizStartButton');
-        const quizActions = document.getElementById('quizActions');
-        const quizPrevBtn = document.getElementById('quizPrevBtn');
-        const quizNextBtn = document.getElementById('quizNextBtn');
-
-        const quizStatsAnswered = document.getElementById('quizStatsAnswered');
-        const quizStatsCorrectRate = document.getElementById('quizStatsCorrectRate');
-
+        const $quizCard = $('#quizCard');
+        const $quizStartView = $('#quizStartView');
+        const $quizQuestionView = $('#quizQuestionView');
+        const $quizQuestionText = $('#quizQuestionText');
         const $quizOptionsList = $('#quizOptionsList');
+        const $quizFeedback = $('#quizFeedback');
+        const $feedbackTitle = $('#feedbackTitle');
+        const $feedbackText = $('#feedbackText');
+        const $feedbackExplanation = $('#feedbackExplanation');
+        const $quizStatisticsView = $('#quizStatisticsView');
+
         const $quizProgressFill = $('#quizProgressFill');
         const $quizCurrent = $('#quizCurrent');
         const $quizTotal = $('#quizTotal');
 
-        if (!quizCard) return;
+        const $quizStartButton = $('#quizStartButton');
+        const $quizActions = $('#quizActions');
+        const $quizPrevBtn = $('#quizPrevBtn');
+        const $quizNextBtn = $('#quizNextBtn');
+
+        const $quizStatsAnswered = $('#quizStatsAnswered');
+        const $quizStatsCorrectRate = $('#quizStatsCorrectRate');
+
+        if (!$quizCard.length) return;
 
         // 初始化：来自后端的已答题列表（用于打开时决定从第几个题开始）
         const initialAnsweredQuestionsList = @json($answered_questions ?? []);
@@ -233,21 +228,23 @@
         let currentChapterId = {{ $unit->chapter_id }};
         let currentUnitId = {{ $unit->id }};
         let currentQuizId = {{ $unit->quiz_id ?? 0 }};
+        const serverUnitStatus = @json($play_record->status ?? 0);
+        console.log('serverUnitStatus', serverUnitStatus);
 
-        function hideEl(el) {
-            if (!el) return;
-            $(el).addClass('d-none').hide();
+        function hideEl($el) {
+            if (!$el || !$el.length) return;
+            $el.addClass('d-none').hide();
         }
 
-        function showEl(el) {
-            if (!el) return;
-            $(el).removeClass('d-none').show();
+        function showEl($el) {
+            if (!$el || !$el.length) return;
+            $el.removeClass('d-none').show();
         }
 
         function showQuizActions(show) {
-            if (!quizActions) return;
-            if (show) showEl(quizActions);
-            else hideEl(quizActions);
+            if (!$quizActions.length) return;
+            if (show) showEl($quizActions);
+            else hideEl($quizActions);
         }
 
         function updateQuestionNavButtons() {
@@ -256,46 +253,43 @@
             const isFirst = currentQuestionIndex <= 0;
             const isLast = currentQuestionIndex >= quizData.questions.length - 1;
 
-            if (quizPrevBtn) {
-                quizPrevBtn.disabled = isFirst;
+            if ($quizPrevBtn.length) {
+                $quizPrevBtn.prop('disabled', isFirst);
             }
-            if (quizNextBtn) {
-                quizNextBtn.disabled = !isAnswered;
-                quizNextBtn.textContent = isLast
+            if ($quizNextBtn.length) {
+                $quizNextBtn.prop('disabled', !isAnswered).text(isLast
                     ? (isReviewMode ? '{{__('完成')}}' : '{{__('提交答案')}}')
-                    : '{{__('下一题')}}';
+                    : '{{__('下一题')}}');
             }
         }
 
         function setFeedback(type, titleText, explanationText) {
-            if (!quizFeedback || !feedbackTitle || !feedbackText) return;
+            if (!$quizFeedback.length || !$feedbackTitle.length || !$feedbackText.length) return;
 
-            quizFeedback.classList.remove('show', 'correct', 'incorrect');
-            feedbackTitle.classList.remove('correct', 'incorrect');
+            $quizFeedback.removeClass('show correct incorrect');
+            $feedbackTitle.removeClass('correct incorrect');
 
             if (type === 'correct') {
-                quizFeedback.classList.add('correct', 'show');
-                feedbackTitle.classList.add('correct');
+                $quizFeedback.addClass('correct show');
+                $feedbackTitle.addClass('correct');
             } else if (type === 'incorrect') {
-                quizFeedback.classList.add('incorrect', 'show');
-                feedbackTitle.classList.add('incorrect');
+                $quizFeedback.addClass('incorrect show');
+                $feedbackTitle.addClass('incorrect');
             } else {
-                quizFeedback.classList.add('show');
+                $quizFeedback.addClass('show');
             }
 
-            feedbackText.textContent = titleText || '';
+            $feedbackText.text(titleText || '');
             // 后端解析可能包含 HTML，这里保持与旧版一致用 innerHTML
-            feedbackExplanation.innerHTML = explanationText || '';
+            $feedbackExplanation.html(explanationText || '');
         }
 
         function clearFeedback() {
-            if (!quizFeedback) return;
-            quizFeedback.classList.remove('show', 'correct', 'incorrect');
-            if (feedbackTitle) {
-                feedbackTitle.classList.remove('correct', 'incorrect');
-            }
-            if (feedbackText) feedbackText.textContent = '';
-            if (feedbackExplanation) feedbackExplanation.textContent = '';
+            if (!$quizFeedback.length) return;
+            $quizFeedback.removeClass('show correct incorrect');
+            if ($feedbackTitle.length) $feedbackTitle.removeClass('correct incorrect');
+            if ($feedbackText.length) $feedbackText.text('');
+            if ($feedbackExplanation.length) $feedbackExplanation.text('');
         }
 
         function updateProgress(index) {
@@ -303,9 +297,9 @@
             const total = quizData.questions.length;
             const current = index + 1;
             const progress = Math.floor((current / total) * 100);
-            if (quizTotalEl) $quizTotal.text(String(total));
-            if (quizCurrentEl) $quizCurrent.text(String(current));
-            if (quizProgressFill) $quizProgressFill.css('width', `${progress}%`);
+            if ($quizTotal.length) $quizTotal.text(String(total));
+            if ($quizCurrent.length) $quizCurrent.text(String(current));
+            if ($quizProgressFill.length) $quizProgressFill.css('width', `${progress}%`);
         }
 
         function resetQuizState() {
@@ -326,49 +320,43 @@
                 ? initialCompletedQuestionsList.slice()
                 : [];
 
-            if (quizProgressFill) quizProgressFill.style.width = '0%';
-            if (quizCurrentEl) quizCurrentEl.textContent = '0';
-            if (quizTotalEl) quizTotalEl.textContent = '0';
+            if ($quizProgressFill.length) $quizProgressFill.css('width', '0%');
+            if ($quizCurrent.length) $quizCurrent.text('0');
+            if ($quizTotal.length) $quizTotal.text('0');
 
-            if (quizStatisticsView) hideEl(quizStatisticsView);
-            if (quizQuestionView) hideEl(quizQuestionView);
-            if (quizStartView) showEl(quizStartView);
+            if ($quizStatisticsView.length) hideEl($quizStatisticsView);
+            if ($quizQuestionView.length) hideEl($quizQuestionView);
+            if ($quizStartView.length) showEl($quizStartView);
             showQuizActions(false);
 
             clearFeedback();
-            if (quizPrevBtn) {
-                quizPrevBtn.disabled = true;
-                quizPrevBtn.textContent = '{{__('上一题')}}';
-            }
-            if (quizNextBtn) {
-                quizNextBtn.disabled = true;
-                quizNextBtn.textContent = '{{__('下一题')}}';
-            }
+            if ($quizPrevBtn.length) $quizPrevBtn.prop('disabled', true).text('{{__('上一题')}}');
+            if ($quizNextBtn.length) $quizNextBtn.prop('disabled', true).text('{{__('下一题')}}');
 
-            if (quizOptionsList) quizOptionsList.innerHTML = '';
-            if (quizQuestionText) quizQuestionText.textContent = '';
+            if ($quizOptionsList.length) $quizOptionsList.empty();
+            if ($quizQuestionText.length) $quizQuestionText.text('');
         }
 
         function renderQuizStart() {
-            if (quizStartView) showEl(quizStartView);
-            if (quizQuestionView) hideEl(quizQuestionView);
-            if (quizStatisticsView) hideEl(quizStatisticsView);
+            if ($quizStartView.length) showEl($quizStartView);
+            if ($quizQuestionView.length) hideEl($quizQuestionView);
+            if ($quizStatisticsView.length) hideEl($quizStatisticsView);
             showQuizActions(false);
             clearFeedback();
 
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
             const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
 
-            if (quizStartButton) {
-                quizStartButton.textContent = isCompleted ? '{{__('复习答案')}}' : '🎯 {{__('开始测验')}}';
-                quizStartButton.onclick = function () {
+            if ($quizStartButton.length) {
+                $quizStartButton.text(isCompleted ? '{{__('复习答案')}}' : '🎯 {{__('开始测验')}}');
+                $quizStartButton.off('click').on('click', function () {
                     showQuestion(isCompleted ? 0 : findFirstUnansweredIndex());
-                };
+                });
             }
         }
 
         function renderOptions(question) {
-            if (!quizOptionsList) return;
+            if (!$quizOptionsList.length) return;
             const options = Array.isArray(question.options) ? question.options : [];
             const html = options.map((optText, optIndex) => (
                 `<div class="option-item" data-option-index="${optIndex}">
@@ -387,13 +375,13 @@
             showQuizActions(true);
             updateQuestionNavButtons();
 
-            if (quizOptionsList) {
-                const optionEls = quizOptionsList.querySelectorAll('.option-item');
-                optionEls.forEach((el) => {
-                    const optIdx = parseInt(el.getAttribute('data-option-index') || '0', 10);
-                    el.classList.remove('selected', 'correct', 'incorrect');
+            if ($quizOptionsList.length) {
+                $quizOptionsList.find('.option-item').each(function () {
+                    const $el = $(this);
+                    const optIdx = parseInt($el.attr('data-option-index') || '0', 10);
+                    $el.removeClass('selected correct incorrect');
                     if (optIdx === correctAnswer) {
-                        el.classList.add('selected', 'correct');
+                        $el.addClass('selected correct');
                     }
                 });
             }
@@ -409,9 +397,7 @@
             $quizOptionsList.off('click.quizOption');
 
             const isLast = index === quizData.questions.length - 1;
-            if (quizNextBtn) {
-                quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
-            }
+            if ($quizNextBtn.length) $quizNextBtn.text(isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}');
             updateQuestionNavButtons();
         }
 
@@ -423,13 +409,13 @@
             showQuizActions(true);
             updateQuestionNavButtons();
 
-            if (quizOptionsList) {
-                const optionEls = quizOptionsList.querySelectorAll('.option-item');
-                optionEls.forEach((el) => {
-                    const optIdx = parseInt(el.getAttribute('data-option-index') || '0', 10);
-                    el.classList.remove('selected', 'correct', 'incorrect');
+            if ($quizOptionsList.length) {
+                $quizOptionsList.find('.option-item').each(function () {
+                    const $el = $(this);
+                    const optIdx = parseInt($el.attr('data-option-index') || '0', 10);
+                    $el.removeClass('selected correct incorrect');
                     if (optIdx === correctAnswer) {
-                        el.classList.add('selected', 'correct');
+                        $el.addClass('selected correct');
                     }
                 });
             }
@@ -445,7 +431,7 @@
         }
 
         function bindOptionClick(index) {
-            if (!quizOptionsList) return;
+            if (!$quizOptionsList.length) return;
             const question = quizData.questions[index];
             const correctAnswer = parseInt(question.correct_answer, 10) || 0;
 
@@ -470,10 +456,7 @@
             isAnswered = false;
 
             // 错误反馈不立即展示解析，仅把当前选项标红，并记录错误选项
-            if (quizOptionsList) {
-                const el = quizOptionsList.querySelector(`.option-item[data-option-index="${optionIndex}"]`);
-                if (el) el.classList.add('incorrect');
-            }
+            if ($quizOptionsList.length) $quizOptionsList.find(`.option-item[data-option-index="${optionIndex}"]`).addClass('incorrect');
 
             if (wrongAnswers[questionIndex] === undefined) {
                 wrongAnswers[questionIndex] = optionIndex;
@@ -533,10 +516,7 @@
             const correctAnswer = parseInt(question.correct_answer, 10) || 0;
 
             // 标记正确答案选项
-            if (quizOptionsList) {
-                const el = quizOptionsList.querySelector(`.option-item[data-option-index="${correctAnswer}"]`);
-                if (el) el.classList.add('correct');
-            }
+            if ($quizOptionsList.length) $quizOptionsList.find(`.option-item[data-option-index="${correctAnswer}"]`).addClass('correct');
 
             setFeedback(
                 'correct',
@@ -561,9 +541,7 @@
                     }
 
                     const isLast = questionIndex === quizData.questions.length - 1;
-                    if (quizNextBtn) {
-                        quizNextBtn.textContent = isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}';
-                    }
+                    if ($quizNextBtn.length) $quizNextBtn.text(isLast ? '{{__('提交答案')}}' : '{{__('下一题')}}');
 
                     updateProgress(questionIndex);
                     updateQuestionNavButtons();
@@ -585,16 +563,14 @@
             currentQuestionIndex = index;
             const question = quizData.questions[index];
 
-            if (quizStartView) hideEl(quizStartView);
-            if (quizStatisticsView) hideEl(quizStatisticsView);
-            if (quizQuestionView) showEl(quizQuestionView);
+            if ($quizStartView.length) hideEl($quizStartView);
+            if ($quizStatisticsView.length) hideEl($quizStatisticsView);
+            if ($quizQuestionView.length) showEl($quizQuestionView);
             showQuizActions(true);
 
             clearFeedback();
 
-            if (quizQuestionText) {
-                quizQuestionText.textContent = question.title || '';
-            }
+            if ($quizQuestionText.length) $quizQuestionText.text(question.title || '');
 
             renderOptions(question);
             updateProgress(index);
@@ -634,14 +610,14 @@
             }
             const $reviewBtn = $('#quizStatisticsView .btn-review');
 
-            if (quizStartView) hideEl(quizStartView);
-            if (quizQuestionView) hideEl(quizQuestionView);
+            if ($quizStartView.length) hideEl($quizStartView);
+            if ($quizQuestionView.length) hideEl($quizQuestionView);
             showQuizActions(false);
             clearFeedback();
-            if (quizStatisticsView) showEl(quizStatisticsView);
+            if ($quizStatisticsView.length) showEl($quizStatisticsView);
 
-            if (quizStatsAnswered) quizStatsAnswered.textContent = '{{__('加载中...')}}';
-            if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = '0%';
+            if ($quizStatsAnswered.length) $quizStatsAnswered.text('{{__('加载中...')}}');
+            if ($quizStatsCorrectRate.length) $quizStatsCorrectRate.text('0%');
             // 统计数据加载完成前不显示“复习答案”
             $reviewBtn.hide().off('click');
 
@@ -665,8 +641,8 @@
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
 
-                    if (quizStatsAnswered) quizStatsAnswered.textContent = `${answered} / ${totalQuestions}`;
-                    if (quizStatsCorrectRate) quizStatsCorrectRate.textContent = `${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`;
+                    if ($quizStatsAnswered.length) $quizStatsAnswered.text(`${answered} / ${totalQuestions}`);
+                    if ($quizStatsCorrectRate.length) $quizStatsCorrectRate.text(`${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`);
 
                     // 统计数据加载完成后显示“复习答案”
                     $reviewBtn.show().on('click', function () {
@@ -694,11 +670,11 @@
             wrongAnswers = {};
 
             clearFeedback();
-            if (quizStatisticsView) hideEl(quizStatisticsView);
+            if ($quizStatisticsView.length) hideEl($quizStatisticsView);
 
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
-            if (quizTotalEl) quizTotalEl.textContent = String(totalQuestions);
-            if (quizProgressFill) quizProgressFill.style.width = '0%';
+            if ($quizTotal.length) $quizTotal.text(String(totalQuestions));
+            if ($quizProgressFill.length) $quizProgressFill.css('width', '0%');
 
             const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
             const startIndex = isCompleted ? 0 : findFirstUnansweredIndex();
@@ -735,20 +711,26 @@
             currentQuizId = parseInt(params.quiz || 0) || currentQuizId;
 
             // 展开右侧测验区，但不要调用 ensureQuizLoaded，避免与下面的 loadQuiz(autoStart=true) 产生重复请求
-            const rightCol = document.getElementById('rightColumn');
-            const mainLayout = document.getElementById('mainLayout');
-            const expandHintWrapper = document.getElementById('btn-quiz');
-            if (rightCol) rightCol.classList.remove('hidden');
-            if (mainLayout) mainLayout.classList.remove('quiz-hidden');
-            if (expandHintWrapper) expandHintWrapper.classList.remove('show');
+            const $rightCol = $('#rightColumn');
+            const $mainLayout = $('#mainLayout');
+            const $expandHintWrapper = $('#btn-quiz');
+            if ($rightCol.length) $rightCol.removeClass('hidden');
+            if ($mainLayout.length) $mainLayout.removeClass('quiz-hidden');
+            if ($expandHintWrapper.length) $expandHintWrapper.removeClass('show');
 
             resetQuizState();
 
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
             const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
 
+            if (parseInt(serverUnitStatus, 10) === 2) {
+                // 状态=2：直接显示统计态
+                showQuizStatistics();
+                return;
+            }
+
             if (isCompleted) {
-                // 已完成：显示复习（直接进入题目页，且选项已不可点击）
+                // 已完成：进入复习题目页
                 showQuestion(0);
             } else {
                 // 未完成：显示开始测验
@@ -760,6 +742,11 @@
         window.ensureQuizLoaded = function ({autoStart = false} = {}) {
             const totalQuestions = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
             const isCompleted = totalQuestions > 0 && answeredQuestionsList.length >= totalQuestions;
+
+            if (parseInt(serverUnitStatus, 10) === 2) {
+                showQuizStatistics();
+                return;
+            }
 
             if (isCompleted) {
                 showQuestion(0);
@@ -794,23 +781,22 @@
             }
         }, 180, {leading: true, trailing: false});
 
-        if (quizPrevBtn) {
-            quizPrevBtn.onclick = handlePrevQuestion;
-        }
+        if ($quizPrevBtn.length) $quizPrevBtn.off('click').on('click', handlePrevQuestion);
+        if ($quizNextBtn.length) $quizNextBtn.off('click').on('click', handleNextQuestion);
 
-        if (quizNextBtn) {
-            quizNextBtn.onclick = handleNextQuestion;
-        }
-
-        // 初始化：已完成显示复习，未完成显示开始测验
-        const initialTotal = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
-        const initialCompleted = initialTotal > 0 && answeredQuestionsList.length >= initialTotal;
-        if (initialCompleted) {
-            showQuestion(0);
+        // 状态=2：直接显示统计；否则根据已答题情况显示复习或开始
+        if (parseInt(serverUnitStatus, 10) === 2) {
+            showQuizStatistics();
         } else {
-            renderQuizStart();
+            const initialTotal = quizData && Array.isArray(quizData.questions) ? quizData.questions.length : 0;
+            const initialCompleted = initialTotal > 0 && answeredQuestionsList.length >= initialTotal;
+            if (initialCompleted) {
+                showQuestion(0);
+            } else {
+                renderQuizStart();
+            }
         }
         clearFeedback();
-        if (quizStatisticsView) hideEl(quizStatisticsView);
+        if ($quizStatisticsView.length) hideEl($quizStatisticsView);
     });
 </script>
