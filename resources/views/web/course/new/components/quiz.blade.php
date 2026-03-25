@@ -229,7 +229,6 @@
         let currentUnitId = {{ $unit->id }};
         let currentQuizId = {{ $unit->quiz_id ?? 0 }};
         const serverUnitStatus = @json($play_record->status ?? 0);
-        console.log('serverUnitStatus', serverUnitStatus);
 
         function hideEl($el) {
             if (!$el || !$el.length) return;
