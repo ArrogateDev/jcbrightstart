@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                                       / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                                                        / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -767,6 +767,102 @@
     .certificate-button.enabled:active {
         transform: scale(0.98);
     }
+
+    /* 加载动画容器 —— 精致小巧的圆点旋转环 + 渐隐渐显 */
+    .loader-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .loader-wrapper.hide {
+        display: none;
+    }
+
+    .loader {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 双环交错旋转风格 (清新现代) */
+    .loader-ring {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2.5px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #ffffff;
+        border-right-color: #ffffff;
+        animation: spinRing 0.75s cubic-bezier(0.4, 0.2, 0.3, 0.9) infinite;
+    }
+
+    /* 第二层光晕效果，增加动感深度 */
+    .loader-glow {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+        animation: pulseGlow 1s ease-in-out infinite;
+        opacity: 0.6;
+    }
+
+    /* 优雅旋转关键帧 */
+    @keyframes spinRing {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes pulseGlow {
+        0% {
+            transform: scale(0.7);
+            opacity: 0.4;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+        100% {
+            transform: scale(0.7);
+            opacity: 0.4;
+        }
+    }
+
+    [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+        cursor: pointer !important;
+    }
+
+    button.close {
+        padding: 0 !important;
+        background-color: transparent !important;
+        border: 0 !important;
+    }
+
+    .close {
+        width: max-content !important;
+        height: max-content !important;
+        float: right !important;
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        color: #000 !important;
+        text-shadow: 0 1px 0 #fff !important;
+        opacity: .5 !important;
+    }
+
+    .close span {
+        font-size: 35px;
+        font-weight: 400;
+    }
 </style>
 
 <body>
@@ -1015,6 +1111,13 @@
                                     </span>
                                     <span>申請證書</span>
                                 </span>
+                                <span class="loader-wrapper hide">
+                                    <span>生成中</span>
+                                    <span class="loader">
+                                        <span class="loader-ring"></span>
+                                        <span class="loader-glow"></span>
+                                    </span>
+                                </span>
                             </button>
                         </div>
                     </div>
@@ -1023,6 +1126,31 @@
 
         </div>
 
+    </div>
+
+    <div class="modal fade" id="course-complete-box" tabindex="-1" aria-labelledby="course-complete-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{__('確定證書姓名')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="course-complete-form">
+                        <div class="form-group">
+                            <label for="certificate-name">{{__('请输入您的姓名')}}</label>
+                            <input type="text" class="form-control" id="certificate-name" placeholder="{{__('请输入姓名')}}" value="{{$user->full_name??''}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="course-certificate">
+                    <button type="button" class="btn btn-primary border-0" id="submit-certificate-btn">{{__('提交')}}</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <x-web.user.footer/>
@@ -1100,15 +1228,110 @@
         // 导出为全局函数供监听器调用
         window.updateUnitStatusInternal = updateUnitStatusInternal;
 
+        const $courseCompleteModal = $('#course-complete-box');
+        let pollTimer = null;
+        let pollStartTime = null;
+        const POLL_TIMEOUT = 60000; // 60秒超时
+
         $(document).on('click', '.certificate-button[data-url]', function () {
             let url = $(this).attr('data-url');
             if (url) {
                 window.open(url, '_blank');
                 return
             }
-            console.log('certificate-button', url);
-            // window.open(url);
+            $('.certificate-button-content').hide()
+            $('.loader-wrapper').removeClass('hide')
+            $courseCompleteModal.modal('show');
         });
+
+        $('#submit-certificate-btn').on('click', function () {
+            const name = $('#certificate-name').val().trim();
+            if (!name) {
+                showToast('error', "{{__('请输入姓名')}}");
+                return;
+            }
+
+            const currentCourseId = $('#course-certificate').val();
+            showLoading($courseCompleteModal.find('.modal-content'));
+
+            $.ajax({
+                url: '{{route('course.handle.html', ['course' => $course->id])}}',
+                type: 'POST',
+                data: {
+                    name: name,
+                    _token: "{{csrf_token()}}"
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code !== 0) {
+                        hideLoading($courseCompleteModal.find('.modal-content'));
+                        showToast('error', response.msg || "{{__('提交失败')}}");
+                        return;
+                    }
+
+                    // 记录轮询开始时间
+                    pollStartTime = Date.now();
+
+                    // 开始轮询检查证书状态（每2秒检查一次）
+                    if (pollTimer) {
+                        clearInterval(pollTimer);
+                    }
+                    pollTimer = setInterval(function () {
+                        checkCertificateStatus(currentCourseId);
+                    }, 2000);
+
+                    // 立即检查一次
+                    checkCertificateStatus(currentCourseId);
+                },
+                error: function () {
+                    hideLoading($courseCompleteModal.find('.modal-content'));
+                    showToast('error', "{{__('提交失败，请重试')}}");
+                }
+            });
+        });
+
+        // 轮询检查证书状态
+        function checkCertificateStatus() {
+            // 检查超时
+            if (pollStartTime && Date.now() - pollStartTime > POLL_TIMEOUT) {
+                if (pollTimer) {
+                    clearInterval(pollTimer);
+                    pollTimer = null;
+                }
+                hideLoading($courseCompleteModal.find('.modal-content'));
+                showToast('error', "{{__('证书生成超时，请稍后刷新页面查看')}}");
+                return;
+            }
+
+            $.ajax({
+                url: '{{route('course.certificate-status.html', ['course' => $course->id])}}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.code !== 0) {
+                        return;
+                    }
+
+                    const data = response.data || {};
+                    // 如果证书已生成
+                    if (data.status === 1 && data.download_url) {
+                        // 停止轮询
+                        if (pollTimer) {
+                            clearInterval(pollTimer);
+                            pollTimer = null;
+                        }
+
+                        // 隐藏 loading
+                        hideLoading($courseCompleteModal.find('.modal-content'));
+
+                        $('.certificate-button-content').show()
+                        $('.loader-wrapper').addClass('hide')
+                        $courseCompleteModal.modal('hide');
+                        showToast('success', "{{__('证书生成成功')}}");
+                    }
+                }
+            });
+        }
     })
 </script>
 </html>
