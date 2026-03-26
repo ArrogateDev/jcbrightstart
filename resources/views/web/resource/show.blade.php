@@ -58,6 +58,8 @@
     }
 </style>
 
+<link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
+<script src="{{web_resource_url('assets/web/vendor/dflip/js/dflip.min.js')}}"></script>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
 
@@ -88,6 +90,9 @@
                             <p class="media__text">{{$resource->short}}</p>
                         </div>
                     </div>
+                    @if($resource->pdf)
+                        <div id="pdf-viewer"></div>
+                    @endif
                     <div class="m-b-40">
                         {!! $resource->description !!}
                     </div>
@@ -136,5 +141,20 @@
 
 </div>
 </body>
-
+@if($resource->pdf)
+    <script>
+        $(function () {
+            $('#pdf-viewer').flipBook('{{$resource->pdf}}', {
+                showDownloadControl: false,
+                enableDownload: false,
+                showPrintControl: false,
+                showSearchControl: false,
+                autoOpenOutline: false,
+                showThumbnail: false,
+                autoOpenThumbnail: false,
+                pageMode: 'single'
+            });
+        });
+    </script>
+@endif
 </html>

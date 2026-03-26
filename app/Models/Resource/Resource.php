@@ -26,6 +26,15 @@ class Resource extends Base
     }
 
     /**
+     * @param $value
+     * @return string
+     */
+    public function getPdfAttribute($value)
+    {
+        return $value ? web_resource_url($value) : null;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()

@@ -63,14 +63,14 @@
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('标题')}}<span
-                                                    class="text-danger ms-1">*</span></label>
+                                                class="text-danger ms-1">*</span></label>
                                         <input type="text" id="title" name="title" class="form-control" value="{{$resource->title??''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-12 type-video">
                                     <div class="input-block">
                                         <label class="form-label">{{__('视频')}}<span
-                                                    class="text-danger ms-1">*</span></label>
+                                                class="text-danger ms-1">*</span></label>
                                         <input type="text" id="video" name="video" class="form-control" value="{{$resource->short??''}}">
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
                                                 <label class="form-label">{{__('封面图')}}<span
-                                                            class="text-danger ms-1">*</span></label>
+                                                        class="text-danger ms-1">*</span></label>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="upload-img-section d-flex align-items-center justify-content-center"
@@ -108,27 +108,61 @@
                                 <div class="col-md-4 type-article">
                                     <div class="input-block">
                                         <label class="form-label">{{__('分类')}}<span
-                                                    class="text-danger ms-1">*</span></label>
+                                                class="text-danger ms-1">*</span></label>
                                         <select id="category" name="category_id" class="select form-control"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-12 type-article">
                                     <div class="input-block">
                                         <label class="form-label">{{__('简介')}}<span
-                                                    class="text-danger ms-1">*</span></label>
+                                                class="text-danger ms-1">*</span></label>
                                         <input type="text" id="short" name="short" class="form-control" value="{{$resource->short??''}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 type-article">
+                                    <div class="input-block">
+                                        <label class="form-label">{{__('PDF')}}</label>
+                                        <div class="input-group">
+                                            <input type="file" name="pdf"
+                                                   id="pdf-file-input"
+                                                   class="form-control form-control-sm pdf-file-input"
+                                                   accept="application/pdf"
+                                                   style="display: none;">
+                                            <button type="button" class="btn btn-sm btn-outline-primary pdf-select-btn"
+                                                    id="pdf-select-btn">
+                                                <i class="fa-solid fa-file-pdf me-1"></i>{{__('选择 PDF 文件')}}
+                                            </button>
+                                            <input type="text" class="form-control form-control-sm pdf-file-name"
+                                                   placeholder="{{__('未选择文件')}}"
+                                                   readonly>
+                                            <button type="button" class="btn btn-sm btn-outline-danger pdf-clear-btn"
+                                                    id="pdf-clear-btn" style="display: none;">
+                                                <i class="fa-solid fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="pdf-existing-file mt-2" style="display: none;">
+                                            <a href="#" target="_blank" class="btn btn-sm btn-outline-primary pdf-view-btn me-2">
+                                                <i class="fa-solid fa-file-pdf me-1"></i>{{__('查看当前 PDF')}}
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger pdf-remove-btn">
+                                                <i class="fa-solid fa-trash me-1"></i>{{__('删除 PDF')}}
+                                            </button>
+                                        </div>
+                                        <small class="text-muted d-block mt-1">
+                                            <i class="fa-solid fa-info-circle me-1"></i>{{__('仅支持 PDF 格式，最大 10MB')}}
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <label class="form-label">{{__('描述')}}<span
-                                                    class="text-danger ms-1">*</span></label>
+                                                class="text-danger ms-1">*</span></label>
                                         <div class="summernote">{!! $resource->description??'' !!}</div>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                    class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
+                                class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
                                 <div class="btn-left">
                                     <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white"
                                        style="background: #00b050;border-color: #00b050;">{{__('储存')}}
@@ -311,6 +345,88 @@
             }
         })
 
+        let pdfFile = null;
+        // PDF 文件选择按钮点击事件
+        $(document).on('click', '.pdf-select-btn', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const $fileInput = $('#pdf-file-input');
+            $fileInput.click();
+        });
+
+        // PDF 文件选择变化事件
+        $(document).on('change', '.pdf-file-input', function () {
+            const $fileNameInput = $('.pdf-file-name');
+            const $clearBtn = $('#pdf-clear-btn');
+            const file = this.files[0];
+
+            if (file) {
+                // 验证文件大小 (10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast('error', '{{__('文件大小不能超过 10MB')}}');
+                    this.value = '';
+                    return;
+                }
+
+                // 验证文件类型
+                if (file.type !== 'application/pdf') {
+                    showToast('error', '{{__('只能选择 PDF 格式的文件')}}');
+                    this.value = '';
+                    return;
+                }
+
+                pdfFile = file;
+                $fileNameInput.val(file.name);
+                $clearBtn.show();
+
+                // 隐藏现有文件链接
+                $('.pdf-existing-file').hide();
+            } else {
+                pdfFile = null;
+                $fileNameInput.val('');
+                $clearBtn.hide();
+            }
+        });
+
+        // PDF 清除按钮点击事件
+        $(document).on('click', '#pdf-clear-btn', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const $fileInput = $('#pdf-file-input');
+            const $fileNameInput = $('.pdf-file-name');
+
+            $fileInput.val('');
+            $fileNameInput.val('');
+            $(this).hide();
+            pdfFile = null;
+        });
+
+        // PDF 删除按钮点击事件（删除已有文件）
+        $(document).on('click', '.pdf-remove-btn', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const $existingFile = $('.pdf-existing-file');
+            const $fileNameInput = $('.pdf-file-name');
+            const $clearBtn = $('#pdf-clear-btn');
+
+            $existingFile.hide();
+            $fileNameInput.val('');
+            $clearBtn.hide();
+            pdfFile = null;
+        });
+
+        // 初始化时检查是否有现有 PDF
+        @if($resource->id > 0 && !empty($resource->pdf))
+            const pdfUrl = '{{$resource->pdf}}';
+            const pdfFileName = pdfUrl.substring(pdfUrl.lastIndexOf('/') + 1).split('?')[0];
+            $('.pdf-file-name').val(pdfFileName);
+            $('.pdf-existing-file').show();
+            $('.pdf-view-btn').attr('href', '{{$resource->pdf}}');
+            $('#pdf-clear-btn').hide();
+        @endif
+
         const $form = $('#news-form');
         $('.btn-submit').click(function () {
             showLoading()
@@ -330,6 +446,10 @@
             formData.append('description', $('.summernote').eq(0).summernote('code'));
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
+            }
+
+            if (pdfFile) {
+                formData.append('pdf_file', pdfFile);
             }
 
             let url, method;

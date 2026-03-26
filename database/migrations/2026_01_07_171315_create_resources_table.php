@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable()->comment('Thumbnail');
             $table->unsignedBigInteger('category_id')->default(0)->comment('Category');
             $table->text('short')->nullable()->comment('Short');
+            $table->string('pdf')->nullable()->comment('Pdf');
             $table->text('description')->nullable()->comment('Description');
             $table->unsignedBigInteger('view')->default(0)->comment('View');
             $table->tinyInteger('status')->default(0)->comment('Status');

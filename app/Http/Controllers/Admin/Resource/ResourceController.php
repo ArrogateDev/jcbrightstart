@@ -88,6 +88,7 @@ class ResourceController extends Controller
         try {
 
             $file = $request->file('thumbnail');
+            $pdf_file = $request->file('pdf_file');
             $video = $request->input('video');
 
             DB::beginTransaction();
@@ -103,6 +104,14 @@ class ResourceController extends Controller
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
                 $resource->thumbnail = $file_path . $file_name;
+            }
+
+            if ($pdf_file) {
+                $pdf_file_path = FileTool::existsAndMake('resource');
+                $extension = $pdf_file->getClientOriginalExtension();
+                $pdf_file_name = uniqid() . '.' . $extension;
+                Storage::putFileAs($pdf_file_path, $pdf_file, $pdf_file_name);
+                $resource->pdf = $pdf_file_path . $pdf_file_name;
             }
 
             if ($resource->type == Resource::TYPE_VIDEO && $video) {
@@ -147,6 +156,7 @@ class ResourceController extends Controller
             DB::beginTransaction();
 
             $file = $request->file('thumbnail');
+            $pdf_file = $request->file('pdf_file');
             $video = $request->input('video');
 
             if ($file) {
@@ -159,6 +169,18 @@ class ResourceController extends Controller
                 FileTool::existsAnddelete($old_path);
 
                 $resource->thumbnail = $file_path . $file_name;
+            }
+
+            if ($pdf_file) {
+                $pdf_file_path = FileTool::existsAndMake('resource');
+                $extension = $pdf_file->getClientOriginalExtension();
+                $pdf_file_name = uniqid() . '.' . $extension;
+                Storage::putFileAs($pdf_file_path, $pdf_file, $pdf_file_name);
+
+                $old_file_path = $resource->getRawOriginal('pdf');
+                FileTool::existsAnddelete($old_file_path);
+
+                $resource->pdf = $pdf_file_path . $pdf_file_name;
             }
 
             foreach ($inputs as $key => $value) {
