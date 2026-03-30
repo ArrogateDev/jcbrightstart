@@ -146,7 +146,7 @@
 {{--                                </div>--}}
                                 <div class="col-md-12">
                                     <div class="input-block">
-                                        <label class="form-label">{{__('描述')}}<span
+                                        <label class="form-label">{{__('內容')}}<span
                                                 class="text-danger ms-1">*</span></label>
                                         <div class="summernote">{!! $news->description??'' !!}</div>
                                     </div>

@@ -144,14 +144,14 @@ class ResourceController extends Controller
 
         $prev = Resource::query()
             ->where('id', '<', $resource->id)
-            ->where('status', Resource::STATUS_PUBLISHED)
-            ->orderBy('id')
+            ->where('status', News::STATUS_PUBLISHED)
+            ->orderBy('id', 'desc')
             ->value('id');
 
         $next = Resource::query()
             ->where('id', '>', $resource->id)
             ->where('status', Resource::STATUS_PUBLISHED)
-            ->orderBy('id')
+            ->orderBy('id', 'asc')
             ->value('id');
 
         $url = $request->session()->get('resource-url');

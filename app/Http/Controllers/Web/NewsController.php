@@ -95,13 +95,13 @@ class NewsController extends Controller
         $prev = News::query()
             ->where('id', '<', $news->id)
             ->where('status', News::STATUS_PUBLISHED)
-            ->orderBy('id')
+            ->orderBy('id', 'desc')
             ->value('id');
 
         $next = News::query()
             ->where('id', '>', $news->id)
             ->where('status', News::STATUS_PUBLISHED)
-            ->orderBy('id')
+            ->orderBy('id', 'asc')
             ->value('id');
 
         $url = $request->session()->get('resource-url');
