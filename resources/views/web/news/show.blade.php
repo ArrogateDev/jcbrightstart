@@ -77,7 +77,7 @@
     }
 
     .border-balloon-string {
-        border: 4px solid #ff71eb;
+        border: 4px solid #7ed0f8;
         border-radius: 50px 30px 55px 25px;
         background: #FFFDF9;
         position: relative;
