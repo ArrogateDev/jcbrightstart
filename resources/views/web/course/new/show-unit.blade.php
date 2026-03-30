@@ -100,9 +100,9 @@
         position: relative;
         width: 100%;
         @if($unit->type === 0)
-          aspect-ratio: 16 / 9;
+            aspect-ratio: 16 / 9;
         @endif
-          border-radius: 24px;
+            border-radius: 24px;
         overflow: hidden;
         box-shadow: 0 16px 56px rgba(26, 39, 68, .28);
         margin-bottom: 2rem;
@@ -728,7 +728,6 @@
 
                             <div id="play-content">
                                 @if($unit->type === 0)
-
                                     @include('web.course.new.components.play-video')
                                 @else
                                     @include('web.course.new.components.play-pdf')
@@ -946,6 +945,20 @@
                 currentChapterId = info.chapter_id;
                 const position = info.play_position || 0;
                 playUnit(info, position);
+
+                @if($play_record && $play_record->status === 2)
+                const params = {
+                    course: {{$course->id}},
+                    chapter: currentChapterId,
+                    unit: currentUnitId,
+                    quiz: info.quiz_id,
+                };
+
+                // 直接打开测验面板
+                if (typeof window.openQuiz === 'function') {
+                    window.openQuiz(params);
+                }
+                @endif
             }
         });
 

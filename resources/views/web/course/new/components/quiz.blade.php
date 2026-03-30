@@ -640,7 +640,6 @@
                     const answered = parseInt(stats.answered) || 0;
                     const correctRate = parseFloat(stats.correct_rate) || 0;
                     const isAllCompleted = stats.is_all_completed || false;
-                    console.log(stats,isAllCompleted);
 
                     if ($quizStatsAnswered.length) $quizStatsAnswered.text(`${answered} / ${totalQuestions}`);
                     if ($quizStatsCorrectRate.length) $quizStatsCorrectRate.text(`${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`);
