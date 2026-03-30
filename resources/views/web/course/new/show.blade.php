@@ -211,7 +211,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                                                           / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }}                                                               / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -863,6 +863,38 @@
         font-size: 35px;
         font-weight: 400;
     }
+
+    /* ─── BREADCRUMB ─────────────────────────────────────────── */
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #A0AEC0;
+        margin-bottom: 1.5rem;
+        animation: fadeUp .5s ease both;
+    }
+
+    .breadcrumb a {
+        color: var(--sky);
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumb .sep {
+        color: #CBD5E0;
+    }
+
+    .current-sep {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 </style>
 
 <body>
@@ -873,6 +905,12 @@
 
     <div class="content">
         <div class="container">
+
+            <div class="breadcrumb">
+                <a href="{{route('user.dashboard.html')}}">{{__('首页')}}</a>
+                <span class="sep">›</span>
+                <span class="current-sep">{{$course->title}}</span>
+            </div>
 
             <!-- Course Hero -->
             <div class="course-hero">
@@ -1004,7 +1042,7 @@
 
                                 <div class="lesson-list open">
                                     @foreach($chapter->units as $unit)
-                                        <div @class(['lesson-row', 'done'=>$unit->status === 2]) data-unit="{{$unit->id}}">
+                                        <div @class(['lesson-row', 'done'=>$unit->status === 2]) data-unit="{{$unit->id}}" data-status="{{$unit->status}}">
                                             <div @class(['play-btn', 'ti-nutrition', 'done'=>$unit->status === 2])>
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="38" height="38">
                                                     <text x="100" y="130"
@@ -1181,32 +1219,35 @@
          * 更新单元状态（内部实现）
          */
         function updateUnitStatusInternal(unitId, newStatus, isAllCompleted) {
-            console.log('updateUnitStatusInternal', unitId, newStatus, isAllCompleted);
-            if (newStatus === 1) {
+            const $unitItem = $(`div[data-unit="${unitId}"]`);
+            if (!$unitItem.length) {
+                return;
+            }
+
+            const status = $unitItem.data('status');
+
+            if (status !== 1 && newStatus === 1) {
                 const total = {{$course->unit_num}};
                 const $unit = $('#unit-progress');
                 const step = Math.ceil(1 / total * 100);
-                const progress = Math.max(parseInt($unit.text()) + step, 100);
+                let progress = parseInt($unit.text()) + step;
+                progress = progress >= 100 ? 100 : progress;
                 $unit.text(progress)
                 if (progress >= 100) {
                     $('.certificate-unit').html(`✓`).removeClass('in-progress').addClass('completed');
                 }
             }
 
-            if (newStatus === 2) {
+            if (status !== 2 && newStatus === 2) {
 
                 const total = {{$course->unit_num}};
                 const $unit = $('#quiz-progress');
                 const step = Math.ceil(1 / total * 100);
-                const progress = Math.max(parseInt($unit.text()) + step, 100);
+                let progress = parseInt($unit.text()) + step;
+                progress = progress >= 100 ? 100 : progress;
                 $unit.text(progress)
                 if (progress >= 100) {
                     $('.certificate-quiz').html(`✓`).removeClass('in-progress').addClass('completed');
-                }
-
-                const $unitItem = $(`div[data-unit="${unitId}"]`);
-                if (!$unitItem.length) {
-                    return;
                 }
 
                 $unitItem.addClass('done');

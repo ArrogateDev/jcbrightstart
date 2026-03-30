@@ -57,8 +57,13 @@
                     <span id="quizStatsCorrectRate">0%</span>
                 </div>
             </div>
-            <div class="quiz-statistics-btn">
-                <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
+            <div class="w-100">
+                <div class="quiz-statistics-btn">
+                    <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
+                </div>
+                <div class="close-unit-btn" style="display: none;">
+                    <button class="btn btn-danger w-100 p-3 mb-4">{{__('关闭')}}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -334,6 +339,7 @@
 
             if ($quizOptionsList.length) $quizOptionsList.empty();
             if ($quizQuestionText.length) $quizQuestionText.text('');
+            $('.close-unit-btn').hide()
         }
 
         function renderQuizStart() {
@@ -643,6 +649,7 @@
 
                     if ($quizStatsAnswered.length) $quizStatsAnswered.text(`${answered} / ${totalQuestions}`);
                     if ($quizStatsCorrectRate.length) $quizStatsCorrectRate.text(`${isNaN(correctRate) ? 0 : Math.round(correctRate)}%`);
+                    $('.close-unit-btn').show()
 
                     // 统计数据加载完成后显示“复习答案”
                     $reviewBtn.show().on('click', function () {
@@ -803,5 +810,9 @@
         }
         clearFeedback();
         if ($quizStatisticsView.length) hideEl($quizStatisticsView);
+
+        $('.close-unit-btn .btn').click(function () {
+            window.close();
+        })
     });
 </script>

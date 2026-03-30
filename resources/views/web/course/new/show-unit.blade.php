@@ -57,7 +57,7 @@
         display: flex;
         align-items: center;
         gap: .5rem;
-        font-size: .8rem;
+        font-size: 1.2rem;
         font-weight: 700;
         color: #A0AEC0;
         margin-bottom: 1.5rem;
