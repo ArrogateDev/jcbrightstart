@@ -101,14 +101,16 @@
                         @foreach($videos as $video)
                             @include('web.resource.item-video', ['resource' => $video])
                         @endforeach
-                        <div class="col-md-6 col-lg-3">
-                            <div class="media media-blog-2 more-box">
-                                <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                    <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                    {{__('更多')}}
-                                </a>
+                        @if($total_video > 7)
+                            <div class="col-md-6 col-lg-3">
+                                <div class="media media-blog-2 more-box">
+                                    <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
+                                        <i class="isax isax-element-plus" style="font-size: 36px;"></i>
+                                        {{__('更多')}}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @else
                         <div class="w-100 text-center py-4 text-muted">
                             <i class="isax isax-document-text fs-24 mb-2"></i>
@@ -129,14 +131,16 @@
                         @foreach($articles as $article)
                             @include('web.resource.item', ['resource' => $article])
                         @endforeach
-                        <div class="col-md-6 col-lg-3">
-                            <div class="media media-blog-2 more-box">
-                                <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                    <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                    {{__('更多')}}
-                                </a>
+                        @if($total_article > 7)
+                            <div class="col-md-6 col-lg-3">
+                                <div class="media media-blog-2 more-box">
+                                    <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
+                                        <i class="isax isax-element-plus" style="font-size: 36px;"></i>
+                                        {{__('更多')}}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @else
                         <div class="w-100 text-center py-4 text-muted">
                             <i class="isax isax-document-text fs-24 mb-2"></i>

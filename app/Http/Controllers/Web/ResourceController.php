@@ -34,6 +34,11 @@ class ResourceController extends Controller
         });
         $articles->append(['category_text']);
 
+        $total_article = Resource::query()
+            ->where('type', Resource::TYPE_ARTICLE)
+            ->where('status', Resource::STATUS_PUBLISHED)
+            ->count();
+
         $videos = Resource::query()
             ->where('type', Resource::TYPE_VIDEO)
             ->where('status', Resource::STATUS_PUBLISHED)
@@ -47,11 +52,15 @@ class ResourceController extends Controller
         });
         $videos->append(['category_text']);
 
+        $total_video = Resource::query()
+            ->where('type', Resource::TYPE_VIDEO)
+            ->where('status', Resource::STATUS_PUBLISHED)
+            ->count();
 
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);
 
-        return view('web.resource.index', compact('articles', 'videos'));
+        return view('web.resource.index', compact('articles', 'total_article', 'videos', 'total_video'));
     }
 
     /**
