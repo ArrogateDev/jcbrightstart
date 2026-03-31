@@ -15,6 +15,7 @@
                 <p class="category-text">{{$resource->category_text}}</p>
                 <p class="media__text">{{$resource->short}}</p>
             </div>
+            <div class="wave-dot">⚡</div>
         </div>
 @if($col)
     </div>
@@ -68,6 +69,15 @@
         font-weight: bold;
         pointer-events: none;
     }
+
+        .wave-dot {
+            position: absolute;
+            top: -14px;
+            right: 25px;
+            font-size: 1.5rem;
+            color: #ff71eb;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
 
     .media-blog-2 .media__img img {
         border-radius: 60px 36px 0 0;
