@@ -56,14 +56,14 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('最新消息'),
                 'url' => route('news.html'),
-                'active' => $url === route('news.html'),
+                'active' => str_contains($url, '/latest-news'),
                 'children' => []
             ];
 
             $navs[] = [
                 'title' => __('香港0-3岁婴幼儿服务资讯'),
                 'url' => route('maps.html'),
-                'active' => $url === route('maps.html'),
+                'active' => str_contains($url, '/maps'),
                 'children' => [
                     [
                         'title' => __('地图'),
@@ -81,7 +81,7 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('专业学习社群'),
                 'url' => route('resource.html'),
-                'active' => $url === route('resource.html') || $url === route('resource.more.html'),
+                'active' => str_contains($url, '/resource-kit'),
                 'children' => []
             ];
 
