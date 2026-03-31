@@ -134,7 +134,7 @@
                         @if($total_article > 7)
                             <div class="col-md-6 col-lg-3">
                                 <div class="media media-blog-2 more-box card border-tricolor-wave">
-                                    <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
+                                    <a href="{{route('resource.more.html',['type'=>0])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
                                         <i class="isax isax-element-plus" style="font-size: 36px;"></i>
                                         {{__('更多')}}
                                     </a>
