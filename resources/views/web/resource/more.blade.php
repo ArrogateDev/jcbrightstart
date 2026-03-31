@@ -170,7 +170,6 @@
         const urlKeywords = urlParams.get('keywords');
         const urlCategory = urlParams.get('category');
         if (urlType) {
-            $search.val(urlType);
             params = Object.assign(params, {type: urlType});
         }
         if (urlKeywords) {
