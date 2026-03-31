@@ -130,9 +130,6 @@ class ResourceController extends Controller
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
 
-        $url = $request->fullUrl();
-        $request->session()->put('resource-url', $url);
-
         return $this->responseSuccess(compact('html', 'total', 'page', 'pagination', 'url'));
     }
 

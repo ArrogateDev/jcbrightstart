@@ -13,6 +13,7 @@ class ResourceRequest extends BaseRequest
     {
         $rules = [
             'type' => 'bail|required|in:0,1',
+            'pdf_file' => 'bail|nullable|filled|mimes:pdf|max:15360',
             'status' => 'bail|required|in:0,1,2'
         ];
 
@@ -52,6 +53,9 @@ class ResourceRequest extends BaseRequest
         return [
             'type.required' => __('资源类型不能为空'),
             'type.in' => __('资源类型格式错误'),
+            'pdf_file.filled' => __('PDF文件不能为空'),
+            'pdf_file.mimes' => __('PDF文件必须是PDF格式'),
+            'pdf_file.max' => __('PDF最大15Mb'),
             'status.required' => __('状态不能为空'),
             'status.in' => __('状态格式错误'),
             'title.required' => __('标题不能为空'),

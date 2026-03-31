@@ -2,7 +2,7 @@
 @if($col)
     <div class="col-md-6 col-lg-4">
         @endif
-        <div class="media media-blog-2 card border-balloon-string">
+        <div class="media media-blog-2 card border-tricolor-wave">
             <div class="media__img text-center">
                 <a href="{{$news->url}}">
                     <img src="{{$news->thumbnail}}" alt="How to coax children">
@@ -22,10 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="balloon-tricolor"></div>
-            <div class="balloon-tricolor balloon2"></div>
-            <div class="balloon-tricolor balloon3"></div>
-            <div class="string-line">🎈🎈</div>
+            <div class="wave-dot">⚡</div>
         </div>
         @if($col)
     </div>
@@ -39,69 +36,56 @@
         position: relative;
         cursor: pointer;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 18px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .border-balloon-string {
-        border: 4px solid #7ed0f8;
-        border-radius: 50px 30px 55px 25px;
-        background: #FFFDF9;
-        position: relative;
         overflow: visible;
     }
 
-    /* 纯CSS气球 */
-    .balloon-tricolor {
-        position: absolute;
-        width: 30px;
-        height: 34px;
-        background: radial-gradient(circle at 35% 35%, #ffb900, #e6a100);
-        border-radius: 50% 50% 50% 50%;
-        top: -28px;
-        left: 20px;
+    .border-tricolor-wave {
+        border: 4px solid transparent;
+        background: #FFFEF7;
+        border-radius: 56px 32px 56px 32px;
+        position: relative;
+        background-clip: padding-box;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
     }
 
-    .balloon-tricolor::after {
+    .border-tricolor-wave::before {
         content: "";
         position: absolute;
-        bottom: -12px;
-        left: 11px;
-        width: 2px;
-        height: 16px;
-        background: #b47c5a;
+        inset: -6px;
+        background: linear-gradient(120deg, #ffb900, #00c8d4, #ff71eb, #ffb900);
+        border-radius: 60px 36px 60px 36px;
+        z-index: -1;
+        filter: blur(1px);
     }
 
-    .balloon2 {
-        background: radial-gradient(circle at 35% 35%, #00c8d4, #00a5b0);
-        left: 65px;
-        top: -32px;
-        width: 28px;
-        height: 32px;
-    }
-
-    .balloon3 {
-        background: radial-gradient(circle at 35% 35%, #ff71eb, #e55ad4);
-        right: 25px;
-        left: auto;
-        top: -26px;
-        width: 32px;
-        height: 36px;
-    }
-
-    .string-line {
+    /* 波浪装饰点 */
+    .border-tricolor-wave::after {
+        content: "~~~";
         position: absolute;
         bottom: -18px;
-        right: 30px;
+        left: 20px;
         font-size: 1.8rem;
-        color: #ffb900;
+        color: #00c8d4;
         opacity: 0.6;
+        letter-spacing: 6px;
+        font-weight: bold;
+        pointer-events: none;
     }
 
+        .wave-dot {
+            position: absolute;
+            top: -14px;
+            right: 25px;
+            font-size: 1.5rem;
+            color: #ff71eb;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
     .media-blog-2 .media__img img {
-        border-radius: 50px 30px 0 0;
+        border-radius: 60px 36px 0 0;
+    }
+
+    .media__text {
+        min-height: 81px;
     }
 </style>

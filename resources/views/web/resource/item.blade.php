@@ -32,11 +32,6 @@
         overflow: visible;
     }
 
-    .card:hover {
-        /*transform: translateY(-8px);*/
-        /*box-shadow: 0 18px 30px rgba(0, 0, 0, 0.1);*/
-    }
-
     .border-tricolor-wave {
         border: 4px solid transparent;
         background: #FFFEF7;
