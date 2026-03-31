@@ -130,7 +130,7 @@ class ResourceController extends Controller
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
 
-        return $this->responseSuccess(compact('html', 'total', 'page', 'pagination', 'url'));
+        return $this->responseSuccess(compact('html', 'total', 'page', 'pagination'));
     }
 
     /**
