@@ -149,7 +149,7 @@
                                             </button>
                                         </div>
                                         <small class="text-muted d-block mt-1">
-                                            <i class="fa-solid fa-info-circle me-1"></i>{{__('仅支持 PDF 格式，最大 10MB')}}
+                                            <i class="fa-solid fa-info-circle me-1"></i>{{__('仅支持 PDF 格式，最大 15MB')}}
                                         </small>
                                     </div>
                                 </div>
@@ -362,8 +362,8 @@
 
             if (file) {
                 // 验证文件大小 (10MB)
-                if (file.size > 10 * 1024 * 1024) {
-                    showToast('error', '{{__('文件大小不能超过 10MB')}}');
+                if (file.size > 15 * 1024 * 1024) {
+                    showToast('error', '{{__('文件大小不能超过 15MB')}}');
                     this.value = '';
                     return;
                 }
