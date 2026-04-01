@@ -12,7 +12,7 @@ class NewsRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'sort' => 'bail|required|numeric|min:0|max:9999',
+            'sort' => 'bail|required|numeric|min:0|max:99',
             'status' => 'bail|required|in:0,1,2'
         ];
 

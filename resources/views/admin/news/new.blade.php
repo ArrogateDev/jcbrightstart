@@ -46,6 +46,13 @@
                                         <select id="category" name="category_id" class="select form-control"></select>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="input-block">
+                                        <label class="form-label">{{__('权重')}}<span
+                                                class="text-danger ms-1">*</span></label>
+                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$news->sort??0}}" min="0" max="99" maxlength="6">
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="input-block">
                                         <div class="row align-items-center">
@@ -94,13 +101,6 @@
 												<i class="isax isax-calendar"></i>
 											</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('权重')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$news->sort??0}}" max="9999" maxlength="4">
                                     </div>
                                 </div>
 {{--                                <div class="col-md-6">--}}
