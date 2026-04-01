@@ -157,7 +157,7 @@
                                     <div class="input-block">
                                         <label class="form-label">{{__('权重')}}<span
                                                 class="text-danger ms-1">*</span></label>
-                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$resource->sort??''}}" max="9999" maxlength="4">
+                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$resource->sort??0}}" max="9999" maxlength="4">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
