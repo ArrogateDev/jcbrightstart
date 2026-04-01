@@ -24,6 +24,8 @@ return new class extends Migration
             $table->time('end_time')->nullable()->comment('End Time');
             $table->date('end_date')->nullable()->comment('End Date');
             $table->date('release_date')->nullable()->comment('Release Date');
+            $table->smallInteger('sort')->default(0)->comment('排序');
+            $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();
         });

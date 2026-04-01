@@ -54,6 +54,7 @@ class NewsController extends Controller
                 $query->where('release_date', '<', $now);
             })
             ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderByDesc('id')
             ->select('id', 'title', 'thumbnail', 'short', 'release_date')
             ->paginate(12);
@@ -92,12 +93,14 @@ class NewsController extends Controller
         $prev = News::query()
             ->where('id', '<', $news->id)
             ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderBy('id', 'desc')
             ->value('id');
 
         $next = News::query()
             ->where('id', '>', $news->id)
             ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderBy('id', 'asc')
             ->value('id');
 

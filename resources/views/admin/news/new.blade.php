@@ -96,6 +96,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="input-block">
+                                        <label class="form-label">{{__('权重')}}<span
+                                                class="text-danger ms-1">*</span></label>
+                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$news->sort??''}}" max="9999" maxlength="4">
+                                    </div>
+                                </div>
 {{--                                <div class="col-md-6">--}}
 {{--                                    <div class="mb-3">--}}
 {{--                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>--}}

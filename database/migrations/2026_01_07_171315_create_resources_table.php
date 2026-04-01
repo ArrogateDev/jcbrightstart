@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('short')->nullable()->comment('Short');
             $table->string('pdf')->nullable()->comment('Pdf');
             $table->text('description')->nullable()->comment('Description');
+            $table->smallInteger('sort')->default(0)->comment('排序');
             $table->unsignedBigInteger('view')->default(0)->comment('View');
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();

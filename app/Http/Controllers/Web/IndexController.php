@@ -58,6 +58,7 @@ class IndexController extends Controller
         $news = News::query()
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('release_date')
+            ->orderByDesc('sort')
             ->limit(3)
             ->get();
 

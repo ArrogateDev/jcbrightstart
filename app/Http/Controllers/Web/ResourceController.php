@@ -109,7 +109,7 @@ class ResourceController extends Controller
             ->when($sort === 'view', function ($query) use ($category) {
                 $query->orderByDesc('view');
             }, function ($query) {
-                $query->orderByDesc('id');
+                $query->orderByDesc('sort')->orderByDesc('id');
             })
             ->where('status', News::STATUS_PUBLISHED)
             ->paginate(12);
@@ -151,12 +151,14 @@ class ResourceController extends Controller
         $prev = Resource::query()
             ->where('id', '<', $resource->id)
             ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderBy('id', 'desc')
             ->value('id');
 
         $next = Resource::query()
             ->where('id', '>', $resource->id)
             ->where('status', Resource::STATUS_PUBLISHED)
+            ->orderByDesc('sort')
             ->orderBy('id', 'asc')
             ->value('id');
 
