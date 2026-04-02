@@ -37,7 +37,8 @@
     }
 
     .media__img {
-        height: 180px;
+        width: 100%;
+        aspect-ratio: 4 / 3;
     }
 </style>
 <body class="animsition js-preloader">
