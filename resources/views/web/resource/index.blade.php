@@ -91,65 +91,69 @@
 
         <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{__('专业学习社群')}}"/>
 
-        <section>
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                    <h3>{{__('最新视频')}}</h3>
-                </div>
-                <div class="row list-container">
-                    @if($videos->isNotEmpty())
-                        @foreach($videos as $video)
-                            @include('web.resource.item-video', ['resource' => $video])
-                        @endforeach
-                        @if($total_video > 7)
-                            <div class="col-md-6 col-lg-3">
-                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                    <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                        <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                        {{__('更多')}}
-                                    </a>
+        @if($videos->isNotEmpty())
+            <section>
+                <div class="container">
+                    <div class="d-flex align-items-center justify-content-between my-4 mt-5">
+                        <h3>{{__('最新视频')}}</h3>
+                    </div>
+                    <div class="row list-container">
+                        @if($videos->isNotEmpty())
+                            @foreach($videos as $video)
+                                @include('web.resource.item-video', ['resource' => $video])
+                            @endforeach
+                            @if($total_video > 7)
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="media media-blog-2 more-box card-border border-tricolor-wave">
+                                        <a href="{{route('resource.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
+                                            <i class="isax isax-element-plus" style="font-size: 36px;"></i>
+                                            {{__('更多')}}
+                                        </a>
+                                    </div>
                                 </div>
+                            @endif
+                        @else
+                            <div class="w-100 text-center py-4 text-muted">
+                                <i class="isax isax-document-text fs-24 mb-2"></i>
+                                <p class="mb-0">{{__('暂无数据')}}</p>
                             </div>
                         @endif
-                    @else
-                        <div class="w-100 text-center py-4 text-muted">
-                            <i class="isax isax-document-text fs-24 mb-2"></i>
-                            <p class="mb-0">{{__('暂无数据')}}</p>
-                        </div>
-                    @endif
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
 
-        <section>
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between my-4">
-                    <h3>{{__('最新文章')}}</h3>
-                </div>
-                <div class="row list-container">
-                    @if($articles->isNotEmpty())
-                        @foreach($articles as $article)
-                            @include('web.resource.item', ['resource' => $article])
-                        @endforeach
-                        @if($total_article > 7)
-                            <div class="col-md-6 col-lg-3">
-                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                    <a href="{{route('resource.more.html',['type'=>0])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                        <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                        {{__('更多')}}
-                                    </a>
+        @if($articles->isNotEmpty())
+            <section>
+                <div class="container">
+                    <div class="d-flex align-items-center justify-content-between my-4">
+                        <h3>{{__('最新文章')}}</h3>
+                    </div>
+                    <div class="row list-container">
+                        @if($articles->isNotEmpty())
+                            @foreach($articles as $article)
+                                @include('web.resource.item', ['resource' => $article])
+                            @endforeach
+                            @if($total_article > 7)
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="media media-blog-2 more-box card-border border-tricolor-wave">
+                                        <a href="{{route('resource.more.html',['type'=>0])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
+                                            <i class="isax isax-element-plus" style="font-size: 36px;"></i>
+                                            {{__('更多')}}
+                                        </a>
+                                    </div>
                                 </div>
+                            @endif
+                        @else
+                            <div class="w-100 text-center py-4 text-muted">
+                                <i class="isax isax-document-text fs-24 mb-2"></i>
+                                <p class="mb-0">{{__('暂无数据')}}</p>
                             </div>
                         @endif
-                    @else
-                        <div class="w-100 text-center py-4 text-muted">
-                            <i class="isax isax-document-text fs-24 mb-2"></i>
-                            <p class="mb-0">{{__('暂无数据')}}</p>
-                        </div>
-                    @endif
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endif
     </main>
 
     <x-web.footer/>

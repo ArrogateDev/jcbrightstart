@@ -11,7 +11,7 @@ class MapsController extends Controller
     public function index()
     {
         $maps = ServiceLocation::query()
-            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
+            ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
             ->get();
 
         $maps = $maps->map(function ($item) {
@@ -70,7 +70,7 @@ class MapsController extends Controller
     public function list()
     {
         $maps = ServiceLocation::query()
-            ->select('id', 'type', 'age', 'district', 'capacity', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
+            ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
             ->get();
 
         $types = $maps->groupBy('type')->sort();

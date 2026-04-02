@@ -54,6 +54,10 @@
         left: 0;
     }
 
+    #carousel-banner .carousel-inner, .picture-wal {
+        border-radius: 10px;
+    }
+
     .carousel-item {
         height: 560px;
     }
