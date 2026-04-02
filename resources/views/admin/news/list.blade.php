@@ -50,6 +50,7 @@
                             <tr id="field-list">
                                 <th data-field="title">{{__('标题')}}</th>
                                 <th>{{__('分类')}}</th>
+                                <th data-field="sort">{{__('权重')}}</th>
                                 <th data-field="status">{{__('状态')}}</th>
                                 <th data-field="created_at" data-sort="desc">{{__('创建时间')}}</th>
                                 <th></th>
@@ -111,6 +112,7 @@
                 <tr>
                     <td><p class="fs-14 title text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.title}">${item.title}</p></td>
                     <td>${item.category_text}</td>
+                    <td>${item.sort}</td>
                     <td>${statusMenu}</td>
                     <td>${item.created_at}</td>
                     <td>

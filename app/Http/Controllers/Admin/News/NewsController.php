@@ -53,8 +53,9 @@ class NewsController extends Controller
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
-                $query->orderByDesc('id');
+                $query->orderByDesc('sort')->orderByDesc('id');
             })
+            ->select('id', 'title', 'thumbnail', 'category_id', 'sort', 'status', 'created_at')
             ->paginate(limit_page());
 
         $list->map(function ($item) {
