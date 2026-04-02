@@ -18,7 +18,6 @@ class NewsRequest extends BaseRequest
 
         $status = $this->input('status');
         if ($status == News::STATUS_PUBLISHED) {
-            $rules['title'] = 'bail|required';
             $rules['category_id'] = 'bail|required|exists:news_categories,id';
             $rules['short'] = 'bail|required';
             $rules['release_date'] = 'bail|required|date:Y-m-d';
@@ -33,11 +32,14 @@ class NewsRequest extends BaseRequest
             $news = $this->route('news');
             $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
             $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
-            $id = $news instanceof News ? $news->id : $news;
+        }
+
+        $id = $news instanceof News ? $news->id : $news;
+        if ($this->method() === 'PUT') {
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('news')->ignore($id)
+                Rule::unique('news')->ignore($id)->where('deleted_at', null)
             ];
         }
 
