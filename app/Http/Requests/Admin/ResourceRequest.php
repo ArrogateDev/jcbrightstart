@@ -12,6 +12,7 @@ class ResourceRequest extends BaseRequest
     public function rules()
     {
         $rules = [
+            'title' => 'bail|required',
             'type' => 'bail|required|in:0,1',
             'pdf_file' => 'bail|nullable|filled|mimes:pdf|max:15360',
             'sort' => 'bail|required|numeric|min:0|max:99',
@@ -21,7 +22,6 @@ class ResourceRequest extends BaseRequest
         $status = (int)$this->input('status');
         $type = (int)$this->input('type');
         if ($status == Resource::STATUS_PUBLISHED) {
-            $rules['title'] = 'bail|required';
             $rules['category_id'] = 'bail|required_if:type,0|exists:resource_categories,id';
             $rules['short'] = 'bail|required_if:type,0';
             $rules['description'] = 'bail|required';
@@ -38,6 +38,9 @@ class ResourceRequest extends BaseRequest
             if ($type === Resource::TYPE_VIDEO) {
                 $rules['video'] = 'bail|required|starts_with:https://www.youtube.com,https://youtu.be';
             }
+        }
+
+        if ($this->method() === 'PUT') {
             $id = $resource instanceof Resource ? $resource->id : $resource;
             $rules['title'] = [
                 'bail',
