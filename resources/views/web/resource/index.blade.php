@@ -80,6 +80,10 @@
         height: stretch;
         height: -moz-available; /* Firefox */
         height: -webkit-fill-available; /* Chrome/Safari */
+        min-height: 381px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 <body class="animsition js-preloader">
