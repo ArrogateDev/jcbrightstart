@@ -144,7 +144,6 @@
     }
 
     .course-hero-title {
-        font-family: 'ZCOOL XiaoWei', serif;
         font-size: 2rem;
         color: #fff;
         line-height: 1.3;
@@ -225,7 +224,6 @@
     }
 
     .ring-pct {
-        font-family: 'Baloo 2', cursive;
         font-size: 1.2rem;
         font-weight: 800;
         color: #fff;
@@ -277,7 +275,6 @@
     }
 
     .section-label {
-        font-family: 'ZCOOL XiaoWei', serif;
         font-size: 1.1rem;
         font-weight: 700;
         color: var(--deep);
@@ -285,7 +282,6 @@
 
     .section-count {
         margin-left: auto;
-        font-family: 'Baloo 2', cursive;
         font-size: .85rem;
         font-weight: 800;
         color: var(--sky);
@@ -630,7 +626,6 @@
     }
 
     .stat-info .num {
-        font-family: 'Baloo 2', cursive;
         font-size: 1.7rem;
         font-weight: 800;
         line-height: 1;
@@ -1046,7 +1041,6 @@
                                             <div @class(['play-btn', 'ti-nutrition', 'done'=>$unit->status === 2])>
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="38" height="38">
                                                     <text x="100" y="130"
-                                                          font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"
                                                           font-size="80"
                                                           font-weight="800"
                                                           fill="#2C3E66"

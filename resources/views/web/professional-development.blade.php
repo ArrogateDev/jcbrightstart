@@ -818,7 +818,7 @@
                             <div class="tier-target">
                                 <div class="tier-target-icon">⭐</div>
                                 <div class="tier-target-text">
-                                    {!! __('追求<strong>高品质</strong>的教顾环境') !!}
+                                    {!! __('追求<strong>高品质</strong>的教顾环境，提升学校整体教顾质素') !!}
                                 </div>
                             </div>
                         </div>
