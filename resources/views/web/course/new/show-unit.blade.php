@@ -134,7 +134,6 @@
     }
 
     .video-title {
-        font-family: 'Baloo 2', cursive;
         font-size: 1.5rem;
         font-weight: 800;
         color: #fff;
@@ -202,7 +201,6 @@
     }
 
     .info-title {
-        font-family: 'ZCOOL XiaoWei', serif;
         font-size: 1.8rem;
         color: var(--deep);
         line-height: 1.3;
@@ -335,7 +333,6 @@
     }
 
     .quiz-label {
-        font-family: 'ZCOOL XiaoWei', serif;
         font-size: 1.1rem;
         font-weight: 700;
         color: var(--deep);
@@ -385,7 +382,6 @@
     }
 
     .quiz-progress-text {
-        font-family: 'Baloo 2', cursive;
         font-size: .8rem;
         font-weight: 800;
         color: var(--deep);

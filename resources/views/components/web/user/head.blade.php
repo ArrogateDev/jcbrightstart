@@ -164,27 +164,6 @@
             }
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .logo-text .zh {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 1rem;
-            color: var(--deep);
-            letter-spacing: .05em;
-        }
-
-        .logo-text .en {
-            font-family: 'Baloo 2', cursive;
-            font-size: .75rem;
-            font-weight: 700;
-            color: var(--sky);
-            letter-spacing: .08em;
-        }
-
         .nav-links {
             display: flex;
             align-items: center;
@@ -473,7 +452,6 @@
         }
 
         .hero-headline {
-            font-family: 'ZCOOL XiaoWei', serif;
             font-size: 3rem;
             line-height: 1.2;
             color: var(--deep);
@@ -527,7 +505,6 @@
         }
 
         .stat-num {
-            font-family: 'Baloo 2', cursive;
             font-size: 1.6rem;
             font-weight: 800;
             line-height: 1;
@@ -840,7 +817,6 @@
         }
 
         .profile-name {
-            font-family: 'Baloo 2', cursive;
             font-size: 1.8rem;
             font-weight: 800;
             color: #fff;
@@ -953,7 +929,6 @@
         }
 
         .section-title {
-            font-family: 'ZCOOL XiaoWei', serif;
             font-size: 1.1rem;
             color: var(--deep);
             font-weight: 700;
