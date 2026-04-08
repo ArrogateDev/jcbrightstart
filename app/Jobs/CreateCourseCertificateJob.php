@@ -170,8 +170,8 @@ class CreateCourseCertificateJob implements ShouldQueue
         $image = new \Imagick();
         $image->readImage($template_path);
 
-        $target_width = (int)($certificate->width ?: $image->getImageWidth());
-        $target_height = (int)($certificate->height ?: $image->getImageHeight());
+        $target_width = $image->getImageWidth();
+        $target_height = $image->getImageHeight();
 
         if ($target_width <= 0 || $target_height <= 0) {
             $image->clear();
