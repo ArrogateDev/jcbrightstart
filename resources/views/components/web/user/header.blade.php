@@ -273,3 +273,42 @@
     </script>
 
 @endif
+
+<x-sweetalert/>
+
+<script>
+    $(function () {
+        $('.logout').click(function () {
+            confirm_alert('{{__('确定退出吗')}}', '{{__('你将无法撤销这一操作！')}}', '{{__('确定')}}', 'warning', '{{__('取消')}}')
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading()
+                        $.ajax({
+                            url: "{{ route('user.logout.html') }}",
+                            type: 'DELETE',
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function (response) {
+                                if (response.code !== 0) {
+                                    showToast('error', response.msg);
+                                    return;
+                                }
+
+                                showToast('success', 'Successful');
+                                setTimeout(function () {
+                                    window.location.href = '{{route('home')}}';
+                                }, 800)
+                            },
+                            error: function () {
+                                showToast('error', 'Login failed, please try again later')
+                            },
+                            complete: function () {
+                                hideLoading()
+                            }
+                        });
+                    }
+                })
+        })
+    })
+</script>
