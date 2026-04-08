@@ -172,6 +172,10 @@ class CreateCourseCertificateJob implements ShouldQueue
 
         $target_width = $image->getImageWidth();
         $target_height = $image->getImageHeight();
+        $design_width = (float)($certificate->width ?: $target_width);
+        $design_height = (float)($certificate->height ?: $target_height);
+        $scale_x = $design_width > 0 ? ($target_width / $design_width) : 1.0;
+        $scale_y = $design_height > 0 ? ($target_height / $design_height) : 1.0;
 
         if ($target_width <= 0 || $target_height <= 0) {
             $image->clear();
@@ -186,11 +190,11 @@ class CreateCourseCertificateJob implements ShouldQueue
         $image->setImageFormat('png');
 
         if ($certificate->name_config) {
-            $this->addTextToImageByImagick($image, $name, $certificate->name_config);
+            $this->addTextToImageByImagick($image, $name, $certificate->name_config, $scale_x, $scale_y);
         }
 
         if ($certificate->date_config) {
-            $this->addTextToImageByImagick($image, $date, $certificate->date_config);
+            $this->addTextToImageByImagick($image, $date, $certificate->date_config, $scale_x, $scale_y);
         }
 
         $file_path = 'certificates/users/' . $user_id . '/';
@@ -208,7 +212,7 @@ class CreateCourseCertificateJob implements ShouldQueue
         return $file_path . $file_name;
     }
 
-    private function addTextToImageByImagick(\Imagick $image, string $text, array $config): void
+    private function addTextToImageByImagick(\Imagick $image, string $text, array $config, float $scale_x = 1.0, float $scale_y = 1.0): void
     {
         $draw = new \ImagickDraw();
 
@@ -217,14 +221,14 @@ class CreateCourseCertificateJob implements ShouldQueue
             $draw->setFont($font_path);
         }
 
-        $font_size = (float)($config['fontSize'] ?? 24);
+        $font_size = (float)($config['fontSize'] ?? 24) * $scale_y;
         $draw->setFontSize($font_size);
 
         $color = $this->parseColor($config['fill'] ?? '#000000');
         $draw->setFillColor(new \ImagickPixel(sprintf('rgb(%d,%d,%d)', $color['r'], $color['g'], $color['b'])));
 
-        $x = (float)($config['left'] ?? 0);
-        $y = (float)($config['top'] ?? 0);
+        $x = (float)($config['left'] ?? 0) * $scale_x;
+        $y = (float)($config['top'] ?? 0) * $scale_y;
 
         $text_align = $config['textAlign'] ?? 'center';
         $origin_y = $config['originY'] ?? 'center';
