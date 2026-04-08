@@ -92,8 +92,13 @@ class User extends Authenticatable
      */
     public function getGenderTextAttribute()
     {
-        $gender = $this->gender;
-        return is_integer($gender) ? ($gender === 1 ? __('男') : __('女')) : __('沒有提供');
+        $gender = (int)$this->gender;
+        return match ($gender){
+            0 => __('女'),
+            1 => __('男'),
+            2 => __('沒有提供'),
+            default => __('沒有提供12541'),
+        };
     }
 
     /**

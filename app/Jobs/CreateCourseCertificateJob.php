@@ -56,7 +56,6 @@ class CreateCourseCertificateJob implements ShouldQueue
     private function handleCreateCertificateImage(Certificate $certificate, string $name, int $user_id, string $date): string
     {
         $templatePath = storage_path('app/public/' . $certificate->getRawOriginal('path'));
-        echo $templatePath;
 
         if (!file_exists($templatePath)) {
             throw new \Exception(__('证书模板图片不存在'));
