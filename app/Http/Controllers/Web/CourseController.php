@@ -52,7 +52,7 @@ class CourseController extends Controller
 
         $course->certificate_url = $certificate->file_url ?? null;
         $course->certificate_download_url = $course->certificate_url ? env('APP_URL') . URL::temporarySignedRoute(
-                'user.download.html', now()->addDay(), ['file' => $certificate->file], false
+                'user.preview.html', now()->addDay(), ['file' => $certificate->file], false
             ) : null;
 
         $play_records = UserCoursePlayRecord::query()
@@ -704,7 +704,7 @@ class CourseController extends Controller
             if ($certificate->status === UserCourseCertificate::STATUS_GENERATED && $certificate->file) {
                 $data['file'] = $certificate->file_url;
                 $data['download_url'] = env('APP_URL') . URL::temporarySignedRoute(
-                        'user.download.html', now()->addDay(), ['file' => $certificate->file], false
+                        'user.preview.html', now()->addDay(), ['file' => $certificate->file], false
                     );
             } else {
                 $data['download_url'] = null;
