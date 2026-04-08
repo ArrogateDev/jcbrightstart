@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\Manage\Admin;
 use App\Models\User\User;
+use App\Support\AuthSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -68,7 +69,7 @@ class AuthController extends Controller
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
 
-            Auth::logoutOtherDevices($password);
+            Auth::guard('admin')->logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {

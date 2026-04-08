@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Support\AuthSession;
 
 class LoginController extends Controller
 {
@@ -69,7 +70,7 @@ class LoginController extends Controller
 
             Auth::guard('web')->login($user, $remember_me === 'on');
 
-            Auth::logoutOtherDevices($password);
+            Auth::guard('web')->logoutOtherDevices($password);
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
