@@ -55,6 +55,10 @@ class CreateCourseCertificateJob implements ShouldQueue
      */
     private function handleCreateCertificateImage(Certificate $certificate, string $name, int $user_id, string $date): string
     {
+        // Prefer Imagick when available (handles large images more reliably than GD).
+        if (class_exists(\Imagick::class)) {
+            return $this->handleCreateCertificateImageByImagick($certificate, $name, $user_id, $date);
+        }
 
         $template_path = storage_path('app/public/' . $certificate->getRawOriginal('path'));
 
@@ -150,6 +154,101 @@ class CreateCourseCertificateJob implements ShouldQueue
         }
 
         return $file_path . $file_name;
+    }
+
+    /**
+     * 使用 Imagick 生成证书图片（更适合大图）
+     */
+    private function handleCreateCertificateImageByImagick(Certificate $certificate, string $name, int $user_id, string $date): string
+    {
+        $template_path = storage_path('app/public/' . $certificate->getRawOriginal('path'));
+
+        if (!file_exists($template_path)) {
+            throw new \Exception(__('证书模板图片不存在'));
+        }
+
+        $image = new \Imagick();
+        $image->readImage($template_path);
+
+        $target_width = (int)($certificate->width ?: $image->getImageWidth());
+        $target_height = (int)($certificate->height ?: $image->getImageHeight());
+
+        if ($target_width <= 0 || $target_height <= 0) {
+            $image->clear();
+            $image->destroy();
+            throw new \Exception(__('证书尺寸无效'));
+        }
+
+        if ($image->getImageWidth() !== $target_width || $image->getImageHeight() !== $target_height) {
+            $image->resizeImage($target_width, $target_height, \Imagick::FILTER_LANCZOS, 1);
+        }
+
+        $image->setImageFormat('png');
+
+        if ($certificate->name_config) {
+            $this->addTextToImageByImagick($image, $name, $certificate->name_config);
+        }
+
+        if ($certificate->date_config) {
+            $this->addTextToImageByImagick($image, $date, $certificate->date_config);
+        }
+
+        $file_path = 'certificates/users/' . $user_id . '/';
+        $file_name = uniqid() . '.png';
+        $full_path = storage_path('app/public/' . $file_path . $file_name);
+
+        if (!is_dir(dirname($full_path))) {
+            mkdir(dirname($full_path), 0755, true);
+        }
+
+        $image->writeImage($full_path);
+        $image->clear();
+        $image->destroy();
+
+        return $file_path . $file_name;
+    }
+
+    private function addTextToImageByImagick(\Imagick $image, string $text, array $config): void
+    {
+        $draw = new \ImagickDraw();
+
+        $font_path = $this->getFontPath();
+        if ($font_path) {
+            $draw->setFont($font_path);
+        }
+
+        $font_size = (float)($config['fontSize'] ?? 24);
+        $draw->setFontSize($font_size);
+
+        $color = $this->parseColor($config['fill'] ?? '#000000');
+        $draw->setFillColor(new \ImagickPixel(sprintf('rgb(%d,%d,%d)', $color['r'], $color['g'], $color['b'])));
+
+        $x = (float)($config['left'] ?? 0);
+        $y = (float)($config['top'] ?? 0);
+
+        $text_align = $config['textAlign'] ?? 'center';
+        $origin_y = $config['originY'] ?? 'center';
+
+        $align = match ($text_align) {
+            'right' => \Imagick::ALIGN_RIGHT,
+            'left' => \Imagick::ALIGN_LEFT,
+            default => \Imagick::ALIGN_CENTER,
+        };
+        $draw->setTextAlignment($align);
+
+        $metrics = $image->queryFontMetrics($draw, $text);
+        $text_height = (float)($metrics['textHeight'] ?? 0);
+
+        // Imagick uses baseline Y.
+        if ($origin_y === 'center') {
+            $y = $y + ($text_height / 2);
+        } elseif ($origin_y === 'bottom') {
+            $y = $y + $text_height;
+        } else {
+            $y = $y + $text_height;
+        }
+
+        $image->annotateImage($draw, $x, $y, 0, $text);
     }
 
     /**
