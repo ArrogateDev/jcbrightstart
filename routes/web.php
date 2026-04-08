@@ -71,6 +71,7 @@ Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 
     //下载文件
     $route->get('download.html', [DownloadController::class, 'download'])->name('user.download.html');
+    $route->get('preview.html', [DownloadController::class, 'preview'])->name('user.preview.html');
 
     $route->get('/course/{course}.html', [CourseController::class, 'show'])->name('course.details.html');
     $route->get('/course/{course}/unit/{unit}.html', [CourseController::class, 'handleUnitShow'])->name('course.unit.details.html');
