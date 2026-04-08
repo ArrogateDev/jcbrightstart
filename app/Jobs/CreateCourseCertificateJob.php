@@ -55,42 +55,63 @@ class CreateCourseCertificateJob implements ShouldQueue
      */
     private function handleCreateCertificateImage(Certificate $certificate, string $name, int $user_id, string $date): string
     {
-        $templatePath = storage_path('app/public/' . $certificate->getRawOriginal('path'));
 
-        if (!file_exists($templatePath)) {
+        $template_path = storage_path('app/public/' . $certificate->getRawOriginal('path'));
+
+        if (!file_exists($template_path)) {
             throw new \Exception(__('证书模板图片不存在'));
         }
 
         // 获取图片信息
-        $imageInfo = getimagesize($templatePath);
-        $imageType = $imageInfo[2];
-
-        // 创建画布
-        $width = $certificate->width;
-        $height = $certificate->height;
-        $canvas = imagecreatetruecolor($width, $height);
-
-        // 设置背景为白色
-        $white = imagecolorallocate($canvas, 255, 255, 255);
-        imagefill($canvas, 0, 0, $white);
+        $image_info = getimagesize($template_path);
+        $image_type = $image_info[2];
 
         // 加载模板图片
-        switch ($imageType) {
+        switch ($image_type) {
             case IMAGETYPE_JPEG:
-                $template = imagecreatefromjpeg($templatePath);
+                $template = imagecreatefromjpeg($template_path);
                 break;
             case IMAGETYPE_PNG:
-                $template = imagecreatefrompng($templatePath);
+                $template = imagecreatefrompng($template_path);
                 break;
             case IMAGETYPE_GIF:
-                $template = imagecreatefromgif($templatePath);
+                $template = imagecreatefromgif($template_path);
                 break;
             default:
                 throw new \Exception(__('不支持的图片格式'));
         }
 
-        // 将模板图片复制到画布
-        imagecopyresampled($canvas, $template, 0, 0, 0, 0, $width, $height, $imageInfo[0], $imageInfo[1]);
+        if (!$template) {
+            throw new \Exception(__('证书模板图片加载失败'));
+        }
+
+        // Prefer reusing the template as the canvas to avoid holding 2 large bitmaps in memory.
+        $target_width = (int)($certificate->width ?: $image_info[0]);
+        $target_height = (int)($certificate->height ?: $image_info[1]);
+
+        if ($target_width <= 0 || $target_height <= 0) {
+            imagedestroy($template);
+            throw new \Exception(__('证书尺寸无效'));
+        }
+
+        if ($target_width === (int)$image_info[0] && $target_height === (int)$image_info[1]) {
+            $canvas = $template;
+            $template = null;
+        } else {
+            $canvas = imagecreatetruecolor($target_width, $target_height);
+            if (!$canvas) {
+                imagedestroy($template);
+                throw new \Exception(__('创建画布失败'));
+            }
+
+            // 设置背景为白色
+            $white = imagecolorallocate($canvas, 255, 255, 255);
+            imagefill($canvas, 0, 0, $white);
+
+            imagecopyresampled($canvas, $template, 0, 0, 0, 0, $target_width, $target_height, (int)$image_info[0], (int)$image_info[1]);
+            imagedestroy($template);
+            $template = null;
+        }
 
         // 添加姓名文本
         if ($certificate->name_config) {
@@ -113,18 +134,20 @@ class CreateCourseCertificateJob implements ShouldQueue
         // 保存生成的证书
         $file_path = 'certificates/users/' . $user_id . '/';
         $file_name = uniqid() . '.png';
-        $fullPath = storage_path('app/public/' . $file_path . $file_name);
+        $full_path = storage_path('app/public/' . $file_path . $file_name);
 
         // 确保目录存在
-        if (!is_dir(dirname($fullPath))) {
-            mkdir(dirname($fullPath), 0755, true);
+        if (!is_dir(dirname($full_path))) {
+            mkdir(dirname($full_path), 0755, true);
         }
 
-        imagepng($canvas, $fullPath);
+        imagepng($canvas, $full_path);
 
         // 释放内存
         imagedestroy($canvas);
-        imagedestroy($template);
+        if ($template) {
+            imagedestroy($template);
+        }
 
         return $file_path . $file_name;
     }
@@ -136,7 +159,7 @@ class CreateCourseCertificateJob implements ShouldQueue
     {
         // 解析颜色（支持hex和rgb）
         $color = $this->parseColor($config['fill'] ?? '#000000');
-        $textColor = imagecolorallocate($canvas, $color['r'], $color['g'], $color['b']);
+        $text_color = imagecolorallocate($canvas, $color['r'], $color['g'], $color['b']);
 
         // 字体大小
         $fontSize = $config['fontSize'] ?? 24;
@@ -151,57 +174,57 @@ class CreateCourseCertificateJob implements ShouldQueue
         $originY = $config['originY'] ?? 'center';
 
         // 尝试使用TTF字体
-        $fontPath = $this->getFontPath();
+        $font_path = $this->getFontPath();
 
-        if ($fontPath && function_exists('imagettftext')) {
+        if ($font_path && function_exists('imagettftext')) {
             // 使用TTF字体
             $angle = 0;
 
             // 计算文本边界框
-            $bbox = imagettfbbox($fontSize, $angle, $fontPath, $text);
-            $textWidth = abs($bbox[4] - $bbox[0]);
-            $textHeight = abs($bbox[5] - $bbox[1]);
+            $bbox = imagettfbbox($fontSize, $angle, $font_path, $text);
+            $text_width = abs($bbox[4] - $bbox[0]);
+            $text_height = abs($bbox[5] - $bbox[1]);
 
             // 根据originX调整X坐标
             if ($originX === 'center' || $textAlign === 'center') {
-                $x = $x - ($textWidth / 2);
+                $x = $x - ($text_width / 2);
             } elseif ($originX === 'right' || $textAlign === 'right') {
-                $x = $x - $textWidth;
+                $x = $x - $text_width;
             }
 
             // 根据originY调整Y坐标
             if ($originY === 'center') {
-                $y = $y + ($textHeight / 2);
+                $y = $y + ($text_height / 2);
             } elseif ($originY === 'bottom') {
-                $y = $y + $textHeight;
+                $y = $y + $text_height;
             }
 
             // 添加文本
-            imagettftext($canvas, $fontSize, $angle, (int)$x, (int)$y, $textColor, $fontPath, $text);
+            imagettftext($canvas, $fontSize, $angle, (int)$x, (int)$y, $text_color, $font_path, $text);
         } else {
             // 使用内置字体（降级方案）
             $font = 5; // 最大内置字体
 
             // 计算文本宽度和高度
-            $textWidth = imagefontwidth($font) * strlen($text);
-            $textHeight = imagefontheight($font);
+            $text_width = imagefontwidth($font) * strlen($text);
+            $text_height = imagefontheight($font);
 
             // 根据对齐方式调整X坐标
             if ($textAlign === 'center' || $originX === 'center') {
-                $x = $x - ($textWidth / 2);
+                $x = $x - ($text_width / 2);
             } elseif ($textAlign === 'right' || $originX === 'right') {
-                $x = $x - $textWidth;
+                $x = $x - $text_width;
             }
 
             // 根据originY调整Y坐标
             if ($originY === 'center') {
-                $y = $y + ($textHeight / 2);
+                $y = $y + ($text_height / 2);
             } elseif ($originY === 'bottom') {
-                $y = $y + $textHeight;
+                $y = $y + $text_height;
             }
 
             // 添加文本
-            imagestring($canvas, $font, (int)$x, (int)$y, $text, $textColor);
+            imagestring($canvas, $font, (int)$x, (int)$y, $text, $text_color);
         }
     }
 
@@ -211,13 +234,13 @@ class CreateCourseCertificateJob implements ShouldQueue
     private function getFontPath(): ?string
     {
 
-        $fontPath = storage_path('app/public/fonts/PingFangSC-Regular.ttf');
+        $font_path = storage_path('app/public/fonts/PingFangSC-Regular.ttf');
         // 如果字体文件不存在，返回null使用内置字体
-        if (!file_exists($fontPath)) {
+        if (!file_exists($font_path)) {
             return null;
         }
 
-        return $fontPath;
+        return $font_path;
     }
 
     /**
