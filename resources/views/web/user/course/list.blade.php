@@ -55,7 +55,7 @@
                         <div class="row mt-4">
                             <div class="col-12 text-center">
                                 <button type="button" class="btn btn-primary load-more-btn border-0 m-auto">
-                                    <span class="btn-text" style="display: none;">Load More</span>
+                                    <span class="btn-text" style="display: none;">{{__('更多')}}</span>
                                     <span class="btn-loading">
                                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                                             Loading...

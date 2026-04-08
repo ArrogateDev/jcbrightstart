@@ -108,7 +108,7 @@
                                             </h6>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <a href="{{$item->url}}" class="btn btn-dark btn-sm d-inline-flex align-items-center">
-                                                    View Course<i class="isax isax-arrow-right-3 ms-1"></i>
+                                                    {{__('进入课程')}}<i class="isax isax-arrow-right-3 ms-1"></i>
                                                 </a>
                                             </div>
                                         </div>
