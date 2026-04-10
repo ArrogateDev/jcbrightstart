@@ -27,8 +27,8 @@ class ResourceRequest extends BaseRequest
             $rules['description'] = 'bail|required';
         }
 
+        $resource = $this->route('resource');
         if ($status == Resource::STATUS_PUBLISHED && $this->method() === 'PUT') {
-            $resource = $this->route('resource');
             // 当 type=0(图文) 时，thumbnail 和 thumbnail_url 必须提供一个
             if ($type === Resource::TYPE_ARTICLE) {
                 $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';

@@ -28,8 +28,8 @@ class NewsRequest extends BaseRequest
             $rules['description'] = 'bail|required';
         }
 
+        $news = $this->route('news');
         if ($status == News::STATUS_PUBLISHED && $this->method() === 'PUT') {
-            $news = $this->route('news');
             $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
             $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
         }
