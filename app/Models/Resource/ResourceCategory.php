@@ -19,6 +19,6 @@ class ResourceCategory extends Base
 
     public function getParentTextAttribute()
     {
-        return $this->parent ? $this->parent->title : __('顶级分类');
+        return $this->parent ? $this->parent->title : __('最上級');
     }
 }
