@@ -46,7 +46,7 @@ class NewsController extends Controller
             ->get();
 
         $videos->map(function ($item) {
-            $item->url = route('resource.show.html', ['resource' => $item->id]);
+            $item->url = route('news.show.html', ['news' => $item->id]);
         });
         $videos->append(['category_text']);
 

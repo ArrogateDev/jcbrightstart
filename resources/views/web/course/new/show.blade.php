@@ -210,7 +210,7 @@
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
-        stroke-dashoffset: calc(220 - ({{ $progress }}                                                               / 100 * 220));
+        stroke-dashoffset: calc(220 - ({{ $progress }} / 100 * 220));
         transition: stroke-dashoffset 1s ease;
     }
 
@@ -909,76 +909,108 @@
 
             <!-- Course Hero -->
             <div class="course-hero">
-                <div class="hero-dot-grid"></div>
-                <div class="course-hero-icon">
-                    <img src="{{$course->thumbnail}}" alt="img" class="img-fluid gallery-img">
-                </div>
-                <div class="course-hero-info">
-                    <div class="course-hero-title">{{$course->title}}</div>
-                    <div class="course-hero-meta">
-                        <div class="meta-chip"><span class="dot"></span>{{$course->unit_num??0}} {{__('个章节')}}</div>
-                        <div class="meta-chip"><span class="dot" style="background:var(--mint)"></span>{{$completed}} {{__('已完成')}}</div>
+                <div class="row my-2">
+                    <div class="col-12 col-md-2 my-2 d-flex justify-content-between d-md-block">
+                        <div class="hero-dot-grid"></div>
+                        <div class="course-hero-icon">
+                            <img src="{{$course->thumbnail}}" alt="img" class="img-fluid gallery-img">
+                        </div>
+                        <div class="course-hero-progress d-block d-md-none">
+                            <div class="ring-chart">
+                                <svg viewBox="0 0 80 80" width="90" height="90">
+                                    <defs>
+                                        <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#FF6B6B"/>
+                                            <stop offset="100%" stop-color="#FFB347"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="track" cx="40" cy="40" r="35"/>
+                                    <circle class="fill" cx="40" cy="40" r="35"/>
+                                </svg>
+                                <div class="ring-label">
+                                    <span class="ring-pct">{{$progress}}%</span>
+                                    <span class="ring-sub">{{__('已完成')}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="course-hero-progress">
-                    <div class="ring-chart">
-                        <svg viewBox="0 0 80 80" width="90" height="90">
-                            <defs>
-                                <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#FF6B6B"/>
-                                    <stop offset="100%" stop-color="#FFB347"/>
-                                </linearGradient>
-                            </defs>
-                            <circle class="track" cx="40" cy="40" r="35"/>
-                            <circle class="fill" cx="40" cy="40" r="35"/>
-                        </svg>
-                        <div class="ring-label">
-                            <span class="ring-pct">{{$progress}}%</span>
-                            <span class="ring-sub">{{__('已完成')}}</span>
+                    <div class="col-12 col-md-8 my-2">
+                        <div class="course-hero-info">
+                            <div class="course-hero-title">{{$course->title}}</div>
+                            <div class="course-hero-meta">
+                                <div class="meta-chip"><span class="dot"></span>{{$course->unit_num??0}} {{__('个章节')}}</div>
+                                <div class="meta-chip"><span class="dot" style="background:var(--mint)"></span>{{$completed}} {{__('已完成')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-2 my-2 d-none d-md-block">
+                        <div class="course-hero-progress">
+                            <div class="ring-chart">
+                                <svg viewBox="0 0 80 80" width="90" height="90">
+                                    <defs>
+                                        <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#FF6B6B"/>
+                                            <stop offset="100%" stop-color="#FFB347"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="track" cx="40" cy="40" r="35"/>
+                                    <circle class="fill" cx="40" cy="40" r="35"/>
+                                </svg>
+                                <div class="ring-label">
+                                    <span class="ring-pct">{{$progress}}%</span>
+                                    <span class="ring-sub">{{__('已完成')}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-icon-box sb-coral">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                            <line x1="9" y1="7" x2="15" y2="7"/>
-                            <line x1="9" y1="11" x2="13" y2="11"/>
-                        </svg>
-                    </div>
-                    <div class="stat-info">
-                        <div class="num nc">{{$course->unit_num??0}}</div>
-                        <div class="lbl">{{__('课程章节')}}</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon-box sb-mint">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="8 12 11 15 16 9"/>
-                        </svg>
-                    </div>
-                    <div class="stat-info">
-                        <div class="num nm">{{$completed}}</div>
-                        <div class="lbl">{{__('已完成章节')}}</div>
+            <div class="row my-2">
+                <div class="col-12 col-md-4 my-2">
+                    <div class="stat-card">
+                        <div class="stat-icon-box sb-coral">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                <line x1="9" y1="7" x2="15" y2="7"/>
+                                <line x1="9" y1="11" x2="13" y2="11"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="num nc">{{$course->unit_num??0}}</div>
+                            <div class="lbl">{{__('课程章节')}}</div>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon-box sb-lavender">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B39DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 2h14"/>
-                            <path d="M5 22h14"/>
-                            <path d="M17 2L12 12 7 2"/>
-                            <path d="M7 22l5-10 5 10"/>
-                        </svg>
+                <div class="col-12 col-md-4 my-2">
+                    <div class="stat-card">
+                        <div class="stat-icon-box sb-mint">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="8 12 11 15 16 9"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="num nm">{{$completed}}</div>
+                            <div class="lbl">{{__('已完成章节')}}</div>
+                        </div>
                     </div>
-                    <div class="stat-info">
-                        <div class="num nl">{{$surplus}}</div>
-                        <div class="lbl">{{__('待完成章节')}}</div>
+                </div>
+                <div class="col-12 col-md-4 my-2">
+                    <div class="stat-card">
+                        <div class="stat-icon-box sb-lavender">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B39DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 2h14"/>
+                                <path d="M5 22h14"/>
+                                <path d="M17 2L12 12 7 2"/>
+                                <path d="M7 22l5-10 5 10"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="num nl">{{$surplus}}</div>
+                            <div class="lbl">{{__('待完成章节')}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1003,7 +1035,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-9">
+                <div class="col-12 col-lg-9">
                     <!-- Curriculum -->
                     <div class="curriculum-card">
                         <div class="section-header">
@@ -1029,7 +1061,8 @@
                                     </div>
                                     <div class="level-right">
                                         <span class="level-meta">{{$chapter->unit_num}} {{__('个章节')}} · {{$chapter->unit_num_completed}} {{__('已完成')}}</span>
-                                        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="2.5" stroke-linecap="round"
+                                             stroke-linejoin="round">
                                             <polyline points="6 9 12 15 18 9"/>
                                         </svg>
                                     </div>
@@ -1075,14 +1108,16 @@
                                                 <a class="open-btn" href="{{$unit->url}}" target="_blank">{{__('打开')}}</a>
                                                 @if($unit->status === 2)
                                                     <div class="status-chip done">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5ECFA6" stroke-width="2.5" stroke-linecap="round"
+                                                             stroke-linejoin="round">
                                                             <circle cx="12" cy="12" r="10"/>
                                                             <polyline points="8 12 11 15 16 9"/>
                                                         </svg>
                                                     </div>
                                                 @else
                                                     <div class="status-chip pending">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A0AEC0" stroke-width="2" stroke-linecap="round"
+                                                             stroke-linejoin="round">
                                                             <circle cx="12" cy="12" r="10"/>
                                                         </svg>
                                                     </div>
@@ -1097,7 +1132,7 @@
                     </div>
                 </div>
 
-                <div class="col-3">
+                <div class="col-12 col-lg-3 mt-3 mt-lg-0">
                     <div class="curriculum-card">
                         <div class="section-header">
                             <div class="section-header-icon icon-blue">

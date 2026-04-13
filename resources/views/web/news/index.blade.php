@@ -94,7 +94,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
+        <x-web.breadcrumb title="{{__('最新消息')}}"/>
 
         @if($videos->isNotEmpty())
             <section>

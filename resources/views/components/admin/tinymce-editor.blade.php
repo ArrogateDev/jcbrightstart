@@ -22,6 +22,9 @@
                 '{{ web_resource_url("assets/web/vendor/bootstrap-4.1/bootstrap.min.css") }}',
                 '{{ web_resource_url("assets/web/css/main.min.css") }}'
             ],
+            content_style: 'ol{list-style: decimal; margin:0 0 1em; padding-left:2em;} ul{list-style: disc; margin:0 0 1em; padding-left:2em;} li{margin:.25em 0;} ol ol{list-style: lower-alpha;} ol ol ol{list-style: lower-roman;}',
+            paste_as_text: false,
+            paste_enable_default_filters: true,
             images_upload_handler: function (blobInfo, progress) {
                 return new Promise((resolve, reject) => {
                     const file = blobInfo.blob();
