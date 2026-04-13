@@ -95,6 +95,7 @@ class ResourceController extends Controller
     {
         $type = (int)$request->query('type');
         $keywords = $request->query('keywords');
+        $mod = (int)$request->query('mod');
         $category = (int)$request->query('category');
         $sort = $request->query('sort', 'time');
 
@@ -106,6 +107,9 @@ class ResourceController extends Controller
             })
             ->when($keywords, function ($query) use ($keywords) {
                 $query->where('title', 'like', '%' . $keywords . '%');
+            })
+            ->when($mod, function ($query) use ($mod) {
+                $query->where('category_top_id', $mod);
             })
             ->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category);

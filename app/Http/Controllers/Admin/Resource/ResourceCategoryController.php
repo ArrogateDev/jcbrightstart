@@ -23,7 +23,7 @@ class ResourceCategoryController extends Controller
             ->get()
             ->toArray();
 
-        array_unshift($category, ['id' => 0, 'text' => __('顶级分类')]);
+        array_unshift($category, ['id' => 0, 'text' => __('最上級')]);
 
         return view('admin.resource-category.list', compact('category'));
     }

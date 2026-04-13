@@ -288,7 +288,7 @@
                     position: 'first',
                     text: '<button type="button" class="btn btn-primary w-100" style="pointer-events: auto; border: none;padding: 4px 0;"><i class="fa fa-plus me-1"></i>{{__('新增分类')}}</button>',
                     onAdd: function (ctx) {
-                        var parentText = ctx.parentLabel ? ('（{{__('父级')}}：' + ctx.parentLabel + '）') : '（{{__('顶级分类')}}）';
+                        var parentText = ctx.parentLabel ? ('（{{__('上级')}}：' + ctx.parentLabel + '）') : '（{{__('顶级分类')}}）';
                         layer.open({
                             type: 1,
                             title: '{{__('新增分类')}} - ' + parentText,

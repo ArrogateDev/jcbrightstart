@@ -18,7 +18,10 @@
             toolbar_mode: 'wrap',
             plugins: 'preview searchreplace autolink autosave save directionality fullscreen image link media table charmap pagebreak nonbreaking advlist lists wordcount help quickbars code emoticons',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link image media table charmap hr pagebreak emoticons | preview fullscreen | removeformat code',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px } img { max-width: 100%; height: auto; display: block; }',
+            content_css: [
+                '{{ web_resource_url("assets/web/vendor/bootstrap-4.1/bootstrap.min.css") }}',
+                '{{ web_resource_url("assets/web/css/main.min.css") }}'
+            ],
             images_upload_handler: function (blobInfo, progress) {
                 return new Promise((resolve, reject) => {
                     const file = blobInfo.blob();

@@ -12,7 +12,7 @@
 
         <div class="mb-3">
             <label class="form-label" for="pid">
-                {{__('父级')}}
+                {{__('上级')}}
                 <span class="text-danger"> *</span>
                 <span id="error-pid-status"></span>
             </label>
@@ -77,7 +77,7 @@
             .addField('#pid', [
                 {
                     rule: 'required',
-                    errorMessage: '{{__('父级不能为空')}}'
+                    errorMessage: '{{__('上级不能为空')}}'
                 }
             ], {
                 errorsContainer: '#error-container-pid'
