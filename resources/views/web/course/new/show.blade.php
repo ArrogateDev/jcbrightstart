@@ -206,7 +206,6 @@
 
     .ring-chart .fill {
         fill: none;
-        stroke: url(#pg);
         stroke-width: 8;
         stroke-linecap: round;
         stroke-dasharray: 220;
@@ -919,13 +918,13 @@
                             <div class="ring-chart">
                                 <svg viewBox="0 0 80 80" width="90" height="90">
                                     <defs>
-                                        <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <linearGradient id="pg-pe" x1="0%" y1="0%" x2="100%" y2="100%">
                                             <stop offset="0%" stop-color="#FF6B6B"/>
                                             <stop offset="100%" stop-color="#FFB347"/>
                                         </linearGradient>
                                     </defs>
                                     <circle class="track" cx="40" cy="40" r="35"/>
-                                    <circle class="fill" cx="40" cy="40" r="35"/>
+                                    <circle class="fill" cx="40" cy="40" r="35" stroke="url(#pg-pe)"/>
                                 </svg>
                                 <div class="ring-label">
                                     <span class="ring-pct">{{$progress}}%</span>
@@ -954,7 +953,7 @@
                                         </linearGradient>
                                     </defs>
                                     <circle class="track" cx="40" cy="40" r="35"/>
-                                    <circle class="fill" cx="40" cy="40" r="35"/>
+                                    <circle class="fill" cx="40" cy="40" r="35" stroke="url(#pg)"/>
                                 </svg>
                                 <div class="ring-label">
                                     <span class="ring-pct">{{$progress}}%</span>

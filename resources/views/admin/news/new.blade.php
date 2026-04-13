@@ -385,6 +385,10 @@
         $('.btn-submit').click(function () {
             showLoading()
 
+            if (window.tinymce) {
+                tinymce.triggerSave();
+            }
+
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
@@ -395,12 +399,16 @@
             formData.append('status', status === 2 ? status : $status)
 
             _.each(form, (value) => {
+                if (value.name === 'description') {
+                    return;
+                }
                 formData.append(value.name, value.value);
             });
-            if (window.tinymce) {
-                tinymce.triggerSave();
-            }
-            formData.append('description', $('#description').val() || '');
+
+            const editor = window.tinymce ? tinymce.get('description') : null;
+            const description = editor ? editor.getContent() : ($('#description').val() || '');
+            formData.append('description', description);
+
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
             }

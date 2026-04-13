@@ -739,12 +739,16 @@
             // 处理普通表单字段
             _.each(form, (value) => {
                 // 跳过单元和课程相关的字段，稍后单独处理
-                if (!value.name.startsWith('units[')) {
-                    formData.append(value.name, value.value);
+                if (value.name === 'description' || value.name.startsWith('units[')) {
+                    return;
                 }
+                formData.append(value.name, value.value);
             });
 
-            formData.append('description', $('#description').val() || '');
+            const editor = window.tinymce ? tinymce.get('description') : null;
+            const description = editor ? editor.getContent() : ($('#description').val() || '');
+            formData.append('description', description);
+
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
             }
