@@ -13,7 +13,7 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="{{__('专业学习社群领域')}}"/>
+    <x-admin.breadcrumb title="{{__('专业学习社群分类')}}"/>
 
     <div class="content">
         <div class="container">
@@ -23,7 +23,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">{{__('专业学习社群领域')}}</h5>
+                        <h5 class="fw-bold">{{__('专业学习社群分类')}}</h5>
                         <div>
                             <a href="#" class="btn btn-secondary" data-bs-toggle="modal"
                                data-bs-target="#form-modal">{{ __('新增领域')}}</a>
