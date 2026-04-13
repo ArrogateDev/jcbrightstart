@@ -729,7 +729,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('HOME5_TITLE')}}" subtitle="{{__('HOME5_TITLE')}}"/>
+        <x-web.breadcrumb title="{{__('HOME5_TITLE')}}"/>
 
         <div class="development-page">
             <section class="development" id="top">

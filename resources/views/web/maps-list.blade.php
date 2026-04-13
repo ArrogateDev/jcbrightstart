@@ -10,34 +10,31 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{!! __('香港0-3岁<br />婴幼儿服务资讯') !!}" subtitle="{{__('列表')}}"/>
+        <x-web.breadcrumb title="{!! __('香港0-3岁<br />婴幼儿服务资讯') !!}"/>
 
         <section class="section p-t-50">
             <div class="container">
                 <div class="maps-tabs-wrapper">
                     <ul class="nav nav-tabs maps-tabs-nav" id="mapsTabs" role="tablist">
-                        @php $first = true; @endphp
                         @foreach($types as $type => $list)
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link {{ $first ? 'active' : '' }}"
+                                <a class="nav-link {{ $loop->first ? 'active' : '' }}"
                                    id="tab-{{ md5($type) }}-tab"
                                    data-toggle="tab"
                                    href="#tab-{{ md5($type) }}"
                                    role="tab"
                                    aria-controls="tab-{{ md5($type) }}"
-                                   aria-selected="{{ $first ? 'true' : 'false' }}">
+                                   aria-selected="{{ $loop->first ? 'true' : 'false' }}">
                                     {{$type}}
                                     <span class="badge badge-light ml-2">{{ count($list) }}</span>
                                 </a>
                             </li>
-                            @php $first = false; @endphp
                         @endforeach
                     </ul>
 
                     <div class="tab-content maps-tabs-content" id="mapsTabsContent">
-                        @php $first = true; @endphp
                         @foreach($types as $type => $list)
-                            <div class="tab-pane fade {{ $first ? 'show active' : '' }}"
+                            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                                  id="tab-{{ md5($type) }}"
                                  role="tabpanel"
                                  aria-labelledby="tab-{{ md5($type) }}-tab">
@@ -116,7 +113,6 @@
                                     @endforeach
                                 </div>
                             </div>
-                            @php $first = false; @endphp
                         @endforeach
                     </div>
                 </div>

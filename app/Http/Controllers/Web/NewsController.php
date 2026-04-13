@@ -79,7 +79,7 @@ class NewsController extends Controller
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);
 
-        return view('web.news.more', compact('subtitle', 'categories'));
+        return view('web.news.more', compact('subtitle', 'type', 'categories'));
     }
 
     /**
@@ -89,9 +89,14 @@ class NewsController extends Controller
     public function list(Request $request)
     {
         $keywords = $request->query('keywords');
-        $category = $request->query('category');
-        $type = (int)$request->query('type', 1);
+        $category = (int)$request->query('category');
+        $type = (int)$request->query('type', 0);
         $now = Carbon::now()->toDateString();
+        $params = [
+            'keywords' => $keywords,
+            'category' => $category,
+            'type' => $type,
+        ];
 
         $list = News::query()
             ->when($keywords, function ($query) use ($keywords) {
@@ -100,16 +105,19 @@ class NewsController extends Controller
             ->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category);
             })
-            ->when($type === 1, function ($query) use ($now) {
-                $query->where('release_date', '>=', $now);
-            }, function ($query) use ($now) {
-                $query->where('release_date', '<', $now);
-            })
+            ->where('type', $type)
+//            ->when($type === 1, function ($query) use ($now) {
+//                $query->where('release_date', '>=', $now);
+//            }, function ($query) use ($now) {
+//                $query->where('release_date', '<', $now);
+//            })
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('sort')
             ->orderByDesc('id')
             ->select('id', 'title', 'thumbnail', 'short', 'release_date')
             ->paginate(12);
+
+        $list->appends($params);
 
         $list->map(function ($item) {
             $item->url = route('news.show.html', ['news' => $item->id]);
@@ -120,8 +128,9 @@ class NewsController extends Controller
         $total = $list->count();
         $page = $list->currentPage();
         $data = $list->items();
+        $col_num = 3;
         foreach ($data as $news) {
-            $html .= view('web.news.item', compact('news'))->render();
+            $html .= view('web.news.item', compact('news', 'col_num'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';

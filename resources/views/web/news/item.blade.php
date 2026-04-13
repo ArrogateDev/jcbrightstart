@@ -1,6 +1,6 @@
-@props(['news' => null, 'col'=>true])
+@props(['news' => null, 'col'=>true, 'col_num'=>4])
 @if($col)
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-6 col-lg-{{$col_num}}">
 @endif
         <div class="media media-blog-2 card-border border-tricolor-wave">
             <div class="media__img text-center">
@@ -12,7 +12,7 @@
                 <h4 class="media__title title title--black title--md">
                     <a href="{{$news->url}}">{{$news->title}}</a>
                 </h4>
-                <p class="media__text">{{$news->short}}</p>
+                <p class="media__text">{{$news->short??''}}</p>
                 <div class="media-info py-2">
                     <div class="d-flex align-items-center flex-wrap justify-content-between">
                         <div class="d-flex align-items-center flex-wrap gap-2">

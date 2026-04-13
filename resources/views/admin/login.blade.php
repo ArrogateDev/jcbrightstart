@@ -28,7 +28,7 @@
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
                             </div>
-                            <h4 class="mt-4 mb-3">{{__('赛马会')}}<span class="text-secondary">{{__('幼儿“喜步”计划')}}</span></h4>
+                            <h4 class="mt-4 mb-3">{{__('赛马会')}}<span>{{__('幼儿“喜步”计划')}}</span></h4>
                             <h1 class="fs-32 fw-bold topic px-md-5">Management Portal</h1>
                             <form id="form" class="mb-3 pb-3 px-md-5" novalidate="novalidate">
                                 <div class="mb-3 position-relative">

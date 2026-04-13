@@ -40,6 +40,42 @@
         width: 100%;
         aspect-ratio: 4 / 3;
     }
+
+    .category-box .category {
+        background: #f5f5f5;
+        color: #364050;
+        padding: 2px 20px;
+        border-radius: 25px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .category-box .category:hover, .category-box .category.active {
+        background: #ffb900;
+        color: #fff;
+    }
+
+    .category-tag {
+        background: #ffb90066;
+        color: #ffb900;
+        padding: 0 10px;
+        border-radius: 15px;
+        margin-right: 10px;
+    }
+
+    .top-short {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+    }
+
+    .category-text {
+        color: #76a466;
+        margin-bottom: 5px;
+    }
 </style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
@@ -48,13 +84,23 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}" subtitle="{{$subtitle??null}}"/>
+        <x-web.breadcrumb title="{{__('最新消息')}}"/>
 
-        <section class="section p-t-125 p-b-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-lg-3">
-                        <div class="page-sidebar p-sm-b-70">
+        @if($type === 0)
+            <section class="section p-t-80 p-b-35">
+                <div class="container">
+                    <div class="row m-0 p-b-10" style="border-bottom: 1px solid #d0d4db;">
+                        <div class="col-md-9 m-0 p-0">
+                            @if($categories->isNotEmpty())
+                                <ul class="category-box">
+                                    <li class="d-inline-block category active" data-filter="0">{{__('全部')}}</li>
+                                    @foreach($categories as $item)
+                                        <li class="d-inline-block category" data-category="{{$item->id}}">{{$item->title}}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                        <div class="col-md-3 m-0 p-0">
                             <div class="widget">
                                 <form class="form form--icon" method="post">
                                     <input id="search-input" class="input-border-3" type="text" placeholder="Search...">
@@ -63,33 +109,19 @@
                                     </button>
                                 </form>
                             </div>
-                            @if($categories->isNotEmpty())
-                                <div class="widget p-b-30 p-t-45">
-                                    <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
-                                        <h2 class="section-heading__title">Categories</h2>
-                                    </div>
-                                    <ul class="list-bare list-unstyled">
-                                        @foreach($categories as $item)
-                                            <li class="list-bare__item" data-category="{{$item->id}}">
-                                                <span class="dot"></span>
-                                                <a class="list-bare__link" href="#">{{$item->title}}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-8 col-lg-9">
-                        <div class="p-l-10 p-sm-l-0">
-                            <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left m-b-30">
-                                <h2 class="section-heading__title" id="list-type">{{__('最新消息')}}</h2>
-                            </div>
-                            <div class="row list-container"></div>
-                            <nav class="au-pagination p-t-10 pagination-container"></nav>
                         </div>
                     </div>
                 </div>
+            </section>
+        @endif
+
+        <section>
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between my-4">
+                    <h3>{{$type === 1 ? __('最新视频') : __('最新消息')}}</h3>
+                </div>
+                <div class="row list-container"></div>
+                <nav class="au-pagination p-t-10 pagination-container"></nav>
             </div>
         </section>
     </main>
@@ -134,7 +166,6 @@
         let params = {};
         let $search = $('#search-input');
         let $searchBtn = $('#search-btn');
-        let $type = $('#list-type');
 
         const urlKeywords = urlParams.get('keywords');
         const urlCategory = urlParams.get('category');
@@ -143,13 +174,16 @@
             $search.val(urlKeywords);
             params = Object.assign(params, {keywords: urlKeywords});
         }
-        if (urlCategory) {
-            $(`.list-bare__item[data-category="${urlCategory}"]`).addClass('active');
-            params = Object.assign(params, {category: urlCategory});
-        }
         if (urlType) {
-            $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
             params = Object.assign(params, {type: urlType});
+        }
+        if (urlKeywords) {
+            $search.val(urlKeywords);
+            params = Object.assign(params, {keywords: urlKeywords});
+        }
+        if (urlCategory) {
+            $(`.category[data-category="${urlCategory}"]`).addClass('active').siblings().removeClass('active');
+            params = Object.assign(params, {category: urlCategory});
         }
 
         getData(page, params)
@@ -187,23 +221,12 @@
             getData($page, params)
         })
 
-        $(document).on('click', '.list-bare__item', function () {
+        $(document).on('click', '.category', function () {
             $(this).addClass('active').siblings().removeClass('active');
-            const category = $(this).data('category');
-            if (!category) return
+            const category = parseInt($(this).data('category'));
 
             page = 1
             params = Object.assign(params, {category: category, page: page});
-            getData(page, params)
-        })
-
-        $(document).on('click', '.type-box li', function () {
-            $(this).addClass('active').siblings().removeClass('active');
-            const type = $(this).data('type');
-
-            $type.text(type === '1' ? '{{__('最新消息')}}' : '{{__('过去消息')}}')
-            page = 1
-            params = Object.assign(params, {type: type, page: page});
             getData(page, params)
         })
 

@@ -95,7 +95,7 @@ class ResourceController extends Controller
     {
         $type = (int)$request->query('type');
         $keywords = $request->query('keywords');
-        $category = $request->query('category');
+        $category = (int)$request->query('category');
         $sort = $request->query('sort', 'time');
 
         $list = Resource::query()

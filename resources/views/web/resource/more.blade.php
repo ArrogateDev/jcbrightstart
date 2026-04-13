@@ -84,7 +84,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{$subtitle??null}}"/>
+        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
 
         @if($type === 0)
             <section class="section p-t-80 p-b-35">
