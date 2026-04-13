@@ -4,8 +4,7 @@
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
 <script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.css')}}">
-<script src="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('storage/assets/js/tinymce/tinymce.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/admin/js/moment.min.js')}}" type="text/javascript"></script>
@@ -194,7 +193,7 @@
                                         <div class="input-block">
                                             <label class="form-label">{{__('內容')}}<span
                                                     class="text-danger ms-1">*</span></label>
-                                            <div class="summernote">{!! $news->description??'' !!}</div>
+                                            <textarea id="description" name="description" class="form-control tinymce-editor">{!! $news->description??'' !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -398,7 +397,10 @@
             _.each(form, (value) => {
                 formData.append(value.name, value.value);
             });
-            formData.append('description', $('.summernote').eq(0).summernote('code'));
+            if (window.tinymce) {
+                tinymce.triggerSave();
+            }
+            formData.append('description', $('#description').val() || '');
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
             }
@@ -446,6 +448,6 @@
     })
 </script>
 
-<x-admin.summernote-editor :height="300" type="news"/>
+<x-admin.tinymce-editor :height="600" type="news"/>
 
 </html>

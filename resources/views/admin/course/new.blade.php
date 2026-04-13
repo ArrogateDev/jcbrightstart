@@ -4,8 +4,7 @@
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
 <script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.css')}}">
-<script src="{{web_resource_url('assets/admin/plugins/summernote/summernote-lite.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('storage/assets/js/tinymce/tinymce.min.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/admin/js/fabric.min.js')}}" type="text/javascript"></script>
 
 <body>
@@ -122,7 +121,7 @@
                                             <div class="input-block">
                                                 <label class="form-label">{{__('內容')}}<span
                                                         class="text-danger ms-1">*</span></label>
-                                                <div class="summernote">{!! $course->description??'' !!}</div>
+                                                <textarea id="description" name="description" class="form-control tinymce-editor">{!! $course->description??'' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -622,8 +621,18 @@
             template.css('display', 'block');
             $(this).closest('.chapter-item').find('.units-container').append(template);
 
+            // 初始化新增单元中的 TinyMCE
+            const $newUnit = $(this).closest('.chapter-item').find('.units-container .unit-item').last();
+            const $newEditor = $newUnit.find('.tinymce-editor').first();
+            if ($newEditor.length && typeof initSingleTinyMCE === 'function') {
+                if (!$newEditor.attr('id')) {
+                    $newEditor.attr('id', 'tinymce-unit-' + chapterIndex + '-' + unitIndex + '-' + Date.now());
+                }
+                initSingleTinyMCE('#' + $newEditor.attr('id'));
+            }
+
             // 初始化测验选择器（确保是新添加的元素，不是模板中的）
-            const $newQuizSelect = $(this).closest('.chapter-item').find('.units-container .unit-quiz-select').last();
+            const $newQuizSelect = $newUnit.find('.unit-quiz-select').last();
             // 如果已经被初始化，先销毁
             if ($newQuizSelect.data('select2')) {
                 $newQuizSelect.select2('destroy');
@@ -715,6 +724,9 @@
         const $form = $('#course-form');
         $('.btn-submit').click(function () {
             showLoading();
+            if (window.tinymce) {
+                tinymce.triggerSave();
+            }
             const form = $form.serializeArray();
             let editId = $('#edit-id').val();
             let formData = new FormData();
@@ -732,7 +744,7 @@
                 }
             });
 
-            formData.append('description', $('.summernote').eq(0).summernote('code'));
+            formData.append('description', $('#description').val() || '');
             if (thumbnailImageFile) {
                 formData.append('thumbnail', thumbnailImageFile);
             }
@@ -775,17 +787,8 @@
                                 formData.append(`chapters[${chapterIndex}][units][${unitIndex}][quiz_id]`, quizId);
                             }
 
-                            // 处理单元描述
-                            const $unitSummernote = $unit.find('.summernote');
-                            console.log($unitSummernote);
-                            let unitDescription = '';
-                            try {
-                                unitDescription = $unitSummernote.eq(0).summernote('code') || '';
-                            console.log(unitDescription);
-                            } catch (e) {
-                                unitDescription = '';
-                            }
-
+                            // 处理单元描述（TinyMCE 已通过 triggerSave 同步到 textarea）
+                            const unitDescription = $unit.find('textarea[name*="[description]"]').val() || '';
                             formData.append(`chapters[${chapterIndex}][units][${unitIndex}][description]`, unitDescription);
 
                             if (unitType == 0) {
@@ -848,6 +851,6 @@
     })
 </script>
 
-<x-admin.summernote-editor :height="300" type="course"/>
+<x-admin.tinymce-editor :height="600" type="course"/>
 
 </html>

@@ -65,7 +65,10 @@
         </div>
         <div class="mt-2">
             <label class="form-label small">{{__('描述')}}</label>
-            <div class="summernote" data-chapter-index="" data-unit-index=""></div>
+            <textarea name="chapters[][units][][description]"
+                      class="form-control tinymce-editor unit-description-editor"
+                      data-chapter-index=""
+                      data-unit-index=""></textarea>
         </div>
         <input type="hidden" name="chapters[][units][][id]" value="">
     </div>
