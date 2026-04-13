@@ -121,6 +121,10 @@ class ResourceController extends Controller
                 $resource->pdf = $pdf_file_path . $pdf_file_name;
             }
 
+            if ($resource->category_id === 0) {
+                $resource->category_id = $resource->category_top_id;
+            }
+
             if ($resource->type == Resource::TYPE_VIDEO && $video) {
                 $resource->short = $video;
             }
@@ -196,6 +200,10 @@ class ResourceController extends Controller
 
             if ($resource->type == Resource::TYPE_VIDEO && $video) {
                 $resource->short = $video;
+            }
+
+            if ($resource->category_id === 0) {
+                $resource->category_id = $resource->category_top_id;
             }
 
             if ($resource->save() === false) {
