@@ -16,8 +16,8 @@
             menubar: false,
             branding: false,
             toolbar_mode: 'wrap',
-            plugins: 'preview searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help quickbars code emoticons',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link image media table charmap hr pagebreak emoticons | insertdatetime | visualblocks visualchars preview fullscreen | removeformat code',
+            plugins: 'preview searchreplace autolink autosave save directionality fullscreen image link media table charmap pagebreak nonbreaking advlist lists wordcount help quickbars code emoticons',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link image media table charmap hr pagebreak emoticons | preview fullscreen | removeformat code',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px } img { max-width: 100%; height: auto; display: block; }',
             images_upload_handler: function (blobInfo, progress) {
                 return new Promise((resolve, reject) => {
@@ -87,6 +87,11 @@
     function initAllTinyMCE() {
         const editors = document.querySelectorAll('.tinymce-editor');
         editors.forEach((editor) => {
+            // 跳过隐藏模板里的编辑器，避免模板被初始化后克隆出重复编辑框
+            if (editor.closest('#unit-template') || editor.closest('#chapter-template')) {
+                return;
+            }
+
             if (!editor.id) {
                 editor.id = 'tinymce-editor-' + Math.random().toString(36).slice(2, 10);
             }
