@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="show-modal" title="" class="modal-lg">
+<x-layouts.modal id="show-modal" title="" class="modal-lg">
 
     <div class="card">
         <div class="card-body">

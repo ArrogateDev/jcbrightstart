@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('新增领域')}}" class="modal-lg" form="true" form-id="form">
+<x-layouts.modal id="form-modal" title="{{ __('新增领域')}}" class="modal-lg" form="true" form-id="form">
 
     <div class="modal-body pb-0">
         <div class="mb-3">
@@ -8,6 +8,15 @@
                 <span id="error-title-status"></span>
             </label>
             <input type="text" id="title" name="title" class="form-control" placeholder="{{__('请输入名称')}}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="pid">
+                {{__('父级')}}
+                <span class="text-danger"> *</span>
+                <span id="error-pid-status"></span>
+            </label>
+            <select id="pid" name="pid" class="select form-control"></select>
         </div>
 
         <div class="mb-3">
@@ -48,6 +57,11 @@
 
 <script>
     $(function () {
+        $('#pid').select2({
+            placeholder: '{{__('请选择或搜索分类')}}',
+            data: @json($category)
+        });
+
         const validator = new window.JustValidate('#form', {
             errorLabelCssClass: 'd-inline',
         });
@@ -59,6 +73,14 @@
                 }
             ], {
                 errorsContainer: '#error-container-title'
+            })
+            .addField('#pid', [
+                {
+                    rule: 'required',
+                    errorMessage: '{{__('父级不能为空')}}'
+                }
+            ], {
+                errorsContainer: '#error-container-pid'
             })
             .addField('input[name="status"]', [
                 {

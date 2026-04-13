@@ -19,15 +19,67 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        $category = NewsCategory::query()
-            ->where('status', 0)
-            ->select('id', 'title')
+        $articles = News::query()
+            ->where('type', News::TYPE_ARTICLE)
+            ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('id')
+            ->limit(7)
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
             ->get();
+
+        $articles->map(function ($item) {
+            $item->url = route('resource.show.html', ['resource' => $item->id]);
+        });
+        $articles->append(['category_text']);
+
+        $total_article = News::query()
+            ->where('type', News::TYPE_ARTICLE)
+            ->where('status', News::STATUS_PUBLISHED)
+            ->count();
+
+        $videos = News::query()
+            ->where('type', News::TYPE_VIDEO)
+            ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('id')
+            ->limit(7)
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
+            ->get();
+
+        $videos->map(function ($item) {
+            $item->url = route('resource.show.html', ['resource' => $item->id]);
+        });
+        $videos->append(['category_text']);
+
+        $total_video = News::query()
+            ->where('type', News::TYPE_VIDEO)
+            ->where('status', News::STATUS_PUBLISHED)
+            ->count();
 
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);
 
-        return view('web.news.index', compact('category'));
+        return view('web.news.index', compact('articles', 'total_article', 'videos', 'total_video'));
+    }
+
+    /**
+     * Request $request
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function more(Request $request)
+    {
+        $type = (int)$request->query('type', 1);
+        $categories = NewsCategory::query()
+            ->where('status', 0)
+            ->select('id', 'title')
+            ->get();
+
+        $subtitle = $type > 0 ? __('最新消息') : __('视频');
+
+        $url = $request->fullUrl();
+        $request->session()->put('resource-url', $url);
+
+        return view('web.news.more', compact('subtitle', 'categories'));
     }
 
     /**
@@ -106,6 +158,6 @@ class NewsController extends Controller
 
         $url = $request->session()->get('resource-url');
 
-        return view('web.news.show', compact('news', 'prev', 'next', 'url'));
+        return view(sprintf('web.news.show%s', $news->type === News::TYPE_VIDEO ? '-video' : ''), compact('news', 'prev', 'next', 'url'));
     }
 }

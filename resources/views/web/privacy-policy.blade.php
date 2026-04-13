@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -10,7 +10,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('隐私政策')}}" subtitle="{{__('隐私政策')}}"/>
+        <x-web.breadcrumb title="{{__('隐私政策')}}"/>
 
         <section class="section p-t-125">
 

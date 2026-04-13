@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('resource_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title')->comment('Title');
+            $table->unsignedBigInteger('pid')->default(0);
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();

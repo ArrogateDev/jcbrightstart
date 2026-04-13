@@ -1,7 +1,7 @@
-﻿@props(['news' => null, 'col'=>true])
+@props(['news' => null, 'col'=>true])
 @if($col)
     <div class="col-md-6 col-lg-4">
-        @endif
+@endif
         <div class="media media-blog-2 card-border border-tricolor-wave">
             <div class="media__img text-center">
                 <a href="{{$news->url}}">
@@ -24,6 +24,6 @@
             </div>
             <div class="wave-dot">⚡</div>
         </div>
-        @if($col)
+@if($col)
     </div>
 @endif

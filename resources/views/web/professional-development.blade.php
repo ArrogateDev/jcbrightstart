@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 
 <x-web.head/>
@@ -735,8 +735,8 @@
             <section class="development" id="top">
                 <div class="development-content">
                     <div class="development-badge">{{__('幼儿教育 · 专业框架')}}</div>
-                    <div class="development-number">4</div>
-                    <h1 class="development-title">{{__('4个层级的专业介入')}}</h1>
+                    <div class="development-number">3</div>
+                    <h1 class="development-title">{{__('3个层级的专业介入')}}</h1>
                     <p class="development-subtitle">
                         {!! __('从知识基础到专业同行，透过系统化的专业发展路径，<br>持续提升幼儿教顾实践的品质与专业水平') !!}
                     </p>

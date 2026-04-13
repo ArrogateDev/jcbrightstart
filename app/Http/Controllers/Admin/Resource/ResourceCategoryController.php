@@ -16,7 +16,16 @@ class ResourceCategoryController extends Controller
 
     public function index()
     {
-        return view('admin.resource-category.list');
+
+        $category = ResourceCategory::query()
+            ->where('pid', 0)
+            ->select('id', 'title as text')
+            ->get()
+            ->toArray();
+
+        array_unshift($category, ['id' => 0, 'text' => __('顶级分类')]);
+
+        return view('admin.resource-category.list', compact('category'));
     }
 
     /**
@@ -40,6 +49,8 @@ class ResourceCategoryController extends Controller
             })
             ->paginate(limit_page());
 
+        $list->append(['parent_text']);
+
         return $this->responseSuccess($list);
     }
 
@@ -59,7 +70,7 @@ class ResourceCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'status']);
+        $inputs = $request->only(['title', 'pid', 'status']);
 
         try {
 
@@ -72,7 +83,12 @@ class ResourceCategoryController extends Controller
                 throw new \Exception('category:failed');
             }
 
-            return $this->responseSuccess(null, __('成功'));
+            return $this->responseSuccess([
+                'id' => $category->id,
+                'title' => $category->title,
+                'pid' => $category->pid,
+                'status' => $category->status,
+            ], __('成功'));
         } catch (\Exception $e) {
             Log::error($e);
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
@@ -95,7 +111,7 @@ class ResourceCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'status']);
+        $inputs = $request->only(['title', 'pid', 'status']);
 
         try {
 

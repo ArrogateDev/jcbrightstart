@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{$active === 'users' ?__('编辑老师') : __('编辑家长')}}" class="modal-lg" form="true" form-id="form">
+<x-layouts.modal id="form-modal" title="{{$active === 'users' ?__('编辑老师') : __('编辑家长')}}" class="modal-lg" form="true" form-id="form">
 
     <div class="mb-3">
         <label class="form-label" for="first-name">

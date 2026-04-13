@@ -1,4 +1,4 @@
-﻿@props(['resource' => null, 'col'=>true])
+@props(['resource' => null, 'col'=>true])
 @if($col)
     <div class="col-md-6 col-lg-3">
 @endif

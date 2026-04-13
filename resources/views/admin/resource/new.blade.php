@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
@@ -11,7 +11,18 @@
 <script src="{{web_resource_url('assets/admin/js/moment.min.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/css/bootstrap-datetimepicker.min.css')}}">
 <script src="{{web_resource_url('assets/admin/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/js/cascader/layui.css')}}">
+<script src="{{web_resource_url('assets/js/cascader/layui.js')}}"></script>
+<script src="{{web_resource_url('assets/js/cascader/cascader.js?css=true')}}"></script>
+<style>
+    .layui-layer {
+        border-radius: 6px;
+    }
 
+    .waitMe_container .waitMe {
+        z-index: 19891016;
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -109,7 +120,8 @@
                                     <div class="input-block">
                                         <label class="form-label">{{__('分类')}}<span
                                                 class="text-danger ms-1">*</span></label>
-                                        <select id="category" name="category_id" class="select form-control"></select>
+                                        <input type="hidden" id="category_top_id" name="category_top_id" class="form-control" value="{{$resource->category_top_id??''}}">
+                                        <input type="text" id="category_id" name="category_id" class="form-control" value="{{$resource->category_id??''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -197,8 +209,6 @@
 
 </div>
 
-@include('admin.resource-category.new')
-
 </body>
 <script>
     let thumbnailImageFile = null;
@@ -264,76 +274,88 @@
     })();
 
     $(function () {
-        const $category = $('#category');
-        $category.select2({
-            placeholder: '{{__('请选择或搜索分类')}}',
-            ajax: {
-                url: '{{route('admin.get-resource-category-list.html')}}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        keyword: params.term,
-                        page: params.page || 1,
-                        limit: 15
-                    };
-                },
-                processResults: function ({code, data}) {
-                    const results = [];
-                    if (data.current_page === 1) {
-                        results.push({
-                            id: 'add_new',
-                            text: '{{__('新增分类')}}',
-                            isAddButton: true,
-                            disabled: true
+        layui.use(['element', 'code', 'layCascader', 'layer', 'jquery'], function () {
+            layui.code();
+            let layer = layui.layer;
+            let $ = layui.jquery;
+            let layCascader = layui.layCascader;
+
+            window.CascaderIns = layCascader({
+                elem: '#category_id',
+                value:{{$resource->category_id??''}},
+                options: @json($categories),
+                addNode: {
+                    enabled: true,
+                    position: 'first',
+                    text: '<button type="button" class="btn btn-primary w-100" style="pointer-events: auto; border: none;padding: 4px 0;"><i class="fa fa-plus me-1"></i>{{__('新增分类')}}</button>',
+                    onAdd: function (ctx) {
+                        var parentText = ctx.parentLabel ? ('（{{__('父级')}}：' + ctx.parentLabel + '）') : '（{{__('顶级分类')}}）';
+                        layer.open({
+                            type: 1,
+                            title: '{{__('新增分类')}} - ' + parentText,
+                            area: ['400px', '300px'],
+                            content: '<div class="p-3"><div class="mb-3"><label class="form-label"for="title">{{__('名称')}}<span class="text-danger">*</span></label><input type="text"id="cascader-title"name="title"class="form-control"placeholder="{{__('请输入名称')}}"></div><div class="mb-3"><label class="form-label mb-1">{{__('状态')}}<span class="text-danger ms-1">*</span></label><div class="d-flex align-items-center "><div class="form-check me-3"><input class="form-check-input"type="radio"name="cascader-status"id="status-normal"value="0"checked><label class="form-check-label"for="status-normal">{{__('正常')}}</label></div><div class="form-check me-3"><input class="form-check-input"type="radio"name="cascader-status"id="status-disabled"value="1"><label class="form-check-label"for="status-disabled">{{__('禁用')}}</label></div></div></div></div>',
+                            btn: ['{{__('确定')}}', '{{__('取消')}}'],
+                            yes: function (index) {
+                                var label = $.trim($('#cascader-title').val());
+                                var status = $('input[name="cascader-status"]:checked').val() || '0';
+
+                                if (!label) {
+                                    showToast('error', '{{__('名称不能为空')}}');
+                                    return;
+                                }
+
+                                showLoading()
+
+                                $.ajax({
+                                    url: '{{route('admin.resource-category.store.html')}}',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        _token: '{{csrf_token()}}',
+                                        title: label,
+                                        pid: ctx.parentValue || 0,
+                                        status: status
+                                    },
+                                    success: function (res) {
+                                        if (res.code !== 0) {
+                                            showToast('error', res.msg || '{{__('新增失败')}}');
+                                            return;
+                                        }
+
+                                        var row = (res.data || {});
+                                        var newNode = {
+                                            label: row.title || label,
+                                            value: row.id,
+                                            children: []
+                                        };
+                                        ctx.cascader.addNodeAt(ctx.level, ctx.parentNode, newNode);
+                                        if (ctx.parentNode) {
+                                            ctx.cascader.setValue(newNode.value);
+                                        }
+                                        layer.close(index);
+                                        showToast('success', '{{__('新增成功')}}');
+                                    },
+                                    error: function () {
+                                        showToast('error', '{{__('新增失败，请稍后再试')}}');
+                                    }, complete: function () {
+                                        hideLoading()
+                                    }
+                                });
+                            }
                         });
                     }
-
-                    if (code === 0 && data && data.data) {
-                        const list = data.data.map(function (item) {
-                            return {
-                                id: item.id,
-                                text: item.title
-                            };
-                        });
-                        results.push.apply(results, list);
-                    }
-
-                    return {
-                        results: results,
-                        pagination: {
-                            more: code === 0 && data && data.current_page < data.last_page
-                        }
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 0,
-            templateResult: function (data) {
-                if (data.loading) {
-                    return data.text;
                 }
-                if (data.id === 'add_new' || data.isAddButton) {
-                    return $('<div class="select2-add-new-option" style="padding: 8px;"><button type="button" class="btn btn-primary w-100" style="pointer-events: auto; border: none;" data-bs-toggle="modal" data-bs-target="#form-modal"><i class="fa fa-plus me-1"></i>{{__('新增分类')}}</button></div>');
-                }
-                return $('<div style="padding: 8px;">' + data.text + '</div>');
-            },
-            templateSelection: function (data) {
-                if (data.id === 'add_new' || data.isAddButton) {
-                    return '';
-                }
-                return data.text;
-            }
-        });
+            });
 
-        @if($resource && $resource->category)
-        const option = new Option('{{$resource->category->title??''}}', {{$resource->category->id??0}}, true, true);
-        $category.append(option).trigger('change');
-        @endif
-
-        const $modal = $('#form-modal');
-        $modal.on('show.bs.modal', function () {
-            $category.select2('close');
+            window.CascaderIns.changeEvent(function (value, node) {
+                let $top_id = $('#category_top_id');
+                if (!node || !node.path || !node.path.length) {
+                    $top_id.val('');
+                    return;
+                }
+                $top_id.val(node.path[0].value || '');
+            });
         });
 
         @if($resource->type == 1)
@@ -429,12 +451,12 @@
 
         // 初始化时检查是否有现有 PDF
         @if($resource->id > 0 && !empty($resource->pdf))
-            const pdfUrl = '{{$resource->pdf}}';
-            const pdfFileName = pdfUrl.substring(pdfUrl.lastIndexOf('/') + 1).split('?')[0];
-            $('.pdf-file-name').val(pdfFileName);
-            $('.pdf-existing-file').show();
-            $('.pdf-view-btn').attr('href', '{{$resource->pdf}}');
-            $('#pdf-clear-btn').hide();
+        const pdfUrl = '{{$resource->pdf}}';
+        const pdfFileName = pdfUrl.substring(pdfUrl.lastIndexOf('/') + 1).split('?')[0];
+        $('.pdf-file-name').val(pdfFileName);
+        $('.pdf-existing-file').show();
+        $('.pdf-view-btn').attr('href', '{{$resource->pdf}}');
+        $('#pdf-clear-btn').hide();
         @endif
 
         const $form = $('#news-form');

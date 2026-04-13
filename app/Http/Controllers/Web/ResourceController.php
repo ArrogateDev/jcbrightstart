@@ -71,16 +71,20 @@ class ResourceController extends Controller
     public function more(Request $request)
     {
         $type = (int)$request->query('type');
+        $category = (int)$request->query('mod');
 
-        $category = ResourceCategory::query()
+        $categories = ResourceCategory::query()
+            ->where('pid', $category)
             ->where('status', 0)
             ->select('id', 'title')
             ->get();
 
+        $subtitle = $category > 0 ? ResourceCategory::query()->where('id', $category)->value('title') : __('视频');
+
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);
 
-        return view('web.resource.more', compact('category', 'type'));
+        return view('web.resource.more', compact('subtitle', 'categories', 'type'));
     }
 
     /**

@@ -7,6 +7,10 @@ use Carbon\Carbon;
 
 class News extends Base
 {
+    const TYPE_ARTICLE = 0;
+
+    const TYPE_VIDEO = 1;
+
     const STATUS_PUBLISHED = 2;
 
     const STATUS_SUSPENSED = 1;

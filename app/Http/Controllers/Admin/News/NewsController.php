@@ -84,7 +84,8 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $video = $request->input('video');
 //        $start_time = $request->input('start_time');
 //        $end_time = $request->input('end_time');
 
@@ -107,6 +108,10 @@ class NewsController extends Controller
                 $file_name = uniqid() . '.' . $extension;
                 Storage::putFileAs($file_path, $file, $file_name);
                 $news->thumbnail = $file_path . $file_name;
+            }
+
+            if ($news->type == News::TYPE_VIDEO && $video) {
+                $news->short = $video;
             }
 
             if ($news->save() === false) {
@@ -140,7 +145,8 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $video = $request->input('video');
 //        $start_time = $request->input('start_time');
 //        $end_time = $request->input('end_time');
 
@@ -166,6 +172,10 @@ class NewsController extends Controller
             }
 //            $start_time && $news->start_time = Carbon::createFromFormat('h:i A', $start_time)->format('H:i:s');
 //            $end_time && $news->end_time = Carbon::createFromFormat('h:i A', $end_time)->format('H:i:s');
+
+            if ($news->type == News::TYPE_VIDEO && $video) {
+                $news->short = $video;
+            }
 
             if ($news->save() === false) {
                 throw new \Exception('news:failed', ResponseCode::SERVER_ERR);

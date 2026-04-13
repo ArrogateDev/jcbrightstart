@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ResourceRequest;
 use App\Models\Resource\Resource;
+use App\Models\Resource\ResourceCategory;
 use App\Tools\FileTool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -27,7 +28,13 @@ class ResourceController extends Controller
     {
         $resource->load('category:id,title');
 
-        return view('admin.resource.new', ['resource' => $resource]);
+        $categories = ResourceCategory::query()
+            ->select('id as value', 'title as label', 'pid')
+            ->get()
+            ->toArray();
+        $categories = list_to_tree($categories, 0, 'children', 'value');
+
+        return view('admin.resource.new', ['resource' => $resource, 'categories' => $categories]);
     }
 
     /**
@@ -83,7 +90,7 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'short', 'description', 'sort', 'status']);
 
         try {
 
@@ -149,7 +156,7 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'short', 'description', 'sort', 'status']);
 
         try {
 

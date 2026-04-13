@@ -13,6 +13,7 @@ class ResourceCategoryRequest extends BaseRequest
     {
         $rules = [
             'title' => 'bail|required|unique:resource_categories,title',
+            'pid' => 'bail|exclude_if:pid,0|exists:resource_categories,id',
             'status' => 'bail|required|in:0,1'
         ];
 
@@ -35,6 +36,8 @@ class ResourceCategoryRequest extends BaseRequest
         return [
             'title.required' => __('标题不能为空'),
             'title.unique' => __('标题已经存在'),
+            'pid.exclude_if' => __('父级格式错误'),
+            'pid.exists' => __('父级格式错误'),
             'status.required' => __('状态不能为空'),
             'status.in' => __('状态格式错误'),
         ];

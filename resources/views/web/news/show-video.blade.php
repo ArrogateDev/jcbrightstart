@@ -1,5 +1,5 @@
 @php
-    $embed_url = $resource->short??'';
+    $embed_url = $news->short??'';
     // Convert YouTube watch URL to embed URL
     if (str_contains($embed_url, 'youtube.com/watch?v=') || str_contains($embed_url, 'youtu.be/')) {
         preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $embed_url, $matches);
@@ -75,7 +75,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
+        <x-web.breadcrumb title="{{__('最新消息')}}"/>
 
         <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">
@@ -89,7 +89,7 @@
                         <iframe height="500" class="w-100" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="m-b-40">
-                        {!! $resource->description !!}
+                        {!! $news->description !!}
                     </div>
                     <div class="blog-single__info m-b-40 justify-content-end">
                         <ul class="list-unstyled list-inline list-social list-social-3">

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
@@ -34,6 +34,7 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>{{__('名称')}}</th>
+                                <th>{{__('父级')}}</th>
                                 <th>{{__('状态')}}</th>
                                 <th>{{__('创建时间')}}</th>
                                 <th>{{__('操作')}}</th>
@@ -76,6 +77,7 @@
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.title}</p>
                     </td>
+                    <td>${item.parent_text}</td>
                     <td>${statusBadge}</td>
                     <td>${item.created_at}</td>
                     <td>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -94,7 +94,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{__('专业学习社群')}}"/>
+        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
 
         @if($videos->isNotEmpty())
             <section>

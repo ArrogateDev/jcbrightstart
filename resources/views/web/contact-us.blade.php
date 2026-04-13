@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -17,7 +17,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('联系我们')}}" subtitle="{{__('联系我们')}}"/>
+        <x-web.breadcrumb title="{{__('联系我们')}}"/>
 
         <section class="section p-t-125">
             <div class="container">

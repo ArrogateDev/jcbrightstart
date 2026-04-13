@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -10,7 +10,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('服务条款')}}" subtitle="{{__('服务条款')}}"/>
+        <x-web.breadcrumb title="{{__('服务条款')}}"/>
 
         <section class="section p-t-125">
 

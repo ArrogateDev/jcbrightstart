@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -23,7 +23,7 @@
     .media-blog-2 .media__text {
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 1;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -40,42 +40,6 @@
         width: 100%;
         aspect-ratio: 4 / 3;
     }
-
-    .category-box .category {
-        background: #f5f5f5;
-        color: #364050;
-        padding: 2px 20px;
-        border-radius: 25px;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .category-box .category:hover, .category-box .category.active {
-        background: #ffb900;
-        color: #fff;
-    }
-
-    .category-tag {
-        background: #ffb90066;
-        color: #ffb900;
-        padding: 0 10px;
-        border-radius: 15px;
-        margin-right: 10px;
-    }
-
-    .top-short {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        overflow: hidden;
-    }
-
-    .category-text {
-        color: #76a466;
-        margin-bottom: 5px;
-    }
 </style>
 <body class="animsition js-preloader">
 <div class="page-wrapper">
@@ -84,23 +48,13 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{$subtitle??null}}"/>
+        <x-web.breadcrumb title="{{__('最新消息')}}" subtitle="{{$subtitle??null}}"/>
 
-        @if($type === 0)
-            <section class="section p-t-80 p-b-35">
-                <div class="container">
-                    <div class="row m-0 p-b-10" style="border-bottom: 1px solid #d0d4db;">
-                        <div class="col-md-9 m-0 p-0">
-                            @if($categories->isNotEmpty())
-                                <ul class="category-box">
-                                    <li class="d-inline-block category active" data-filter="0">{{__('全部')}}</li>
-                                    @foreach($categories as $item)
-                                        <li class="d-inline-block category" data-category="{{$item->id}}">{{$item->title}}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
-                        <div class="col-md-3 m-0 p-0">
+        <section class="section p-t-125 p-b-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-lg-3">
+                        <div class="page-sidebar p-sm-b-70">
                             <div class="widget">
                                 <form class="form form--icon" method="post">
                                     <input id="search-input" class="input-border-3" type="text" placeholder="Search...">
@@ -109,26 +63,33 @@
                                     </button>
                                 </form>
                             </div>
+                            @if($categories->isNotEmpty())
+                                <div class="widget p-b-30 p-t-45">
+                                    <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
+                                        <h2 class="section-heading__title">Categories</h2>
+                                    </div>
+                                    <ul class="list-bare list-unstyled">
+                                        @foreach($categories as $item)
+                                            <li class="list-bare__item" data-category="{{$item->id}}">
+                                                <span class="dot"></span>
+                                                <a class="list-bare__link" href="#">{{$item->title}}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-lg-9">
+                        <div class="p-l-10 p-sm-l-0">
+                            <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left m-b-30">
+                                <h2 class="section-heading__title" id="list-type">{{__('最新消息')}}</h2>
+                            </div>
+                            <div class="row list-container"></div>
+                            <nav class="au-pagination p-t-10 pagination-container"></nav>
                         </div>
                     </div>
                 </div>
-            </section>
-        @endif
-
-        <section>
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between my-4">
-                    <h3>{{$type === 1 ? __('最新视频') : __('最新文章')}}</h3>
-                    <div class="d-flex align-items-center">
-                        <span>{{__('排序')}}：</span>
-                        <select id="resource-sort" class="border rounded-lg px-3 py-2">
-                            <option value="time">{{__('最新发布')}}</option>
-                            <option value="view">{{__('最多浏览')}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row list-container"></div>
-                <nav class="au-pagination p-t-10 pagination-container"></nav>
             </div>
         </section>
     </main>
@@ -137,8 +98,13 @@
 
 </div>
 
+<!-- Revolution Slider JS (Page Specific)-->
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
+<!--
+| (Load Extensions only on Local File Systems !
+| The following part can be removed on Server for On Demand Loading)
+-->
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
 <script type="text/javascript"
         src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
@@ -150,7 +116,9 @@
         src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
+<!-- Config Revolution Slider-->
 <script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
+<!-- Page Specific JS-->
 <script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
 
 <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
@@ -166,24 +134,22 @@
         let params = {};
         let $search = $('#search-input');
         let $searchBtn = $('#search-btn');
+        let $type = $('#list-type');
 
-        const urlMod = urlParams.get('mod');
-        const urlType = urlParams.get('type');
         const urlKeywords = urlParams.get('keywords');
         const urlCategory = urlParams.get('category');
-        if (urlMod) {
-            params = Object.assign(params, {mod: urlMod});
-        }
-        if (urlType) {
-            params = Object.assign(params, {type: urlType});
-        }
+        const urlType = urlParams.get('type');
         if (urlKeywords) {
             $search.val(urlKeywords);
             params = Object.assign(params, {keywords: urlKeywords});
         }
         if (urlCategory) {
-            $(`.category[data-category="${urlCategory}"]`).addClass('active').siblings().removeClass('active');
+            $(`.list-bare__item[data-category="${urlCategory}"]`).addClass('active');
             params = Object.assign(params, {category: urlCategory});
+        }
+        if (urlType) {
+            $(`.list-bare__item[data-type="${urlType}"]`).addClass('active');
+            params = Object.assign(params, {type: urlType});
         }
 
         getData(page, params)
@@ -221,26 +187,29 @@
             getData($page, params)
         })
 
-        $(document).on('click', '.category', function () {
+        $(document).on('click', '.list-bare__item', function () {
             $(this).addClass('active').siblings().removeClass('active');
-            const category = parseInt($(this).data('category'));
+            const category = $(this).data('category');
+            if (!category) return
 
             page = 1
             params = Object.assign(params, {category: category, page: page});
             getData(page, params)
         })
 
-        $(document).on('change', '#resource-sort', function () {
-            const sort = $(this).val();
+        $(document).on('click', '.type-box li', function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            const type = $(this).data('type');
 
+            $type.text(type === '1' ? '{{__('最新消息')}}' : '{{__('过去消息')}}')
             page = 1
-            getData(page, tableParams)
+            params = Object.assign(params, {type: type, page: page});
+            getData(page, params)
         })
 
         function getData(page = 1, params = {}) {
             tableParams = params;
-            const sort = $('#resource-sort').val();
-            const requestParams = Object.assign({page: page, sort: sort}, tableParams);
+            const requestParams = Object.assign({page: page,}, tableParams);
 
             const searchParams = new URLSearchParams();
             Object.keys(requestParams).forEach(key => {
@@ -248,13 +217,12 @@
                     searchParams.append(key, requestParams[key]);
                 }
             });
-
             const queryString = searchParams.toString();
 
             const newUrl = `${window.location.pathname}?${queryString}`;
 
             $.ajax({
-                url: "{{route('resource.list.html')}}",
+                url: "{{route('news.list.html')}}",
                 data: requestParams,
                 dataType: "json",
                 beforeSend: function () {

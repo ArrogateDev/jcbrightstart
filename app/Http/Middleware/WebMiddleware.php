@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Resource\ResourceCategory;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -78,11 +79,30 @@ class WebMiddleware
                 ]
             ];
 
+            $resource_category = ResourceCategory::query()
+                ->where('pid', 0)
+                ->select('id', 'title')
+                ->get();
+
+            $resource_children = [];
+            foreach ($resource_category as $item) {
+                $resource_children[] = [
+                    'title' => $item->title,
+                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
+                    'children' => []
+                ];
+            }
+            $resource_children[] = [
+                'title' => __('视频'),
+                'url' => route('resource.more.html', ['type' => 1]),
+                'children' => []
+            ];
+
             $navs[] = [
                 'title' => __('专业学习社群'),
                 'url' => route('resource.html'),
                 'active' => str_contains($url, '/resource-kit'),
-                'children' => []
+                'children' => $resource_children
             ];
 
             $navs[] = [

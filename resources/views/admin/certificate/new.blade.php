@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="certificate-form-modal" title="{{ __('新增证书')}}" class="modal-xl">
+<x-layouts.modal id="certificate-form-modal" title="{{ __('新增证书')}}" class="modal-xl">
 
     <div class="row">
         <div class="col-md-3">

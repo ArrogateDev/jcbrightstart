@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
@@ -34,149 +34,186 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="input-block">
-                                        <label class="form-label">{{__('标题')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <input type="text" id="title" name="title" class="form-control" value="{{$news->title??''}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('分类')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <select id="category" name="category_id" class="select form-control"></select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('权重')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <input type="number" id="sort" name="sort" class="form-control" value="{{$news->sort??0}}" min="0" max="99" maxlength="6">
-                                        <small class="text-muted d-block mt-1">
-                                            <i class="fa-solid fa-info-circle me-1"></i>{{__('数值:0-99')}}
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-block">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-12">
-                                                <label class="form-label">{{__('封面图')}}<span
-                                                        class="text-danger ms-1">*</span></label>
+                                        <label class="form-label mb-1">
+                                            {{__('类型')}}
+                                            <span class="text-danger ms-1">*</span>
+                                            <span id="error-container-type"></span>
+                                        </label>
+                                        <div class="d-flex align-items-center ">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="type"
+                                                       id="type-normal" value="0" @checked($news->type == 0) @disabled($news->id > 0)>
+                                                <label class="form-check-label" for="type-normal">
+                                                    {{__('文章')}}
+                                                </label>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="upload-img-section d-flex align-items-center justify-content-center"
-                                                     id="news-upload-img-section">
-                                                    <input type="file" id="upload-img-input" style="display: none;"
-                                                           accept="image/jpeg, image/png, image/gif, image/webp">
-                                                    <div class="upload-content" id="upload-content">
-                                                        @if($news->id > 0 && !empty($raw_thumbnail = $news->getRawOriginal('thumbnail')))
-                                                            <img src="{{asset($news->thumbnail)}}"
-                                                                 class="img-fluid h-100" alt="" style="max-height: 120px;">
-                                                            <input type="hidden" name="thumbnail_url" value="{{$raw_thumbnail}}">
-                                                        @else
-                                                            <span class="d-flex align-items-center justify-content-center mb-1">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="type"
+                                                       id="type-disabled" value="1" @checked($news->type == 1) @disabled($news->id > 0)>
+                                                <label class="form-check-label" for="type-disabled">
+                                                    {{__('视频')}}
+                                                </label>
+                                            </div>
+                                            @if($news->id > 0)
+                                                <input type="hidden" name="type" value="{{$news->type}}">
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('标题')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <input type="text" id="title" name="title" class="form-control" value="{{$news->title??''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 type-video">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('视频')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <input type="text" id="video" name="video" class="form-control" value="{{$news->short??''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 type-article">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('分类')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <select id="category" name="category_id" class="select form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('权重')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <input type="number" id="sort" name="sort" class="form-control" value="{{$news->sort??0}}" min="0" max="99" maxlength="6">
+                                            <small class="text-muted d-block mt-1">
+                                                <i class="fa-solid fa-info-circle me-1"></i>{{__('数值:0-99')}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 type-article">
+                                        <div class="input-block">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">{{__('封面图')}}<span
+                                                            class="text-danger ms-1">*</span></label>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="upload-img-section d-flex align-items-center justify-content-center"
+                                                         id="news-upload-img-section">
+                                                        <input type="file" id="upload-img-input" style="display: none;"
+                                                               accept="image/jpeg, image/png, image/gif, image/webp">
+                                                        <div class="upload-content" id="upload-content">
+                                                            @if($news->id > 0 && !empty($raw_thumbnail = $news->getRawOriginal('thumbnail')))
+                                                                <img src="{{asset($news->thumbnail)}}"
+                                                                     class="img-fluid h-100" alt="" style="max-height: 120px;">
+                                                                <input type="hidden" name="thumbnail_url" value="{{$raw_thumbnail}}">
+                                                            @else
+                                                                <span class="d-flex align-items-center justify-content-center mb-1">
                                                                         <i class="isax isax-image5 text-secondary fs-24 text-center"></i>
                                                                     </span>
-                                                            <p class="text-center fw-medium mb-1">{{__('上传图片')}}</p>
-                                                            <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 5 MB</span>
-                                                        @endif
+                                                                <p class="text-center fw-medium mb-1">{{__('上传图片')}}</p>
+                                                                <span class="text-center">JPEG, PNG, GIF, and WebP formats, up to 5 MB</span>
+                                                            @endif
+                                                        </div>
                                                     </div>
+                                                    <hr class="mt-4 mb-4">
                                                 </div>
-                                                <hr class="mt-4 mb-4">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('简介')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <input type="text" id="short" name="short" class="form-control" value="{{$news->short??''}}">
+                                    <div class="col-md-12 type-article">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('简介')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <input type="text" id="short" name="short" class="form-control" value="{{$news->short??''}}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">{{__('发布日期')}}<span class="text-danger"> *</span></label>
-                                        <div class="input-icon-end position-relative">
-                                            <input type="text" class="form-control datepicker"
-                                                   placeholder="yyyy-mm-dd" id="release-date" name="release_date" value="{{$news->release_date??''}}">
-                                            <span class="input-icon-addon">
+                                    <div class="col-md-12 type-article">
+                                        <div class="mb-3">
+                                            <label class="form-label">{{__('发布日期')}}<span class="text-danger"> *</span></label>
+                                            <div class="input-icon-end position-relative">
+                                                <input type="text" class="form-control datepicker"
+                                                       placeholder="yyyy-mm-dd" id="release-date" name="release_date" value="{{$news->release_date??''}}">
+                                                <span class="input-icon-addon">
 												<i class="isax isax-calendar"></i>
 											</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--                                <div class="col-md-6">--}}
+                                    {{--                                    <div class="mb-3">--}}
+                                    {{--                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>--}}
+                                    {{--                                        <div class="input-icon-end position-relative">--}}
+                                    {{--                                            <input type="text" class="form-control datetimepicker"--}}
+                                    {{--                                                   placeholder="yyyy-mm-dd" id="start-date" name="start_date" value="{{$news->start_date??''}}">--}}
+                                    {{--                                            <span class="input-icon-addon">--}}
+                                    {{--												<i class="isax isax-calendar"></i>--}}
+                                    {{--											</span>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    {{--                                <div class="col-md-6">--}}
+                                    {{--                                    <div class="mb-3">--}}
+                                    {{--                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>--}}
+                                    {{--                                        <div class="input-icon-end position-relative">--}}
+                                    {{--                                            <input type="text" class="form-control timepicker"--}}
+                                    {{--                                                   placeholder="h:i A" id="start-time" name="start_time" value="{{$news->start_time??''}}">--}}
+                                    {{--                                            <span class="input-icon-addon">--}}
+                                    {{--												<i class="isax isax-calendar"></i>--}}
+                                    {{--											</span>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    {{--                                <div class="col-md-6">--}}
+                                    {{--                                    <div class="mb-3">--}}
+                                    {{--                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>--}}
+                                    {{--                                        <div class="input-icon-end position-relative">--}}
+                                    {{--                                            <input type="text" class="form-control datetimepicker"--}}
+                                    {{--                                                   placeholder="yyyy-mm-dd" id="end-date" name="end_date" value="{{$news->end_date??''}}">--}}
+                                    {{--                                            <span class="input-icon-addon">--}}
+                                    {{--												<i class="isax isax-calendar"></i>--}}
+                                    {{--											</span>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    {{--                                <div class="col-md-6">--}}
+                                    {{--                                    <div class="mb-3">--}}
+                                    {{--                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>--}}
+                                    {{--                                        <div class="input-icon-end position-relative">--}}
+                                    {{--                                            <input type="text" class="form-control timepicker"--}}
+                                    {{--                                                   placeholder="h:i A" id="end-time" name="end_time" value="{{$news->end_time??''}}">--}}
+                                    {{--                                            <span class="input-icon-addon">--}}
+                                    {{--												<i class="isax isax-calendar"></i>--}}
+                                    {{--											</span>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    <div class="col-md-12">
+                                        <div class="input-block">
+                                            <label class="form-label">{{__('內容')}}<span
+                                                    class="text-danger ms-1">*</span></label>
+                                            <div class="summernote">{!! $news->description??'' !!}</div>
                                         </div>
                                     </div>
                                 </div>
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label class="form-label">{{__('开始日期')}}<span class="text-danger"> *</span></label>--}}
-{{--                                        <div class="input-icon-end position-relative">--}}
-{{--                                            <input type="text" class="form-control datetimepicker"--}}
-{{--                                                   placeholder="yyyy-mm-dd" id="start-date" name="start_date" value="{{$news->start_date??''}}">--}}
-{{--                                            <span class="input-icon-addon">--}}
-{{--												<i class="isax isax-calendar"></i>--}}
-{{--											</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label class="form-label">{{__('开始时间')}}<span class="text-danger"> *</span></label>--}}
-{{--                                        <div class="input-icon-end position-relative">--}}
-{{--                                            <input type="text" class="form-control timepicker"--}}
-{{--                                                   placeholder="h:i A" id="start-time" name="start_time" value="{{$news->start_time??''}}">--}}
-{{--                                            <span class="input-icon-addon">--}}
-{{--												<i class="isax isax-calendar"></i>--}}
-{{--											</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label class="form-label">{{__('结束日期')}}<span class="text-danger"> *</span></label>--}}
-{{--                                        <div class="input-icon-end position-relative">--}}
-{{--                                            <input type="text" class="form-control datetimepicker"--}}
-{{--                                                   placeholder="yyyy-mm-dd" id="end-date" name="end_date" value="{{$news->end_date??''}}">--}}
-{{--                                            <span class="input-icon-addon">--}}
-{{--												<i class="isax isax-calendar"></i>--}}
-{{--											</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label class="form-label">{{__('结束时间')}}<span class="text-danger"> *</span></label>--}}
-{{--                                        <div class="input-icon-end position-relative">--}}
-{{--                                            <input type="text" class="form-control timepicker"--}}
-{{--                                                   placeholder="h:i A" id="end-time" name="end_time" value="{{$news->end_time??''}}">--}}
-{{--                                            <span class="input-icon-addon">--}}
-{{--												<i class="isax isax-calendar"></i>--}}
-{{--											</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                                <div class="col-md-12">
-                                    <div class="input-block">
-                                        <label class="form-label">{{__('內容')}}<span
-                                                class="text-danger ms-1">*</span></label>
-                                        <div class="summernote">{!! $news->description??'' !!}</div>
+                                <div
+                                    class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
+                                    <div class="btn-left">
+                                        <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white"
+                                           style="background: #00b050;border-color: #00b050;">{{__('储存')}}
+                                        </a>
+                                        <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit text-white"
+                                           style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
+                                        </a>
+                                        <a href="javascript:void(0);" data-status="2" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
-                                <div class="btn-left">
-                                    <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit text-white" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
-                                    </a>
-                                    <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit text-white"
-                                       style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
-                                    </a>
-                                    <a href="javascript:void(0);" data-status="2" data-keep="0" class="btn btn-secondary btn-submit">{{__('发布')}}</a>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <input type="hidden" id="status" value="{{$news->status??0}}">
-                        <input type="hidden" id="edit-id" value="{{$news->id??''}}">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                            <input type="hidden" id="status" value="{{$news->status??0}}">
+                            <input type="hidden" id="edit-id" value="{{$news->id??''}}">
                     </form>
                 </div>
             </div>
@@ -320,6 +357,25 @@
         const option = new Option('{{$news->category->title??''}}', {{$news->category->id??0}}, true, true);
         $category.append(option).trigger('change');
         @endif
+
+        @if($news->type == 1)
+        $('.type-article').hide()
+        $('.type-video').show()
+        @else
+        $('.type-article').show()
+        $('.type-video').hide()
+        @endif
+
+        $('input[name="type"]').change(function () {
+            const type = parseInt($(this).val());
+            if (type === 1) {
+                $('.type-article').hide()
+                $('.type-video').show()
+            } else {
+                $('.type-article').show()
+                $('.type-video').hide()
+            }
+        })
 
         const $modal = $('#form-modal');
         $modal.on('show.bs.modal', function () {

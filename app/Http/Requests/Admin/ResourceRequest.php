@@ -22,6 +22,7 @@ class ResourceRequest extends BaseRequest
         $status = (int)$this->input('status');
         $type = (int)$this->input('type');
         if ($status == Resource::STATUS_PUBLISHED) {
+            $rules['category_top_id'] = 'bail|required_if:type,0|exists:resource_categories,id';
             $rules['category_id'] = 'bail|required_if:type,0|exists:resource_categories,id';
             $rules['short'] = 'bail|required_if:type,0';
             $rules['description'] = 'bail|required';
@@ -64,6 +65,7 @@ class ResourceRequest extends BaseRequest
             'status.in' => __('状态格式错误'),
             'title.required' => __('标题不能为空'),
             'title.unique' => __('标题已经存在'),
+            'category_top_id.required_if' => __('分类不能为空'),
             'category_id.required_if' => __('分类不能为空'),
             'sort.required' => __('请填写权重值'),
             'sort.numeric' => __('权重值必须为数组'),

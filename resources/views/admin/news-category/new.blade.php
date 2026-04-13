@@ -1,4 +1,4 @@
-﻿<x-layouts.modal id="form-modal" title="{{ __('新增消息分类')}}" class="modal-lg" form="true" form-id="form">
+<x-layouts.modal id="form-modal" title="{{ __('新增消息分类')}}" class="modal-lg" form="true" form-id="form">
 
     <div class="modal-body pb-0">
         <div class="mb-3">

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <x-web.head/>
@@ -67,7 +67,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}" subtitle="{{__('专业学习社群')}}"/>
+        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
 
         <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">
