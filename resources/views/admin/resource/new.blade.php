@@ -282,7 +282,7 @@
 
             window.CascaderIns = layCascader({
                 elem: '#category_id',
-                value:{{$resource->category_id??''}},
+                value:{{$resource->category_id??0}},
                 options: @json($categories),
                 addNode: {
                     enabled: true,
