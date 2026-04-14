@@ -34,7 +34,6 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>{{__('名称')}}</th>
-                                <th>{{__('导航菜单')}}</th>
                                 <th>{{__('状态')}}</th>
                                 <th>{{__('创建时间')}}</th>
                                 <th>{{__('操作')}}</th>
@@ -80,7 +79,6 @@
                     <td>
                         <p class="fs-14 mb-0 fw-semibold">${item.title}</p>
                     </td>
-                    <td>${navBadge}</td>
                     <td>${statusBadge}</td>
                     <td>${item.created_at}</td>
                     <td>

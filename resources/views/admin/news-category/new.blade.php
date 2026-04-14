@@ -10,7 +10,7 @@
             <input type="text" id="title" name="title" class="form-control" placeholder="{{__('请输入名称')}}">
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 d-none">
             <label class="form-label mb-1">
                 {{__('是否为导航菜单')}}
                 <span class="text-danger ms-1">*</span>
