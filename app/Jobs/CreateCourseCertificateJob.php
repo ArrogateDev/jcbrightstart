@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Certificate;
-use App\Models\Course\Course;
 use App\Models\User\UserCourseCertificate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -190,7 +189,7 @@ class CreateCourseCertificateJob implements ShouldQueue
         $image->setImageFormat('png');
 
         if ($certificate->name_config) {
-            $this->addTextToImageByImagick($image, $name, $certificate->name_config, $scale_x, $scale_y);
+            $this->addTextToImageByImagick($image, $name, $certificate->name_config, $scale_x, $scale_y, $this->getNameFontPath($name));
         }
 
         if ($certificate->date_config) {
@@ -212,11 +211,11 @@ class CreateCourseCertificateJob implements ShouldQueue
         return $file_path . $file_name;
     }
 
-    private function addTextToImageByImagick(\Imagick $image, string $text, array $config, float $scale_x = 1.0, float $scale_y = 1.0): void
+    private function addTextToImageByImagick(\Imagick $image, string $text, array $config, float $scale_x = 1.0, float $scale_y = 1.0, ?string $font_path = null): void
     {
         $draw = new \ImagickDraw();
 
-        $font_path = $this->getFontPath();
+        $font_path = $font_path ?: $this->getFontPath();
         if ($font_path) {
             $draw->setFont($font_path);
         }
@@ -277,7 +276,7 @@ class CreateCourseCertificateJob implements ShouldQueue
         $originY = $config['originY'] ?? 'center';
 
         // 尝试使用TTF字体
-        $font_path = $this->getFontPath();
+        $font_path = $this->getNameFontPath($text) ?: $this->getFontPath();
 
         if ($font_path && function_exists('imagettftext')) {
             // 使用TTF字体
@@ -332,12 +331,30 @@ class CreateCourseCertificateJob implements ShouldQueue
     }
 
     /**
-     * 获取字体文件路径
+     * 根据姓名获取字体文件路径（中文/英文）
+     */
+    private function getNameFontPath(string $name): ?string
+    {
+        $is_chinese = preg_match('/[\x{4e00}-\x{9fff}]/u', $name) === 1;
+
+        $font_path = $is_chinese
+            ? storage_path('app/public/fonts/simsun.ttc')
+            : storage_path('app/public/fonts/Baskerville-Regular-6.ttf');
+
+        if (!file_exists($font_path)) {
+            return null;
+        }
+
+        return $font_path;
+    }
+
+    /**
+     * 获取默认字体文件路径
      */
     private function getFontPath(): ?string
     {
-
         $font_path = storage_path('app/public/fonts/PingFangSC-Regular.ttf');
+
         // 如果字体文件不存在，返回null使用内置字体
         if (!file_exists($font_path)) {
             return null;
