@@ -14,7 +14,7 @@ class PageController extends Controller
             'test.html',
             'terms-and-conditions.html',
             'privacy-policy.html',
-            'professional-development.html',
+//            'professional-development.html',
             'contact-us.html',
             'test001.html',
         ];

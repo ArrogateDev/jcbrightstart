@@ -134,7 +134,6 @@
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT01')}}</p>
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT02')}}</p>
                                     <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT03')}}</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT04')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +167,11 @@
                                         <h2 class="section-heading__title pe-title">{{__('HOME3_TITLE')}}</h2>
                                     </div>
                                     <p class="m-b-15" style="text-indent: 50px;">
-                                        {{__('HOME3_CONTENT01')}}</p>
+                                        {{__('HOME3_CONTENT01')}}
+                                    </p>
+                                    <p class="m-b-15" style="text-indent: 50px;">
+                                        {{__('HOME3_CONTENT02')}}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -247,6 +250,21 @@
                                             </h3>
                                         </div>
                                     </div>
+                                    <div class="box box-program-2 m-b-15">
+                                        <div class="box__head">
+                                            <div class="box__head-bg" style="width: 50px;">
+                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-02.png')}}" alt="Background">
+                                                <div class="box__head-icon">
+                                                    <img src="{{web_resource_url('assets/web/images/icon/program-02.png')}}" alt="Icon">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box__body">
+                                            <h3 class="title title--sm title--black box__title m-0">
+                                                <a style="color:#666;">{{__('HOME4_CONTENT05')}}</a>
+                                            </h3>
+                                        </div>
+                                    </div>
                                     <p class="m-b-15">{{__('HOME4_EXPLAIN')}}</p>
                                 </div>
                             </div>
@@ -282,27 +300,27 @@
                                     </div>
                                     <div class="realm-box">
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT01')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT02')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT03')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#plc">
+                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#plc">
                                                 {{__('HOME5_CONTENT04')}}
                                             </a>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="{{route('page',['page' => 'professional-development.html'])}}#support">
+                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#support">
                                                 {{__('HOME5_CONTENT05')}}
                                             </a>
                                         </div>
