@@ -118,7 +118,7 @@
         <section>
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between my-4">
-                    <h3>{{$type === 1 ? __('最新视频') : __('最新文章')}}</h3>
+                    <h3>{{$type === 1 ? __('影片分享') : __('专家分享')}}</h3>
                     <div class="d-flex align-items-center">
                         <span>{{__('排序')}}：</span>
                         <select id="resource-sort" class="border rounded-lg px-3 py-2">

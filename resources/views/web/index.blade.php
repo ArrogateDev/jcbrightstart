@@ -300,29 +300,29 @@
                                     </div>
                                     <div class="realm-box">
                                         <div class="realm-item">
-                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT01')}}
-                                            </a>
+                                            </span>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT02')}}
-                                            </a>
+                                            </span>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
+                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
                                                 {{__('HOME5_CONTENT03')}}
-                                            </a>
+                                            </span>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#plc">
+                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#plc">
                                                 {{__('HOME5_CONTENT04')}}
-                                            </a>
+                                            </span>
                                         </div>
                                         <div class="realm-item">
-                                            <a class="text-white" href="/" data-href="{{route('page',['page' => 'professional-development.html'])}}#support">
+                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#support">
                                                 {{__('HOME5_CONTENT05')}}
-                                            </a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

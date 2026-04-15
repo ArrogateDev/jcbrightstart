@@ -93,7 +93,7 @@ class WebMiddleware
                 ];
             }
             $resource_children[] = [
-                'title' => __('最新视频'),
+                'title' => __('影片分享'),
                 'url' => route('resource.more.html', ['type' => 1]),
                 'children' => []
             ];

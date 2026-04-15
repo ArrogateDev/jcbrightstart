@@ -75,7 +75,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
+        <x-web.breadcrumb title="{{__('专业学习历程分享')}}"/>
 
         <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">

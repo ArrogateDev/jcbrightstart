@@ -100,7 +100,7 @@
             <section>
                 <div class="container">
                     <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                        <h3>{{__('最新视频')}}</h3>
+                        <h3>{{__('专家分享')}}</h3>
                     </div>
                     <div class="row list-container">
                         @if($videos->isNotEmpty())
@@ -132,7 +132,7 @@
             <section>
                 <div class="container">
                     <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                        <h3>{{__('最新文章')}}</h3>
+                        <h3>{{__('专家分享')}}</h3>
                     </div>
                     <div class="row list-container">
                         @if($articles->isNotEmpty())
