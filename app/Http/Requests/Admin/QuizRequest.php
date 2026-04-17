@@ -12,7 +12,11 @@ class QuizRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'title' => 'bail|required|unique:quizzes,title,null,deleted_at',
+            'title' => [
+                'bail',
+                'required',
+                Rule::unique('quizzes')->withoutTrashed()
+            ],
             'questions' => 'bail|required|array|min:1',
             'questions.*.title' => 'bail|required',
             'questions.*.options' => 'bail|required|array|min:2',
@@ -26,7 +30,7 @@ class QuizRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('quizzes')->ignore($id)->where('deleted_at', null)
+                Rule::unique('quizzes')->ignore($id)->withoutTrashed()
             ];
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Web\Auth;
 
 use App\Http\Requests\BaseRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends BaseRequest
 {
@@ -12,7 +13,12 @@ class RegisterRequest extends BaseRequest
         $rules = [
             'first_name' => 'bail|required',
             'last_name' => 'bail|required',
-            'email' => 'bail|required|email|unique:users,email,null,deleted_at',
+            'email' => [
+                'bail',
+                'required',
+                'email',
+                Rule::unique('users')->withoutTrashed()
+            ],
             'password' => 'bail|required|size:32|confirmed',
             'password_confirmation' => 'bail|required',
             'agree' => 'bail|accepted',

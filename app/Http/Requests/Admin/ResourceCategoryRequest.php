@@ -12,7 +12,11 @@ class ResourceCategoryRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'title' => 'bail|required|unique:resource_categories,title,null,deleted_at',
+            'title' => [
+                'bail',
+                'required',
+                Rule::unique('resource_categories')->withoutTrashed()
+            ],
             'pid' => 'bail|exclude_if:pid,0|exists:resource_categories,id',
             'status' => 'bail|required|in:0,1'
         ];
@@ -24,7 +28,7 @@ class ResourceCategoryRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('resource_categories')->ignore($id)->where('deleted_at', null)
+                Rule::unique('resource_categories')->ignore($id)->withoutTrashed()
             ];
         }
 

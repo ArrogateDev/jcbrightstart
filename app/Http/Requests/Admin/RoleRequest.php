@@ -11,7 +11,11 @@ class RoleRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'name' => 'bail|required|unique:roles,name',
+            'name' => [
+                'bail',
+                'required',
+                Rule::unique('roles')->withoutTrashed()
+            ],
             'node' => 'bail|nullable|array',
         ];
 
@@ -22,7 +26,7 @@ class RoleRequest extends BaseRequest
             $rules['name'] = [
                 'bail',
                 'required',
-                Rule::unique('roles')->ignore($id)
+                Rule::unique('roles')->ignore($id)->withoutTrashed()
             ];
         }
 
