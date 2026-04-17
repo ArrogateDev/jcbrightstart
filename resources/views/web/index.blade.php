@@ -327,7 +327,7 @@
                                                 {{__('HOME5_CONTENT04')}}
                                             </span>
                                         </div>
-                                        <div class="realm-item">
+                                        <div class="realm-item d-none">
                                             <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#support">
                                                 {{__('HOME5_CONTENT05')}}
                                             </span>
