@@ -267,6 +267,7 @@
                                     </div>
                                     <p @class(['m-b-15'=>empty($institutions)])>{{__('HOME4_EXPLAIN')}}</p>
                                     @if(!empty($institutions))
+                                        <p>{{__('HOME4_INSTITUTION')}}</p>
                                         <ul class="m-b-15" style="list-style-type: disc;padding-left: 30px;">
                                             @foreach($institutions as $institution)
                                                 <li>{{$institution}}</li>
