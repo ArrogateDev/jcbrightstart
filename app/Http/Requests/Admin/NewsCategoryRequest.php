@@ -12,7 +12,7 @@ class NewsCategoryRequest extends BaseRequest
     public function rules()
     {
         $rules = [
-            'title' => 'bail|required|unique:news_categories,title',
+            'title' => 'bail|required|unique:news_categories,title,null,deleted_at',
             'is_nav' => 'bail|required|in:0,1',
             'status' => 'bail|required|in:0,1'
         ];
@@ -24,7 +24,7 @@ class NewsCategoryRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('news_categories')->ignore($id)
+                Rule::unique('news_categories')->ignore($id)->where('deleted_at', null)
             ];
         }
 

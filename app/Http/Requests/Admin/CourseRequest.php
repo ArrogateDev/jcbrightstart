@@ -47,7 +47,7 @@ class CourseRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('courses')->ignore($id)
+                Rule::unique('courses')->ignore($id)->where('deleted_at', null)
             ];
         }
 
