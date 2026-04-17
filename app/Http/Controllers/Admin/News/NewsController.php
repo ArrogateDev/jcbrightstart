@@ -84,7 +84,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'thumbnail_show', 'short', 'release_date', 'description', 'sort', 'status']);
         $video = $request->input('video');
 //        $start_time = $request->input('start_time');
 //        $end_time = $request->input('end_time');
@@ -145,7 +145,7 @@ class NewsController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_id', 'short', 'release_date', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'thumbnail_show', 'short', 'release_date', 'description', 'sort', 'status']);
         $video = $request->input('video');
 //        $start_time = $request->input('start_time');
 //        $end_time = $request->input('end_time');

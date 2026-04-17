@@ -85,11 +85,13 @@
                 @endif
                 <div class="blog-single card-border border-tricolor-wave">
                     <div class="media media-blog-4 m-b-10">
-                        <div class="media__img">
-                            <div class="img-radius text-center thumbnail-box">
-                                <img class="mh-100 gallery-img" src="{{$news->thumbnail}}" alt="{{$news->title}}">
+                        @if($news->thumbnail_show === 1)
+                            <div class="media__img">
+                                <div class="img-radius text-center thumbnail-box">
+                                    <img class="mh-100 gallery-img" src="{{$news->thumbnail}}" alt="{{$news->title}}">
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="media__body">
                             <h4 class="media__title title title--black title--s35">

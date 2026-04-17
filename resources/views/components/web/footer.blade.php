@@ -1,5 +1,23 @@
 <footer class="footer p-t-85">
     <div class="container">
+        <div class="row my-5">
+            <div class="col-12 mb-5">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
+                </div>
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
+                    <h2 class="section-heading__title">{{__('主办机构')}}</h2>
+                </div>
+                <div class="w-100 d-flex mb-3 mb-md-0">
+                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
+                </div>
+            </div>
+        </div>
         <div class="section-heading section-heading-1 section-heading-1--small text-left">
             <h2 class="section-heading__title">{{__('专业合作伙伴')}}</h2>
         </div>
@@ -9,24 +27,6 @@
             </div>
             <div class="ml-5" style="height: 110px;">
                 <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
-            </div>
-        </div>
-        <div class="row my-5">
-            <div class="col-12 col-md-6">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
-                    <h2 class="section-heading__title">{{__('主办机构')}}</h2>
-                </div>
-                <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 55px;">
-                    <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
-                </div>
-                <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
-                </div>
             </div>
         </div>
     </div>

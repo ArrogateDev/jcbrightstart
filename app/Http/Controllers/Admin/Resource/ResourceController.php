@@ -90,7 +90,7 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'short', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'thumbnail_show', 'short', 'description', 'sort', 'status']);
 
         try {
 
@@ -160,7 +160,7 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'short', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'thumbnail_show', 'short', 'description', 'sort', 'status']);
 
         try {
 

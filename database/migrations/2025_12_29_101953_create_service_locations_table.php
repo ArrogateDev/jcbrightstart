@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->string('service_hour')->comment('Service Hour');
             $table->decimal('longitude', 12, 8)->comment('Longitude');
             $table->decimal('latitude', 12, 8)->comment('Latitude');
+            $table->string('point_color', 10)->nullable()->comment('Map Point Color');
+            $table->smallInteger('sort')->default(0)->comment('排序');
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();

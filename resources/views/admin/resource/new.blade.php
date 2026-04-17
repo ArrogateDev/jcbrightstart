@@ -88,8 +88,13 @@
                                     <div class="input-block">
                                         <div class="row align-items-center">
                                             <div class="col-md-12">
-                                                <label class="form-label">{{__('封面图')}}<span
-                                                        class="text-danger ms-1">*</span></label>
+                                                <label class="form-label d-flex align-items-center">
+                                                    {{__('封面图')}}
+                                                    <span class="text-danger ms-1">*</span>
+                                                    <span class="d-flex align-items-center ms-3">
+                                                        <input type="checkbox" name="thumbnail_show" class="me-2" @checked($resource->thumbnail_show && $resource->thumbnail_show === 1 || empty($resource->id))>{{__('详情页显示')}}
+                                                    </span>
+                                                </label>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="upload-img-section d-flex align-items-center justify-content-center"

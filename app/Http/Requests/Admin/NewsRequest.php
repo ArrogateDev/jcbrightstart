@@ -13,6 +13,7 @@ class NewsRequest extends BaseRequest
     {
         $rules = [
             'type' => 'bail|required|in:0,1',
+            'thumbnail_show' => 'bail|required|in:0,1',
             'sort' => 'bail|required|numeric|min:0|max:99',
             'status' => 'bail|required|in:0,1,2'
         ];

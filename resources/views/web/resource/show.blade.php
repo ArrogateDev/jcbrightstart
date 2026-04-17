@@ -78,11 +78,13 @@
                 @endif
                 <div class="blog-single">
                     <div class="media media-blog-4 m-b-10">
-                        <div class="media__img">
-                            <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
-                                <img class="mh-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
-                            </a>
-                        </div>
+                        @if($resource->thumbnail_show === 1)
+                            <div class="media__img">
+                                <a class="img-radius text-center thumbnail-box" href="javascript:void(0);">
+                                    <img class="mh-100 gallery-img" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
+                                </a>
+                            </div>
+                        @endif
                         <div class="media__body">
                             <h4 class="media__title title title--black title--s35">
                                 <a href="javascript:void(0);">{{$resource->title}}</a>

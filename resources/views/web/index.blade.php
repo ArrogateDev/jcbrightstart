@@ -265,7 +265,14 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <p class="m-b-15">{{__('HOME4_EXPLAIN')}}</p>
+                                    <p @class(['m-b-15'=>empty($institutions)])>{{__('HOME4_EXPLAIN')}}</p>
+                                    @if(!empty($institutions))
+                                        <ul class="m-b-15" style="list-style-type: disc;padding-left: 30px;">
+                                            @foreach($institutions as $institution)
+                                                <li>{{$institution}}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
