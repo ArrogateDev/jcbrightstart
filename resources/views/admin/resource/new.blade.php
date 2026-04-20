@@ -481,11 +481,15 @@
             formData.append('status', status === 2 ? status : $status)
 
             _.each(form, (value) => {
-                if (value.name === 'description') {
+                if (value.name === 'description' || value.name === 'thumbnail_show') {
                     return;
                 }
                 formData.append(value.name, value.value);
             });
+
+            // Handle thumbnail_show checkbox - set to 0 if not checked
+            const thumbnailShow = $('input[name="thumbnail_show"]:checked').val();
+            formData.append('thumbnail_show', thumbnailShow ? 1 : 0);
 
             const editor = window.tinymce ? tinymce.get('description') : null;
             const description = editor ? editor.getContent() : ($('#description').val() || '');
