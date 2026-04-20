@@ -76,7 +76,7 @@ class NewsController extends Controller
             ->select('id', 'title')
             ->get();
 
-        $subtitle = $type > 0 ? __('最新消息') : __('视频');
+        $subtitle = $type > 0 ? __('计划消息') : __('视频');
 
         $url = $request->fullUrl();
         $request->session()->put('resource-url', $url);

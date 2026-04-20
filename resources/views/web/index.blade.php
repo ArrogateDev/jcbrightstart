@@ -343,13 +343,13 @@
 
         <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80 overflow-hidden">
             <div class="bg-cloud-5">
-                <img class="w-100" src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('最新消息')}}">
+                <img class="w-100" src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('计划消息')}}">
             </div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading section-heading-2">
-                            <h2 class="section-heading__title">{{__('最新消息')}}</h2>
+                            <h2 class="section-heading__title">{{__('计划消息')}}</h2>
                         </div>
                     </div>
                 </div>

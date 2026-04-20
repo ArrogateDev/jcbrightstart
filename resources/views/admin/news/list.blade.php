@@ -18,7 +18,7 @@
 
     <x-admin.header/>
 
-    <x-admin.breadcrumb title="{{__('最新消息')}}"/>
+    <x-admin.breadcrumb title="{{__('计划消息')}}"/>
 
     <div class="content">
         <div class="container">
@@ -28,7 +28,7 @@
 
                 <div class="col-lg-9">
                     <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5 class="fw-bold">{{__('最新消息')}}</h5>
+                        <h5 class="fw-bold">{{__('计划消息')}}</h5>
 
                         <div>
                             <a href="{{route('admin.news.store.view.html')}}" class="btn btn-secondary">{{__('新增消息')}}</a>
@@ -144,7 +144,7 @@
     }
 
     function handleDelete(id, name) {
-        const deleteMessage = '{{__('确定要删除最新消息:name吗？')}}'.replace(':name', `"${name}"`);
+        const deleteMessage = '{{__('确定要删除计划消息:name吗？')}}'.replace(':name', `"${name}"`);
         confirm_alert(deleteMessage, "{{__('此操作不可恢复！')}}", 'Yes!')
             .then((result) => {
                 if (result.isConfirmed) {
@@ -200,7 +200,7 @@
             const status = parseInt($(this).data('status'));
             const statusText = $(this).text();
 
-            const message = '{{__('确定将最新消息改为: :status？')}}'.replace(':status', `"${statusText}"`);
+            const message = '{{__('确定将计划消息改为: :status？')}}'.replace(':status', `"${statusText}"`);
             confirm_alert(message, "{{__('此操作不可恢复！')}}", 'Yes!')
                 .then((result) => {
                     if (result.isConfirmed) {

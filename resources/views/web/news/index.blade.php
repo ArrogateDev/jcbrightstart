@@ -94,7 +94,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}"/>
+        <x-web.breadcrumb title="{{__('计划消息')}}"/>
 
         @if($videos->isNotEmpty())
             <section>
@@ -134,7 +134,7 @@
             <section>
                 <div class="container">
                     <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                        <h3>{{__('最新消息')}}</h3>
+                        <h3>{{__('计划消息')}}</h3>
                     </div>
                     <div class="row list-container">
                         @if($articles->isNotEmpty())

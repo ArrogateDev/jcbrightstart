@@ -84,7 +84,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}"/>
+        <x-web.breadcrumb title="{{__('计划消息')}}"/>
 
         @if($type === 0)
             <section class="section p-t-80 p-b-35">
@@ -118,7 +118,7 @@
         <section>
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between my-4">
-                    <h3>{{$type === 1 ? __('最新视频') : __('最新消息')}}</h3>
+                    <h3>{{$type === 1 ? __('最新视频') : __('计划消息')}}</h3>
                 </div>
                 <div class="row list-container"></div>
                 <nav class="au-pagination p-t-10 pagination-container"></nav>

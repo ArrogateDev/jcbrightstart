@@ -75,7 +75,7 @@
 
     <main id="main">
 
-        <x-web.breadcrumb title="{{__('最新消息')}}"/>
+        <x-web.breadcrumb title="{{__('计划消息')}}"/>
 
         <section class="section p-t-125 p-b-80 page-show ">
             <div class="container">

@@ -47,7 +47,7 @@ class ResourceRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('resources')->ignore($id)->where('deleted_at', null)
+                Rule::unique('resources')->ignore($id)->withoutTrashed()
             ];
         }
 

@@ -164,7 +164,7 @@ class AuthoritiesSeeder extends Seeder
             'pid' => 0,
             'children' => [
                 [
-                    'name' => '最新消息',
+                    'name' => '计划消息',
                     'alias' => 'NewsList',
                     'icon' => 'isax isax-messages-35',
                     'sort' => 0,
@@ -194,7 +194,7 @@ class AuthoritiesSeeder extends Seeder
                     ]
                 ],
                 [
-                    'name' => '最新消息分类',
+                    'name' => '计划消息分类',
                     'alias' => 'NewsCategoryList',
                     'icon' => 'isax isax-ticket5',
                     'sort' => 0,

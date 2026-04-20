@@ -49,7 +49,7 @@ class NewsRequest extends BaseRequest
             $rules['title'] = [
                 'bail',
                 'required',
-                Rule::unique('news')->ignore($id)->where('deleted_at', null)
+                Rule::unique('news')->ignore($id)->withoutTrashed()
             ];
         }
 
