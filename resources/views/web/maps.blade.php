@@ -432,6 +432,7 @@
             id: '{{$map->id}}',
             coordinates: [{{$map->longitude}}, {{$map->latitude}}],
             title: '{{$map->organization}}',
+            pointColor: '{{$map->point_color ?? 'ff71eb'}}',
             mapData: @json($map)
         });
         @endforeach
@@ -445,28 +446,45 @@
             });
         }
 
-        const normalIconUrl = '{!! route('marker',['hex'=>'ff71eb','border'=>60]) !!}';
+        // 收集所有唯一的颜色(去除#号)
+        const uniqueColors = [...new Set(markerData.map(m => {
+            return m.pointColor || 'ff71eb';
+        }))];
         const selectedIconUrl = '{!! route('marker',['hex'=>'ffb900','border'=>60]) !!}';
 
-        Promise.all([
-            preloadImage(normalIconUrl),
-            preloadImage(selectedIconUrl)
-        ]).then(() => {
+        // 为每种颜色生成图标URL
+        const iconUrls = {};
+        const markerRouteBase = '{!! route('marker',['hex'=>'PLACEHOLDER','border'=>60]) !!}';
+        uniqueColors.forEach(color => {
+            iconUrls[color] = markerRouteBase.replace('PLACEHOLDER', color);
+        });
+
+        // 预加载所有图标
+        const preloadPromises = uniqueColors.map(color => {
+            return preloadImage(iconUrls[color]);
+        });
+        preloadPromises.push(preloadImage(selectedIconUrl));
+
+        Promise.all(preloadPromises).then(() => {
             initMap();
         }).catch((error) => {
             console.error('图片预加载失败:', error);
             initMap();
         });
 
-        let normalStyle, selectedStyle, markers, map;
+        let selectedStyle, markers, map;
 
         function initMap() {
-            normalStyle = new ol.style.Style({
-                image: new ol.style.Icon({
-                    src: normalIconUrl,
-                    anchor: [0.5, 1],
-                    scale: 0.15
-                })
+            // 为每种颜色创建样式缓存
+            const styleCache = {};
+            uniqueColors.forEach(color => {
+                styleCache[color] = new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: iconUrls[color],
+                        anchor: [0.5, 1],
+                        scale: 0.15
+                    })
+                });
             });
 
             selectedStyle = new ol.style.Style({
@@ -483,7 +501,18 @@
                 updateWhileAnimating: true,
                 style: function (feature, resolution) {
                     const isSelected = feature.get('selected') || false;
-                    return isSelected ? selectedStyle : normalStyle;
+                    if (isSelected) {
+                        return selectedStyle;
+                    }
+                    const data = feature.get('data');
+                    let pointColor = data && data.pointColor ? data.pointColor : 'ff71eb';
+                    // 去除#号
+                    pointColor = pointColor.replace(/^#/, '');
+                    const style = styleCache[pointColor] || styleCache['ff71eb'];
+                    if (!style) {
+                        console.warn('No style found for color:', pointColor, 'Available:', Object.keys(styleCache));
+                    }
+                    return style;
                 }
             });
 

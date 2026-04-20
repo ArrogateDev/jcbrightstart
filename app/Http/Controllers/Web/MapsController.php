@@ -13,7 +13,7 @@ class MapsController extends Controller
         $maps = ServiceLocation::query()
             ->where('status', ServiceLocation::NORMAL)
             ->orderByDesc('sort')
-            ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'latitude', 'status')
+            ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'point_color', 'latitude', 'status')
             ->get();
 
         $maps = $maps->map(function ($item) {
