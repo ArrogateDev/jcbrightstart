@@ -14,7 +14,7 @@ class ResourceRequest extends BaseRequest
         $rules = [
             'title' => 'bail|required',
             'type' => 'bail|required|in:0,1',
-            'thumbnail_show' => 'bail|required|in:0,1',
+            'thumbnail_show' => 'bail|nullable|in:0,1',
             'pdf_file' => 'bail|nullable|filled|mimes:pdf|max:15360',
             'sort' => 'bail|required|numeric|min:0|max:99',
             'status' => 'bail|required|in:0,1,2'
