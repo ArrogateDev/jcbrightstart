@@ -29,7 +29,7 @@ class NewsController extends Controller
             ->get();
 
         $articles->map(function ($item) {
-            $item->url = route('resource.show.html', ['resource' => $item->id]);
+            $item->url = route('news.show.html', ['news' => $item->id]);
         });
         $articles->append(['category_text']);
 
