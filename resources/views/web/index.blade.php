@@ -265,15 +265,6 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <p @class(['m-b-15'=>empty($institutions)])>{{__('HOME4_EXPLAIN')}}</p>
-                                    @if(!empty($institutions))
-                                        <p>{{__('HOME4_INSTITUTION')}}</p>
-                                        <ul class="m-b-15" style="list-style-type: disc;padding-left: 30px;">
-                                            @foreach($institutions as $institution)
-                                                <li>{{$institution}}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -288,6 +279,36 @@
                 </div>
             </div>
         </section>
+
+        @if(!empty($institutions))
+            <section class="section p-t-75 p-b-75">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 d-flex align-items-center">
+                            <div class="p-md-t-0 p-md-b-30">
+                                <div class="welcome-wrap welcome-wrap-2 p-t-0">
+                                    <div class="welcome-wrap__inner">
+                                        <div class="section-heading section-heading-1 section-heading-1--small mb-0 text-left">
+                                            <h2 class="section-heading__title">{{__('HOME4_EXPLAIN')}}</h2>
+                                            <p class="m-b-15">{{__('HOME4_INSTITUTION')}}</p>
+                                        </div>
+                                        <ul class="m-b-15" style="list-style-type: disc;padding-left: 30px;">
+                                            @foreach($institutions as $institution)
+                                                <li class="m-b-15">
+                                                    <h3 class="title title--sm title--black box__title m-0">
+                                                        <a style="color:#666;">{{$institution}}</a>
+                                                    </h3>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
 
         <section class="section p-t-75 p-b-75" id="professional-development">
             <div class="container">
