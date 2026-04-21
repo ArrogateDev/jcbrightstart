@@ -56,6 +56,10 @@
         color: white;
         font-size: 18px;
     }
+
+    .page-show .container.container-pdf {
+        max-width: 1400px !important;
+    }
 </style>
 
 <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
@@ -70,7 +74,7 @@
         <x-web.breadcrumb title="{{__('专业学习社群')}}"/>
 
         <section class="section p-t-125 p-b-80 page-show ">
-            <div class="container">
+            <div @class(['container', 'container-pdf' => $resource->pdf])>
                 @if($url)
                     <a href="{{$url}}" class="d-flex align-items-center btn-per">
                         <i class="zmdi zmdi-chevron-left mr-1"></i> {{__('返回')}}
