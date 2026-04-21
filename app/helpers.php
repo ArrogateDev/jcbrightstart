@@ -101,7 +101,10 @@ if (!function_exists('list_to_tree')) {
 if (!function_exists('web_resource_url')) {
     function web_resource_url($file)
     {
-        return asset('storage/' . $file) . ('?v=' . (env('APP_ENV') === 'production' ? env('ENV_VERSION', '1.0.0') : time()));
+        $app_url = config('app.url', '');
+        $secure = stripos($app_url, 'https://') === 0;
+
+        return asset('storage/' . $file, $secure) . ('?v=' . (config('app.env') === 'production' ? config('style.version') : time()));
     }
 }
 
