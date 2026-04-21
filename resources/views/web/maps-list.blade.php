@@ -16,95 +16,95 @@
             <div class="container">
                 <div class="maps-tabs-wrapper">
                     <ul class="nav nav-tabs maps-tabs-nav" id="mapsTabs" role="tablist">
-                        @foreach($types as $type => $list)
+                        @foreach($maps as $map)
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link {{ $loop->first ? 'active' : '' }}"
-                                   id="tab-{{ md5($type) }}-tab"
+                                   id="tab-{{ $map->id }}-tab"
                                    data-toggle="tab"
-                                   href="#tab-{{ md5($type) }}"
+                                   href="#tab-{{ $map->id }}"
                                    role="tab"
-                                   aria-controls="tab-{{ md5($type) }}"
+                                   aria-controls="tab-{{ $map->id }}"
                                    aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                    {{$type}}
-                                    <span class="badge badge-light ml-2">{{ count($list) }}</span>
+                                    {{$map->title}}
+                                    <span class="badge badge-light ml-2">{{ count($map->locations) }}</span>
                                 </a>
                             </li>
                         @endforeach
                     </ul>
 
                     <div class="tab-content maps-tabs-content" id="mapsTabsContent">
-                        @foreach($types as $type => $list)
+                        @foreach($maps as $map)
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
-                                 id="tab-{{ md5($type) }}"
+                                 id="tab-{{ $map->id }}"
                                  role="tabpanel"
-                                 aria-labelledby="tab-{{ md5($type) }}-tab">
+                                 aria-labelledby="tab-{{ $map->id }}-tab">
                                 <div class="maps-list-container">
-                                    @foreach($list as $map)
-                                        <div class="location-item" data-id="{{$map->id}}">
+                                    @foreach($map->locations as $location)
+                                        <div class="location-item" data-id="{{$location->id}}">
                                             <div class="location-icon">
                                                 <i class="iconfont icon-location"></i>
                                             </div>
                                             <div class="location-content">
-                                                <h4 class="location-title">{{$map->organization}}</h4>
+                                                <h4 class="location-title">{{$location->organization}}</h4>
                                                 <div class="location-details">
-                                                    @if ($map->type)
+                                                    @if ($location->type)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('类型')}}:</span>
-                                                            <span class="detail-value">{{$map->type}}</span>
+                                                            <span class="detail-value">{{$map->title}}</span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->age)
+                                                    @if ($location->age)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('年龄范围')}}:</span>
-                                                            <span class="detail-value">{{$map->age}}</span>
+                                                            <span class="detail-value">{{$location->age}}</span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->district)
+                                                    @if ($location->district)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('区域')}}:</span>
-                                                            <span class="detail-value">{{$map->district}}</span>
+                                                            <span class="detail-value">{{$location->district}}</span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->capacity)
+                                                    @if ($location->capacity)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('容量')}}:</span>
-                                                            <span class="detail-value">{{$map->capacity}}</span>
+                                                            <span class="detail-value">{{$location->capacity}}</span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->address)
+                                                    @if ($location->address)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('地址')}}:</span>
-                                                            <span class="detail-value">{{$map->address}}</span>
+                                                            <span class="detail-value">{{$location->address}}</span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->phone)
+                                                    @if ($location->phone)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('电话号码')}}:</span>
                                                             <span class="detail-value">
-                                                                <a href="tel:{{$map->phone}}">{{$map->phone}}</a>
+                                                                <a href="tel:{{$location->phone}}">{{$location->phone}}</a>
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->email)
+                                                    @if ($location->email)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('电子邮件')}}:</span>
                                                             <span class="detail-value">
-                                                                <a href="mailto:{{$map->email}}">{{$map->email}}</a>
+                                                                <a href="mailto:{{$location->email}}">{{$location->email}}</a>
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->webpage)
+                                                    @if ($location->webpage)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('网页')}}:</span>
                                                             <span class="detail-value">
-                                                                <a href="{{$map->webpage}}" target="_blank" rel="noopener noreferrer">{{$map->webpage}}</a>
+                                                                <a href="{{$location->webpage}}" target="_blank" rel="noopener noreferrer">{{$location->webpage}}</a>
                                                             </span>
                                                         </div>
                                                     @endif
-                                                    @if ($map->service_hours || $map->serviceHours)
+                                                    @if ($location->service_hours || $location->serviceHours)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('服务时间')}}:</span>
-                                                            <span class="detail-value">{{$map->service_hours || $map->serviceHours || ''}}</span>
+                                                            <span class="detail-value">{{$location->service_hours || ''}}</span>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -190,11 +190,11 @@
                 transition: all 0.3s ease;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             }
 
             .location-item:hover {
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                 transform: translateY(-2px);
                 border-color: #007bff;
             }

@@ -277,25 +277,25 @@
                                     </div>
                                     <div class="location-lists overflow-auto" id="accordion">
 
-                                        @foreach($types as $type => $list)
+                                        @foreach($maps as $map)
                                             <div class="mb-3">
-                                                <div class="type-item collapsed" id="{{md5($type)}}" data-toggle="collapse" data-target="#collapse-{{md5($type)}}" aria-expanded="false"
-                                                     aria-controls="collapse-{{md5($type)}}">
-                                                    <span>{{$type}}</span>
+                                                <div class="type-item collapsed" id="type-{{$map->id}}" data-toggle="collapse" data-target="#collapse-type-{{$map->id}}" aria-expanded="false"
+                                                     aria-controls="collapse-type-{{$map->id}}">
+                                                    <span>{{$map->title}}</span>
                                                     <span class="icon">
                                                             <i class="fas fa-chevron-down icon-expand"></i>
                                                             <i class="fas fa-chevron-up icon-collapse"></i>
                                                         </span>
                                                 </div>
 
-                                                <div id="collapse-{{md5($type)}}" class="collapse p-2" aria-labelledby="{{md5($type)}}" data-parent="#accordion">
+                                                <div id="collapse-type-{{$map->id}}" class="collapse p-2" aria-labelledby="type-{{$map->id}}" data-parent="#accordion">
 
-                                                    @foreach($list as $map)
-                                                        <div class="location-item" data-id="{{$map->id}}">
+                                                    @foreach($map->locations as $location)
+                                                        <div class="location-item" data-id="{{$location->id}}">
                                                             <i class="iconfont icon-location"></i>
                                                             <div class="ml-2">
                                                                 <h5 class="title title--black location-title">
-                                                                    {{$map->organization}}
+                                                                    {{$location->organization}}
                                                                 </h5>
                                                             </div>
                                                         </div>
@@ -428,13 +428,15 @@
         const $location = $('.location-item')
         let markerData = [];
         @foreach($maps as $map)
+        @foreach($map->locations as $location)
         markerData.push({
-            id: '{{$map->id}}',
-            coordinates: [{{$map->longitude}}, {{$map->latitude}}],
-            title: '{{$map->organization}}',
-            pointColor: '{{$map->point_color ?? 'ff71eb'}}',
-            mapData: @json($map)
+            id: '{{$location->id}}',
+            coordinates: [{{$location->longitude}}, {{$location->latitude}}],
+            title: '{{$location->organization}}',
+            pointColor: '{{$location->point_color ?? 'ff71eb'}}',
+            mapData: @json($location)
         });
+        @endforeach
         @endforeach
 
         function preloadImage(src) {
