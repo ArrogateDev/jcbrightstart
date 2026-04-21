@@ -600,9 +600,6 @@
                 title.textContent = data.organization || data.title || '{{__('未知机构')}}';
 
                 let popupHtml = '';
-                if (data.type) {
-                    popupHtml += `<div><strong>{{__('类型')}}:</strong> ${data.type}</div>`;
-                }
                 if (data.age) {
                     popupHtml += `<div><strong>{{__('年龄范围')}}:</strong> ${data.age}</div>`;
                 }

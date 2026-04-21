@@ -47,12 +47,6 @@
                                             <div class="location-content">
                                                 <h4 class="location-title">{{$location->organization}}</h4>
                                                 <div class="location-details">
-                                                    @if ($location->type)
-                                                        <div class="detail-item">
-                                                            <span class="detail-label">{{__('类型')}}:</span>
-                                                            <span class="detail-value">{{$map->title}}</span>
-                                                        </div>
-                                                    @endif
                                                     @if ($location->age)
                                                         <div class="detail-item">
                                                             <span class="detail-label">{{__('年龄范围')}}:</span>

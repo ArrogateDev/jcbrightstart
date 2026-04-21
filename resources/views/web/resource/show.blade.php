@@ -153,8 +153,7 @@
                 showSearchControl: false,
                 autoOpenOutline: false,
                 showThumbnail: false,
-                autoOpenThumbnail: false,
-                pageMode: 'single'
+                autoOpenThumbnail: false
             });
         });
     </script>

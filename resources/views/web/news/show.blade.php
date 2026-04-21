@@ -243,10 +243,7 @@
             });
             const queryString = searchParams.toString();
 
-            const newUrl = `{{route('news.html')}}?${queryString}`;
-
-            window.location.href = newUrl;
-            console.log(newUrl)
+            window.location.href = `{{route('news.html')}}?${queryString}`;
         }
     })
 </script>
