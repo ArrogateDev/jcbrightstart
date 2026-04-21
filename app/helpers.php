@@ -101,10 +101,11 @@ if (!function_exists('list_to_tree')) {
 if (!function_exists('web_resource_url')) {
     function web_resource_url($file)
     {
-        $app_url = config('app.url', '');
-        $secure = stripos($app_url, 'https://') === 0;
+        $app_url = rtrim(config('app.url', ''), '/');
+        $path = 'storage/' . ltrim($file, '/');
+        $version = config('app.env') === 'production' ? config('style.version') : time();
 
-        return asset('storage/' . $file, $secure) . ('?v=' . (config('app.env') === 'production' ? config('style.version') : time()));
+        return "$app_url/$path?v=$version";
     }
 }
 
