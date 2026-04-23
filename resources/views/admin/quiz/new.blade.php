@@ -402,12 +402,23 @@
                 if (typeof questionData[key] === 'number') {
                     return questionData[key];
                 }
+                if (typeof questionData[key] === 'string' && questionData[key].trim() !== '') {
+                    const value = questionData[key].trim();
+                    if (/^\d+$/.test(value)) {
+                        return parseInt(value, 10);
+                    }
+                    const letterIndex = value.toUpperCase().charCodeAt(0) - 65;
+                    if (letterIndex >= 0 && letterIndex < normalizedOptions.length) {
+                        return letterIndex;
+                    }
+                }
             }
 
             const stringKeys = ['correct_answer', 'answer', 'correct_option_value'];
             for (const key of stringKeys) {
                 if (typeof questionData[key] === 'string') {
-                    const matchIndex = normalizedOptions.findIndex(option => option.text === questionData[key]);
+                    const rawValue = questionData[key].trim();
+                    const matchIndex = normalizedOptions.findIndex(option => option.text === rawValue);
                     if (matchIndex >= 0) {
                         return matchIndex;
                     }
