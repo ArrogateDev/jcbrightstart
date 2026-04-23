@@ -25,9 +25,6 @@
                                        required>
                             </div>
                             <div class="d-flex align-items-center">
-                                <button type="button" class="btn btn-sm btn-success add-unit-btn me-2" data-chapter-index="{{$chapterIdx}}">
-                                    <i class="fa-solid fa-plus me-1"></i>{{__('新增单元')}}
-                                </button>
                                 <button type="button" class="btn btn-sm btn-danger remove-chapter-btn">
                                     <i class="fa-solid fa-trash me-1"></i>{{__('删除章节')}}
                                 </button>
@@ -40,39 +37,48 @@
                                 <div class="units-container" data-chapter-index="{{$chapterIdx}}">
                                     @if(isset($chapter->units) && count($chapter->units) > 0)
                                         @foreach($chapter->units as $unitIdx => $unit)
-                                            <div class="unit-item border rounded p-3 mb-2" data-unit-index="{{$unitIdx}}">
+                                            <div class="unit-item border rounded p-3 mb-4" data-unit-index="{{$unitIdx}}">
                                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                                     <div class="flex-grow-1">
                                                         <input type="text" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][title]"
                                                                class="form-control form-control-sm mb-2"
                                                                placeholder="{{__('单元标题')}}"
                                                                value="{{$unit->title??''}}" required>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input unit-type-radio"
-                                                                   type="radio"
-                                                                   name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
-                                                                   id="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}"
-                                                                   value="0"
-                                                                @checked(($unit->type??0) == 0)>
-                                                            <label class="form-check-label" for="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}">
-                                                                {{__('Youtube 链接')}}
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input unit-type-radio"
-                                                                   type="radio"
-                                                                   name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
-                                                                   id="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}"
-                                                                   value="1"
-                                                                @checked(($unit->type??1) == 1)>
-                                                            <label class="form-check-label" for="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}">
-                                                                {{__('PDF文件')}}
-                                                            </label>
-                                                        </div>
                                                     </div>
                                                     <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="    margin: 5px;">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="form-label">{{__('描述')}}</label>
+                                                    <textarea name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][description]"
+                                                              class="form-control tinymce-editor unit-description-editor"
+                                                              data-chapter-index="{{$chapterIdx}}"
+                                                              data-unit-index="{{$unitIdx}}">{!! $unit->description??'' !!}</textarea>
+                                                </div>
+                                                <div class="flex-grow-1 mb-2">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input unit-type-radio"
+                                                               type="radio"
+                                                               name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
+                                                               id="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}"
+                                                               value="0"
+                                                            @checked(($unit->type??0) == 0)>
+                                                        <label class="form-check-label" for="unit_type_youtube_{{$chapterIdx}}_{{$unitIdx}}">
+                                                            {{__('Youtube 链接')}}
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input unit-type-radio"
+                                                               type="radio"
+                                                               name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
+                                                               id="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}"
+                                                               value="1"
+                                                            @checked(($unit->type??1) == 1)>
+                                                        <label class="form-check-label" for="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}">
+                                                            {{__('PDF文件')}}
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 <div class="unit-content-youtube"
                                                      style="display: {{($unit->type??0) == 0 ? 'block' : 'none'}};">
@@ -117,7 +123,7 @@
                                                         </div>
                                                     @endif
                                                 </div>
-                                                <div class="mt-2">
+                                                <div class="mt-4">
                                                     <label class="form-label small">{{__('绑定测验')}}</label>
                                                     <select name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][quiz_id]"
                                                             class="form-control form-control-sm unit-quiz-select"
@@ -129,19 +135,17 @@
                                                         @endif
                                                     </select>
                                                 </div>
-                                                <div class="mt-2">
-                                                    <label class="form-label">{{__('描述')}}</label>
-                                                    <textarea name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][description]"
-                                                              class="form-control tinymce-editor unit-description-editor"
-                                                              data-chapter-index="{{$chapterIdx}}"
-                                                              data-unit-index="{{$unitIdx}}">{!! $unit->description??'' !!}</textarea>
-                                                </div>
                                                 <input type="hidden" name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][id]"
                                                        value="{{$unit->id??''}}">
                                             </div>
                                         @endforeach
                                     @endif
                                 </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center p-2 bg-light">
+                            <div class="add-unit-btn" data-chapter-index="{{$chapterIdx}}">
+                                <i class="fa-solid fa-plus"></i>
                             </div>
                         </div>
                     </div>
