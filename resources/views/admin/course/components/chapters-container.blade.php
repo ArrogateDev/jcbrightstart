@@ -74,9 +74,20 @@
                                                                name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
                                                                id="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}"
                                                                value="1"
-                                                            @checked(($unit->type??1) == 1)>
+                                                            @checked(($unit->type??0) == 1)>
                                                         <label class="form-check-label" for="unit_type_pdf_{{$chapterIdx}}_{{$unitIdx}}">
                                                             {{__('PDF文件')}}
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input unit-type-radio"
+                                                               type="radio"
+                                                               name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][type]"
+                                                               id="unit_type_html_{{$chapterIdx}}_{{$unitIdx}}"
+                                                               value="2"
+                                                            @checked(($unit->type??0) == 2)>
+                                                        <label class="form-check-label" for="unit_type_html_{{$chapterIdx}}_{{$unitIdx}}">
+                                                            {{__('HTML内容')}}
                                                         </label>
                                                     </div>
                                                 </div>

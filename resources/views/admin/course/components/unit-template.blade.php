@@ -1,34 +1,53 @@
 <div id="unit-template" style="display: none;">
     <div class="unit-item border rounded p-3 mb-2" data-unit-index="">
-        <div class="d-flex justify-content-between align-items-start mb-2">
+        <div class="d-flex justify-content-between align-items-start mb-4">
             <div class="flex-grow-1">
                 <input type="text" name="chapters[][units][][title]"
                        class="form-control form-control-sm mb-2"
                        placeholder="{{__('单元标题')}}" required>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input unit-type-radio"
-                           type="radio"
-                           name="chapters[][units][][type]"
-                           id=""
-                           value="0" checked>
-                    <label class="form-check-label" for="">
-                        {{__('Youtube 链接')}}
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input unit-type-radio"
-                           type="radio"
-                           name="chapters[][units][][type]"
-                           id=""
-                           value="1">
-                    <label class="form-check-label" for="">
-                        {{__('PDF文件')}}
-                    </label>
-                </div>
             </div>
             <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="margin: 5px;">
                 <i class="fa-solid fa-trash"></i>
             </button>
+        </div>
+        <div class="mb-4">
+            <label class="form-label small">{{__('描述')}}</label>
+            <textarea name="chapters[][units][][description]"
+                      class="form-control tinymce-editor unit-description-editor"
+                      data-chapter-index=""
+                      data-unit-index=""></textarea>
+        </div>
+        <div class="flex-grow-1 mb-4">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input unit-type-radio"
+                       type="radio"
+                       name="chapters[][units][][type]"
+                       id=""
+                       value="0" checked>
+                <label class="form-check-label" for="">
+                    {{__('Youtube 链接')}}
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input unit-type-radio"
+                       type="radio"
+                       name="chapters[][units][][type]"
+                       id=""
+                       value="1">
+                <label class="form-check-label" for="">
+                    {{__('PDF文件')}}
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input unit-type-radio"
+                       type="radio"
+                       name="chapters[][units][][type]"
+                       id=""
+                       value="2">
+                <label class="form-check-label" for="">
+                    {{__('HTML内容')}}
+                </label>
+            </div>
         </div>
         <div class="unit-content-youtube">
             <input type="text" name="chapters[][units][][video_url]"
@@ -62,13 +81,6 @@
                     data-unit-index="">
                 <option value="">{{__('请选择测验')}}</option>
             </select>
-        </div>
-        <div class="mt-2">
-            <label class="form-label small">{{__('描述')}}</label>
-            <textarea name="chapters[][units][][description]"
-                      class="form-control tinymce-editor unit-description-editor"
-                      data-chapter-index=""
-                      data-unit-index=""></textarea>
         </div>
         <input type="hidden" name="chapters[][units][][id]" value="">
     </div>
