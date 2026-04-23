@@ -652,14 +652,17 @@
         // 切换单元类型
         $(document).on('change', '.unit-type-radio', function () {
             const unitItem = $(this).closest('.unit-item');
-            const unitType = $(this).val();
+            const unitType = parseInt($(this).val());
 
-            if (unitType == 0) {
+            if (unitType === 0) {
                 unitItem.find('.unit-content-youtube').show();
                 unitItem.find('.unit-content-pdf').hide();
-            } else {
+            } else if (unitType === 1){
                 unitItem.find('.unit-content-youtube').hide();
                 unitItem.find('.unit-content-pdf').show();
+            } else if (unitType === 2){
+                unitItem.find('.unit-content-youtube').hide();
+                unitItem.find('.unit-content-pdf').hide();
             }
         });
 
