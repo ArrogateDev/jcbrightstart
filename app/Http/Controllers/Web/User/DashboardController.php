@@ -42,11 +42,7 @@ class DashboardController extends Controller
         $complete_course = max(0, bcsub($start_course, $complete_quizzes, 0));
 
         $courses = UserCoursePlayRecord::query()
-            ->with([
-                'course' => function ($query) {
-                    $query->where('status', Course::STATUS_PUBLISHED)->select('id', 'title', 'thumbnail', 'status', 'created_at');
-                }
-            ])
+            ->with(['course:id,title,thumbnail,status,created_at'])
             ->from(function ($query) {
                 $query->select('*')
                     ->selectRaw('ROW_NUMBER() OVER (PARTITION BY course_id ORDER BY id DESC) as row_num')
@@ -54,15 +50,15 @@ class DashboardController extends Controller
                     ->whereNull('deleted_at');
             }, 'user_course_play_records')
             ->where('row_num', 1)
+            ->whereHasIn('course', function ($query) {
+                $query->where('status', 2);
+            })
             ->orderByDesc('id')
             ->limit(3)
             ->select('id', 'course_id')
             ->get();
         $courses->map(function ($course) {
             $course->url = route('course.details.html', ['course' => $course->course_id]);
-        });
-        $courses->filter(function ($course) {
-            return $course->course;
         });
 
         $quizzes = UserUnitQuizStatistics::query()
