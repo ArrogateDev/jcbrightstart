@@ -39,6 +39,7 @@ class RegisterController extends Controller
         def($_Context, function () use (&$lock) {
             $lock->release();
         });
+        throw new ApiException(__('暂未开放'), ResponseCode::FORBIDDEN);
 
         $inputs = $request->only(['email', 'password', 'first_name', 'last_name']);
         $password = $request->input('password');

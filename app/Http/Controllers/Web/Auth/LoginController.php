@@ -99,6 +99,7 @@ class LoginController extends Controller
         def($_Context, function () use (&$lock) {
             $lock->release();
         });
+        throw new ApiException(__('暂未开放'), ResponseCode::FORBIDDEN);
 
         $credential = $request->input('credential');
         if (!$credential) {
@@ -168,6 +169,7 @@ class LoginController extends Controller
         def($_Context, function () use (&$lock) {
             $lock->release();
         });
+        throw new ApiException(__('暂未开放'), ResponseCode::FORBIDDEN);
 
         $action = $request->input('action'); // null | 'create' | 'bind'
         $redirect = $request->input('redirect', route('user.dashboard.html'));
