@@ -66,6 +66,7 @@ class CourseRequest extends BaseRequest
                         $type = isset($unit['type']) ? (int)$unit['type'] : null;
                         $video_url = $unit['video_url'] ?? null;
                         $unit_id = $unit['id'] ?? null;
+                        $content = $unit['content'] ?? null;
 
                         // 检查是否有文件上传（尝试不同的字段路径格式）
                         $pdf_file_key1 = "chapters.$chapter_idx.units.$unit_idx.pdf";
@@ -102,7 +103,7 @@ class CourseRequest extends BaseRequest
                             );
                         }
 
-                        if ($type === 2) {
+                        if ($type === 2 && empty($content)) {
                             $validator->errors()->add(
                                 "chapters.$chapter_idx.units.$unit_idx.content",
                                 __('当类型为HTML内容时，HTML内容不能为空')

@@ -128,12 +128,13 @@
                                     <div
                                         class="add-form-btn widget-next-btn submit-btn d-flex justify-content-end mb-0">
                                         <div class="btn-left">
+                                            <a href="javascript:void(0);" class="btn btn-secondary btn-b-close">{{__('关闭')}}</a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
                                             </a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
                                                style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
                                             </a>
-                                            <a href="javascript:void(0);" class="btn btn-secondary next_btns">{{__('下一步')}}</a>
+                                            <a href="javascript:void(0);" class="btn btn-warning next_btns">{{__('下一步')}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -200,12 +201,13 @@
                                                     class="isax isax-arrow-left-2 me-1"></i>{{__('上一步')}}</a>
                                         </div>
                                         <div class="btn-left">
+                                            <a href="javascript:void(0);" class="btn btn-secondary btn-b-close">{{__('关闭')}}</a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
                                             </a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
                                                style="background: #0070c0;border-color: #0070c0;">{{__('储存及离开')}}
                                             </a>
-                                            <a href="javascript:void(0);" class="btn btn-secondary next_btns">{{__('下一步')}}</a>
+                                            <a href="javascript:void(0);" class="btn btn-warning next_btns">{{__('下一步')}}</a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -225,6 +227,7 @@
                                                     class="isax isax-arrow-left-2 me-1"></i>{{__('上一步')}}</a>
                                         </div>
                                         <div class="btn-left">
+                                            <a href="javascript:void(0);" class="btn btn-secondary btn-b-close">{{__('关闭')}}</a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="1" class="btn main-btn btn-submit" style="background: #00b050;border-color: #00b050;">{{__('储存')}}
                                             </a>
                                             <a href="javascript:void(0);" data-status="0" data-keep="0" class="btn main-btn btn-submit"
@@ -942,6 +945,14 @@
                 }
             });
         })
+
+        $(document).on('click', '.btn-b-close', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (confirm('{{__('确定要关闭吗？您有未保存的内容，关闭后将全部丢失。')}}')) {
+                window.location.href = '{{route('admin.course.html')}}';
+            }
+        });
     })
 </script>
 
