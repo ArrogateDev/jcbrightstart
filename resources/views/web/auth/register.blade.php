@@ -11,7 +11,26 @@
 <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/js/utils.js') }}"></script>
 <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
+<style>
+    .loading {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #0003;
+        border-left-color: #000;
+        border-radius: 100%;
+        animation: loading infinite 0.75s linear;
+    }
 
+    @keyframes loading {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 <body>
 
 <div class="main-wrapper">
@@ -297,7 +316,7 @@
 
     $(function () {
         const $getCodeBtn = $('#get-code');
-        const COUNTDOWN_SECONDS = 60;
+        const COUNTDOWN_SECONDS = 300;
         let countdownTimer = null;
 
         function resetButton() {
@@ -305,19 +324,19 @@
                 clearInterval(countdownTimer);
                 countdownTimer = null;
             }
-            $getCodeBtn.prop('disabled', false).text('Get');
+            $getCodeBtn.prop('disabled', false).text('{{__('获取')}}');
         }
 
         function startCountdown() {
             let remaining = COUNTDOWN_SECONDS;
-            $getCodeBtn.prop('disabled', true).text(`Resend (${remaining}s)`);
+            $getCodeBtn.prop('disabled', true).text(`(${remaining}s)`);
             countdownTimer = setInterval(() => {
                 remaining -= 1;
                 if (remaining <= 0) {
                     resetButton();
                     return;
                 }
-                $getCodeBtn.text(`Resend (${remaining}s)`);
+                $getCodeBtn.text(`(${remaining}s)`);
             }, 1000);
         }
 
@@ -343,7 +362,7 @@
                 _token: '{{ csrf_token() }}'
             };
 
-            $getCodeBtn.prop('disabled', true).text('Sending...');
+            $getCodeBtn.prop('disabled', true).html('<div class="loading"></div>');
 
             $.ajax({
                 type: "post",

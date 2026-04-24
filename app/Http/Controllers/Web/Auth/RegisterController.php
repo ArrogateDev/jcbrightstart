@@ -42,7 +42,7 @@ class RegisterController extends Controller
 
         $inputs = $request->only(['email', 'password', 'first_name', 'last_name']);
         $password = $request->input('password');
-        $redirect = $request->input('redirect', '/');
+        $redirect = $request->input('redirect', route('user.dashboard.html'));
         $code = $request->input('code');
 
         $ver_code = VerificationCode::check($inputs['email'], 'register', $code);
