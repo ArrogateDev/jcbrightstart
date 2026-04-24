@@ -61,6 +61,9 @@ class DashboardController extends Controller
         $courses->map(function ($course) {
             $course->url = route('course.details.html', ['course' => $course->course_id]);
         });
+        $courses->filter(function ($course) {
+            return $course->course;
+        });
 
         $quizzes = UserUnitQuizStatistics::query()
             ->with(['course:id,title', 'chapter:id,title', 'unit:id,title', 'quiz:id,title'])
