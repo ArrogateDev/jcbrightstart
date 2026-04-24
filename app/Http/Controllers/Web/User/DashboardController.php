@@ -42,7 +42,11 @@ class DashboardController extends Controller
         $complete_course = max(0, bcsub($start_course, $complete_quizzes, 0));
 
         $courses = UserCoursePlayRecord::query()
-            ->with(['course:id,title,thumbnail,status,created_at'])
+            ->with([
+                'course' => function ($query) {
+                    $query->where('status', Course::STATUS_PUBLISHED)->select('id', 'title', 'thumbnail', 'status', 'created_at');
+                }
+            ])
             ->from(function ($query) {
                 $query->select('*')
                     ->selectRaw('ROW_NUMBER() OVER (PARTITION BY course_id ORDER BY id DESC) as row_num')
