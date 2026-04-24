@@ -4,7 +4,7 @@
             <div class="flex-grow-1">
                 <input type="text" name="chapters[][units][][title]"
                        class="form-control form-control-sm mb-2"
-                       placeholder="{{__('单元标题')}}" required>
+                       placeholder="{{__('单元标题')}}" required disabled>
             </div>
             <button type="button" class="btn btn-sm btn-danger remove-unit-btn" style="margin: 5px;">
                 <i class="fa-solid fa-trash"></i>
@@ -15,7 +15,7 @@
             <textarea name="chapters[][units][][description]"
                       class="form-control tinymce-editor unit-description-editor"
                       data-chapter-index=""
-                      data-unit-index=""></textarea>
+                      data-unit-index="" disabled></textarea>
         </div>
         <div class="flex-grow-1 mb-4">
             <div class="form-check form-check-inline">
@@ -23,7 +23,8 @@
                        type="radio"
                        name="chapters[][units][][type]"
                        id=""
-                       value="0" checked>
+                       value="0"
+                       checked disabled>
                 <label class="form-check-label" for="">
                     {{__('Youtube 链接')}}
                 </label>
@@ -49,7 +50,7 @@
                 </label>
             </div>
         </div>
-        <div class="unit-content-youtube">
+        <div class="unit-content-youtube" style="display: block;">
             <input type="text" name="chapters[][units][][video_url]"
                    class="form-control form-control-sm"
                    placeholder="{{__('Youtube URL链接')}}">
@@ -72,6 +73,13 @@
                     <i class="fa-solid fa-file-pdf me-1"></i>{{__('查看当前PDF')}}
                 </a>
             </div>
+        </div>
+        <div class="unit-content-html" style="display: none;">
+            <label class="form-label small">{{__('HTML内容')}}</label>
+            <textarea name="chapters[][units][][content]"
+                      class="form-control tinymce-editor unit-content-editor"
+                      data-chapter-index=""
+                      data-unit-index=""></textarea>
         </div>
         <div class="mt-2">
             <label class="form-label small">{{__('绑定测验')}}</label>

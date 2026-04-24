@@ -19,7 +19,7 @@ class CourseRequest extends BaseRequest
             'chapters.*.units' => 'bail|nullable|array|min:1',
             'chapters.*.units.*.video_url' => 'bail|nullable|starts_with:https://www.youtube.com,https://youtu.be',
             'chapters.*.units.*.pdf' => 'bail|nullable|filled|mimes:pdf|max:15360',
-            'chapters.*.units.*.type' => 'bail|nullable|in:0,1',
+            'chapters.*.units.*.type' => 'bail|nullable|in:0,1,2',
             'chapters.*.units.*.quiz_id' => 'bail|nullable|exists:quizzes,id',
         ];
 
@@ -34,7 +34,7 @@ class CourseRequest extends BaseRequest
             $rules['chapters.*.units'] = 'bail|required|array|min:1';
             $rules['chapters.*.units.*.video_url'] = 'bail|nullable|starts_with:https://www.youtube.com,https://youtu.be';
             $rules['chapters.*.units.*.pdf'] = 'bail|nullable|filled|mimes:pdf|max:15360';
-            $rules['chapters.*.units.*.type'] = 'bail|required|in:0,1';
+            $rules['chapters.*.units.*.type'] = 'bail|required|in:0,1,2';
             $rules['chapters.*.units.*.quiz_id'] = 'bail|required|exists:quizzes,id';
             $rules['certificate_id'] = 'bail|required|exists:certificates,id';
         }
@@ -99,6 +99,13 @@ class CourseRequest extends BaseRequest
                             $validator->errors()->add(
                                 "chapters.$chapter_idx.units.$unit_idx.pdf",
                                 __('当类型为PDF时，PDF文件不能为空')
+                            );
+                        }
+
+                        if ($type === 2) {
+                            $validator->errors()->add(
+                                "chapters.$chapter_idx.units.$unit_idx.content",
+                                __('当类型为HTML内容时，HTML内容不能为空')
                             );
                         }
                     }

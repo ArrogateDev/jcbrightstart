@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('video_url')->nullable()->comment('Video Url');
             $table->string('file')->nullable()->comment('File');
             $table->text('description')->nullable()->comment('Description');
+            $table->longText('content')->nullable()->comment('Content');
             $table->tinyInteger('type')->default(0)->comment('Type');
             $table->unsignedBigInteger('quiz_id')->default(0)->comment('Quiz Id');
             $table->softDeletes();

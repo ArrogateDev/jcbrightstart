@@ -134,6 +134,13 @@
                                                         </div>
                                                     @endif
                                                 </div>
+                                                <div class="unit-content-html" style="display: {{($unit->type??0) == 2 ? 'block' : 'none'}};">
+                                                    <label class="form-label">{{__('HTML内容')}}</label>
+                                                    <textarea name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][content]"
+                                                              class="form-control tinymce-editor unit-content-editor"
+                                                              data-chapter-index="{{$chapterIdx}}"
+                                                              data-unit-index="{{$unitIdx}}">{!! $unit->content??'' !!}</textarea>
+                                                </div>
                                                 <div class="mt-4">
                                                     <label class="form-label small">{{__('绑定测验')}}</label>
                                                     <select name="chapters[{{$chapterIdx}}][units][{{$unitIdx}}][quiz_id]"

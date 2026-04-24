@@ -386,6 +386,7 @@ class CourseController extends Controller
                 $unit->type = $unit_item['type'] ?? 0;
                 $unit->description = $unit_item['description'] ?? '';
                 $unit->quiz_id = $unit_item['quiz_id'] ?? 0;
+                $unit->content = $unit_item['content'] ?? '';
 
                 if ($unit->type == 0) {
                     $unit->video_url = $unit_item['video_url'] ?? null;

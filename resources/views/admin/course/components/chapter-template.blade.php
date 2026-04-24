@@ -20,7 +20,8 @@
                                 <input type="text" name="chapters[][title]"
                                        class="form-control form-control-sm chapter-title-input"
                                        placeholder="{{__('章节标题')}}"
-                                       required>
+                                       required
+                                       disabled>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="button" class="btn btn-sm btn-danger remove-chapter-btn">
@@ -28,7 +29,7 @@
                                 </button>
                             </div>
                         </div>
-                        <input type="hidden" name="chapters[][id]" value="">
+                        <input type="hidden" name="chapters[][id]" value="" disabled>
                         <div class="units-container" data-chapter-index=""></div>
                     </div>
                 </div>

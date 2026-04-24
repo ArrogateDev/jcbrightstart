@@ -549,8 +549,8 @@
             template.find('.accordion-collapse').attr('id', collapseId).attr('data-bs-parent', '#' + accordionId);
             template.find('.add-unit-btn').attr('data-chapter-index', chapterIndex);
             template.find('.units-container').attr('data-chapter-index', chapterIndex);
-            template.find('.chapter-title-input').attr('name', `chapters[${chapterIndex}][title]`);
-            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][id]`);
+            template.find('.chapter-title-input').attr('name', `chapters[${chapterIndex}][title]`).prop('disabled', false);
+            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][id]`).prop('disabled', false);
             template.find('.chapter-index-number').text(chapterIndex + 1);
 
             template.css('display', 'block');
@@ -587,27 +587,39 @@
             const template = $unitTemplate.clone();
             const youtubeRadioId = `unit_type_youtube_${chapterIndex}_${unitIndex}`;
             const pdfRadioId = `unit_type_pdf_${chapterIndex}_${unitIndex}`;
+            const htmlRadioId = `unit_type_html_${chapterIndex}_${unitIndex}`;
 
             // 更新属性
             template.attr('data-unit-index', unitIndex);
-            template.find('input[name*="[title]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][title]`);
+            template.find('input[name*="[title]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][title]`).prop('disabled', false);
 
             // 更新单选按钮
             const $youtubeRadio = template.find('input[value="0"]');
             $youtubeRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
-                .attr('id', youtubeRadioId);
+                .attr('id', youtubeRadioId)
+                .prop('disabled', false);
             $youtubeRadio.closest('.form-check').find('label').attr('for', youtubeRadioId);
 
             const $pdfRadio = template.find('input[value="1"]');
             $pdfRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
-                .attr('id', pdfRadioId);
+                .attr('id', pdfRadioId)
+                .prop('disabled', false);
             $pdfRadio.closest('.form-check').find('label').attr('for', pdfRadioId);
 
+            const $htmlRadio = template.find('input[value="2"]');
+            $htmlRadio.attr('name', `chapters[${chapterIndex}][units][${unitIndex}][type]`)
+                .attr('id', htmlRadioId)
+                .prop('disabled', false);
+            $htmlRadio.closest('.form-check').find('label').attr('for', htmlRadioId);
+
             // 更新视频URL输入
-            template.find('input[name*="[video_url]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][video_url]`);
+            template.find('input[name*="[video_url]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][video_url]`).prop('disabled', false);
+
+            // 更新HTML内容输入
+            template.find('textarea[name*="[content]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][content]`).prop('disabled', false);
 
             // 更新PDF文件输入
-            template.find('.unit-pdf-file-input').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][pdf]`);
+            template.find('.unit-pdf-file-input').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][pdf]`).prop('disabled', false);
 
             // 更新测验选择器
             const $quizSelect = template.find('.unit-quiz-select');
@@ -616,20 +628,21 @@
                 .attr('data-unit-index', unitIndex);
 
             // 更新隐藏的ID字段
-            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][id]`);
+            template.find('input[name*="[id]"]').attr('name', `chapters[${chapterIndex}][units][${unitIndex}][id]`).prop('disabled', false);
 
             template.css('display', 'block');
             $(this).closest('.chapter-item').find('.units-container').append(template);
 
             // 初始化新增单元中的 TinyMCE
             const $newUnit = $(this).closest('.chapter-item').find('.units-container .unit-item').last();
-            const $newEditor = $newUnit.find('.tinymce-editor').first();
-            if ($newEditor.length && typeof initSingleTinyMCE === 'function') {
-                if (!$newEditor.attr('id')) {
-                    $newEditor.attr('id', 'tinymce-unit-' + chapterIndex + '-' + unitIndex + '-' + Date.now());
+            const $newDescriptionEditor = $newUnit.find('textarea[name*="[description]"]').first();
+            if ($newDescriptionEditor.length && typeof initSingleTinyMCE === 'function') {
+                if (!$newDescriptionEditor.attr('id')) {
+                    $newDescriptionEditor.attr('id', 'tinymce-unit-description-' + chapterIndex + '-' + unitIndex + '-' + Date.now());
                 }
-                initSingleTinyMCE('#' + $newEditor.attr('id'));
+                initSingleTinyMCE('#' + $newDescriptionEditor.attr('id'));
             }
+            $newUnit.find('.unit-content-html').hide();
 
             // 初始化测验选择器（确保是新添加的元素，不是模板中的）
             const $newQuizSelect = $newUnit.find('.unit-quiz-select').last();
@@ -649,21 +662,95 @@
             }
         });
 
+        function getEditorValue($textarea) {
+            if (typeof tinymce !== 'undefined' && $textarea.attr('id')) {
+                const editor = tinymce.get($textarea.attr('id'));
+                if (editor) {
+                    return editor.getContent();
+                }
+            }
+
+            return $textarea.val();
+        }
+
+        function setEditorValue($textarea, value) {
+            if (typeof tinymce !== 'undefined' && $textarea.attr('id')) {
+                const editor = tinymce.get($textarea.attr('id'));
+                if (editor) {
+                    editor.setContent(value || '');
+                }
+            }
+
+            $textarea.val(value || '');
+        }
+
+        function clearUnitContentFields($unitItem, unitType) {
+            const $contentEditor = $unitItem.find('textarea[name*="[content]"]');
+
+            if (unitType !== 0) {
+                $unitItem.find('input[name*="[video_url]"]').val('');
+            }
+            if (unitType !== 1) {
+                const $pdfInput = $unitItem.find('.unit-pdf-file-input');
+                $pdfInput.val('');
+                $unitItem.find('.unit-pdf-file-name').val('');
+                $unitItem.find('.unit-pdf-existing-file').hide();
+            }
+            if (unitType !== 2) {
+                setEditorValue($contentEditor, '');
+            }
+        }
+
+        function syncHtmlEditor($unitItem) {
+            const $contentTextarea = $unitItem.find('textarea[name*="[content]"]');
+            const $contentBlock = $unitItem.find('.unit-content-html');
+            if (!$contentTextarea.length || !$contentBlock.length) {
+                return;
+            }
+
+            if (!$contentTextarea.attr('id')) {
+                const chapterIndex = $unitItem.closest('.chapter-item').data('chapter-index');
+                const unitIndex = $unitItem.data('unit-index');
+                if (chapterIndex !== undefined && unitIndex !== undefined) {
+                    $contentTextarea.attr('id', `unit-content-${chapterIndex}-${unitIndex}-${Date.now()}`);
+                }
+            }
+
+            if (typeof initSingleTinyMCE === 'function') {
+                initSingleTinyMCE('#' + $contentTextarea.attr('id'));
+            }
+        }
+
+        function updateUnitTypeVisibility($unitItem, shouldClear = false) {
+            const unitType = parseInt($unitItem.find('.unit-type-radio:checked').val() || '0');
+            const $youtubeContent = $unitItem.find('.unit-content-youtube');
+            const $pdfContent = $unitItem.find('.unit-content-pdf');
+            const $htmlContent = $unitItem.find('.unit-content-html');
+            const $descriptionBlock = $unitItem.find('textarea[name*="[description]"]').closest('.mb-4').first();
+
+            $youtubeContent.toggle(unitType === 0);
+            $pdfContent.toggle(unitType === 1);
+            $descriptionBlock.toggle(true);
+
+            if (unitType === 2) {
+                $htmlContent.show();
+                syncHtmlEditor($unitItem);
+            } else {
+                $htmlContent.hide();
+            }
+
+            if (shouldClear) {
+                clearUnitContentFields($unitItem, unitType);
+            }
+        }
+
         // 切换单元类型
         $(document).on('change', '.unit-type-radio', function () {
-            const unitItem = $(this).closest('.unit-item');
-            const unitType = parseInt($(this).val());
+            updateUnitTypeVisibility($(this).closest('.unit-item'), true);
+        });
 
-            if (unitType === 0) {
-                unitItem.find('.unit-content-youtube').show();
-                unitItem.find('.unit-content-pdf').hide();
-            } else if (unitType === 1){
-                unitItem.find('.unit-content-youtube').hide();
-                unitItem.find('.unit-content-pdf').show();
-            } else if (unitType === 2){
-                unitItem.find('.unit-content-youtube').hide();
-                unitItem.find('.unit-content-pdf').hide();
-            }
+        $('#chapters-container .unit-item').each(function () {
+            updateUnitTypeVisibility($(this), false);
         });
 
         // PDF文件选择按钮点击事件
