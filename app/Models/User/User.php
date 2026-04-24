@@ -97,7 +97,7 @@ class User extends Authenticatable
             0 => __('女'),
             1 => __('男'),
             2 => __('沒有提供'),
-            default => __('沒有提供12541'),
+            default => __('沒有提供'),
         };
     }
 

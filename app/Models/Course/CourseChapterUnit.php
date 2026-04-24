@@ -12,6 +12,12 @@ class CourseChapterUnit extends Base
         'file_url'
     ];
 
+    public const TYPE_VIDEO = 0;
+
+    public const TYPE_PDF = 1;
+
+    public const TYPE_HTML = 2;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -56,5 +62,15 @@ class CourseChapterUnit extends Base
     public function getFileUrlAttribute()
     {
         return $this->file ? web_resource_url($this->file) : '';
+    }
+
+    public function getTypeTextAttribute()
+    {
+        return match ($this->type){
+            self::TYPE_VIDEO => __('影片课程'),
+            self::TYPE_PDF => __('PDF课程'),
+            self::TYPE_HTML => __('文本课程'),
+            default => __('沒有提供')
+        };
     }
 }

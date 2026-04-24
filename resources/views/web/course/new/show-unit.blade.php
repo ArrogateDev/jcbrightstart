@@ -677,7 +677,7 @@
                                                 fill="#5E5E5E"></path>
                                         </svg>
                                     @endif
-                                    <span>{{__($unit->type === 0?'影片课程':'PDF课程')}}</span>
+                                    <span>{{$unit->type_text}}</span>
                                 </div>
                                 <div class="meta-item">
                                     @if($play_record && $play_record->status === 2)
@@ -725,8 +725,10 @@
                             <div id="play-content">
                                 @if($unit->type === 0)
                                     @include('web.course.new.components.play-video')
-                                @else
+                                @elseif($unit->type === 1)
                                     @include('web.course.new.components.play-pdf')
+                                @elseif($unit->type === 2)
+                                    @include('web.course.new.components.play-html')
                                 @endif
                             </div>
                             <div id="play-loading" class="d-flex justify-content-center align-items-center" style="height: 100%;">
@@ -815,7 +817,8 @@
          */
         const playStrategies = {
             0: (unit, position) => window.playVideo?.(unit, position),
-            1: (unit, position) => window.playPdf?.(unit, position)
+            1: (unit, position) => window.playPdf?.(unit, position),
+            2: (unit, position) => window.playHtml?.(unit, position)
         };
 
         /**
@@ -841,6 +844,9 @@
             }
             if (typeof window.clearPdf === 'function') {
                 window.clearPdf();
+            }
+            if (typeof window.clearHtml === 'function') {
+                window.clearHtml();
             }
         }
 
