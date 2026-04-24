@@ -99,12 +99,12 @@
                                     <div class="course-item-two course-item mx-0 j-user-box">
                                         <div class="course-img">
                                             <a href="{{$item->url}}">
-                                                <img src="{{$item->course->thumbnail}}" alt="img" class="img-fluid">
+                                                <img src="{{$item->course->thumbnail??''}}" alt="img" class="img-fluid">
                                             </a>
                                         </div>
                                         <div class="course-content">
                                             <h6 class="title mb-2">
-                                                <a href="{{$item->url}}">{{$item->course->title}}</a>
+                                                <a href="{{$item->url}}">{{$item->course->title??''}}</a>
                                             </h6>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <a href="{{$item->url}}" class="btn btn-dark btn-sm d-inline-flex align-items-center">
