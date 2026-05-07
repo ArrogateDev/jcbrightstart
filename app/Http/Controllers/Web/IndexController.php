@@ -128,4 +128,23 @@ class IndexController extends Controller
             throw new ApiException(__('失败'), ResponseCode::SERVER_ERR);
         }
     }
+
+    public function v1Index(Request $request)
+    {
+        $news = News::query()
+            ->where('status', News::STATUS_PUBLISHED)
+            ->orderByDesc('release_date')
+            ->orderByDesc('sort')
+            ->limit(15)
+            ->select('id', 'title')
+            ->get();
+
+        $news->map(function ($item) {
+            $date = Carbon::parse($item->created_at);
+            $item->date = $date->format('Y.M.d');
+            $item->url = route('news.show.html', ['news' => $item->id]);
+        });
+
+        return view('web.v1.index', compact('news'));
+    }
 }

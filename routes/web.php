@@ -34,8 +34,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['web.v1.middleware'])->prefix('v1')->group(function ($route) {
+    $route->get('/', [IndexController::class, 'v1Index']);
+    $route->get('/index.html', [IndexController::class, 'v1Index']);
+});
 
-Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/index.html', [IndexController::class, 'index'])->name('index.html');
 Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
 Route::post('/login.html', [LoginController::class, 'handleLogin']);

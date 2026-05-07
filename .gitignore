@@ -22,3 +22,5 @@ yarn-error.log
 /resources/views/web/test*
 /deduplicate_and_sort_translations.py
 /extract_translations.py
+pnpm-lock.yaml
+用户端功能需求文档.md

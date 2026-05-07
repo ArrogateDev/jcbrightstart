@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@plugin "daisyui";
+
+@font-face {
+    font-family: 'MYuenHK';
+    src: url("../assets/fonts/MYuenHK-Light.TTF") format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MYuenHK';
+    src: url("../assets/fonts/MYuenHK-Medium.TTF") format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MYuenHK';
+    src: url("../assets/fonts/myuenhk-xbold.otf") format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: MYuenHK, serif;
+}
+
+.bg-top {
+    background-image: url("../assets/images/bg-top.png");
+    background-size: auto;
+}
+
+.bg-footer {
+    background-image: url("../assets/images/bg-footer-01.png"), url("../assets/images/bg-footer-02.png");
+    background-repeat: no-repeat, repeat-y;
+    background-position: top left, top right;
+}
+
+.bg-01 {
+    background-image: url("../assets/images/bg-01.jpg");
+    background-size: auto;
+}
+
+.bg-02 {
+    background-image: url("../assets/images/bg-02.jpg");
+    background-size: auto;
+}
+
+.owl-carousel {
+    .owl-nav {
+        position: absolute !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        transform: translateY(-50%) !important;
+        left: 10% !important;
+        right: 10% !important;
+        top: 50% !important;
+
+        button.owl-next, button.owl-prev {
+            @apply btn btn-circle;
+            background-color: #e6ddd2 !important;
+            color: white !important;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    }
+}
+
+
+.more-box {
+    background: #ddd0c0;
+    transform: rotate(360deg);
+    width: fit-content;
+    padding-left: 10px;
+    position: relative;
+
+    .more {
+        background: #f29993;
+        padding: 0 25px;
+        color: white;
+    }
+
+    .shadow {
+        background: #efe3d9;
+        position: absolute;
+        transform: rotate(355deg);
+        width: 90%;
+        height: 100%;
+        top: 6px;
+        z-index: -10;
+    }
+}
+
+.writing-mode-v-rl {
+    writing-mode: vertical-rl;
+}
+
+.writing-mode-s-rl {
+    writing-mode: sideways-rl;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: repeating-linear-gradient(
+        90deg,
+        #998675,
+        #998675 3px,
+        transparent 3px,
+        transparent 8px
+    );
+}
+
+.line-bg{
+    background: linear-gradient(#f7d197, #f7d197) no-repeat;
+    background-size: 100% 10px;
+    background-position: 0 16px;
+}
