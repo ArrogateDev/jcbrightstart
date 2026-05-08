@@ -72,7 +72,15 @@
                     教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
                 </div>
                 <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
-                    賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒
+                    賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。
+                </div>
+                <div class="flex justify-end">
+                    <div class="more-box mt-12">
+                        <div class="more font-bold">
+                            {{__('了解更多')}}>>
+                        </div>
+                        <div class="shadow"></div>
+                    </div>
                 </div>
                 <div class="absolute top-[-80px] right-[-248px] w-[328px]">
                     <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="">
