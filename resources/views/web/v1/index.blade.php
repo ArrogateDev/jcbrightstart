@@ -62,19 +62,19 @@
 
 <section class="bg-02">
     <div class="container mx-auto">
-        <div class="flex py-[60px] gap-x-14">
+        <div class="flex justify-center py-[60px] gap-x-14">
             <div class="flex flex-col items-center gap-y-[15px]">
                 <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">{{__('關於計劃')}}</div>
                 <div class="writing-mode-s-rl text-[19px] text-[#998675] fon-ar-mt font-bold">/ Regarding the plan</div>
             </div>
-            <div class="w-full relative">
+            <div class="relative">
                 <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
                     教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
                 </div>
                 <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒
                 </div>
-                <div class="absolute top-0 right-[70px] w-[328px]">
+                <div class="absolute top-[-80px] right-[-248px] w-[328px]">
                     <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="">
                 </div>
             </div>
