@@ -4,21 +4,42 @@
 
 @font-face {
     font-family: 'MYuenHK';
-    src: url("../assets/fonts/MYuenHK-Light.TTF") format('truetype');
+    src: url("../assets/fonts/MYuenHK-Light.ttf") format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MYuenHK';
-    src: url("../assets/fonts/MYuenHK-Medium.TTF") format('truetype');
+    src: url("../assets/fonts/MYuenHK-Medium.ttf") format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'MYuenHK';
-    src: url("../assets/fonts/myuenhk-xbold.otf") format('opentype');
+    src: url("../assets/fonts/MYuenHK-Bold.otf") format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArialRoundedMT';
+    src: url("../assets/fonts/Arial-Rounded-MT-Light.ttf") format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArialRoundedMT';
+    src: url("../assets/fonts/Arial-Rounded-MT-Regular.ttf") format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ArialRoundedMT';
+    src: url("../assets/fonts/Arial-Rounded-MT-Bold.ttf") format('opentype');
     font-weight: 700;
     font-style: normal;
 }
@@ -113,8 +134,12 @@
     );
 }
 
-.line-bg{
+.line-bg {
     background: linear-gradient(#f7d197, #f7d197) no-repeat;
     background-size: 100% 10px;
     background-position: 0 16px;
+}
+
+.fon-ar-mt {
+    font-family: ArialRoundedMT, serif;
 }

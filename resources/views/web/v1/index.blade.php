@@ -32,12 +32,12 @@
                     <div>
                         <div class="flex items-center gap-x-2.5">
                             <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/last-news.png')}}" alt="{{__('计划消息')}}">
-                            <div class="text-[31px] text-[#998675]">{{__('计划消息')}}</div>
+                            <div class="text-[31px] text-[#998675] font-bold">{{__('计划消息')}}</div>
                         </div>
-                        <div class="text-[19px] text-[#998675] text-right leading-none">/ Last News</div>
+                        <div class="text-[19px] text-[#998675] fon-ar-mt font-bold text-right leading-none">/ Last News</div>
                     </div>
                     <div class="more-box mt-6 bg-[#e0d5c7]">
-                        <div class="more !bg-[#43c8d5]">
+                        <div class="more !bg-[#43c8d5] font-bold">
                             {{__('了解更多')}}>>
                         </div>
                         <div class="shadow bg-[#dbd8d2]"></div>
@@ -46,7 +46,7 @@
             </div>
             <div class="grow h-[280px] overflow-auto customize-scrollbar">
                 @foreach($news as $item)
-                    <a href="{{$item->url}}" class="flex items-center gap-x-[66px] text-[22px] text-[#666] py-[30px] border-b-1 border-[#b9b9b9]">
+                    <a href="{{$item->url}}" class="flex items-center gap-x-[66px] text-[22px] text-[#666] font-bold py-[30px] border-b-1 border-[#b9b9b9]">
                         <div class="flex-none">
                             {{$item->date}}
                         </div>
@@ -64,14 +64,14 @@
     <div class="container mx-auto">
         <div class="flex py-[60px] gap-x-14">
             <div class="flex flex-col items-center gap-y-[15px]">
-                <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px]">{{__('關於計劃')}}</div>
-                <div class="writing-mode-s-rl text-[19px] text-[#998675] font-normal">/ Regarding the plan</div>
+                <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">{{__('關於計劃')}}</div>
+                <div class="writing-mode-s-rl text-[19px] text-[#998675] fon-ar-mt font-bold">/ Regarding the plan</div>
             </div>
             <div class="w-full relative">
-                <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-normal">
+                <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
                     教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
                 </div>
-                <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-normal leading-[44px]">
+                <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒
                 </div>
                 <div class="absolute top-0 right-[70px] w-[328px]">
@@ -85,14 +85,14 @@
 <section class="bg-01">
     <div class="container mx-auto">
         <div class="py-[60px]">
-            <div class="flex justify-center items-center gap-x-2 font-normal text-[#998675]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
-                <div class="flex justify-center items-center gap-x-2 font-normal text-[#998675]">
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-end gap-x-[11px]">
                         <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001_knowledge.svg')}}" alt="知識庫">
-                        <div class="text-[31px]">知識庫</div>
+                        <div class="text-[31px] font-bold">知識庫</div>
                     </div>
-                    <div class="text-[19px]">
+                    <div class="text-[19px] fon-ar-mt font-bold">
                         / Resource-kit
                     </div>
                 </div>
@@ -106,17 +106,17 @@
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px]">
                             <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002_service.svg')}}" alt="">
-                            <div class="text-[30px] text-[#998675]">幼兒服務資訊</div>
+                            <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
                         </div>
-                        <div class="text-[18px] text-[#534741] mt-[17px] line-bg indent-2">
+                        <div class="text-[18px] text-[#534741] font-medium mt-[17px] line-bg indent-2">
                             通過四大親子策略提供優質教顧
                         </div>
-                        <div class="text-[18px] text-[#736357] leading-[33px] mt-[25px]">
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
                             「多元感官體驗」鼓勵與嬰幼兒進行多元感官體驗的探索；「遊戲中探索」透過有趣吸引的遊戲與嬰幼兒一起嘗試及發現。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px] " href="">
-                                <div class="text-[22px] text-[#998675]">< 更多</div>
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
@@ -132,17 +132,17 @@
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px]">
                             <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_003_learning.svg')}}" alt="">
-                            <div class="text-[30px] text-[#998675]">專業學習社群</div>
+                            <div class="text-[30px] text-[#998675] font-bold">專業學習社群</div>
                         </div>
-                        <div class="text-[18px] text-[#534741] mt-[17px] line-bg indent-2">
+                        <div class="text-[18px] text-[#534741] font-medium mt-[17px] line-bg indent-2">
                             家務與孩子：培養自信與聯繫
                         </div>
-                        <div class="text-[18px] text-[#736357] leading-[33px] mt-[25px]">
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
                             提到「家務」和「小孩」，許多人會感到驚恐和沮喪，擔心這會回到工業革命時期的黑暗日子，當時年幼的孩子常被迫進入嚴酷的勞動環境。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px] " href="">
-                                <div class="text-[22px] text-[#998675]">< 更多</div>
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
@@ -158,17 +158,17 @@
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px]">
                             <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_004_parents.svg')}}" alt="">
-                            <div class="text-[30px] text-[#998675]">家長學習平台</div>
+                            <div class="text-[30px] text-[#998675] font-bold">家長學習平台</div>
                         </div>
-                        <div class="text-[18px] text-[#534741] relative mt-[17px] line-bg indent-2">
+                        <div class="text-[18px] text-[#534741] font-medium relative mt-[17px] line-bg indent-2">
                             提供由幼兒教育專家撰寫的育兒資訊。
                         </div>
-                        <div class="text-[18px] text-[#736357] leading-[33px] mt-[25px]">
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
                             親子計劃的互動資源套會與家長一同探索支持初生至三歲嬰幼兒不同發展及性情特質的方法。幫助家長建立更正面及積極的親子關係，促進幼兒全面發展。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px] " href="">
-                                <div class="text-[22px] text-[#998675]">< 更多</div>
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
