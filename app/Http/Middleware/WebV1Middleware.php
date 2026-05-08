@@ -45,6 +45,36 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
             'active' => false,
+            'children' => [
+                [
+                    'title' => __('地图'),
+                    'url' => route('maps.html'),
+                    'children' => []
+                ],
+                [
+                    'title' => __('列表'),
+                    'url' => route('maps-list.html'),
+                    'children' => []
+                ]
+            ]
+        ];
+
+        $resource_category = ResourceCategory::query()
+            ->where('pid', 0)
+            ->select('id', 'title')
+            ->get();
+
+        $resource_children = [];
+        foreach ($resource_category as $item) {
+            $resource_children[] = [
+                'title' => $item->title,
+                'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
+                'children' => []
+            ];
+        }
+        $resource_children[] = [
+            'title' => __('影片分享'),
+            'url' => route('resource.more.html', ['type' => 1]),
             'children' => []
         ];
 
@@ -53,7 +83,7 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
             'active' => false,
-            'children' => []
+            'children' => $resource_children
         ];
 
         $navs[] = [
