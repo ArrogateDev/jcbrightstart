@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('捐赠机构')}}</div>
+                        <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('捐助机构')}}</div>
                         <div class="flex gap-x-[24px]">
                             <div><img class="h-[80px]" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" alt=""></div>
                         </div>
