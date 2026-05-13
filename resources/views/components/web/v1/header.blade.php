@@ -63,14 +63,14 @@
                         </div>
                         @auth
                             <div class="bg-[#43c8d5] px-[45px] rounded-lg">
-                                <a class="flex gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
+                                <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
                                     <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
                                     {{__('家长登入')}}
                                 </a>
                             </div>
                         @else
                             <div class="bg-[#43c8d5] px-[45px] rounded-lg">
-                                <a class="flex gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
+                                <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
                                     <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
                                     {{__('家长登入')}}
                                 </a>
