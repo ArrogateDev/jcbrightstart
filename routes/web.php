@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\Web\AboutUsController;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Auth\LoginController;
@@ -37,6 +38,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['web.v1.middleware'])->prefix('v1')->group(function ($route) {
     $route->get('/', [IndexController::class, 'v1Index']);
     $route->get('/index.html', [IndexController::class, 'v1Index']);
+    $route->get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
+    $route->get('{page}', [PageController::class, 'v1Index'])->name('v1-page');
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');

@@ -141,7 +141,7 @@ class IndexController extends Controller
 
         $news->map(function ($item) {
             $date = Carbon::parse($item->created_at);
-            $item->date = $date->format('Y.M.d');
+            $item->date = $date->format('Y.m.d');
             $item->url = route('news.show.html', ['news' => $item->id]);
         });
 

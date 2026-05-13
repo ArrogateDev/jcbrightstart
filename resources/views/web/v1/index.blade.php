@@ -34,7 +34,6 @@
                             <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/last-news.png')}}" alt="{{__('计划消息')}}">
                             <div class="text-[31px] text-[#998675] font-bold">{{__('计划消息')}}</div>
                         </div>
-                        <div class="text-[19px] text-[#998675] fon-ar-mt font-bold text-right leading-none">/ Last News</div>
                     </div>
                     <div class="more-box mt-6 bg-[#e0d5c7]">
                         <div class="more !bg-[#43c8d5] font-bold">
@@ -65,7 +64,6 @@
         <div class="flex justify-center py-[60px] gap-x-14">
             <div class="flex flex-col items-center gap-y-[15px]">
                 <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">{{__('關於計劃')}}</div>
-                <div class="writing-mode-s-rl text-[19px] text-[#998675] fon-ar-mt font-bold">/ Regarding the plan</div>
             </div>
             <div class="relative">
                 <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
@@ -99,9 +97,6 @@
                     <div class="flex items-end gap-x-[11px]">
                         <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001_knowledge.svg')}}" alt="知識庫">
                         <div class="text-[31px] font-bold">知識庫</div>
-                    </div>
-                    <div class="text-[19px] fon-ar-mt font-bold">
-                        / Resource-kit
                     </div>
                 </div>
                 <div class="divider-line"></div>

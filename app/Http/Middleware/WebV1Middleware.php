@@ -26,9 +26,10 @@ class WebV1Middleware
 
         $navs[] = [
             'title' => __('關於計劃'),
-            'url' => '',
+            'url' => route('v1-page', ['page' => 'about-us.html']),
             'icon' => web_resource_url('assets/web/images/v1/about-us.svg'),
             'active' => false,
+            'has_children' => false,
             'children' => []
         ];
 
@@ -37,6 +38,7 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/last-news.svg'),
             'active' => false,
+            'has_children' => false,
             'children' => []
         ];
 
@@ -45,6 +47,7 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
             'active' => false,
+            'has_children' => true,
             'children' => [
                 [
                     'title' => __('地图'),
@@ -83,6 +86,7 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
             'active' => false,
+            'has_children' => !empty($resource_children),
             'children' => $resource_children
         ];
 
@@ -91,6 +95,7 @@ class WebV1Middleware
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/contact-us.svg'),
             'active' => false,
+            'has_children' => false,
             'children' => []
         ];
 

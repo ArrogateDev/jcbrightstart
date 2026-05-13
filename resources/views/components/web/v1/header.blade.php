@@ -10,16 +10,19 @@
                         <nav>
                             <ul class="flex gap-x-[35px]">
                                 @foreach($navs as $index => $nav)
-                                    <li class="dropdown dropdown-hover">
+                                    <li @class(['dropdown' => $nav['has_children'], 'dropdown-hover' => $nav['has_children']])>
                                         <a tabindex="0" role="button" href="{{$nav['url']}}" class="flex items-center gap-x-1.5 text-[22px] text-[#998675] font-bold">
                                             <img class="h-[20px]" src="{{$nav['icon']}}" alt="{{$nav['title']}}">
                                             <span>{{$nav['title']}}</span>
                                         </a>
-                                        @if(!empty($nav['children']))
-                                            <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                        @if($nav['has_children'])
+                                            <ul tabindex="-1" class="dropdown-content menu bg-[#ffffffcc] rounded-box z-1 w-52 p-2 shadow-sm">
                                                 @foreach($nav['children'] as $child)
                                                     <li>
-                                                        <a class="text-[19px] text-[#998675] font-bold" href="{{$child['url']}}" target="{{$child['target']??'_self'}}">{{$child['title']}}</a>
+                                                        <a class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold" href="{{$child['url']}}" target="{{$child['target']??'_self'}}">
+                                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$child['title']}}">
+                                                            <span>{{$child['title']}}</span>
+                                                        </a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -30,16 +33,33 @@
                         </nav>
                     @endif
                     <div class="flex flex-col gap-y-3">
-                        <div class="flex gap-x-1">
-                            <a href="https://www.facebook.com/JCBrightStartProject">
-                                <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
-                            </a>
-                            <a href="https://www.instagram.com/JCBrightStartProject">
-                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
-                            </a>
-                            <a href="https://www.facebook.com/JCBrightStartProject">
-                                <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
-                            </a>
+                        <div class="flex items-center gap-x-3">
+                            <div class="flex gap-x-1 flex-none">
+                                <a href="https://www.facebook.com/JCBrightStartProject">
+                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
+                                </a>
+                                <a href="https://www.instagram.com/JCBrightStartProject">
+                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
+                                </a>
+                                <a href="https://www.facebook.com/JCBrightStartProject">
+                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
+                                </a>
+                            </div>
+                            <label class="flex-initial input bg-transparent h-[30px] rounded-lg">
+                                <input type="search" required placeholder="Search"/>
+                                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <g
+                                        stroke-linejoin="round"
+                                        stroke-linecap="round"
+                                        stroke-width="2.5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                    >
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.3-4.3"></path>
+                                    </g>
+                                </svg>
+                            </label>
                         </div>
                         @auth
                             <div class="bg-[#43c8d5] px-[45px] rounded-lg">

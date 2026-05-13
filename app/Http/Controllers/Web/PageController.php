@@ -20,6 +20,18 @@ class PageController extends Controller
         ];
 
         $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';
+
+        return view($view);
+    }
+
+    public function v1Index($page)
+    {
+        $pages = [
+            'about-us.html',
+        ];
+
+        $view = in_array($page, $pages) ? 'web.v1.' . str_replace('.html', '', $page) : 'web.v1.index';
+
         return view($view);
     }
 
