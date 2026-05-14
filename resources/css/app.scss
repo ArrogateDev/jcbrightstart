@@ -124,14 +124,10 @@
 
 .divider-line {
     flex: 1;
-    height: 1px;
-    background: repeating-linear-gradient(
-        90deg,
-        #998675,
-        #998675 3px,
-        transparent 3px,
-        transparent 8px
-    );
+    height: 4px;
+    background-image: radial-gradient(circle, #998675 2px, transparent 2px);
+    background-size: 20px 100%;
+    background-repeat: repeat-x;
 }
 
 .line-bg {
@@ -148,7 +144,7 @@
     background-image: url("../assets/images/about-us/icon-01.png");
     background-repeat: no-repeat;
     background-size: 110px;
-    background-position-x: right;
+    background-position-x: 95%;
     background-position-y: 136px;
 }
 
@@ -156,7 +152,7 @@
     background-image: url("../assets/images/about-us/icon-02.png");
     background-repeat: no-repeat;
     background-size: 110px;
-    background-position-x: left;
+    background-position-x: 5%;
     background-position-y: 136px;
 }
 
