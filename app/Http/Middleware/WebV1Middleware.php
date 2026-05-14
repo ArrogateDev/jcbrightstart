@@ -34,32 +34,12 @@ class WebV1Middleware
         ];
 
         $navs[] = [
-            'title' => __('计划消息'),
+            'title' => __('最新消息'),
             'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/last-news.svg'),
             'active' => false,
             'has_children' => false,
             'children' => []
-        ];
-
-        $navs[] = [
-            'title' => __('幼兒服務資訊'),
-            'url' => '',
-            'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
-            'active' => false,
-            'has_children' => true,
-            'children' => [
-                [
-                    'title' => __('地图'),
-                    'url' => route('maps.html'),
-                    'children' => []
-                ],
-                [
-                    'title' => __('列表'),
-                    'url' => route('maps-list.html'),
-                    'children' => []
-                ]
-            ]
         ];
 
         $resource_category = ResourceCategory::query()
@@ -69,6 +49,7 @@ class WebV1Middleware
 
         $resource_children = [];
         foreach ($resource_category as $item) {
+            if ($item->title === '知識庫') continue;
             $resource_children[] = [
                 'title' => $item->title,
                 'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
@@ -90,6 +71,38 @@ class WebV1Middleware
             'children' => $resource_children
         ];
 
+        $resource = $resource_category->firstWhere('title', '知識庫');
+        if ($resource) {
+            $navs[] = [
+                'title' => $resource->title,
+                'url' => route('resource.more.html', ['type' => 0, 'mod' => $resource->id]),
+                'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
+                'active' => false,
+                'has_children' => false,
+                'children' => []
+            ];
+        }
+
+        $navs[] = [
+            'title' => __('幼兒服務資訊'),
+            'url' => '',
+            'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
+            'active' => false,
+            'has_children' => true,
+            'children' => [
+                [
+                    'title' => __('地图'),
+                    'url' => route('maps.html'),
+                    'children' => []
+                ],
+                [
+                    'title' => __('列表'),
+                    'url' => route('maps-list.html'),
+                    'children' => []
+                ]
+            ]
+        ];
+
         $navs[] = [
             'title' => __('聯絡我們'),
             'url' => '',
@@ -99,8 +112,73 @@ class WebV1Middleware
             'children' => []
         ];
 
+
+        $user_menus[] = [
+            'title' => __('主菜单'),
+            'children' => [
+                [
+                    'title' => __('仪表板'),
+                    'icon' => '🏠',
+                    'url' => route('user.dashboard.html'),
+                    'active' => 'dashboard'
+                ],
+                [
+                    'title' => __('我的资料'),
+                    'icon' => '👤',
+                    'url' => route('user.profile.html'),
+                    'active' => 'profile'
+                ],
+                [
+                    'title' => __('我的课程'),
+                    'icon' => '📚',
+                    'url' => route('user.course.html'),
+                    'active' => 'course'
+                ],
+                [
+                    'title' => __('我的证书'),
+                    'icon' => '🏅',
+                    'url' => route('user.certificate.html'),
+                    'active' => 'certificate'
+                ],
+                [
+                    'title' => __('我的测验'),
+                    'icon' => '📝',
+                    'url' => route('user.quiz.html'),
+                    'active' => 'quiz'
+                ]
+            ]
+        ];
+
+        $user_menus[] = [
+            'title' => __('账号设置'),
+            'children' => [
+                [
+                    'title' => __('设置'),
+                    'icon' => '⚙️',
+                    'url' => route('user.settings.html'),
+                    'active' => 'settings'
+                ],
+                [
+                    'title' => __('退出登录'),
+                    'icon' => '👋',
+                    'url' => 'javascript:void(0);',
+                    'active' => 'logout',
+                    'class' => 'logout'
+                ]
+            ]
+        ];
+        $avatar_menus = array_merge(...array_column($user_menus, 'children'));
+        $avatar_menus = array_filter($avatar_menus, fn($item) => $item['active'] !== 'logout');
+
         View::share('title', $title);
         View::share('navs', $navs);
+
+        $user = $request->user();
+
+        View::share('user', $user);
+
+        View::share('avatar_menus', $avatar_menus);
+        View::share('user_menus', $user_menus);
 
         return $next($request);
     }

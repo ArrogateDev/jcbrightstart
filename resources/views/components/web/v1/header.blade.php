@@ -5,7 +5,7 @@
                 <a href="{{route('index.html')}}">
                     <img class="w-[185px] h-[81px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project">
                 </a>
-                <div class="flex items-end gap-x-[33px]">
+                <div class="flex items-center gap-x-[33px]">
                     @if(!empty($navs))
                         <nav>
                             <ul class="flex gap-x-[35px]">
@@ -33,8 +33,42 @@
                         </nav>
                     @endif
                     <div class="flex flex-col gap-y-3">
-                        <div class="flex items-center gap-x-3">
-                            <div class="flex gap-x-1 flex-none">
+                        @auth
+                            <div class="dropdown dropdown-hover">
+                                <div tabindex="0" role="button" class="flex items-center gap-x-2 text-[19px] text-[#998675] font-bold">
+                                    <div tabindex="0" role="button" class="w-10 h-10 bg-white rounded-full">
+                                        <img src="{{$user->avatar}}" alt="Img" class="img-fluid rounded-circle">
+                                    </div>
+                                    <h6>{{$user->full_name}}</h6>
+                                </div>
+                                <ul tabindex="-1" class="dropdown-content menu bg-[#ffffffcc] rounded-box z-1 w-52 p-2 shadow-sm">
+                                    @foreach($avatar_menus as $menu)
+                                        <li>
+                                            <a class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold" href="{{$menu['url']}}" target="{{$menu['target']??'_self'}}">
+                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$menu['title']}}">
+                                                <span>{{$menu['title']}}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    <div class="divider"></div>
+                                    <li>
+                                        <a href="#" class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold logout">
+                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{__('退出登录')}}">
+                                            <span>{{__('退出登录')}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            <div class="bg-[#43c8d5] px-[45px] rounded-lg">
+                                <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
+                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
+                                    {{__('家长登入')}}
+                                </a>
+                            </div>
+                        @endauth
+                        <div class="flex items-center gap-x-3 shrink">
+                            <div class="flex justify-between gap-x-1 flex-none w-full">
                                 <a href="https://www.facebook.com/JCBrightStartProject">
                                     <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
                                 </a>
@@ -45,37 +79,7 @@
                                     <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
                                 </a>
                             </div>
-                            <label class="flex-initial input bg-transparent h-[30px] rounded-lg">
-                                <input type="search" required placeholder="Search"/>
-                                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <g
-                                        stroke-linejoin="round"
-                                        stroke-linecap="round"
-                                        stroke-width="2.5"
-                                        fill="none"
-                                        stroke="currentColor"
-                                    >
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <path d="m21 21-4.3-4.3"></path>
-                                    </g>
-                                </svg>
-                            </label>
                         </div>
-                        @auth
-                            <div class="bg-[#43c8d5] px-[45px] rounded-lg">
-                                <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
-                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
-                                    {{__('家长登入')}}
-                                </a>
-                            </div>
-                        @else
-                            <div class="bg-[#43c8d5] px-[45px] rounded-lg">
-                                <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
-                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
-                                    {{__('家长登入')}}
-                                </a>
-                            </div>
-                        @endauth
                     </div>
                 </div>
             </div>

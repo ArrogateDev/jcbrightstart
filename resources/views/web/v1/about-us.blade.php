@@ -116,18 +116,22 @@
                         <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-03.svg')}}" alt="參與計劃的幼兒中心名單">
                         <div class="text-[31px] font-bold">參與計劃的幼兒中心名單</div>
                     </div>
-                    <div class="text-[20px]">（按筆劃排列）</div>
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[35px]">
                 <div class="flex justify-center gap-[74px]">
                     @foreach($institutions as $institution)
-                        <ul>
-                            @foreach($institution as $item)
-                                <li class="text-[25px] text-[#998675] mb-[15px]">{{ $item }}</li>
-                            @endforeach
-                        </ul>
+                        <div>
+                            @if($loop->index === 0)
+                                <div class="text-[20px]">（按筆劃排列）</div>
+                            @endif
+                            <ul>
+                                @foreach($institution as $item)
+                                    <li class="text-[25px] text-[#998675] mb-[15px]">{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endforeach
                 </div>
             </div>

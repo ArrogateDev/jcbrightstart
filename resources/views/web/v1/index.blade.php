@@ -104,32 +104,6 @@
             <div class="grid grid-cols-3 gap-[74px] mt-[80px]">
                 <div class="relative">
                     <div class="rounded-[8px]">
-                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-02.jpg')}}" alt="">
-                    </div>
-                    <div class="p-[30px]">
-                        <div class="flex items-center gap-[12px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002_service.svg')}}" alt="">
-                            <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
-                        </div>
-                        <div class="text-[18px] text-[#534741] font-medium mt-[17px] line-bg indent-2">
-                            通過四大親子策略提供優質教顧
-                        </div>
-                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
-                            「多元感官體驗」鼓勵與嬰幼兒進行多元感官體驗的探索；「遊戲中探索」透過有趣吸引的遊戲與嬰幼兒一起嘗試及發現。
-                        </div>
-                        <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px]" href="">
-                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
-                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="absolute top-[-50px] right-[-30px] w-[160px]">
-                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="rounded-[8px]">
                         <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/professional-learning-community.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
@@ -178,6 +152,32 @@
                     </div>
                     <div class="absolute top-[-80px] right-[-30px] w-[120px]">
                         <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="rounded-[8px]">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-02.jpg')}}" alt="">
+                    </div>
+                    <div class="p-[30px]">
+                        <div class="flex items-center gap-[12px]">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002_service.svg')}}" alt="">
+                            <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
+                        </div>
+                        <div class="text-[18px] text-[#534741] font-medium mt-[17px] line-bg indent-2">
+                            通過四大親子策略提供優質教顧
+                        </div>
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
+                            「多元感官體驗」鼓勵與嬰幼兒進行多元感官體驗的探索；「遊戲中探索」透過有趣吸引的遊戲與嬰幼兒一起嘗試及發現。
+                        </div>
+                        <div class="mt-[25px]">
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute top-[-50px] right-[-30px] w-[160px]">
+                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
                     </div>
                 </div>
             </div>
