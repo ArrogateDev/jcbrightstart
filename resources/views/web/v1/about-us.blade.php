@@ -123,9 +123,7 @@
                 <div class="flex justify-center gap-[74px]">
                     @foreach($institutions as $institution)
                         <div>
-                            @if($loop->index === 0)
-                                <div class="text-[20px]">（按筆劃排列）</div>
-                            @endif
+                            <div @class(['text-[20px]', 'invisible' => $loop->index !== 0])>（按筆劃排列）</div>
                             <ul>
                                 @foreach($institution as $item)
                                     <li class="text-[25px] text-[#998675] mb-[15px]">{{ $item }}</li>
