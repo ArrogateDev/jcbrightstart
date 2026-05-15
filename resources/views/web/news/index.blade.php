@@ -1,174 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+</head>
+<body>
+<x-web.header/>
 
-<x-web.head/>
-<style>
-    .media-blog-2 .media__body {
-        text-align: left;
-        padding: 8px;
-    }
+<section class="bg-01">
+    <div class="container mx-auto">
 
-    .media-blog-2 .media__title {
-        height: 60px;
-    }
-
-    .media-blog-2 .media__title a {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .media-blog-2 .media__text {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .media-info {
-        font-size: 14px;
-    }
-
-    .media-info img {
-        width: 16px;
-    }
-
-    .media__img {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-    }
-
-    .category-box .category {
-        background: #f5f5f5;
-        color: #364050;
-        padding: 2px 20px;
-        border-radius: 25px;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .category-box .category:hover, .category-box .category.active {
-        background: #ffb900;
-        color: #fff;
-    }
-
-    .category-tag {
-        background: #ffb90066;
-        color: #ffb900;
-        padding: 0 10px;
-        border-radius: 15px;
-        margin-right: 10px;
-    }
-
-    .top-short {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        overflow: hidden;
-    }
-
-    .category-text {
-        color: #76a466;
-        margin-bottom: 5px;
-    }
-
-    .more-box {
-        height: stretch;
-        height: -moz-available; /* Firefox */
-        height: -webkit-fill-available; /* Chrome/Safari */
-        min-height: 381px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main">
-
-        <x-web.breadcrumb title="{{__('计划消息')}}"/>
-
-        @if($videos->isNotEmpty())
-            <section>
-                <div class="container">
-                    <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                        <h3>{{__('最新视频')}}</h3>
-                    </div>
-                    <div class="row list-container">
-                        @if($videos->isNotEmpty())
-                            @foreach($videos as $video)
-                                <div class="col-md-6 col-lg-3">
-                                    @include('web.news.item-video', ['news' => $video, 'col' => false])
+        <div class="content pt-8">
+            @if($videos->isNotEmpty())
+                <div class="flex items-center justify-between mt-5 mb-10">
+                    <div class="text-[31px] text-[#998675] font-bold">{{__('最新视频')}}</div>
+                </div>
+                <div class="grid grid-cols-12 gap-x-5 list-container">
+                    @if($videos->isNotEmpty())
+                        @foreach($videos as $index => $video)
+                            <div class="md:col-span-6 lg:col-span-3">
+                                @include('web.news.item-video', ['news' => $video, 'col' => false, 'index' => $index])
+                            </div>
+                        @endforeach
+                        @if($total_video > 7)
+                            <div class="md:col-span-6 lg:col-span-3">
+                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
+                                    <a href="{{route('news.more.html',['type'=>1])}}" class="w-100 h-100 flex flex-column justify-center items-center" style="color:#666;">
+                                        <i class="fa-solid fa-plus text-2xl mb-2"></i>
+                                        {{__('更多')}}
+                                    </a>
                                 </div>
-                            @endforeach
-                            @if($total_video > 7)
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                        <a href="{{route('news.more.html',['type'=>1])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                            <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                            {{__('更多')}}
-                                        </a>
-                                    </div>
-                                </div>
-                            @endif
-                        @else
-                            <div class="w-100 text-center py-4 text-muted">
-                                <i class="isax isax-document-text fs-24 mb-2"></i>
-                                <p class="mb-0">{{__('暂无数据')}}</p>
                             </div>
                         @endif
-                    </div>
+                    @else
+                        <div class="w-100 text-center py-4 text-muted">
+                            <i class="fa-solid fa-book text-2xl mb-2"></i>
+                            <p class="mb-0">{{__('暂无数据')}}</p>
+                        </div>
+                    @endif
                 </div>
-            </section>
-        @endif
+            @endif
 
-        @if($articles->isNotEmpty())
-            <section>
-                <div class="container">
-                    <div class="d-flex align-items-center justify-content-between my-4 mt-5">
-                        <h3>{{__('计划消息')}}</h3>
-                    </div>
-                    <div class="row list-container">
-                        @if($articles->isNotEmpty())
-                            @foreach($articles as $article)
-                                <div class="col-md-6 col-lg-3">
-                                    @include('web.news.item', ['news' => $article, 'col' => false])
+            @if($articles->isNotEmpty())
+                <div class="flex items-center justify-between mt-5 mb-10">
+                    <div class="text-[31px] text-[#998675] font-bold">{{__('最新消息')}}</div>
+                </div>
+                <div class="grid grid-cols-12 gap-x-5 list-container">
+                    @if($articles->isNotEmpty())
+                        @foreach($articles as $index => $article)
+                            <div class="md:col-span-6 lg:col-span-3">
+                                @include('web.news.item', ['news' => $article, 'col' => false, 'index' => $index])
+                            </div>
+                        @endforeach
+                        @if($total_article > 7)
+                            <div class="md:col-span-6 lg:col-span-3">
+                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
+                                    <a href="{{route('news.more.html',['type'=>0])}}" class="w-100 h-100 flex flex-column justify-center items-center" style="color:#666;">
+                                        <i class="fa-solid fa-plus text-2xl mb-2"></i>
+                                        {{__('更多')}}
+                                    </a>
                                 </div>
-                            @endforeach
-                            @if($total_article > 7)
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                        <a href="{{route('news.more.html',['type'=>0])}}" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="color:#666;">
-                                            <i class="isax isax-element-plus" style="font-size: 36px;"></i>
-                                            {{__('更多')}}
-                                        </a>
-                                    </div>
-                                </div>
-                            @endif
-                        @else
-                            <div class="w-100 text-center py-4 text-muted">
-                                <i class="isax isax-document-text fs-24 mb-2"></i>
-                                <p class="mb-0">{{__('暂无数据')}}</p>
                             </div>
                         @endif
-                    </div>
+                    @else
+                        <div class="w-100 text-center py-4 text-muted">
+                            <i class="fa-solid fa-book text-2xl mb-2"></i>
+                            <p class="mb-0">{{__('暂无数据')}}</p>
+                        </div>
+                    @endif
                 </div>
-            </section>
-        @endif
-    </main>
+            @endif
 
-    <x-web.footer/>
+        </div>
+    </div>
+</section>
 
-</div>
-
+<x-web.footer/>
 </body>
 
 </html>

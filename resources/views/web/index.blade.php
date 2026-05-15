@@ -73,15 +73,15 @@
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。
                 </div>
                 <div class="flex justify-end">
-                    <div class="more-box mt-12">
+                    <a href="{{route('about-us.html')}}" class="more-box mt-12">
                         <div class="more font-bold">
                             {{__('了解更多')}}>>
                         </div>
                         <div class="shadow"></div>
-                    </div>
+                    </a>
                 </div>
                 <div class="absolute top-[-80px] right-[-248px] w-[328px]">
-                    <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="">
+                    <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="{{__('關於計劃')}}">
                 </div>
             </div>
         </div>
@@ -95,20 +95,20 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001_knowledge.svg')}}" alt="知識庫">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="知識庫">
                         <div class="text-[31px] font-bold">知識庫</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
             </div>
             <div class="grid grid-cols-3 gap-[74px] mt-[80px]">
-                <div class="relative">
+                <div class="relative sway-box">
                     <div class="rounded-[8px]">
                         <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/professional-learning-community.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_003_learning.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_003.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">專業學習社群</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
@@ -118,23 +118,23 @@
                             本計劃協助推動幼兒中心間的互相觀摩與經驗分享，全面提升教顧者的專業素質。團隊對幼兒中心的種子團隊進行專業培訓，引領掌握關鍵專業知能，進而帶動同儕間的專業交流。全面深化幼兒中心園長及教師的專業知識、技能與態度，確保計劃完結後，優質的教顧實踐理念與文化得以延續。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px]" href="">
+                            <a class="flex items-center gap-[8px]" href="{{route('about-us.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-60px] right-[-30px] w-[160px]">
-                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_02.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_02.png')}}" alt="">
                     </div>
                 </div>
-                <div class="relative">
+                <div class="relative sway-box">
                     <div class="rounded-[8px]">
                         <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-01.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_004_parents.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_004.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">家長學習平台</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium relative line-bg px-1.5">
@@ -144,23 +144,23 @@
                             本平台專為家長打造，提供豐富的育兒與嬰幼兒發展資源。家長只需使用電郵地址及密碼輕鬆登入，即可開啟三個階段的自主學習之旅，從而增進育兒知識。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px]" href="">
+                            <a class="flex items-center gap-[8px]" href="{{route('about-us.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-80px] right-[-30px] w-[120px]">
-                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
                     </div>
                 </div>
-                <div class="relative">
+                <div class="relative sway-box">
                     <div class="rounded-[8px]">
                         <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-02.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002_service.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
@@ -170,14 +170,14 @@
                             匯集了全港所有提供0-3歲日間幼兒照顧服務的關鍵資料，不論是日間嬰兒園、幼兒園、幼兒中心的名單與地區分佈，均能在此一目了然。亦提供了鄰里支援幼兒照顧計劃的服務名單及詳情資料，讓有需要家居照顧服務的家長可以查閱。
                         </div>
                         <div class="mt-[25px]">
-                            <a class="flex items-center gap-[8px]" href="">
+                            <a class="flex items-center gap-[8px]" href="{{route('maps.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
                                 <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-50px] right-[-30px] w-[160px]">
-                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
                     </div>
                 </div>
             </div>

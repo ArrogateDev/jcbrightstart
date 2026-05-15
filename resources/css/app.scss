@@ -130,11 +130,6 @@
     background-repeat: repeat-x;
 }
 
-//.line-bg {
-//    background: linear-gradient(#f7d197, #f7d197) no-repeat;
-//    background-size: 100% 10px;
-//    background-position: 0 16px;
-//}
 .line-bg {
     display: inline;
     background: linear-gradient(#f7d197, #f7d197) no-repeat;
@@ -144,11 +139,12 @@
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
+
 .fon-ar-mt {
     font-family: ArialRoundedMT, serif;
 }
 
-.about-us-icon-bg-01{
+.about-us-icon-bg-01 {
     background-image: url("../assets/images/about-us/icon-01.png");
     background-repeat: no-repeat;
     background-size: 110px;
@@ -156,7 +152,7 @@
     background-position-y: 136px;
 }
 
-.about-us-icon-bg-02{
+.about-us-icon-bg-02 {
     background-image: url("../assets/images/about-us/icon-02.png");
     background-repeat: no-repeat;
     background-size: 110px;
@@ -164,10 +160,33 @@
     background-position-y: 136px;
 }
 
-.about-us-icon-bg-03{
+.about-us-icon-bg-03 {
     background-image: url("../assets/images/about-us/icon-03.png");
     background-repeat: no-repeat;
     background-size: 110px;
     background-position-x: 85%;
     background-position-y: 136px;
+}
+
+@keyframes swingLR {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(12deg);
+    }
+    50% {
+        transform: rotate(-12deg);
+    }
+    75% {
+        transform: rotate(6deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.sway-box:hover img.motion {
+    animation: swingLR 1.2s ease-in-out infinite;
+    transform-origin: center center;
 }

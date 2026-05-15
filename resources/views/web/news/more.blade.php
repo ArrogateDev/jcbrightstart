@@ -1,164 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+    <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+</head>
+<body>
+<x-web.header/>
 
-<x-web.head/>
-<style>
-    .media-blog-2 .media__body {
-        text-align: left;
-        padding: 8px;
-    }
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="content pt-8">
 
-    .media-blog-2 .media__title {
-        height: 60px;
-    }
-
-    .media-blog-2 .media__title a {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .media-blog-2 .media__text {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .media-info {
-        font-size: 14px;
-    }
-
-    .media-info img {
-        width: 16px;
-    }
-
-    .media__img {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-    }
-
-    .category-box .category {
-        background: #f5f5f5;
-        color: #364050;
-        padding: 2px 20px;
-        border-radius: 25px;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .category-box .category:hover, .category-box .category.active {
-        background: #ffb900;
-        color: #fff;
-    }
-
-    .category-tag {
-        background: #ffb90066;
-        color: #ffb900;
-        padding: 0 10px;
-        border-radius: 15px;
-        margin-right: 10px;
-    }
-
-    .top-short {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        overflow: hidden;
-    }
-
-    .category-text {
-        color: #76a466;
-        margin-bottom: 5px;
-    }
-</style>
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main">
-
-        <x-web.breadcrumb title="{{__('计划消息')}}"/>
-
-        @if($type === 0)
-            <section class="section p-t-80 p-b-35">
-                <div class="container">
-                    <div class="row m-0 p-b-10" style="border-bottom: 1px solid #d0d4db;">
-                        <div class="col-md-9 m-0 p-0">
-                            @if($categories->isNotEmpty())
-                                <ul class="category-box">
-                                    <li class="d-inline-block category active" data-filter="0">{{__('全部')}}</li>
-                                    @foreach($categories as $item)
-                                        <li class="d-inline-block category" data-category="{{$item->id}}">{{$item->title}}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
-                        <div class="col-md-3 m-0 p-0">
-                            <div class="widget">
-                                <form class="form form--icon" method="post">
-                                    <input id="search-input" class="input-border-3" type="text" placeholder="Search...">
-                                    <button id="search-btn" class="btn-submit-2" type="submit">
-                                        <span class="lnr lnr-magnifier"></span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        @endif
-
-        <section>
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between my-4">
-                    <h3>{{$type === 1 ? __('最新视频') : __('计划消息')}}</h3>
-                </div>
-                <div class="row list-container"></div>
-                <nav class="au-pagination p-t-10 pagination-container"></nav>
+            <div class="flex items-center justify-between mt-5 mb-3">
+                <div class="text-[31px] text-[#998675] font-bold">{{$type === 1 ? __('最新视频') : __('最新消息')}}</div>
             </div>
-        </section>
-    </main>
 
-    <x-web.footer/>
+            @if($type === 0 && $categories->isNotEmpty())
+                <div class="tabs tabs-box mb-15">
+                    <input type="radio" name="category_0" class="tab text-[20px] text-[#998675] font-bold" aria-label="{{__('全部')}}" data-filter="0" checked="checked"/>
+                    @foreach($categories as $item)
+                        <input type="radio" name="category_{{$item->id}}" class="tab text-[20px] text-[#998675] font-bold" aria-label="{{$item->title}}" data-category="{{$item->id}}"/>
+                    @endforeach
+                </div>
+            @endif
 
-</div>
+            <div class="grid grid-cols-12 gap-x-5 list-container"></div>
+            <nav class="au-pagination p-t-10 pagination-container"></nav>
+        </div>
+    </div>
+</section>
 
-<!-- Revolution Slider JS (Page Specific)-->
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
-<!--
-| (Load Extensions only on Local File Systems !
-| The following part can be removed on Server for On Demand Loading)
--->
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
-<!-- Config Revolution Slider-->
-<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
-<!-- Page Specific JS-->
-<script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
-
-<script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
-<script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
-<link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
-<link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
-<script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
-<script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+<x-web.footer/>
 <script>
     $(function () {
         const urlParams = new URLSearchParams(window.location.search);
@@ -230,6 +112,22 @@
             getData(page, params)
         })
 
+        $(document).on('click', '.tabs input[type="radio"]', function () {
+            const filter = $(this).data('filter');
+            const category = $(this).data('category');
+            $(this).siblings().removeAttr('checked');
+
+            page = 1;
+
+            if (filter === '0') {
+                delete params.category;
+            } else {
+                params = Object.assign(params, {category: category});
+            }
+
+            getData(page, params);
+        })
+
         function getData(page = 1, params = {}) {
             tableParams = params;
             const requestParams = Object.assign({page: page,}, tableParams);
@@ -266,7 +164,7 @@
                     if (total === 0) {
                         $list.html(`
                         <div class="w-100 text-center py-4 text-muted">
-                            <i class="isax isax-document-text fs-24 mb-2"></i>
+                            <i class="fa-solid fa-book text-2xl mb-2"></i>
                             <p class="mb-0">{{__('暂无数据')}}</p>
                         </div>
                         `);

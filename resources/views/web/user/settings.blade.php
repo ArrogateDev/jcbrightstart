@@ -103,7 +103,7 @@
     </div>
 </section>
 
-<x-web.v1.footer/>
+<x-web.footer/>
 </body>
 
 <script>

@@ -19,14 +19,13 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        return view('web.under-construction');
         $articles = News::query()
             ->where('type', News::TYPE_ARTICLE)
             ->where('status', News::STATUS_PUBLISHED)
             ->orderByDesc('sort')
             ->orderByDesc('id')
             ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'release_date')
             ->get();
 
         $articles->map(function ($item) {
@@ -45,7 +44,7 @@ class NewsController extends Controller
             ->orderByDesc('sort')
             ->orderByDesc('id')
             ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
+            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'release_date')
             ->get();
 
         $videos->map(function ($item) {
@@ -132,8 +131,8 @@ class NewsController extends Controller
         $page = $list->currentPage();
         $data = $list->items();
         $col_num = 3;
-        foreach ($data as $news) {
-            $html .= view('web.news.item', compact('news', 'col_num'))->render();
+        foreach ($data as $index => $news) {
+            $html .= view('web.news.item', compact('news', 'col_num', 'index'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';

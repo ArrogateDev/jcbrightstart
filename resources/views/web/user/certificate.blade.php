@@ -46,7 +46,7 @@
     </div>
 </section>
 
-<x-web.v1.footer/>
+<x-web.footer/>
 </body>
 
 <script>
@@ -60,12 +60,12 @@
                 <div class="md:col-span-6">
                     <div class="card mb-4 j-user-box">
                         <div class="card-body">
-                            <div class="mb-3 d-flex justify-center">
+                            <div class="mb-3 flex justify-center">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#view_certificate">
                                     <img class="img-fluid rounded gallery-img" src="${item.file_url}" alt="${item.certificate_name}" style="height: 200px;">
                                 </a>
                             </div>
-                            <div class="d-flex items-center flex-wrap justify-between gap-2">
+                            <div class="flex items-center flex-wrap justify-between gap-2">
                                 <h6 class="font-semibold">${item.certificate_name}</h6>
                                 <ul class="edit-delete-icon flex items-center gap-x-3 mt-3">
                                     <li>
