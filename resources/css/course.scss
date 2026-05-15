@@ -1,0 +1,777 @@
+
+:root {
+    --coral: #FF6B6B;
+    --peach: #FFB347;
+    --mint: #5ECFA6;
+    --sky: #4FC3F7;
+    --lavender: #B39DDB;
+    --cream: #FFF8F0;
+    --deep: #1A2744;
+    --mid: #2E4080;
+}
+
+/* ─── COURSE HERO ────────────────────────────────────────── */
+.course-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--mid) 0%, #1A3A7A 45%, #0D2255 100%);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    box-shadow: 0 16px 56px rgba(26, 39, 68, .28);
+    animation: fadeUp .55s ease both;
+}
+
+.course-hero::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: rgba(79, 195, 247, .12);
+    pointer-events: none;
+}
+
+.course-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: 18%;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(94, 207, 166, .09);
+    pointer-events: none;
+}
+
+.hero-dot-grid {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, .08) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    pointer-events: none;
+}
+
+.course-hero-icon {
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 107, 107, .3), rgba(255, 179, 71, .3));
+    border: 2px solid rgba(255, 255, 255, .2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .2);
+    animation: iconBounce 4s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0) rotate(-3deg)
+    }
+    50% {
+        transform: translateY(-6px) rotate(3deg)
+    }
+}
+
+.course-hero-info {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.course-hero-title {
+    font-size: 2rem;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: .6rem;
+}
+
+.course-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.meta-chip {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .8rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .65);
+}
+
+.meta-chip .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sky);
+}
+
+.course-hero-progress {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.ring-chart {
+    width: 90px;
+    height: 90px;
+    position: relative;
+}
+
+.ring-chart svg {
+    transform: rotate(-90deg);
+}
+
+.ring-chart .track {
+    fill: none;
+    stroke: rgba(255, 255, 255, .1);
+    stroke-width: 8;
+}
+
+.ring-chart .fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 220;
+    stroke-dashoffset: calc(220 - (75 / 100 * 220));
+    transition: stroke-dashoffset 1s ease;
+}
+
+.ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-pct {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+}
+
+.ring-sub {
+    font-size: .55rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    margin-top: .1rem;
+}
+
+/* ─── OVERVIEW CARD ──────────────────────────────────────── */
+.overview-card {
+    background: rgba(255, 255, 255, .88);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, .95);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+    animation: fadeUp .6s .05s ease both;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+}
+
+.section-header-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.icon-orange {
+    background: linear-gradient(135deg, rgba(255, 107, 107, .15), rgba(255, 179, 71, .15));
+}
+
+.icon-blue {
+    background: linear-gradient(135deg, rgba(79, 195, 247, .15), rgba(179, 157, 219, .15));
+}
+
+.section-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--deep);
+}
+
+.section-count {
+    margin-left: auto;
+    font-size: .85rem;
+    font-weight: 800;
+    color: var(--sky);
+    background: rgba(79, 195, 247, .12);
+    border-radius: 999px;
+    padding: .2rem .8rem;
+}
+
+.overview-text {
+    font-size: .9rem;
+    line-height: 1.9;
+    color: #4A5568;
+    border-left: 3px solid var(--mint);
+    background: rgba(94, 207, 166, .05);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1rem 1rem 1.2rem;
+}
+
+/* ─── CURRICULUM CARD ────────────────────────────────────── */
+.curriculum-card {
+    background: rgba(255, 255, 255, .88);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, .95);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+    animation: fadeUp .6s .1s ease both;
+}
+
+/* Level accordion */
+.level-block {
+    margin-bottom: 1rem;
+}
+
+.level-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 1.2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(46, 64, 128, .08), rgba(79, 195, 247, .08));
+    border: 1.5px solid rgba(79, 195, 247, .15);
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s, box-shadow .2s;
+}
+
+.level-header:hover {
+    background: linear-gradient(135deg, rgba(46, 64, 128, .13), rgba(79, 195, 247, .13));
+    box-shadow: 0 4px 16px rgba(79, 195, 247, .12);
+}
+
+.level-header.open {
+    background: linear-gradient(135deg, rgba(46, 64, 128, .14), rgba(79, 195, 247, .14));
+    border-color: rgba(79, 195, 247, .35);
+}
+
+.level-left {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.level-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--sky), var(--lavender));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(79, 195, 247, .35);
+}
+
+.level-name {
+    font-weight: 800;
+    font-size: .95rem;
+    color: var(--deep);
+}
+
+.level-right {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.level-meta {
+    font-size: .75rem;
+    font-weight: 700;
+    color: #A0AEC0;
+}
+
+.chevron {
+    color: var(--sky);
+    transition: transform .3s;
+    flex-shrink: 0;
+}
+
+.level-header.open .chevron {
+    transform: rotate(180deg);
+}
+
+.lesson-sub svg {
+    vertical-align: middle;
+    opacity: .55;
+}
+
+/* Lesson list */
+.lesson-list {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .4s ease;
+}
+
+.lesson-list.open {
+    max-height: 900px;
+}
+
+.lesson-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .85rem 1rem .85rem 1.2rem;
+    border-radius: 14px;
+    margin-top: .5rem;
+    background: rgba(255, 255, 255, .6);
+    border: 1.5px solid rgba(0, 0, 0, .05);
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 99px;
+    background: transparent;
+    transition: background .2s;
+}
+
+.lesson-row:hover {
+    background: rgba(255, 255, 255, .95);
+    transform: translateX(4px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .08);
+}
+
+.lesson-row:hover::before {
+    background: var(--coral);
+}
+
+.lesson-row.done::before {
+    background: var(--mint);
+}
+
+.lesson-row.done {
+    background: rgba(94, 207, 166, .06);
+}
+
+.play-btn {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.play-btn.done {
+    background: linear-gradient(135deg, rgba(94, 207, 166, .2), rgba(94, 207, 166, .1));
+}
+
+.lesson-row:hover .play-btn {
+    transform: scale(1.12);
+    box-shadow: 0 4px 14px rgba(255, 107, 107, .25);
+}
+
+.lesson-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.lesson-title {
+    font-weight: 800;
+    font-size: .9rem;
+    color: var(--deep);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lesson-sub {
+    font-size: .73rem;
+    color: #A0AEC0;
+    font-weight: 700;
+    margin-top: .15rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.lesson-actions {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-shrink: 0;
+}
+
+.open-btn {
+    font-size: .78rem;
+    font-weight: 800;
+    color: var(--sky);
+    background: rgba(79, 195, 247, .1);
+    border: 1px solid rgba(79, 195, 247, .25);
+    border-radius: 999px;
+    padding: .3rem .85rem;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.open-btn:hover {
+    background: rgba(79, 195, 247, .2);
+    transform: scale(1.04);
+}
+
+.status-chip {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+}
+
+.status-chip.done {
+    background: rgba(94, 207, 166, .15);
+}
+
+.status-chip.pending {
+    background: rgba(160, 174, 192, .1);
+}
+
+/* Topic icons mapping */
+.ti-nutrition {
+    background: linear-gradient(135deg, #FFD6CC, #FFB3A0);
+}
+
+/* ─── QUICK STATS ROW ────────────────────────────────────── */
+
+.stat-card {
+    background: rgba(255, 255, 255, .88);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, .95);
+    border-radius: 20px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .07);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, .1);
+}
+
+.stat-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.sb-coral {
+    background: linear-gradient(135deg, rgba(255, 107, 107, .15), rgba(255, 179, 71, .15));
+}
+
+.sb-mint {
+    background: linear-gradient(135deg, rgba(94, 207, 166, .15), rgba(79, 195, 247, .15));
+}
+
+.sb-lavender {
+    background: linear-gradient(135deg, rgba(179, 157, 219, .2), rgba(79, 195, 247, .12));
+}
+
+.stat-info .num {
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.nc {
+    color: var(--coral);
+}
+
+.nm {
+    color: var(--mint);
+}
+
+.nl {
+    color: var(--lavender);
+}
+
+.stat-info .lbl {
+    font-size: .72rem;
+    font-weight: 700;
+    color: #A0AEC0;
+    margin-top: .15rem;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+/* ─── CERTIFICATE STATUS ─────────────────────────────────── */
+.certificate-status-container {
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.certificate-icon {
+    font-size: 3.75rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.certificate-description {
+    color: #4b5563;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.certificate-requirements {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+
+.certificate-requirement-item {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.certificate-requirement-icon {
+    font-weight: bold;
+}
+
+.certificate-requirement-icon.completed {
+    color: #22c55e;
+}
+
+.certificate-requirement-icon.in-progress {
+    color: #eab308;
+}
+
+/* Certificate Button Base Styles */
+.certificate-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.certificate-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.certificate-button-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Disabled State */
+.certificate-button.disabled {
+    cursor: not-allowed;
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    border: 1px solid #d1d5db;
+    box-shadow: none;
+}
+
+.certificate-button.disabled:hover,
+.certificate-button.disabled:active {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Active/Enabled State */
+
+/* 加载动画容器 —— 精致小巧的圆点旋转环 + 渐隐渐显 */
+.loader-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.loader-wrapper.hide {
+    display: none;
+}
+
+.loader {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 双环交错旋转风格 (清新现代) */
+.loader-ring {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-right-color: #ffffff;
+    animation: spinRing 0.75s cubic-bezier(0.4, 0.2, 0.3, 0.9) infinite;
+}
+
+/* 第二层光晕效果，增加动感深度 */
+.loader-glow {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+    animation: pulseGlow 1s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+/* 优雅旋转关键帧 */
+@keyframes spinRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(0.7);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(0.7);
+        opacity: 0.4;
+    }
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer !important;
+}
+
+button.close {
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.close {
+    width: max-content !important;
+    height: max-content !important;
+    float: right !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    color: #000 !important;
+    text-shadow: 0 1px 0 #fff !important;
+    opacity: .5 !important;
+}
+
+.close span {
+    font-size: 35px;
+    font-weight: 400;
+}
+
+/* ─── BREADCRUMB ─────────────────────────────────────────── */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #A0AEC0;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .5s ease both;
+}
+
+.breadcrumb a {
+    color: var(--sky);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb .sep {
+    color: #CBD5E0;
+}
+
+.current-sep {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -12,19 +12,6 @@
     <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
     <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
-    <style>
-        .waitMe,
-        .waitMe_container {
-            position: fixed !important;
-            inset: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            z-index: 2147483647 !important;
-        }
-        .waitMe > * {
-            z-index: 2147483647 !important;
-        }
-    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
