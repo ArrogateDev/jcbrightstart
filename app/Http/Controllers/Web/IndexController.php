@@ -28,7 +28,7 @@ class IndexController extends Controller
             ->orderByDesc('release_date')
             ->orderByDesc('sort')
             ->limit(15)
-            ->select('id', 'title')
+            ->select('id', 'title', 'release_date')
             ->get();
 
         $news->map(function ($item) {
