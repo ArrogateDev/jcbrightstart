@@ -48,9 +48,9 @@ Route::get('/index.html', [IndexController::class, 'index'])->name('index.html')
 //Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
 //Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
 //Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
-//
-//Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
-//
+
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
 //Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('message.html');
 
 Route::get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
