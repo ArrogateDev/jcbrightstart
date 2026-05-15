@@ -1,73 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<x-web.user.head/>
-
-<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
-        data-target-selector=".gallery-img"
-        data-allow-rotate="false"
-        data-allow-download="false">
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
+            data-target-selector=".gallery-img"
+            data-allow-rotate="false"
+            data-allow-download="false">
+    </script>
+</head>
 <body>
+<x-web.user.header/>
 
-<div class="main-wrapper">
-
-    <x-web.user.header :user="$user"/>
-
-    <div class="content">
-        <div class="container">
-
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="pt-[60px]">
             <x-web.user.profile :user="$user"/>
+        </div>
 
-            <div class="row">
+        <div class="grid grid-cols-12 gap-x-12">
 
-                <x-web.user.sidebar active="certificate"/>
+            <x-web.user.sidebar active="certificate"/>
 
-                <div class="col-lg-9">
+            <div class="lg:col-span-9">
 
-                    <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
+                <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
 
-                    <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5>{{__('我的证书')}}</h5>
-                    </div>
-                    <div class="p-0">
-                        <div class="row" id="table-body"></div>
+                <div class="flex items-center justify-between pb-5 mb-5 border-b border-[#998675]">
+                    <h5 class="text-xl font-bold">{{__('我的证书')}}</h5>
+                </div>
+                <div class="p-0">
+                    <div class="grid grid-cols-12 gap-x-6" id="table-body"></div>
 
-                        <x-admin.table-data url="{{route('user.certificate.list.html')}}"/>
+                    <x-web.table-data url="{{route('user.certificate.list.html')}}"/>
 
-                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+</section>
 
-    <x-web.user.footer/>
-
-    <div class="modal fade" id="view-certificate">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>{{__('查看证书')}}</h5>
-                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                        <i class="isax isax-close-circle5"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center"><img id="certificate-img" class="img-fluid" alt=""></div>
-                    <div class="text-end mt-4">
-                        <a id="certificate-url" href="#" class="btn btn-secondary rounded-pill">
-                            <i class="isax isax-import me-2"></i>
-                            {{__('下载')}}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
+<x-web.v1.footer/>
 </body>
 
 <script>
@@ -78,25 +57,25 @@
 
         list.forEach(function (item) {
             const row = `
-                <div class="col-md-6">
+                <div class="md:col-span-6">
                     <div class="card mb-4 j-user-box">
                         <div class="card-body">
-                            <div class="mb-3 d-flex justify-content-center">
+                            <div class="mb-3 d-flex justify-center">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#view_certificate">
                                     <img class="img-fluid rounded gallery-img" src="${item.file_url}" alt="${item.certificate_name}" style="height: 200px;">
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center flex-wrap justify-content-between gap-2">
-                                <h6>${item.certificate_name}</h6>
-                                <ul class="edit-delete-icon d-flex align-items-center">
+                            <div class="d-flex items-center flex-wrap justify-between gap-2">
+                                <h6 class="font-semibold">${item.certificate_name}</h6>
+                                <ul class="edit-delete-icon flex items-center gap-x-3 mt-3">
                                     <li>
                                         <a href="javascript:;" class="btn-eye">
-                                            <i class="isax isax-eye"></i>
+                                            <i class="fa-regular fa-eye"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="${item.download_url}" class="d-inline-flex fs-14 action-icon">
-                                            <i class="isax isax-import"></i>
+                                        <a href="${item.download_url}" class="inline-flex text-sm action-icon">
+                                            <i class="fa-solid fa-download"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -139,6 +118,7 @@
     #table-body tr, #table-body td {
         display: block;
         width: 100%;
+        grid-column: span 12 / span 12;
     }
 </style>
 </html>

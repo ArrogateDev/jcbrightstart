@@ -78,7 +78,7 @@
                     tbody.html(`
                         <tr>
                             <td colspan="7" class="text-center py-4 text-muted">
-                                <i class="isax isax-document-text fs-24 mb-2"></i>
+                                <i class="fa-solid fa-book text-2xl mb-2"></i>
                                 <p class="mb-0">{{__('暂无数据')}}</p>
                             </td>
                         </tr>
@@ -159,13 +159,18 @@
         const tbody = $('#table-body');
         tbody.html(`
             <tr>
-                <td colspan="7" class="text-center py-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">{{__('加载中...')}}</span>
+                <td colspan="7" class="py-8 text-center">
+                        <div class="mt-6 flex justify-center">
+                            <button type="button" class="load-more-btn inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60">
+                                <span class="btn-loading inline-flex items-center">
+                                    <span class="spinner-border spinner-border-sm me-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent" role="status" aria-hidden="true"></span>
+                                        Loading...
+                                </span>
+                        </button>
                     </div>
                 </td>
             </tr>
-            `);
+        `);
     }
 
     function renderEmptyTable() {
@@ -173,7 +178,7 @@
         tbody.html(`
             <tr>
                 <td colspan="7" class="text-center py-4 text-muted">
-                    <i class="isax isax-document-text fs-24 mb-2"></i>
+                    <i class="fa-solid fa-book text-2xl mb-2"></i>
                     <p class="mb-0">{{__('暂无数据')}}</p>
                 </td>
             </tr>

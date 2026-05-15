@@ -1,77 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<x-web.user.head/>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
 <body>
+<x-web.user.header/>
 
-<div class="main-wrapper">
-
-    <x-web.user.header :user="$user"/>
-
-    <div class="content">
-        <div class="container">
-
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="pt-[60px]">
             <x-web.user.profile :user="$user"/>
+        </div>
 
-            <div class="row">
+        <div class="grid grid-cols-12 gap-x-12">
 
-                <x-web.user.sidebar active="course"/>
+            <x-web.user.sidebar active="course"/>
 
-                <div class="col-lg-9">
+            <div class="lg:col-span-9">
 
-                    <x-web.user.breadcrumb title="{{__('我的课程')}}"/>
+                <x-web.user.breadcrumb title="{{__('我的课程')}}"/>
 
-                    <div class="page-title d-flex flex-wrap gap-3 align-items-center justify-content-between">
-                        <h5>{{__('我的课程')}}</h5>
-                        <div class="tab-list row justify-content-end">
-                            <div class="col-md-4">
-                                <div class="input-icon mb-3">
-                                <span class="input-icon-addon">
+                <div class="mb-5 flex flex-col gap-4 border-b border-[#998675] pb-5 lg:flex-row lg:items-center lg:justify-between">
+                    <h5 class="text-xl font-bold text-slate-900">{{__('我的课程')}}</h5>
+                    <div class="tab-list flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-end">
+                        <div class="w-full lg:w-96">
+                            <div class="relative">
+                                <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
                                     <i class="isax isax-search-normal-14"></i>
                                 </span>
-                                    <input type="text" id="search-input" class="form-control form-control-md" placeholder="{{__('搜索课程名称')}}">
-                                </div>
+                                <input type="text" id="search-input" class="w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" placeholder="{{__('搜索课程名称')}}">
                             </div>
-                            <div class="col-md-auto">
-                                <ul class="nav mb-0 gap-2 status-list">
-                                    <li class="nav-item mb-0" data-status="0">
-                                        <a href="javascript:void(0);" class="active">All
-                                            ({{$all}})</a>
-                                    </li>
-                                    <li class="nav-item mb-0" data-status="1">
-                                        <a href="javascript:void(0);">Active ({{$active}})</a>
-                                    </li>
-                                    <li class="nav-item mb-0" data-status="2">
-                                        <a href="javascript:void(0);">Completed ({{$completed}})</a>
-                                    </li>
-                                </ul>
-                            </div>
+                        </div>
+                        <div class="w-full lg:w-auto">
+                            <ul class="status-list flex flex-wrap gap-2">
+                                <li class="mb-0" data-status="0">
+                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800" data-active="true">All
+                                        ({{$all}})</a>
+                                </li>
+                                <li class="mb-0" data-status="1">
+                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200" data-active="false">Active ({{$active}})</a>
+                                </li>
+                                <li class="mb-0" data-status="2">
+                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200" data-active="false">Completed ({{$completed}})</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div>
-                        <div class="row courses-container"></div>
+                </div>
+                <div>
+                    <div class="courses-container grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
 
-                        <div class="row mt-4">
-                            <div class="col-12 text-center">
-                                <button type="button" class="btn btn-primary load-more-btn border-0 m-auto">
-                                    <span class="btn-text" style="display: none;">{{__('更多')}}</span>
-                                    <span class="btn-loading">
-                                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                            Loading...
-                                        </span>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="mt-6 flex justify-center">
+                        <button type="button" class="load-more-btn inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60">
+                            <span class="btn-text" style="display: none;">{{__('更多')}}</span>
+                            <span class="btn-loading inline-flex items-center">
+                                <span class="spinner-border spinner-border-sm me-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+</section>
 
-    <x-web.user.footer/>
-
-</div>
+<x-web.v1.footer/>
+</body>
 
 <script>
     $(function () {
@@ -85,6 +88,7 @@
 
         $btn.click(function () {
             $btn.prop('disabled', true);
+            $btn.show();
             page = $(this).data('page');
             getData(page, params)
         })
@@ -112,21 +116,28 @@
             $('.courses-container').html('');
             params = Object.assign({status: status,}, params);
             getData(1, params);
-            $(this).find('a').addClass('active');
-            $(this).siblings().find('a').removeClass('active');
+            $('.status-link')
+                .removeClass('bg-slate-900 text-white shadow-sm')
+                .addClass('bg-slate-100 text-slate-700 hover:bg-slate-200')
+                .attr('data-active', 'false');
+            $(this).find('a')
+                .removeClass('bg-slate-100 text-slate-700 hover:bg-slate-200')
+                .addClass('bg-slate-900 text-white shadow-sm')
+                .attr('data-active', 'true');
         })
 
         function getData(page = 1, params = {}) {
             tableParams = params;
             const requestParams = Object.assign({page: page,}, tableParams);
 
+            $btn.show();
             $.ajax({
                 url: "{{route('user.course.list.html')}}",
                 data: requestParams,
                 dataType: "json",
                 beforeSend: function () {
-                    $more.hide()
-                    $loading.show()
+                    $more.hide();
+                    $loading.show();
                 },
                 success: function (response) {
                     if (response.code !== 0) {
@@ -138,9 +149,9 @@
                     let {html, page, total} = response.data;
                     if (total === 0) {
                         $courses.html(`
-                        <div class="text-center py-4 text-muted">
-                            <i class="isax isax-document-text fs-24 mb-2"></i>
-                            <p class="mb-0">{{__('暂无数据')}}</p>
+                        <div class="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white py-10 text-center text-slate-500">
+                            <i class="fa-solid fa-book text-2xl mb-2"></i>
+                            <p class="mb-0 text-sm">{{__('暂无数据')}}</p>
                         </div>
                         `);
                         $btn.hide()
@@ -154,7 +165,7 @@
                     }
 
                     if (page >= total) {
-                        $('.load-more-btn').hide()
+                        $btn.hide();
                     }
                     $btn.data('page', page + 1);
                 },
@@ -171,7 +182,5 @@
         }
     })
 </script>
-
-</body>
 
 </html>

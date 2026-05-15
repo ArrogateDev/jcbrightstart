@@ -32,7 +32,7 @@
 
                 <x-web.user.breadcrumb title="{{__('设置')}}"/>
 
-                <div class="mb-4">
+                <div class="mb-5 flex flex-col gap-4 border-b border-[#998675] pb-5 lg:flex-row lg:items-center lg:justify-between">
                     <h5 class="text-xl font-bold">{{__('设置')}}</h5>
                 </div>
                 <ul class="settings-nav flex items-center flex-wrap border bg-light-900 rounded j-user-box mb-5">
@@ -59,7 +59,7 @@
                                                 {{__('名字')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <input id="first-name" type="text" name="first_name" class="input" value="{{$user->first_name}}">
+                                            <input id="first-name" type="text" name="first_name" class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" value="{{$user->first_name}}">
                                             <p class="label error-container-first-name"></p>
                                         </fieldset>
                                     </div>
@@ -69,7 +69,7 @@
                                                 {{__('姓氏')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <input id="last-name" type="text" name="last_name" class="input" value="{{$user->last_name}}">
+                                            <input id="last-name" type="text" name="last_name" class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" value="{{$user->last_name}}">
                                             <p class="label error-container-last-name"></p>
                                         </fieldset>
                                     </div>
@@ -79,7 +79,7 @@
                                                 {{__('性别')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <select id="gender" class="select" name="gender">
+                                            <select id="gender" class="select rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" name="gender">
                                                 <option @selected($user->gender === 1) value="1">{{__('男性')}}</option>
                                                 <option @selected($user->gender === 0) value="0">{{__('女性')}}</option>
                                                 <option @selected($user->gender === 2) value="2">{{__('沒有提供')}}</option>

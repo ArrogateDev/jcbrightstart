@@ -15,9 +15,9 @@ class CourseController extends Controller
         $active = 0;
         $completed = 0;
 
-        $all = $all > 0 ? str_pad($all, 2, 0, STR_PAD_LEFT) : 0;
-        $active = $active > 0 ? str_pad($active, 2, 0, STR_PAD_LEFT) : 0;
-        $completed = $completed > 0 ? str_pad($completed, 2, 0, STR_PAD_LEFT) : 0;
+        $all = $all > 0 ? $all : 0;
+        $active = $active > 0 ? $active : 0;
+        $completed = $completed > 0 ? $completed : 0;
 
         return view('web.user.course.list', compact('all', 'active', 'completed'));
     }

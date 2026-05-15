@@ -28,8 +28,8 @@
 
                 <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
 
-                <div class="mb-4">
-                    <h5 class="text-xl font-bold">{{__('设置')}}</h5>
+                <div class="mb-5 flex flex-col gap-4 border-b border-[#998675] pb-5 lg:flex-row lg:items-center lg:justify-between">
+                    <h5 class="text-xl font-bold">{{__('我的测验')}}</h5>
                 </div>
                 <div id="table-body"></div>
 

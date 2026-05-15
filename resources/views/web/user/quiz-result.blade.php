@@ -33,40 +33,34 @@
 
                 <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
 
-                <div class="page-title d-flex align-items-center justify-content-between mb-4">
-                    <h5>{{__('我的测验')}}</h5>
+                <div class="mb-5 flex flex-col gap-4 border-b border-[#998675] pb-5 lg:flex-row lg:items-center lg:justify-between">
+                    <h5 class="text-xl font-bold">{{__('我的测验')}}</h5>
                 </div>
 
                 @if($is_completed)
-                    <div class="card mb-4 j-user-box">
-                        <div class="card-body">
-                            <div class="quiz-circle-progress m-0 mb-3">
-                                <div class="circle-progress mb-2" data-value='{{round($quiz_statistics->correct_rate)}}'>
-                                        <span class="progress-left">
-                                            <span class="progress-bar {{$quiz_statistics->correct_rate >= 80 ? 'border-success' : 'border-danger'}}"></span>
-                                        </span>
-                                    <span class="progress-right">
-                                            <span class="progress-bar {{$quiz_statistics->correct_rate >= 80 ? 'border-success' : 'border-danger'}}"></span>
-                                        </span>
-                                    <div class="progress-value {{$quiz_statistics->correct_rate >= 80 ? 'text-success' : 'text-danger'}} fw-bold fs-24">{{round($quiz_statistics->correct_rate)}}%
-                                    </div>
+                    <div class="mb-4 rounded-2xl border border-slate-200 bg-white shadow-sm j-user-box">
+                            <div class="p-6">
+                            <div class="flex justify-center m-0 mb-3">
+                                <div
+                                    @class(['flex-none', 'radial-progress', 'text-[10px]', 'text-red-600' => $quiz_statistics->correct_rate <= 50, 'text-orange-500' => $quiz_statistics->finishing_rat > 50 && $quiz_statistics->finishing_rat < 100, 'text-green-700' => $quiz_statistics->correct_rate == 100]) style="--value:{{$quiz_statistics->correct_rate}};--size:38px; --thickness: 4px;"
+                                    aria-valuenow="{{$quiz_statistics->correct_rate}}" role="progressbar">{{$quiz_statistics->correct_rate}}%
                                 </div>
                             </div>
-                            <div class="text-center mb-3">
+                            <div class="mb-3 text-center">
                                 @if($quiz_statistics->correct_rate >= 80)
-                                    <h6 class="mb-1">{{__('恭喜！您通过了测验')}}</h6>
-                                    <p class="fs-14">{{__('您成功完成了测验。继续保持！')}}</p>
+                                    <h6 class="mb-1 text-lg font-semibold text-slate-900">{{__('恭喜！您通过了测验')}}</h6>
+                                    <p class="text-sm text-slate-600">{{__('您成功完成了测验。继续保持！')}}</p>
                                 @else
-                                    <h6 class="mb-1">{{__('抱歉，您这次没有通过')}}</h6>
-                                    <p class="fs-14">{{__('别担心，从这次尝试中学习，下次会更强！')}}</p>
+                                    <h6 class="mb-1 text-lg font-semibold text-slate-900">{{__('抱歉，您这次没有通过')}}</h6>
+                                    <p class="text-sm text-slate-600">{{__('别担心，从这次尝试中学习，下次会更强！')}}</p>
                                 @endif
-                                <div class="mt-3">
-                                    <p class="mb-1"><strong>{{__('正确')}}:</strong> {{$quiz_statistics->correct}} / {{$quiz_statistics->total_questions}}</p>
-                                    <p class="mb-0"><strong>{{__('正确率')}}:</strong> {{round($quiz_statistics->correct_rate, 2)}}%</p>
+                                <div class="mt-3 space-y-1 text-sm text-slate-700">
+                                    <p><strong>{{__('正确')}}:</strong> {{$quiz_statistics->correct}} / {{$quiz_statistics->total_questions}}</p>
+                                    <p><strong>{{__('正确率')}}:</strong> {{round($quiz_statistics->correct_rate, 2)}}%</p>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="{{route('user.quiz.html')}}" class="btn btn-secondary rounded-pill">
+                            <div class="flex items-center justify-center">
+                                <a href="{{route('user.quiz.html')}}" class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
                                     <i class="isax isax-arrow-left-2 me-1 fs-10"></i>{{__('返回测验列表')}}
                                 </a>
                             </div>
@@ -75,11 +69,11 @@
 
                     {{-- 显示所有题目和答案 --}}
                     @if($quiz_data && count($quiz_data) > 0)
-                        <div class="card j-user-box">
-                            <div class="card-header">
-                                <h5 class="mb-0">{{__('题目详情')}}</h5>
+                        <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm j-user-box">
+                            <div class="border-b border-slate-200 px-6 py-4">
+                                <h5 class="mb-0 text-lg font-semibold text-slate-900">{{__('题目详情')}}</h5>
                             </div>
-                            <div class="card-body">
+                            <div class="p-6">
                                 @foreach($quiz_data as $index => $question)
                                     @php
                                         $user_answer = $user_answers[$index] ?? null;
@@ -87,13 +81,13 @@
                                         $user_answer_idx = $user_answer ? $user_answer['user_answer'] : null;
                                         $correct_answer_idx = $user_answer ? $user_answer['correct_answer'] : ($question['correct_answer'] ?? 0);
                                     @endphp
-                                    <div class="border p-3 mb-3 rounded-2 {{$is_correct ? 'border-success' : 'border-danger'}}">
-                                        <div class="d-flex align-items-start mb-3">
-                                            <span class="badge {{$is_correct ? 'badge-success' : 'badge-danger'}} me-2">{{$index + 1}}</span>
-                                            <h6 class="mb-0 flex-grow-1">{{$question['title'] ?? ''}}</h6>
+                                    <div class="mb-3 rounded-2xl border {{$is_correct ? 'border-emerald-300 bg-emerald-50/60' : 'border-rose-300 bg-rose-50/60'}} p-4">
+                                        <div class="mb-3 flex items-start">
+                                            <span class="mr-2 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white {{$is_correct ? 'bg-emerald-500' : 'bg-rose-500'}}">{{$index + 1}}</span>
+                                            <h6 class="mb-0 flex-1 text-base font-semibold text-slate-900">{{$question['title'] ?? ''}}</h6>
                                         </div>
 
-                                        <div class="mb-3">
+                                        <div class="mb-3 space-y-2">
                                             @if(isset($question['options']) && is_array($question['options']))
                                                 @foreach($question['options'] as $opt_idx => $option)
                                                     @php
@@ -101,21 +95,21 @@
                                                         $is_correct_answer = $correct_answer_idx == $opt_idx;
                                                         $option_class = '';
                                                         if ($is_correct_answer) {
-                                                            $option_class = 'text-success fw-bold';
+                                                            $option_class = 'text-emerald-700 font-semibold';
                                                         } elseif ($is_user_answer && !$is_correct) {
-                                                            $option_class = 'text-danger';
+                                                            $option_class = 'text-rose-700 font-medium';
                                                         }
                                                     @endphp
-                                                    <div class="form-check mb-2 {{$option_class}}">
-                                                        <input class="form-check-input" type="radio" disabled
+                                                    <div class="flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 {{$option_class}}">
+                                                        <input class="mr-3 h-4 w-4 text-indigo-600 focus:ring-indigo-500" type="radio" disabled
                                                             {{$is_user_answer ? 'checked' : ''}}>
-                                                        <label class="form-check-label">
+                                                        <label class="flex-1 cursor-default text-sm text-slate-700">
                                                             <span>{{chr(65 + $opt_idx)}}.</span> {{$option}}
                                                             @if($is_correct_answer)
-                                                                <i class="fa-solid fa-check text-success ms-2"></i>
+                                                                <i class="fa-solid fa-check ml-2 text-emerald-600"></i>
                                                             @endif
                                                             @if($is_user_answer && !$is_correct)
-                                                                <i class="fa-solid fa-times text-danger ms-2"></i>
+                                                                <i class="fa-solid fa-times ml-2 text-rose-600"></i>
                                                             @endif
                                                         </label>
                                                     </div>
@@ -123,12 +117,12 @@
                                             @endif
                                         </div>
 
-                                        <div class="alert alert-info mb-0">
-                                            <div class="fw-bold mb-2">{{__('解析')}}</div>
+                                        <div class="rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-slate-700">
+                                            <div class="mb-2 font-semibold text-slate-900">{{__('解析')}}</div>
                                             <div>{{$question['explanation'] ?? __('暂无解析')}}</div>
                                             <div class="mt-2">
                                                 <strong>{{__('正确答案')}}:</strong>
-                                                <span class="text-success">
+                                                <span class="text-emerald-700">
                                                         {{chr(65 + $correct_answer_idx)}}.
                                                         @if(isset($question['options'][$correct_answer_idx]))
                                                         {{$question['options'][$correct_answer_idx]}}
@@ -138,7 +132,7 @@
                                             @if($user_answer_idx !== null)
                                                 <div class="mt-1">
                                                     <strong>{{__('您的答案')}}:</strong>
-                                                    <span class="{{$is_correct ? 'text-success' : 'text-danger'}}">
+                                                    <span class="{{$is_correct ? 'text-emerald-700' : 'text-rose-700'}}">
                                                             {{chr(65 + $user_answer_idx)}}.
                                                             @if(isset($question['options'][$user_answer_idx]))
                                                             {{$question['options'][$user_answer_idx]}}
@@ -154,11 +148,11 @@
                     @endif
                 @else
                     <div id="quiz-container" class="quiz-wizard">
-                        <div class="quiz-attempt-card border-0">
+                        <div class="quiz-attempt-card rounded-2xl border border-slate-200 bg-white shadow-sm">
                             <div class="quiz-attempt-body p-0">
                                 <div id="quiz-content">
-                                    <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                                        <div class="spinner-border" role="status">
+                                    <div class="flex items-center justify-center" style="min-height: 300px;">
+                                        <div class="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-indigo-600" role="status">
                                             <span class="sr-only">{{__('加载中...')}}</span>
                                         </div>
                                     </div>
@@ -274,16 +268,16 @@
                 const isLastQuestion = index === totalQuestions - 1;
                 const buttonText = isLastQuestion ? '{{__('完成')}}' : '{{__('下一题')}}';
 
-                let html = `<div class="quiz-question border p-3 mb-3 rounded-2" data-question-index="${index}">`;
-                html += `<div class="quiz-question-title mb-3"><h6>${index + 1}. ${question.title || ''}</h6></div>`;
-                html += '<ul class="quiz-options list-unstyled mb-0">';
+                let html = `<div class="quiz-question mb-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm" data-question-index="${index}">`;
+                html += `<div class="quiz-question-title mb-3"><h6 class="text-base font-semibold text-slate-900">${index + 1}. ${question.title || ''}</h6></div>`;
+                html += '<ul class="quiz-options mb-0 list-none space-y-2 p-0">';
 
                 if (question.options && Array.isArray(question.options)) {
                     question.options.forEach((option, optIndex) => {
-                        html += `<li class="quiz-option form-check mb-2 p-3 border rounded" data-option-index="${optIndex}">`;
-                        html += `<input class="form-check-input ms-2" type="radio" name="question-${index}" id="question-${index}-option-${optIndex}">`;
-                        html += `<label class="form-check-labe px-2" for="question-${index}-option-${optIndex}">`;
-                        html += `<span class="quiz-option-label">${String.fromCharCode(65 + optIndex)}.</span> `;
+                        html += `<li class="quiz-option flex items-center rounded-xl border border-slate-200 px-4 py-3 transition hover:border-indigo-300 hover:bg-slate-50" data-option-index="${optIndex}">`;
+                        html += `<input class="mr-3 h-4 w-4 text-indigo-600 focus:ring-indigo-500" type="radio" name="question-${index}" id="question-${index}-option-${optIndex}">`;
+                        html += `<label class="flex flex-1 cursor-pointer items-center gap-1 px-2 text-sm text-slate-700" for="question-${index}-option-${optIndex}">`;
+                        html += `<span class="quiz-option-label font-medium text-slate-900">${String.fromCharCode(65 + optIndex)}.</span> `;
                         html += `<span class="quiz-option-text">${option}</span>`;
                         html += '</label>';
                         html += '</li>';
@@ -292,13 +286,13 @@
 
                 html += '</ul>';
 
-                html += '<div class="quiz-explanation mt-3" style="display: none;">';
-                html += '<div class="quiz-explanation-title fw-bold mb-2">{{__('解析')}}</div>';
+                html += '<div class="quiz-explanation mt-3 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-slate-700" style="display: none;">';
+                html += '<div class="quiz-explanation-title mb-2 font-semibold text-slate-900">{{__('解析')}}</div>';
                 html += `<div class="quiz-explanation-content">${question.explanation || '{{__('暂无解析')}}'}</div>`;
                 html += '</div>';
 
                 html += '<div class="quiz-actions mt-3">';
-                html += `<button class="btn btn-secondary rounded-pill quiz-next-btn" data-is-last="${isLastQuestion}" style="display: none;">${buttonText}</button>`;
+                html += `<button class="quiz-next-btn inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60" data-is-last="${isLastQuestion}" style="display: none;">${buttonText}</button>`;
                 html += '</div>';
 
                 html += '</div>';
@@ -315,8 +309,8 @@
 
                 // 只渲染当前题目
                 let html = '<div class="quiz-container">';
-                html += '<div class="quiz-progress mb-3">';
-                html += `<span>{{__('第')}} <strong>${index + 1}</strong> {{__('题，共')}} <strong>${quizData.questions.length}</strong> {{__('题')}}</span>`;
+                html += '<div class="quiz-progress mb-3 text-sm text-slate-600">';
+                html += `<span>{{__('第')}} <strong class="font-semibold text-slate-900">${index + 1}</strong> {{__('题，共')}} <strong class="font-semibold text-slate-900">${quizData.questions.length}</strong> {{__('题')}}</span>`;
                 html += '</div>';
                 html += renderQuestion(question, index, quizData.questions.length);
                 html += '</div>';
@@ -353,7 +347,7 @@
                     selectedAnswer = optionIndex;
 
                     if (optionIndex === correctAnswer) {
-                        $option.addClass('bg-success-subtle');
+                        $option.addClass('border-emerald-300 bg-emerald-50');
 
                         if (!$question.find('.quiz-explanation').is(':visible')) {
                             $question.find('.quiz-explanation').show();
@@ -397,7 +391,7 @@
                                 }
                             });
                     } else {
-                        $option.addClass('bg-danger-subtle');
+                        $option.addClass('border-rose-300 bg-rose-50');
 
                         if (wrongAnswers[index] === undefined) {
                             wrongAnswers[index] = optionIndex;
@@ -425,16 +419,16 @@
             }
 
             function showComplete(allCompleted = false) {
-                let html = '<div class="quiz-complete text-center">';
-                html += '<div class="quiz-complete-icon mb-3"><i class="fa-solid fa-circle-check fa-3x text-success"></i></div>';
-                html += '<div class="quiz-complete-title mb-2"><h5>{{__('测验完成')}}</h5></div>';
+                let html = '<div class="quiz-complete rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">';
+                html += '<div class="quiz-complete-icon mb-3"><i class="fa-solid fa-circle-check fa-3x text-emerald-600"></i></div>';
+                html += '<div class="quiz-complete-title mb-2"><h5 class="text-lg font-semibold text-slate-900">{{__('测验完成')}}</h5></div>';
                 if (allCompleted) {
-                    html += '<div class="quiz-complete-message mb-3"><p>{{__('恭喜您完成了所有课程！')}}</p></div>';
+                    html += '<div class="quiz-complete-message mb-3"><p class="text-sm text-slate-600">{{__('恭喜您完成了所有课程！')}}</p></div>';
                 } else {
-                    html += '<div class="quiz-complete-message mb-3"><p>{{__('恭喜您完成了本次测验！')}}</p></div>';
+                    html += '<div class="quiz-complete-message mb-3"><p class="text-sm text-slate-600">{{__('恭喜您完成了本次测验！')}}</p></div>';
                 }
                 html += '<div class="mt-4">';
-                html += '<a href="{{route('user.quiz.html')}}" class="btn btn-secondary rounded-pill">{{__('返回测验列表')}}</a>';
+                html += '<a href="{{route('user.quiz.html')}}" class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">{{__('返回测验列表')}}</a>';
                 html += '</div>';
                 html += '</div>';
                 $quizContent.html(html);
