@@ -19,6 +19,7 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
+        return view('web.under-construction');
         $articles = News::query()
             ->where('type', News::TYPE_ARTICLE)
             ->where('status', News::STATUS_PUBLISHED)

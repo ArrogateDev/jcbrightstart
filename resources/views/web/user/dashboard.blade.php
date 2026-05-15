@@ -7,6 +7,24 @@
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+    <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+    <style>
+        .waitMe,
+        .waitMe_container {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 2147483647 !important;
+        }
+        .waitMe > * {
+            z-index: 2147483647 !important;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
@@ -38,7 +56,8 @@
                                 </div>
                                 <div class="md:col-span-4">
                                     <div class="text-right md:text-end">
-                                        <a href="{{$last_quiz->url}}" class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
+                                        <a href="{{$last_quiz->url}}"
+                                           class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
                                             {{__('继续测验')}}
                                         </a>
                                     </div>
@@ -100,7 +119,8 @@
                                             <a href="{{$item->url}}" class="transition hover:text-slate-700">{{$item->course->title??''}}</a>
                                         </h6>
                                         <div class="flex items-center justify-center">
-                                            <a href="{{$item->url}}" class="inline-flex items-center rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-800">
+                                            <a href="{{$item->url}}"
+                                               class="inline-flex items-center rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-800">
                                                 {{__('进入课程')}}
                                                 <i class="fa-solid fa-chevron-right ml-1"></i>
                                             </a>

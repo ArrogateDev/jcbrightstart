@@ -43,6 +43,6 @@ class AboutUsController extends Controller
 
         $institutions = array_chunk($institutions, ceil(count($institutions) / 2));
 
-        return view('web.v1.about-us', compact('institutions'));
+        return view('web.about-us', compact('institutions'));
     }
 }

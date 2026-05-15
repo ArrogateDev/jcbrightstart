@@ -11,12 +11,14 @@
 <body>
 <x-web.header/>
 
-<main id="main">
-    <section class="section h-200" style="background: url('{{web_resource_url('assets/web/images/icon/bg-404.jpg')}}') center center / cover no-repeat;">
-    </section>
-</main>
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="h-100 flex justify-center items-center text-[56px] text-[#998675] font-bold">
+            網站建設中
+        </div>
+    </div>
+</section>
 
-<x-web.v1.footer/>
+<x-web.footer/>
 </body>
-
 </html>

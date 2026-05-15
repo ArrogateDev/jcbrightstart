@@ -49,7 +49,7 @@ class WebMiddleware
 
             $navs[] = [
                 'title' => __('最新消息'),
-                'url' => '',
+                'url' => route('news.html'),
                 'icon' => web_resource_url('assets/web/images/v1/last-news.svg'),
                 'active' => false,
                 'has_children' => false,
@@ -119,7 +119,7 @@ class WebMiddleware
 
             $navs[] = [
                 'title' => __('聯絡我們'),
-                'url' => '',
+                'url' => route('page', ['page' => 'contact-us.html']),
                 'icon' => web_resource_url('assets/web/images/v1/contact-us.svg'),
                 'active' => false,
                 'has_children' => false,

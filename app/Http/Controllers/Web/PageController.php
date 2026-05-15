@@ -19,7 +19,8 @@ class PageController extends Controller
             'test001.html',
         ];
 
-        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';
+        $view = 'web.under-construction';
+//        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';
 
         return view($view);
     }

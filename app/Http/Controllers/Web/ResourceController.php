@@ -21,6 +21,7 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
+        return view('web.under-construction');
         $articles = Resource::query()
             ->where('type', Resource::TYPE_ARTICLE)
             ->where('status', Resource::STATUS_PUBLISHED)
@@ -72,6 +73,7 @@ class ResourceController extends Controller
      */
     public function more(Request $request)
     {
+        return view('web.under-construction');
         $type = (int)$request->query('type');
         $category = (int)$request->query('mod');
 
@@ -153,6 +155,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource, Request $request)
     {
+        return view('web.under-construction');
 
         $date = Carbon::parse($resource->created_at);
         $resource->month = $date->format('M');
