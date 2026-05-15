@@ -32,7 +32,7 @@ class IndexController extends Controller
             ->get();
 
         $news->map(function ($item) {
-            $date = Carbon::parse($item->created_at);
+            $date = Carbon::parse($item->release_date);
             $item->date = $date->format('Y.m.d');
             $item->url = route('news.show.html', ['news' => $item->id]);
         });
