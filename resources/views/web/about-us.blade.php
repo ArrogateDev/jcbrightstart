@@ -1,184 +1,183 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<x-web.v1.header/>
 
-<x-web.head/>
+<section>
+    <div class="owl-carousel">
+        <div class="w-full">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/v1/about-us/banner.jpg')}}" alt="">
+        </div>
+    </div>
+</section>
 
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main">
-
-        <x-web.breadcrumb title="{{__('关于我们')}}"/>
-
-        <section class="section p-t-125 p-b-75 p-md-t-60">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="img-border img-border--blue">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/about-us-01.jpg')}}" alt="About Us">
-                            </div>
-                        </div>
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="pt-[60px] about-us-icon-bg-01">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/about-us.svg')}}" alt="關於計劃">
+                        <div class="text-[31px] font-bold">關於計劃</div>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="p-l-70 p-md-l-0">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">關於計劃</h2>
-                                    </div>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        賽馬會幼兒「喜步」計劃第二階段為期4年的計劃（2025-2029），獲得香港賽馬會慈善信託基金繼續支持，捐助約2億港元。計劃將涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位、相關家長及社區人士。</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        本計劃由耀中幼教學院主辦，並邀請到太平洋區幼兒教育研究學會（香港）及香港中文大學作為專業夥伴。透過跨專業領域協作，為參與計劃的幼兒中心提供教顧實踐的專業啟導，並進一步推動家長教育及社區參與的支援，營造有利嬰幼兒的發展。</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        本階段計劃將涵蓋一系列專業支援項目，包括：跨專業支援及協作、建立專業學習社群、海外專業交流、家長與社區實踐、基礎設施提升及數碼化平台，以促進嬰幼兒教顧的持續優化。</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        「喜步」是生命的初始，讓嬰幼兒能夠享受最優質的教顧服務，以豐盛他們的未來，這就是賽馬會幼兒「喜步」計劃的用心。我們期望能與業界跨專業人士、家長及社區夥伴攜手合作，共同為香港幼兒教育的未來開創新篇章，以回應社會對優質幼兒教育服務的需求。</p>
-                                    <a class="au-btn--blue au-btn" href="#">learn more
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                        <i class="zmdi zmdi-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+                <p class="mb-[20px]">
+                    賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。</p>
+
+                <p class="mb-[20px]">
+                    本計劃由耀中幼教學院主辦，並聯同太平洋區幼兒教育研究學會（香港）及香港中文大學作為專業夥伴。透過跨專業領域協作，為參與計劃的幼兒中心提供教顧實踐的專業啟導，致力提升教顧者專業能力，同時推動家長教育及社區參與的支援，營造有利嬰幼兒發展的環境。</p>
+
+                <p>計劃涵蓋一系列專業發展支援項目，包括：跨專業協作與啟導、建立專業學習社群、海外專業交流、家校與社區實踐、基礎設施優化及數碼化發展平台，以促進嬰幼兒教顧服務持續優化與發展。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto">
+        <div class="py-[60px] about-us-icon-bg-02">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-01.svg')}}" alt="計劃目標">
+                        <div class="text-[31px] font-bold">願景</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+                <p class="mb-[20px]">
+                    「讓嬰幼兒自生命的初始，享有最優質的教育與照顧服務，邁向豐盛的未來！」這就是本計劃的初心。我們致力於將優質嬰幼兒照顧及教育理念推廣至全港育有零至三歲孩子的家庭及社區，全面促進嬰幼兒發展與健康成長的優質環境。</p>
+
+                <p>作為一項以社會為本的計劃，我們與業界跨專業人士、家長及社區夥伴攜手合作，共同推動嬰幼兒服務的持續優化與發展。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto">
+        <div class="py-[60px] about-us-icon-bg-03">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-02.svg')}}" alt="計劃目標">
+                        <div class="text-[31px] font-bold">計劃目標</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="w-[470px] max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+                <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
+                    <p class="text-[25px] text-[#998675]">提升幼兒老師的專業能力與專業形象</p>
+                </div>
+
+                <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-02.svg')}}" alt="促進專業學習社群的建立與發展">
+                    <p class="text-[25px] text-[#998675]">促進專業學習社群的建立與發展</p>
+                </div>
+
+                <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/v1/plan-03.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
+                    <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒教育及照顧服務</p>
+                </div>
+
+                <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-04.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
+                    <p class="text-[25px] text-[#998675]">強調兒童早期發展及教保實踐的重要性</p>
+                </div>
+
+                <div class="flex items-center gap-x-2">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-05.svg')}}" alt="加強家庭與社區的支援 / 支持網絡">
+                    <p class="text-[25px] text-[#998675]">加強家庭與社區的支援 / 支持網絡</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto">
+        <div class="py-[60px]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex flex-col justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-03.svg')}}" alt="參與計劃的幼兒中心名單">
+                        <div class="text-[31px] font-bold">參與計劃的幼兒中心名單</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[35px]">
+                <div class="flex justify-center gap-[74px]">
+                    @foreach($institutions as $institution)
+                        <div>
+                            <div @class(['text-[20px]', 'invisible' => $loop->index !== 0])>（按筆劃排列）</div>
+                            <ul>
+                                @foreach($institution as $item)
+                                    <li class="text-[25px] text-[#998675] mb-[15px]">{{ $item }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto">
+        <div class="py-[60px]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-03.svg')}}" alt="專業發展領域">
+                        <div class="text-[31px] font-bold">專業發展領域</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+                <div class="flex gap-x-[50px] mt-[50px]">
+                    <img class="origin-bottom -rotate-4" src="{{web_resource_url('assets/web/images/v1/about-us/professional-development.png')}}" alt="">
+                    <div>
+                        <div class="mb-[20px] flex align-center gap-x-2">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-01.svg')}}" alt="知識迴廊">
+                            <p class="text-[25px] text-[#998675]">知識迴廊</p>
+                        </div>
+
+                        <div class="mb-[20px] flex align-center gap-x-2">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-02.svg')}}" alt="專業發展工作坊">
+                            <p class="text-[25px] text-[#998675]">專業發展工作坊</p>
+                        </div>
+
+                        <div class="mb-[20px] flex align-center gap-x-2">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-03.svg')}}" alt="到校專業啟導">
+                            <p class="text-[25px] text-[#998675]">到校專業啟導</p>
+                        </div>
+
+                        <div class="flex align-center gap-x-2">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-04.svg')}}" alt="專業學習社群">
+                            <p class="text-[25px] text-[#998675]">專業學習社群</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section class="section p-t-75 p-b-75">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-md-t-0 p-md-b-30">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">願景及目標</h2>
-                                    </div>
-                                    <p class="m-b-15">
-                                        賽馬會幼兒「喜步」計劃將涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位、相關家長及社區人士。本階段計劃將涵蓋一系列專業支援項目，包括：跨專業支援及協作、建立專業學習社群、海外專業交流、家長與社區實踐、基礎設施提升及數碼化平台，以促進嬰幼兒教顧的持續優化。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-1">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section p-t-75 p-b-75">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-09.jpg')}}" alt="Welcome 2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-l-70 p-md-l-0 w-100">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">整體目標</h2>
-                                    </div>
-                                    <p class="m-b-15 h3"><i class="fa-solid fa-circle-check text-success mr-1"></i>促進幼兒老師專業能力</p>
-                                    <p class="m-b-15 h3"><i class="fa-solid fa-circle-check text-success mr-1"></i>建立專業學習社群</p>
-                                    <p class="m-b-15 h3"><i class="fa-solid fa-circle-check text-success mr-1"></i>提昇嬰幼兒服務質素</p>
-                                    <p class="m-b-15 h3"><i class="fa-solid fa-circle-check text-success mr-1"></i>支持社區中的家庭</p>
-                                    <p class="m-b-15">此計劃惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位、相關家長及社區人士。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section p-t-75 p-b-150 p-md-b-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-md-t-0 p-md-b-30">
-                            <div class="welcome-wrap welcome-wrap-2 p-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">專業發展領域</h2>
-                                    </div>
-                                    <div class="realm-box">
-                                        <div class="realm-item">知識迴廊：基礎幼兒教育專業視頻系列</div>
-                                        <div class="realm-item">專業發展工作坊</div>
-                                        <div class="realm-item">到校專業啟導</div>
-                                        <div class="realm-item">專業學習社群</div>
-                                        <div class="realm-item">持續專業支援</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-1">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/web/images/welcome-08.jpg')}}" alt="Welcome 2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <style>
-            .realm-box {
-                display: flex;
-                flex-direction: column;
-                grid-row-gap: 15px;
-            }
-
-            .realm-item {
-                padding: 20px;
-                border-radius: 40px;
-                text-align: center;
-                color: white;
-                font-size: 18px;
-                font-weight: 600;
-                letter-spacing: 1px;
-                background-color: #a568a4;
-            }
-
-            .realm-item:nth-child(1) {
-                background-color: #5f7bba;
-            }
-
-            .realm-item:nth-child(2) {
-                background-color: #eb646b;
-            }
-
-            .realm-item:nth-child(3) {
-                background-color: #05aa9c;
-            }
-
-            .realm-item:nth-child(4) {
-                background-color: #f49539;
-            }
-        </style>
-
-        <x-web.partner/>
-    </main>
-
-    <x-web.footer/>
-
-</div>
-
+<x-web.v1.footer/>
 </body>
-
 </html>

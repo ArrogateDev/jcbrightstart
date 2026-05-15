@@ -35,13 +35,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware(['web.v1.middleware'])->prefix('v1')->group(function ($route) {
-    $route->get('/', [IndexController::class, 'v1Index']);
-    $route->get('/index.html', [IndexController::class, 'v1Index']);
-    $route->get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
-    $route->get('{page}', [PageController::class, 'v1Index'])->name('v1-page');
-});
-
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/index.html', [IndexController::class, 'index'])->name('index.html');
 Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
@@ -59,6 +52,8 @@ Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('g
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('message.html');
+
+Route::get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
 
 Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
 Route::get('/latest-news/more.html', [NewsController::class, 'more'])->name('news.more.html');

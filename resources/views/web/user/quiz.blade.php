@@ -1,43 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<x-web.user.head/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
 
 <body>
+<x-web.user.header/>
 
-<div class="main-wrapper">
-
-    <x-web.user.header :user="$user"/>
-
-    <div class="content">
-        <div class="container">
-
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="pt-[60px]">
             <x-web.user.profile :user="$user"/>
+        </div>
 
-            <div class="row">
+        <div class="grid grid-cols-12 gap-x-12">
 
-                <x-web.user.sidebar active="quiz"/>
+            <x-web.user.sidebar active="quiz"/>
 
-                <div class="col-lg-9">
+            <div class="lg:col-span-9">
 
-                    <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
+                <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
 
-                    <div class="page-title d-flex align-items-center justify-content-between">
-                        <h5>{{__('我的测验')}}</h5>
-                    </div>
-                    <div id="table-body"></div>
-
-                    <x-admin.table-data url="{{route('user.quiz.list.html')}}"/>
-
+                <div class="mb-4">
+                    <h5 class="text-xl font-bold">{{__('设置')}}</h5>
                 </div>
+                <div id="table-body"></div>
+
+                <x-web.table-data url="{{route('user.quiz.list.html')}}"/>
+
             </div>
         </div>
+
     </div>
+</section>
 
-    <x-web.user.footer/>
-
-</div>
-
+<x-web.v1.footer/>
 </body>
 
 <script>
@@ -49,16 +53,16 @@
         list.forEach(function (item) {
             const row = `
                 <div class="border rounded-2 p-3 mb-3 j-user-box">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
+                    <div class="grid grid-cols-12 items-center">
+                        <div class="md:col-span-8">
                             <div>
-                                <h6 class="mb-2"><a href="${item.url}">${item.title}</a></h6>
+                                <h6 class="text-base font-semibold mb-2"><a href="${item.url}">${item.title}</a></h6>
                                 Number of Questions : ${item.total_questions}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="d-flex align-items-center justify-content-end mt-2 mt-md-0">
-                                <a href="${item.url}" class="arrow-next"><i class="isax isax-arrow-right-1"></i></a>
+                        <div class="md:col-span-4">
+                            <div class="flex items-center justify-end mt-2 mt-md-0">
+                                <a href="${item.url}" class="arrow-next"><i class="fa-solid fa-arrow-right"></i><a/>
                             </div>
                         </div>
                     </div>

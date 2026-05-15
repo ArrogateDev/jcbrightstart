@@ -1,448 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{web_resource_url('assets/web/js/owlcarousel/owl.carousel.min.js')}}"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/web/js/owlcarousel/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+<x-web.header/>
 
-<x-web.head/>
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<style>
-    .media__img {
-        height: 300px;
-    }
+<section>
+    <div class="owl-carousel">
+        @foreach([0,1,2,3,4] as $index => $banner)
+            <div class="w-full">
+                <img class="w-full" src="{{web_resource_url('assets/web/images/v1/banner.png')}}" alt="{{$index}}">
+            </div>
+        @endforeach
+    </div>
+</section>
 
-    .object-fit-cover {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-    }
-
-    @media (max-width: 765px) {
-        .pe-box {
-            flex-direction: column-reverse;
-        }
-    }
-
-    @media (max-width: 1200px) {
-        .header-navbar__item > a {
-            padding: 30px 2px;
-        }
-    }
-
-    .welcome-wrap__inner p {
-        font-size: 18px;
-    }
-
-    #carousel-banner .carousel-caption {
-        width: 100%;
-        bottom: 0;
-        opacity: 1;
-        margin: 0;
-        left: 0;
-        padding: 0;
-    }
-
-    #carousel-banner .carousel-caption h5 {
-        width: 100%;
-        background: #00c8d4bd;
-        bottom: 0;
-        opacity: 1;
-        margin: 0;
-        padding: 16px;
-        color: #fff;
-        transition: all .4s ease;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        left: 0;
-    }
-
-    #carousel-banner .carousel-inner, .picture-wal {
-        border-radius: 10px;
-    }
-
-    .carousel-item {
-        height: 560px;
-    }
-
-    .carousel-item img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-    }
-</style>
-
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main" class="d-flex flex-column">
-
-        @if($news_banners)
-            <div class="container">
-                <div class="row picture-wall-box">
-                    <div class="col-12 p-1">
-                        <div id="carousel-banner" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                @foreach($news_banners as $banner)
-                                    <a @class(['carousel-item', 'active' => $loop->first]) href="{{$banner->url}}">
-                                        <img src="{{$banner->thumbnail}}" class="d-block w-100" alt="{{$banner->title}}">
-                                    </a>
-                                @endforeach
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-target="#carousel-banner" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-target="#carousel-banner" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </button>
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="flex py-[60px] gap-x-12">
+            <div class="flex-none">
+                <div class="flex flex-col items-end">
+                    <div>
+                        <div class="flex items-center gap-x-2.5">
+                            <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/last-news.png')}}" alt="{{__('计划消息')}}">
+                            <div class="text-[31px] text-[#998675] font-bold">{{__('计划消息')}}</div>
                         </div>
+                    </div>
+                    <div class="more-box mt-6 bg-[#e0d5c7]">
+                        <div class="more !bg-[#43c8d5] font-bold">
+                            {{__('了解更多')}}>>
+                        </div>
+                        <div class="shadow bg-[#dbd8d2]"></div>
                     </div>
                 </div>
             </div>
-        @endif
-
-        <div class="container">
-            <div class="row picture-wall-box">
-                @foreach($banners as $banner)
-                    <div class="col-md-{{$banner['col']??0}} p-1">
-                        <a class="w-100 h-100" href="{{$banner['url']??'javascript:void(0);'}}">
-                            <div class="picture-wal overflow-hidden position-relative">
-                                <img src="{{$banner['bg']??''}}"
-                                     class="w-100 h-100 object-fit-cover"
-                                     alt="{{$banner['title']??''}}">
-                                <div class="title h2 position-absolute">
-                                    {{$banner['title']??''}}
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+            <div class="grow h-[280px] overflow-auto customize-scrollbar">
+                @foreach($news as $item)
+                    <a href="{{$item->url}}" class="flex items-center gap-x-[66px] text-[22px] text-[#666] font-bold py-[30px] border-b-1 border-[#b9b9b9]">
+                        <div class="flex-none">
+                            {{$item->date}}
+                        </div>
+                        <div class="grow truncate">
+                            {{$item->title}}
+                        </div>
+                    </a>
                 @endforeach
             </div>
         </div>
+    </div>
+</section>
 
-        <section class="section p-t-75 p-b-75" id="plan">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-md-t-0 p-md-b-30">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">{{__('HOME2_TITLE')}}</h2>
-                                    </div>
-                                    <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT01')}}</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT02')}}</p>
-                                    <p class="m-b-15" style="text-indent: 50px;">{{__('HOME2_CONTENT03')}}</p>
-                                </div>
-                            </div>
+<section class="bg-02">
+    <div class="container mx-auto">
+        <div class="flex justify-center py-[60px] gap-x-14">
+            <div class="flex flex-col items-center gap-y-[15px]">
+                <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">{{__('關於計劃')}}</div>
+            </div>
+            <div class="relative">
+                <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
+                    教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
+                </div>
+                <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
+                    賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。
+                </div>
+                <div class="flex justify-end">
+                    <div class="more-box mt-12">
+                        <div class="more font-bold">
+                            {{__('了解更多')}}>>
+                        </div>
+                        <div class="shadow"></div>
+                    </div>
+                </div>
+                <div class="absolute top-[-80px] right-[-248px] w-[328px]">
+                    <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-01">
+    <div class="container mx-auto">
+        <div class="py-[60px]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-end gap-x-[11px]">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001_knowledge.svg')}}" alt="知識庫">
+                        <div class="text-[31px] font-bold">知識庫</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="grid grid-cols-3 gap-[74px] mt-[80px]">
+                <div class="relative">
+                    <div class="rounded-[8px]">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/professional-learning-community.jpg')}}" alt="">
+                    </div>
+                    <div class="p-[30px]">
+                        <div class="flex items-center gap-[12px] mb-[17px]">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_003_learning.svg')}}" alt="">
+                            <div class="text-[30px] text-[#998675] font-bold">專業學習社群</div>
+                        </div>
+                        <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
+                            精進專業培訓，延續優質教顧
+                        </div>
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
+                            本計劃協助推動幼兒中心間的互相觀摩與經驗分享，全面提升教顧者的專業素質。團隊對幼兒中心的種子團隊進行專業培訓，引領掌握關鍵專業知能，進而帶動同儕間的專業交流。全面深化幼兒中心園長及教師的專業知識、技能與態度，確保計劃完結後，優質的教顧實踐理念與文化得以延續。
+                        </div>
+                        <div class="mt-[25px]">
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-6 offset-md-1 d-flex align-items-center">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-02.png')}}" alt="{{__('HOME2_TITLE')}}">
-                            </div>
+                    <div class="absolute top-[-60px] right-[-30px] w-[160px]">
+                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_02.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="rounded-[8px]">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-01.jpg')}}" alt="">
+                    </div>
+                    <div class="p-[30px]">
+                        <div class="flex items-center gap-[12px] mb-[17px]">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_004_parents.svg')}}" alt="">
+                            <div class="text-[30px] text-[#998675] font-bold">家長學習平台</div>
                         </div>
+                        <div class="text-[18px] text-[#534741] font-medium relative line-bg px-1.5">
+                            家長可登入平台，與孩子一起「喜步」成長
+                        </div>
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
+                            本平台專為家長打造，提供豐富的育兒與嬰幼兒發展資源。家長只需使用電郵地址及密碼輕鬆登入，即可開啟三個階段的自主學習之旅，從而增進育兒知識。
+                        </div>
+                        <div class="mt-[25px]">
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute top-[-80px] right-[-30px] w-[120px]">
+                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="rounded-[8px]">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-02.jpg')}}" alt="">
+                    </div>
+                    <div class="p-[30px]">
+                        <div class="flex items-center gap-[12px] mb-[17px]">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002_service.svg')}}" alt="">
+                            <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
+                        </div>
+                        <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
+                            全港0-3歲幼兒服務導覽
+                        </div>
+                        <div class="text-[18px] text-[#736357] font-medium leading-[33px] mt-[25px]">
+                            匯集了全港所有提供0-3歲日間幼兒照顧服務的關鍵資料，不論是日間嬰兒園、幼兒園、幼兒中心的名單與地區分佈，均能在此一目了然。亦提供了鄰里支援幼兒照顧計劃的服務名單及詳情資料，讓有需要家居照顧服務的家長可以查閱。
+                        </div>
+                        <div class="mt-[25px]">
+                            <a class="flex items-center gap-[8px]" href="">
+                                <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute top-[-50px] right-[-30px] w-[160px]">
+                        <img src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section class="section p-t-75 p-b-75 p-md-t-60" id="vision">
-            <div class="container">
-                <div class="row pe-box">
-                    <div class="col-md-6">
-                        <div class="img-border img-border--blue">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-01.png')}}" alt="{{__('HOME3_TITLE')}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="p-l-70 p-md-l-0">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title pe-title">{{__('HOME3_TITLE')}}</h2>
-                                    </div>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        {{__('HOME3_CONTENT01')}}
-                                    </p>
-                                    <p class="m-b-15" style="text-indent: 50px;">
-                                        {{__('HOME3_CONTENT02')}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section p-t-75 p-b-75" id="goals">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-md-t-0 p-md-b-30">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title">{{__('HOME4_TITLE')}}</h2>
-                                    </div>
-                                    <div class="box box-program-2 m-b-15">
-                                        <div class="box__head">
-                                            <div class="box__head-bg" style="width: 50px;">
-                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-05.png')}}" alt="Background">
-                                                <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-09.png')}}" alt="Icon">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box__body">
-                                            <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;">{{__('HOME4_CONTENT01')}}</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="box box-program-2 m-b-15">
-                                        <div class="box__head">
-                                            <div class="box__head-bg" style="width: 50px;">
-                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-03.png')}}" alt="Background">
-                                                <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-03.png')}}" alt="Icon">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box__body">
-                                            <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;">{{__('HOME4_CONTENT02')}}</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="box box-program-2 m-b-15">
-                                        <div class="box__head">
-                                            <div class="box__head-bg" style="width: 50px;">
-                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-06.png')}}" alt="Background">
-                                                <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-06.png')}}" alt="Icon">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box__body">
-                                            <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;">{{__('HOME4_CONTENT03')}}</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="box box-program-2 m-b-15">
-                                        <div class="box__head">
-                                            <div class="box__head-bg" style="width: 50px;">
-                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-04.png')}}" alt="Background">
-                                                <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-04.png')}}" alt="Icon">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box__body">
-                                            <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;">{{__('HOME4_CONTENT04')}}</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div class="box box-program-2 m-b-15">
-                                        <div class="box__head">
-                                            <div class="box__head-bg" style="width: 50px;">
-                                                <img src="{{web_resource_url('assets/web/images/icon/bg-program-02.png')}}" alt="Background">
-                                                <div class="box__head-icon">
-                                                    <img src="{{web_resource_url('assets/web/images/icon/program-02.png')}}" alt="Icon">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box__body">
-                                            <h3 class="title title--sm title--black box__title m-0">
-                                                <a style="color:#666;">{{__('HOME4_CONTENT05')}}</a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-1">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-04.png')}}" alt="{{__('HOME4_TITLE')}}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        @if(!empty($institutions))
-            <section class="section p-t-75 p-b-75">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 d-flex align-items-center">
-                            <div class="p-md-t-0 p-md-b-30">
-                                <div class="welcome-wrap welcome-wrap-2 p-t-0">
-                                    <div class="welcome-wrap__inner">
-                                        <div class="section-heading section-heading-1 section-heading-1--small mb-0 text-left">
-                                            <h2 class="section-heading__title">{{__('HOME4_EXPLAIN')}}</h2>
-                                            <p class="m-b-15">{{__('HOME4_INSTITUTION')}}</p>
-                                        </div>
-                                        <ul class="m-b-15" style="list-style-type: disc;padding-left: 30px;">
-                                            @foreach($institutions as $institution)
-                                                <li class="m-b-15">
-                                                    <h3 class="title title--sm title--black box__title m-0">
-                                                        <a style="color:#666;">{{$institution}}</a>
-                                                    </h3>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        @endif
-
-        <section class="section p-t-75 p-b-75" id="professional-development">
-            <div class="container">
-                <div class="row pe-box">
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="img-border img-border--pink">
-                            <div class="img-border-inner">
-                                <img src="{{web_resource_url('assets/img/home/home-05.jpg')}}" alt="{{__('HOME5_TITLE')}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 d-flex align-items-center">
-                        <div class="p-l-70 p-md-l-0 w-100">
-                            <div class="welcome-wrap welcome-wrap-2 p-t-0 p-b-30">
-                                <div class="welcome-wrap__inner">
-                                    <div class="section-heading section-heading-1 section-heading-1--small text-left">
-                                        <h2 class="section-heading__title pe-title">{{__('HOME5_TITLE')}}</h2>
-                                    </div>
-                                    <div class="realm-box">
-                                        <div class="realm-item">
-                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
-                                                {{__('HOME5_CONTENT01')}}
-                                            </span>
-                                        </div>
-                                        <div class="realm-item">
-                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
-                                                {{__('HOME5_CONTENT02')}}
-                                            </span>
-                                        </div>
-                                        <div class="realm-item">
-                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#pd">
-                                                {{__('HOME5_CONTENT03')}}
-                                            </span>
-                                        </div>
-                                        <div class="realm-item">
-                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#plc">
-                                                {{__('HOME5_CONTENT04')}}
-                                            </span>
-                                        </div>
-                                        <div class="realm-item d-none">
-                                            <span class="text-white" data-href="{{route('page',['page' => 'professional-development.html'])}}#support">
-                                                {{__('HOME5_CONTENT05')}}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section bg-blue-green p-t-130 p-b-170 p-md-t-60 p-md-b-80 overflow-hidden">
-            <div class="bg-cloud-5">
-                <img class="w-100" src="{{web_resource_url('assets/web/images/icon/bg-coming.jpg')}}" alt="{{__('计划消息')}}">
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-heading section-heading-2">
-                            <h2 class="section-heading__title">{{__('计划消息')}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="wrap wrap--w1575">
-                    <div class="slick-class-2 home-news">
-                        <div class="slick__wrap-content js-slick-wrapper" data-slick-xs="1" data-slick-sm="2"
-                             data-slick-md="3" data-slick-lg="3" data-slick-xl="3" data-slick-dots="false"
-                             data-slick-customnav="true" data-slick-autoplay="true">
-                            <div class="slick__content js-slick-content">
-                                @foreach($news as $new)
-                                    <div class="slick__item">
-                                        @include('web.news.item', ['news'=>$new, 'col'=>false])
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="slick__nav arrows-2">
-                                <span class="slick-prev slick-arrow js-slick-prev"></span>
-                                <span class="slick-next slick-arrow js-slick-next"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center p-t-30">
-                        <a class="au-btn au-btn--white" href="{{route('news.html')}}">
-                            {{__('更多')}}
-                            <i class="zmdi zmdi-chevron-right"></i>
-                            <i class="zmdi zmdi-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section p-t-80 p-b-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-heading section-heading-1">
-                            <h2 class="section-heading__title">{{__('联系我们')}}</h2>
-                        </div>
-                        <x-forms.about-us/>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <x-web.footer/>
-
-</div>
-
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
-
-<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
-<script src="{{web_resource_url('assets/web/js/theme-map.min.js')}}"></script>
-
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+<x-web.footer/>
+<script>
+    $(function () {
+        $('.owl-carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            nav: true,
+            dots: false,
+            margin: 0,
+            navText: [
+                '<i class="fa-solid fa-chevron-left"></i>',
+                '<i class="fa-solid fa-chevron-right"></i>'
+            ]
+        })
+    });
+</script>
 </body>
-
 </html>

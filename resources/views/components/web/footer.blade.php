@@ -1,88 +1,39 @@
-<footer class="footer p-t-85">
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-12 mb-5 pb-3">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 20px;">
-                    <h2 class="section-heading__title">{{__('捐助机构')}}</h2>
+<footer>
+    <section class="bg-footer border-b-[17px] border-[#e4c6c6]">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-end pt-[120px] pb-[76px]">
+                <div class="flex gap-x-[68px]">
+                    <div>
+                        <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('主办机构')}}</div>
+                        <div class="flex gap-x-[24px]">
+                            <div><img class="h-[80px]" src="{{web_resource_url('assets/img/organization/organization-01.png')}}" alt=""></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('专业合作伙伴')}}</div>
+                        <div class="flex gap-x-[24px]">
+                            <div><img class="h-[80px]" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA"></div>
+                            <div><img class="h-[80px]" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('捐助机构')}}</div>
+                        <div class="flex gap-x-[24px]">
+                            <div><img class="h-[80px]" src="{{web_resource_url('assets/img/organization/organization-02.png')}}" alt=""></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img src="{{web_resource_url('assets/img/organization/organization-02.png')}}" class="logo" alt="">
-                </div>
-            </div>
-            <div class="col-12 mb-5 pb-3">
-                <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 20px;">
-                    <h2 class="section-heading__title">{{__('主办机构')}}</h2>
-                </div>
-                <div class="w-100 d-flex mb-3 mb-md-0">
-                    <img src="{{web_resource_url('assets/img/organization/organization-01.png')}}" class="logo" alt="" style="margin: 5px 0">
+                <div class="text-[#736357]">
+                    <div class="font-medium">{{__('版权所有', ['date'=>date('Y')])}}</div>
+                    <ul class="flex items-center fon-ar-mt font-medium">
+                        <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
+                        <li class="mx-2">|</li>
+                        <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="section-heading section-heading-1 section-heading-1--small text-left" style="margin-bottom: 20px;">
-            <h2 class="section-heading__title">{{__('专业合作伙伴')}}</h2>
-        </div>
-        <div class="w-100 d-flex" style="margin-bottom: 80px;">
-            <div class="mr-5" style="height: 110px;">
-                <img class="h-100" src="{{web_resource_url('assets/img/partner/PECERA.png')}}" alt="PECERA">
-            </div>
-            <div class="ml-5" style="height: 110px;">
-                <img class="h-100" src="{{web_resource_url('assets/img/partner/CUHK.png')}}" alt="CUHK">
-            </div>
-        </div>
-    </div>
+    </section>
 </footer>
 
-<section class="section copyright">
-    <div class="container">
-        <div class="text-center p-3">
-            <div class="copyright__text d-flex align-items-center justify-content-center " style="font-size: 14px;">
-                {{__('版权所有', ['date'=>date('Y')])}}
-                <span class="mx-2">|</span>
-                <ul class="d-flex align-items-center justify-content-center footer-link">
-                    <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>
-                    <li class="mx-2">|</li>
-                    <li><a href="{{route('page', ['page' => 'privacy-policy.html'])}}">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <p class="copyright__text" style="font-size: 12px;">Powered by Arrogate Maker Limited.</p>
-        </div>
-    </div>
-</section>
-
-<div id="to-top">
-    <a href="#">
-        <img src="{{web_resource_url('assets/web/images/icon/to-top.png')}}" alt="To Top">
-    </a>
-</div>
-
-<style>
-    .footer .section-heading__title {
-        font-size: 24px;
-    }
-
-    .footer img.logo {
-        height: 80px;
-    }
-
-    .footer-link {
-        list-style-type: none;
-    }
-
-    .footer-link li {
-        padding: 0 4px;
-    }
-
-    .footer-link a {
-        color: #666;
-    }
-
-    @media (max-width: 776px) {
-        .copyright__text {
-            display: block !important;
-        }
-
-        .copyright__text span {
-            display: none !important;
-        }
-    }
-</style>
+{{--<x-web.v1.demo/>--}}

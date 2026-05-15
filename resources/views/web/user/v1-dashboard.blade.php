@@ -25,20 +25,20 @@
                 <x-web.user.breadcrumb title="{{__('仪表板')}}"/>
 
                 @if($last_quiz)
-                    <div class="card bg-light quiz-ans-card j-user-box">
-                        <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg1.svg')}}" class="quiz-ans-bg1" alt="img">
-                        <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg2.svg')}}" class="quiz-ans-bg2" alt="img">
-                        <div class="card-body">
-                            <div class="grid grid-cols-12 items-center">
+                    <div class="relative mb-6 overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white shadow-[0_4px_24px_rgba(212,212,212,0.2)]">
+                        <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg1.svg')}}" class="pointer-events-none absolute left-0 top-0 h-full w-auto opacity-20" alt="img">
+                        <img src="{{web_resource_url('assets/admin/img/shapes/withdraw-bg2.svg')}}" class="pointer-events-none absolute right-0 top-0 h-full w-auto opacity-20" alt="img">
+                        <div class="relative z-10 p-6">
+                            <div class="grid grid-cols-12 items-center gap-4">
                                 <div class="md:col-span-8">
                                     <div>
-                                        <h6 class="mb-1">{{__('测验')}} : {{$last_quiz->title}} </h6>
-                                        <p>{{__('已回答')}} : {{$last_quiz->answered}}/{{$last_quiz->total_questions}}</p>
+                                        <h6 class="mb-1 text-base font-semibold text-slate-900">{{__('测验')}} : {{$last_quiz->title}} </h6>
+                                        <p class="text-sm text-slate-600">{{__('已回答')}} : {{$last_quiz->answered}}/{{$last_quiz->total_questions}}</p>
                                     </div>
                                 </div>
                                 <div class="md:col-span-4">
-                                    <div class="text-end">
-                                        <a href="{{$last_quiz->url}}" class="btn btn-primary rounded-pill">
+                                    <div class="text-right md:text-end">
+                                        <a href="{{$last_quiz->url}}" class="inline-flex items-center justify-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
                                             {{__('继续测验')}}
                                         </a>
                                     </div>
@@ -48,42 +48,36 @@
                     </div>
                 @endif
 
-                <div class="grid grid-cols-12 gap-x-6 mb-6">
+                <div class="mb-6 grid grid-cols-12 gap-6">
                     <div class="md:col-span-6 xl:col-span-4">
-                        <div class="card j-user-box">
-                            <div class="card-body">
-                                <div class="flex items-center">
-                                    <span class="icon-box bg-primary-transparent me-2 2xl:me-3 flex-shrink-0 text-4xl">📚</span>
-                                    <div>
-                                        <span class="block">{{__('我的课程')}}</span>
-                                        <h4 class="text-2xl font-bold mt-1">{{$start_course}}</h4>
-                                    </div>
+                        <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
+                            <div class="flex items-center gap-3">
+                                <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(13,110,253,0.12)] text-4xl">📚</span>
+                                <div>
+                                    <span class="block text-sm text-slate-600">{{__('我的课程')}}</span>
+                                    <h4 class="mt-1 text-2xl font-bold text-slate-900">{{$start_course}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="md:col-span-6 xl:col-span-4">
-                        <div class="card j-user-box">
-                            <div class="card-body">
-                                <div class="flex items-center">
-                                    <span class="icon-box bg-secondary-transparent me-2 2xl:me-3 flex-shrink-0 text-4xl">📖</span>
-                                    <div>
-                                        <span class="block">{{__('待完成课程')}}</span>
-                                        <h4 class="text-2xl font-bold mt-1">{{$complete_course}}</h4>
-                                    </div>
+                        <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
+                            <div class="flex items-center gap-3">
+                                <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(108,117,125,0.12)] text-4xl">📖</span>
+                                <div>
+                                    <span class="block text-sm text-slate-600">{{__('待完成课程')}}</span>
+                                    <h4 class="mt-1 text-2xl font-bold text-slate-900">{{$complete_course}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="md:col-span-6 xl:col-span-4">
-                        <div class="card j-user-box">
-                            <div class="card-body">
-                                <div class="flex items-center">
-                                    <span class="icon-box bg-success-transparent me-2 2xl:me-3 flex-shrink-0 text-4xl">🏅</span>
-                                    <div>
-                                        <span class="block">{{__('我的证书')}}</span>
-                                        <h4 class="text-2xl font-bold mt-1">{{$complete_quizzes}}</h4>
-                                    </div>
+                        <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
+                            <div class="flex items-center gap-3">
+                                <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(25,135,84,0.12)] text-4xl">🏅</span>
+                                <div>
+                                    <span class="block text-sm text-slate-600">{{__('我的证书')}}</span>
+                                    <h4 class="mt-1 text-2xl font-bold text-slate-900">{{$complete_quizzes}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -91,24 +85,24 @@
                 </div>
 
                 @if(!empty($courses))
-                    <h5 class="mb-3 text-lg font-bold">{{__('近期观看')}}</h5>
-                    <div class="grid grid-cols-12">
+                    <h5 class="mb-3 text-lg font-bold text-slate-900">{{__('近期观看')}}</h5>
+                    <div class="grid grid-cols-12 gap-6">
                         @foreach($courses as $item)
-                            <div class="xl:col-span-4 md:col-span-6">
-                                <div class="course-item-two course-item mx-0 j-user-box">
-                                    <div class="course-img">
+                            <div class="md:col-span-6 xl:col-span-4">
+                                <div class="overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
+                                    <div class="mb-6 overflow-hidden rounded-xl max-h-[200px]">
                                         <a href="{{$item->url}}">
-                                            <img src="{{$item->course->thumbnail??''}}" alt="img" class="img-fluid">
+                                            <img src="{{$item->course->thumbnail??''}}" alt="img" class="h-full w-full object-cover">
                                         </a>
                                     </div>
-                                    <div class="course-content">
-                                        <h6 class="title mb-2">
-                                            <a href="{{$item->url}}">{{$item->course->title??''}}</a>
+                                    <div>
+                                        <h6 class="mb-3 line-clamp-2 text-lg font-bold text-slate-900">
+                                            <a href="{{$item->url}}" class="transition hover:text-slate-700">{{$item->course->title??''}}</a>
                                         </h6>
                                         <div class="flex items-center justify-center">
-                                            <a href="{{$item->url}}" class="btn btn-dark btn-sm d-inline-flex items-center">
+                                            <a href="{{$item->url}}" class="inline-flex items-center rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-slate-800">
                                                 {{__('进入课程')}}
-                                                <i class="fa-solid fa-chevron-right ms-1"></i>
+                                                <i class="fa-solid fa-chevron-right ml-1"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -118,17 +112,16 @@
                     </div>
                 @endif
 
-                <div class="grid grid-cols-12 mt-10">
+                <div class="mt-10 grid grid-cols-12">
                     <div class="col-span-12">
-                        <div class="card mb-0 j-user-box">
-                            <div class="card-body">
-                                <h5 class="mb-3 text-lg font-bold border-b-1 border-[#e7e7e7] pb-3">{{__('最新测验记录')}}</h5>
+                        <div class="mb-0 rounded-2xl border border-[#e7e7e7] bg-white shadow-[0_4px_24px_rgba(212,212,212,0.2)]">
+                            <div class="p-5">
+                                <h5 class="mb-3 border-b border-[#e7e7e7] pb-3 text-lg font-bold text-slate-900">{{__('最新测验记录')}}</h5>
                                 @foreach($quizzes as $quiz)
-                                    <div
-                                        class="flex items-center flex-wrap justify-between mb-3">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="text-base mb-1 font-semibold truncate">{{$quiz->title}}</div>
-                                            <div class="flex items-center text-[#6d6d6d]">
+                                    <div class="mb-3 flex flex-wrap items-center justify-between gap-4">
+                                        <div class="min-w-0 flex-1">
+                                            <div class="mb-1 truncate text-base font-semibold text-slate-900">{{$quiz->title}}</div>
+                                            <div class="flex items-center text-sm text-[#6d6d6d]">
                                                 <p>{{__('已回答')}} : {{$quiz->answered}}/{{$quiz->total_questions}}</p>
                                             </div>
                                         </div>
@@ -151,140 +144,3 @@
 <x-web.v1.footer/>
 </body>
 </html>
-
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=ZCOOL+XiaoWei&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
-<style>
-
-    :root {
-        --coral: #FF6B6B;
-        --peach: #FFB347;
-        --mint: #5ECFA6;
-        --sky: #4FC3F7;
-        --lavender: #B39DDB;
-        --cream: #FFF8F0;
-        --deep: #1A2744;
-        --mid: #2E4080;
-        --white: #fff;
-        --dark: #000;
-        --black: #000;
-        --light: #f8f8f8;
-        --gray-100: #e7e7e7;
-        --gray-200: #d1d1d1;
-        --gray-300: #b0b0b0;
-        --gray-400: #888888;
-        --gray-500: #6d6d6d;
-        --gray-600: #5d5d5d;
-        --gray-700: #4f4f4f;
-        --gray-800: #3d3d3d;
-        --gray-900: #191919;
-        --light-100: #fefefe;
-        --light-200: #fcfcfd;
-        --light-300: #fbfbfd;
-        --light-400: #f9fafc;
-        --light-500: #f8fafb;
-        --light-600: #f7f9fb;
-        --light-700: #f6f8fa;
-        --light-800: #f5f7fa;
-        --light-900: #f4f6f9;
-    }
-
-
-    .icon-box {
-        width: 56px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-    }
-
-
-    .course-item {
-        padding: 20px;
-        border: 1px solid var(--gray-100);
-        box-shadow: 0px 4px 4px 0px rgba(212, 212, 212, 0.2);
-        border-radius: 10px;
-        -webkit-transition: all 0.5s ease;
-        -ms-transition: all 0.5s ease;
-        transition: all 0.5s ease;
-    }
-
-    .course-item .course-img {
-        margin-bottom: 24px;
-        position: relative;
-    }
-
-    .course-item .course-img img {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .course-item:hover {
-        border: 1px solid rgba(57, 44, 125, 0.3);
-    }
-
-    .course-item .course-content {
-        padding: 0;
-    }
-
-    .course-item.course-item-two {
-        background: var(--white);
-        margin-bottom: 24px;
-    }
-
-    .course-item.course-item-two .course-img {
-        border-radius: 10px;
-        overflow: hidden;
-        transition: all 1.5s;
-        max-height: 200px;
-    }
-
-    .course-item.course-item-two .course-content .title {
-        font-size: 18px;
-        font-weight: 700;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    @media (max-width: 991.98px) {
-        .course-item.course-item-two .course-content .title {
-            font-size: 16px;
-        }
-    }
-
-    .btn {
-        border-radius: 1.5rem;
-        padding: 0.4rem 0.85rem;
-        font-size: 14px;
-        transition: all 0.5s;
-        font-weight: 500;
-    }
-
-    .btn:focus {
-        box-shadow: none !important;
-    }
-
-    .btn:hover {
-        transition: all 0.5s;
-    }
-
-    .btn.btn-sm {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-    }
-
-    .btn.btn-dark {
-        background: var(--gray-900) !important;
-        border-color: var(--gray-900) !important;
-        box-shadow: none;
-        color: var(--white);
-    }
-
-    .btn.btn-dark:hover {
-        background: #252a30 !important;
-    }
-</style>

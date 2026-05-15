@@ -26,7 +26,7 @@ class WebV1Middleware
 
         $navs[] = [
             'title' => __('關於計劃'),
-            'url' => route('v1-page', ['page' => 'about-us.html']),
+            'url' => '',
             'icon' => web_resource_url('assets/web/images/v1/about-us.svg'),
             'active' => false,
             'has_children' => false,

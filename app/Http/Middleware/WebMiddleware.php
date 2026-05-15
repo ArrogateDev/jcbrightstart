@@ -38,33 +38,71 @@ class WebMiddleware
                 return to_route('home');
             }
 
-            $url = $request->url();
-
             $navs[] = [
-                'title' => __('首页'),
-                'url' => route('index.html'),
-                'active' => $url === route('index.html'),
+                'title' => __('關於計劃'),
+                'url' => route('about-us.html'),
+                'icon' => web_resource_url('assets/web/images/v1/about-us.svg'),
+                'active' => false,
+                'has_children' => false,
                 'children' => []
             ];
 
             $navs[] = [
-                'title' => __('HOME2_TITLE'),
-                'url' => route('index.html') . '#plan',
-                'active' => $url === route('index.html') . '#plan',
+                'title' => __('最新消息'),
+                'url' => '',
+                'icon' => web_resource_url('assets/web/images/v1/last-news.svg'),
+                'active' => false,
+                'has_children' => false,
+                'children' => []
+            ];
+
+            $resource_category = ResourceCategory::query()
+                ->where('pid', 0)
+                ->select('id', 'title')
+                ->get();
+
+            $resource_children = [];
+            foreach ($resource_category as $item) {
+                if ($item->title === '知識庫') continue;
+                $resource_children[] = [
+                    'title' => $item->title,
+                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
+                    'children' => []
+                ];
+            }
+            $resource_children[] = [
+                'title' => __('影片分享'),
+                'url' => route('resource.more.html', ['type' => 1]),
                 'children' => []
             ];
 
             $navs[] = [
-                'title' => __('计划消息'),
-                'url' => route('news.html'),
-                'active' => str_contains($url, '/latest-news'),
-                'children' => []
+                'title' => __('專業學習社群'),
+                'url' => '',
+                'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
+                'active' => false,
+                'has_children' => !empty($resource_children),
+                'children' => $resource_children
             ];
 
+            $resource = $resource_category->firstWhere('title', '知識庫');
+            if ($resource) {
+                $navs[] = [
+                    'title' => $resource->title,
+                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $resource->id]),
+                    'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
+                    'active' => false,
+                    'has_children' => false,
+                    'children' => []
+                ];
+            }
+
             $navs[] = [
-                'title' => __('香港0-3岁婴幼儿服务资讯'),
-                'url' => route('maps.html'),
-                'active' => str_contains($url, '/maps'),
+                'title' => __('幼兒服務資訊'),
+                'url' => '',
+                'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
+                'active' => false,
+                'has_children' => true,
                 'children' => [
                     [
                         'title' => __('地图'),
@@ -79,38 +117,15 @@ class WebMiddleware
                 ]
             ];
 
-            $resource_category = ResourceCategory::query()
-                ->where('pid', 0)
-                ->select('id', 'title')
-                ->get();
-
-            $resource_children = [];
-            foreach ($resource_category as $item) {
-                $resource_children[] = [
-                    'title' => $item->title,
-                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
-                    'children' => []
-                ];
-            }
-            $resource_children[] = [
-                'title' => __('影片分享'),
-                'url' => route('resource.more.html', ['type' => 1]),
+            $navs[] = [
+                'title' => __('聯絡我們'),
+                'url' => '',
+                'icon' => web_resource_url('assets/web/images/v1/contact-us.svg'),
+                'active' => false,
+                'has_children' => false,
                 'children' => []
             ];
 
-            $navs[] = [
-                'title' => __('专业学习社群'),
-                'url' => route('resource.html'),
-                'active' => str_contains($url, '/resource-kit'),
-                'children' => $resource_children
-            ];
-
-            $navs[] = [
-                'title' => __('联系我们'),
-                'active' => $url === route('page', ['page' => 'contact-us.html']),
-                'url' => route('page', ['page' => 'contact-us.html']),
-                'children' => []
-            ];
 
             $user_menus[] = [
                 'title' => __('主菜单'),
@@ -169,8 +184,11 @@ class WebMiddleware
             $avatar_menus = array_merge(...array_column($user_menus, 'children'));
             $avatar_menus = array_filter($avatar_menus, fn($item) => $item['active'] !== 'logout');
 
-            View::share('user', $user);
             View::share('navs', $navs);
+
+            $user = $request->user();
+
+            View::share('user', $user);
 
             View::share('avatar_menus', $avatar_menus);
             View::share('user_menus', $user_menus);

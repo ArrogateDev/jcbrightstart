@@ -1,0 +1,291 @@
+/* ───────────────────────────────────── PROFILE ───────────────────────────────────── */
+.profile-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    padding: 2rem 2.5rem;
+    background: linear-gradient(135deg, #2E4080 0%, #1A3A7A 45%, #0D2255 100%);
+    box-shadow: 0 12px 48px rgba(26, 39, 68, .35);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(79, 195, 247, .12);
+    pointer-events: none;
+}
+
+.profile-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: 20%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(94, 207, 166, .1);
+    pointer-events: none;
+}
+
+.profile-dots {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    opacity: .07;
+    background-image: radial-gradient(circle, #fff 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    pointer-events: none;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    animation: fadeSlideUp .6s ease both;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    border: 3px solid rgba(255, 255, 255, .3);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .2);
+}
+
+.online-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #5ECFA6;
+    border: 3px solid #1A3A7A;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(94, 207, 166, .6)
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(94, 207, 166, 0)
+    }
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-greeting {
+    font-size: .8rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .55);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .25rem;
+}
+
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    line-height: 1.1;
+}
+
+.edit-btn {
+    background: rgba(255, 255, 255, .15);
+    border: none;
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: .85rem;
+    color: rgba(255, 255, 255, .7);
+    transition: background .2s;
+}
+
+.edit-btn:hover {
+    background: rgba(255, 255, 255, .25);
+}
+
+.profile-role {
+    font-size: .85rem;
+    color: rgba(255, 255, 255, .6);
+    margin-top: .3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.role-badge {
+    background: rgba(94, 207, 166, .25);
+    border: 1px solid rgba(94, 207, 166, .4);
+    border-radius: 999px;
+    padding: .15rem .7rem;
+    font-size: .72rem;
+    font-weight: 800;
+    color: #5ECFA6;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+/* ───────────────────────────────────── SIDEBAR ───────────────────────────────────── */
+.sidebar {
+    flex: 0 0 200px;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, .9);
+    border-radius: 24px;
+    padding: 1.5rem 1.2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+}
+
+.sidebar-title {
+    font-size: .72rem;
+    font-weight: 800;
+    color: #A0AEC0;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .65rem .8rem;
+    border-radius: 14px;
+    margin-bottom: .25rem;
+    font-weight: 700;
+    font-size: .88rem;
+    color: #4A5568;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.sidebar-item:hover {
+    background: rgba(79, 195, 247, .1);
+    color: var(--sky);
+}
+
+.sidebar-item.active {
+    background: linear-gradient(135deg, rgba(255, 107, 107, .12), rgba(255, 179, 71, .12));
+    color: #ff6b6b;
+}
+
+.sidebar-item .s-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* ───────────────────────────────────── BREADCRUMB ───────────────────────────────────── */
+.breadcrumb {
+    font-size: 1.2rem;
+    color: #A0AEC0;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb span {
+    color: #CBD5E0;
+}
+
+
+.j-user-box {
+    background: rgba(255, 255, 255, .85) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1.5px solid rgba(255, 255, 255, .9) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07) !important;
+}
+
+.settings-nav li a {
+    position: relative;
+}
+
+.settings-nav li a:after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background: var(--gray-100);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.settings-nav li a.active:after {
+    opacity: 1;
+    background: #ff4667;
+}
+
+.arrow-next {
+    width: 24px;
+    height: 24px;
+    background: #888888;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.pagination .page-link {
+    width: 32px;
+    height: 32px;
+    background-color: #f8f8f8;
+    border-radius: 50px !important;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    color: var(--gray-700);
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: normal;
+}
+
+.pagination .page-link:hover {
+    background-color: #ff4667;
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff4667;
+    color: white;
+}

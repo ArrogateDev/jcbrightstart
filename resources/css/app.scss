@@ -130,12 +130,20 @@
     background-repeat: repeat-x;
 }
 
+//.line-bg {
+//    background: linear-gradient(#f7d197, #f7d197) no-repeat;
+//    background-size: 100% 10px;
+//    background-position: 0 16px;
+//}
 .line-bg {
+    display: inline;
     background: linear-gradient(#f7d197, #f7d197) no-repeat;
     background-size: 100% 10px;
     background-position: 0 16px;
+    line-height: 1.6;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
-
 .fon-ar-mt {
     font-family: ArialRoundedMT, serif;
 }

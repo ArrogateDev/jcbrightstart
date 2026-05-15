@@ -1,13 +1,13 @@
 @props([
     'user' => null
 ])
-<div class="profile-banner mb-5">
+<div class="profile-banner mb-12">
     <div class="profile-card">
         <div class="profile-dots"></div>
 
         <div class="profile-avatar-wrap">
             <div class="profile-avatar">
-                <img src="{{$user->avatar}}" alt="{{$user->full_name}}">
+                <img class=" rounded-full" src="{{$user->avatar}}" alt="{{$user->full_name}}">
             </div>
             <div class="online-dot"></div>
         </div>
