@@ -1,6 +1,5 @@
+@config "../../tailwind.config.js";
 @import "tailwindcss";
-
-@plugin "daisyui";
 
 @font-face {
     font-family: 'MYuenHK';
@@ -45,7 +44,7 @@
 }
 
 * {
-    font-family: MYuenHK, serif;
+    font-family: 'MYuenHK', serif;
 }
 
 .bg-top {
@@ -112,14 +111,6 @@
         top: 6px;
         z-index: -10;
     }
-}
-
-.writing-mode-v-rl {
-    writing-mode: vertical-rl;
-}
-
-.writing-mode-s-rl {
-    writing-mode: sideways-rl;
 }
 
 .divider-line {

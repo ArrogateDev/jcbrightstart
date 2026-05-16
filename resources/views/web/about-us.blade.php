@@ -21,7 +21,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="pt-[60px] about-us-icon-bg-01">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+            <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <p class="mb-[20px]">
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。</p>
 
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="py-[60px] about-us-icon-bg-02">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+            <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <p class="mb-[20px]">
                     「讓嬰幼兒自生命的初始，享有最優質的教育與照顧服務，邁向豐盛的未來！」這就是本計劃的初心。我們致力於將優質嬰幼兒照顧及教育理念推廣至全港育有零至三歲孩子的家庭及社區，全面促進嬰幼兒發展與健康成長的優質環境。</p>
 
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="py-[60px] about-us-icon-bg-03">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[470px] max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+            <div class="max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
                     <p class="text-[25px] text-[#998675]">提升幼兒老師的專業能力與專業形象</p>
@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="py-[60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -119,8 +119,8 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[35px]">
-                <div class="flex justify-center gap-[74px]">
+            <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[35px]">
+                <div class="block lg:flex justify-center gap-[74px]">
                     @foreach($institutions as $institution)
                         <div>
                             <div @class(['text-[20px]', 'invisible' => $loop->index !== 0])>（按筆劃排列）</div>
@@ -136,7 +136,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="py-[60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -148,9 +148,9 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="w-[1000px] max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
-                <div class="flex gap-x-[50px] mt-[50px]">
-                    <img class="origin-bottom -rotate-4" src="{{web_resource_url('assets/web/images/v1/about-us/professional-development.png')}}" alt="">
+            <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
+                <div class="block lg:flex gap-x-[50px] mt-[50px]">
+                    <img class="origin-bottom mb-4 lg:mb-0 lg:-rotate-4" src="{{web_resource_url('assets/web/images/v1/about-us/professional-development.png')}}" alt="">
                     <div>
                         <div class="mb-[20px] flex align-center gap-x-2">
                             <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-01.svg')}}" alt="知識迴廊">

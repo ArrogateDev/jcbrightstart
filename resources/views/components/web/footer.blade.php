@@ -1,8 +1,8 @@
 <footer>
     <section class="bg-footer border-b-[17px] border-[#e4c6c6]">
-        <div class="container mx-auto">
-            <div class="flex justify-between items-end pt-[120px] pb-[76px]">
-                <div class="flex gap-x-[68px]">
+        <div class="container mx-auto p-5 lg:p-0">
+            <div class="flex flex-col 2xl:flex-row justify-between items-start 2xl:items-end pt-[120px] pb-[76px] gap-y-10 2xl:gap-y-0">
+                <div class="flex flex-col 2xl:flex-row gap-y-10 2xl:gap-y-0 2xl:gap-x-[68px]">
                     <div>
                         <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('主办机构')}}</div>
                         <div class="flex gap-x-[24px]">

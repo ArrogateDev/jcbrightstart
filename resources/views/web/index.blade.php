@@ -25,22 +25,22 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto">
-        <div class="flex py-[60px] gap-x-12">
+    <div class="container mx-auto p-5 lg:p-0">
+        <div class="block lg:flex py-8 lg:py-[60px] gap-x-12">
             <div class="flex-none">
-                <div class="flex flex-col items-end">
+                <div class="flex flex-col lg:items-end">
                     <div>
                         <div class="flex items-center gap-x-2.5">
                             <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/last-news.png')}}" alt="{{__('计划消息')}}">
                             <div class="text-[31px] text-[#998675] font-bold">{{__('计划消息')}}</div>
                         </div>
                     </div>
-                    <div class="more-box mt-6 bg-[#e0d5c7]">
+                    <a href="{{route('news.html')}}" class="more-box mt-6 bg-[#e0d5c7]">
                         <div class="more !bg-[#43c8d5] font-bold">
                             {{__('了解更多')}}>>
                         </div>
                         <div class="shadow bg-[#dbd8d2]"></div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="grow h-[280px] overflow-auto customize-scrollbar">
@@ -49,7 +49,7 @@
                         <div class="flex-none">
                             {{$item->date}}
                         </div>
-                        <div class="grow truncate">
+                        <div class="grow line-clamp-1">
                             {{$item->title}}
                         </div>
                     </a>
@@ -60,16 +60,18 @@
 </section>
 
 <section class="bg-02">
-    <div class="container mx-auto">
-        <div class="flex justify-center py-[60px] gap-x-14">
+    <div class="container mx-auto p-5 lg:p-0">
+        <div class="block lg:flex justify-center py-8 lg:py-[60px] gap-x-14">
             <div class="flex flex-col items-center gap-y-[15px]">
-                <div class="writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">{{__('關於計劃')}}</div>
+                <div class="lg:writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">
+                    {{__('關於計劃')}}
+                </div>
             </div>
             <div class="relative">
                 <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
                     教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
                 </div>
-                <div class="max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
+                <div class="w-full xl:max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。
                 </div>
                 <div class="flex justify-end">
@@ -80,7 +82,7 @@
                         <div class="shadow"></div>
                     </a>
                 </div>
-                <div class="absolute top-[-80px] right-[-248px] w-[328px]">
+                <div class="absolute top-0 lg:top-[-80px] right-0 xl:right-[-248px] w-[328px]">
                     <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="{{__('關於計劃')}}">
                 </div>
             </div>
@@ -89,7 +91,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto">
+    <div class="container mx-auto p-5 lg:p-0">
         <div class="py-[60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
@@ -101,7 +103,7 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="grid grid-cols-3 gap-[74px] mt-[80px]">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-[74px] mt-[80px]">
                 <div class="relative sway-box">
                     <div class="rounded-[8px]">
                         <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/professional-learning-community.jpg')}}" alt="">
@@ -124,7 +126,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute top-[-60px] right-[-30px] w-[160px]">
+                    <div class="absolute top-[-60px] right-0 xl:right-[-30px] w-[160px]">
                         <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_02.png')}}" alt="">
                     </div>
                 </div>
@@ -150,7 +152,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute top-[-80px] right-[-30px] w-[120px]">
+                    <div class="absolute top-[-80px] right-0 xl:right-[-30px] w-[120px]">
                         <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
                     </div>
                 </div>
@@ -176,7 +178,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute top-[-50px] right-[-30px] w-[160px]">
+                    <div class="absolute top-[-50px] right-0 xl:right-[-30px] w-[160px]">
                         <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
                     </div>
                 </div>

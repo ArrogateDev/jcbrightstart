@@ -1,11 +1,12 @@
 <header id="header">
     <section class="bg-top w-full fixed top-0 z-999">
         <div class="container mx-auto">
-            <div class="flex justify-between pt-[45px] pb-[42px]">
-                <a href="{{route('index.html')}}">
+            <div class="flex items-center justify-between pt-[45px] pb-[42px] gap-x-4">
+                <a href="{{route('index.html')}}" class="shrink-0">
                     <img class="w-[185px] h-[81px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project">
                 </a>
-                <div class="flex items-center gap-x-[33px]">
+
+                <div class="hidden 2xl:flex items-center gap-x-[33px]">
                     @if(!empty($navs))
                         <nav>
                             <ul class="flex gap-x-[35px]">
@@ -82,6 +83,70 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="drawer drawer-end 2xl:hidden w-auto">
+                    <input id="header-drawer" type="checkbox" class="drawer-toggle"/>
+                    <div class="drawer-content flex items-center">
+                        <label for="header-drawer" class="btn btn-ghost btn-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#998675]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="drawer-side z-[999]">
+                        <label for="header-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+                        <aside class="menu min-h-full w-80 bg-[#fffaf5] text-[#998675] p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[22px] font-bold">{{__('Menu')}}</span>
+                                <label for="header-drawer" class="btn btn-ghost btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#998675]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </label>
+                            </div>
+
+                            @if(!empty($navs))
+                                <ul class="space-y-3">
+                                    @foreach($navs as $nav)
+                                        <li class="rounded-2xl border border-[#e6ddd2] bg-white/70 shadow-sm overflow-hidden">
+                                            @if($nav['has_children'])
+                                                <details class="group">
+                                                    <summary
+                                                        class="flex cursor-pointer list-none items-center justify-between gap-x-3 px-4 py-3 text-[18px] text-[#998675] font-bold [&::-webkit-details-marker]:hidden">
+                                                        <span class="flex items-center gap-x-3">
+                                                            <img class="h-[18px]" src="{{$nav['icon']}}" alt="{{$nav['title']}}">
+                                                            <span>{{$nav['title']}}</span>
+                                                        </span>
+                                                    </summary>
+                                                    <div class="border-t border-[#f0e6dc] bg-[#fffaf5]">
+                                                        <ul class="p-3 space-y-2">
+                                                            @foreach($nav['children'] as $child)
+                                                                <li>
+                                                                    <a class="flex items-center gap-x-2 rounded-xl px-3 py-2 text-[16px] text-[#998675] font-bold hover:bg-[#f7eee6]"
+                                                                       href="{{$child['url']}}" target="{{$child['target']??'_self'}}">
+                                                                        <img class="w-[16px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$child['title']}}">
+                                                                        <span>{{$child['title']}}</span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </details>
+                                            @else
+                                                <a href="{{$nav['url']}}" class="flex items-center justify-between gap-x-3 px-4 py-3 text-[18px] text-[#998675] font-bold">
+                                                    <span class="flex items-center gap-x-3">
+                                                        <img class="h-[18px]" src="{{$nav['icon']}}" alt="{{$nav['title']}}">
+                                                        <span>{{$nav['title']}}</span>
+                                                    </span>
+                                                </a>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </aside>
                     </div>
                 </div>
             </div>
