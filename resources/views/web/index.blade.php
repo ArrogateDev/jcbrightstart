@@ -62,13 +62,13 @@
 <section class="bg-02">
     <div class="container mx-auto p-5 lg:p-0">
         <div class="block lg:flex justify-center py-8 lg:py-[60px] gap-x-14">
-            <div class="flex flex-col items-center gap-y-[15px]">
+            <div class="flex flex-col items-start lg:items-center gap-y-[15px]">
                 <div class="lg:writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">
                     {{__('關於計劃')}}
                 </div>
             </div>
             <div class="relative">
-                <div class="text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
+                <div class="text-[31px] lg:text-[45px] text-[#998675] leading-[76px] underline decoration-dotted underline-offset-[16px] font-medium">
                     教顧實踐專業啟導，<br/>致力提升教顧者專業能力。
                 </div>
                 <div class="w-full xl:max-w-[645px] mt-[40px] text-[19px] text-[#736357] font-medium leading-[44px]">
@@ -82,7 +82,7 @@
                         <div class="shadow"></div>
                     </a>
                 </div>
-                <div class="absolute top-0 lg:top-[-80px] right-0 xl:right-[-248px] w-[328px]">
+                <div class="absolute top-[-80px] right-0 xl:right-[-248px] w-[150px] md:w-[328px]">
                     <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="{{__('關於計劃')}}">
                 </div>
             </div>
