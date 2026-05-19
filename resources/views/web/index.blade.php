@@ -25,7 +25,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 lg:p-0">
+    <div class="container mx-auto p-5 md:p-10">
         <div class="block lg:flex py-8 lg:py-[60px] gap-x-12">
             <div class="flex-none">
                 <div class="flex flex-col lg:items-end">
@@ -60,7 +60,7 @@
 </section>
 
 <section class="bg-02">
-    <div class="container mx-auto p-5 lg:p-0">
+    <div class="container mx-auto p-5 md:p-10">
         <div class="block lg:flex justify-center py-8 lg:py-[60px] gap-x-14">
             <div class="flex flex-col items-start lg:items-center gap-y-[15px]">
                 <div class="lg:writing-mode-v-rl bg-[#ef857d] rounded-[8px] px-[15px] py-[2px] text-white text-[31px] font-bold">
@@ -91,7 +91,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 lg:p-0">
+    <div class="container mx-auto p-5 md:p-10">
         <div class="py-[60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>

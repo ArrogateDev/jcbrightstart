@@ -38,7 +38,7 @@
                     賽馬會幼兒「喜步」計劃獲香港賽馬會慈善信託基金繼續撥款捐助，於2025年展開為期4年的第二階段。計劃涵蓋全港約八成為初生至3歲嬰幼兒提供服務的幼兒中心，惠及15間參與計劃的幼兒中心、其他幼稚園暨幼兒中心、各大社會服務單位，以及相關家長與社區人士。</p>
 
                 <p class="mb-[20px]">
-                    本計劃由耀中幼教學院主辦，並聯同太平洋區幼兒教育研究學會（香港）及香港中文大學作為專業夥伴。透過跨專業領域協作，為參與計劃的幼兒中心提供教顧實踐的專業啟導，致力提升教顧者專業能力，同時推動家長教育及社區參與的支援，營造有利嬰幼兒發展的環境。</p>
+                    本計劃由耀中幼教學院主辦，並聯同太平洋區幼兒教育研究學會（香港）及香港中文大學為專業夥伴。透過跨專業領域協作，為參與計劃的幼兒中心提供教顧實踐的專業啟導，致力提升教顧者專業能力，同時推動家長教育及社區參與的支援，營造有利嬰幼兒發展的環境。</p>
 
                 <p>計劃涵蓋一系列專業發展支援項目，包括：跨專業協作與啟導、建立專業學習社群、海外專業交流、家校與社區實踐、基礎設施優化及數碼化發展平台，以促進嬰幼兒教顧服務持續優化與發展。</p>
             </div>
@@ -81,7 +81,7 @@
             <div class="max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
-                    <p class="text-[25px] text-[#998675]">提升幼兒老師的專業能力與專業形象</p>
+                    <p class="text-[25px] text-[#998675]">提升幼兒教師的專業能力與專業形象</p>
                 </div>
 
                 <div class="mb-[20px] flex items-center gap-x-2">
@@ -91,12 +91,12 @@
 
                 <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/v1/plan-03.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
-                    <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒教育及照顧服務</p>
+                    <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒照顧及教育服務</p>
                 </div>
 
                 <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-04.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
-                    <p class="text-[25px] text-[#998675]">強調兒童早期發展及教保實踐的重要性</p>
+                    <p class="text-[25px] text-[#998675]">強調兒童早期發展及教顧實踐的重要性</p>
                 </div>
 
                 <div class="flex items-center gap-x-2">
