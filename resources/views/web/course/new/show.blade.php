@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-12 gap-x-4 mb-5">
+            <div class="grid grid-cols-12 gap-4 mb-5">
                 <div class="col-span-12 md:col-span-4">
                     <div class="stat-card">
                         <div class="stat-icon-box sb-coral">

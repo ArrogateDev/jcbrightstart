@@ -1,4 +1,3 @@
-
 :root {
     --coral: #FF6B6B;
     --peach: #FFB347;
@@ -8,6 +7,14 @@
     --cream: #FFF8F0;
     --deep: #1A2744;
     --mid: #2E4080;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
 }
 
 /* ─── COURSE HERO ────────────────────────────────────────── */

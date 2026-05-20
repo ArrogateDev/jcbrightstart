@@ -53,7 +53,7 @@ class LoginController extends Controller
             throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         }
 
-        $user = User::query()->where('id', [11, 20, 21])->where('email', $email)->firstOr(function () {
+        $user = User::query()->whereIn('id', [11, 20, 21])->where('email', $email)->firstOr(function () {
             throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
 
