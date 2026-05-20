@@ -1,5 +1,5 @@
 @props(['active' => 'dashboard'])
-<div class="lg:col-span-2 hidden md:block">
+<div class="lg:col-span-2 hidden lg:block">
     <aside class="sidebar">
         @foreach($user_menus as $menu)
             <div class="sidebar-title">{{$menu['title']}}</div>
