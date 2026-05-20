@@ -17,6 +17,7 @@ class ForgotPasswordController extends Controller
 
     public function index()
     {
+        return abort(404);
         return view('web.auth.forgot-password');
     }
 
@@ -29,6 +30,7 @@ class ForgotPasswordController extends Controller
      */
     public function handleForgotPassword(Request $request)
     {
+        return abort(404);
         $user = $request->user('web');
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_forgot_password_lock:" . ($user->id ?? $ip), 30))->get())) {

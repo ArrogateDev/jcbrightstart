@@ -37,21 +37,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/index.html', [IndexController::class, 'index'])->name('index.html');
-//Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
-//Route::post('/login.html', [LoginController::class, 'handleLogin']);
-//Route::post('/google-quick-login.html', [LoginController::class, 'handleGoogleQuickLogin'])->name('google-quick-login.html');
-//Route::post('/apple-quick-login.html', [LoginController::class, 'handleAppleQuickLogin'])->name('apple-quick-login.html');
-//Route::get('/register.html', [RegisterController::class, 'index'])->name('register.html');
-//Route::post('/register.html', [RegisterController::class, 'handleRegister']);
-//Route::get('/forgot-password.html', [ForgotPasswordController::class, 'index'])->name('forgot-password.html');
-//Route::post('/forgot-password.html', [ForgotPasswordController::class, 'handleForgotPassword']);
-//Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
-//Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
-//Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
+Route::get('/login.html', [LoginController::class, 'index'])->name('login.html');
+Route::post('/login.html', [LoginController::class, 'handleLogin']);
+Route::post('/google-quick-login.html', [LoginController::class, 'handleGoogleQuickLogin'])->name('google-quick-login.html');
+Route::post('/apple-quick-login.html', [LoginController::class, 'handleAppleQuickLogin'])->name('apple-quick-login.html');
+Route::get('/register.html', [RegisterController::class, 'index'])->name('register.html');
+Route::post('/register.html', [RegisterController::class, 'handleRegister']);
+Route::get('/forgot-password.html', [ForgotPasswordController::class, 'index'])->name('forgot-password.html');
+Route::post('/forgot-password.html', [ForgotPasswordController::class, 'handleForgotPassword']);
+Route::get('/reset-password.html', [ResetPasswordController::class, 'index'])->name('reset-password.html');
+Route::post('/reset-password.html', [ResetPasswordController::class, 'handleResetPassword']);
+Route::post('get-code', [VerificationCodeController::class, 'getCode'])->name('get-code');
 
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
-//Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('message.html');
+Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('message.html');
 
 Route::get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
 

@@ -18,6 +18,7 @@ class RegisterController extends Controller
 
     public function index()
     {
+        return abort(404);
         return view('web.auth.register');
     }
 
@@ -30,6 +31,7 @@ class RegisterController extends Controller
      */
     public function handleRegister(RegisterRequest $request)
     {
+        return abort(404);
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_register_lock:$ip", 30))->get())) {
             throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);

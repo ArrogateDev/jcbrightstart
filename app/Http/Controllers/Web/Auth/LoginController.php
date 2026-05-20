@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use App\Support\AuthSession;
 
 class LoginController extends Controller
 {
@@ -54,7 +53,7 @@ class LoginController extends Controller
             throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         }
 
-        $user = User::query()->where('email', $email)->firstOr(function () {
+        $user = User::query()->where('id', [11, 20, 21])->where('email', $email)->firstOr(function () {
             throw new ApiException(__('账号或密码错误'), ResponseCode::ACCOUNT_OR_PASSWORD_ERROR);
         });
 
@@ -90,6 +89,7 @@ class LoginController extends Controller
      */
     public function handleGoogleQuickLogin(Request $request)
     {
+        return abort(404);
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
             throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
@@ -161,6 +161,7 @@ class LoginController extends Controller
      */
     public function handleAppleQuickLogin(Request $request, AppleService $apple_service)
     {
+        return abort(404);
         $ip = $request->ip();
         if (!(($lock = Cache::lock("submit_login_lock:$ip", 30))->get())) {
             throw new ApiException(__('操作频繁，请稍后再试'), ResponseCode::FREQUENTLY);
@@ -285,6 +286,7 @@ class LoginController extends Controller
      */
     protected function handleAppleQuickCreate(Request $request, string $redirect): \Illuminate\Http\JsonResponse
     {
+        return abort(404);
         $pending_token = $request->input('apple_pending_token');
         if (!$pending_token) {
             throw new ApiException(__('参数无效'), ResponseCode::PARAM_ERR);
@@ -342,6 +344,7 @@ class LoginController extends Controller
      */
     protected function handleAppleQuickBind(Request $request, string $redirect): \Illuminate\Http\JsonResponse
     {
+        return abort(404);
         $pending_token = $request->input('apple_pending_token');
         $email = $request->input('email');
         $code = $request->input('code');
