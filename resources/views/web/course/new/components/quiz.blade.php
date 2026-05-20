@@ -57,12 +57,12 @@
                     <span id="quizStatsCorrectRate">0%</span>
                 </div>
             </div>
-            <div class="w-100">
-                <div class="quiz-statistics-btn">
-                    <button class="btn btn-light w-100 p-3 mb-4 btn-review">{{__('复习答案')}}</button>
+            <div class="w-full">
+                <div class="quiz-statistics-btn m-auto">
+                    <button class="btn btn-light w-full p-3 mb-4 btn-review">{{__('复习答案')}}</button>
                 </div>
-                <div class="close-unit-btn" style="display: none;">
-                    <button class="btn btn-danger w-100 p-3 mb-4">{{__('关闭')}}</button>
+                <div class="close-unit-btn m-auto" style="display: none;">
+                    <button class="btn btn-danger w-full p-3 mb-4">{{__('关闭')}}</button>
                 </div>
             </div>
         </div>
@@ -73,60 +73,7 @@
         <button class="btn btn-primary" id="quizNextBtn" type="button" disabled>{{__('下一题')}}</button>
     </div>
 </div>
-<style>
-    .quiz-statistics {
-        margin: 10px auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
 
-    .quiz-statistics-icon {
-        height: 95px;
-        line-height: normal;
-        font-size: 5rem;
-    }
-
-    .quiz-statistics-title {
-        color: #1f2937;
-        font-weight: 700;
-        font-size: 1.875rem;
-        line-height: 2.25rem;
-    }
-
-    .quiz-statistics-progress {
-        width: 100%;
-        text-align: center;
-        background-image: linear-gradient(to right, #6366f1, #9333ea);
-        border-radius: 1rem;
-        padding: 1.5rem;
-        color: white;
-    }
-
-    .quiz-statistics-progress h1 {
-        color: white;
-        font-size: 3rem;
-        line-height: 1;
-        margin-bottom: .5rem;
-    }
-
-    .quiz-statistics-progress .progress-value {
-        opacity: .9;
-        font-size: 1.25rem;
-        line-height: 1.75rem;
-    }
-
-    .quiz-statistics-btn {
-        width: 100%;
-    }
-
-    .quiz-statistics-btn .btn {
-        width: 100%;
-        border-radius: .75rem;
-        font-weight: 700;
-    }
-</style>
 <script>
 
     // Quiz Panel Toggle
