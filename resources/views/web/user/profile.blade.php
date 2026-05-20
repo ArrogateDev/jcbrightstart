@@ -18,11 +18,11 @@
             <x-web.user.profile :user="$user"/>
         </div>
 
-        <div class="grid grid-cols-12 gap-x-12">
+        <div class="grid grid-cols-12 lg:gap-x-12">
 
             <x-web.user.sidebar active="profile"/>
 
-            <div class="lg:col-span-9">
+            <div class="col-span-12 lg:col-span-10">
 
                 <x-web.user.breadcrumb title="{{__('我的资料')}}"/>
 

@@ -7,6 +7,7 @@
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
             data-target-selector=".gallery-img"
@@ -23,11 +24,11 @@
             <x-web.user.profile :user="$user"/>
         </div>
 
-        <div class="grid grid-cols-12 gap-x-12">
+        <div class="grid grid-cols-12 lg:gap-x-12">
 
             <x-web.user.sidebar active="certificate"/>
 
-            <div class="lg:col-span-9">
+            <div class="col-span-12 lg:col-span-10">
 
                 <x-web.user.breadcrumb title="{{__('我的证书')}}"/>
 
@@ -57,7 +58,7 @@
 
         list.forEach(function (item) {
             const row = `
-                <div class="md:col-span-6">
+                <div class="col-span-12 md:col-span-6">
                     <div class="card mb-4 j-user-box">
                         <div class="card-body">
                             <div class="mb-3 flex justify-center">

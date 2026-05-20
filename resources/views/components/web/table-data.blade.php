@@ -8,7 +8,7 @@
 </style>
 
 <div class="grid grid-cols-12 items-center mt-4" id="pagination-container" style="display: none;">
-    <div class="md:col-span-4 flex items-center">
+    <div class="col-span-12 md:col-span-4 flex items-center">
         <div class="me-2">
             <select id="data-limit" class="select select-sm w-auto">
                 <option value="10">10</option>
@@ -19,7 +19,7 @@
         </div>
         <p class="pagination-text text-sm text-[#6d6d6d]" id="pagination-info">Page 1 of 1</p>
     </div>
-    <div class="md:col-span-8">
+    <div class="col-span-12 md:col-span-8">
         <ul class="pagination flex gap-x-2 justify-center md:justify-end mt-2 mt-md-0" id="pagination-links">
         </ul>
     </div>

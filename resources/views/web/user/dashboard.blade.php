@@ -23,10 +23,10 @@
             <x-web.user.profile :user="$user"/>
         </div>
 
-        <div class="grid grid-cols-12 gap-x-12">
+        <div class="grid grid-cols-12 lg:gap-x-12">
             <x-web.user.sidebar active="dashboard"/>
 
-            <div class="lg:col-span-10">
+            <div class="col-span-12 lg:col-span-10">
                 <x-web.user.breadcrumb title="{{__('仪表板')}}"/>
 
                 @if($last_quiz)
@@ -55,7 +55,7 @@
                 @endif
 
                 <div class="mb-6 grid grid-cols-12 gap-6">
-                    <div class="md:col-span-6 xl:col-span-4">
+                    <div class="col-span-12 md:col-span-6 xl:col-span-4">
                         <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
                             <div class="flex items-center gap-3">
                                 <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(13,110,253,0.12)] text-4xl">📚</span>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md:col-span-6 xl:col-span-4">
+                    <div class="col-span-12 md:col-span-6 xl:col-span-4">
                         <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
                             <div class="flex items-center gap-3">
                                 <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(108,117,125,0.12)] text-4xl">📖</span>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md:col-span-6 xl:col-span-4">
+                    <div class="col-span-12 md:col-span-6 xl:col-span-4">
                         <div class="rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
                             <div class="flex items-center gap-3">
                                 <span class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(25,135,84,0.12)] text-4xl">🏅</span>
@@ -94,7 +94,7 @@
                     <h5 class="mb-3 text-lg font-bold text-slate-900">{{__('近期观看')}}</h5>
                     <div class="grid grid-cols-12 gap-6">
                         @foreach($courses as $item)
-                            <div class="md:col-span-6 xl:col-span-4">
+                            <div class="col-span-12 md:col-span-6 xl:col-span-4">
                                 <div class="overflow-hidden rounded-2xl border border-[#e7e7e7] bg-white p-5 shadow-[0_4px_24px_rgba(212,212,212,0.2)] transition hover:border-[rgba(57,44,125,0.3)]">
                                     <div class="mb-6 overflow-hidden rounded-xl max-h-[200px]">
                                         <a href="{{$item->url}}">

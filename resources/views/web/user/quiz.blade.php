@@ -20,11 +20,11 @@
             <x-web.user.profile :user="$user"/>
         </div>
 
-        <div class="grid grid-cols-12 gap-x-12">
+        <div class="grid grid-cols-12 lg:gap-x-12">
 
             <x-web.user.sidebar active="quiz"/>
 
-            <div class="lg:col-span-9">
+            <div class="col-span-12 lg:col-span-10">
 
                 <x-web.user.breadcrumb title="{{__('我的测验')}}"/>
 
@@ -54,13 +54,13 @@
             const row = `
                 <div class="border rounded-2 p-3 mb-3 j-user-box">
                     <div class="grid grid-cols-12 items-center">
-                        <div class="md:col-span-8">
+                        <div class="col-span-8">
                             <div>
                                 <h6 class="text-base font-semibold mb-2"><a href="${item.url}">${item.title}</a></h6>
                                 Number of Questions : ${item.total_questions}
                             </div>
                         </div>
-                        <div class="md:col-span-4">
+                        <div class="col-span-4">
                             <div class="flex items-center justify-end mt-2 mt-md-0">
                                 <a href="${item.url}" class="arrow-next"><i class="fa-solid fa-arrow-right"></i><a/>
                             </div>

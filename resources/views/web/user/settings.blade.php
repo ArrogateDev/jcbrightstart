@@ -25,10 +25,10 @@
             <x-web.user.profile :user="$user"/>
         </div>
 
-        <div class="grid grid-cols-12 gap-x-12">
+        <div class="grid grid-cols-12 lg:gap-x-12">
             <x-web.user.sidebar active="settings"/>
 
-            <div class="lg:col-span-9">
+            <div class="col-span-12 lg:col-span-10">
 
                 <x-web.user.breadcrumb title="{{__('设置')}}"/>
 
@@ -53,7 +53,7 @@
                                     <p class="text-sm text-[#6d6d6d]">{{__('编辑您的个人信息')}}</p>
                                 </div>
                                 <div class="grid grid-cols-12">
-                                    <div class="md:col-span-6">
+                                    <div class="col-span-12 md:col-span-6">
                                         <fieldset class="fieldset mb-3">
                                             <legend class="fieldset-legend">
                                                 {{__('名字')}}
@@ -63,7 +63,7 @@
                                             <p class="label error-container-first-name"></p>
                                         </fieldset>
                                     </div>
-                                    <div class="md:col-span-6">
+                                    <div class="col-span-12 md:col-span-6">
                                         <fieldset class="fieldset mb-3">
                                             <legend class="fieldset-legend">
                                                 {{__('姓氏')}}
@@ -73,7 +73,7 @@
                                             <p class="label error-container-last-name"></p>
                                         </fieldset>
                                     </div>
-                                    <div class="md:col-span-6">
+                                    <div class="col-span-12 md:col-span-6">
                                         <fieldset class="fieldset mb-3">
                                             <legend class="fieldset-legend">
                                                 {{__('性别')}}
@@ -87,7 +87,7 @@
                                             <p class="label error-container-gender"></p>
                                         </fieldset>
                                     </div>
-                                    <div class="md:col-span-12">
+                                    <div class="col-span-12">
                                         <button class="btn bg-[#ff4667] rounded-full text-white" type="submit">{{__('更新资料')}}</button>
                                     </div>
                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
