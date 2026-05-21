@@ -16,7 +16,7 @@
 
 <section>
     <div class="owl-carousel">
-        @foreach([0,1,2,3,4] as $index => $banner)
+        @foreach([0] as $index => $banner)
             <div class="w-full">
                 <img class="w-full" src="{{web_resource_url('assets/web/images/v1/banner.png')}}" alt="{{$index}}">
             </div>
