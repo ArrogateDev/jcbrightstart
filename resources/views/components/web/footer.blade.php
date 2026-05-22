@@ -1,7 +1,7 @@
 <footer>
     <section class="bg-footer border-b-[17px] border-[#e4c6c6]">
         <div class="container mx-auto px-5 md:px-10">
-            <div class="flex flex-col 2xl:flex-row justify-between items-start 2xl:items-end pt-[120px] pb-[76px] gap-y-10 2xl:gap-y-0">
+            <div class="flex flex-col items-start pt-[120px] pb-[76px] gap-y-12">
                 <div class="flex flex-col 2xl:flex-row gap-y-10 2xl:gap-y-0 2xl:gap-x-[68px]">
                     <div>
                         <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('主办机构')}}</div>
@@ -24,6 +24,18 @@
                     </div>
                 </div>
                 <div class="text-[#736357]">
+                    <div class="flex gap-x-4 mb-5">
+                        <a href="https://www.facebook.com/JCBrightStartProject">
+                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
+                        </a>
+                        <a href="https://www.instagram.com/JCBrightStartProject">
+                            <img class="w-[25px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
+                        </a>
+                        <a href="https://www.facebook.com/JCBrightStartProject">
+                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
+                        </a>
+                    </div>
+
                     <div class="font-medium">{{__('版权所有', ['date'=>date('Y')])}}</div>
                     <ul class="flex items-center fon-ar-mt font-medium">
                         <li><a href="{{route('page', ['page' => 'terms-and-conditions.html'])}}">Terms & Conditions</a></li>

@@ -70,19 +70,6 @@
                                 </div>
                             @endauth
                         @endif
-                        <div class="flex items-center gap-x-3 shrink">
-                            <div class="flex justify-between gap-x-4 flex-none w-full">
-                                <a href="https://www.facebook.com/JCBrightStartProject">
-                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
-                                </a>
-                                <a href="https://www.instagram.com/JCBrightStartProject">
-                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
-                                </a>
-                                <a href="https://www.facebook.com/JCBrightStartProject">
-                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
