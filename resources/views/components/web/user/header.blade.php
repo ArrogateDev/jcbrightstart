@@ -5,54 +5,34 @@
                 <a href="{{route('index.html')}}">
                     <img class="w-[185px] h-[81px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project">
                 </a>
-                <div class="flex items-center gap-x-[33px]">
+                <div class="hidden lg:flex items-center gap-x-[33px]">
                     <div class="flex flex-col gap-y-3">
                         @auth
-                            <button type="button" class="flex items-center gap-x-2 text-[19px] text-[#998675] font-bold" onclick="user_menu_modal.showModal()">
-                                <div class="w-10 h-10 bg-white rounded-full overflow-hidden shrink-0">
-                                    <img src="{{$user->avatar}}" alt="Img" class="w-full h-full object-cover rounded-full">
-                                </div>
-                                <h6 class="whitespace-nowrap">{{$user->full_name}}</h6>
-                            </button>
-
-                            <dialog id="user_menu_modal" class="modal">
-                                <div class="modal-box w-11/12 max-w-md rounded-2xl bg-white p-0 shadow-2xl">
-                                    <form method="dialog">
-                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3" aria-label="{{__('关闭')}}">✕</button>
-                                    </form>
-
-                                    <div class="p-6 pt-10">
-                                        <div class="mb-6 flex items-center gap-x-3">
-                                            <div class="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white">
-                                                <img src="{{$user->avatar}}" alt="Img" class="h-full w-full object-cover rounded-full">
-                                            </div>
-                                            <div>
-                                                <h6 class="text-[19px] font-bold text-[#998675]">{{$user->full_name}}</h6>
-                                            </div>
-                                        </div>
-
-                                        <ul class="menu gap-2 p-0">
-                                            @foreach($avatar_menus as $menu)
-                                                <li>
-                                                    <a class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675]" href="{{$menu['url']}}" target="{{$menu['target']??'_self'}}">
-                                                        <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$menu['title']}}">
-                                                        <span>{{$menu['title']}}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                            <li class="mt-2 border-t border-base-300 pt-2">
-                                                <a href="#" class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675] logout">
-                                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{__('退出登录')}}">
-                                                    <span>{{__('退出登录')}}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
+                            <div class="dropdown dropdown-hover">
+                                <button type="button" class="flex items-center gap-x-2 text-[19px] text-[#998675] font-bold">
+                                    <div class="w-10 h-10 bg-white rounded-full overflow-hidden shrink-0">
+                                        <img src="{{$user->avatar}}" alt="Img" class="w-full h-full object-cover rounded-full">
                                     </div>
-                                </div>
-                                <form method="dialog" class="modal-backdrop">
-                                    <button aria-label="{{__('关闭')}}">close</button>
-                                </form>
-                            </dialog>
+                                    <h6 class="whitespace-nowrap">{{$user->full_name}}</h6>
+                                </button>
+
+                                <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-4 shadow-sm">
+                                    @foreach($avatar_menus as $menu)
+                                        <li>
+                                            <a class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675]" href="{{$menu['url']}}" target="{{$menu['target']??'_self'}}">
+                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$menu['title']}}">
+                                                <span>{{$menu['title']}}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    <li class="mt-2 border-t border-base-300 pt-2">
+                                        <a href="#" class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675] logout">
+                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{__('退出登录')}}">
+                                            <span>{{__('退出登录')}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         @else
                             <div class="bg-[#43c8d5] px-[45px] rounded-lg">
                                 <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
@@ -74,6 +54,50 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="drawer drawer-end lg:hidden w-auto">
+                    <input id="header-drawer" type="checkbox" class="drawer-toggle"/>
+                    <div class="drawer-content flex items-center">
+                        <label for="header-drawer" class="btn btn-ghost btn-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#998675]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="drawer-side z-[999]">
+                        <label for="header-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+                        <aside class="menu min-h-full w-80 bg-[#fffaf5] text-[#998675] p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[22px] font-bold">{{__('Menu')}}</span>
+                                <label for="header-drawer" class="btn btn-ghost btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#998675]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </label>
+                            </div>
+
+                            <ul class="space-y-3">
+                                @foreach($avatar_menus as $menu)
+                                    <li class="rounded-2xl border border-[#e6ddd2] bg-white/70 shadow-sm overflow-hidden">
+                                        <a href="{{$menu['url']}}" class="flex items-center justify-between gap-x-3 px-4 py-3 text-[18px] text-[#998675] font-bold">
+                                            <span class="flex items-center gap-x-3">
+                                                <span class="s-icon">{{$menu['icon']}}</span>
+                                                <span>{{$menu['title']}}</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                                <li class="rounded-2xl border border-[#e6ddd2] bg-white/70 shadow-sm overflow-hidden logout">
+                                    <a href="javascript:void(0);" class="flex items-center justify-between gap-x-3 px-4 py-3 text-[18px] text-[#998675] font-bold">
+                                        <span class="flex items-center gap-x-3">
+                                            <span class="s-icon">👋</span>
+                                            <span>{{__('退出登录')}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </aside>
                     </div>
                 </div>
             </div>
