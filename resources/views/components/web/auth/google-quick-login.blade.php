@@ -1,8 +1,8 @@
 @props(['type' => 'signin'])
 
-<div href="javascript:void(0);" id="google-quick-login-btn" class="apple-quick-login">
+<div href="javascript:void(0);" id="google-quick-login-btn" class="flex items-center border-1 border-[#999] rounded-full p-[8px_42px]">
     <img src="{{web_resource_url('assets/admin/img/icons/google.svg')}}" alt="img">
-    <div class="flex-grow-1">{{__('使用 Google 账号',['type'=>$type==='signin'? __('登录') : __('注册')])}}</div>
+    <div class="text-[10px] text-[#999999]">{{__('使用 Google 账号',['type'=>$type==='signin'? __('登录') : __('注册')])}}</div>
 </div>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>

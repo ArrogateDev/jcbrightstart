@@ -1,99 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<x-web.auth.head/>
-
-<script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+    <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+    <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
+</head>
 <body>
-
-<div class="main-wrapper">
-    <div class="login-content">
-        <div class="row">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="login-banner vh-100">
-                    <img src="{{web_resource_url('assets/img/login-bg.jpg')}}" class="img-fluid" alt="Logo">
-                </div>
-            </div>
-
-            <div class="col-lg-6 login-wrap-bg">
-                <div class="login-wrapper">
-                    <div class="container loginbox p-0">
-                        <div class="w-100">
-                            <div class="d-flex align-items-center justify-content-between login-header mb-3">
-                                <a href="{{route('index.html')}}">
-                                    <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
-                                </a>
-                            </div>
-                            <h4 class="mt-4 mb-3">{{__('赛马会')}}<span>{{__('幼儿“喜步”计划')}}</span></h4>
-                            <h1 class="fs-32 fw-bold topic px-md-5">{{__('登录')}}</h1>
-                            <form id="form" class="mb-3 pb-3 px-md-5" novalidate="novalidate">
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">
-                                        {{__('电子邮件')}}
-                                        <span class="text-danger ms-1">*</span>
-                                        <span id="error-container-email"></span>
-                                    </label>
-                                    <div class="position-relative">
-                                        <input id="email" type="email" name="email" class="form-control form-control-lg">
-                                        <span><i class="isax isax-sms input-icon text-gray-7 fs-14"></i></span>
-                                    </div>
-                                </div>
-                                <div class="mb-3 position-relative">
-                                    <label class="form-label">
-                                        {{__('密码')}}
-                                        <span class="text-danger">*</span>
-                                        <span id="error-container-password"></span>
-                                    </label>
-                                    <div class="position-relative" id="passwordInput">
-                                        <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
-                                        <span class="isax toggle-passwords isax-eye-slash fs-14"></span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <div class="remember-me d-flex align-items-center">
-                                        <input class="form-check-input" type="checkbox" name="remember_me" id="remember-me">
-                                        <label class="form-check-label ms-2" for="remember-me">
-                                            {{__('记住密码')}}
-                                        </label>
-                                    </div>
-                                    <div class="">
-                                        <a href="{{route('forgot-password.html')}}" class="link-2">
-                                            {{__('忘记密码？')}}
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="d-grid">
-                                    <button class="btn btn-secondary btn-lg" type="submit">{{__('登录')}} <i
-                                                class="isax isax-arrow-right-3 ms-1"></i></button>
-                                </div>
-                                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            </form>
-
-                            <div class="d-flex align-items-center justify-content-center or fs-14 mb-3">
-                                {{__('或')}}
-                            </div>
-
-                            <div class="row m-0 mb-1">
-                                <div class="col-12 col-md-6 mb-2 mb-md-0">
-                                    <x-web.auth.google-quick-login type="signin"/>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <x-web.auth.apple-quick-login type="signin"/>
-                                </div>
-                            </div>
-
-                            <div class="fs-14 fw-normal d-flex align-items-center justify-content-center">
-                                {{__('你没有账户吗？')}}<a href="{{route('register.html')}}" class="link-2 ms-1"> {{__('注册')}}</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <x-auth-organization/>
-
-                </div>
+<div class="w-full h-screen auth-page flex justify-center items-center">
+    <div class="w-[593px] max-w-full flex flex-col items-center form-bg p-[45px] rounded-md shadow-xl">
+        <div>
+            <div>
+                <img class="w-[129px] h-[57px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="">
             </div>
         </div>
+        <div class="w-full flex justify-center items-center gap-1 text-[19px] text-[#998675] mt-[21px] px-[48px]">
+            <div class="solid-line"></div>
+            <div>賽馬會幼兒「喜步」計劃</div>
+            <div class="solid-line"></div>
+        </div>
+        <div class="text-[33px] text-[#534741] mt-[15px]">登入</div>
+        <form class="w-full" id="form" novalidate="novalidate">
+            <fieldset class="fieldset w-full mt-[15px] px-[48px]">
+                <label for="email" class="label text-[12px] text-[#998675]">Email</label>
+                <input id="email" type="email" name="email" class="input w-full h-[46px]" placeholder="Email"/>
+                <span id="error-container-email"></span>
+
+                <label for="password" class="label text-[12px] text-[#998675] mt-[14px]">Password</label>
+                <input id="password" type="password" name="password" class="input w-full h-[46px]" placeholder="Password"/>
+                <span id="error-container-password"></span>
+
+                <div class="w-full flex justify-between mt-[14px]">
+                    <label class="label text-[10px] text-[#998675]">
+                        <input type="checkbox" checked="checked" class="checkbox"/>
+                        記住密碼?
+                    </label>
+                    <a class="text-[10px] text-[#EC6D74]" href="">忘記密碼？</a>
+                </div>
+
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <button class="btn mt-[25px] bg-[#ee87b4] rounded-full text-[17px] text-white">登入 ></button>
+            </fieldset>
+        </form>
+
+        <div class="w-full flex justify-center items-center gap-1 text-[12px] text-[#998675] my-[22px] px-[48px]">
+            <div class="solid-line"></div>
+            <div>或</div>
+            <div class="solid-line"></div>
+        </div>
+
+        <div class="flex gap-[32px] mt-[22px]">
+            <x-web.auth.google-quick-login type="signin"/>
+            <x-web.auth.apple-quick-login type="signin"/>
+        </div>
+        <div class="text-[10px] text-[#998675] flex justify-center items-center mt-[18px] mb-[20px]">
+            {{__('你没有账户吗？')}}<a href="{{route('register.html')}}" class="text-[#EC6D74]"> {{__('注册')}}</a>
+        </div>
+
+        <x-web.partner/>
     </div>
 </div>
 

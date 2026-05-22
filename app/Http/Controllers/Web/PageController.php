@@ -11,16 +11,13 @@ class PageController extends Controller
     public function index($page)
     {
         $pages = [
-            'test.html',
-            'terms-and-conditions.html',
-            'privacy-policy.html',
+//            'terms-and-conditions.html',
+//            'privacy-policy.html',
 //            'professional-development.html',
-            'contact-us.html',
-            'test001.html',
+            'contact-us.html'
         ];
 
-        $view = 'web.under-construction';
-//        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.index';
+        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.under-construction';
 
         return view($view);
     }

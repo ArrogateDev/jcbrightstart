@@ -161,6 +161,13 @@
         background-position-x: 85%;
         background-position-y: 136px;
     }
+
+    .contact-us-bg {
+        background-image: url("../assets/images/about-us/icon-01.png"), url("../assets/images/about-us/icon-01.png");
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 109px, 120px;
+    }
 }
 
 @keyframes swingLR {
@@ -184,4 +191,22 @@
 .sway-box:hover img.motion {
     animation: swingLR 1.2s ease-in-out infinite;
     transform-origin: center center;
+}
+
+.auth-page {
+    background-image: url("../assets/images/auth/bg.jpg"), url("../assets/images/auth/bg-repeat.png");
+    background-repeat: no-repeat, repeat-y;
+    background-size: contain, 100%;
+
+    .form-bg {
+        background: #f2f2f2cc;
+    }
+}
+
+.solid-line {
+    flex: 1;
+    height: 1px;
+    background-image: radial-gradient(circle, #998675 10px, transparent 2px);
+    background-size: 20px 100%;
+    background-repeat: repeat-x;
 }
