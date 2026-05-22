@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="w-full h-screen auth-page flex justify-center items-center">
-    <div class="w-[593px] max-w-full flex flex-col items-center form-bg p-[45px] rounded-md shadow-xl">
+    <div class="w-[593px] max-w-full flex flex-col items-center form-bg p-2 md:p-[45px] rounded-md shadow-xl">
         <div>
             <div>
                 <img class="w-[129px] h-[57px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="">
@@ -31,13 +31,13 @@
         </div>
         <div class="text-[33px] text-[#534741] mt-[15px]">登入</div>
         <form class="w-full" id="form" novalidate="novalidate">
-            <fieldset class="fieldset w-full mt-[15px] px-[48px]">
+            <fieldset class="fieldset w-full mt-[15px] md:px-[48px]">
                 <label for="email" class="label text-[12px] text-[#998675]">Email</label>
-                <input id="email" type="email" name="email" class="input w-full h-[46px]" placeholder="Email"/>
+                <input id="email" type="email" name="email" class="input w-full h-[46px] rounded-md" placeholder="Email"/>
                 <span id="error-container-email"></span>
 
                 <label for="password" class="label text-[12px] text-[#998675] mt-[14px]">Password</label>
-                <input id="password" type="password" name="password" class="input w-full h-[46px]" placeholder="Password"/>
+                <input id="password" type="password" name="password" class="input w-full h-[46px] rounded-md" placeholder="Password"/>
                 <span id="error-container-password"></span>
 
                 <div class="w-full flex justify-between mt-[14px]">
@@ -59,7 +59,7 @@
             <div class="solid-line"></div>
         </div>
 
-        <div class="flex gap-[32px] mt-[22px]">
+        <div class="flex flex-col md:flex-row gap-[32px] mt-[22px]">
             <x-web.auth.google-quick-login type="signin"/>
             <x-web.auth.apple-quick-login type="signin"/>
         </div>
