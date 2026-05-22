@@ -1,38 +1,16 @@
+<div id="youtube-player"></div>
 <script>
     $(function () {
-        const $modal = $('#learn-box');
-        let currentUnit = null;
-        let currentChapter = null;
-        let playStartTime = null;
+        let $loading = $('#play-loading');
         let youtubePlayer = null;
         let playPositionTimer = null;
-        let isPlaying = false;
+        let currentUnit = null;
+        let currentChapter = null;
         let currentStartTime = 0;
-        let status = 0;
 
-        function playVideo(unit, position = 0) {
-            clearVideo()
-            currentUnit = unit.id
-            currentChapter = unit.chapter_id
-            // 开始加载新内容时显示 Loading
-            $('#play-loading').removeClass('d-none').addClass('d-flex')
-            
-            if (unit.type === 0 && unit.video_url) {
-                $modal.removeClass('modal-pdf');
-                let videoId = unit.video_id;
-                if (videoId) {
-                    $('#play-content').html('<div id="youtube-player"></div>');
-                    initYouTubePlayer(videoId, position);
-                } else {
-                    $('#play-content').html('<div class="alert alert-danger text-center">{{__("视频链接格式错误")}}</div>');
-                }
-            } else {
-                $modal.removeClass('modal-pdf');
-                $('#play-content').html('<div class="alert alert-warning text-center">{{__("该单元暂无内容")}}</div>');
-                $('#play-loading').removeClass('d-flex').addClass('d-none')
-            }
-        }
-
+        /**
+         * 初始化 YouTube 播放器
+         */
         function initYouTubePlayer(videoId, startTime = 0) {
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 const tag = document.createElement('script');
@@ -48,8 +26,10 @@
             }
         }
 
+        /**
+         * 创建 YouTube 播放器实例
+         */
         function createYouTubePlayer(videoId, startTime = 0) {
-            currentStartTime = startTime;
             const playerVars = {
                 'playsinline': 1,
                 'modestbranding': 1,
@@ -79,74 +59,70 @@
             });
         }
 
+        /**
+         * 播放器就绪回调
+         */
         function onPlayerReady(event) {
+            $loading.removeClass('d-flex').addClass('d-none');
+
+            // 如果有起始时间，定位到该位置
             if (currentStartTime > 0) {
                 event.target.seekTo(currentStartTime, true);
             }
-            $('#play-loading').removeClass('d-flex').addClass('d-none')
         }
 
+        /**
+         * 播放器状态变化回调
+         */
         function onPlayerStateChange(event) {
             const state = event.data;
 
             if (state === YT.PlayerState.PLAYING) {
-                isPlaying = true;
+                // 开始播放，记录播放行为
                 if (currentUnit && currentChapter) {
-                    // 使用主文件的公用函数
                     if (typeof window.recordPlayStart === 'function') {
                         window.recordPlayStart(currentChapter, currentUnit);
                     }
                 }
-
                 startPlayPositionTracking();
             } else if (state === YT.PlayerState.PAUSED) {
-                isPlaying = false;
-                if (currentUnit && currentChapter) {
-                    // 使用主文件的公用函数
-                    if (typeof window.recordPlayStart === 'function') {
-                        window.recordPlayStart(currentChapter, currentUnit);
-                    }
-                }
+                // 暂停时保存播放进度
                 updatePlayPosition();
             } else if (state === YT.PlayerState.ENDED) {
-                isPlaying = false;
+                // 播放结束，记录完成
                 if (currentUnit && currentChapter) {
-                    // 使用主文件的公用函数
                     if (typeof window.recordPlayEnd === 'function') {
                         const currentTime = event.target.getCurrentTime();
                         window.recordPlayEnd(currentChapter, currentUnit, Math.floor(currentTime));
                     }
                 }
                 stopPlayPositionTracking();
-            } else if (state === YT.PlayerState.BUFFERING) {
-                isPlaying = false;
             }
         }
 
+        /**
+         * 播放器错误回调
+         */
         function onPlayerError(event) {
-            let errorMessage = "未知错误";
-            switch (event.data) {
-                case 2:
-                    errorMessage = "视频 ID 无效";
-                    break;
-                case 5:
-                    errorMessage = "HTML5 播放器错误";
-                    break;
-                case 100:
-                    errorMessage = "视频不存在或已被删除";
-                    break;
-                case 101:
-                case 150:
-                    errorMessage = "视频嵌入权限受限";
-                    break;
-                case 153:
-                    errorMessage = "播放器配置错误";
-                    break;
-            }
+            const errorMessages = {
+                2: "视频 ID 无效",
+                5: "HTML5 播放器错误",
+                100: "视频不存在或已被删除",
+                101: "视频嵌入权限受限",
+                150: "视频嵌入权限受限",
+                153: "播放器配置错误"
+            };
+
+            const errorMessage = errorMessages[event.data] || "未知错误";
             console.error('YouTube 错误:', errorMessage);
+
             $('#play-content').html(`<div class="alert alert-danger text-center">{{__("播放错误")}}: ${errorMessage}</div>`);
+            $loading.removeClass('d-flex').addClass('d-none');
         }
 
+        /**
+         * 开始跟踪播放位置
+         */
         function startPlayPositionTracking() {
             if (playPositionTimer) {
                 clearInterval(playPositionTimer);
@@ -156,6 +132,9 @@
             }, 5000);
         }
 
+        /**
+         * 停止跟踪播放位置
+         */
         function stopPlayPositionTracking() {
             if (playPositionTimer) {
                 clearInterval(playPositionTimer);
@@ -163,12 +142,14 @@
             }
         }
 
+        /**
+         * 更新播放位置
+         */
         function updatePlayPosition() {
             if (youtubePlayer && currentUnit && currentChapter) {
                 try {
                     const currentTime = youtubePlayer.getCurrentTime();
                     if (currentTime !== null && currentTime !== undefined) {
-                        // 使用主文件的公用函数
                         if (typeof window.savePlayRecord === 'function') {
                             window.savePlayRecord(currentChapter, currentUnit, Math.floor(currentTime));
                         }
@@ -179,6 +160,9 @@
             }
         }
 
+        /**
+         * 清理播放器
+         */
         function clearVideo() {
             if (youtubePlayer) {
                 try {
@@ -188,16 +172,33 @@
                 }
                 youtubePlayer = null;
             }
-
-            stopPlayPositionTracking()
+            stopPlayPositionTracking();
         }
 
-        // 导出函数供外部调用
-        window.playVideo = playVideo;
+        /**
+         * 播放视频
+         */
+        window.playVideo = function (unit, position = 0) {
+            clearVideo();
+            currentUnit = unit.id;
+            currentChapter = unit.chapter_id;
+            currentStartTime = position;
+            let videoId = unit.video_id;
+
+            $loading.removeClass('d-none').addClass('d-flex');
+
+            if (videoId) {
+                $('#play-content').html('<div id="youtube-player"></div>');
+                initYouTubePlayer(videoId, position);
+            } else {
+                $('#play-content').html('<div class="alert alert-danger text-center">{{__("视频链接格式错误")}}</div>');
+                $loading.removeClass('d-flex').addClass('d-none');
+            }
+        };
+
         window.clearVideo = clearVideo;
-        
-        // 暴露一些必要的变量和方法
-        window.videoGetCurrentPosition = function() {
+
+        window.videoGetCurrentPosition = function () {
             if (youtubePlayer) {
                 try {
                     return Math.floor(youtubePlayer.getCurrentTime() || 0);
@@ -207,9 +208,12 @@
             }
             return 0;
         };
-        
-        window.getVideoCurrentUnit = function() { return currentUnit; };
-        window.getVideoCurrentChapter = function() { return currentChapter; };
-        window.setVideoStatus = function(newStatus) { status = newStatus; };
-    })
+
+        window.getVideoCurrentUnit = function () {
+            return currentUnit;
+        };
+        window.getVideoCurrentChapter = function () {
+            return currentChapter;
+        };
+    });
 </script>

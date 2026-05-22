@@ -21,9 +21,9 @@
             position: relative;
             width: 100%;
             @if ($unit->type === 0)
-            aspect-ratio: 16 / 9;
+             aspect-ratio: 16 / 9;
             @endif
-            border-radius: 24px;
+             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 16px 56px rgba(26, 39, 68, .28);
             margin-bottom: 2rem;
@@ -103,11 +103,11 @@
 
                         <div id="play-content">
                             @if($unit->type === 0)
-                                @include('web.course.new.components.play-video')
+                                @include('web.course.components.play-video')
                             @elseif($unit->type === 1)
-                                @include('web.course.new.components.play-pdf')
+                                @include('web.course.components.play-pdf')
                             @elseif($unit->type === 2)
-                                @include('web.course.new.components.play-html')
+                                @include('web.course.components.play-html')
                             @endif
                         </div>
                         <div id="play-loading" class="d-flex justify-content-center align-items-center" style="height: 100%;">
@@ -138,7 +138,7 @@
 
                 <!-- Right Column (Quiz) -->
                 <div class="right-column hidden" id="rightColumn">
-                    @include('web.course.new.components.quiz')
+                    @include('web.course.components.quiz')
                 </div>
             </div>
         </div>

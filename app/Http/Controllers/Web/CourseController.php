@@ -89,8 +89,7 @@ class CourseController extends Controller
 
         $play_record = $play_records->where('status', UserCoursePlayRecord::UNFINISHED)->first() ?? null;
 
-        return view('web.course.new.show', compact('course', 'read_completed', 'completed', 'progress', 'surplus', 'play_record'));
-//        return view('web.course.show', compact('course', 'play_record'));
+        return view('web.course.show', compact('course', 'read_completed', 'completed', 'progress', 'surplus', 'play_record'));
     }
 
     public function handleUnitShow(Request $request, Course $course, CourseChapterUnit $unit)
@@ -161,7 +160,7 @@ class CourseController extends Controller
         // 获取下一单元（集合中的后一个）
         $next = $current_index !== false && $current_index < $all_units->count() - 1 ? $all_units[$current_index + 1]->id : null;
 
-        return view('web.course.new.show-unit', compact('course', 'unit', 'current_index', 'total_index', 'play_record', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
+        return view('web.course.show-unit', compact('course', 'unit', 'current_index', 'total_index', 'play_record', 'quiz', 'answered_questions', 'completed_questions', 'prev', 'next'));
     }
 
     /**
