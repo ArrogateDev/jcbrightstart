@@ -344,7 +344,6 @@
     }
 }
 
-
 .resource-kit-show-icon {
     position: relative;
     overflow: initial;
@@ -382,4 +381,8 @@
     color: #ccc;
     border-color: #ccc;
     cursor: not-allowed;
+}
+
+.map-item-0-box:after {
+    background: #fff3c3;
 }

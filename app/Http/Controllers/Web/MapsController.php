@@ -104,12 +104,22 @@ class MapsController extends Controller
             '香港幼兒中心' => [
                 'bg' => '#f8f4e5',
                 'point' => '#fce7e5',
-                'icon' => web_resource_url('assets/web/images/maps/icon-02.svg')
+                'icon' => web_resource_url('assets/web/images/maps/icon-02.svg'),
+                'iBg' => '#fffbed',
+                'iTag' => '#ffefb5',
+                'iText' => '#8c6139',
+                'iLine' => '#c7b299',
+                'iDogEar' => '#fff3c3'
             ],
             '鄰里支援幼兒照顧計劃' => [
                 'bg' => '#fce7e5',
                 'point' => '#915da3',
-                'icon' => web_resource_url('assets/web/images/maps/icon-03.svg')
+                'icon' => web_resource_url('assets/web/images/maps/icon-03.svg'),
+                'iBg' => '#f5f0f3',
+                'iTag' => '#e8e1e6',
+                'iText' => '#8c6139',
+                'iLine' => '#e7caca',
+                'iDogEar' => '#fff3c3'
             ]
         ];
         $maps->map(function ($item) use ($colors) {
@@ -117,6 +127,10 @@ class MapsController extends Controller
             $item->bg = $color['bg'] ?? '#f8f4e5';
             $item->point = $color['point'] ?? '#fce7e5';
             $item->icon = $color['icon'] ?? web_resource_url('assets/web/images/maps/icon-01.svg');
+            $item->i_bg = $color['iBg'] ?? '#f5f0f3';
+            $item->i_tag = $color['iTag'] ?? '#e8e1e6';
+            $item->i_text = $color['iText'] ?? '#915da3';
+            $item->i_line = $color['iLine'] ?? '#e7caca';
         });
 
         return view('web.maps-list', compact('maps'));

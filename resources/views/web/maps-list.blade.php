@@ -44,13 +44,13 @@
                 </div>
 
                 <div class="bg-[#f5f5f5] rounded-b-lg p-[30px_0px_62px] md:p-[30px_37px_62px]">
-                    @foreach($maps as $map)
+                    @foreach($maps as $index => $map)
                         <div @class(['hidden'=>!$loop->first]) id="tab-{{ $map->id }}">
                             <div class="grid grid-cols-12 gap-x-0 md:gap-x-[42px] gap-y-[42px] rounded-lg">
                                 @foreach($map->locations as $location)
-                                    <div class="col-span-12 md:col-span-6 xl:col-span-4 drop-shadow-xl" data-id="{{$location->id}}">
-                                        <div class="w-full h-full bg-[#f5f0f3] p-[33px_27px_88px] relative border-b-[5px] border-[#e7caca] map-item-box">
-                                            <div class="text-[20px] text-[#915DA3] pb-[9px] border-b-[1px] border-[#dfd8e0] font-normal">{{$location->organization}}</div>
+                                    <div class="col-span-12 md:col-span-6 xl:col-span-4 drop-shadow-xl relative" data-id="{{$location->id}}">
+                                        <div class="w-full h-full p-[33px_27px_88px] border-b-[5px] map-item-box map-item-{{$index}}-box" style="background-color: {{$map->i_bg}};border-color: {{$map->i_line}};">
+                                            <div class="text-[20px] text-[#915DA3] pb-[9px] border-b-[1px] border-[#dfd8e0] font-normal" style="color: {{$map->i_text}};">{{$location->organization}}</div>
                                             <div class="w-full pt-[16px]">
                                                 @if ($location->age)
                                                     <div class="w-full flex gap-[5px] text-[17px] leading-[23px] mb-[8px]">
@@ -109,8 +109,8 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="absolute w-[89px] h-[30px] top-[-15px] bg-[#e8e1e6]"></div>
                                         </div>
+                                        <div class="absolute w-[89px] h-[30px] top-[-15px] left-0 right-0 mx-auto" style="background-color: {{$map->i_tag}};"></div>
                                     </div>
                                 @endforeach
                             </div>

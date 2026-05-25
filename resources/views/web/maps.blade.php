@@ -77,7 +77,7 @@
                     <div id="map-box" class="w-full h-full flex-1 relative">
                         <div id="map" class="w-full h-[600px] max-h-screen rounded-lg"></div>
                         <div id="map-popup" class="map-popup">
-                            <div class="w-[10px] flex-none min-h-0 bg-[#f00] rounded-l-lg"></div>
+                            <div id="map-popup-line" class="w-[10px] flex-none min-h-0 rounded-l-lg"></div>
                             <div class="shrink-0 w-full p-[10px]">
                                 <div class="flex gap-[10px] border-b-1 border-[#e6e6e6] pb-[5px]">
                                     <div class="popup-title" id="popup-title"></div>
@@ -293,6 +293,7 @@
             function showPopup(featureData, pixel) {
                 const popup = document.getElementById('map-popup');
                 const title = document.getElementById('popup-title');
+                const line = document.getElementById('map-popup-line');
                 const content = document.getElementById('popup-content');
 
                 if (!popup || !title || !content) {
@@ -353,6 +354,8 @@
                 // 先显示弹窗（但位置可能不对），以便正确计算尺寸
                 popup.style.display = 'block';
                 popup.style.visibility = 'hidden';
+
+                line.style.backgroundColor = '#' + featureData.pointColor + 'bf';
 
                 // 使用双重 requestAnimationFrame 确保 DOM 完全渲染后再计算位置
                 requestAnimationFrame(function () {
