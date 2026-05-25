@@ -244,7 +244,7 @@
             const layers = [
                 new ol.layer.Tile({
                     source: new ol.source.XYZ({
-                        url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/basemap/wgs84/{z}/{x}/{y}.png'
+                        url: 'https://mapapi.geodata.gov.hk/gs/api/v1.0.0/xyz/imagery/wgs84/{z}/{x}/{y}.png'
                     })
                 }),
                 new ol.layer.Tile({
