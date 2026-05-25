@@ -210,3 +210,91 @@
     background-size: 20px 100%;
     background-repeat: repeat-x;
 }
+
+#map-box {
+    .ol-viewport {
+        border-radius: var(--radius-lg);
+    }
+
+    .map-popup {
+        position: absolute;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        min-width: 250px;
+        max-width: 350px;
+        z-index: 1000;
+        display: none;
+        transform: translateX(-50%);
+    }
+
+    .map-popup:before {
+        content: '';
+        position: absolute;
+        top: 80%;
+        right: -28px;
+        transform: rotate(225deg);
+        border: 28px solid transparent;
+        border-top-color: white;
+        border-radius: 8px;
+    }
+
+    .popup-title {
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .popup-content {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.4;
+        padding-top: 5px;
+
+        .info:nth-child(even) {
+            background: #e6e6e6;
+            border-radius: 8px;
+        }
+
+        strong {
+            width: 70px;
+            flex: none;
+        }
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #999;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
+}
+
+.map-item-box {
+    position: relative;
+    clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        100% calc(100% - 50px),
+        calc(100% - 50px) 100%,
+        0% 100%
+    );
+
+    &:after {
+        position: absolute;
+        right: 0;
+        bottom: -5px;
+        content: '';
+        width: 50px;
+        height: 50px;
+        background: #fadbe8;
+        border-radius: 10px 0 0 0;
+    }
+}

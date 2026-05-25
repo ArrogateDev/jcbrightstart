@@ -11,7 +11,6 @@ class MapsController extends Controller
 
     public function index()
     {
-        return view('web.under-construction');
         $maps = ServiceLocationType::query()
             ->with([
                 'locations' => function ($query) {
@@ -24,6 +23,22 @@ class MapsController extends Controller
             ->orderByDesc('sort')
             ->select('id', 'title')
             ->get();
+
+        $colors = [
+            '香港幼兒中心' => [
+                'bg' => '#f8f4e5',
+                'point' => '#fce7e5',
+            ],
+            '鄰里支援幼兒照顧計劃' => [
+                'bg' => '#fce7e5',
+                'point' => '#915da3',
+            ]
+        ];
+        $maps->map(function ($item) use ($colors) {
+            $color = $colors[$item->title] ?? [];
+            $item->bg = $color['bg'] ?? '#f8f4e5';
+            $item->point = $color['point'] ?? '#fce7e5';
+        });
 
         $urls = [
             [
@@ -69,7 +84,6 @@ class MapsController extends Controller
 
     public function list()
     {
-        return view('web.under-construction');
         $maps = ServiceLocationType::query()
             ->with([
                 'locations' => function ($query) {
@@ -82,6 +96,22 @@ class MapsController extends Controller
             ->orderByDesc('sort')
             ->select('id', 'title')
             ->get();
+
+        $colors = [
+            '香港幼兒中心' => [
+                'bg' => '#f8f4e5',
+                'point' => '#fce7e5',
+            ],
+            '鄰里支援幼兒照顧計劃' => [
+                'bg' => '#fce7e5',
+                'point' => '#915da3',
+            ]
+        ];
+        $maps->map(function ($item) use ($colors) {
+            $color = $colors[$item->title] ?? [];
+            $item->bg = $color['bg'] ?? '#f8f4e5';
+            $item->point = $color['point'] ?? '#fce7e5';
+        });
 
         return view('web.maps-list', compact('maps'));
     }

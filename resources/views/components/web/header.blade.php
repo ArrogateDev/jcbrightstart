@@ -6,7 +6,7 @@
                     <img class="w-[185px] h-[81px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project">
                 </a>
 
-                <div class="hidden 2xl:flex items-center gap-x-[33px]">
+                <div class="hidden xl:flex items-center gap-x-[33px]">
                     @if(!empty($navs))
                         <nav>
                             <ul class="flex gap-x-[35px]">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="drawer drawer-end 2xl:hidden w-auto">
+                <div class="drawer drawer-end xl:hidden w-auto">
                     <input id="header-drawer" type="checkbox" class="drawer-toggle"/>
                     <div class="drawer-content flex items-center">
                         <label for="header-drawer" class="btn btn-ghost btn-circle">

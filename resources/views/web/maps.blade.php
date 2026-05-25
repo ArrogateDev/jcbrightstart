@@ -1,377 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <link href="{{web_resource_url('assets/web/vendor/open-layers/ol.css')}}" rel="stylesheet">
+    <script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
+</head>
+<body>
+<x-web.header/>
 
-<x-web.head/>
-<style>
-    @font-face {
-        font-family: 'iconfont';  /* Project id 5094721 */
-        src: url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.woff2')}}') format('woff2'),
-        url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.woff')}}') format('woff'),
-        url('{{web_resource_url('assets/web/fonts/iconfont/iconfont.ttf')}}') format('truetype');
-    }
+<section>
+    <div class="owl-carousel">
+        <div class="w-full">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/v1/contact-us/banner.png')}}" alt="">
+        </div>
+    </div>
+</section>
 
-    .iconfont {
-        font-family: "iconfont" !important;
-        font-size: 16px;
-        font-style: normal;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        line-height: normal;
-    }
-
-    .icon-location:before {
-        content: "\e7e6";
-        color: white;
-    }
-
-    .location-lists {
-        overflow: auto;
-        flex: 1;
-        min-height: 0;
-        padding: 0 10px;
-    }
-
-    .location-item {
-        display: flex;
-        border: 1px solid #0000001a;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 8px;
-        padding: 8px;
-        border-radius: 8px;
-        cursor: pointer;
-        background: #00c8d4;
-    }
-
-    .location-item:hover, .location-item.active {
-        color: #fff;
-        background: #ff97a4;
-        border: 1px solid #ff97a41a;
-    }
-
-    .location-item:hover .location-title, .location-item.active .location-title {
-        color: #fff;
-    }
-
-    .location-title {
-        font-weight: 600;
-        font-size: 17px;
-        color: white;
-    }
-
-    .type-item {
-        font-weight: 700;
-        padding: 10px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #ffb900;
-        cursor: pointer;
-        color: white;
-    }
-
-    .type-item.collapsed .icon-expand {
-        display: inline-block;
-    }
-
-    .type-item.collapsed .icon-collapse {
-        display: none;
-    }
-
-    .type-item:not(.collapsed) {
-        border-radius: 10px 10px 0 0;
-    }
-
-    .type-item:not(.collapsed) .icon-expand {
-        display: none;
-    }
-
-    .type-item:not(.collapsed) .icon-collapse {
-        display: inline-block;
-    }
-
-    /* 折叠面板基础样式 */
-    .collapse {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-    }
-
-    /* 收起状态 */
-    .collapse:not(.show) {
-        height: 0;
-        opacity: 0;
-        transform: translateY(-10px);
-        padding: 0 0.5rem !important;
-    }
-
-    /* 展开状态 */
-    .location-lists .collapse.show {
-        border: 1px solid #ffb900;
-        border-radius: 0 0 10px 10px;
-        opacity: 1;
-        transform: translateY(0);
-        padding: 0.5rem !important;
-    }
-
-    /* 类型项动画效果 */
-    .type-item {
-        transition: all 0.25s ease;
-        position: relative;
-        z-index: 1;
-    }
-
-    .type-item:not(.collapsed) {
-        border-radius: 10px 10px 0 0;
-        box-shadow: 0 4px 15px rgba(255, 185, 0, 0.25);
-        z-index: 2;
-    }
-
-    /* 图标旋转动画 */
-    .icon-expand, .icon-collapse {
-        transition: transform 0.25s ease;
-        display: inline-block;
-    }
-
-    .type-item.collapsed .icon-expand {
-        transform: rotate(0deg);
-    }
-
-    .type-item:not(.collapsed) .icon-expand {
-        transform: rotate(180deg);
-    }
-
-    .type-item.collapsed .icon-collapse {
-        display: none;
-    }
-
-    .type-item:not(.collapsed) .icon-collapse {
-        transform: rotate(0deg);
-    }
-
-    /* 位置项淡入动画 */
-    .location-item {
-        transition: all 0.2s ease;
-        opacity: 0;
-        transform: translateX(-15px);
-    }
-
-    .collapse.show .location-item {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    /* 交错延迟动画 */
-    .collapse.show .location-item:nth-child(1) {
-        transition-delay: 0.05s;
-    }
-
-    .collapse.show .location-item:nth-child(2) {
-        transition-delay: 0.1s;
-    }
-
-    .collapse.show .location-item:nth-child(3) {
-        transition-delay: 0.15s;
-    }
-
-    .collapse.show .location-item:nth-child(4) {
-        transition-delay: 0.2s;
-    }
-
-    .collapse.show .location-item:nth-child(5) {
-        transition-delay: 0.25s;
-    }
-
-    .collapse.show .location-item:nth-child(6) {
-        transition-delay: 0.3s;
-    }
-
-    #map-box {
-        height: 800px;
-    }
-
-    .row > .col-md-3,
-    .row > .col-md-9 {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #map-location {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .map-popup {
-        position: absolute;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        padding: 15px;
-        min-width: 250px;
-        max-width: 350px;
-        z-index: 1000;
-        display: none;
-        transform: translateX(-50%);
-    }
-
-    .map-popup:before {
-        content: '';
-        position: absolute;
-        top: 99%;
-        left: 50%;
-        transform: translateX(-50%);
-        border: 10px solid transparent;
-        border-top-color: white;
-    }
-
-    .popup-title {
-        font-weight: bold;
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .popup-content {
-        font-size: 14px;
-        color: #666;
-        line-height: 1.4;
-    }
-
-    .popup-close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 18px;
-        color: #999;
-    }
-
-    .popup-close:hover {
-        color: #333;
-    }
-
-    #map-location .section-heading__title {
-        padding: 15px;
-        color: white !important;
-    }
-</style>
-
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main">
-
-        <x-web.breadcrumb title="{!! __('香港0-3岁<br />婴幼儿服务资讯') !!}"/>
-
-        <section class="section p-t-125">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 p-1" style="background: #00c8d4; background-clip: content-box; border-radius: 10px;">
-                        <div id="map-location" class="w-100">
-                            <div class="page-sidebar h-100 p-sm-b-70">
-                                <div class="widget h-100 d-flex flex-column">
-                                    <div class="section-heading section-heading-1 section-heading-1--tiny2 text-left">
-                                        <h2 class="section-heading__title">Map</h2>
-                                        <div class="m-b-25"></div>
-                                    </div>
-                                    <div class="location-lists overflow-auto" id="accordion">
-
-                                        @foreach($maps as $map)
-                                            <div class="mb-3">
-                                                <div class="type-item collapsed" id="type-{{$map->id}}" data-toggle="collapse" data-target="#collapse-type-{{$map->id}}" aria-expanded="false"
-                                                     aria-controls="collapse-type-{{$map->id}}">
-                                                    <span>{{$map->title}}</span>
-                                                    <span class="icon">
-                                                            <i class="fas fa-chevron-down icon-expand"></i>
-                                                            <i class="fas fa-chevron-up icon-collapse"></i>
-                                                        </span>
-                                                </div>
-
-                                                <div id="collapse-type-{{$map->id}}" class="collapse p-2" aria-labelledby="type-{{$map->id}}" data-parent="#accordion">
-
-                                                    @foreach($map->locations as $location)
-                                                        <div class="location-item" data-id="{{$location->id}}">
-                                                            <i class="iconfont icon-location"></i>
-                                                            <div class="ml-2">
-                                                                <h5 class="title title--black location-title">
-                                                                    {{$location->organization}}
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-
-                                        @endforeach
-
-                                        <div class="mb-3">
-                                            <div class="type-item collapsed" id="o-url" data-toggle="collapse" data-target="#collapse-o-url" aria-expanded="false"
-                                                 aria-controls="collapse-o-url">
-                                                <span>{{__('其它实用链接')}}</span>
-                                                <span class="icon">
-                                                            <i class="fas fa-chevron-down icon-expand"></i>
-                                                            <i class="fas fa-chevron-up icon-collapse"></i>
-                                                        </span>
-                                            </div>
-
-                                            <div id="collapse-o-url" class="collapse p-2" aria-labelledby="o-url" data-parent="#accordion">
-
-                                                @foreach($urls as $url)
-                                                    <a href="{{$url['url']}}" target="_blank" class="location-item">
-                                                        <i class="iconfont icon-location"></i>
-                                                        <div class="ml-2">
-                                                            <h5 class="title title--black location-title">
-                                                                {{$url['title']}}
-                                                            </h5>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </div>
+<section class="bg-01">
+    <div class="container mx-auto p-5 md:p-10">
+        <div class="py-[60px]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-end gap-x-[11px]">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="地圖">
+                        <div class="text-[31px] font-bold">地圖</div>
+                    </div>
+                </div>
+                <div class="divider-line"></div>
+            </div>
+            <div class="flex gap-[28px] bg-[#e3dfdaa6] rounded-lg p-[32px] mt-[38px]">
+                <div class="flex flex-col gap-[18px] w-[336px]">
+                    @foreach($maps as $map)
+                        <div class="collapse">
+                            <input type="checkbox" class="peer"/>
+                            <div class="collapse-title flex items-center gap-[6px]" style="background-color: {{$map->bg}};">
+                                <img class="w-[24px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="{{$map->title}}">
+                                <div class="text-[24px] text-[#998675]">{{$map->title}}</div>
+                            </div>
+                            <div class="collapse-content peer-checked:p-[18px_32px_32px] bg-[#ece9e6]">
+                                <div class="h-[484px] flex flex-col gap-[10px] overflow-y-auto">
+                                    @foreach($map->locations as $location)
+                                        <div class="location-item border-b-[1px] border-[#c7c1bb] py-[8px] cursor-pointer hover:text-[#754c24] hover:font-bold" data-id="{{$location->id}}">
+                                            {{$location->organization}}
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-9 p-1">
-                        <div id="map-box" class="w-100 position-relative">
-                            <div id="map" class="w-100 h-100"></div>
-                            <!-- 信息弹窗 -->
-                            <div id="map-popup" class="map-popup">
-                                <span class="popup-close">&times;</span>
-                                <div class="popup-title" id="popup-title"></div>
+                    @endforeach
+                    @if(!empty($urls))
+                        <div class="collapse">
+                            <input type="checkbox" class="peer"/>
+                            <div class="collapse-title flex items-center gap-[6px] bg-[#f5e9f2]">
+                                <img class="w-[24px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="{{__('其它实用链接')}}">
+                                <div class="text-[24px] text-[#998675]">{{__('其它实用链接')}}</div>
+                            </div>
+                            <div class="collapse-content peer-checked:p-[18px_32px_32px] bg-[#ece9e6]">
+                                <div class="h-[484px] flex flex-col gap-[10px] overflow-y-auto">
+                                    @foreach($urls as $url)
+                                        <a href="{{$url['url']}}" target="_blank" class="border-b-[1px] border-[#c7c1bb] py-[8px] cursor-pointer hover:text-[#754c24] hover:font-bold">
+                                            {{$url['title']}}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="grow flex">
+                    <div id="map-box" class="w-full h-full flex-1 relative">
+                        <div id="map" class="w-full h-[600px] max-h-screen rounded-lg"></div>
+                        <div id="map-popup" class="map-popup">
+                            <div class="w-[10px] flex-none min-h-0 bg-[#f00] rounded-l-lg"></div>
+                            <div class="shrink-0 w-full p-[10px]">
+                                <div class="flex gap-[10px] border-b-1 border-[#e6e6e6] pb-[5px]">
+                                    <div class="popup-title" id="popup-title"></div>
+                                    <span class="popup-close">&times;</span>
+                                </div>
                                 <div class="popup-content" id="popup-content"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
+</section>
 
-    <x-web.footer/>
-
-</div>
-
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.tools.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/jquery.themepunch.revolution.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js')}}"></script>
-<script type="text/javascript"
-        src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
-<script type="text/javascript" src="{{web_resource_url('assets/web/vendor/revolution/js/extensions/revolution.extension.parallax.min.js')}}"></script>
-
-<script type="text/javascript" src="{{web_resource_url('assets/web/js/config-revolution.min.js')}}"></script>
-
-<link href="{{web_resource_url('assets/web/vendor/open-layers/ol.css')}}" rel="stylesheet">
-<script src="{{web_resource_url('assets/web/vendor/open-layers/ol.js')}}"></script>
+<x-web.footer/>
+</body>
 
 <script>
     // 增强折叠动画交互
@@ -601,28 +324,28 @@
 
                 let popupHtml = '';
                 if (data.age) {
-                    popupHtml += `<div><strong>{{__('年龄范围')}}:</strong> ${data.age}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('年龄范围')}}</strong> <span class="grow">:${data.age}</span></div>`;
                 }
                 if (data.district) {
-                    popupHtml += `<div><strong>{{__('区域')}}:</strong> ${data.district}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('区域')}}</strong> <span class="grow">:${data.district}</span></div>`;
                 }
                 if (data.capacity) {
-                    popupHtml += `<div><strong>{{__('容量')}}:</strong> ${data.capacity}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('容量')}}</strong> <span class="grow">:${data.capacity}</span></div>`;
                 }
                 if (data.address) {
-                    popupHtml += `<div><strong>{{__('地址')}}:</strong> ${data.address}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('地址')}}</strong> <span class="grow">:${data.address}</span></div>`;
                 }
                 if (data.phone) {
-                    popupHtml += `<div><strong>{{__('电话号码')}}:</strong> ${data.phone}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('电话号码')}}</strong> <span class="grow">:${data.phone}</span></div>`;
                 }
                 if (data.email) {
-                    popupHtml += `<div><strong>{{__('电子邮件')}}:</strong> ${data.email}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('电子邮件')}}</strong> <span class="grow">:${data.email}</span></div>`;
                 }
                 if (data.webpage) {
-                    popupHtml += `<div><strong>{{__('网页')}}:</strong> <a href="${data.webpage}" target="_blank">${data.webpage}</a></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('网页')}}</strong> <a class="grow" href="${data.webpage}" target="_blank">:${data.webpage}</a></div>`;
                 }
                 if (data.service_hours || data.serviceHours) {
-                    popupHtml += `<div><strong>{{__('服务时间')}}:</strong> ${data.service_hours || data.serviceHours || ''}</div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('服务时间')}}</strong> <span class="grow">:${data.service_hours || data.serviceHours || ''}</span></div>`;
                 }
 
                 content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
@@ -659,85 +382,33 @@
                                 pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
                             }
                         }
-
-                        // 现在弹窗已显示，可以正确获取尺寸
+                        
                         const popupWidth = popup.offsetWidth;
                         const popupHeight = popup.offsetHeight;
                         const mapBoxWidth = mapBoxRect.width;
                         const mapBoxHeight = mapBoxRect.height;
 
-                        let shouldShow = false;
+                        const anchorLeft = pixel[0] + viewportOffsetX;
+                        const anchorTop = pixel[1] + viewportOffsetY;
 
-                        if (pixel && pixel.length === 2) {
-                            // 计算相对于地图容器的位置
-                            // pixel[0] 和 pixel[1] 是相对于地图视口的像素位置
-                            // 需要加上视口相对于容器的偏移量
-                            // 注意：弹窗使用了 transform: translateX(-50%)，所以 left 值应该是弹窗中心的位置
-                            const popupLeft = pixel[0] + viewportOffsetX;
-                            const popupTop = pixel[1] + viewportOffsetY;
+                        let finalLeft = anchorLeft - popupWidth / 2;
+                        let finalTop = anchorTop - popupHeight - 65;
 
-                            let finalLeft = popupLeft;
-                            let finalTop = popupTop - popupHeight - 45;
-
-                            // 确保弹窗在地图容器内
-                            if (finalLeft - popupWidth / 2 < 0) {
-                                finalLeft = popupWidth / 2 + 10;
-                            } else if (finalLeft + popupWidth / 2 > mapBoxWidth) {
-                                finalLeft = mapBoxWidth - popupWidth / 2 - 10;
-                            }
-
-                            if (finalTop < 10) {
-                                finalTop = popupTop + 30;
-                            } else if (finalTop + popupHeight > mapBoxHeight) {
-                                finalTop = mapBoxHeight - popupHeight - 10;
-                            }
-
-                            // 检查弹窗是否在地图区域内（相对于地图容器）
-                            const popupRight = finalLeft + popupWidth / 2;
-                            const popupLeftEdge = finalLeft - popupWidth / 2;
-                            const popupBottom = finalTop + popupHeight;
-                            const popupTopEdge = finalTop;
-
-                            // 检查弹窗是否与地图区域有重叠
-                            shouldShow = !(popupRight < 0 ||
-                                popupLeftEdge > mapBoxWidth ||
-                                popupBottom < 0 ||
-                                popupTopEdge > mapBoxHeight);
-
-                            if (shouldShow) {
-                                popup.style.left = finalLeft + 'px';
-                                popup.style.top = finalTop + 'px';
-                                popup.style.display = 'block';
-                                popup.style.visibility = 'visible';
-                            } else {
-                                popup.style.display = 'none';
-                                popup.style.visibility = 'visible';
-                            }
-                        } else {
-                            // 如果无法计算位置，使用地图容器中心
-                            const defaultLeft = mapBoxWidth / 2;
-                            const defaultTop = mapBoxHeight / 2 - 100;
-
-                            const popupRight = defaultLeft + popupWidth / 2;
-                            const popupLeftEdge = defaultLeft - popupWidth / 2;
-                            const popupBottom = defaultTop + popupHeight;
-                            const popupTopEdge = defaultTop;
-
-                            shouldShow = !(popupRight < 0 ||
-                                popupLeftEdge > mapBoxWidth ||
-                                popupBottom < 0 ||
-                                popupTopEdge > mapBoxHeight);
-
-                            if (shouldShow) {
-                                popup.style.left = defaultLeft + 'px';
-                                popup.style.top = defaultTop + 'px';
-                                popup.style.display = 'block';
-                                popup.style.visibility = 'visible';
-                            } else {
-                                popup.style.display = 'none';
-                                popup.style.visibility = 'visible';
-                            }
+                        if (finalLeft < 10) {
+                            finalLeft = 10;
+                        } else if (finalLeft + popupWidth > mapBoxWidth - 10) {
+                            finalLeft = mapBoxWidth - popupWidth - 10;
                         }
+
+                        if (finalTop < 10) {
+                            finalTop = anchorTop + 30;
+                        } else if (finalTop + popupHeight > mapBoxHeight) {
+                            finalTop = mapBoxHeight - popupHeight - 10;
+                        }
+                        popup.style.left = finalLeft + 'px';
+                        popup.style.top = finalTop + 'px';
+                        popup.style.display = 'flex';
+                        popup.style.visibility = 'visible';
                     });
                 });
             }
@@ -769,7 +440,7 @@
                         $location.each(function () {
                             const $item = $(this);
                             const orgId = $item.data('id');
-                            if (orgId == featureData.mapData.id) {
+                            if (orgId === featureData.mapData.id) {
                                 $item.addClass('active');
                                 const container = $item.closest('.location-lists')[0];
                                 if (container) {
@@ -893,7 +564,7 @@
             $location.click(function () {
                 const $clickedItem = $(this);
                 const orgId = $clickedItem.data('id');
-                const marker = markerData.find(m => m.id == orgId);
+                const marker = markerData.find(m => m.id === orgId);
 
                 if (marker) {
                     const source = markers.getSource();
@@ -901,7 +572,7 @@
 
                     const featureToSelect = allFeatures.find(feature => {
                         const featureData = feature.get('data');
-                        return featureData && featureData.id == orgId;
+                        return featureData && featureData.id === orgId;
                     });
 
                     if (featureToSelect) {
@@ -948,6 +619,4 @@
         }
     })
 </script>
-</body>
-
 </html>
