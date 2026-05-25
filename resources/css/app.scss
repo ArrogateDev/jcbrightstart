@@ -225,18 +225,53 @@
         max-width: 350px;
         z-index: 1000;
         display: none;
-        transform: translateX(-50%);
+        overflow: visible;
+        bottom: 55px;
+        right: 0;
+    }
+
+    .map-popup:after {
+        content: '';
+        position: absolute;
+        right: -4px;
+        width: 0;
+        height: 0;
+        border-top: 30px solid transparent;
+        border-bottom: 30px solid transparent;
+        border-left: 30px solid white;
+        pointer-events: none;
+        bottom: -30px;
+        transform: rotate(316deg);
     }
 
     .map-popup:before {
         content: '';
         position: absolute;
-        top: 80%;
-        right: -28px;
-        transform: rotate(225deg);
-        border: 28px solid transparent;
-        border-top-color: white;
-        border-radius: 8px;
+        right: -12px;
+        top: calc(50% - 1px);
+        width: 0;
+        height: 0;
+        transform: translateY(-50%) rotate(180deg);
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-left: 12px solid white;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .map-popup:before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -12px;
+        width: 0;
+        height: 0;
+        transform: translateX(-50%);
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid white;
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
+        pointer-events: none;
     }
 
     .popup-title {
@@ -250,7 +285,11 @@
         font-size: 14px;
         color: #666;
         line-height: 1.4;
-        padding-top: 5px;
+        padding: 5px 10px;
+
+        .info {
+            padding: 0 5px;
+        }
 
         .info:nth-child(even) {
             background: #e6e6e6;
@@ -264,12 +303,10 @@
     }
 
     .popup-close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 22px;
         color: #999;
+        padding: 10px;
     }
 
     .popup-close:hover {

@@ -79,7 +79,7 @@
                         <div id="map-popup" class="map-popup">
                             <div id="map-popup-line" class="w-[10px] flex-none min-h-0 rounded-l-lg"></div>
                             <div class="shrink-0 w-full p-[10px]">
-                                <div class="flex gap-[10px] border-b-1 border-[#e6e6e6] pb-[5px]">
+                                <div class="flex items-baseline gap-[10px] border-b-1 border-[#e6e6e6] pb-[5px]">
                                     <div class="popup-title" id="popup-title"></div>
                                     <span class="popup-close">&times;</span>
                                 </div>
@@ -197,7 +197,7 @@
             initMap();
         });
 
-        let selectedStyle, markers, map;
+        let selectedStyle, markers, map, popupOverlay;
 
         function initMap() {
             // 为每种颜色创建样式缓存
@@ -268,6 +268,20 @@
                 controls: []
             });
 
+            const popupElement = document.getElementById('map-popup');
+            popupOverlay = new ol.Overlay({
+                element: popupElement,
+                positioning: 'bottom-right',
+                offset: [0, -10],
+                stopEvent: true,
+                autoPan: {
+                    animation: {
+                        duration: 250
+                    }
+                }
+            });
+            map.addOverlay(popupOverlay);
+
             function updateMarkers(type) {
                 const source = markers.getSource();
                 source.clear();
@@ -290,27 +304,27 @@
                 map.render();
             }
 
-            function showPopup(featureData, pixel) {
+            function showPopup(featureData, coordinate) {
                 const popup = document.getElementById('map-popup');
                 const title = document.getElementById('popup-title');
                 const line = document.getElementById('map-popup-line');
                 const content = document.getElementById('popup-content');
 
-                if (!popup || !title || !content) {
+                if (!popup || !title || !content || !popupOverlay) {
                     console.error('弹窗元素未找到');
                     return;
                 }
 
                 let data = null;
-                let coordinates = null;
+                let coordinates = coordinate || null;
 
                 if (featureData) {
                     if (featureData.mapData) {
                         data = featureData.mapData;
-                        coordinates = featureData.coordinates;
+                        coordinates = coordinates || featureData.coordinates;
                     } else if (featureData.id !== undefined) {
                         data = featureData.mapData;
-                        coordinates = featureData.coordinates;
+                        coordinates = coordinates || featureData.coordinates;
                     } else {
                         data = featureData;
                     }
@@ -325,99 +339,42 @@
 
                 let popupHtml = '';
                 if (data.age) {
-                    popupHtml += `<div class="flex info"><strong>{{__('年龄范围')}}</strong> <span class="grow">:${data.age}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('年龄范围')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.age}</span></div>`;
                 }
                 if (data.district) {
-                    popupHtml += `<div class="flex info"><strong>{{__('区域')}}</strong> <span class="grow">:${data.district}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('区域')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.district}</span></div>`;
                 }
                 if (data.capacity) {
-                    popupHtml += `<div class="flex info"><strong>{{__('容量')}}</strong> <span class="grow">:${data.capacity}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('容量')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.capacity}</span></div>`;
                 }
                 if (data.address) {
-                    popupHtml += `<div class="flex info"><strong>{{__('地址')}}</strong> <span class="grow">:${data.address}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('地址')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.address}</span></div>`;
                 }
                 if (data.phone) {
-                    popupHtml += `<div class="flex info"><strong>{{__('电话号码')}}</strong> <span class="grow">:${data.phone}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('电话号码')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.phone}</span></div>`;
                 }
                 if (data.email) {
-                    popupHtml += `<div class="flex info"><strong>{{__('电子邮件')}}</strong> <span class="grow">:${data.email}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('电子邮件')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.email}</span></div>`;
                 }
                 if (data.webpage) {
-                    popupHtml += `<div class="flex info"><strong>{{__('网页')}}</strong> <a class="grow" href="${data.webpage}" target="_blank">:${data.webpage}</a></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('网页')}}</strong><span class="px-[2px]">:</span><a class="grow" href="${data.webpage}" target="_blank">:${data.webpage}</a></div>`;
                 }
                 if (data.service_hours || data.serviceHours) {
-                    popupHtml += `<div class="flex info"><strong>{{__('服务时间')}}</strong> <span class="grow">:${data.service_hours || data.serviceHours || ''}</span></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('服务时间')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.service_hours || data.serviceHours || ''}</span></div>`;
                 }
 
                 content.innerHTML = popupHtml || '<div>{{__('暂无详细信息')}}</div>';
+                line.style.backgroundColor = '#' + (featureData.pointColor || data.pointColor || 'ff71eb') + 'bf';
 
-                // 先显示弹窗（但位置可能不对），以便正确计算尺寸
-                popup.style.display = 'block';
-                popup.style.visibility = 'hidden';
-
-                line.style.backgroundColor = '#' + featureData.pointColor + 'bf';
-
-                // 使用双重 requestAnimationFrame 确保 DOM 完全渲染后再计算位置
-                requestAnimationFrame(function () {
-                    requestAnimationFrame(function () {
-                        const mapViewport = map.getViewport();
-                        const mapBox = document.getElementById('map-box');
-                        if (!mapBox) {
-                            console.error('地图容器未找到');
-                            popup.style.display = 'none';
-                            popup.style.visibility = 'visible';
-                            return;
-                        }
-
-                        const mapBoxRect = mapBox.getBoundingClientRect();
-                        const mapViewportRect = mapViewport.getBoundingClientRect();
-
-                        // 计算视口相对于容器的偏移量
-                        const viewportOffsetX = mapViewportRect.left - mapBoxRect.left;
-                        const viewportOffsetY = mapViewportRect.top - mapBoxRect.top;
-
-                        if (!pixel) {
-                            if (coordinates) {
-                                pixel = map.getPixelFromCoordinate(coordinates);
-                            } else if (featureData && featureData.coordinates) {
-                                pixel = map.getPixelFromCoordinate(featureData.coordinates);
-                            } else if (data.longitude !== undefined && data.latitude !== undefined) {
-                                pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
-                            }
-                        }
-
-                        const popupWidth = popup.offsetWidth;
-                        const popupHeight = popup.offsetHeight;
-                        const mapBoxWidth = mapBoxRect.width;
-                        const mapBoxHeight = mapBoxRect.height;
-
-                        const anchorLeft = pixel[0] + viewportOffsetX;
-                        const anchorTop = pixel[1] + viewportOffsetY;
-
-                        let finalLeft = anchorLeft - popupWidth / 2;
-                        let finalTop = anchorTop - popupHeight - 65;
-
-                        if (finalLeft < 10) {
-                            finalLeft = 10;
-                        } else if (finalLeft + popupWidth > mapBoxWidth - 10) {
-                            finalLeft = mapBoxWidth - popupWidth - 10;
-                        }
-
-                        if (finalTop < 10) {
-                            finalTop = anchorTop + 30;
-                        } else if (finalTop + popupHeight > mapBoxHeight) {
-                            finalTop = mapBoxHeight - popupHeight - 10;
-                        }
-                        popup.style.left = finalLeft + 'px';
-                        popup.style.top = finalTop + 'px';
-                        popup.style.display = 'flex';
-                        popup.style.visibility = 'visible';
-                    });
-                });
+                popup.style.display = 'flex';
+                popupOverlay.setPosition(coordinates || null);
             }
 
             function hidePopup() {
                 const popup = document.getElementById('map-popup');
+                if (popupOverlay) {
+                    popupOverlay.setPosition(undefined);
+                }
                 popup.style.display = 'none';
             }
 
@@ -508,11 +465,11 @@
                         // 动画完成后显示弹窗
                         setTimeout(function () {
                             isAnimating = false;
-                            showPopup(featureData, null);
+                            showPopup(featureData, targetCenter);
                         }, 600);
                     } else {
                         // 如果不需要动画，直接显示弹窗
-                        showPopup(featureData, e.pixel);
+                        showPopup(featureData, featureData.coordinates || e.coordinate || null);
                     }
                 } else {
                     updateMarkerSelection(null);
@@ -539,7 +496,6 @@
             let isAnimating = false;
 
             map.getView().on('change:center', function () {
-                const popup = document.getElementById('map-popup');
                 const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
 
                 // 如果正在动画中，延迟显示弹窗
@@ -550,11 +506,11 @@
                 if (activeFeature) {
                     const featureData = activeFeature.get('data');
                     setTimeout(function () {
-                        showPopup(featureData, null);
+                        showPopup(featureData, featureData.coordinates);
                     }, 100);
                 } else if (pendingPopupData) {
                     setTimeout(function () {
-                        showPopup(pendingPopupData, null);
+                        showPopup(pendingPopupData, pendingPopupData.coordinates);
                         pendingPopupData = null;
                     }, 100);
                 }
@@ -562,6 +518,13 @@
 
             map.getView().on('change:resolution', function () {
                 hidePopup();
+            });
+
+            map.on('moveend', function () {
+                const activeFeature = markers.getSource().getFeatures().find(f => f.get('selected'));
+                if (activeFeature && !isAnimating) {
+                    showPopup(activeFeature.get('data'), activeFeature.get('data').coordinates);
+                }
             });
 
             $location.click(function () {
@@ -608,12 +571,12 @@
                             // 动画完成后显示弹窗
                             setTimeout(function () {
                                 isAnimating = false;
-                                showPopup(marker, null);
+                                showPopup(marker, marker.coordinates);
                             }, 600);
                         } else {
                             // 如果不需要动画，直接显示弹窗
                             setTimeout(function () {
-                                showPopup(marker, null);
+                                showPopup(marker, marker.coordinates);
                             }, 100);
                         }
                     }
