@@ -26,13 +26,13 @@
                 <div class="text-[#736357]">
                     <div class="flex gap-x-4 mb-5">
                         <a href="https://www.facebook.com/JCBrightStartProject">
-                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
+                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/facebook.svg')}}" alt="">
                         </a>
                         <a href="https://www.instagram.com/JCBrightStartProject">
-                            <img class="w-[25px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
+                            <img class="w-[25px]" src="{{web_resource_url('assets/web/images/instagram.svg')}}" alt="">
                         </a>
                         <a href="https://www.facebook.com/JCBrightStartProject">
-                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
+                            <img class="h-[25px]" src="{{web_resource_url('assets/web/images/youtube.svg')}}" alt="">
                         </a>
                     </div>
 

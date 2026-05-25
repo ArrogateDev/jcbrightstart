@@ -64,9 +64,17 @@ Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 Route::get('/maps/list.html', [MapsController::class, 'list'])->name('maps-list.html');
 
 Route::get('/resource-kit.html', [ResourceController::class, 'index'])->name('resource.html');
-Route::get('/resource-kit/more.html', [ResourceController::class, 'more'])->name('resource.more.html');
-Route::get('/resource-kit/list.html', [ResourceController::class, 'list'])->name('resource.list.html');
-Route::get('/resource-kit/{resource}.html', [ResourceController::class, 'show'])->name('resource.show.html');
+Route::get('/resource-kit/liist.html', [ResourceController::class, 'list'])->name('resource.list.html');
+Route::get('/resource-kit/{resource}.html', [ResourceController::class, 'show'])->name('resource.show.html')->whereNumber('resource');
+
+Route::get('/resource-kit/share.html', [ResourceController::class, 'index'])->name('resource.share.html');
+Route::get('/resource-kit/share/liist.html', [ResourceController::class, 'list'])->name('resource.share.list.html');
+Route::get('/resource-kit/share/{resource}.html', [ResourceController::class, 'show'])->name('resource.share.show.html')->whereNumber('resource');;
+
+Route::get('/resource-kit/video.html', [ResourceController::class, 'index'])->name('resource.video.html');
+Route::get('/resource-kit/video/liist.html', [ResourceController::class, 'list'])->name('resource.video.list.html');
+Route::get('/resource-kit/video/{resource}.html', [ResourceController::class, 'show'])->name('resource.video.show.html')->whereNumber('resource');;
+
 
 Route::middleware(['auth', 'auth.session'])->group(function ($route) {
 

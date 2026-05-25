@@ -23,12 +23,12 @@
                 </div>
                 <div class="p-[30px]">
                     <div class="flex items-center gap-[12px] mb-[17px]">
-                        <img class="h-[32px]" src="{{web_resource_url(sprintf('assets/web/images/v1/icon_00%s.svg', $num))}}" alt="{{$news->title}}">
+                        <img class="h-[32px]" src="{{web_resource_url(sprintf('assets/web/images/icon_00%s.svg', $num))}}" alt="{{$news->title}}">
                         <div class="text-[30px] text-[#998675] font-bold line-clamp-1">{{$news->title}}</div>
                     </div>
                 </div>
                 <div @class(['absolute', 'top-[-60px]' => $num !== 1, 'top-[-30px]' => $num === 1, 'right-[-30px]', 'w-[150px]' => $num === 1, 'w-[130px]' => $num === 2, 'w-[110px]' => $num === 3])>
-                    <img class="motion" src="{{web_resource_url(sprintf('assets/web/images/v1/character_knowledge_0%s.png', $num))}}" alt="">
+                    <img class="motion" src="{{web_resource_url(sprintf('assets/web/images/character_knowledge_0%s.png', $num))}}" alt="">
                 </div>
             </div>
         </div>

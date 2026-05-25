@@ -10,6 +10,7 @@ use App\Models\Resource\ResourceCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ResourceController extends Controller
 {
@@ -21,74 +22,21 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
-        return view('web.under-construction');
-        $articles = Resource::query()
-            ->where('type', Resource::TYPE_ARTICLE)
-            ->where('status', Resource::STATUS_PUBLISHED)
-            ->orderByDesc('sort')
-            ->orderByDesc('id')
-            ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
-            ->get();
-
-        $articles->map(function ($item) {
-            $item->url = route('resource.show.html', ['resource' => $item->id]);
-        });
-        $articles->append(['category_text']);
-
-        $total_article = Resource::query()
-            ->where('type', Resource::TYPE_ARTICLE)
-            ->where('status', Resource::STATUS_PUBLISHED)
-            ->count();
-
-        $videos = Resource::query()
-            ->where('type', Resource::TYPE_VIDEO)
-            ->where('status', Resource::STATUS_PUBLISHED)
-            ->orderByDesc('sort')
-            ->orderByDesc('id')
-            ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'created_at')
-            ->get();
-
-        $videos->map(function ($item) {
-            $item->url = route('resource.show.html', ['resource' => $item->id]);
-        });
-        $videos->append(['category_text']);
-
-        $total_video = Resource::query()
-            ->where('type', Resource::TYPE_VIDEO)
-            ->where('status', Resource::STATUS_PUBLISHED)
-            ->count();
-
-        $url = $request->fullUrl();
-        $request->session()->put('resource-url', $url);
-
-        return view('web.resource.index', compact('articles', 'total_article', 'videos', 'total_video'));
-    }
-
-    /**
-     * Request $request
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function more(Request $request)
-    {
-        return view('web.under-construction');
-        $type = (int)$request->query('type');
-        $category = (int)$request->query('mod');
+        $url = $request->path();
+        $view = Str::replace(['/', '.html'], ['-', ''], $url);
 
         $categories = ResourceCategory::query()
-            ->where('pid', $category)
+            ->when($view === 'resource-kit', function ($query) {
+                $query->where('pid', 16);
+            })
+            ->when($view === 'resource-kit-share', function ($query) {
+                $query->where('pid', 14);
+            })
             ->where('status', 0)
             ->select('id', 'title')
             ->get();
 
-        $subtitle = $category > 0 ? ResourceCategory::query()->where('id', $category)->value('title') : __('视频');
-
-        $url = $request->fullUrl();
-        $request->session()->put('resource-url', $url);
-
-        return view('web.resource.more', compact('subtitle', 'categories', 'type'));
+        return view('web.resource.' . $view, compact('categories'));
     }
 
     /**
@@ -127,17 +75,22 @@ class ResourceController extends Controller
             ->paginate(12);
 
         $list->map(function ($item) {
+            $item->date = Carbon::parse($item->created_at)->format('Y.m.d');
             $item->url = route('resource.show.html', ['resource' => $item->id]);
         });
-        $list->append(['category_text']);
+        $list->append(['category_top_text', 'category_text']);
 
         $html = '';
+
+        $template = '01';
+        $mod === 16 && $template = '02';
+        $type === Resource::TYPE_VIDEO && $template = '03';
 
         $total = $list->count();
         $page = $list->currentPage();
         $data = $list->items();
         foreach ($data as $resource) {
-            $html .= view(sprintf('web.resource.item%s', $resource->type === Resource::TYPE_VIDEO ? '-video' : ''), compact('resource'))->render();
+            $html .= view(sprintf('web.resource.item-%s', $template), compact('resource'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
@@ -155,11 +108,10 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource, Request $request)
     {
-        return view('web.under-construction');
-
         $date = Carbon::parse($resource->created_at);
         $resource->month = $date->format('M');
         $resource->day = $date->format('d');
+        $resource->date = $date->format('Y.m.d');
 
         $prev = Resource::query()
             ->where('id', '<', $resource->id)
@@ -177,6 +129,10 @@ class ResourceController extends Controller
 
         $url = $request->session()->get('resource-url');
 
-        return view(sprintf('web.resource.show%s', $resource->type === Resource::TYPE_VIDEO ? '-video' : ''), compact('resource', 'prev', 'next', 'url'));
+        $view = '01';
+        $resource->category_top_id === 16 && $view = '02';
+        $resource->type === Resource::TYPE_VIDEO && $view = '03';
+
+        return view(sprintf('web.resource.show-%s', $view), compact('resource', 'prev', 'next', 'url'));
     }
 }

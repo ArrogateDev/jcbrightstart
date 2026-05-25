@@ -16,7 +16,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/v1/contact-us/banner.png')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/maps/banner.png')}}" alt="地圖">
         </div>
     </div>
 </section>
@@ -27,20 +27,20 @@
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
-                    <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="地圖">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="地圖">
                         <div class="text-[31px] font-bold">地圖</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="flex gap-[28px] bg-[#e3dfdaa6] rounded-lg p-[32px] mt-[38px]">
+            <div class="flex flex-col md:flex-row gap-[28px] bg-[#e3dfdaa6] rounded-lg p-[32px] mt-[38px]">
                 <div class="flex flex-col gap-[18px] w-[336px]">
                     @foreach($maps as $map)
                         <div class="collapse">
                             <input type="checkbox" class="peer"/>
                             <div class="collapse-title flex items-center gap-[6px]" style="background-color: {{$map->bg}};">
-                                <img class="w-[24px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="{{$map->title}}">
+                                <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->title}}">
                                 <div class="text-[24px] text-[#998675]">{{$map->title}}</div>
                             </div>
                             <div class="collapse-content peer-checked:p-[18px_32px_32px] bg-[#ece9e6]">
@@ -58,7 +58,7 @@
                         <div class="collapse">
                             <input type="checkbox" class="peer"/>
                             <div class="collapse-title flex items-center gap-[6px] bg-[#f5e9f2]">
-                                <img class="w-[24px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="{{__('其它实用链接')}}">
+                                <img class="w-[24px]" src="{{web_resource_url('assets/web/images/maps/icon-04.svg')}}" alt="{{__('其它实用链接')}}">
                                 <div class="text-[24px] text-[#998675]">{{__('其它实用链接')}}</div>
                             </div>
                             <div class="collapse-content peer-checked:p-[18px_32px_32px] bg-[#ece9e6]">
@@ -382,7 +382,7 @@
                                 pixel = map.getPixelFromCoordinate([data.longitude, data.latitude]);
                             }
                         }
-                        
+
                         const popupWidth = popup.offsetWidth;
                         const popupHeight = popup.offsetHeight;
                         const mapBoxWidth = mapBoxRect.width;

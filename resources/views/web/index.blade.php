@@ -18,7 +18,7 @@
     <div class="owl-carousel">
         @foreach([0] as $index => $banner)
             <div class="w-full">
-                <img class="w-full" src="{{web_resource_url('assets/web/images/v1/banner.png')}}" alt="{{$index}}">
+                <img class="w-full" src="{{web_resource_url('assets/web/images/banner.png')}}" alt="{{$index}}">
             </div>
         @endforeach
     </div>
@@ -31,7 +31,7 @@
                 <div class="flex flex-col lg:items-end">
                     <div>
                         <div class="flex items-center gap-x-2.5">
-                            <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/last-news.png')}}" alt="{{__('计划消息')}}">
+                            <img class="h-[30px]" src="{{web_resource_url('assets/web/images/last-news.png')}}" alt="{{__('计划消息')}}">
                             <div class="text-[31px] text-[#998675] font-bold">{{__('计划消息')}}</div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     </a>
                 </div>
                 <div class="absolute top-[-80px] right-0 xl:right-[-248px] w-[150px] md:w-[328px]">
-                    <img src="{{web_resource_url('assets/web/images/v1/character_about_01.png')}}" alt="{{__('關於計劃')}}">
+                    <img src="{{web_resource_url('assets/web/images/character_about_01.png')}}" alt="{{__('關於計劃')}}">
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="知識庫">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon_001.svg')}}" alt="知識庫">
                         <div class="text-[31px] font-bold">知識庫</div>
                     </div>
                 </div>
@@ -106,11 +106,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-[74px] mt-[80px]">
                 <div class="relative sway-box">
                     <div class="rounded-[8px]">
-                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/professional-learning-community.jpg')}}" alt="">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/professional-learning-community.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_003.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/icon_003.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">專業學習社群</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
@@ -122,21 +122,21 @@
                         <div class="mt-[25px]">
                             <a class="flex items-center gap-[8px]" href="{{route('about-us.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
-                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-60px] right-0 xl:right-[-30px] w-[160px]">
-                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_02.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/character_knowledge_02.png')}}" alt="">
                     </div>
                 </div>
                 <div class="relative sway-box">
                     <div class="rounded-[8px]">
-                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-01.jpg')}}" alt="">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/home-01.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_004.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/icon_004.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">家長學習平台</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium relative line-bg px-1.5">
@@ -148,21 +148,21 @@
                         <div class="mt-[25px]">
                             <a class="flex items-center gap-[8px]" href="{{route('about-us.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
-                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-80px] right-0 xl:right-[-30px] w-[120px]">
-                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_03.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/character_knowledge_03.png')}}" alt="">
                     </div>
                 </div>
                 <div class="relative sway-box">
                     <div class="rounded-[8px]">
-                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/v1/home-02.jpg')}}" alt="">
+                        <img class="rounded-[8px] aspect-[405/389]" src="{{web_resource_url('assets/web/images/home-02.jpg')}}" alt="">
                     </div>
                     <div class="p-[30px]">
                         <div class="flex items-center gap-[12px] mb-[17px]">
-                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/v1/icon_002.svg')}}" alt="">
+                            <img class="h-[32px]" src="{{web_resource_url('assets/web/images/icon_002.svg')}}" alt="">
                             <div class="text-[30px] text-[#998675] font-bold">幼兒服務資訊</div>
                         </div>
                         <div class="text-[18px] text-[#534741] font-medium line-bg px-1.5">
@@ -174,12 +174,12 @@
                         <div class="mt-[25px]">
                             <a class="flex items-center gap-[8px]" href="{{route('maps.html')}}">
                                 <div class="text-[22px] text-[#998675] font-bold">< 更多</div>
-                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/v1/other.png')}}" alt="">
+                                <img class="h-[24px]" src="{{web_resource_url('assets/web/images/other.png')}}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="absolute top-[-50px] right-0 xl:right-[-30px] w-[160px]">
-                        <img class="motion" src="{{web_resource_url('assets/web/images/v1/character_knowledge_01.png')}}" alt="">
+                        <img class="motion" src="{{web_resource_url('assets/web/images/character_knowledge_01.png')}}" alt="">
                     </div>
                 </div>
             </div>

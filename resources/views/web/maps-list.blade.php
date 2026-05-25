@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 <x-web.header/>
@@ -15,7 +14,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/v1/contact-us/banner.png')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/maps/banner.png')}}" alt="地圖">
         </div>
     </div>
 </section>
@@ -26,8 +25,8 @@
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
-                    <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="知識庫">
+                    <div class="flex items-center gap-x-[11px]">
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-05.svg')}}" alt="知識庫">
                         <div class="text-[31px] font-bold">列表</div>
                     </div>
                 </div>
@@ -38,7 +37,7 @@
                     @foreach($maps as $map)
                         <div @class(['flex items-center gap-[6px] p-[3px_30px] rounded-t-lg cursor-pointer tab-title', 'active' =>$loop->first]) data-id="tab-{{ $map->id }}"
                              style="background-color: {{$map->bg}};">
-                            <img class="w-[24px]" src="{{web_resource_url('assets/web/images/v1/icon_001.svg')}}" alt="{{$map->title}}">
+                            <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->title}}">
                             <div class="text-[24px] text-[#998675]">{{$map->title}}</div>
                         </div>
                     @endforeach

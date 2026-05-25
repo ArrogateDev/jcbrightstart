@@ -41,7 +41,7 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('關於計劃'),
                 'url' => route('about-us.html'),
-                'icon' => web_resource_url('assets/web/images/v1/about-us.svg'),
+                'icon' => web_resource_url('assets/web/images/about-us.svg'),
                 'active' => false,
                 'has_children' => false,
                 'children' => []
@@ -50,57 +50,45 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('最新消息'),
                 'url' => route('news.html'),
-                'icon' => web_resource_url('assets/web/images/v1/last-news.svg'),
+                'icon' => web_resource_url('assets/web/images/last-news.svg'),
                 'active' => false,
                 'has_children' => false,
-                'children' => []
-            ];
-
-            $resource_category = ResourceCategory::query()
-                ->where('pid', 0)
-                ->select('id', 'title')
-                ->get();
-
-            $resource_children = [];
-            foreach ($resource_category as $item) {
-                if ($item->title === '知識庫') continue;
-                $resource_children[] = [
-                    'title' => $item->title,
-                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $item->id]),
-                    'children' => []
-                ];
-            }
-            $resource_children[] = [
-                'title' => __('影片分享'),
-                'url' => route('resource.more.html', ['type' => 1]),
                 'children' => []
             ];
 
             $navs[] = [
                 'title' => __('專業學習社群'),
                 'url' => '',
-                'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
+                'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
                 'active' => false,
-                'has_children' => !empty($resource_children),
-                'children' => $resource_children
+                'has_children' => true,
+                'children' => [
+                    [
+                        'title' => __('专家分享'),
+                        'url' => route('resource.share.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('影片分享'),
+                        'url' => route('resource.video.html'),
+                        'children' => []
+                    ]
+                ]
             ];
 
-            $resource = $resource_category->firstWhere('title', '知識庫');
-            if ($resource) {
-                $navs[] = [
-                    'title' => $resource->title,
-                    'url' => route('resource.more.html', ['type' => 0, 'mod' => $resource->id]),
-                    'icon' => web_resource_url('assets/web/images/v1/resource-kit.svg'),
-                    'active' => false,
-                    'has_children' => false,
-                    'children' => []
-                ];
-            }
+            $navs[] = [
+                'title' => '知識庫',
+                'url' => route('resource.html'),
+                'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
+                'active' => false,
+                'has_children' => false,
+                'children' => []
+            ];
 
             $navs[] = [
                 'title' => __('幼兒服務資訊'),
                 'url' => '',
-                'icon' => web_resource_url('assets/web/images/v1/maps.svg'),
+                'icon' => web_resource_url('assets/web/images/maps.svg'),
                 'active' => false,
                 'has_children' => true,
                 'children' => [
@@ -120,7 +108,7 @@ class WebMiddleware
             $navs[] = [
                 'title' => __('聯絡我們'),
                 'url' => route('page', ['page' => 'contact-us.html']),
-                'icon' => web_resource_url('assets/web/images/v1/contact-us.svg'),
+                'icon' => web_resource_url('assets/web/images/contact-us.svg'),
                 'active' => false,
                 'has_children' => false,
                 'children' => []

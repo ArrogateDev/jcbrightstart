@@ -37,9 +37,25 @@ class Resource extends Base
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function category_top()
+    {
+        return $this->belongsTo(ResourceCategory::class, 'category_top_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(ResourceCategory::class, 'category_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoryTopTextAttribute()
+    {
+        return $this->category_top->title ?? '';
     }
 
     /**

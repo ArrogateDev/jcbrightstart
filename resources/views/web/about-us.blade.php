@@ -15,7 +15,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/v1/about-us/banner.jpg')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/about-us/banner.jpg')}}" alt="">
         </div>
     </div>
 </section>
@@ -27,7 +27,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[30px]" src="{{web_resource_url('assets/web/images/v1/about-us.svg')}}" alt="關於計劃">
+                        <img class="h-[30px]" src="{{web_resource_url('assets/web/images/about-us.svg')}}" alt="關於計劃">
                         <div class="text-[31px] font-bold">關於計劃</div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-01.svg')}}" alt="計劃目標">
+                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/icon-01.svg')}}" alt="計劃目標">
                         <div class="text-[31px] font-bold">願景</div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-02.svg')}}" alt="計劃目標">
+                        <img class="h-[36px]" src="{{web_resource_url('assets/web/images/icon-02.svg')}}" alt="計劃目標">
                         <div class="text-[31px] font-bold">計劃目標</div>
                     </div>
                 </div>
@@ -80,27 +80,27 @@
             </div>
             <div class="max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
                     <p class="text-[25px] text-[#998675]">提升幼兒教師的專業能力與專業形象</p>
                 </div>
 
                 <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-02.svg')}}" alt="促進專業學習社群的建立與發展">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-02.svg')}}" alt="促進專業學習社群的建立與發展">
                     <p class="text-[25px] text-[#998675]">促進專業學習社群的建立與發展</p>
                 </div>
 
                 <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/v1/plan-03.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
+                    <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/plan-03.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
                     <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒照顧及教育服務</p>
                 </div>
 
                 <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-04.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-04.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
                     <p class="text-[25px] text-[#998675]">強調兒童早期發展及教顧實踐的重要性</p>
                 </div>
 
                 <div class="flex items-center gap-x-2">
-                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/plan-05.svg')}}" alt="加強家庭與社區的支援 / 支持網絡">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-05.svg')}}" alt="加強家庭與社區的支援 / 支持網絡">
                     <p class="text-[25px] text-[#998675]">加強家庭與社區的支援 / 支持網絡</p>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                 <div class="divider-line"></div>
                 <div class="flex flex-col justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-03.svg')}}" alt="參與計劃的幼兒中心名單">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon-03.svg')}}" alt="參與計劃的幼兒中心名單">
                         <div class="text-[31px] font-bold">參與計劃的幼兒中心名單</div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/v1/icon-03.svg')}}" alt="專業發展領域">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon-03.svg')}}" alt="專業發展領域">
                         <div class="text-[31px] font-bold">專業發展領域</div>
                     </div>
                 </div>
@@ -150,25 +150,25 @@
             </div>
             <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="block lg:flex gap-x-[50px] mt-[50px]">
-                    <img class="origin-bottom mb-4 lg:mb-0 lg:-rotate-4" src="{{web_resource_url('assets/web/images/v1/about-us/professional-development.png')}}" alt="">
+                    <img class="origin-bottom mb-4 lg:mb-0 lg:-rotate-4" src="{{web_resource_url('assets/web/images/about-us/professional-development.png')}}" alt="">
                     <div>
                         <div class="mb-[20px] flex align-center gap-x-2">
-                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-01.svg')}}" alt="知識迴廊">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/development-01.svg')}}" alt="知識迴廊">
                             <p class="text-[25px] text-[#998675]">知識迴廊</p>
                         </div>
 
                         <div class="mb-[20px] flex align-center gap-x-2">
-                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-02.svg')}}" alt="專業發展工作坊">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/development-02.svg')}}" alt="專業發展工作坊">
                             <p class="text-[25px] text-[#998675]">專業發展工作坊</p>
                         </div>
 
                         <div class="mb-[20px] flex align-center gap-x-2">
-                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-03.svg')}}" alt="到校專業啟導">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/development-03.svg')}}" alt="到校專業啟導">
                             <p class="text-[25px] text-[#998675]">到校專業啟導</p>
                         </div>
 
                         <div class="flex align-center gap-x-2">
-                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/v1/development-04.svg')}}" alt="專業學習社群">
+                            <img class="w-[28px]" src="{{web_resource_url('assets/web/images/development-04.svg')}}" alt="專業學習社群">
                             <p class="text-[25px] text-[#998675]">專業學習社群</p>
                         </div>
                     </div>

@@ -163,8 +163,8 @@
     }
 
     .contact-us-bg {
-        background-image: url("../assets/images/about-us/icon-01.png"), url("../assets/images/about-us/icon-01.png");
-        background-position: left top, right top;
+        background-image: url("../assets/images/contact-us/icon-01.png"), url("../assets/images/contact-us/icon-02.png");
+        background-position: 16% 30px, 86% 30px;
         background-repeat: no-repeat, no-repeat;
         background-size: 109px, 120px;
     }
@@ -297,4 +297,89 @@
         background: #fadbe8;
         border-radius: 10px 0 0 0;
     }
+}
+
+.category.active {
+    background: #c9e0de8a;
+    color: #00A99D;
+}
+
+.title-tooltip {
+    position: relative;
+    overflow: initial;
+}
+
+.title-tooltip[data-tooltip]::before {
+    content: attr(data-tooltip);
+    width: max-content;
+    position: absolute;
+    top: -18px;
+    left: var(--tooltip-left, 0);
+    color: #998675;
+    z-index: 40;
+    font-size: 15px;
+    background: #fffef9;
+    padding-right: 8px;
+}
+
+.resource-kit-icon {
+    position: relative;
+    overflow: initial;
+    display: block;
+
+    &::before {
+        content: '';
+        position: absolute;
+        background-image: url("../assets/images/resource-kit/resource-kit-icon.png");
+        background-repeat: no-repeat;
+        background-size: 172px;
+        background-position: top;
+        background-position-y: 7px;
+        width: 172px;
+        height: 44px;
+        top: -18px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+
+.resource-kit-show-icon {
+    position: relative;
+    overflow: initial;
+    display: block;
+
+    &::before {
+        content: '';
+        position: absolute;
+        background-image: url("../assets/images/resource-kit/resource-kit-icon.png");
+        background-repeat: no-repeat;
+        background-size: 271px;
+        background-position: top;
+        width: 271px;
+        height: 44px;
+        top: -18px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+
+.page-item:hover, .page-item.disabled:hover {
+    background: #66cbc4;
+    color: white;
+    border-color: #66cbc4;
+}
+
+.page-item.active {
+    background: #66cbc4;
+    color: white;
+    border-color: #66cbc4;
+}
+
+.page-item.disabled {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
 }

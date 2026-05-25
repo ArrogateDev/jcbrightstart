@@ -21,7 +21,7 @@
                                                 @foreach($nav['children'] as $child)
                                                     <li>
                                                         <a class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold" href="{{$child['url']}}" target="{{$child['target']??'_self'}}">
-                                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$child['title']}}">
+                                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{$child['title']}}">
                                                             <span>{{$child['title']}}</span>
                                                         </a>
                                                     </li>
@@ -47,7 +47,7 @@
                                         @foreach($avatar_menus as $menu)
                                             <li>
                                                 <a class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold" href="{{$menu['url']}}" target="{{$menu['target']??'_self'}}">
-                                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$menu['title']}}">
+                                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{$menu['title']}}">
                                                     <span>{{$menu['title']}}</span>
                                                 </a>
                                             </li>
@@ -55,7 +55,7 @@
                                         <div class="divider"></div>
                                         <li>
                                             <a href="#" class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold logout">
-                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{__('退出登录')}}">
+                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{__('退出登录')}}">
                                                 <span>{{__('退出登录')}}</span>
                                             </a>
                                         </li>
@@ -64,7 +64,7 @@
                             @else
                                 <div class="bg-[#43c8d5] px-[45px] rounded-lg">
                                     <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
-                                        <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
+                                        <img class="w-[20px]" src="{{web_resource_url('assets/web/images/login.svg')}}" alt="">
                                         {{__('家长登入')}}
                                     </a>
                                 </div>
@@ -113,7 +113,7 @@
                                                                 <li>
                                                                     <a class="flex items-center gap-x-2 rounded-xl px-3 py-2 text-[16px] text-[#998675] font-bold hover:bg-[#f7eee6]"
                                                                        href="{{$child['url']}}" target="{{$child['target']??'_self'}}">
-                                                                        <img class="w-[16px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$child['title']}}">
+                                                                        <img class="w-[16px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{$child['title']}}">
                                                                         <span>{{$child['title']}}</span>
                                                                     </a>
                                                                 </li>

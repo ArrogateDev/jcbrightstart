@@ -20,14 +20,14 @@
                                     @foreach($avatar_menus as $menu)
                                         <li>
                                             <a class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675]" href="{{$menu['url']}}" target="{{$menu['target']??'_self'}}">
-                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{$menu['title']}}">
+                                                <img class="w-[20px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{$menu['title']}}">
                                                 <span>{{$menu['title']}}</span>
                                             </a>
                                         </li>
                                     @endforeach
                                     <li class="mt-2 border-t border-base-300 pt-2">
                                         <a href="#" class="flex items-center gap-x-3 px-0 py-3 text-[19px] font-bold text-[#998675] logout">
-                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/arrow.svg')}}" alt="{{__('退出登录')}}">
+                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/arrow.svg')}}" alt="{{__('退出登录')}}">
                                             <span>{{__('退出登录')}}</span>
                                         </a>
                                     </li>
@@ -36,7 +36,7 @@
                         @else
                             <div class="bg-[#43c8d5] px-[45px] rounded-lg">
                                 <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
-                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/login.svg')}}" alt="">
+                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/login.svg')}}" alt="">
                                     {{__('家长登入')}}
                                 </a>
                             </div>
@@ -44,13 +44,13 @@
                         <div class="flex items-center gap-x-3 shrink">
                             <div class="flex justify-between gap-x-1 flex-none w-full">
                                 <a href="https://www.facebook.com/JCBrightStartProject">
-                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/facebook.svg')}}" alt="">
+                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/facebook.svg')}}" alt="">
                                 </a>
                                 <a href="https://www.instagram.com/JCBrightStartProject">
-                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/v1/instagram.svg')}}" alt="">
+                                    <img class="w-[20px]" src="{{web_resource_url('assets/web/images/instagram.svg')}}" alt="">
                                 </a>
                                 <a href="https://www.facebook.com/JCBrightStartProject">
-                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/v1/youtube.svg')}}" alt="">
+                                    <img class="h-[20px]" src="{{web_resource_url('assets/web/images/youtube.svg')}}" alt="">
                                 </a>
                             </div>
                         </div>
