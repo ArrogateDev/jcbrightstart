@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
     <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
