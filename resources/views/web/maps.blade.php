@@ -28,8 +28,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="地圖">
-                        <div class="text-[31px] font-bold">地圖</div>
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="服務配對">
+                        <div class="text-[31px] font-bold">服務配對</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>

@@ -17,7 +17,7 @@
                                             <span>{{$nav['title']}}</span>
                                         </a>
                                         @if($nav['has_children'])
-                                            <ul tabindex="-1" class="dropdown-content menu bg-[#ffffffcc] rounded-box z-1 w-52 p-2 shadow-sm">
+                                            <ul tabindex="-1" class="dropdown-content menu bg-[#ffffffcc] rounded-box z-1 w-max p-2 shadow-sm">
                                                 @foreach($nav['children'] as $child)
                                                     <li>
                                                         <a class="flex align-center gap-x-3 text-[19px] text-[#998675] font-bold" href="{{$child['url']}}" target="{{$child['target']??'_self'}}">

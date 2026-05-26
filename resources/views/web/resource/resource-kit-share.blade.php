@@ -48,7 +48,7 @@
                     </ul>
                 @endif
             </div>
-            <div class="grid grid-cols-12 gap-x-0 md:gap-x-[22px] gap-y-[77px] p-[55px_42px_0px] list-container"></div>
+            <div class="grid grid-cols-12 gap-x-0 md:gap-x-[40px] gap-y-[40px] p-[55px_42px_0px] list-container"></div>
             <div class="pagination-container mt-[48px]"></div>
         </div>
     </div>
@@ -68,7 +68,8 @@
         }
 
         $(document).on('click', '.category', function () {
-            $(this).addClass('active').siblings().removeClass('active');
+            $('.category').removeClass('active');
+            $(this).addClass('active');
             const category = parseInt($(this).data('category'));
 
             page = 1

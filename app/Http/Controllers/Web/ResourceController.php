@@ -33,7 +33,7 @@ class ResourceController extends Controller
                 $query->where('pid', 14);
             })
             ->where('status', 0)
-            ->select('id', 'title')
+            ->select('id', 'title', 'icon')
             ->get();
 
         return view('web.resource.' . $view, compact('categories'));

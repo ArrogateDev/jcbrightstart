@@ -69,7 +69,7 @@ class WebMiddleware
                         'children' => []
                     ],
                     [
-                        'title' => __('影片分享'),
+                        'title' => __('幼兒中心專業學習歷程'),
                         'url' => route('resource.video.html'),
                         'children' => []
                     ]
@@ -81,25 +81,46 @@ class WebMiddleware
                 'url' => route('resource.html'),
                 'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
                 'active' => false,
-                'has_children' => false,
-                'children' => []
+                'has_children' => true,
+                'children' => [
+                    [
+                        'title' => __('兒童發展'),
+                        'url' => route('resource.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('營養健康'),
+                        'url' => route('resource.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('育兒教養'),
+                        'url' => route('resource.html'),
+                        'children' => []
+                    ],
+                ]
             ];
 
             $navs[] = [
-                'title' => __('幼兒服務資訊'),
+                'title' => __('幼兒服務網絡'),
                 'url' => '',
                 'icon' => web_resource_url('assets/web/images/maps.svg'),
                 'active' => false,
                 'has_children' => true,
                 'children' => [
                     [
-                        'title' => __('地图'),
+                        'title' => __('服務配對'),
                         'url' => route('maps.html'),
                         'children' => []
                     ],
                     [
-                        'title' => __('列表'),
+                        'title' => __('全港幼兒服務整合'),
                         'url' => route('maps-list.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('其他實用連結'),
+                        'url' => route('maps-link.html'),
                         'children' => []
                     ]
                 ]

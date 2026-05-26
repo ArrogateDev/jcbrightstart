@@ -62,6 +62,7 @@ Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('n
 
 Route::get('/maps.html', [MapsController::class, 'index'])->name('maps.html');
 Route::get('/maps/list.html', [MapsController::class, 'list'])->name('maps-list.html');
+Route::get('/maps/link.html', [MapsController::class, 'link'])->name('maps-link.html');
 
 Route::get('/resource-kit.html', [ResourceController::class, 'index'])->name('resource.html');
 Route::get('/resource-kit/liist.html', [ResourceController::class, 'list'])->name('resource.list.html');

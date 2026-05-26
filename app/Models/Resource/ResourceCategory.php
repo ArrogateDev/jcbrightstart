@@ -21,4 +21,13 @@ class ResourceCategory extends Base
     {
         return $this->parent ? $this->parent->title : __('最上級');
     }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getIconAttribute($value)
+    {
+        return $value ? web_resource_url($value) : web_resource_url('assets/web/images/resource-kit/004_icon_002.svg');
+    }
 }
