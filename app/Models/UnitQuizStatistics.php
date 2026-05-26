@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Course\CourseChapter;
+use App\Models\Course\CourseChapterUnit;
+
 class UnitQuizStatistics extends Base
 {
     /**
