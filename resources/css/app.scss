@@ -423,3 +423,56 @@
 .map-item-0-box:after {
     background: #fff3c3;
 }
+
+.corner-cutout {
+    -webkit-mask: radial-gradient(circle at 0% 0%, transparent 15px, black 15px) top left,
+    radial-gradient(circle at 100% 0%, transparent 15px, black 15px) top right,
+    radial-gradient(circle at 0% 100%, transparent 15px, black 15px) bottom left,
+    radial-gradient(circle at 100% 100%, transparent 15px, black 15px) bottom right;
+    -webkit-mask-size: 50% 50%;
+    -webkit-mask-repeat: no-repeat;
+    mask: radial-gradient(circle at 0% 0%, transparent 15px, black 15px) top left,
+    radial-gradient(circle at 100% 0%, transparent 15px, black 15px) top right,
+    radial-gradient(circle at 0% 100%, transparent 15px, black 15px) bottom left,
+    radial-gradient(circle at 100% 100%, transparent 15px, black 15px) bottom right;
+    mask-size: 50% 50%;
+    mask-repeat: no-repeat;
+}
+
+.url-item:nth-child(odd) {
+    .bg {
+        background: #f5fbfe;
+    }
+
+    .line {
+        background: #c5d5e2;
+    }
+
+    .title {
+        background: #f5fbfe;
+        color: #557BA2;
+    }
+
+    .tag {
+        background: #cfeaf0bf;
+    }
+}
+
+.url-item:nth-child(even) {
+    .bg {
+        background: #faf9fa;
+    }
+
+    .line {
+        background: #e0cfd1;
+    }
+
+    .title {
+        background: #faf9fa;
+        color: #A76F70;
+    }
+
+    .tag {
+        background: #ecdadbbf;
+    }
+}

@@ -28,18 +28,23 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="其他實用連結">
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-06.svg')}}" alt="其他實用連結">
                         <div class="text-[31px] font-bold">其他實用連結</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="bg-[#e3dfdaa6] rounded-lg p-[32px] mt-[38px]">
-                <div class="grid grid-cols-12 gap-x-0 md:gap-x-[42px] gap-y-[42px]">
+            <div class="p-[32px] mt-[38px]">
+                <div class="grid grid-cols-12 gap-x-0 md:gap-x-[36px] gap-y-[36px]">
                     @if(!empty($urls))
                         @foreach($urls as $url)
-                            <a href="{{$url['url']}}" target="_blank" class="col-span-12 md:col-span-6 xl:col-span-4 cursor-pointer hover:text-[#754c24] hover:font-bold">
-                                {{$url['title']}}
+                            <a href="{{$url['url']}}" target="_blank" class="col-span-12 md:col-span-6 xl:col-span-4 cursor-pointer relative block url-item">
+                                <span class="block h-full corner-cutout p-[8px] bg">
+                                    <span class="block h-full corner-cutout p-[1px] line">
+                                        <span class="block h-full corner-cutout text[21px] font-bold p-[17px_28px] title">{{$url['title']}}</span>
+                                    </span>
+                                </span>
+                                <span class="absolute w-[89px] h-[30px] top-[-15px] left-0 right-0 mx-auto tag"></span>
                             </a>
                         @endforeach
                     @endif
