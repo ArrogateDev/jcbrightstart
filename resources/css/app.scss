@@ -325,23 +325,31 @@
 
     .news-item-box {
         position: relative;
-        clip-path: polygon(
-            0% 0%,
-            100% 0%,
-            100% calc(100% - 50px),
-            calc(100% - 50px) 100%,
-            0% 100%
-        );
 
-        &:after {
-            position: absolute;
-            right: 0;
-            bottom: -5px;
-            content: '';
-            width: 50px;
-            height: 50px;
-            background: #f9cecb;
-            border-radius: 10px 0 0 0;
+        .news-item-box-clip {
+            position: relative;
+            clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                100% calc(100% - 50px),
+                calc(100% - 50px) 100%,
+                0% 100%
+            );
+
+            &:after {
+                position: absolute;
+                right: 0;
+                bottom: -5px;
+                content: '';
+                width: 50px;
+                height: 50px;
+                background: #f9cecb;
+                border-radius: 10px 0 0 0;
+            }
+        }
+
+        .news-item-deco {
+            z-index: 10;
         }
 
         .title {
@@ -349,18 +357,25 @@
                 background: #fff;
             }
         }
-
     }
 
     &:nth-child(odd) {
         .title {
             color: #A8758C;
         }
+
+        .cls-1 {
+            fill: #A8758C;
+        }
     }
 
     &:nth-child(even) {
         .title {
             color: #00A99D;
+        }
+
+        .cls-1 {
+            fill: #00A99D;
         }
     }
 }
