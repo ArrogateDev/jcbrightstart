@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
     <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
@@ -13,7 +13,6 @@
     <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
     <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 </head>
 <body>

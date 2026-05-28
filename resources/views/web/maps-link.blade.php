@@ -27,7 +27,7 @@
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
-                    <div class="flex items-center gap-x-[11px]">
+                    <div class="flex gap-x-[11px]">
                         <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-06.svg')}}" alt="其他實用連結">
                         <div class="text-[31px] font-bold">其他實用連結</div>
                     </div>

@@ -79,7 +79,7 @@ class WebMiddleware
             $navs[] = [
                 'title' => '知識庫',
                 'url' => route('resource.html'),
-                'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
+                'icon' => web_resource_url('assets/web/images/resource-kit-02.svg'),
                 'active' => false,
                 'has_children' => true,
                 'children' => [

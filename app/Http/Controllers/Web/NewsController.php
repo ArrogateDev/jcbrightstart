@@ -19,7 +19,6 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        return view('web.under-construction');
         $articles = News::query()
             ->where('type', News::TYPE_ARTICLE)
             ->where('status', News::STATUS_PUBLISHED)
@@ -71,7 +70,6 @@ class NewsController extends Controller
      */
     public function more(Request $request)
     {
-        return view('web.under-construction');
         $type = (int)$request->query('type', 1);
         $categories = NewsCategory::query()
             ->where('status', 0)

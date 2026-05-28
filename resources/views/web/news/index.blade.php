@@ -5,81 +5,121 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
+    <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/js/wait-me/waitMe.min.css')}}">
+    <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
+    <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
+    <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
 </head>
 <body>
 <x-web.header/>
 
+<section>
+    <div class="owl-carousel">
+        <div class="w-full">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="{{__('最新消息')}}">
+        </div>
+    </div>
+</section>
+
 <section class="bg-01">
-    <div class="container mx-auto">
-
-        <div class="content pt-8">
-            @if($videos->isNotEmpty())
-                <div class="flex items-center justify-between mt-5 mb-10">
-                    <div class="text-[31px] text-[#998675] font-bold">{{__('最新视频')}}</div>
+    <div class="container mx-auto p-5 md:p-10">
+        <div class="py-[60px]">
+            <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                <div class="divider-line"></div>
+                <div class="flex justify-center items-center gap-x-2 text-[#998675]">
+                    <div class="flex items-end gap-x-[11px]">
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/last-news.svg')}}" alt="{{__('最新消息')}}">
+                        <div class="text-[31px] font-bold">{{__('最新消息')}}</div>
+                    </div>
                 </div>
-                <div class="grid grid-cols-12 gap-x-5 list-container">
-                    @if($videos->isNotEmpty())
-                        @foreach($videos as $index => $video)
-                            <div class="md:col-span-6 lg:col-span-3">
-                                @include('web.news.item-video', ['news' => $video, 'col' => false, 'index' => $index])
-                            </div>
-                        @endforeach
-                        @if($total_video > 7)
-                            <div class="md:col-span-6 lg:col-span-3">
-                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                    <a href="{{route('news.more.html',['type'=>1])}}" class="w-100 h-100 flex flex-column justify-center items-center" style="color:#666;">
-                                        <i class="fa-solid fa-plus text-2xl mb-2"></i>
-                                        {{__('更多')}}
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    @else
-                        <div class="w-100 text-center py-4 text-muted">
-                            <i class="fa-solid fa-book text-2xl mb-2"></i>
-                            <p class="mb-0">{{__('暂无数据')}}</p>
-                        </div>
-                    @endif
-                </div>
-            @endif
-
-            @if($articles->isNotEmpty())
-                <div class="flex items-center justify-between mt-5 mb-10">
-                    <div class="text-[31px] text-[#998675] font-bold">{{__('最新消息')}}</div>
-                </div>
-                <div class="grid grid-cols-12 gap-x-5 list-container">
-                    @if($articles->isNotEmpty())
-                        @foreach($articles as $index => $article)
-                            <div class="md:col-span-6 lg:col-span-3">
-                                @include('web.news.item', ['news' => $article, 'col' => false, 'index' => $index])
-                            </div>
-                        @endforeach
-                        @if($total_article > 7)
-                            <div class="md:col-span-6 lg:col-span-3">
-                                <div class="media media-blog-2 more-box card-border border-tricolor-wave">
-                                    <a href="{{route('news.more.html',['type'=>0])}}" class="w-100 h-100 flex flex-column justify-center items-center" style="color:#666;">
-                                        <i class="fa-solid fa-plus text-2xl mb-2"></i>
-                                        {{__('更多')}}
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    @else
-                        <div class="w-100 text-center py-4 text-muted">
-                            <i class="fa-solid fa-book text-2xl mb-2"></i>
-                            <p class="mb-0">{{__('暂无数据')}}</p>
-                        </div>
-                    @endif
-                </div>
-            @endif
-
+                <div class="divider-line"></div>
+            </div>
+            <div class="grid grid-cols-12 gap-x-0 md:gap-x-[40px] gap-y-[40px] p-[55px_42px_0px] list-container"></div>
+            <div class="pagination-container mt-[48px]"></div>
         </div>
     </div>
 </section>
 
 <x-web.footer/>
 </body>
+<script>
+    $(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        let page = urlParams.get('page') || 1;
+        let params = {};
+        getData(page, params)
 
+        $(document).on('click', '.pagination-container li', function () {
+            const url = $(this).data('url');
+            if (!url) return
+            const urlObj = new URL(url);
+            const searchObj = urlObj.searchParams;
+            const paramsObj = _.fromPairs([...searchObj]);
+            let $page = paramsObj.page;
+            params = paramsObj;
+            page = $page;
+            getData($page, params)
+        })
+
+        function getData(page = 1, params = {}) {
+            tableParams = params;
+            let requestParams = Object.assign({page: page}, tableParams);
+
+            const searchParams = new URLSearchParams();
+            Object.keys(requestParams).forEach(key => {
+                if (requestParams[key]) {
+                    searchParams.append(key, requestParams[key]);
+                }
+            });
+
+            const queryString = searchParams.toString();
+
+            const newUrl = `${window.location.pathname}?${queryString}`;
+            requestParams.mod = 16;
+
+            $.ajax({
+                url: "{{route('news.list.html')}}",
+                data: requestParams,
+                dataType: "json",
+                beforeSend: function () {
+                    showLoading()
+                },
+                success: function (response) {
+                    if (response.code !== 0) {
+                        showToast('error', response.msg);
+                        return;
+                    }
+
+                    $list = $('.list-container');
+                    let {html, total, pagination} = response.data;
+                    $('.pagination-container').html(pagination)
+
+                    window.history.pushState({}, '', newUrl);
+
+                    if (total === 0) {
+                        $list.html(`
+                        <div class="col-span-12 h-100 flex justify-center items-center gap-5 text-[56px] text-[#998675] font-bold">
+                            <i class="fa-regular fa-hourglass text-[56px]"></i>
+                            <p class="mb-0">{{__('暂无数据')}}</p>
+                        </div>
+                        `);
+                        return;
+                    }
+
+                    $list.html(html);
+                },
+                error: function () {
+                    showToast('error', '{{__('加载失败，请稍后重试！')}}');
+                },
+                complete: function () {
+                    hideLoading()
+                }
+            });
+        }
+    })
+</script>
 </html>
