@@ -8,112 +8,63 @@
         }
     }
 @endphp
-    <!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{$title}}</title>
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
+    <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
+</head>
+<body>
+<x-web.header/>
 
-<x-web.head/>
-<script src="{{web_resource_url('assets/js/image-viewer.min.js')}}" id="gd-image-viewer"
-        data-target-selector=".gallery-img"
-        data-allow-rotate="false"
-        data-allow-image-info="false"
-        data-allow-navigation="false"
-        data-allow-download="false">
-</script>
-<style>
-    .page-show .container {
-        max-width: 1000px !important;
-    }
+<section>
+    <div class="owl-carousel">
+        <div class="w-full">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/news/banner.png')}}" alt="{{__('最新消息')}}">
+        </div>
+    </div>
+</section>
 
-    .blog-single {
-        padding: 2rem;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    }
-
-    .post-btn {
-        font-size: 32px;
-        color: #666;
-    }
-
-    .list-nav-blog__item a:hover .post-btn, .list-nav-blog__item a:hover .post-btn {
-        color: #ff97a4;
-    }
-
-    .thumbnail-box {
-        max-height: 85vh;
-        text-align: center;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: visible;
-    }
-
-    .thumbnail-box img {
-        max-height: 85vh !important;
-        height: auto;
-        width: auto;
-    }
-
-    .btn-per {
-        cursor: pointer;
-        background: #ff97a4;
-        width: fit-content;
-        padding: 2px 10px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        color: white;
-        font-size: 18px;
-    }
-</style>
-
-<body class="animsition js-preloader">
-<div class="page-wrapper">
-
-    <x-web.header/>
-
-    <main id="main">
-
-        <x-web.breadcrumb title="{{__('计划消息')}}"/>
-
-        <section class="section p-t-125 p-b-80 page-show ">
-            <div class="container">
-                @if($url)
-                    <a href="{{$url}}" class="d-flex align-items-center btn-per">
-                        <i class="zmdi zmdi-chevron-left mr-1"></i> {{__('返回')}}
-                    </a>
-                @endif
-                <div class="blog-single">
-                    <div class="media media-blog-4 m-b-10">
-                        <iframe height="500" class="w-100" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="m-b-40">
-                        {!! $news->description !!}
-                    </div>
-                    <div class="blog-single__info m-b-40 justify-content-end">
-                        <ul class="list-unstyled list-inline list-social list-social-3">
-                            <li class="list-inline-item">
-                                <a class="ic-fb" href="https://www.facebook.com/JCBrightStartProject">
-                                    <i class="zmdi zmdi-facebook-box"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="ic-insta" href="https://www.instagram.com/JCBrightStartProject/">
-                                    <i class="zmdi zmdi-instagram"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<section class="bg-01">
+    <div class="container mx-auto p-5 md:p-10">
+        <div class="bg-[#fff] rounded-lg p-[45px_52px]">
+            <div class="media media-blog-4 m-b-10">
+                <iframe class="w-full aspect-video" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>
-        </section>
-    </main>
+            <div class="text-[31px] text-[#ec6d74] font-bold">
+                {{$news->title}}
+            </div>
+            <div class="mb-[30px]">
+                {!! $news->description !!}
+            </div>
+            <nav>
+                <ul class="flex justify-between">
+                    <li>
+                        @if($prev)
+                            <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $prev])}}">
+                                <i class="fa-solid fa-angles-left text-[#999]"></i>
+                                <span class="text-[15px] font-blod text-[#999]">previous post</span>
+                            </a>
+                        @endif
+                    </li>
+                    <li>
+                        @if($next)
+                            <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $next])}}">
+                                <span class="text-[15px] font-blod text-[#999]">next post</span>
+                                <i class="fa-solid fa-angles-right text-[#999]"></i>
+                            </a>
+                        @endif
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
 
-    <x-web.footer/>
-
-</div>
-
+<x-web.footer/>
 </body>
-
 </html>

@@ -148,7 +148,6 @@ class NewsController extends Controller
      */
     public function show(News $news, Request $request)
     {
-        return view('web.under-construction');
         $date = Carbon::parse($news->created_at);
         $news->month = $date->format('M');
         $news->day = $date->format('d');

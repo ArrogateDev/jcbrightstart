@@ -20,7 +20,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="{{__('最新消息')}}">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/news/banner.png')}}" alt="{{__('最新消息')}}">
         </div>
     </div>
 </section>

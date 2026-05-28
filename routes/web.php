@@ -56,7 +56,6 @@ Route::post('/message.html', [IndexController::class, 'handleMessage'])->name('m
 Route::get('/about-us.html', [AboutUsController::class, 'index'])->name('about-us.html');
 
 Route::get('/latest-news.html', [NewsController::class, 'index'])->name('news.html');
-//Route::get('/latest-news/more.html', [NewsController::class, 'more'])->name('news.more.html');
 Route::get('/latest-news/list.html', [NewsController::class, 'list'])->name('news.list.html');
 Route::get('/latest-news/{news}.html', [NewsController::class, 'show'])->name('news.show.html');
 
