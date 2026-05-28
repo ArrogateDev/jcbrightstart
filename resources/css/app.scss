@@ -315,6 +315,14 @@
 }
 
 .news-col-item {
+    .news-perforated-line {
+        height: 40px;
+        background-image: radial-gradient(circle, transparent 5px, #fff 5px);
+        background-size: 20px 100%;
+        background-repeat: repeat-x;
+        background-position: center;
+    }
+
     .news-item-box {
         position: relative;
         clip-path: polygon(
