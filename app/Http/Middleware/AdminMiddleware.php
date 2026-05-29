@@ -33,7 +33,7 @@ class AdminMiddleware
             }
         }
 
-        $user = $request->user();
+        $user = $request->user('admin');
 
         if ($user && Str::contains($request->url(), ['login.html'])) {
             return to_route('admin.dashboard.html');
