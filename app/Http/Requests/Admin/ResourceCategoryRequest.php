@@ -18,6 +18,7 @@ class ResourceCategoryRequest extends BaseRequest
                 Rule::unique('resource_categories')->withoutTrashed()
             ],
             'pid' => 'bail|exclude_if:pid,0|exists:resource_categories,id',
+            'color' => 'bail|required',
             'status' => 'bail|required|in:0,1'
         ];
 
@@ -42,6 +43,7 @@ class ResourceCategoryRequest extends BaseRequest
             'title.unique' => __('标题已经存在'),
             'pid.exclude_if' => __('父级格式错误'),
             'pid.exists' => __('父级格式错误'),
+            'color.required' => __('颜色不能为空'),
             'status.required' => __('状态不能为空'),
             'status.in' => __('状态格式错误'),
         ];

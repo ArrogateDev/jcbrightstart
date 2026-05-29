@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->comment('Title');
             $table->unsignedBigInteger('pid')->default(0);
+            $table->string('icon')->nullable()->comment('Icon');
+            $table->string('color')->nullable()->comment('Color');
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();

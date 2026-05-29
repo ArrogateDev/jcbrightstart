@@ -97,7 +97,7 @@ class ResourceController extends Controller
             $item->date = Carbon::parse($item->created_at)->format('Y.m.d');
             $item->url = route('resource.show.html', ['resource' => $item->id]);
         });
-        $list->append(['category_top_text', 'category_text']);
+        $list->append(['category_top_text', 'category_top_color', 'category_text', 'category_color', 'category']);
 
         $html = '';
 

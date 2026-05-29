@@ -5,7 +5,7 @@
             <label class="form-label" for="title">
                 {{__('名称')}}
                 <span class="text-danger"> *</span>
-                <span id="error-title-status"></span>
+                <span id="error-container-title"></span>
             </label>
             <input type="text" id="title" name="title" class="form-control" placeholder="{{__('请输入名称')}}">
         </div>
@@ -14,9 +14,18 @@
             <label class="form-label" for="pid">
                 {{__('上级')}}
                 <span class="text-danger"> *</span>
-                <span id="error-pid-status"></span>
+                <span id="error-container-pid"></span>
             </label>
             <select id="pid" name="pid" class="select form-control"></select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="color">
+                {{__('颜色')}}
+                <span class="text-danger"> *</span>
+                <span id="error-container-color"></span>
+            </label>
+            <input id="color" name="color" value="#ffb900">
         </div>
 
         <div class="mb-3">
@@ -62,6 +71,14 @@
             data: @json($category)
         });
 
+        const input = document.querySelector('#color')
+        const picker = new ColorPicker(input, {
+            toggleStyle: 'input',
+            swatches: ['#d95d5d', '#db8525', '#e8c43c', '#bed649', '#9ecbdb', '#6399a5', '#c771a1'],
+            showClearButton: true,
+            dismissOnOutsideClick: false,
+        })
+
         const validator = new window.JustValidate('#form', {
             errorLabelCssClass: 'd-inline',
         });
@@ -81,6 +98,14 @@
                 }
             ], {
                 errorsContainer: '#error-container-pid'
+            })
+            .addField('#color', [
+                {
+                    rule: 'required',
+                    errorMessage: '{{__('颜色不能为空')}}'
+                }
+            ], {
+                errorsContainer: '#error-container-color'
             })
             .addField('input[name="status"]', [
                 {
@@ -110,6 +135,7 @@
         });
 
         $modal.on('hidden.bs.modal', function () {
+            picker.close()
             resetForm();
         });
 

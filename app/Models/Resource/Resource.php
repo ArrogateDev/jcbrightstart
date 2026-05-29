@@ -61,8 +61,23 @@ class Resource extends Base
     /**
      * @return string
      */
+    public function getCategoryTopColorAttribute()
+    {
+        return $this->category_top->color ?? '';
+    }
+
+    /**
+     * @return string
+     */
     public function getCategoryTextAttribute()
     {
         return $this->category->title ?? '';
+    }
+    /**
+     * @return string
+     */
+    public function getCategoryColorAttribute()
+    {
+        return $this->category->color ?? '';
     }
 }

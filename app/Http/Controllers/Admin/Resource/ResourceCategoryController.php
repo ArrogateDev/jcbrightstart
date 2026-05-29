@@ -70,7 +70,7 @@ class ResourceCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'pid', 'status']);
+        $inputs = $request->only(['title', 'pid', 'color', 'status']);
 
         try {
 
@@ -111,7 +111,7 @@ class ResourceCategoryController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'pid', 'status']);
+        $inputs = $request->only(['title', 'pid', 'color', 'status']);
 
         try {
 
