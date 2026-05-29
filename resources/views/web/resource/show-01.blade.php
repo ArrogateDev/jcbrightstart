@@ -21,7 +21,10 @@
 
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
-        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px]">
+
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
+
+        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px]">
             <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] resource-kit-show-icon">
                 <div class="relative py-[23px]">
                     <div class="absolute z-50 top-[-18px] bg-[#fff] pr-[10px] category-tag">

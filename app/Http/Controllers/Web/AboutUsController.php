@@ -23,6 +23,15 @@ class AboutUsController extends Controller
      */
     public function index(Request $request)
     {
+
+        $breadcrumbs = [
+            [
+                'title' => __('關於計劃'),
+                'url' => null,
+                'color' => '#4492cf',
+            ]
+        ];
+
         $institutions = [
             "女青喜越嬰幼園",
             "仁濟醫院艾王忠椒育嬰園",
@@ -43,6 +52,6 @@ class AboutUsController extends Controller
 
         $institutions = array_chunk($institutions, ceil(count($institutions) / 2));
 
-        return view('web.about-us', compact('institutions'));
+        return view('web.about-us', compact('breadcrumbs', 'institutions'));
     }
 }

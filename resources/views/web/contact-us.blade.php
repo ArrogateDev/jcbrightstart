@@ -22,7 +22,7 @@
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
 
-        <x-web.breadcrumb title="聯絡我們"/>
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
         <div class="py-[60px] contact-us-bg">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">

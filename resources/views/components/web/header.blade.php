@@ -2,7 +2,7 @@
     <section class="bg-top w-full fixed top-0 z-999">
         <div class="container mx-auto px-5 md:px-10">
             <div class="flex items-center justify-between pt-[45px] pb-[42px] gap-x-4">
-                <a href="{{route('index.html')}}" class="shrink-0">
+                <a href="{{route('home')}}" class="shrink-0">
                     <img class="w-[185px] h-[81px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="Jockey Club Bright Start Project">
                 </a>
 

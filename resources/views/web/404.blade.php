@@ -12,7 +12,7 @@
 <x-web.header/>
 
 <main id="main">
-    <section class="section h-200" style="background: url('{{web_resource_url('assets/web/images/icon/bg-404.jpg')}}') center center / cover no-repeat;">
+    <section class="section h-200" style="background: url('{{web_resource_url('assets/web/images/bg-404.jpg')}}') center center / cover no-repeat;">
     </section>
 </main>
 

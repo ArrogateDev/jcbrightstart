@@ -21,7 +21,10 @@
 
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
-        <div class="bg-[#fff] rounded-lg p-[45px_52px]">
+
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
+
+        <div class="bg-[#fff] rounded-lg p-[45px_52px] mt-[30px]">
             <div class="text-[31px] text-[#ec6d74] font-bold">
                 {{$news->title}}
             </div>

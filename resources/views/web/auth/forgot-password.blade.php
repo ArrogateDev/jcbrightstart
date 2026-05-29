@@ -26,7 +26,7 @@
                     <div class="container loginbox">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between login-header">
-                                <a href="{{route('index.html')}}">
+                                <a href="{{route('home')}}">
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
                             </div>

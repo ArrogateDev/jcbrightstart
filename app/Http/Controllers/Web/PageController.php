@@ -17,20 +17,21 @@ class PageController extends Controller
             'contact-us.html'
         ];
 
-        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.under-construction';
-
-        return view($view);
-    }
-
-    public function v1Index($page)
-    {
-        $pages = [
-            'about-us.html',
+        $breadcrumb_maps = [
+            'contact-us.html' => '聯絡我們'
         ];
 
-        $view = in_array($page, $pages) ? 'web.v1.' . str_replace('.html', '', $page) : 'web.v1.index';
+        $breadcrumbs = [
+            [
+                'title' => $breadcrumb_maps[$page],
+                'url' => null,
+                'color' => '#4492cf',
+            ]
+        ];
 
-        return view($view);
+        $view = in_array($page, $pages) ? 'web.' . str_replace('.html', '', $page) : 'web.under-construction';
+
+        return view($view, compact('breadcrumbs'));
     }
 
     public function error(Request $request)

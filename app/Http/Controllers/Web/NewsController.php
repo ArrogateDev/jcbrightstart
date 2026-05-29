@@ -19,48 +19,15 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = News::query()
-            ->where('type', News::TYPE_ARTICLE)
-            ->where('status', News::STATUS_PUBLISHED)
-            ->orderByDesc('sort')
-            ->orderByDesc('id')
-            ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'release_date')
-            ->get();
+        $breadcrumbs = [
+            [
+                'title' => __('最新消息'),
+                'url' => null,
+                'color' => '#EC6D74',
+            ]
+        ];
 
-        $articles->map(function ($item) {
-            $item->url = route('news.show.html', ['news' => $item->id]);
-        });
-        $articles->append(['category_text']);
-
-        $total_article = News::query()
-            ->where('type', News::TYPE_ARTICLE)
-            ->where('status', News::STATUS_PUBLISHED)
-            ->count();
-
-        $videos = News::query()
-            ->where('type', News::TYPE_VIDEO)
-            ->where('status', News::STATUS_PUBLISHED)
-            ->orderByDesc('sort')
-            ->orderByDesc('id')
-            ->limit(7)
-            ->select('id', 'title', 'thumbnail', 'category_id', 'short', 'release_date')
-            ->get();
-
-        $videos->map(function ($item) {
-            $item->url = route('news.show.html', ['news' => $item->id]);
-        });
-        $videos->append(['category_text']);
-
-        $total_video = News::query()
-            ->where('type', News::TYPE_VIDEO)
-            ->where('status', News::STATUS_PUBLISHED)
-            ->count();
-
-        $url = $request->fullUrl();
-        $request->session()->put('resource-url', $url);
-
-        return view('web.news.index', compact('articles', 'total_article', 'videos', 'total_video'));
+        return view('web.news.index', compact('breadcrumbs'));
     }
 
     /**
@@ -148,6 +115,19 @@ class NewsController extends Controller
      */
     public function show(News $news, Request $request)
     {
+        $breadcrumbs = [
+            [
+                'title' => __('最新消息'),
+                'url' => route('news.html'),
+                'color' => '#666666',
+            ],
+            [
+                'title' => $news->title,
+                'url' => null,
+                'color' => '#EC6D74',
+            ]
+        ];
+
         $date = Carbon::parse($news->created_at);
         $news->month = $date->format('M');
         $news->day = $date->format('d');
@@ -168,6 +148,6 @@ class NewsController extends Controller
 
         $url = $request->session()->get('resource-url');
 
-        return view(sprintf('web.news.show%s', $news->type === News::TYPE_VIDEO ? '-video' : ''), compact('news', 'prev', 'next', 'url'));
+        return view(sprintf('web.news.show%s', $news->type === News::TYPE_VIDEO ? '-video' : ''), compact('breadcrumbs', 'news', 'prev', 'next', 'url'));
     }
 }

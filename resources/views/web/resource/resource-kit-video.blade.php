@@ -20,20 +20,23 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-01.png')}}" alt="影片分享">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-01.png')}}" alt="幼兒中心專業學習歷程">
         </div>
     </div>
 </section>
 
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
-        <div class="py-[60px]">
+
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
+
+        <div class="py-[30px_60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-02.svg')}}" alt="影片分享">
-                        <div class="text-[31px] font-bold">影片分享</div>
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-02.svg')}}" alt="幼兒中心專業學習歷程">
+                        <div class="text-[31px] font-bold">幼兒中心專業學習歷程</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>

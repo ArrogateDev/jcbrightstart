@@ -24,14 +24,17 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/contact-us/banner.png')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/contact-us/banner.png')}}" alt="幼兒中心專業學習歷程">
         </div>
     </div>
 </section>
 
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
-        <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb]">
+
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
+
+        <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] mt-[30px]">
             <div class="w-full aspect-[4/3] rounded-lg">
                 <iframe class="w-full h-full rounded-lg" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>

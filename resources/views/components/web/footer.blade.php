@@ -2,7 +2,7 @@
     <section class="bg-footer border-b-[17px] border-[#e4c6c6]">
         <div class="container mx-auto px-5 md:px-10">
             <div class="flex flex-col items-start pt-[120px] pb-[76px] gap-y-12">
-                <div class="flex flex-col 2xl:flex-row gap-y-10 2xl:gap-y-0 2xl:gap-x-[68px]">
+                <div class="flex flex-col xl:flex-row gap-y-10 xl:gap-y-0 xl:gap-x-[68px]">
                     <div>
                         <div class="text-[22px] text-[#998675] mb-[28px] font-bold">{{__('主办机构')}}</div>
                         <div class="flex gap-x-[24px]">

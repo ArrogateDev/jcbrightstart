@@ -31,7 +31,10 @@
 
 <section class="bg-01">
     <div class="container mx-auto p-5 md:p-10">
-        <div class="bg-[#fff] rounded-lg p-[45px_52px]">
+
+        <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
+
+        <div class="bg-[#fff] rounded-lg p-[45px_52px] mt-[30px]">
             <div class="media media-blog-4 m-b-10">
                 <iframe class="w-full aspect-video" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>

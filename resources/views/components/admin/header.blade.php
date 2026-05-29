@@ -19,10 +19,10 @@
                     </span>
                 </a>
                 <div class="navbar-logo" style="padding: 12px 0;">
-                    <a class="logo-white header-logo" href="{{route('index.html')}}">
+                    <a class="logo-white header-logo" href="{{route('admin.dashboard.html')}}">
                         <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
-                    <a class="logo-dark header-logo" href="{{route('index.html')}}">
+                    <a class="logo-dark header-logo" href="{{route('admin.dashboard.html')}}">
                         <img src="{{web_resource_url('assets/admin/img/logo-black.png')}}" class="logo logo-max-h-50" alt="Logo">
                     </a>
                 </div>
@@ -30,7 +30,7 @@
 
             <div class="main-menu-wrapper">
                 <div class="menu-header">
-                    <a href="{{route('index.html')}}" class="menu-logo">
+                    <a href="{{route('admin.dashboard.html')}}" class="menu-logo">
                         <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">

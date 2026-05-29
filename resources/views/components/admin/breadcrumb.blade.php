@@ -6,7 +6,7 @@
                 <h2 class="breadcrumb-title mb-2">{{$title}}</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-0">
-                        <li class="breadcrumb-item"><a href="{{route('index.html')}}">{{__('首页')}}</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.dashboard.html')}}">{{__('首页')}}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                     </ol>
                 </nav>

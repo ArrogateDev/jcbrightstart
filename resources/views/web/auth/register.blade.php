@@ -40,7 +40,7 @@
                 <div class="login-banner vh-100 position-relative">
                     <img src="{{web_resource_url('assets/img/login-bg.jpg')}}" class="img-fluid" alt="Logo">
                     <div class="d-flex align-items-center justify-content-between login-header mb-3 position-absolute" style="top: 30px;right: 30px;width: 200px;">
-                        <a href="{{route('index.html')}}">
+                        <a href="{{route('home')}}">
                             <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="container loginbox">
                         <div class="w-100">
                             <div class="d-flex d-lg-none align-items-center justify-content-between login-header mb-3">
-                                <a href="{{route('index.html')}}">
+                                <a href="{{route('home')}}">
                                     <img src="{{web_resource_url('assets/admin/img/logo.png')}}" class="img-fluid logo-max-160" alt="Logo">
                                 </a>
                             </div>

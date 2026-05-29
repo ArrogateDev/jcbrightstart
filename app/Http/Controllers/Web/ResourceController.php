@@ -25,6 +25,25 @@ class ResourceController extends Controller
         $url = $request->path();
         $view = Str::replace(['/', '.html'], ['-', ''], $url);
 
+        $breadcrumb_maps = [
+            'resource-kit-share' => __('专家分享'),
+            'resource-kit-video' => __('幼兒中心專業學習歷程'),
+            'resource-kit' => __('知識庫'),
+        ];
+
+        $breadcrumbs = [
+            [
+                'title' => $view === 'resource-kit' ? __('知識庫') : __('專業學習社群'),
+                'url' => null,
+                'color' => '#00A99D',
+            ],
+//            [
+//                'title' => $breadcrumb_maps[$view] ?? '',
+//                'url' => null,
+//                'color' => '#4492cf',
+//            ]
+        ];
+
         $categories = ResourceCategory::query()
             ->when($view === 'resource-kit', function ($query) {
                 $query->where('pid', 16);
@@ -36,7 +55,7 @@ class ResourceController extends Controller
             ->select('id', 'title')
             ->get();
 
-        return view('web.resource.' . $view, compact('categories'));
+        return view('web.resource.' . $view, compact('breadcrumbs', 'categories'));
     }
 
     /**
@@ -133,6 +152,19 @@ class ResourceController extends Controller
         $resource->category_top_id === 16 && $view = '02';
         $resource->type === Resource::TYPE_VIDEO && $view = '03';
 
-        return view(sprintf('web.resource.show-%s', $view), compact('resource', 'prev', 'next', 'url'));
+        $breadcrumbs = [
+            [
+                'title' => $view === '01' ? __('知識庫') : __('專業學習社群'),
+                'url' => null,
+                'color' => '#666666',
+            ],
+            [
+                'title' => $resource->title,
+                'url' => null,
+                'color' => '#00A99D',
+            ]
+        ];
+
+        return view(sprintf('web.resource.show-%s', $view), compact('breadcrumbs', 'resource', 'prev', 'next', 'url'));
     }
 }
