@@ -63,11 +63,11 @@ class WebMiddleware
                 'active' => false,
                 'has_children' => true,
                 'children' => [
-                    [
-                        'title' => __('专家分享'),
-                        'url' => route('resource.share.html'),
-                        'children' => []
-                    ],
+//                    [
+//                        'title' => __('专家分享'),
+//                        'url' => route('resource.share.html'),
+//                        'children' => []
+//                    ],
                     [
                         'title' => __('幼兒中心專業學習歷程'),
                         'url' => route('resource.video.html'),
@@ -95,6 +95,11 @@ class WebMiddleware
                     ],
                     [
                         'title' => __('育兒教養'),
+                        'url' => route('resource.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('家長親子學習套'),
                         'url' => route('resource.html'),
                         'children' => []
                     ],
