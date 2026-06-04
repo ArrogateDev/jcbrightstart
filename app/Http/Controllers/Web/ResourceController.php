@@ -22,7 +22,7 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
-        return view('web.under-construction');
+//        return view('web.under-construction');
         $url = $request->path();
         $view = Str::replace(['/', '.html'], ['-', ''], $url);
 
@@ -128,7 +128,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource, Request $request)
     {
-        return view('web.under-construction');
+//        return view('web.under-construction');
         $date = Carbon::parse($resource->created_at);
         $resource->month = $date->format('M');
         $resource->day = $date->format('d');

@@ -11,7 +11,7 @@ class MapsController extends Controller
 
     public function index()
     {
-        return view('web.under-construction');
+//        return view('web.under-construction');
         $maps = ServiceLocationType::query()
             ->with([
                 'locations' => function ($query) {
@@ -89,7 +89,7 @@ class MapsController extends Controller
 
     public function list()
     {
-        return view('web.under-construction');
+//        return view('web.under-construction');
         $maps = ServiceLocationType::query()
             ->with([
                 'locations' => function ($query) {
@@ -141,7 +141,7 @@ class MapsController extends Controller
 
     public function link()
     {
-        return view('web.under-construction');
+//        return view('web.under-construction');
         $urls = [
             [
                 'title' => __('社会福利署幼儿中心'),
