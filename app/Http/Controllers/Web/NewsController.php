@@ -46,7 +46,7 @@ class NewsController extends Controller
         $subtitle = $type > 0 ? __('计划消息') : __('视频');
 
         $url = $request->fullUrl();
-        $request->session()->put('resource-url', $url);
+        $request->session()->put('news-url', $url);
 
         return view('web.news.more', compact('subtitle', 'type', 'categories'));
     }
@@ -146,7 +146,7 @@ class NewsController extends Controller
             ->orderBy('id', 'asc')
             ->value('id');
 
-        $url = $request->session()->get('resource-url');
+        $url = $request->session()->get('news-url');
 
         return view(sprintf('web.news.show%s', $news->type === News::TYPE_VIDEO ? '-video' : ''), compact('breadcrumbs', 'news', 'prev', 'next', 'url'));
     }

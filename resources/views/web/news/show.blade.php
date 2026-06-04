@@ -37,7 +37,7 @@
                 <ul class="flex justify-between">
                     <li>
                         @if($prev)
-                            <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $prev])}}">
+                            <a class="flex items-center gap-2" href="{{route('news.show.html', ['news' => $prev])}}">
                                 <i class="fa-solid fa-angles-left text-[#999]"></i>
                                 <span class="text-[15px] font-blod text-[#999]">previous post</span>
                             </a>
@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         @if($next)
-                            <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $next])}}">
+                            <a class="flex items-center gap-2" href="{{route('news.show.html', ['news' => $next])}}">
                                 <span class="text-[15px] font-blod text-[#999]">next post</span>
                                 <i class="fa-solid fa-angles-right text-[#999]"></i>
                             </a>
