@@ -57,22 +57,32 @@ class WebMiddleware
             ];
 
             $navs[] = [
-                'title' => __('專業學習社群'),
+                'title' => __('「喜步」專業學習社群'),
                 'url' => '',
                 'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
                 'active' => false,
                 'has_children' => true,
                 'children' => [
-//                    [
-//                        'title' => __('专家分享'),
-//                        'url' => route('resource.share.html'),
-//                        'children' => []
-//                    ],
                     [
-                        'title' => __('幼兒中心專業學習歷程'),
-                        'url' => route('resource.video.html'),
+                        'title' => __('海外交流團海報分享'),
+                        'url' => route('resource.share.html'),
                         'children' => []
-                    ]
+                    ],
+                    [
+                        'title' => __('國際會議匯報海報分享'),
+                        'url' => route('resource.share.html'),
+                        'children' => []
+                    ],
+                    [
+                        'title' => __('幼兒喜步專業學習歷程'),
+                        'url' => route('resource.share.html'),
+                        'children' => []
+                    ],
+//                    [
+//                        'title' => __('幼兒中心專業學習歷程'),
+//                        'url' => route('resource.video.html'),
+//                        'children' => []
+//                    ]
                 ]
             ];
 
@@ -84,17 +94,7 @@ class WebMiddleware
                 'has_children' => true,
                 'children' => [
                     [
-                        'title' => __('兒童發展'),
-                        'url' => route('resource.html'),
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('營養健康'),
-                        'url' => route('resource.html'),
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('育兒教養'),
+                        'title' => __('文章分享'),
                         'url' => route('resource.html'),
                         'children' => []
                     ],
@@ -114,12 +114,12 @@ class WebMiddleware
                 'has_children' => true,
                 'children' => [
                     [
-                        'title' => __('服務配對'),
+                        'title' => __('按地圖顯示'),
                         'url' => route('maps.html'),
                         'children' => []
                     ],
                     [
-                        'title' => __('全港幼兒服務整合'),
+                        'title' => __('按區域顯示'),
                         'url' => route('maps-list.html'),
                         'children' => []
                     ],

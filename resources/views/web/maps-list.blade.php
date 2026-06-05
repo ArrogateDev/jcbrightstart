@@ -26,8 +26,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-05.svg')}}" alt="全港幼兒服務整合">
-                        <div class="text-[31px] font-bold">全港幼兒服務整合</div>
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-05.svg')}}" alt="按區域顯示">
+                        <div class="text-[31px] font-bold">按區域顯示</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
@@ -37,8 +37,8 @@
                     @foreach($maps as $map)
                         <div @class(['flex items-center gap-[6px] p-[3px_30px] rounded-t-lg cursor-pointer tab-title', 'active' =>$loop->first]) data-id="tab-{{ $map->id }}"
                              style="background-color: {{$map->bg}};">
-                            <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->title}}">
-                            <div class="text-[24px] text-[#998675]">{{$map->title}}</div>
+                            <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->show_title}}">
+                            <div class="text-[24px] text-[#998675]">{{$map->show_title}}</div>
                         </div>
                     @endforeach
                 </div>

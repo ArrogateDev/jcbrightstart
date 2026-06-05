@@ -28,8 +28,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="服務配對">
-                        <div class="text-[31px] font-bold">服務配對</div>
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-01.svg')}}" alt="按地圖顯示">
+                        <div class="text-[31px] font-bold">按地圖顯示</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
@@ -40,8 +40,8 @@
                         <div class="collapse">
                             <input type="checkbox" class="peer"/>
                             <div class="collapse-title flex items-center gap-[6px]" style="background-color: {{$map->bg}};">
-                                <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->title}}">
-                                <div class="text-[24px] text-[#998675]">{{$map->title}}</div>
+                                <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->show_title}}">
+                                <div class="text-[24px] text-[#998675]">{{$map->show_title}}</div>
                             </div>
                             <div class="collapse-content peer-checked:p-[18px_32px_32px] bg-[#ece9e6]">
                                 <div class="h-[484px] flex flex-col gap-[10px] overflow-y-auto">

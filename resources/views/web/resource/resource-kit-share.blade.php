@@ -35,8 +35,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-01.svg')}}" alt="專家分享">
-                        <div class="text-[31px] font-bold">專家分享</div>
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-01.svg')}}" alt="「喜步」專業學習社群">
+                        <div class="text-[31px] font-bold">「喜步」專業學習社群</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
