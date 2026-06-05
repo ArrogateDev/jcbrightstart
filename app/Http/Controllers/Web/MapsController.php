@@ -16,7 +16,7 @@ class MapsController extends Controller
             ->with([
                 'locations' => function ($query) {
                     $query->where('status', ServiceLocation::NORMAL)
-                        ->orderByDesc('sort')
+                        ->orderBy('sort')
                         ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'point_color', 'latitude');
                 }
             ])
@@ -95,7 +95,7 @@ class MapsController extends Controller
             ->with([
                 'locations' => function ($query) {
                     $query->where('status', ServiceLocation::NORMAL)
-                        ->orderByDesc('sort')
+                        ->orderBy('sort')
                         ->select('id', 'type', 'age', 'district', 'organization', 'address', 'phone', 'email', 'webpage', 'service_hour', 'longitude', 'point_color', 'latitude');
                 }
             ])
