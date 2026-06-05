@@ -132,6 +132,10 @@
     box-decoration-break: clone;
 }
 
+.platform-ios .line-bg {
+    background-position: 0 12px;
+}
+
 .fon-ar-mt {
     font-family: ArialRoundedMT, serif;
 }
