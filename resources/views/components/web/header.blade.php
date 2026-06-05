@@ -146,9 +146,5 @@
         $(window).on('resize', function () {
             $('body').css('padding-top', $('#header section').outerHeight(true) - 15)
         })
-        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        if (isIOS) {
-            document.documentElement.classList.add('platform-ios');
-        }
     });
 </script>
