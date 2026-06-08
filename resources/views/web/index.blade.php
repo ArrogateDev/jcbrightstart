@@ -151,7 +151,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="absolute top-[-80px] right-0 xl:right-[-30px] w-[120px]">
+                    <div class="absolute top-[-70px] right-0 xl:right-[-30px] w-[100px]">
                         <img class="motion" src="{{web_resource_url('assets/web/images/character_knowledge_03.png')}}" alt="">
                     </div>
                 </div>

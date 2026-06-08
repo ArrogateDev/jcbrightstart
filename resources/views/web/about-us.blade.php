@@ -112,7 +112,7 @@
                 <div class="divider-line"></div>
                 <div class="flex flex-col justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[32px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="參與計劃的幼兒中心名單">
+                        <img class="h-[32px]" src="{{web_resource_url('assets/web/images/logo.svg')}}" alt="參與計劃的幼兒中心名單">
                         <div class="text-[31px] font-bold">參與計劃的幼兒中心名單</div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[32px]" src="{{web_resource_url('assets/web/images/logo.png')}}" alt="專業發展領域">
+                        <img class="h-[32px]" src="{{web_resource_url('assets/web/images/logo.svg')}}" alt="專業發展領域">
                         <div class="text-[31px] font-bold">專業發展領域</div>
                     </div>
                 </div>
