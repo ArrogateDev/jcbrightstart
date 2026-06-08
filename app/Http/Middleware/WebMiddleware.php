@@ -65,17 +65,17 @@ class WebMiddleware
                 'children' => [
                     [
                         'title' => __('海外交流團海報分享'),
-                        'url' => route('resource.share.html'),
+                        'url' => route('resource.share.html', ['category' => 18]),
                         'children' => []
                     ],
                     [
                         'title' => __('國際會議匯報海報分享'),
-                        'url' => route('resource.share.html'),
+                        'url' => route('resource.share.html', ['category' => 19]),
                         'children' => []
                     ],
                     [
                         'title' => __('幼兒喜步專業學習歷程'),
-                        'url' => route('resource.share.html'),
+                        'url' => route('resource.share.html', ['category' => 20]),
                         'children' => []
                     ],
 //                    [
@@ -100,7 +100,7 @@ class WebMiddleware
                     ],
                     [
                         'title' => __('家長親子學習套'),
-                        'url' => route('resource.html'),
+                        'url' => route('resource.html', ['category' => 21]),
                         'children' => []
                     ],
                 ]

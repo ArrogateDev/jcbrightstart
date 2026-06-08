@@ -14,7 +14,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/about-us/banner.jpg')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/about-us/banner.png')}}" alt="關於計劃">
         </div>
     </div>
 </section>
@@ -26,7 +26,7 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="h-[30px]" src="{{web_resource_url('assets/web/images/about-us.svg')}}" alt="關於計劃">
+                        <img class="h-[30px]" src="{{web_resource_url('assets/web/images/about-us/icon-01.svg')}}" alt="關於計劃">
                         <div class="text-[31px] font-bold">關於計劃</div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="max-w-[1000px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="block lg:flex gap-x-[50px] mt-[50px]">
-                    <img class="origin-bottom mb-4 lg:mb-0 lg:-rotate-4" src="{{web_resource_url('assets/web/images/about-us/professional-development.png')}}" alt="">
+                    <img class="w-full max-w-[511px] origin-bottom mb-4 lg:mb-0 lg:-rotate-4" src="{{web_resource_url('assets/web/images/about-us/professional-development.png')}}" alt="">
                     <div>
                         <div class="mb-[20px] flex align-center gap-x-2">
                             <img class="w-[28px]" src="{{web_resource_url('assets/web/images/development-01.svg')}}" alt="知識迴廊">

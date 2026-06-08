@@ -8,6 +8,7 @@ use App\Models\News\NewsCategory;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourceCategory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -23,40 +24,44 @@ class ResourceController extends Controller
     public function index(Request $request)
     {
 //        return view('web.under-construction');
+        $category = (int)$request->query('category');
         $url = $request->path();
         $view = Str::replace(['/', '.html'], ['-', ''], $url);
 
         $breadcrumb_maps = [
-            'resource-kit-share' => __('专家分享'),
-            'resource-kit-video' => __('幼兒中心專業學習歷程'),
-            'resource-kit' => __('知識庫'),
+            18 => __('海外交流團海報分享'),
+            19 => __('國際會議匯報海報分享'),
+            20 => __('幼兒喜步專業學習歷程'),
+            21 => __('家長親子學習套'),
         ];
+
+        $title = $breadcrumb_maps[$category] ?? '文章分享';
 
         $breadcrumbs = [
             [
-                'title' => $view === 'resource-kit' ? __('知識庫') : __('專業學習社群'),
+                'title' => $view === 'resource-kit' ? __('知識庫') : __('「喜步」專業學習社群'),
                 'url' => null,
                 'color' => '#00A99D',
             ],
-//            [
-//                'title' => $breadcrumb_maps[$view] ?? '',
-//                'url' => null,
-//                'color' => '#4492cf',
-//            ]
+            [
+                'title' => $title,
+                'url' => null,
+                'color' => '#4492cf',
+            ]
         ];
 
         $categories = ResourceCategory::query()
             ->when($view === 'resource-kit', function ($query) {
-                $query->where('pid', 16);
+                $query->where('pid', 14);
             })
             ->when($view === 'resource-kit-share', function ($query) {
-                $query->where('pid', 14);
+                $query->where('pid', 16);
             })
             ->where('status', 0)
             ->select('id', 'title')
             ->get();
 
-        return view('web.resource.' . $view, compact('breadcrumbs', 'categories'));
+        return view('web.resource.' . $view, compact('breadcrumbs', 'title', 'categories'));
     }
 
     /**
@@ -86,6 +91,9 @@ class ResourceController extends Controller
             ->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category);
             })
+            ->when($mod === 14 && !$category, function ($query) use ($category) {
+                $query->whereNotIn('category_id', [21]);
+            })
             ->when($sort === 'view', function ($query) use ($category) {
                 $query->orderByDesc('view');
             }, function ($query) {
@@ -103,7 +111,7 @@ class ResourceController extends Controller
         $html = '';
 
         $template = '01';
-        $mod === 16 && $template = '02';
+        $category === 21 && $template = '02';
         $type === Resource::TYPE_VIDEO && $template = '03';
 
         $total = $list->count();

@@ -20,7 +20,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="知識庫">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="{{$title}}">
         </div>
     </div>
 </section>
@@ -35,8 +35,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon_001.svg')}}" alt="知識庫">
-                        <div class="text-[31px] font-bold">知識庫</div>
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon_001.svg')}}" alt="{{$title}}">
+                        <div class="text-[31px] font-bold">{{$title}}</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
@@ -54,6 +54,12 @@
         const urlParams = new URLSearchParams(window.location.search);
         let page = urlParams.get('page') || 1;
         let params = {};
+        const urlCategory = urlParams.get('category');
+        if (urlCategory) {
+            $(`.category[data-category="${urlCategory}"]`).addClass('active').siblings().removeClass('active');
+            params = Object.assign(params, {category: urlCategory});
+        }
+
         getData(page, params)
 
         $(document).on('click', '.pagination-container li', function () {
@@ -82,7 +88,7 @@
             const queryString = searchParams.toString();
 
             const newUrl = `${window.location.pathname}?${queryString}`;
-            requestParams.mod = 16;
+            requestParams.mod = 14;
 
             $.ajax({
                 url: "{{route('resource.list.html')}}",

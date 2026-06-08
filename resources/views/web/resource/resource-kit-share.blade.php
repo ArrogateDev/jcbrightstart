@@ -20,7 +20,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-01.png')}}" alt="專家分享">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-01.png')}}" alt="{{$title}}">
         </div>
     </div>
 </section>
@@ -35,8 +35,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-01.svg')}}" alt="「喜步」專業學習社群">
-                        <div class="text-[31px] font-bold">「喜步」專業學習社群</div>
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-01.svg')}}" alt="{{$title}}">
+                        <div class="text-[31px] font-bold">{{$title}}</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
@@ -107,7 +107,7 @@
             const queryString = searchParams.toString();
 
             const newUrl = `${window.location.pathname}?${queryString}`;
-            requestParams.mod = 14;
+            requestParams.mod = 16;
 
             $.ajax({
                 url: "{{route('resource.list.html')}}",
