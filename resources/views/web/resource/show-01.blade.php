@@ -26,15 +26,15 @@
 
         <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px]">
             <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] resource-kit-show-icon">
+                @if($resource->thumbnail_show === 1)
+                    <div class="w-full mb-[40px]">
+                        <img class="w-full" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
+                    </div>
+                @endif
                 <div class="relative py-[23px]">
                     <div class="absolute z-50 top-[-18px] bg-[#fff] pr-[10px] category-tag">
                         <div class="p-[12px_50px] rounded-full bg-[#f4f0eb] text-[17px] text-[#736357]">{{$resource->category_text}}</div>
                     </div>
-                    @if($resource->thumbnail_show === 1)
-                        <div class="w-full mb-[20px]">
-                            <img class="w-full" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
-                        </div>
-                    @endif
                     <div data-tooltip="{{$resource->date}}" class="text-[31px] text-[#00A99D] font-bold py-[11px] border-y-[1px] border-[#cdc3bb] title-tooltip">
                         {{$resource->title}}
                         <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px] font-bold">{{$resource->short}}</div>
