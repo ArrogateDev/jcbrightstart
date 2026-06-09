@@ -26,13 +26,13 @@
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
-        <div class="bg-[#fff] rounded-lg p-[40px_50px] border-b-[28px] border-[#fce199] mt-[30px] resource-page">
+        <div class="bg-[#fff] rounded-lg p-[40px_50px] border-b-[28px] border-[#fce199] mt-[30px]">
             <div class="text-[31px] text-[#F7931E] py-[11px] border-b-[1px] border-[#cdc3bb]">{{$resource->title}}</div>
             <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px]">{{$resource->short}}</div>
             @if($resource->pdf)
                 <div class="mb-[30px]" id="pdf-viewer"></div>
             @endif
-            <div class="mb-[30px]">
+            <div class="mb-[30px] resource-page">
                 {!! $resource->description !!}
             </div>
             <nav>

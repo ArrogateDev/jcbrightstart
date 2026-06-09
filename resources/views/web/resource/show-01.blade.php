@@ -24,7 +24,7 @@
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
-        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px] resource-page">
+        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px]">
             <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] resource-kit-show-icon">
                 <div class="relative py-[23px]">
                     <div class="absolute z-50 top-[-18px] bg-[#fff] pr-[10px] category-tag">
@@ -35,7 +35,7 @@
                         <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px] font-bold">{{$resource->short}}</div>
                     </div>
                 </div>
-                <div class="mb-[30px]">
+                <div class="mb-[30px] resource-page">
                     {!! $resource->description !!}
                 </div>
                 <nav>

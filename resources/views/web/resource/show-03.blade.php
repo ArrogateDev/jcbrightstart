@@ -34,7 +34,7 @@
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
-        <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] mt-[30px] resource-page">
+        <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] mt-[30px]">
             <div class="w-full aspect-[4/3] rounded-lg">
                 <iframe class="w-full h-full rounded-lg" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>

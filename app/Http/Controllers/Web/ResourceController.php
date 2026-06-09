@@ -139,7 +139,7 @@ class ResourceController extends Controller
         $url = $request->session()->get('resource-url');
 
         $view = '01';
-        $resource->category_top_id === 16 && $view = '02';
+        !empty($resource->pdf) && $view = '02';
         $resource->type === Resource::TYPE_VIDEO && $view = '03';
 
         $breadcrumbs = [
