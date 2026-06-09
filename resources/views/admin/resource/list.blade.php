@@ -111,7 +111,7 @@
             const row = `
                 <tr>
                     <td><p class="fs-14 title text-truncate" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="${item.title}">${item.title}</p></td>
-                    <td>${item.type===1?'{{__('视频')}}':item.category_text}</td>
+                    <td>${item.category_text}</td>
                     <td>${item.sort}</td>
                     <td>${statusMenu}</td>
                     <td>${item.created_at}</td>
