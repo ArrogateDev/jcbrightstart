@@ -90,7 +90,7 @@ class ResourceController extends Controller
             $lock->release();
         });
 
-        $inputs = $request->only(['title', 'type', 'category_top_id', 'category_id', 'thumbnail_show', 'short', 'description', 'sort', 'status']);
+        $inputs = $request->only(['title', 'type', 'category_id', 'thumbnail_show', 'short', 'description', 'sort', 'status']);
 
         try {
 
@@ -123,6 +123,14 @@ class ResourceController extends Controller
 
             if ($resource->category_id === 0) {
                 $resource->category_id = $resource->category_top_id;
+            }
+
+            $category = ResourceCategory::find($resource->category_id);
+            $ancestors = $category->getAncestors(true);
+
+            $category_ids = $ancestors->pluck('id')->toArray();
+            if (!empty($category_ids)) {
+                $resource->categories()->sync($category_ids);
             }
 
             if ($resource->type == Resource::TYPE_VIDEO && $video) {
@@ -204,6 +212,14 @@ class ResourceController extends Controller
 
             if ($resource->category_id === 0) {
                 $resource->category_id = $resource->category_top_id;
+            }
+
+            $category = ResourceCategory::find($resource->category_id);
+            $ancestors = $category->getAncestors(true);
+
+            $category_ids = $ancestors->pluck('id')->toArray();
+            if (!empty($category_ids)) {
+                $resource->categories()->sync($category_ids);
             }
 
             if ($resource->save() === false) {

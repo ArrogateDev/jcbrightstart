@@ -51,6 +51,14 @@ class Resource extends Base
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(ResourceCategory::class, ResourceRelatedCategory::class, 'resource_id', 'category_id', 'id', 'id');
+    }
+
+    /**
      * @return string
      */
     public function getCategoryTopTextAttribute()

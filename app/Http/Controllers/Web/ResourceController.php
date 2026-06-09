@@ -71,8 +71,8 @@ class ResourceController extends Controller
         });
 
         $list = Resource::query()
-            ->when($c, function ($query) use ($c) {
-                $query->where('category_id', $c);
+            ->whereHasIn('categories', function ($query) use ($n, $c) {
+                $query->whereIn('id', [$n, $c]);
             })
             ->when($sort === 'view', function ($query) use ($category) {
                 $query->orderByDesc('view');
