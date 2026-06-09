@@ -97,9 +97,8 @@ class NewsController extends Controller
         $total = $list->count();
         $page = $list->currentPage();
         $data = $list->items();
-        $col_num = 3;
-        foreach ($data as $index => $news) {
-            $html .= view('web.news.item', compact('news', 'col_num', 'index'))->render();
+        foreach ($data as $news) {
+            $html .= view('web.news.item', compact('news'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
