@@ -71,9 +71,6 @@ class ResourceController extends Controller
         });
 
         $list = Resource::query()
-            ->when($n, function ($query) use ($n) {
-                $query->where('category_top_id', $n);
-            })
             ->when($c, function ($query) use ($c) {
                 $query->where('category_id', $c);
             })
