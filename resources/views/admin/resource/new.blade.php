@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 type-article">
+                                <div class="col-md-4">
                                     <div class="input-block">
                                         <label class="form-label">{{__('分类')}}<span
                                                 class="text-danger ms-1">*</span></label>

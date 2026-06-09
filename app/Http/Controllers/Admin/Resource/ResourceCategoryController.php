@@ -18,12 +18,13 @@ class ResourceCategoryController extends Controller
     {
 
         $category = ResourceCategory::query()
-            ->where('pid', 0)
-            ->select('id', 'title as text')
+            ->where('level', '<', 3)
+            ->select('id as value', 'title as label', 'pid')
             ->get()
             ->toArray();
 
-        array_unshift($category, ['id' => 0, 'text' => __('最上級')]);
+//        array_unshift($category, ['value' => 0, 'label' => __('最上級'), 'pid' => 0]);
+        $category = list_to_tree($category, 0, 'children', 'value');
 
         return view('admin.resource-category.list', compact('category'));
     }
@@ -39,13 +40,14 @@ class ResourceCategoryController extends Controller
         $sort = $request->query('sort');
 
         $list = ResourceCategory::query()
+            ->with('parent')
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('title', 'like', '%' . $keyword . '%');
             })
             ->when($field, function ($query) use ($field, $sort) {
                 $query->orderBy($field, $sort);
             }, function ($query) {
-                $query->orderByDesc('id');
+                $query->orderBy('level')->orderBy('pid');
             })
             ->paginate(limit_page());
 

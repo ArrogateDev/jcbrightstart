@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
     <script src="{{web_resource_url('assets/web/vendor/dflip/js/dflip.min.js')}}"></script>
 </head>
@@ -17,7 +16,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/contact-us/banner.png')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="">
         </div>
     </div>
 </section>
@@ -27,7 +26,7 @@
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
-        <div class="bg-[#fff] rounded-lg p-[40px_50px] border-b-[28px] border-[#fce199] mt-[30px]">
+        <div class="bg-[#fff] rounded-lg p-[40px_50px] border-b-[28px] border-[#fce199] mt-[30px] resource-page">
             <div class="text-[31px] text-[#F7931E] py-[11px] border-b-[1px] border-[#cdc3bb]">{{$resource->title}}</div>
             <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px]">{{$resource->short}}</div>
             @if($resource->pdf)

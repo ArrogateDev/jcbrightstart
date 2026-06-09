@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title}}</title>
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/lodash.js') }}"></script>
     <script src="{{web_resource_url('assets/js/wait-me/waitMe.min.js')}}" type="text/javascript"></script>
@@ -20,7 +20,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-01.png')}}" alt="幼兒中心專業學習歷程">
+            <img class="w-full" src="{{web_resource_url(sprintf('assets/web/images/resource-kit/banner-0%s.png', $category->pid === 14 ? 2 : 1))}}" alt="{{$category->title??''}}">
         </div>
     </div>
 </section>
@@ -35,8 +35,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-02.svg')}}" alt="幼兒中心專業學習歷程">
-                        <div class="text-[31px] font-bold">幼兒中心專業學習歷程</div>
+                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-02.svg')}}" alt="{{$category->title??''}}">
+                        <div class="text-[31px] font-bold">{{$category->title??''}}</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>
@@ -54,6 +54,15 @@
         const urlParams = new URLSearchParams(window.location.search);
         let page = urlParams.get('page') || 1;
         let params = {};
+        const n = urlParams.get('n');
+        if (n) {
+            params = Object.assign(params, {n: n});
+        }
+        const c = urlParams.get('c');
+        if (c) {
+            params = Object.assign(params, {c: c});
+        }
+
         getData(page, params)
 
         $(document).on('click', '.pagination-container li', function () {
@@ -82,7 +91,6 @@
             const queryString = searchParams.toString();
 
             const newUrl = `${window.location.pathname}?${queryString}`;
-            requestParams.type = 1;
 
             $.ajax({
                 url: "{{route('resource.list.html')}}",
@@ -99,19 +107,19 @@
 
                     $list = $('.list-container');
                     let {html, total, pagination} = response.data;
-                    {{--$('.pagination-container').html(pagination)--}}
+                    $('.pagination-container').html(pagination)
 
                     window.history.pushState({}, '', newUrl);
 
-                    {{--if (total === 0) {--}}
-                    {{--    $list.html(`--}}
-                    {{--    <div class="w-100 text-center py-4 text-muted">--}}
-                    {{--        <i class="isax isax-document-text fs-24 mb-2"></i>--}}
-                    {{--        <p class="mb-0">{{__('暂无数据')}}</p>--}}
-                    {{--    </div>--}}
-                    {{--    `);--}}
-                    {{--    return;--}}
-                    {{--}--}}
+                    if (total === 0) {
+                        $list.html(`
+                        <div class="col-span-12 h-100 flex justify-center items-center gap-5 text-[56px] text-[#998675] font-bold">
+                            <i class="fa-regular fa-hourglass text-[56px]"></i>
+                            <p class="mb-0">{{__('暂无数据')}}</p>
+                        </div>
+                        `);
+                        return;
+                    }
 
                     $list.html(html);
                 },

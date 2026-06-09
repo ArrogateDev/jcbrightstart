@@ -14,7 +14,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/contact-us/banner.png')}}" alt="">
+            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="">
         </div>
     </div>
 </section>
@@ -24,7 +24,7 @@
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
-        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px]">
+        <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px] resource-page">
             <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] resource-kit-show-icon">
                 <div class="relative py-[23px]">
                     <div class="absolute z-50 top-[-18px] bg-[#fff] pr-[10px] category-tag">

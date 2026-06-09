@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/select2/css/select2.min.css')}}">
 <x-admin.head/>
-<script src="{{web_resource_url('assets/admin/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
+<script src="{{web_resource_url('assets/js/el-cascader/cascader.js')}}" type="text/javascript"></script>
+<link rel="stylesheet" href="{{web_resource_url('assets/js/el-cascader/cascader.css')}}">
 <script src="{{web_resource_url('assets/js/validation.js')}}" type="text/javascript"></script>
 <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
 <link rel="stylesheet" href="{{web_resource_url('assets/admin/plugins/colorpicker/colorpicker.min.css')}}">
@@ -92,12 +92,14 @@
                                title="{{__('编辑')}}">
                                 <i class="isax isax-edit"></i>
                             </a>
+                            ${item.pid > 0 ? `
                             <a href="javascript:void(0);"
                                class="d-inline-flex fs-14 action-icon text-danger"
                                onclick="handleDelete(${item.id}, '${item.title}')"
                                title="{{__('删除')}}">
                                 <i class="isax isax-trash"></i>
                             </a>
+                            ` : ''}
                         </div>
                     </td>
                 </tr>

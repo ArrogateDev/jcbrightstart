@@ -17,6 +17,11 @@ class ResourceCategory extends Base
         return $this->belongsTo(ResourceCategory::class, 'pid');
     }
 
+    public function children()
+    {
+        return $this->hasMany(ResourceCategory::class, 'pid');
+    }
+
     public function getParentTextAttribute()
     {
         return $this->parent ? $this->parent->title : __('最上級');

@@ -39,7 +39,7 @@ class MapsController extends Controller
         ];
         $maps->map(function ($item) use ($colors) {
             $color = $colors[$item->title] ?? [];
-            $item->show_title = $item->title === '香港幼兒中心' ? '幼兒中心服務網絡服務分佈圖' : '鄰里支援幼兒照顧計劃服務分佈圖';
+            $item->show_title = $item->title === '香港幼兒中心' ? '幼兒中心服務網絡圖' : '鄰里支援幼兒照顧計劃服務網絡圖';
             $item->bg = $color['bg'] ?? '#f8f4e5';
             $item->point = $color['point'] ?? '#fce7e5';
             $item->icon = $color['icon'] ?? web_resource_url('assets/web/images/maps/icon-01.svg');
@@ -128,7 +128,7 @@ class MapsController extends Controller
         ];
         $maps->map(function ($item) use ($colors) {
             $color = $colors[$item->title] ?? [];
-            $item->show_title = $item->title === '香港幼兒中心' ? '幼兒中心服務網絡分區' : '鄰里支援幼兒照顧計劃分區';
+            $item->show_title = $item->title === '香港幼兒中心' ? '幼兒中心服務' : '鄰里支援幼兒照顧計劃';
             $item->bg = $color['bg'] ?? '#f8f4e5';
             $item->point = $color['point'] ?? '#fce7e5';
             $item->icon = $color['icon'] ?? web_resource_url('assets/web/images/maps/icon-01.svg');

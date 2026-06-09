@@ -16,7 +16,8 @@
                 <span class="text-danger"> *</span>
                 <span id="error-container-pid"></span>
             </label>
-            <select id="pid" name="pid" class="select form-control"></select>
+            <input id="pid-select" class="form-control" readonly/>
+            <input type="hidden" id="pid" name="pid">
         </div>
 
         <div class="mb-3">
@@ -66,10 +67,18 @@
 
 <script>
     $(function () {
-        $('#pid').select2({
-            placeholder: '{{__('请选择或搜索分类')}}',
-            data: @json($category)
+        const $pid = $('#pid');
+        const $pidSelect = $('#pid-select');
+        $pidSelect.zdCascader({
+            data: @json($category),
+            container: '#pid-select',
+            search: true,
+            value: $pid.val(),
+            onChange: function (instance, data) {
+                $pid.val(data.value);
+            }
         });
+        const pidCascader = $pidSelect.data('zdCascader');
 
         const input = document.querySelector('#color')
         const picker = new ColorPicker(input, {
@@ -128,7 +137,10 @@
             $modal.find('.modal-header h5').text('{{__('编辑领域')}}');
             $('#edit-id').val(params.id || '');
             $('#title').val(params.title || '');
-
+            $pid.val(params.pid || '');
+            if (pidCascader && typeof pidCascader.setValue === 'function') {
+                pidCascader.setValue(params.pid || '');
+            }
             if (params.status !== undefined) {
                 $(`input[name="status"][value="${params.status}"]`).prop('checked', true);
             }

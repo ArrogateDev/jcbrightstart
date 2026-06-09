@@ -56,55 +56,38 @@ class WebMiddleware
                 'children' => []
             ];
 
-            $navs[] = [
-                'title' => __('「喜步」專業學習社群'),
-                'url' => '',
-                'icon' => web_resource_url('assets/web/images/resource-kit.svg'),
-                'active' => false,
-                'has_children' => true,
-                'children' => [
-                    [
-                        'title' => __('海外交流團海報分享'),
-                        'url' => route('resource.share.html', ['category' => 18]),
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('國際會議匯報海報分享'),
-                        'url' => route('resource.share.html', ['category' => 19]),
-                        'children' => []
-                    ],
-                    [
-                        'title' => __('幼兒喜步專業學習歷程'),
-                        'url' => route('resource.share.html', ['category' => 20]),
-                        'children' => []
-                    ],
-//                    [
-//                        'title' => __('幼兒中心專業學習歷程'),
-//                        'url' => route('resource.video.html'),
-//                        'children' => []
-//                    ]
-                ]
-            ];
+            $resources = ResourceCategory::query()
+                ->with([
+                    'children' => function ($query) {
+                        $query->select('id', 'title', 'pid', 'url')->orderBy('sort');
+                    }
+                ])
+                ->where('pid', 0)
+                ->orderBy('sort')
+                ->select('id', 'title', 'icon', 'url')
+                ->get();
 
-            $navs[] = [
-                'title' => '知識庫',
-                'url' => route('resource.html'),
-                'icon' => web_resource_url('assets/web/images/resource-kit-02.svg'),
-                'active' => false,
-                'has_children' => true,
-                'children' => [
-                    [
-                        'title' => __('文章分享'),
-                        'url' => route('resource.html'),
+            foreach ($resources as $resource) {
+                $children = [];
+                foreach ($resource->children as $child) {
+                    $child_url = !empty($child->url) ? route($child->url, ['n' => $resource->id, 'c' => $child->id]) : route('resource.html', ['n' => $resource->id, 'c' => $child->id]);
+                    $children[] = [
+                        'title' => __($child->title),
+                        'url' => $child_url,
                         'children' => []
-                    ],
-                    [
-                        'title' => __('家長親子學習套'),
-                        'url' => route('resource.html', ['category' => 21]),
-                        'children' => []
-                    ],
-                ]
-            ];
+                    ];
+                }
+
+                $url = !empty($resource->url) ? route($resource->url, ['n' => $resource->id]) : route('resource.html', ['n' => $resource->id]);
+                $navs[] = [
+                    'title' => __($resource->title),
+                    'url' => empty($children) ? $url : '',
+                    'icon' => $resource->icon,
+                    'active' => false,
+                    'has_children' => !empty($children),
+                    'children' => $children
+                ];
+            }
 
             $navs[] = [
                 'title' => __('幼兒服務網絡'),
@@ -119,7 +102,7 @@ class WebMiddleware
                         'children' => []
                     ],
                     [
-                        'title' => __('按區域顯示'),
+                        'title' => __('按服務顯示'),
                         'url' => route('maps-list.html'),
                         'children' => []
                     ],

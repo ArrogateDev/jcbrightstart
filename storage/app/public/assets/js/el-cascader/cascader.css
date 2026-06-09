@@ -120,6 +120,10 @@
     border-right: 1px solid #e4e7ed;
 }
 
+.zd-cascader-menu:empty {
+    display: none;
+}
+
 .zd-cascader-menu:last-child {
 
     border-right: none;
@@ -213,4 +217,9 @@
     position: absolute;
     left: 10px;
     font-size: 13px;
+}
+
+select:not(:-internal-list-box) {
+  padding: 0;
+  border: none;
 }

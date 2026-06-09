@@ -20,7 +20,7 @@
 <section>
     <div class="owl-carousel">
         <div class="w-full">
-            <img class="w-full" src="{{web_resource_url('assets/web/images/resource-kit/banner-02.png')}}" alt="{{$title}}">
+            <img class="w-full" src="{{web_resource_url(sprintf('assets/web/images/resource-kit/banner-0%s.png', $category->pid === 14 ? 2 : 1))}}" alt="{{$category->title??''}}">
         </div>
     </div>
 </section>
@@ -34,10 +34,17 @@
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
-                    <div class="flex items-end gap-x-[11px]">
-                        <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon_001.svg')}}" alt="{{$title}}">
-                        <div class="text-[31px] font-bold">{{$title}}</div>
-                    </div>
+                    @if($category->pid === 14)
+                        <div class="flex items-end gap-x-[11px]">
+                            <img class="w-[36px]" src="{{web_resource_url('assets/web/images/icon_001.svg')}}" alt="{{$category->title??''}}">
+                            <div class="text-[31px] font-bold">{{$category->title??''}}</div>
+                        </div>
+                    @else
+                        <div class="flex items-center gap-x-[11px]">
+                            <img class="w-[36px]" src="{{web_resource_url('assets/web/images/resource-kit/icon-01.svg')}}" alt="{{$category->title??''}}">
+                            <div class="text-[31px] font-bold">{{$category->title??''}}</div>
+                        </div>
+                    @endif
                 </div>
                 <div class="divider-line"></div>
             </div>
@@ -54,10 +61,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         let page = urlParams.get('page') || 1;
         let params = {};
-        const urlCategory = urlParams.get('category');
-        if (urlCategory) {
-            $(`.category[data-category="${urlCategory}"]`).addClass('active').siblings().removeClass('active');
-            params = Object.assign(params, {category: urlCategory});
+        const n = urlParams.get('n');
+        if (n) {
+            params = Object.assign(params, {n: n});
+        }
+        const c = urlParams.get('c');
+        if (c) {
+            params = Object.assign(params, {c: c});
         }
 
         getData(page, params)

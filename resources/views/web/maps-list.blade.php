@@ -26,8 +26,8 @@
                 <div class="divider-line"></div>
                 <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                     <div class="flex items-center gap-x-[11px]">
-                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-05.svg')}}" alt="按區域顯示">
-                        <div class="text-[31px] font-bold">按區域顯示</div>
+                        <img class="w-[28px]" src="{{web_resource_url('assets/web/images/maps/icon-05.svg')}}" alt="按服務顯示">
+                        <div class="text-[31px] font-bold">按服務顯示</div>
                     </div>
                 </div>
                 <div class="divider-line"></div>

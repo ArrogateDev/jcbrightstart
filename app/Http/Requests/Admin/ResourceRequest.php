@@ -33,8 +33,8 @@ class ResourceRequest extends BaseRequest
         if ($status == Resource::STATUS_PUBLISHED && $this->method() === 'PUT') {
             // 当 type=0(图文) 时，thumbnail 和 thumbnail_url 必须提供一个
             if ($type === Resource::TYPE_ARTICLE) {
-                $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
-                $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
+//                $rules['thumbnail'] = 'bail|required_without:thumbnail_url|image';
+//                $rules['thumbnail_url'] = 'bail|required_without:thumbnail|file_exists';
             }
             // 当 type=1(视频) 时，video 字段必填
             if ($type === Resource::TYPE_VIDEO) {

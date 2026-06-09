@@ -38,17 +38,22 @@
             wrapFocus: 'is-focus',
             menuNodeSelected: "in-active-path",
             nodeSelectedIcon: "is-selected-icon",
-            nodeAnchor: "is-prepare" //预备选中
+            nodeAnchor: "is-prepare", //预备选中
+            nodeDisabled: "is-disabled"
         }
     }
     ZdCascader.DEFAULTS = {
         data: null, //支持格式[{value:"",label:"",children:[{value:"",label:""}]}]
         range: ' / ', //分割符
+        value: null, //回填选中值
+        disabled: function (data, pathData) {
+            return false;
+        },
         onChange: function (data) {
         }
     }
 
-    ZdCascader.METHODS = ['reload', 'destroy'];
+    ZdCascader.METHODS = ['reload', 'destroy', 'setValue'];
 
     ZdCascader.prototype.init = function () {
         /*构建基础html*/
@@ -83,6 +88,7 @@
         this.$dropdownWrap = $(`<div class="${this.CLASS.dropdownPanel}"></div>`).appendTo(this.$container).wrap(`<div class="${this.CLASS.dropdownWrap}"></div>`);
 
         this.reload();
+        this._backfillSelectedValue();
     }
 
     /*事件绑定*/
@@ -107,6 +113,10 @@
         this.$el.on('input', $.proxy(function (event) {
             this.search(this.$el.val())
         }, this));
+
+        this.$el.on('zdCascader:setValue', $.proxy(function (event, value) {
+            this._applyValue(value);
+        }, this));
     }
     ZdCascader.prototype._wrapClick = function () {
         event.stopPropagation();
@@ -125,8 +135,10 @@
         var $that = event.currentTarget ? $(event.currentTarget) : $(event); //li
         var $wrap = $that.closest('.' + this.CLASS.menuWrap);
         var data = $that.data('bindData');
-        var allPathData = this._getPathData($that);
-        var value = this._getPathLabel(allPathData);
+        if ($that.hasClass(this.CLASS.checkClass.nodeDisabled) || this._isDisabled(data, this._getPathData($that))) {
+            event.stopPropagation();
+            return;
+        }
 
         this._setSelection($that);
 
@@ -136,6 +148,7 @@
         } else {
             this.$container.removeClass(this.CLASS.checkClass.wrapFocus);
             $wrap.nextAll().remove();
+            this.$dropdownWrap.find('.' + this.CLASS.menuWrap + ':empty').remove();
         }
 
         event.stopPropagation();
@@ -151,6 +164,19 @@
         if (!data.children || !data.children.length) {
             $wrap.nextAll().remove();
             return
+        }
+        var selectedId = [];
+        var currentPathData = this._getPathData($parentNode);
+        if (this._isDisabled(data, currentPathData)) {
+            $wrap.nextAll().remove();
+            return
+        }
+        currentPathData = currentPathData.concat([data]);
+        this.$el.data('bindPathData', currentPathData);
+        var currentValue = this._getPathLabel(currentPathData);
+        this.$el.data('bindData', data).val(currentValue);
+        if (this.options.onChange && typeof this.options.onChange === "function") {
+            this.options.onChange(this, data, currentPathData);
         }
         var selectedId = [];
         var pathData = this.$el.data('bindPathData');
@@ -228,10 +254,130 @@
         this.$dropdownWrap.find('.' + this.CLASS.checkClass.nodeSelectedIcon).remove();
         this.$dropdownWrap.find('li.' + this.CLASS.checkClass.menuNodeSelected).removeClass(this.CLASS.checkClass.menuNodeSelected);
         $node.addClass(this.CLASS.checkClass.menuNodeSelected).prepend($(`<span class="${this.CLASS.checkClass.nodeSelectedIcon}">√</span>`));
-        this.$el.val(value).data('bindData', data).data('bindPathData', allPathData).focus();
+        this.$el.val(value).data('bindData', data).data('bindPathData', allPathData).data('bindValue', data ? data.value : null).focus();
 
         if (this.options.onChange && typeof this.options.onChange === "function")
             this.options.onChange(this, data, allPathData);
+    }
+
+    ZdCascader.prototype._applyValue = function (value) {
+        if (value === undefined || value === null || value === '') return;
+
+        var foundPath = this._findPathByValue(this.options.data || [], value);
+        if (!foundPath || foundPath.length === 0) return;
+
+        var self = this;
+        var pathLabels = [];
+        this.$dropdownWrap.empty();
+        this.$container.addClass(this.CLASS.checkClass.wrapFocus);
+
+        function renderLevel(items, activeNode, selectedValue) {
+            var $wrap = $(`<div class="zd-scrollbar ${self.CLASS.menuWrap}">
+                                <div class="zd-cascader-menu__wrap zd-scrollbar__wrap">
+                                    <ul class="${self.CLASS.menuList}">
+                                    </ul>
+                                </div>
+                            </div>`).appendTo(self.$dropdownWrap);
+            var $ul = $wrap.find('.' + self.CLASS.menuList);
+            $.each(items || [], function (_, item) {
+                var $li = $(`<li class="${self.CLASS.menuNode}"></li>`);
+                var $label = $(`<span class="${self.CLASS.menuNodeLabel}">${item.label}</span>`);
+                $li.append($label).data('bindData', item);
+                if (item.children && item.children.length > 0) {
+                    $li.append($(`<svg t="1600158452164" class="icon zd-input__icon zd-icon-arrow-right ${self.CLASS.menuNodePostfix}" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1181" width="200" height="200"><path d="M538.434046 617.504916c0 3.687996-1.403976 7.356548-4.211928 10.1645-5.615904 5.615904-14.713097 5.615904-20.329001 0L364.187513 476.931297c-5.615904-5.615904-5.615904-14.713097 0-20.329001 5.615904-5.615904 14.713097-5.615904 20.329001 0l149.705604 150.739143C537.03007 610.148367 538.434046 613.817943 538.434046 617.504916z" p-id="1182" fill="#515151"></path><path d="M689.172165 466.767819c0 3.687996-1.403976 7.356548-4.211928 10.1645L534.222117 627.670439c-5.615904 5.615904-14.713097 5.615904-20.329001 0-5.615904-5.615904-5.615904-14.713097 0-20.329001L664.631236 456.603319c5.615904-5.615904 14.713097-5.615904 20.329001 0C687.768189 459.411271 689.172165 463.079824 689.172165 466.767819z" p-id="1183" fill="#515151"></path></svg>`));
+                }
+                if (String(item.value) === String(selectedValue)) {
+                    $li.addClass(self.CLASS.checkClass.menuNodeSelected).prepend($(`<span class="${self.CLASS.checkClass.nodeSelectedIcon}">√</span>`));
+                }
+                $ul.append($li);
+            });
+            return $wrap;
+        }
+
+        var currentItems = this.options.data || [];
+        $.each(foundPath, function (index, node) {
+            var selectedValue = node.value;
+            var $wrap = renderLevel(currentItems, node, selectedValue);
+            var $node = $wrap.find('li').filter(function () {
+                var d = $(this).data('bindData');
+                return d && String(d.value) === String(node.value);
+            }).eq(0);
+            $node.addClass(self.CLASS.checkClass.nodeAnchor);
+            pathLabels.push(node.label);
+            currentItems = node.children || [];
+        });
+
+        var lastNode = foundPath[foundPath.length - 1];
+        this.$el.val(pathLabels.join(this.options.range)).data('bindData', lastNode).data('bindPathData', foundPath).data('bindValue', lastNode.value);
+    }
+
+    ZdCascader.prototype._isDisabled = function (data, pathData) {
+        return typeof this.options.disabled === 'function' && this.options.disabled.call(this, data, pathData) === true;
+    }
+
+    ZdCascader.prototype._findPathByValue = function (items, targetValue, path) {
+        path = path || [];
+        for (var i = 0; i < (items || []).length; i++) {
+            var item = items[i];
+            var nextPath = path.concat([item]);
+            if (item.value == targetValue) {
+                return nextPath;
+            }
+            if (item.children && item.children.length > 0) {
+                var found = this._findPathByValue(item.children, targetValue, nextPath);
+                if (found) return found;
+            }
+        }
+        return null;
+    }
+
+    ZdCascader.prototype._backfillSelectedValue = function () {
+        var value = this.options.value;
+        if (value === null || value === undefined || value === '') return;
+        this._applyValue(value);
+    }
+
+    ZdCascader.prototype.setValue = function (value) {
+        if (value === undefined || value === null || value === '') return;
+
+        this.options.value = value;
+        var path = this._findPathByValue(this.options.data || [], value);
+        if (!path || path.length === 0) return;
+
+        var lastNode = path[path.length - 1];
+        this.$el.val(this._getPathLabel(path))
+            .data('bindData', lastNode)
+            .data('bindPathData', path)
+            .data('bindValue', lastNode.value);
+    }
+
+    ZdCascader.prototype._renderNode = function (m, selectedId, $ul) {
+        var $li = $(`<li class="${this.CLASS.menuNode}"></li>`);
+        var $label = $(`<span class="${this.CLASS.menuNodeLabel}">${m.label}</span>`);
+        var hasChildren = !!(m.children && m.children.length > 0);
+        var pathData = this._getPathData($ul.closest('.' + this.CLASS.menuWrap).prev().find('li.' + this.CLASS.checkClass.menuNodeSelected).eq(0));
+        var disabled = this._isDisabled(m, pathData.concat([m]));
+        var $icon = $(`<svg t="1600158452164"
+                                        class="icon zd-input__icon zd-icon-arrow-right ${this.CLASS.menuNodePostfix}"
+                                        viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1181"
+                                        width="200" height="200">
+                                        <path
+                                            d="M538.434046 617.504916c0 3.687996-1.403976 7.356548-4.211928 10.1645-5.615904 5.615904-14.713097 5.615904-20.329001 0L364.187513 476.931297c-5.615904-5.615904-5.615904-14.713097 0-20.329001 5.615904-5.615904 14.713097-5.615904 20.329001 0l149.705604 150.739143C537.03007 610.148367 538.434046 613.817943 538.434046 617.504916z"
+                                            p-id="1182" fill="#515151"></path>
+                                        <path
+                                            d="M689.172165 466.767819c0 3.687996-1.403976 7.356548-4.211928 10.1645L534.222117 627.670439c-5.615904 5.615904-14.713097 5.615904-20.329001 0-5.615904-5.615904-5.615904-14.713097 0-20.329001L664.631236 456.603319c5.615904-5.615904 14.713097-5.615904 20.329001 0C687.768189 459.411271 689.172165 463.079824 689.172165 466.767819z"
+                                            p-id="1183" fill="#515151"></path>
+                                    </svg>`);
+        $li.append($label).data('bindData', m);
+        if (disabled) {
+            $li.addClass(this.CLASS.checkClass.nodeDisabled);
+        } else if (hasChildren) {
+            $li.append($icon);
+        } else if (selectedId.indexOf(m.value) >= 0) {
+            this.$dropdownWrap.find('.' + this.CLASS.checkClass.nodeSelectedIcon).remove();
+            $li.addClass(this.CLASS.checkClass.menuNodeSelected).prepend($(`<span class="${this.CLASS.checkClass.nodeSelectedIcon}">√</span>`));
+        }
+        $li.appendTo($ul);
     }
     //销毁
     ZdCascader.prototype.destroy = function () {

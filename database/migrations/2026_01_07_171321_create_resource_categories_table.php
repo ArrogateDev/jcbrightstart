@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('pid')->default(0);
             $table->string('icon')->nullable()->comment('Icon');
             $table->string('color')->nullable()->comment('Color');
+            $table->string('template')->nullable()->comment('Template');
+            $table->smallInteger('sort')->default(0)->comment('排序');
+            $table->tinyInteger('level')->default(1)->comment('Level');
             $table->tinyInteger('status')->default(0)->comment('Status');
             $table->softDeletes();
             $table->timestamps();

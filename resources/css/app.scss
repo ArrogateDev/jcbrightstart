@@ -546,3 +546,11 @@
         background: #ecdadbbf;
     }
 }
+
+.resource-page {
+
+    ol, ul {
+        list-style: initial;
+        padding-inline-start: revert;
+    }
+}
