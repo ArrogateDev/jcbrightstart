@@ -37,7 +37,7 @@
                     </div>
                     <div data-tooltip="{{$resource->date}}" class="text-[31px] text-[#00A99D] font-bold py-[11px] border-y-[1px] border-[#cdc3bb] title-tooltip">
                         {{$resource->title}}
-                        <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px] font-bold">{{$resource->short}}</div>
+                        <div class="text-[17px] text-[#736357] font-sans mt-[18px] mb-[30px] font-bold">{{$resource->short}}</div>
                     </div>
                 </div>
                 <div class="mb-[30px] resource-page">

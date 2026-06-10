@@ -33,7 +33,7 @@
             <div class="text-[31px] text-[#ec6d74] font-bold">
                 {{$news->title}}
             </div>
-            <div class="text-[15px] text-[#736357] mt-[10px]">{{$news->short}}</div>
+            <div class="text-[15px] text-[#736357] font-sans mt-[10px]">{{$news->short}}</div>
             <div class="w-fit text-[15px] text-[#998675] font-bold my-[21px] p-[13px] date-bg"
                  style="background-image: url('{{web_resource_url('assets/web/images/news/date-bg.svg')}}')">{{__('发布日期')}}：{{$news->release_date}}</div>
             <div class="mb-[30px]">
