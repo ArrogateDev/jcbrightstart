@@ -26,7 +26,7 @@
 
         <div class="bg-[#d6d2cd8a] rounded-lg p-[28px] mt-[30px]">
             <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] resource-kit-show-icon">
-                @if($resource->thumbnail_show === 1)
+                @if($resource->thumbnail_show === 1 && $resource->getRawOriginal('thumbnail'))
                     <div class="w-full mb-[40px]">
                         <img class="w-full" src="{{$resource->thumbnail}}" alt="{{$resource->title}}">
                     </div>

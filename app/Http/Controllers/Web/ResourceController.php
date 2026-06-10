@@ -114,23 +114,60 @@ class ResourceController extends Controller
     public function show(Resource $resource, Request $request)
     {
 //        return view('web.under-construction');
+        $category = DB::table('resource_categories as child')
+            ->leftJoin('resource_categories as parent', 'parent.id', '=', 'child.pid')
+            ->where('child.id', $resource->category_id)
+            ->whereNull('child.deleted_at')
+            ->whereNull('parent.deleted_at')
+            ->select([
+                'parent.id as parent_id',
+                'parent.level as parent_level',
+            ])
+            ->first();
+
+        $c = ($category && $category->parent_level == 2)
+            ? $category->parent_id
+            : $resource->category_id;
+
         $date = Carbon::parse($resource->created_at);
         $resource->month = $date->format('M');
         $resource->day = $date->format('d');
         $resource->date = $date->format('Y.m.d');
 
         $prev = Resource::query()
-            ->where('id', '<', $resource->id)
-            ->where('status', News::STATUS_PUBLISHED)
-            ->orderByDesc('sort')
-            ->orderBy('id', 'desc')
+            ->when($c, function ($query) use ($c) {
+                $query->whereHasIn('categories', function ($query) use ($c) {
+                    $query->whereIn('id', [$c]);
+                });
+            })
+            ->where('status', Resource::STATUS_PUBLISHED)
+            ->where(function ($query) use ($resource) {
+                $query->where('sort', '>', $resource->sort)
+                    ->orWhere(function ($query) use ($resource) {
+                        $query->where('sort', $resource->sort)
+                            ->where('id', '>', $resource->id);
+                    });
+            })
+            ->orderBy('sort')
+            ->orderBy('id')
             ->value('id');
 
         $next = Resource::query()
-            ->where('id', '>', $resource->id)
+            ->when($c, function ($query) use ($c) {
+                $query->whereHasIn('categories', function ($query) use ($c) {
+                    $query->whereIn('id', [$c]);
+                });
+            })
             ->where('status', Resource::STATUS_PUBLISHED)
+            ->where(function ($query) use ($resource) {
+                $query->where('sort', '<', $resource->sort)
+                    ->orWhere(function ($query) use ($resource) {
+                        $query->where('sort', $resource->sort)
+                            ->where('id', '<', $resource->id);
+                    });
+            })
             ->orderByDesc('sort')
-            ->orderBy('id', 'asc')
+            ->orderByDesc('id')
             ->value('id');
 
         $url = $request->session()->get('resource-url');

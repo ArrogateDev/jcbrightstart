@@ -25,7 +25,7 @@
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
         <div class="bg-[#fff] rounded-lg p-[45px_52px] mt-[30px]">
-            @if($news->thumbnail_show === 1)
+            @if($news->thumbnail_show === 1 && $news->getRawOriginal('thumbnail'))
                 <div class="w-full mb-[20px]">
                     <img class="w-full" src="{{$news->thumbnail}}" alt="{{$news->title}}">
                 </div>
