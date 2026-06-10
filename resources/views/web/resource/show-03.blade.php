@@ -38,7 +38,7 @@
             <div class="w-full aspect-[4/3] rounded-lg">
                 <iframe class="w-full h-full rounded-lg" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div data-tooltip="{{$resource->date}}" class="text-[28px] text-[#00A99D] font-bold py-[11px] mt-[33px] mb-[60px]">
+            <div class="text-[28px] text-[#00A99D] font-bold py-[11px] mt-[33px] mb-[60px]">
                 {{$resource->title}}
             </div>
 

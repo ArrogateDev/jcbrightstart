@@ -35,7 +35,7 @@
                     <div class="absolute z-50 top-[-18px] bg-[#fff] pr-[10px] category-tag">
                         <div class="p-[12px_50px] rounded-full bg-[#f4f0eb] text-[17px] text-[#736357]">{{$resource->category_text}}</div>
                     </div>
-                    <div data-tooltip="{{$resource->date}}" class="text-[31px] text-[#00A99D] font-bold py-[11px] border-y-[1px] border-[#cdc3bb] title-tooltip">
+                    <div class="text-[31px] text-[#00A99D] font-bold py-[11px] border-y-[1px] border-[#cdc3bb]">
                         {{$resource->title}}
                         <div class="text-[17px] text-[#736357] mt-[18px] mb-[30px] font-bold" style="font-family: auto;">{{$resource->short}}</div>
                     </div>
