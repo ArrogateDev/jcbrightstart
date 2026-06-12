@@ -48,14 +48,14 @@
                         @if($prev)
                             <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $prev])}}">
                                 <i class="fa-solid fa-angles-left text-[#999]"></i>
-                                <span class="text-[15px] font-blod text-[#999]">previous post</span>
+                                <span class="text-[15px] font-blod text-[#999]">上一篇</span>
                             </a>
                         @endif
                     </li>
                     <li>
                         @if($next)
                             <a class="flex items-center gap-2" href="{{route('resource.show.html', ['resource' => $next])}}">
-                                <span class="text-[15px] font-blod text-[#999]">next post</span>
+                                <span class="text-[15px] font-blod text-[#999]">下一篇</span>
                                 <i class="fa-solid fa-angles-right text-[#999]"></i>
                             </a>
                         @endif

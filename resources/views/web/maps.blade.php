@@ -39,7 +39,7 @@
                     @foreach($maps as $map)
                         <div class="collapse">
                             <input type="checkbox" class="peer"/>
-                            <div class="collapse-title flex items-center gap-[6px]" style="background-color: {{$map->bg}};">
+                            <div class="collapse-title flex items-baseline gap-[6px]" style="background-color: {{$map->bg}};">
                                 <img class="w-[24px]" src="{{$map->icon}}" alt="{{$map->show_title}}">
                                 <div class="text-[24px] text-[#998675]">{{$map->show_title}}</div>
                             </div>
