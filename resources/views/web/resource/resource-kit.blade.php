@@ -98,7 +98,6 @@
             const queryString = searchParams.toString();
 
             const newUrl = `${window.location.pathname}?${queryString}`;
-            requestParams.mod = 14;
 
             $.ajax({
                 url: "{{route('resource.list.html')}}",
