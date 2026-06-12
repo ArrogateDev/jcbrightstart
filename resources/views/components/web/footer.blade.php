@@ -31,7 +31,7 @@
                         <a href="https://www.instagram.com/JCBrightStartProject">
                             <img class="w-[30px]" src="{{web_resource_url('assets/web/images/instagram.svg')}}" alt="">
                         </a>
-                        <a href="https://www.facebook.com/JCBrightStartProject">
+                        <a href="https://www.youtube.com/@jcbrightstart">
                             <img class="h-[30px]" src="{{web_resource_url('assets/web/images/youtube.svg')}}" alt="">
                         </a>
                     </div>
