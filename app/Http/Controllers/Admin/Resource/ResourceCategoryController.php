@@ -81,7 +81,7 @@ class ResourceCategoryController extends Controller
                 $category->$field = $value;
             }
 
-            $category->level = $category->pid ? ResourceCategory::query()->where('id', $category->pid)->value('level') + 1 : 1;
+            $category->level = $category->pid > 0 ? ResourceCategory::query()->where('id', $category->pid)->value('level') + 1 : 1;
             if ($category->save() === false) {
                 throw new \Exception('category:failed');
             }
@@ -122,7 +122,7 @@ class ResourceCategoryController extends Controller
                 $category->$field = $value;
             }
 
-            $category->level = $category->pid ? ResourceCategory::query()->where('id', $category->pid)->value('level') + 1 : 1;
+            $category->level = $category->pid > 0 ? ResourceCategory::query()->where('id', $category->pid)->value('level') + 1 : 1;
             if ($category->save() === false) {
                 throw new \Exception('category:failed');
             }

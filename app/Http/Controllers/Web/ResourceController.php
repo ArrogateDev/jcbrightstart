@@ -71,6 +71,7 @@ class ResourceController extends Controller
         });
 
         $list = Resource::query()
+            ->with(['category_top:id,title,color', 'category:id,title,color'])
             ->whereHasIn('categories', function ($query) use ($c) {
                 $query->whereIn('id', [$c]);
             })
@@ -86,7 +87,7 @@ class ResourceController extends Controller
 //            $item->date = Carbon::parse($item->created_at)->format('Y.m.d');
             $item->url = route('resource.show.html', ['resource' => $item->id]);
         });
-        $list->append(['category_top_text', 'category_top_color', 'category_text', 'category_color', 'category']);
+        $list->append(['category_top_text', 'category_top_color', 'category_text', 'category_color']);
 
         $html = '';
 
