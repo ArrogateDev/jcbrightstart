@@ -20,7 +20,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 md:p-10">
+    <div class="container mx-auto p-5 xl:p-10">
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 

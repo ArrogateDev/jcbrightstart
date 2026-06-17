@@ -4,15 +4,15 @@
         <div class="news-item-box-clip border-b-[5px] border-[#fbe0df]">
             <div class="news-perforated-line rounded-t-lg" aria-hidden="true"></div>
             <div class="news-item-box-body bg-[#fff] p-[45px] rounded-b-lg">
-                <div class="flex gap-[20px]">
+                <div class="block md:flex gap-[20px]">
                     <div class="title border-t-[1px] border-[#d1c7c0] grow title-tooltip pt-[17px]" data-tooltip="{{$news->release_date}}">
-                        <span class="h-[145px] text-[24px] font-bold leading-9 line-clamp-4">{{$news->title}}</span>
+                        <span class="md:h-[145px] text-[24px] font-bold leading-9 md:line-clamp-4">{{$news->title}}</span>
                     </div>
-                    <div class="w-[203px] h-[153px] rounded-lg flex-none overflow-hidden">
+                    <div class="w-full md:w-[203px] h-auto md:h-[153px] mt-3 md:mt-0 rounded-lg flex-none overflow-hidden">
                         <img class="w-full rounded-lg" src="{{$news->thumbnail}}" alt="{{$news->title}}">
                     </div>
                 </div>
-                <div class="h-[113px] text-[15px] text-[#736357] line-clamp-3 mt-[52px] font-normal">
+                <div class="h-[113px] text-[15px] text-[#736357] line-clamp-3 mt-3 md:mt-[52px] font-normal">
                     {{$news->short??''}}
                 </div>
             </div>

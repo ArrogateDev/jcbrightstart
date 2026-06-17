@@ -478,10 +478,17 @@
     border-color: #66cbc4;
 }
 
-.page-item.active {
-    background: #66cbc4;
-    color: white;
-    border-color: #66cbc4;
+.page-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .active {
+        background: #66cbc4;
+        color: white;
+        border-color: #66cbc4;
+    }
 }
 
 .page-item.disabled {

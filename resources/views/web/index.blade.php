@@ -24,7 +24,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 md:p-10">
+    <div class="container mx-auto p-5 xl:p-10">
         <div class="block lg:flex py-8 lg:py-[60px] gap-x-12">
             <div class="flex-none">
                 <div class="flex flex-col lg:items-end">

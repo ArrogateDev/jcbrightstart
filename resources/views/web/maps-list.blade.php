@@ -20,7 +20,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 md:p-10">
+    <div class="container mx-auto p-5 xl:p-10">
         <div class="py-[60px]">
             <div class="flex justify-center items-center gap-x-2 text-[#998675]">
                 <div class="divider-line"></div>

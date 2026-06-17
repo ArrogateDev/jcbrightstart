@@ -26,7 +26,7 @@
 </section>
 
 <section class="bg-01">
-    <div class="container mx-auto p-5 md:p-10">
+    <div class="container mx-auto p-5 xl:p-10">
 
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
@@ -41,7 +41,7 @@
                 </div>
                 <div class="divider-line"></div>
             </div>
-            <div class="grid grid-cols-12 gap-x-0 md:gap-x-[40px] gap-y-[40px] p-[55px_42px_0px] list-container"></div>
+            <div class="grid grid-cols-12 gap-x-0 md:gap-x-[40px] gap-y-[40px] mt-4 md:mt-0 md:p-[55px_42px_0px] list-container"></div>
             <div class="pagination-container mt-[48px]"></div>
         </div>
     </div>
