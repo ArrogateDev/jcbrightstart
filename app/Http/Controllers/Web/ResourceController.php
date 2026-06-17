@@ -24,7 +24,7 @@ class ResourceController extends Controller
      */
     public function index(Request $request)
     {
-//        return view('web.under-construction');
+        return view('web.under-construction');
         $c = (int)$request->query('c');
         $n = (int)$request->query('n');
         if (empty($c) || empty($n)) {
@@ -114,7 +114,7 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource, Request $request)
     {
-//        return view('web.under-construction');
+        return view('web.under-construction');
         $category = DB::table('resource_categories as child')
             ->leftJoin('resource_categories as parent', 'parent.id', '=', 'child.pid')
             ->where('child.id', $resource->category_id)
