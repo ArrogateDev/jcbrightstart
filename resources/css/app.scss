@@ -484,7 +484,7 @@
     align-items: center;
     justify-content: center;
 
-    .active {
+    &.active {
         background: #66cbc4;
         color: white;
         border-color: #66cbc4;
