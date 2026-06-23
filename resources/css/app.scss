@@ -516,7 +516,8 @@
     mask-repeat: no-repeat;
 }
 
-.url-item:nth-child(odd) {
+.url-item {
+//.url-item:nth-child(odd) {
     .bg {
         background: #f5fbfe;
     }
