@@ -70,6 +70,11 @@ class ResourceController extends Controller
                 ->first();
         });
 
+        $params['c'] = $c;
+        $params['n'] = $n;
+
+        $limit = 12;
+
         $list = Resource::query()
             ->with(['category_top:id,title,color', 'category:id,title,color'])
             ->whereHasIn('categories', function ($query) use ($c) {
@@ -81,7 +86,9 @@ class ResourceController extends Controller
                 $query->orderByDesc('sort')->orderByDesc('id');
             })
             ->where('status', News::STATUS_PUBLISHED)
-            ->paginate(12);
+            ->paginate($limit);
+
+        $list->appends([...$params, 'limit' => $limit]);
 
         $list->map(function ($item) {
 //            $item->date = Carbon::parse($item->created_at)->format('Y.m.d');

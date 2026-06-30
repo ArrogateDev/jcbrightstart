@@ -484,7 +484,7 @@
     align-items: center;
     justify-content: center;
 
-    .active {
+    &.active {
         background: #66cbc4;
         color: white;
         border-color: #66cbc4;
@@ -516,7 +516,8 @@
     mask-repeat: no-repeat;
 }
 
-.url-item:nth-child(odd) {
+.url-item {
+//.url-item:nth-child(odd) {
     .bg {
         background: #f5fbfe;
     }
@@ -534,25 +535,25 @@
         background: #cfeaf0bf;
     }
 }
-
-.url-item:nth-child(even) {
-    .bg {
-        background: #faf9fa;
-    }
-
-    .line {
-        background: #e0cfd1;
-    }
-
-    .title {
-        background: #faf9fa;
-        color: #A76F70;
-    }
-
-    .tag {
-        background: #ecdadbbf;
-    }
-}
+//
+//.url-item:nth-child(even) {
+//    .bg {
+//        background: #faf9fa;
+//    }
+//
+//    .line {
+//        background: #e0cfd1;
+//    }
+//
+//    .title {
+//        background: #faf9fa;
+//        color: #A76F70;
+//    }
+//
+//    .tag {
+//        background: #ecdadbbf;
+//    }
+//}
 
 .resource-page {
 

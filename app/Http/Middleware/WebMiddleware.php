@@ -90,7 +90,7 @@ class WebMiddleware
             }
 
             $navs[] = [
-                'title' => __('幼兒服務網絡'),
+                'title' => __('嬰幼兒服務網絡'),
                 'url' => '',
                 'icon' => web_resource_url('assets/web/images/maps.svg'),
                 'active' => false,
