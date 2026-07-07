@@ -103,7 +103,7 @@ class ResourceController extends Controller
         $page = $list->currentPage();
         $data = $list->items();
         foreach ($data as $resource) {
-            $html .= view(sprintf('web.resource.item-%s', $template), compact('resource'))->render();
+            $html .= view(sprintf('web.resource.item-%s', $template), compact('resource', 'c'))->render();
         }
 
         $pagination = $total > 0 ? $list->links('components.web.pagination')->toHtml() : '';
