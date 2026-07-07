@@ -38,10 +38,10 @@
                 <div class="grid grid-cols-12 gap-x-0 md:gap-x-[36px] gap-y-[36px]">
                     @if(!empty($urls))
                         @foreach($urls as $url)
-                            <a href="{{$url['url']}}" target="_blank" class="col-span-12 md:col-span-6 xl:col-span-4 cursor-pointer relative block url-item">
+                            <a href="{{$url['url']}}" target="_blank" class="col-span-12 md:col-span-6 cursor-pointer relative block url-item">
                                 <span class="block h-full corner-cutout p-[8px] bg">
                                     <span class="block h-full corner-cutout p-[1px] line">
-                                        <span class="block h-full corner-cutout text[21px] font-bold p-[17px_28px] title">{{$url['title']}}</span>
+                                        <span class="block h-full corner-cutout text-[24px] font-bold p-[25px_28px] title">{{$url['title']}}</span>
                                     </span>
                                 </span>
                                 <span class="absolute w-[89px] h-[30px] top-[-15px] left-0 right-0 mx-auto tag"></span>
