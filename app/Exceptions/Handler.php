@@ -116,7 +116,7 @@ class Handler extends ExceptionHandler
         $redirect = $request->url();
 
         if ($request->is('admin/*')) {
-            return redirect()->route('admin.login.html', ['aredirect' => $redirect]);
+            return redirect()->route('admin.login.html', ['redirect' => $redirect]);
         }
 
         return redirect()->route('login.html', ['redirect' => $redirect]);
