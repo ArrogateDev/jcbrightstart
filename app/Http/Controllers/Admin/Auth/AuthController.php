@@ -62,8 +62,7 @@ class AuthController extends Controller
             if ($user->status !== User::NORMAL) {
                 throw new ApiException(__('账号或密码错误'), ResponseCode::FORBIDDEN);
             }
-            $user->password = $password;
-            $user->save();
+
             if (!Hash::check($password, $user->password)) {
                 throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
