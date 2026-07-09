@@ -30,10 +30,6 @@ class ResourceController extends Controller
             abort(404);
         }
 
-        if ($c !== 21 && $n !== 14) {
-            return view('web.under-construction');
-        }
-
         $category = Cache::tags(['RESOURCE_CATEGORY'])->rememberForever('CATEGORY:' . $c, function () use ($c) {
             return ResourceCategory::query()
                 ->where('id', $c)
@@ -124,7 +120,6 @@ class ResourceController extends Controller
      */
     public function show(Resource $resource, Request $request)
     {
-//        return view('web.under-construction');
         $category = DB::table('resource_categories as child')
             ->leftJoin('resource_categories as parent', 'parent.id', '=', 'child.pid')
             ->where('child.id', $resource->category_id)
