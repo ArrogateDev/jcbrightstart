@@ -67,7 +67,7 @@ class AuthController extends Controller
                 throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
-//            Auth::guard('admin')->logoutOtherDevices($password);
+            Auth::guard('admin')->logoutOtherDevices($password);
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
 

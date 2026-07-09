@@ -42,11 +42,11 @@ class Kernel extends HttpKernel
         'admin' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class . ':admin',
+            \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class . ':admin',
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
         ],
 
         'api' => [
@@ -77,7 +77,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
-        'admin' => \App\Http\Middleware\PermissionAuth::class,
+        'admin.permission' => \App\Http\Middleware\PermissionAuth::class,
         'admin.middleware' => \App\Http\Middleware\AdminMiddleware::class,
         'web.middleware' => \App\Http\Middleware\WebMiddleware::class
     ];
