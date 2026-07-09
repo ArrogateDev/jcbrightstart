@@ -21,6 +21,10 @@ class PermissionAuth
     public function handle(Request $request, Closure $next, $alias)
     {
         $admin = $request->user('admin');
+        if (!$admin) {
+            return redirect()->route('admin.login.html');
+        }
+
         $role = $admin->role;
         $role_id = $role->id;
 

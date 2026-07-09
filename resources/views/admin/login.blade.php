@@ -126,6 +126,9 @@
             type: "post",
             data: form,
             dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
             success: function (data) {
                 if (data.code !== 0) {
                     showToast('error', data.msg);
