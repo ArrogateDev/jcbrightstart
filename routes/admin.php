@@ -35,7 +35,7 @@ Route::get('/login.html', [AuthController::class, 'index'])->name('admin.login.h
 //登录
 Route::post('/login.html', [AuthController::class, 'handleLogin']);
 
-Route::group(['middleware' => ['auth:admin', 'admin.middleware']], function ($route) {
+Route::group(['middleware' => ['auth:admin', 'admin']], function ($route) {
 
     //公共模块
     $route->group(['prefix' => 'main'], function ($route) {
