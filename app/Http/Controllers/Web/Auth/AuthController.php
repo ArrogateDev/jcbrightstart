@@ -20,14 +20,15 @@ class AuthController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $user = Auth::guard('web')->user();
-        if ($user) {
-            $request->session()->forget([
-                'login_web_' . sha1($user->getAuthIdentifier()),
-                'password_hash_web'
-            ]);
-        }
+//        $user = Auth::guard('web')->user();
+//        if ($user) {
+//            $request->session()->forget([
+//                'login_web_' . sha1($user->getAuthIdentifier()),
+//                'password_hash_web'
+//            ]);
+//        }
 
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return $this->responseSuccess(null, __('退出成功'));

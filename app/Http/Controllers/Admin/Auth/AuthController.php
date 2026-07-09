@@ -62,14 +62,16 @@ class AuthController extends Controller
             if ($user->status !== User::NORMAL) {
                 throw new ApiException(__('账号或密码错误'), ResponseCode::FORBIDDEN);
             }
-
+            $user->password = $password;
+            $user->save();
             if (!Hash::check($password, $user->password)) {
                 throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
-            Auth::guard('admin')->logoutOtherDevices($password);
+//            Auth::guard('admin')->logoutOtherDevices($password);
 
             Auth::guard('admin')->login($user, $remember_me === 'on');
+            $request->session()->regenerate();
 
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
@@ -91,14 +93,15 @@ class AuthController extends Controller
 
         Auth::guard('admin')->logout();
 
-        $user = Auth::guard('admin')->user();
-        if ($user) {
-            $request->session()->forget([
-                'login_admin_' . sha1($user->getAuthIdentifier()),
-                'password_hash_admin'
-            ]);
-        }
+//        $user = Auth::guard('admin')->user();
+//        if ($user) {
+//            $request->session()->forget([
+//                'login_admin_' . sha1($user->getAuthIdentifier()),
+//                'password_hash_admin'
+//            ]);
+//        }
 
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return $this->responseSuccess(null, __('退出成功'));
