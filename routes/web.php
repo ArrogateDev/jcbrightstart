@@ -75,7 +75,7 @@ Route::get('/resource-kit/video.html', [ResourceController::class, 'index'])->na
 Route::get('/resource-kit/video/liist.html', [ResourceController::class, 'list'])->name('resource.video.list.html');
 Route::get('/resource-kit/video/{resource}.html', [ResourceController::class, 'show'])->name('resource.video.show.html')->whereNumber('resource');;
 
-Route::middleware(['auth:web', 'web.middleware'])->group(function ($route) {
+Route::middleware(['auth'])->group(function ($route) {
 
     $route->delete('/logout.html', [AuthController::class, 'logout'])->name('user.logout.html');
 
