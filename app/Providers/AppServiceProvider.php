@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (str_starts_with((string) config('app.url'), 'https://')) {
+            URL::forceScheme('https');
+        }
 
         Validator::extend('file_exists', function (...$parameters) {
             return !empty($parameters[1]) && Storage::exists($parameters[1]);
