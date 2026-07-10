@@ -61,6 +61,9 @@
 
         $.ajax({
             url: "{{$url}}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: requestParams,
             dataType: "json",
             beforeSend: function () {

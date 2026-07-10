@@ -502,7 +502,8 @@
                 cropperImage.src = e.target.result;
 
                 modalElement.showModal();
-                modalElement.addEventListener('close', function initCropper() {}, {once: true});
+                modalElement.addEventListener('close', function initCropper() {
+                }, {once: true});
                 requestAnimationFrame(() => {
                     destroyCropper();
                     const CropperClass = window.Cropper;
@@ -568,6 +569,9 @@
             $.ajax({
                 type: "post",
                 url: "{{route($module.'.set-avatar.html')}}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: form,
                 dataType: "json",
                 success: function (data) {
@@ -607,6 +611,9 @@
                 $.ajax({
                     type: "delete",
                     url: "{{route($module.'.remove-avatar.html')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         _token: '{{csrf_token()}}'
                     },

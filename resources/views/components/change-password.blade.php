@@ -126,6 +126,9 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {
@@ -159,6 +162,9 @@
                 $.ajax({
                     type: "post",
                     url: "{{route('forgot-password.html')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         _token: '{{csrf_token()}}'
                     },

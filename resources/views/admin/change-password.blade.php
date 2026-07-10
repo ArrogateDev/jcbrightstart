@@ -44,7 +44,7 @@
     <x-admin.footer/>
 
 </div>
-
+@csrfRefresh
 </body>
 
 </html>

@@ -123,7 +123,7 @@
     <x-admin.footer/>
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>

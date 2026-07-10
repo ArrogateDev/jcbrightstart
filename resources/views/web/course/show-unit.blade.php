@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/course-unit.scss', 'resources/js/app.js'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
@@ -21,9 +22,9 @@
             position: relative;
             width: 100%;
             @if ($unit->type === 0)
-             aspect-ratio: 16 / 9;
+               aspect-ratio: 16 / 9;
             @endif
-             border-radius: 24px;
+               border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 16px 56px rgba(26, 39, 68, .28);
             margin-bottom: 2rem;
@@ -146,10 +147,10 @@
 </section>
 
 <x-web.footer/>
+@csrfRefresh
 </body>
 
 <script>
-    // 供测验完成后即时更新“观看/完成”状态
     window.setPlayRecordStatus = function (newStatus) {
         const status = parseInt(newStatus || 0, 10);
         const $chip = $('#playStatusChip');
@@ -247,6 +248,9 @@
             $.ajax({
                 url: '{{route('course.play-start.html', ['course' => $course->id])}}',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     chapter_id: chapterId,
                     unit_id: unitId,
@@ -264,6 +268,9 @@
             $.ajax({
                 url: '{{route('course.save-play-record.html', ['course' => $course->id])}}',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     chapter_id: chapterId,
                     unit_id: unitId,
@@ -281,6 +288,9 @@
             $.ajax({
                 url: '{{route('course.play-end.html', ['course' => $course->id])}}',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     chapter_id: chapterId,
                     unit_id: unitId,

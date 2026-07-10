@@ -205,6 +205,9 @@
                 $.ajax({
                     url: '{{route('user.info.confirm.html')}}',
                     type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: form,
                     dataType: "json",
                     success: function (data) {
@@ -245,6 +248,9 @@
                         $.ajax({
                             url: "{{ route('user.logout.html') }}",
                             type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             data: {
                                 _token: "{{ csrf_token() }}"
                             },

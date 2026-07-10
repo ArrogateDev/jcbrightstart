@@ -56,7 +56,7 @@
     @include('admin.resource-category.new')
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>

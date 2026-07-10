@@ -288,6 +288,9 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {
@@ -367,6 +370,9 @@
             $.ajax({
                 type: "post",
                 url: '{{route('get-code')}}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: form,
                 dataType: "json",
                 success: function (data) {
@@ -386,6 +392,7 @@
         });
     });
 </script>
+@csrfRefresh
 </body>
 
 </html>

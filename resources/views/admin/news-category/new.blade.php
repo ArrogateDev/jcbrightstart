@@ -155,6 +155,9 @@
             $.ajax({
                 url: url,
                 type: method,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: form,
                 dataType: "json",
                 success: function (data) {

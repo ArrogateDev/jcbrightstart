@@ -78,7 +78,7 @@
     @include('admin.user.new')
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>
@@ -210,6 +210,9 @@
 
             $.ajax({
                 url: "{{route('admin.parent.export.html')}}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {keyword: searchKeyword},
                 dataType: "json",
                 success: function (response) {

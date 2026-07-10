@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
@@ -58,7 +59,9 @@
                                                 {{__('名字')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <input id="first-name" type="text" name="first_name" class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" value="{{$user->first_name}}">
+                                            <input id="first-name" type="text" name="first_name"
+                                                   class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                                   value="{{$user->first_name}}">
                                             <p class="label error-container-first-name"></p>
                                         </fieldset>
                                     </div>
@@ -68,7 +71,9 @@
                                                 {{__('姓氏')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <input id="last-name" type="text" name="last_name" class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" value="{{$user->last_name}}">
+                                            <input id="last-name" type="text" name="last_name"
+                                                   class="input rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                                   value="{{$user->last_name}}">
                                             <p class="label error-container-last-name"></p>
                                         </fieldset>
                                     </div>
@@ -78,7 +83,9 @@
                                                 {{__('性别')}}
                                                 <span class="text-red-600 ms-1">*</span>
                                             </legend>
-                                            <select id="gender" class="select rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" name="gender">
+                                            <select id="gender"
+                                                    class="select rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                                    name="gender">
                                                 <option @selected($user->gender === 1) value="1">{{__('男性')}}</option>
                                                 <option @selected($user->gender === 0) value="0">{{__('女性')}}</option>
                                                 <option @selected($user->gender === 2) value="2">{{__('沒有提供')}}</option>
@@ -103,6 +110,7 @@
 </section>
 
 <x-web.footer/>
+@csrfRefresh
 </body>
 
 <script>
@@ -142,6 +150,9 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {

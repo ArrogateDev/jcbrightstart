@@ -49,7 +49,7 @@
     @include('admin.certificate.show')
 
 </div>
-
+@csrfRefresh
 </body>
 
 

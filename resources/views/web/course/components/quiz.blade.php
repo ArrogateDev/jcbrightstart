@@ -439,6 +439,9 @@
                 $.ajax({
                     url: `/course/${currentCourseId}/quiz-answer.html`,
                     type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         chapter_id: currentChapterId,
                         unit_id: currentUnitId,
@@ -576,6 +579,9 @@
             $.ajax({
                 url: `/course/${currentCourseId}/quiz-statistics.html`,
                 type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     chapter_id: currentChapterId,
                     unit_id: currentUnitId,

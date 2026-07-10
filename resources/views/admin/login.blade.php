@@ -124,6 +124,9 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             xhrFields: {
@@ -147,6 +150,7 @@
         });
     }
 </script>
+@csrfRefresh
 </body>
 
 </html>

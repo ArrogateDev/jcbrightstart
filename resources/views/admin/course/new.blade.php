@@ -917,6 +917,9 @@
 
             $.ajax({
                 url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type: method,
                 data: formData,
                 processData: false,

@@ -207,6 +207,9 @@
 
                 $.ajax({
                     url: "{{route('admin.dashboard.user.html')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: form,
                     dataType: "json",
                     success: function (response) {
@@ -339,7 +342,7 @@
     </script>
 
 </div>
-
+@csrfRefresh
 </body>
 
 </html>

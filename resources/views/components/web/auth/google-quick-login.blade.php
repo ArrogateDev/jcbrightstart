@@ -52,7 +52,7 @@
                 if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
                     console.log('Google prompt not displayed:', notification.getNotDisplayedReason());
                 }
-            }, { parentComponent: document.getElementById('google-quick-login-btn') });
+            }, {parentComponent: document.getElementById('google-quick-login-btn')});
         });
     }
 
@@ -72,6 +72,9 @@
         $.ajax({
             type: "post",
             url: '{{ route('google-quick-login.html') }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {

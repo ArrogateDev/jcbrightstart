@@ -41,7 +41,7 @@
     @include('admin.quiz.new')
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>

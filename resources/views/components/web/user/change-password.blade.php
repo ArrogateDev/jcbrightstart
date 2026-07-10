@@ -23,7 +23,8 @@
                     <span id="error-container-current-password"></span>
                 </label>
                 <div class="relative">
-                    <input id="current-password" type="password" name="current_password" class="pass-input w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
+                    <input id="current-password" type="password" name="current_password"
+                           class="pass-input w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
                     <span class="isax toggle-password isax-eye-slash absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></span>
                 </div>
             </div>
@@ -33,7 +34,8 @@
                     <span id="error-container-password"></span>
                 </label>
                 <div class="relative" id="passwordInput">
-                    <input id="password" type="password" name="password" class="pass-inputs w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
+                    <input id="password" type="password" name="password"
+                           class="pass-inputs w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
                     <span class="isax toggle-passwords isax-eye-slash absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></span>
                 </div>
                 <div class="password-strength mt-3 flex gap-2" id="passwordStrength">
@@ -52,7 +54,8 @@
                     <span id="error-container-password-confirmation"></span>
                 </label>
                 <div class="relative">
-                    <input id="password-confirmation" type="password" name="password_confirmation" class="pass-inputa w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
+                    <input id="password-confirmation" type="password" name="password_confirmation"
+                           class="pass-inputa w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20">
                     <span class="isax toggle-passworda isax-eye-slash absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></span>
                 </div>
             </div>
@@ -126,6 +129,9 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {
@@ -159,6 +165,9 @@
                 $.ajax({
                     type: "post",
                     url: "{{route('forgot-password.html')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         _token: '{{csrf_token()}}'
                     },

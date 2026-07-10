@@ -50,6 +50,9 @@
                     $.ajax({
                         url: '{{route('admin.upload-image.html')}}',
                         type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         data: formData,
                         processData: false,
                         contentType: false,

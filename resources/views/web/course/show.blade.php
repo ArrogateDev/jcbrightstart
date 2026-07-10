@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/course.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
@@ -327,7 +328,7 @@
 </div>
 
 <x-web.footer/>
-
+@csrfRefresh
 </body>
 
 <script>
@@ -443,6 +444,9 @@
             $.ajax({
                 url: '{{route('course.handle.html', ['course' => $course->id])}}',
                 type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     name: name,
                     _token: "{{csrf_token()}}"
@@ -492,6 +496,9 @@
             $.ajax({
                 url: '{{route('course.certificate-status.html', ['course' => $course->id])}}',
                 type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 dataType: 'json',
                 success: function (response) {
                     if (response.code !== 0) {

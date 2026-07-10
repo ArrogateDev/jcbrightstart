@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
@@ -33,20 +34,28 @@
                                 <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
                                     <i class="isax isax-search-normal-14"></i>
                                 </span>
-                                <input type="text" id="search-input" class="w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20" placeholder="{{__('搜索课程名称')}}">
+                                <input type="text" id="search-input"
+                                       class="w-full rounded-xl border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                       placeholder="{{__('搜索课程名称')}}">
                             </div>
                         </div>
                         <div class="w-full lg:w-auto">
                             <ul class="status-list flex flex-wrap gap-2">
                                 <li class="mb-0" data-status="0">
-                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800" data-active="true">All
+                                    <a href="javascript:void(0);"
+                                       class="status-link inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-800"
+                                       data-active="true">All
                                         ({{$all}})</a>
                                 </li>
                                 <li class="mb-0" data-status="1">
-                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200" data-active="false">Active ({{$active}})</a>
+                                    <a href="javascript:void(0);"
+                                       class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200"
+                                       data-active="false">Active ({{$active}})</a>
                                 </li>
                                 <li class="mb-0" data-status="2">
-                                    <a href="javascript:void(0);" class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200" data-active="false">Completed ({{$completed}})</a>
+                                    <a href="javascript:void(0);"
+                                       class="status-link inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200"
+                                       data-active="false">Completed ({{$completed}})</a>
                                 </li>
                             </ul>
                         </div>
@@ -56,10 +65,12 @@
                     <div class="courses-container grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
 
                     <div class="mt-6 flex justify-center">
-                        <button type="button" class="load-more-btn inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60">
+                        <button type="button"
+                                class="load-more-btn inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60">
                             <span class="btn-text" style="display: none;">{{__('更多')}}</span>
                             <span class="btn-loading inline-flex items-center">
-                                <span class="spinner-border spinner-border-sm me-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent" role="status" aria-hidden="true"></span>
+                                <span class="spinner-border spinner-border-sm me-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent" role="status"
+                                      aria-hidden="true"></span>
                                 Loading...
                             </span>
                         </button>
@@ -72,6 +83,7 @@
 </section>
 
 <x-web.footer/>
+@csrfRefresh
 </body>
 
 <script>
@@ -131,6 +143,9 @@
             $btn.show();
             $.ajax({
                 url: "{{route('user.course.list.html')}}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: requestParams,
                 dataType: "json",
                 beforeSend: function () {

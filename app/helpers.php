@@ -101,8 +101,7 @@ if (!function_exists('list_to_tree')) {
 if (!function_exists('web_resource_url')) {
     function web_resource_url($file)
     {
-        $app_url = config('app.url', '');
-        $secure = stripos($app_url, 'https://') === 0;
+        $secure = str_starts_with((string) config('app.url'), 'https://');
 
         return asset('storage/' . $file, $secure) . ('?v=' . (config('app.env') === 'production' ? config('style.version') : time()));
     }

@@ -131,6 +131,9 @@
         $.ajax({
             type: 'post',
             url: '{{ route('apple-quick-login.html') }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: payload,
             dataType: 'json',
             success: function (data) {
@@ -181,6 +184,9 @@
             $.ajax({
                 type: 'post',
                 url: '{{ route('apple-quick-login.html') }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     action: 'create',
                     apple_pending_token: applePendingToken,
@@ -235,6 +241,9 @@
             $.ajax({
                 type: 'post',
                 url: '{{ route('get-code') }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {email: email, scene: 'bind', _token: '{{ csrf_token() }}'},
                 dataType: 'json',
                 success: function (data) {
@@ -283,6 +292,9 @@
             $.ajax({
                 type: 'post',
                 url: '{{ route('apple-quick-login.html') }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: {
                     action: 'bind',
                     apple_pending_token: applePendingToken,

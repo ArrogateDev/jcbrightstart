@@ -92,7 +92,8 @@
                                                     {{__('封面图')}}
                                                     <span class="text-danger ms-1">*</span>
                                                     <span class="d-flex align-items-center ms-3">
-                                                        <input type="checkbox" name="thumbnail_show" class="me-2" @checked($resource->thumbnail_show && $resource->thumbnail_show === 1 || empty($resource->id)) value="1">{{__('详情页显示')}}
+                                                        <input type="checkbox" name="thumbnail_show" class="me-2"
+                                                               @checked($resource->thumbnail_show && $resource->thumbnail_show === 1 || empty($resource->id)) value="1">{{__('详情页显示')}}
                                                     </span>
                                                 </label>
                                             </div>
@@ -314,6 +315,9 @@
                                 $.ajax({
                                     url: '{{route('admin.resource-category.store.html')}}',
                                     type: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
                                     dataType: 'json',
                                     data: {
                                         _token: '{{csrf_token()}}',
@@ -517,6 +521,9 @@
             $.ajax({
                 url: url,
                 type: method,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: formData,
                 processData: false,
                 contentType: false,

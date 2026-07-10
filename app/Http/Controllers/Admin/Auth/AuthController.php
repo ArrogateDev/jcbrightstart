@@ -7,9 +7,7 @@ use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Models\Manage\Admin;
 use App\Models\User\User;
-use App\Support\AuthSession;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -105,6 +103,4 @@ class AuthController extends Controller
 
         return $this->responseSuccess(null, __('退出成功'));
     }
-
-
 }

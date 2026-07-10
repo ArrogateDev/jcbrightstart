@@ -198,6 +198,9 @@
             $.ajax({
                 type: "post",
                 url: "{{route($module.'.set-avatar.html')}}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: form,
                 dataType: "json",
                 success: function (data) {
@@ -237,6 +240,9 @@
                 $.ajax({
                     type: "delete",
                     url: "{{route($module.'.remove-avatar.html')}}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         _token: '{{csrf_token()}}'
                     },

@@ -53,7 +53,7 @@
     @include('admin.news-category.new')
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>

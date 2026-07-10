@@ -46,6 +46,9 @@
                         showLoading()
                         $.ajax({
                             url: "{{ route('admin.logout.html') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             type: 'DELETE',
                             data: {
                                 _token: "{{ csrf_token() }}"

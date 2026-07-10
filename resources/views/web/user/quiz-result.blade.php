@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/css/user.scss', 'resources/js/app.js', 'resources/css/font-awesome/all.min.css'])
     <script src="{{web_resource_url('assets/web/vendor/jquery/jquery.min.js')}}"></script>
@@ -38,7 +39,7 @@
 
                 @if($is_completed)
                     <div class="mb-4 rounded-2xl border border-slate-200 bg-white shadow-sm j-user-box">
-                            <div class="p-6">
+                        <div class="p-6">
                             <div class="flex justify-center m-0 mb-3">
                                 <div
                                     @class(['flex-none', 'radial-progress', 'text-[10px]', 'text-red-600' => $quiz_statistics->correct_rate <= 50, 'text-orange-500' => $quiz_statistics->finishing_rat > 50 && $quiz_statistics->finishing_rat < 100, 'text-green-700' => $quiz_statistics->correct_rate == 100]) style="--value:{{$quiz_statistics->correct_rate}};--size:38px; --thickness: 4px;"
@@ -59,7 +60,8 @@
                                 </div>
                             </div>
                             <div class="flex items-center justify-center">
-                                <a href="{{route('user.quiz.html')}}" class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
+                                <a href="{{route('user.quiz.html')}}"
+                                   class="inline-flex items-center rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200">
                                     <i class="isax isax-arrow-left-2 me-1 fs-10"></i>{{__('返回测验列表')}}
                                 </a>
                             </div>
@@ -82,7 +84,8 @@
                                     @endphp
                                     <div class="mb-3 rounded-2xl border {{$is_correct ? 'border-emerald-300 bg-emerald-50/60' : 'border-rose-300 bg-rose-50/60'}} p-4">
                                         <div class="mb-3 flex items-start">
-                                            <span class="mr-2 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white {{$is_correct ? 'bg-emerald-500' : 'bg-rose-500'}}">{{$index + 1}}</span>
+                                            <span
+                                                class="mr-2 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white {{$is_correct ? 'bg-emerald-500' : 'bg-rose-500'}}">{{$index + 1}}</span>
                                             <h6 class="mb-0 flex-1 text-base font-semibold text-slate-900">{{$question['title'] ?? ''}}</h6>
                                         </div>
 
@@ -185,6 +188,9 @@
                 $.ajax({
                     url: `/quiz/${unitId}.html`,
                     type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     dataType: 'json',
                     success: function (response) {
                         if (response.code !== 0) {
@@ -244,6 +250,9 @@
                 $.ajax({
                     url: `/course/${currentCourseId}/answered-questions.html`,
                     type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     data: {
                         chapter_id: currentChapterId,
                         unit_id: currentUnitId,
@@ -458,6 +467,9 @@
                     $.ajax({
                         url: `/course/${currentCourseId}/quiz-answer.html`,
                         type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         data: {
                             chapter_id: currentChapterId,
                             unit_id: currentUnitId,
@@ -493,6 +505,7 @@
 @endif
 
 <x-web.footer/>
+@csrfRefresh
 </body>
 
 </html>

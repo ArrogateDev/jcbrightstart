@@ -105,7 +105,7 @@
 
 
 </div>
-
+@csrfRefresh
 </body>
 
 <script>

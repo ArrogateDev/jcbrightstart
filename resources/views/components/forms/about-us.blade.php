@@ -53,6 +53,9 @@
         $.ajax({
             type: "post",
             url: "{{route('message.html')}}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
             success: function (data) {
