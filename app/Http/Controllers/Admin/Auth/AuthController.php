@@ -70,7 +70,7 @@ class AuthController extends Controller
             Auth::guard('admin')->login($user, true);
             $request->session()->regenerate();
 
-            return $this->responseSuccess(['redirect' => []]);
+            return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
             throw $e;
         } catch (\Exception $e) {
