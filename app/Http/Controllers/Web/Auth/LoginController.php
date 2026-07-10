@@ -67,9 +67,9 @@ class LoginController extends Controller
                 throw new ApiException(__('账号或密码错误'), ResponseCode::PARAM_ERR);
             }
 
-//            Auth::guard('web')->logoutOtherDevices($password);
+            Auth::guard('web')->logoutOtherDevices($password);
 
-            Auth::guard('web')->login($user, $remember_me === 'on');
+            Auth::guard('web')->login($user, true);
             $request->session()->regenerate();
 
             return $this->responseSuccess(['redirect' => $redirect]);

@@ -38,7 +38,7 @@
                                         <span id="error-container-account"></span>
                                     </label>
                                     <div class="position-relative">
-                                        <input id="account" type="text" name="account" class="form-control form-control-lg">
+                                        <input id="account" type="text" name="account" class="form-control form-control-lg" value="admin">
                                         <span><i class="isax isax-user input-icon text-gray-7 fs-14"></i></span>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                         <span id="error-container-password"></span>
                                     </label>
                                     <div class="position-relative" id="passwordInput">
-                                        <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg">
+                                        <input id="password" type="password" name="password" class="pass-inputs form-control form-control-lg" value="Arrogate1*">
                                         <span class="isax toggle-passwords isax-eye-slash fs-14"></span>
                                     </div>
                                 </div>
