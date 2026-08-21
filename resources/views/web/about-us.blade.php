@@ -79,6 +79,16 @@
             </div>
             <div class="max-w-[470px] mx-auto text-[#736357] text-[20px] leading-[37px] mt-[20px]">
                 <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-04.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
+                    <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒照顧及教育服務</p>
+                </div>
+
+                <div class="mb-[20px] flex items-center gap-x-2">
+                    <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/plan-03.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
+                    <p class="text-[25px] text-[#998675]">強調兒童早期發展及教顧實踐的重要性</p>
+                </div>
+
+                <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-01.svg')}}" alt="提升幼兒老師的專業能力與專業形象">
                     <p class="text-[25px] text-[#998675]">提升幼兒教師的專業能力與專業形象</p>
                 </div>
@@ -86,16 +96,6 @@
                 <div class="mb-[20px] flex items-center gap-x-2">
                     <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-02.svg')}}" alt="促進專業學習社群的建立與發展">
                     <p class="text-[25px] text-[#998675]">促進專業學習社群的建立與發展</p>
-                </div>
-
-                <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[18px] mx-[5px]" src="{{web_resource_url('assets/web/images/plan-03.svg')}}" alt="推動高品質的嬰幼兒教育及照顧服務">
-                    <p class="text-[25px] text-[#998675]">推動高品質的嬰幼兒照顧及教育服務</p>
-                </div>
-
-                <div class="mb-[20px] flex items-center gap-x-2">
-                    <img class="w-[28px]" src="{{web_resource_url('assets/web/images/plan-04.svg')}}" alt="強調兒童早期發展及教保實踐的重要性">
-                    <p class="text-[25px] text-[#998675]">強調兒童早期發展及教顧實踐的重要性</p>
                 </div>
 
                 <div class="flex items-center gap-x-2">
