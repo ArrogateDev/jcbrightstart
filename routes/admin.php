@@ -29,11 +29,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "admin" middleware group. Now create something great!
 |
 */
-
-//登录页
-Route::get('/login.html', [AuthController::class, 'index'])->name('admin.login.html');
-//登录
-Route::post('/login.html', [AuthController::class, 'handleLogin']);
+Route::middleware('guest')->group(function ($route) {
+    //登录页
+    $route->get('/login.html', [AuthController::class, 'index'])->name('admin.login.html');
+    //登录
+    $route->post('/login.html', [AuthController::class, 'handleLogin']);
+});
 
 Route::middleware(['auth:admin', 'admin.middleware'])->group(function ($route) {
 

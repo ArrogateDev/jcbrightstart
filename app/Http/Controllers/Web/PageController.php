@@ -23,7 +23,7 @@ class PageController extends Controller
 
         $breadcrumbs = [
             [
-                'title' => $breadcrumb_maps[$page],
+                'title' => $breadcrumb_maps[$page] ?? "",
                 'url' => null,
                 'color' => '#4492cf',
             ]

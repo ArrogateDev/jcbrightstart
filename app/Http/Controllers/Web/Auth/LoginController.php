@@ -70,8 +70,8 @@ class LoginController extends Controller
             Auth::guard('web')->logoutOtherDevices($password);
 
             Auth::guard('web')->login($user, true);
-            $request->session()->regenerate();
 
+            $request->session()->regenerate();
             return $this->responseSuccess(['redirect' => $redirect]);
         } catch (ApiException $e) {
             throw $e;
