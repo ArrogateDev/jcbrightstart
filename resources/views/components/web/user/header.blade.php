@@ -247,12 +247,13 @@
                         showLoading()
                         $.ajax({
                             url: "{{ route('user.logout.html') }}",
-                            type: 'DELETE',
+                            type: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             data: {
-                                _token: "{{ csrf_token() }}"
+                                _method: 'DELETE',
+                                _token: $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (response) {
                                 if (response.code !== 0) {
