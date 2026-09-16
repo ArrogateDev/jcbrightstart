@@ -1,6 +1,6 @@
 @props(['type' => 'signin'])
 
-<div href="javascript:void(0);" id="apple-quick-login-btn" class="flex items-center border-1 border-[#999] rounded-full p-[8px_42px]">
+<div href="javascript:void(0);" id="apple-quick-login-btn" class="flex items-center border-1 border-[#999] rounded-full p-[8px_42px] cursor-pointer">
     <img src="{{web_resource_url('assets/admin/img/icons/apple.svg')}}" alt="img">
     <div class="text-[10px] text-[#999999]">{{__('使用 Apple 账号',['type'=>$type==='signin'? __('登录') : __('注册')])}}</div>
 </div>

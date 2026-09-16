@@ -16,6 +16,7 @@
     <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
     <script src="{{web_resource_url('assets/js/just-validate.production.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{web_resource_url('assets/js/md5.js') }}"></script>
+    @csrfRefresh
 </head>
 <body>
 <div class="w-full h-screen auth-page flex justify-center items-center">
@@ -137,8 +138,14 @@
 
         $.ajax({
             type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: form,
             dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
             success: function (data) {
                 if (data.code !== 0) {
                     showToast('error', data.msg);
