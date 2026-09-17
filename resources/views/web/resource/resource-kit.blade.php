@@ -14,6 +14,8 @@
     <link href="{{web_resource_url('assets/js/toastr/toastr.min.css')}}" rel="stylesheet"/>
     <script src="{{web_resource_url('assets/js/toastr/toastr.min.js')}}"></script>
     <script type="text/javascript" src="{{ web_resource_url('assets/js/utils.js') }}"></script>
+    <link rel="stylesheet" href="{{web_resource_url('assets/web/vendor/dflip/dflip.min.css')}}">
+    <script src="{{web_resource_url('assets/web/vendor/dflip/js/dflip.min.js')}}"></script>
 </head>
 <body>
 <x-web.header/>
@@ -143,6 +145,46 @@
                 }
             });
         }
+
+        let bookInstance = null;
+        $(document).on('click', '[data-category="21"]', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let pdf = $(this).data('pdf');
+            let description = $(this).data('description');
+
+            bookInstance = $('#pdf-viewer').flipBook(pdf, {
+                showDownloadControl: false,
+                enableDownload: false,
+                showPrintControl: false,
+                showSearchControl: false,
+                autoOpenOutline: false,
+                showThumbnail: false,
+                autoOpenThumbnail: false
+            });
+            $('#description-viewer').html(description);
+            showPdf.showModal()
+        });
+
+        document.getElementById('showPdf').addEventListener('close', function () {
+            if (bookInstance && bookInstance.dispose) {
+                bookInstance.dispose();
+                bookInstance = null;
+            }
+            $('#pdf-viewer').empty();
+            $('#description-viewer').empty();
+        });
     })
 </script>
+<dialog id="showPdf" class="modal">
+    <div class="modal-box w-screen xl:w-3/4 max-w-full h-screen">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-2xl">✕</button>
+        </form>
+        <div class="h-[calc(100vh_-_48px)] overflow-y-auto">
+            <div id="pdf-viewer"></div>
+            <div id="description-viewer" class="mb-[30px] resource-page"></div>
+        </div>
+    </div>
+</dialog>
 </html>
