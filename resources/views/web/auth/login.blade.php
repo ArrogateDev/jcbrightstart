@@ -164,6 +164,7 @@
         });
     }
 </script>
+@csrfRefresh
 </body>
 
 </html>

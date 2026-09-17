@@ -112,6 +112,24 @@
                                     @endforeach
                                 </ul>
                             @endif
+
+                            <div class="flex flex-col gap-y-3 mt-4">
+                                @auth
+                                    <div class="bg-[#43c8d5] px-[45px] rounded-lg">
+                                        <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('user.dashboard.html')}}">
+                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/login.svg')}}" alt="">
+                                            {{__('家长登入')}}
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="bg-[#43c8d5] px-[45px] rounded-lg">
+                                        <a class="flex justify-center gap-x-1 text-white text-[21px] font-bold" href="{{route('login.html')}}">
+                                            <img class="w-[20px]" src="{{web_resource_url('assets/web/images/login.svg')}}" alt="">
+                                            {{__('家长登入')}}
+                                        </a>
+                                    </div>
+                                @endauth
+                            </div>
                         </aside>
                     </div>
                 </div>

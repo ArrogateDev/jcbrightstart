@@ -149,5 +149,6 @@
 </section>
 
 <x-web.footer/>
+@csrfRefresh
 </body>
 </html>
