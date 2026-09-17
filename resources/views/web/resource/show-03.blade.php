@@ -35,8 +35,8 @@
         <x-web.breadcrumb :breadcrumbs="$breadcrumbs"/>
 
         <div class="bg-[#fff] rounded-lg p-[53px_54px] border-b-[28px] border-[#cceeeb] mt-[30px]">
-            <div class="w-full aspect-[4/3] rounded-lg">
-                <iframe class="w-full h-full rounded-lg" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
+            <div class="w-full rounded-lg">
+                <iframe id="resource-iframe" class="w-full max-h-full rounded-lg" src="{{$embed_url}}" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="text-[28px] text-[#00A99D] font-bold py-[11px] mt-[33px] mb-[60px]">
                 {{$resource->title}}
@@ -67,5 +67,26 @@
 </section>
 
 <x-web.footer/>
+<script>
+    $(function () {
+        function setIframeHeight() {
+            var $iframe = $('#resource-iframe');
+            var winWidth = $(window).width();
+            var winHeight = $(window).height();
+
+            if (winWidth < winHeight) {
+                var width = $iframe.parent().width() || winWidth;
+                $iframe.css('height', Math.max(width * 3 / 4, 0) + 'px');
+            } else {
+                var headerHeight = $('#header section').outerHeight(true) || 0;
+                var height = winHeight - headerHeight - 100;
+                $iframe.css('height', Math.max(height, 0) + 'px');
+            }
+        }
+
+        setIframeHeight();
+        $(window).on('resize', setIframeHeight);
+    });
+</script>
 </body>
 </html>
