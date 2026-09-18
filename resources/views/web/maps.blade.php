@@ -357,7 +357,7 @@
                     popupHtml += `<div class="flex info"><strong>{{__('电子邮件')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.email}</span></div>`;
                 }
                 if (data.webpage) {
-                    popupHtml += `<div class="flex info"><strong>{{__('网页')}}</strong><span class="px-[2px]">:</span><a class="grow" href="${data.webpage}" target="_blank">${data.webpage}</a></div>`;
+                    popupHtml += `<div class="flex info"><strong>{{__('网页')}}</strong><span class="px-[2px]">:</span><a class="grow" href="${data.webpage}" target="_blank">點擊</a></div>`;
                 }
                 if (data.service_hours || data.serviceHours) {
                     popupHtml += `<div class="flex info"><strong>{{__('服务时间')}}</strong><span class="px-[2px]">:</span><span class="grow">${data.service_hours || data.serviceHours || ''}</span></div>`;
